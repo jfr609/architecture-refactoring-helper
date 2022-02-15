@@ -21,8 +21,8 @@ public class ApproachProcessController : ControllerBase
         return Ok(_processService.ListApproachProcesses());
     }
     
-    [HttpGet("{id:guid}", Name = "GetApproachProcess")]
-    public ActionResult<ApproachProcess> Get(Guid id)
+    [HttpGet("{id:int}", Name = "GetApproachProcess")]
+    public ActionResult<ApproachProcess> GetApproachProcess(int id)
     {
         return Ok(_processService.GetApproachProcess(id));
     }
@@ -34,15 +34,87 @@ public class ApproachProcessController : ControllerBase
         return Ok();
     }
     
-    [HttpPut("{id:guid}", Name = "UpdateApproachProcess")]
-    public IActionResult Update(Guid id, [FromBody] ApproachProcess process)
+    [HttpPut("{id:int}", Name = "UpdateApproachProcess")]
+    public IActionResult UpdateApproachProcess(int id, [FromBody] ApproachProcess process)
     {
+        _processService.UpdateApproachProcess(id, process);
         return Ok();
     }
     
-    [HttpDelete("{id:guid}", Name = "DeleteApproachProcess")]
-    public IActionResult Delete(Guid id)
+    [HttpDelete("{id:int}", Name = "DeleteApproachProcess")]
+    public IActionResult DeleteApproachProcess(int id)
     {
+        _processService.DeleteApproachProcess(id);
+        return Ok();
+    }
+    
+    [HttpPost(Constants.API_SUBPATH_QUALITIES, Name = "AddQuality")]
+    public IActionResult AddQuality([FromBody] Quality quality)
+    {
+        _processService.AddQuality(quality);
+        return Ok();
+    }
+    
+    [HttpDelete(Constants.API_SUBPATH_QUALITIES + "/{name}", Name = "DeleteQuality")]
+    public IActionResult DeleteQuality(string name)
+    {
+        _processService.DeleteQuality(name);
+        return Ok();
+    }
+    
+    [HttpPost(Constants.API_SUBPATH_DIRECTIONS, Name = "AddDirection")]
+    public IActionResult AddDirection([FromBody] Direction direction)
+    {
+        _processService.AddDirection(direction);
+        return Ok();
+    }
+    
+    [HttpDelete(Constants.API_SUBPATH_DIRECTIONS + "{name}", Name = "DeleteDirection")]
+    public IActionResult DeleteDirection(string name)
+    {
+        _processService.DeleteDirection(name);
+        return Ok();
+    }
+    
+    [HttpPost(Constants.API_SUBPATH_AUTOMATIONLEVELS, Name = "AddAutomationLevel")]
+    public IActionResult AddAutomationLevel([FromBody] AutomationLevel automationLevel)
+    {
+        _processService.AddAutomationLevel(automationLevel);
+        return Ok();
+    }
+    
+    [HttpDelete(Constants.API_SUBPATH_AUTOMATIONLEVELS + "{name}", Name = "DeleteAutomationLevel")]
+    public IActionResult DeleteAutomationLevel(string name)
+    {
+        _processService.DeleteAutomationLevel(name);
+        return Ok();
+    }
+    
+    [HttpPost(Constants.API_SUBPATH_ANALYSISTYPES, Name = "AddAnalysisType")]
+    public IActionResult AddAnalysisType([FromBody] AnalysisType analysisType)
+    {
+        _processService.AddAnalysisType(analysisType);
+        return Ok();
+    }
+    
+    [HttpDelete(Constants.API_SUBPATH_ANALYSISTYPES + "{name}", Name = "DeleteAnalysisType")]
+    public IActionResult DeleteAnalysisType(string name)
+    {
+        _processService.DeleteAnalysisType(name);
+        return Ok();
+    }
+    
+    [HttpPost(Constants.API_SUBPATH_TECHNIQUES, Name = "AddTechnique")]
+    public IActionResult AddTechnique([FromBody] Technique technique)
+    {
+        _processService.AddTechnique(technique);
+        return Ok();
+    }
+    
+    [HttpDelete(Constants.API_SUBPATH_TECHNIQUES + "{name}", Name = "DeleteTechnique")]
+    public IActionResult DeleteTechnique(string name)
+    {
+        _processService.DeleteTechnique(name);
         return Ok();
     }
     

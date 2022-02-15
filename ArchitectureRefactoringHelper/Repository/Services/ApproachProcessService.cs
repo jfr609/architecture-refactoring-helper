@@ -15,13 +15,11 @@ public class ApproachProcessService
                 .Include(e => e.AnalysisTypes)
                 .Include(e => e.Techniques)
                 .ToList();
-            Console.WriteLine(list.ToJsonString());
-
             return list;
         }
     }
 
-    public ApproachProcess GetApproachProcess(Guid processId)
+    public ApproachProcess GetApproachProcess(int processId)
     {
         using (var db = new RefactoringApproachContext())
         {
@@ -117,48 +115,53 @@ public class ApproachProcessService
         }
     }
 
-    public void AddQuality(Quality quality)
+    public Quality AddQuality(Quality quality)
     {
         using (var db = new RefactoringApproachContext())
         {
-            db.Qualities.Add(quality);
+            var savedQuality = db.Qualities.Add(quality).Entity;
             db.SaveChanges();
+            return savedQuality;
         }
     }
 
-    public void AddDirection(Direction direction)
+    public Direction AddDirection(Direction direction)
     {
         using (var db = new RefactoringApproachContext())
         {
-            db.Directions.Add(direction);
+            var savedDirection = db.Directions.Add(direction).Entity;
             db.SaveChanges();
+            return savedDirection;
         }
     }
 
-    public void AddAutomationLevel(AutomationLevel automationLevel)
+    public AutomationLevel AddAutomationLevel(AutomationLevel automationLevel)
     {
         using (var db = new RefactoringApproachContext())
         {
-            db.AutomationLevels.Add(automationLevel);
+            var savedAutomationLevel = db.AutomationLevels.Add(automationLevel).Entity;
             db.SaveChanges();
+            return savedAutomationLevel;
         }
     }
 
-    public void AddAnalysisType(AnalysisType analysisType)
+    public AnalysisType AddAnalysisType(AnalysisType analysisType)
     {
         using (var db = new RefactoringApproachContext())
         {
-            db.AnalysisTypes.Add(analysisType);
+            var savedAnalysisType = db.AnalysisTypes.Add(analysisType).Entity;
             db.SaveChanges();
+            return savedAnalysisType;
         }
     }
 
-    public void AddTechnique(Technique technique)
+    public Technique AddTechnique(Technique technique)
     {
         using (var db = new RefactoringApproachContext())
         {
-            db.Techniques.Add(technique);
+            var savedTechnique = db.Techniques.Add(technique).Entity;
             db.SaveChanges();
+            return savedTechnique;
         }
     }
 

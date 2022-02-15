@@ -34,8 +34,17 @@ public static class Constants
     // Controller constants
     public const string API_VERSION = "1";
     public const string API_SUBPATH_APPROACHES = "approaches";
+    
     public const string API_SUBPATH_INPUTS = "inputs";
+    
     public const string API_SUBPATH_PROCESSES = "processes";
+    public const string API_SUBPATH_QUALITIES = "qualities";
+    public const string API_SUBPATH_DIRECTIONS = "directions";
+    public const string API_SUBPATH_AUTOMATIONLEVELS = "automation-levels";
+    public const string API_SUBPATH_ANALYSISTYPES = "analysis-types";
+    public const string API_SUBPATH_TECHNIQUES = "techniques";
+    
     public const string API_SUBPATH_OUTPUTS = "outputs";
+    
     public const string API_SUBPATH_USABILITIES = "usabilities";
 }
