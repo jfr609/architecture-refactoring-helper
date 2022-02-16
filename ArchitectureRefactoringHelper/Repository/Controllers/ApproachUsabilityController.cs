@@ -6,6 +6,7 @@ namespace Repository.Controllers;
 
 [ApiController]
 [Route($"api/v{Constants.API_VERSION}/{Constants.API_SUBPATH_USABILITIES}")]
+[Produces("application/json")]
 public class ApproachUsabilityController : ControllerBase
 {
     private readonly ApproachUsabilityService _usabilityService;

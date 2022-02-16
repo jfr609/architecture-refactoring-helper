@@ -6,6 +6,7 @@ namespace Repository.Controllers;
 
 [ApiController]
 [Route($"api/v{Constants.API_VERSION}/{Constants.API_SUBPATH_INPUTS}")]
+[Produces("application/json")]
 public class ApproachInputController : ControllerBase
 {
     private readonly ApproachInputService _inputService;

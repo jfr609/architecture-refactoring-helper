@@ -64,7 +64,7 @@ public class RefactoringApproachService
         }
     }
 
-    public void AddRefactoringApproach(RefactoringApproach refactoringApproach)
+    public RefactoringApproach AddRefactoringApproach(RefactoringApproach refactoringApproach)
     {
         var preparedRefactoringApproach = new RefactoringApproach
         {
@@ -127,8 +127,9 @@ public class RefactoringApproachService
                 _usabilityService.AddApproachUsability(refactoringApproach.ApproachUsabilitiy);
             db.ApproachUsabilities.Attach(preparedRefactoringApproach.ApproachUsabilitiy);
 
-            db.RefactoringApproaches.Update(preparedRefactoringApproach);
+            var newRefactoringApproach = db.RefactoringApproaches.Update(preparedRefactoringApproach).Entity;
             db.SaveChanges();
+            return newRefactoringApproach;
         }
     }
 

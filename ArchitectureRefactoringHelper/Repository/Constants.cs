@@ -6,7 +6,6 @@ public static class Constants
     public const string JOIN_TABLE_PREFIX = "JoinTable.";
     public const string TABLE_NAME_APPROACH = "Approach";
     public const string TABLE_NAME_APPROACH_SOURCE = TABLE_NAME_APPROACH + ".Source";
-    public const string TABLE_NAME_APPROACH_SOURCE_AUTHOR = TABLE_NAME_APPROACH_SOURCE + ".Author";
     
     public const string TABLE_NAME_APPROACH_INPUT = TABLE_NAME_APPROACH + ".Input";
     public const string TABLE_NAME_APPROACH_INPUT_DOMAINARTIFACT = TABLE_NAME_APPROACH_INPUT + ".DomainArtifact";
@@ -31,7 +30,7 @@ public static class Constants
     public const string TABLE_NAME_APPROACH_USABILITY_ACCURACYPRECISION = TABLE_NAME_APPROACH_USABILITY + ".AccuracyPrecision";
     public const string TABLE_NAME_APPROACH_USABILITY_VALIDATIONMETHOD = TABLE_NAME_APPROACH_USABILITY + ".ValidationMethod";
     
-    // Controller constants
+    // Controller api path constants
     public const string API_VERSION = "1";
     public const string API_SUBPATH_APPROACHES = "approaches";
     
