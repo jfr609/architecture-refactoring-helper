@@ -36,6 +36,10 @@ public static class Constants
     public const string API_SUBPATH_APPROACHES = "approaches";
     
     public const string API_SUBPATH_INPUTS = "inputs";
+    public const string API_SUBPATH_DOMAINARTIFACTS = "domain-artifacts";
+    public const string API_SUBPATH_RUNTIMEARTIFACTS = "runtime-artifacts";
+    public const string API_SUBPATH_MODELARTIFACTS = "model-artifacts";
+    public const string API_SUBPATH_EXECUTABLES = "executables";
     
     public const string API_SUBPATH_PROCESSES = "processes";
     public const string API_SUBPATH_QUALITIES = "qualities";
