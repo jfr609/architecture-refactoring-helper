@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using Repository.Exceptions;
 using Repository.Models;
 
 namespace Repository.Services;
@@ -22,7 +24,9 @@ public class RefactoringApproachService
     {
         using (var db = new RefactoringApproachContext())
         {
-            return db.RefactoringApproaches.ToList();
+            return db.RefactoringApproaches
+                .Include(e => e.ApproachSource)
+                .ToList();
         }
     }
 
@@ -30,7 +34,33 @@ public class RefactoringApproachService
     {
         using (var db = new RefactoringApproachContext())
         {
-            return db.RefactoringApproaches.Find(refactoringApproachId) ?? throw new InvalidOperationException();
+            var refactoringApproach = db.RefactoringApproaches
+                .Where(e => e.RefactoringApproachId == refactoringApproachId)
+                .Include(e => e.ApproachSource)
+                .Include(e => e.DomainArtifactInputs)
+                .Include(e => e.RuntimeArtifactInputs)
+                .Include(e => e.ModelArtifactInputs)
+                .Include(e => e.ExecutableInputs)
+                .Include(e => e.ApproachProcess.Qualities)
+                .Include(e => e.ApproachProcess.Directions)
+                .Include(e => e.ApproachProcess.AutomationLevels)
+                .Include(e => e.ApproachProcess.AnalysisTypes)
+                .Include(e => e.ApproachProcess.Techniques)
+                .Include(e => e.ApproachOutputs)!
+                .ThenInclude(e => e.Architecture)
+                .Include(e => e.ApproachOutputs)!
+                .ThenInclude(e => e.ServiceType)
+                .Include(e => e.ApproachUsabilitiy.ResultsQualitiy)
+                .Include(e => e.ApproachUsabilitiy.ToolSupport)
+                .Include(e => e.ApproachUsabilitiy.AccuracyPrecision)
+                .Include(e => e.ApproachUsabilitiy.ValidationMethod)
+                .FirstOrDefault();
+            if (refactoringApproach == null)
+            {
+                throw new ElementNotFoundExceptions($"Refactoring approach with ID '{refactoringApproachId}' does not exist.");
+            }
+            
+            return refactoringApproach;
         }
     }
 

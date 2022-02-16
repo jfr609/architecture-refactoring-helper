@@ -53,4 +53,8 @@ public static class Constants
     public const string API_SUBPATH_SERVICETYPES = "service-types";
     
     public const string API_SUBPATH_USABILITIES = "usabilities";
+    public const string API_SUBPATH_RESULTSQUALITIES = "result-qualities";
+    public const string API_SUBPATH_TOOLSUPPORTS = "tool-supports";
+    public const string API_SUBPATH_ACCURACYPRECISIONS = "accuracy-precisions";
+    public const string API_SUBPATH_VALIDATIONMETHODS = "validation-methods";
 }
