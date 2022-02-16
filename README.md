@@ -20,4 +20,5 @@ After starting the app the API will run on 'https://localhost:7262/api/v1' and t
 
 ## Data model
 
+![Data model](Docs/data-model.png)
 TODO
