@@ -49,6 +49,8 @@ public static class Constants
     public const string API_SUBPATH_TECHNIQUES = "techniques";
     
     public const string API_SUBPATH_OUTPUTS = "outputs";
+    public const string API_SUBPATH_ARCHITECTURES = "architectures";
+    public const string API_SUBPATH_SERVICETYPES = "service-types";
     
     public const string API_SUBPATH_USABILITIES = "usabilities";
 }

@@ -13,9 +13,23 @@ public class ApproachOutputService
                 .Include(e => e.Architecture)
                 .Include(e => e.ServiceType)
                 .ToList();
-            Console.WriteLine(list.ToJsonString());
-
             return list;
+        }
+    }
+    
+    public IEnumerable<Architecture> ListArchitectures()
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            return db.Architectures.ToList();
+        }
+    }
+    
+    public IEnumerable<ServiceType> ListServiceTypes()
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            return db.ServiceTypes.ToList();
         }
     }
     
@@ -78,6 +92,30 @@ public class ApproachOutputService
         using (var db = new RefactoringApproachContext())
         {
             db.ServiceTypes.Add(serviceType);
+            db.SaveChanges();
+        }
+    }
+    
+    public void DeleteArchitecture(string architectureName)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var architecture = db.Architectures.Find(architectureName);
+            if (architecture == null)
+                return;
+            db.Architectures.Remove(architecture);
+            db.SaveChanges();
+        }
+    }
+    
+    public void DeleteServiceType(string serviceTypeName)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var serviceType = db.ServiceTypes.Find(serviceTypeName);
+            if (serviceType == null)
+                return;
+            db.ServiceTypes.Remove(serviceType);
             db.SaveChanges();
         }
     }

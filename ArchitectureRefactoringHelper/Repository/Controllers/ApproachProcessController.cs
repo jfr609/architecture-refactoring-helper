@@ -27,7 +27,7 @@ public class ApproachProcessController : ControllerBase
         return Ok(_processService.GetApproachProcess(id));
     }
 
-    [HttpPost(Name = "AddApproachProcess")]
+    /*[HttpPost(Name = "AddApproachProcess")]
     public IActionResult AddApproachProcess([FromBody] ApproachProcess process)
     {
         _processService.AddApproachProcess(process);
@@ -46,7 +46,7 @@ public class ApproachProcessController : ControllerBase
     {
         _processService.DeleteApproachProcess(id);
         return Ok();
-    }
+    }*/
     
     [HttpGet(Constants.API_SUBPATH_QUALITIES, Name = "ListQualities")]
     public ActionResult<IEnumerable<Quality>> ListQualities()
