@@ -16,7 +16,7 @@ public class ApproachOutputService
             return list;
         }
     }
-    
+
     public IEnumerable<Architecture> ListArchitectures()
     {
         using (var db = new RefactoringApproachContext())
@@ -24,7 +24,7 @@ public class ApproachOutputService
             return db.Architectures.ToList();
         }
     }
-    
+
     public IEnumerable<ServiceType> ListServiceTypes()
     {
         using (var db = new RefactoringApproachContext())
@@ -32,7 +32,7 @@ public class ApproachOutputService
             return db.ServiceTypes.ToList();
         }
     }
-    
+
     public ApproachOutput GetApproachOutput(int outputId)
     {
         using (var db = new RefactoringApproachContext())
@@ -48,7 +48,7 @@ public class ApproachOutputService
         {
             preparedOutput.Architecture = db.Architectures.Find(output.Architecture.Name) ??
                                           throw new InvalidOperationException();
-            preparedOutput.ServiceType = db.ServiceTypes.Find(output.ServiceType.Name) ?? 
+            preparedOutput.ServiceType = db.ServiceTypes.Find(output.ServiceType.Name) ??
                                          throw new InvalidOperationException();
 
             var savedOutput = db.ApproachOutputs.Add(preparedOutput);
@@ -77,7 +77,7 @@ public class ApproachOutputService
             db.SaveChanges();
         }
     }
-    
+
     public void AddArchitecture(Architecture architecture)
     {
         using (var db = new RefactoringApproachContext())
@@ -86,7 +86,7 @@ public class ApproachOutputService
             db.SaveChanges();
         }
     }
-    
+
     public void AddServiceType(ServiceType serviceType)
     {
         using (var db = new RefactoringApproachContext())
@@ -95,24 +95,24 @@ public class ApproachOutputService
             db.SaveChanges();
         }
     }
-    
-    public void DeleteArchitecture(string architectureName)
+
+    public void DeleteArchitecture(string name)
     {
         using (var db = new RefactoringApproachContext())
         {
-            var architecture = db.Architectures.Find(architectureName);
+            var architecture = db.Architectures.Find(name);
             if (architecture == null)
                 return;
             db.Architectures.Remove(architecture);
             db.SaveChanges();
         }
     }
-    
-    public void DeleteServiceType(string serviceTypeName)
+
+    public void DeleteServiceType(string name)
     {
         using (var db = new RefactoringApproachContext())
         {
-            var serviceType = db.ServiceTypes.Find(serviceTypeName);
+            var serviceType = db.ServiceTypes.Find(name);
             if (serviceType == null)
                 return;
             db.ServiceTypes.Remove(serviceType);

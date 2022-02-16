@@ -207,6 +207,7 @@ public class ApproachProcessService
 
     public void UpdateApproachProcess(int processId, ApproachProcess process)
     {
+        throw new NotImplementedException();
         using (var db = new RefactoringApproachContext())
         {
         }
@@ -224,11 +225,11 @@ public class ApproachProcessService
         }
     }
     
-    public void DeleteQuality(string qualityName)
+    public void DeleteQuality(string name)
     {
         using (var db = new RefactoringApproachContext())
         {
-            var quality = db.Qualities.Find(qualityName);
+            var quality = db.Qualities.Find(name);
             if (quality == null)
                 return;
             db.Qualities.Remove(quality);
@@ -236,11 +237,11 @@ public class ApproachProcessService
         }
     }
     
-    public void DeleteDirection(string directionName)
+    public void DeleteDirection(string name)
     {
         using (var db = new RefactoringApproachContext())
         {
-            var direction = db.Directions.Find(directionName);
+            var direction = db.Directions.Find(name);
             if (direction == null)
                 return;
             db.Directions.Remove(direction);
@@ -248,11 +249,11 @@ public class ApproachProcessService
         }
     }
     
-    public void DeleteAutomationLevel(string automationLevelName)
+    public void DeleteAutomationLevel(string name)
     {
         using (var db = new RefactoringApproachContext())
         {
-            var automationLevel = db.AutomationLevels.Find(automationLevelName);
+            var automationLevel = db.AutomationLevels.Find(name);
             if (automationLevel == null)
                 return;
             db.AutomationLevels.Remove(automationLevel);
@@ -260,11 +261,11 @@ public class ApproachProcessService
         }
     }
     
-    public void DeleteAnalysisType(string analysisTypeName)
+    public void DeleteAnalysisType(string name)
     {
         using (var db = new RefactoringApproachContext())
         {
-            var analysisType = db.AnalysisTypes.Find(analysisTypeName);
+            var analysisType = db.AnalysisTypes.Find(name);
             if (analysisType == null)
                 return;
             db.AnalysisTypes.Remove(analysisType);
@@ -272,11 +273,11 @@ public class ApproachProcessService
         }
     }
     
-    public void DeleteTechnique(string techniqueName)
+    public void DeleteTechnique(string name)
     {
         using (var db = new RefactoringApproachContext())
         {
-            var technique = db.Techniques.Find(techniqueName);
+            var technique = db.Techniques.Find(name);
             if (technique == null)
                 return;
             db.Techniques.Remove(technique);
