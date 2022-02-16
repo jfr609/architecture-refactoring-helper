@@ -57,14 +57,20 @@ public class RefactoringApproachService
                 .FirstOrDefault();
             if (refactoringApproach == null)
             {
-                throw new ElementNotFoundExceptions($"Refactoring approach with ID '{refactoringApproachId}' does not exist.");
+                throw new ElementNotFoundExceptions(
+                    $"Refactoring approach with ID '{refactoringApproachId}' does not exist.");
             }
-            
+
             return refactoringApproach;
         }
     }
 
-    public RefactoringApproach AddRefactoringApproach(RefactoringApproach refactoringApproach)
+    public RefactoringApproach AddRefactoringApproachIfNotExists(RefactoringApproach refactoringApproach)
+    {
+        return AddRefactoringApproach(refactoringApproach);
+    }
+
+    private RefactoringApproach AddRefactoringApproach(RefactoringApproach refactoringApproach)
     {
         var preparedRefactoringApproach = new RefactoringApproach
         {
@@ -76,7 +82,9 @@ public class RefactoringApproachService
             var savedDomainArtifactInputs = new List<DomainArtifactInput>();
             if (refactoringApproach.DomainArtifactInputs != null)
             {
-                savedDomainArtifactInputs.AddRange(refactoringApproach.DomainArtifactInputs.Select(input => _inputService.GetDomainArtifactInput(input.Name)));
+                savedDomainArtifactInputs.AddRange(
+                    refactoringApproach.DomainArtifactInputs.Select(input =>
+                        _inputService.GetDomainArtifactInput(input.Name)));
             }
 
             preparedRefactoringApproach.DomainArtifactInputs = savedDomainArtifactInputs;
@@ -111,20 +119,21 @@ public class RefactoringApproachService
             preparedRefactoringApproach.ExecutableInputs = savedExecutableInputs;
 
             preparedRefactoringApproach.ApproachProcess =
-                _processService.AddApproachProcess(refactoringApproach.ApproachProcess);
+                _processService.AddApproachProcessIfNotExists(refactoringApproach.ApproachProcess);
             db.ApproachProcesses.Attach(preparedRefactoringApproach.ApproachProcess);
 
             var savedOutputs = new List<ApproachOutput>();
             if (refactoringApproach.ApproachOutputs != null)
             {
                 savedOutputs.AddRange(
-                    refactoringApproach.ApproachOutputs.Select(output => _outputService.AddApproachOutput(output)));
+                    refactoringApproach.ApproachOutputs.Select(output =>
+                        _outputService.AddApproachOutputIfNotExists(output)));
             }
 
             preparedRefactoringApproach.ApproachOutputs = savedOutputs;
 
             preparedRefactoringApproach.ApproachUsabilitiy =
-                _usabilityService.AddApproachUsability(refactoringApproach.ApproachUsabilitiy);
+                _usabilityService.AddApproachUsabilityIfNotExists(refactoringApproach.ApproachUsabilitiy);
             db.ApproachUsabilities.Attach(preparedRefactoringApproach.ApproachUsabilitiy);
 
             var newRefactoringApproach = db.RefactoringApproaches.Update(preparedRefactoringApproach).Entity;

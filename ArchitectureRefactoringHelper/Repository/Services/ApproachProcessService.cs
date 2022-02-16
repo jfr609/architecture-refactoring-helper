@@ -10,11 +10,8 @@ public class ApproachProcessService
     {
         using (var db = new RefactoringApproachContext())
         {
-            var list = db.ApproachProcesses.Include(e => e.Qualities)
-                .Include(e => e.Directions)
-                .Include(e => e.AutomationLevels)
-                .Include(e => e.AnalysisTypes)
-                .Include(e => e.Techniques)
+            var list = db.ApproachProcesses
+                .IncludeAllApproachProcessData()
                 .ToList();
             return list;
         }
@@ -64,12 +61,9 @@ public class ApproachProcessService
     {
         using (var db = new RefactoringApproachContext())
         {
-            var process = db.ApproachProcesses.Include(e => e.Qualities)
+            var process = db.ApproachProcesses
                 .Where(e => e.ApproachProcessId == processId)
-                .Include(e => e.Directions)
-                .Include(e => e.AutomationLevels)
-                .Include(e => e.AnalysisTypes)
-                .Include(e => e.Techniques)
+                .IncludeAllApproachProcessData()
                 .FirstOrDefault();
             if (process == null)
             {
@@ -80,7 +74,13 @@ public class ApproachProcessService
         }
     }
 
-    public ApproachProcess AddApproachProcess(ApproachProcess process)
+    public ApproachProcess AddApproachProcessIfNotExists(ApproachProcess process)
+    {
+        var savedProcess = FindDuplicateApproachProcess(process);
+        return savedProcess ?? AddApproachProcess(process);
+    }
+
+    private ApproachProcess AddApproachProcess(ApproachProcess process)
     {
         var preparedProcess = new ApproachProcess
         {
@@ -90,6 +90,7 @@ public class ApproachProcessService
             AnalysisTypes = new List<AnalysisType>(),
             Techniques = new List<Technique>()
         };
+        
         using (var db = new RefactoringApproachContext())
         {
             if (process.Qualities != null)
@@ -295,6 +296,21 @@ public class ApproachProcessService
                 return;
             db.Techniques.Remove(technique);
             db.SaveChanges();
+        }
+    }
+
+    private ApproachProcess? FindDuplicateApproachProcess(ApproachProcess process)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            return db.ApproachProcesses
+                .Where(e => e.Qualities.ListEquals(process.Qualities))
+                .Where(e => e.Directions.ListEquals(process.Directions))
+                .Where(e => e.AutomationLevels.ListEquals(process.AutomationLevels))
+                .Where(e => e.AnalysisTypes.ListEquals(process.AnalysisTypes))
+                .Where(e => e.Techniques.ListEquals(process.Techniques))
+                .IncludeAllApproachProcessData()
+                .FirstOrDefault();
         }
     }
 }

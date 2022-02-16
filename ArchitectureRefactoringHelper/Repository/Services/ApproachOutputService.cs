@@ -11,8 +11,7 @@ public class ApproachOutputService
         using (var db = new RefactoringApproachContext())
         {
             var list = db.ApproachOutputs
-                .Include(e => e.Architecture)
-                .Include(e => e.ServiceType)
+                .IncludeAllApproachOutputData()
                 .ToList();
             return list;
         }
@@ -40,27 +39,34 @@ public class ApproachOutputService
         {
             var output = db.ApproachOutputs
                 .Where(e => e.ApproachOutputId == outputId)
-                .Include(e => e.Architecture)
-                .Include(e => e.ServiceType)
+                .IncludeAllApproachOutputData()
                 .FirstOrDefault();
             if (output == null)
             {
                 throw new ElementNotFoundExceptions($"Approach output with ID '{outputId}' does not exist.");
             }
-            
+
             return output;
         }
     }
 
-    public ApproachOutput AddApproachOutput(ApproachOutput output)
+    public ApproachOutput AddApproachOutputIfNotExists(ApproachOutput output)
     {
-        var preparedOutput = new ApproachOutput();
+        var savedOutput = FindDuplicateApproachOutput(output);
+        return savedOutput ?? AddApproachOutput(output);
+    }
+
+    private ApproachOutput AddApproachOutput(ApproachOutput output)
+    {
         using (var db = new RefactoringApproachContext())
         {
-            preparedOutput.Architecture = db.Architectures.Find(output.Architecture.Name) ??
-                                          throw new InvalidOperationException();
-            preparedOutput.ServiceType = db.ServiceTypes.Find(output.ServiceType.Name) ??
-                                         throw new InvalidOperationException();
+            var preparedOutput = new ApproachOutput
+            {
+                Architecture = db.Architectures.Find(output.Architecture.Name) ??
+                               throw new InvalidOperationException(),
+                ServiceType = db.ServiceTypes.Find(output.ServiceType.Name) ??
+                              throw new InvalidOperationException()
+            };
 
             var savedOutput = db.ApproachOutputs.Add(preparedOutput);
             db.SaveChanges();
@@ -68,7 +74,7 @@ public class ApproachOutputService
         }
     }
 
-    public void AddApproachOutputs(IEnumerable<ApproachOutput>? outputs)
+    public void AddApproachOutputsIfNotExist(IEnumerable<ApproachOutput>? outputs)
     {
         if (outputs == null)
             return;
@@ -77,11 +83,19 @@ public class ApproachOutputService
         {
             foreach (var output in outputs)
             {
-                var preparedOutput = new ApproachOutput();
-                preparedOutput.Architecture = db.Architectures.Find(output.Architecture.Name) ??
-                                              throw new InvalidOperationException();
-                preparedOutput.ServiceType = db.ServiceTypes.Find(output.ServiceType.Name) ??
-                                             throw new InvalidOperationException();
+                if (db.ApproachOutputs.Any(e =>
+                        e.Architecture.Equals(output.Architecture) && e.ServiceType.Equals(output.ServiceType)))
+                {
+                    break;
+                }
+
+                var preparedOutput = new ApproachOutput
+                {
+                    Architecture = db.Architectures.Find(output.Architecture.Name) ??
+                                   throw new InvalidOperationException(),
+                    ServiceType = db.ServiceTypes.Find(output.ServiceType.Name) ??
+                                  throw new InvalidOperationException()
+                };
                 db.ApproachOutputs.Add(preparedOutput);
             }
 
@@ -128,6 +142,18 @@ public class ApproachOutputService
                 return;
             db.ServiceTypes.Remove(serviceType);
             db.SaveChanges();
+        }
+    }
+
+    private ApproachOutput? FindDuplicateApproachOutput(ApproachOutput output)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            return db.ApproachOutputs
+                .Where(e => e.Architecture.Equals(output.Architecture))
+                .Where(e => e.ServiceType.Equals(output.ServiceType))
+                .IncludeAllApproachOutputData()
+                .FirstOrDefault();
         }
     }
 }

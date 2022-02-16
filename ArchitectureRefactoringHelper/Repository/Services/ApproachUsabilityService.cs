@@ -1,4 +1,7 @@
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Repository.Exceptions;
 using Repository.Models;
 
@@ -11,10 +14,7 @@ public class ApproachUsabilityService
         using (var db = new RefactoringApproachContext())
         {
             var list = db.ApproachUsabilities
-                .Include(e => e.ResultsQualitiy)
-                .Include(e => e.ToolSupport)
-                .Include(e => e.AccuracyPrecision)
-                .Include(e => e.ValidationMethod)
+                .IncludeAllApproachUsabilityData()
                 .ToList();
             return list;
         }
@@ -58,10 +58,7 @@ public class ApproachUsabilityService
         {
             var approachUsability = db.ApproachUsabilities
                 .Where(e => e.ApproachUsabilityId == usabilityId)
-                .Include(e => e.ResultsQualitiy)
-                .Include(e => e.ToolSupport)
-                .Include(e => e.AccuracyPrecision)
-                .Include(e => e.ValidationMethod)
+                .IncludeAllApproachUsabilityData()
                 .FirstOrDefault();
             if (approachUsability == null)
             {
@@ -72,26 +69,34 @@ public class ApproachUsabilityService
         }
     }
 
-    public ApproachUsability AddApproachUsability(ApproachUsability usability)
+    public ApproachUsability AddApproachUsabilityIfNotExists(ApproachUsability usability)
     {
-        var preparedUsability = new ApproachUsability();
+        var savedUsability = FindDuplicateApproachUsability(usability);
+        return savedUsability ?? AddApproachUsability(usability);
+    }
+
+    private ApproachUsability AddApproachUsability(ApproachUsability usability)
+    {
         using (var db = new RefactoringApproachContext())
         {
-            preparedUsability.ResultsQualitiy = db.ResultsQualities.Find(usability.ResultsQualitiy.Name) ??
-                                                throw new InvalidOperationException();
-            preparedUsability.ToolSupport = db.ToolSupports.Find(usability.ToolSupport.Name) ??
-                                            throw new InvalidOperationException();
-            preparedUsability.AccuracyPrecision = db.AccuracyPrecisions.Find(usability.AccuracyPrecision.Name) ??
-                                                  throw new InvalidOperationException();
-            preparedUsability.ValidationMethod = db.ValidationMethods.Find(usability.ValidationMethod.Name) ??
-                                                 throw new InvalidOperationException();
+            var preparedUsability = new ApproachUsability
+            {
+                ResultsQualitiy = db.ResultsQualities.Find(usability.ResultsQualitiy.Name) ??
+                                  throw new InvalidOperationException(),
+                ToolSupport = db.ToolSupports.Find(usability.ToolSupport.Name) ??
+                              throw new InvalidOperationException(),
+                AccuracyPrecision = db.AccuracyPrecisions.Find(usability.AccuracyPrecision.Name) ??
+                                    throw new InvalidOperationException(),
+                ValidationMethod = db.ValidationMethods.Find(usability.ValidationMethod.Name) ??
+                                   throw new InvalidOperationException()
+            };
 
             var savedUsability = db.ApproachUsabilities.Add(preparedUsability);
             db.SaveChanges();
             return savedUsability.Entity;
         }
     }
-    
+
     public ResultsQuality AddResultsQuality(ResultsQuality resultsQuality)
     {
         using (var db = new RefactoringApproachContext())
@@ -101,7 +106,7 @@ public class ApproachUsabilityService
             return savedResultsQuality;
         }
     }
-    
+
     public ToolSupport AddToolSupport(ToolSupport toolSupport)
     {
         using (var db = new RefactoringApproachContext())
@@ -111,7 +116,7 @@ public class ApproachUsabilityService
             return savedToolSupport;
         }
     }
-    
+
     public AccuracyPrecision AddAccuracyPrecision(AccuracyPrecision accuracyPrecision)
     {
         using (var db = new RefactoringApproachContext())
@@ -121,7 +126,7 @@ public class ApproachUsabilityService
             return savedAccuracyPrecision;
         }
     }
-    
+
     public ValidationMethod AddValidationMethod(ValidationMethod validationMethod)
     {
         using (var db = new RefactoringApproachContext())
@@ -131,7 +136,7 @@ public class ApproachUsabilityService
             return savedValidationMethod;
         }
     }
-    
+
     public void DeleteResultsQuality(string name)
     {
         using (var db = new RefactoringApproachContext())
@@ -143,7 +148,7 @@ public class ApproachUsabilityService
             db.SaveChanges();
         }
     }
-    
+
     public void DeleteToolSupport(string name)
     {
         using (var db = new RefactoringApproachContext())
@@ -155,7 +160,7 @@ public class ApproachUsabilityService
             db.SaveChanges();
         }
     }
-    
+
     public void DeleteAccuracyPrecision(string name)
     {
         using (var db = new RefactoringApproachContext())
@@ -167,7 +172,7 @@ public class ApproachUsabilityService
             db.SaveChanges();
         }
     }
-    
+
     public void DeleteValidationMethod(string name)
     {
         using (var db = new RefactoringApproachContext())
@@ -179,4 +184,20 @@ public class ApproachUsabilityService
             db.SaveChanges();
         }
     }
+
+    private ApproachUsability? FindDuplicateApproachUsability(ApproachUsability usability)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            return db.ApproachUsabilities
+                .Where(e => e.ResultsQualitiy.Equals(usability.ResultsQualitiy))
+                .Where(e => e.ToolSupport.Equals(usability.ToolSupport))
+                .Where(e => e.AccuracyPrecision.Equals(usability.AccuracyPrecision))
+                .Where(e => e.ValidationMethod.Equals(usability.ValidationMethod))
+                .IncludeAllApproachUsabilityData()
+                .FirstOrDefault();
+        }
+    }
+    
+
 }

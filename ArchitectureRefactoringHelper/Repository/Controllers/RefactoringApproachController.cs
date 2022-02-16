@@ -49,7 +49,7 @@ public class RefactoringApproachController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public ActionResult<RefactoringApproach> AddRefactoringApproach([FromBody] RefactoringApproach approach)
     {
-        var refactoringApproach = _refactoringApproachService.AddRefactoringApproach(approach);
+        var refactoringApproach = _refactoringApproachService.AddRefactoringApproachIfNotExists(approach);
         return Created(
             Url.Action("GetRefactoringApproach", "RefactoringApproach",
                 new { id = refactoringApproach.RefactoringApproachId }, Request.Scheme)!, refactoringApproach);
