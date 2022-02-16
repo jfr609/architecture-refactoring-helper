@@ -18,6 +18,46 @@ public class ApproachProcessService
             return list;
         }
     }
+    
+    public IEnumerable<Quality> ListQualities()
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            return db.Qualities.ToList();
+        }
+    }
+    
+    public IEnumerable<Direction> ListDirections()
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            return db.Directions.ToList();
+        }
+    }
+    
+    public IEnumerable<AutomationLevel> ListAutomationLevels()
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            return db.AutomationLevels.ToList();
+        }
+    }
+    
+    public IEnumerable<AnalysisType> ListAnalysisTypes()
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            return db.AnalysisTypes.ToList();
+        }
+    }
+    
+    public IEnumerable<Technique> ListTechniques()
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            return db.Techniques.ToList();
+        }
+    }
 
     public ApproachProcess GetApproachProcess(int processId)
     {

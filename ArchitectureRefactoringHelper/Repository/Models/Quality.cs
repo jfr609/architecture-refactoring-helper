@@ -10,6 +10,7 @@ public class Quality
     [Key]
     public string Name { get; set; }
     public string? Description { get; set; }
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public QualityCategory Category { get; set; }
 
     [JsonIgnore]
