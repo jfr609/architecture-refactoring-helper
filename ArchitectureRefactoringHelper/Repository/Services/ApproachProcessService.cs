@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Repository.Exceptions;
 using Repository.Models;
 
 namespace Repository.Services;
@@ -18,7 +19,7 @@ public class ApproachProcessService
             return list;
         }
     }
-    
+
     public IEnumerable<Quality> ListQualities()
     {
         using (var db = new RefactoringApproachContext())
@@ -26,7 +27,7 @@ public class ApproachProcessService
             return db.Qualities.ToList();
         }
     }
-    
+
     public IEnumerable<Direction> ListDirections()
     {
         using (var db = new RefactoringApproachContext())
@@ -34,7 +35,7 @@ public class ApproachProcessService
             return db.Directions.ToList();
         }
     }
-    
+
     public IEnumerable<AutomationLevel> ListAutomationLevels()
     {
         using (var db = new RefactoringApproachContext())
@@ -42,7 +43,7 @@ public class ApproachProcessService
             return db.AutomationLevels.ToList();
         }
     }
-    
+
     public IEnumerable<AnalysisType> ListAnalysisTypes()
     {
         using (var db = new RefactoringApproachContext())
@@ -50,7 +51,7 @@ public class ApproachProcessService
             return db.AnalysisTypes.ToList();
         }
     }
-    
+
     public IEnumerable<Technique> ListTechniques()
     {
         using (var db = new RefactoringApproachContext())
@@ -63,7 +64,19 @@ public class ApproachProcessService
     {
         using (var db = new RefactoringApproachContext())
         {
-            return db.ApproachProcesses.Find(processId) ?? throw new InvalidOperationException();
+            var process = db.ApproachProcesses.Include(e => e.Qualities)
+                .Where(e => e.ApproachProcessId == processId)
+                .Include(e => e.Directions)
+                .Include(e => e.AutomationLevels)
+                .Include(e => e.AnalysisTypes)
+                .Include(e => e.Techniques)
+                .FirstOrDefault();
+            if (process == null)
+            {
+                throw new ElementNotFoundExceptions($"Approach process with ID '{processId}' does not exist");
+            }
+
+            return process;
         }
     }
 
@@ -212,7 +225,7 @@ public class ApproachProcessService
         {
         }
     }
-    
+
     public void DeleteApproachProcess(int processId)
     {
         using (var db = new RefactoringApproachContext())
@@ -224,7 +237,7 @@ public class ApproachProcessService
             db.SaveChanges();
         }
     }
-    
+
     public void DeleteQuality(string name)
     {
         using (var db = new RefactoringApproachContext())
@@ -236,7 +249,7 @@ public class ApproachProcessService
             db.SaveChanges();
         }
     }
-    
+
     public void DeleteDirection(string name)
     {
         using (var db = new RefactoringApproachContext())
@@ -248,7 +261,7 @@ public class ApproachProcessService
             db.SaveChanges();
         }
     }
-    
+
     public void DeleteAutomationLevel(string name)
     {
         using (var db = new RefactoringApproachContext())
@@ -260,7 +273,7 @@ public class ApproachProcessService
             db.SaveChanges();
         }
     }
-    
+
     public void DeleteAnalysisType(string name)
     {
         using (var db = new RefactoringApproachContext())
@@ -272,7 +285,7 @@ public class ApproachProcessService
             db.SaveChanges();
         }
     }
-    
+
     public void DeleteTechnique(string name)
     {
         using (var db = new RefactoringApproachContext())

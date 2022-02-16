@@ -1,3 +1,4 @@
+using Repository.Exceptions;
 using Repository.Models;
 
 namespace Repository.Services;
@@ -40,7 +41,8 @@ public class ApproachInputService
     {
         using (var db = new RefactoringApproachContext())
         {
-            return db.DomainArtifactInputs.Find(inputName) ?? throw new InvalidOperationException();
+            return db.DomainArtifactInputs.Find(inputName) ??
+                   throw new ElementNotFoundExceptions($"Domain artifact with name {inputName} does not exist");
         }
     }
 
@@ -48,7 +50,8 @@ public class ApproachInputService
     {
         using (var db = new RefactoringApproachContext())
         {
-            return db.RuntimeArtifactInputs.Find(inputName) ?? throw new InvalidOperationException();
+            return db.RuntimeArtifactInputs.Find(inputName) ??
+                   throw new ElementNotFoundExceptions($"Runtime artifact with name {inputName} does not exist");
         }
     }
 
@@ -56,15 +59,17 @@ public class ApproachInputService
     {
         using (var db = new RefactoringApproachContext())
         {
-            return db.ModelArtifactInputs.Find(inputName) ?? throw new InvalidOperationException();
+            return db.ModelArtifactInputs.Find(inputName) ??
+                   throw new ElementNotFoundExceptions($"Model artifact with name {inputName} does not exist");
         }
     }
 
-    public ExecutableInput GetExecutableInput(string inputName, string executableLanguage)
+    public ExecutableInput GetExecutableInput(string inputName, string language)
     {
         using (var db = new RefactoringApproachContext())
         {
-            return db.ExecutableInputs.Find(inputName, executableLanguage) ?? throw new InvalidOperationException();
+            return db.ExecutableInputs.Find(inputName, language) ??
+                   throw new ElementNotFoundExceptions($"Executable with name {inputName} and language {language} does not exist");
         }
     }
 
@@ -81,13 +86,14 @@ public class ApproachInputService
     {
         if (inputs == null)
             return;
-        
+
         using (var db = new RefactoringApproachContext())
         {
             foreach (var input in inputs)
             {
                 db.DomainArtifactInputs.Add(input);
             }
+
             db.SaveChanges();
         }
     }
@@ -105,13 +111,14 @@ public class ApproachInputService
     {
         if (inputs == null)
             return;
-        
+
         using (var db = new RefactoringApproachContext())
         {
             foreach (var input in inputs)
             {
                 db.RuntimeArtifactInputs.Add(input);
             }
+
             db.SaveChanges();
         }
     }
@@ -129,13 +136,14 @@ public class ApproachInputService
     {
         if (inputs == null)
             return;
-        
+
         using (var db = new RefactoringApproachContext())
         {
             foreach (var input in inputs)
             {
                 db.ModelArtifactInputs.Add(input);
             }
+
             db.SaveChanges();
         }
     }
@@ -160,6 +168,7 @@ public class ApproachInputService
             {
                 db.ExecutableInputs.Add(input);
             }
+
             db.SaveChanges();
         }
     }

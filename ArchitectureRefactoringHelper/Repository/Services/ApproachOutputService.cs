@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Repository.Exceptions;
 using Repository.Models;
 
 namespace Repository.Services;
@@ -37,7 +38,17 @@ public class ApproachOutputService
     {
         using (var db = new RefactoringApproachContext())
         {
-            return db.ApproachOutputs.Find(outputId) ?? throw new InvalidOperationException();
+            var output = db.ApproachOutputs
+                .Where(e => e.ApproachOutputId == outputId)
+                .Include(e => e.Architecture)
+                .Include(e => e.ServiceType)
+                .FirstOrDefault();
+            if (output == null)
+            {
+                throw new ElementNotFoundExceptions($"Approach output with ID '{outputId}' does not exist.");
+            }
+            
+            return output;
         }
     }
 
