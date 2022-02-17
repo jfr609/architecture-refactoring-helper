@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using Repository.Exceptions;
 using Repository.Models;
 
@@ -90,7 +89,7 @@ public class ApproachProcessService
             AnalysisTypes = new List<AnalysisType>(),
             Techniques = new List<Technique>()
         };
-        
+
         using (var db = new RefactoringApproachContext())
         {
             if (process.Qualities != null)
@@ -303,15 +302,16 @@ public class ApproachProcessService
     {
         using (var db = new RefactoringApproachContext())
         {
-            return process;
-            return db.ApproachProcesses
-                .Where(e => e.Qualities.ListEquals(process.Qualities))
-                .Where(e => e.Directions.ListEquals(process.Directions))
-                .Where(e => e.AutomationLevels.ListEquals(process.AutomationLevels))
-                .Where(e => e.AnalysisTypes.ListEquals(process.AnalysisTypes))
-                .Where(e => e.Techniques.ListEquals(process.Techniques))
+            var savedProcess = db.ApproachProcesses
                 .IncludeAllApproachProcessData()
-                .FirstOrDefault();
+                .AsEnumerable()
+                .Where(e => e.Qualities.EntityKeysEquals(process.Qualities, k => k.Name))
+                .Where(e => e.Directions.EntityKeysEquals(process.Directions, k => k.Name))
+                .Where(e => e.AutomationLevels.EntityKeysEquals(process.AutomationLevels, k => k.Name))
+                .Where(e => e.AnalysisTypes.EntityKeysEquals(process.AnalysisTypes, k => k.Name))
+                .FirstOrDefault(e => e.Techniques.EntityKeysEquals(process.Techniques, k => k.Name));
+
+            return savedProcess;
         }
     }
 }

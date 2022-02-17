@@ -1,39 +1,34 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using NeinLinq;
 using Repository.Models;
 
 namespace Repository;
 
 public static class Utils
 {
-    public static EntityEntry<T>? AddIfNotExists<T>(this DbSet<T> dbSet, T entity, string key) where T : class, new()
-    {
-        var trackedEntity = dbSet.Find(key);
-        Console.WriteLine(trackedEntity);
-        return trackedEntity == null ? dbSet.Add(entity) : null;
-    }
-
     public static string ToJsonString(this object? o)
     {
         return JsonSerializer.Serialize(o);
     }
-    
-    public static bool ListEquals<T>(this IEnumerable<T>? list1, IEnumerable<T>? list2) where T : notnull
+
+    public static bool EntityKeysEquals<T, TKey>(this IEnumerable<T>? list1, IEnumerable<T>? list2,
+        Func<T, TKey> keyFunction)
+        where T : notnull
+        where TKey : notnull
     {
-        var counter = new Dictionary<T, int>();
+        var counter = new Dictionary<TKey, int>();
         if (list1 != null)
         {
             foreach (var element in list1)
             {
-                if (counter.ContainsKey(element))
+                var key = keyFunction(element);
+                if (counter.ContainsKey(key))
                 {
-                    counter[element]++;
+                    counter[key]++;
                 }
                 else
                 {
-                    counter.Add(element, 1);
+                    counter.Add(key, 1);
                 }
             }
         }
@@ -42,9 +37,10 @@ public static class Utils
         {
             foreach (var element in list2)
             {
-                if (counter.ContainsKey(element))
+                var key = keyFunction(element);
+                if (counter.ContainsKey(key))
                 {
-                    counter[element]--;
+                    counter[key]--;
                 }
                 else
                 {
