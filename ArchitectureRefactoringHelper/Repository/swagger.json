@@ -1,0 +1,1922 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Repository, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/v1/inputs/domain-artifacts": {
+      "get": {
+        "tags": [
+          "ApproachInput"
+        ],
+        "operationId": "ListDomainArtifacts",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DomainArtifactInput"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ApproachInput"
+        ],
+        "operationId": "AddDomainArtifact",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DomainArtifactInput"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DomainArtifactInput"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DomainArtifactInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/inputs/domain-artifacts/{name}": {
+      "delete": {
+        "tags": [
+          "ApproachInput"
+        ],
+        "operationId": "DeleteDomainArtifact",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/inputs/runtime-artifacts": {
+      "get": {
+        "tags": [
+          "ApproachInput"
+        ],
+        "operationId": "ListRuntimeArtifact",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RuntimeArtifactInput"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ApproachInput"
+        ],
+        "operationId": "AddRuntimeArtifact",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RuntimeArtifactInput"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RuntimeArtifactInput"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RuntimeArtifactInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/inputs/runtime-artifacts/{name}": {
+      "delete": {
+        "tags": [
+          "ApproachInput"
+        ],
+        "operationId": "DeleteRuntimeArtifact",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/inputs/model-artifacts": {
+      "get": {
+        "tags": [
+          "ApproachInput"
+        ],
+        "operationId": "ListModelArtifacts",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ModelArtifactInput"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ApproachInput"
+        ],
+        "operationId": "AddModelArtifact",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ModelArtifactInput"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ModelArtifactInput"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ModelArtifactInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/inputs/model-artifacts/{name}": {
+      "delete": {
+        "tags": [
+          "ApproachInput"
+        ],
+        "operationId": "DeleteModelArtifact",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/inputs/executables": {
+      "get": {
+        "tags": [
+          "ApproachInput"
+        ],
+        "operationId": "ListExecutables",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExecutableInput"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ApproachInput"
+        ],
+        "operationId": "AddExecutable",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExecutableInput"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExecutableInput"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExecutableInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/inputs/executables/{name}/{language}": {
+      "delete": {
+        "tags": [
+          "ApproachInput"
+        ],
+        "operationId": "DeleteExecutable",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "language",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/outputs": {
+      "get": {
+        "tags": [
+          "ApproachOutput"
+        ],
+        "operationId": "ListApproachOutputs",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ApproachOutput"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/outputs/{id}": {
+      "get": {
+        "tags": [
+          "ApproachOutput"
+        ],
+        "operationId": "GetApproachOutput",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApproachOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/outputs/architectures": {
+      "get": {
+        "tags": [
+          "ApproachOutput"
+        ],
+        "operationId": "ListArchitectures",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Architecture"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ApproachOutput"
+        ],
+        "operationId": "AddArchitecture",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Architecture"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Architecture"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Architecture"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/outputs/architectures/{name}": {
+      "delete": {
+        "tags": [
+          "ApproachOutput"
+        ],
+        "operationId": "DeleteArchitecture",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/outputs/service-types": {
+      "get": {
+        "tags": [
+          "ApproachOutput"
+        ],
+        "operationId": "ListServiceTypes",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ServiceType"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ApproachOutput"
+        ],
+        "operationId": "AddServiceType",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceType"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceType"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceType"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/outputs/service-types/{name}": {
+      "delete": {
+        "tags": [
+          "ApproachOutput"
+        ],
+        "operationId": "DeleteServiceType",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/processes": {
+      "get": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "ListApproachProcess",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ApproachProcess"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/processes/{id}": {
+      "get": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "GetApproachProcess",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApproachProcess"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/processes/qualities": {
+      "get": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "ListQualities",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Quality"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "AddQuality",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Quality"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Quality"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Quality"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/processes/qualities/{name}": {
+      "delete": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "DeleteQuality",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/processes/directions": {
+      "get": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "ListDirections",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Direction"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "AddDirection",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Direction"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Direction"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Direction"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/processes/directions/{name}": {
+      "delete": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "DeleteDirection",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/processes/automation-levels": {
+      "get": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "ListAutomationLevels",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AutomationLevel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "AddAutomationLevel",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutomationLevel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutomationLevel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutomationLevel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/processes/automation-levels/{name}": {
+      "delete": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "DeleteAutomationLevel",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/processes/analysis-types": {
+      "get": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "ListAnalysisTypes",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AnalysisType"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "AddAnalysisType",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnalysisType"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnalysisType"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnalysisType"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/processes/analysis-types/{name}": {
+      "delete": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "DeleteAnalysisType",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/processes/techniques": {
+      "get": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "ListTechniques",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Quality"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "AddTechnique",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Technique"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Technique"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Technique"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/processes/techniques/{name}": {
+      "delete": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "DeleteTechnique",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/usabilities": {
+      "get": {
+        "tags": [
+          "ApproachUsability"
+        ],
+        "operationId": "ListApproachUsabilities",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ApproachUsability"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/usabilities/{id}": {
+      "get": {
+        "tags": [
+          "ApproachUsability"
+        ],
+        "operationId": "GetApproachUsability",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApproachUsability"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/usabilities/result-qualities": {
+      "get": {
+        "tags": [
+          "ApproachUsability"
+        ],
+        "operationId": "ListResultsQualities",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ResultsQuality"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ApproachUsability"
+        ],
+        "operationId": "AddResultsQuality",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResultsQuality"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResultsQuality"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResultsQuality"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/usabilities/result-qualities/{name}": {
+      "delete": {
+        "tags": [
+          "ApproachUsability"
+        ],
+        "operationId": "DeleteResultsQuality",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/usabilities/tool-supports": {
+      "get": {
+        "tags": [
+          "ApproachUsability"
+        ],
+        "operationId": "ListToolSupports",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ToolSupport"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ApproachUsability"
+        ],
+        "operationId": "AddToolSupport",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToolSupport"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToolSupport"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToolSupport"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/usabilities/tool-supports/{name}": {
+      "delete": {
+        "tags": [
+          "ApproachUsability"
+        ],
+        "operationId": "DeleteToolSupport",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/usabilities/accuracy-precisions": {
+      "get": {
+        "tags": [
+          "ApproachUsability"
+        ],
+        "operationId": "ListAccuracyPrecisions",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AccuracyPrecision"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ApproachUsability"
+        ],
+        "operationId": "AddAccuracyPrecision",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccuracyPrecision"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccuracyPrecision"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccuracyPrecision"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/usabilities/accuracy-precisions/{name}": {
+      "delete": {
+        "tags": [
+          "ApproachUsability"
+        ],
+        "operationId": "DeleteAccuracyPrecision",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/usabilities/validation-methods": {
+      "get": {
+        "tags": [
+          "ApproachUsability"
+        ],
+        "operationId": "ListValidationMethods",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ValidationMethod"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ApproachUsability"
+        ],
+        "operationId": "AddValidationMethod",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidationMethod"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidationMethod"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidationMethod"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/usabilities/validation-methods/{name}": {
+      "delete": {
+        "tags": [
+          "ApproachUsability"
+        ],
+        "operationId": "DeleteValidationMethod",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/approaches": {
+      "get": {
+        "tags": [
+          "RefactoringApproach"
+        ],
+        "summary": "Receives a complete list of all RefactoringApproach items",
+        "operationId": "ListRefactoringApproaches",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RefactoringApproach"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "RefactoringApproach"
+        ],
+        "summary": "Creates a RefactoringApproach",
+        "operationId": "AddRefactoringApproach",
+        "requestBody": {
+          "description": "The RefactoringApproach we want to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefactoringApproach"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefactoringApproach"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefactoringApproach"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Returns the newly created RefactoringApproach",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RefactoringApproach"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "If the RefactoringApproach is null",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "If a RefactoringApproach with the same title already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/approaches/{id}": {
+      "get": {
+        "tags": [
+          "RefactoringApproach"
+        ],
+        "summary": "Receives a RefactoringApproach",
+        "operationId": "GetRefactoringApproach",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RefactoringApproach"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "RefactoringApproach"
+        ],
+        "summary": "Updated an existing RefactoringApproach",
+        "operationId": "UpdateRefactoringApproach",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefactoringApproach"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefactoringApproach"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefactoringApproach"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "RefactoringApproach"
+        ],
+        "summary": "Deletes a RefactoringApproach",
+        "operationId": "DeleteRefactoringApproach",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AccuracyPrecision": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AnalysisType": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApproachOutput": {
+        "type": "object",
+        "properties": {
+          "approachOutputId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "architecture": {
+            "$ref": "#/components/schemas/Architecture"
+          },
+          "serviceType": {
+            "$ref": "#/components/schemas/ServiceType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApproachProcess": {
+        "type": "object",
+        "properties": {
+          "approachProcessId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "qualities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Quality"
+            },
+            "nullable": true
+          },
+          "directions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Direction"
+            },
+            "nullable": true
+          },
+          "automationLevels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AutomationLevel"
+            },
+            "nullable": true
+          },
+          "analysisTypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AnalysisType"
+            },
+            "nullable": true
+          },
+          "techniques": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Technique"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApproachSource": {
+        "type": "object",
+        "properties": {
+          "approachSourceId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "link": {
+            "type": "string",
+            "nullable": true
+          },
+          "authors": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApproachUsability": {
+        "type": "object",
+        "properties": {
+          "approachUsabilityId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "resultsQualitiy": {
+            "$ref": "#/components/schemas/ResultsQuality"
+          },
+          "toolSupport": {
+            "$ref": "#/components/schemas/ToolSupport"
+          },
+          "accuracyPrecision": {
+            "$ref": "#/components/schemas/AccuracyPrecision"
+          },
+          "validationMethod": {
+            "$ref": "#/components/schemas/ValidationMethod"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Architecture": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AutomationLevel": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Direction": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DomainArtifactInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExecutableInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "language": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ModelArtifactInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": { }
+      },
+      "Quality": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "category": {
+            "$ref": "#/components/schemas/QualityCategory"
+          }
+        },
+        "additionalProperties": false
+      },
+      "QualityCategory": {
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "RefactoringApproach": {
+        "type": "object",
+        "properties": {
+          "refactoringApproachId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "approachSource": {
+            "$ref": "#/components/schemas/ApproachSource"
+          },
+          "domainArtifactInputs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DomainArtifactInput"
+            },
+            "nullable": true
+          },
+          "runtimeArtifactInputs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RuntimeArtifactInput"
+            },
+            "nullable": true
+          },
+          "modelArtifactInputs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ModelArtifactInput"
+            },
+            "nullable": true
+          },
+          "executableInputs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExecutableInput"
+            },
+            "nullable": true
+          },
+          "approachProcess": {
+            "$ref": "#/components/schemas/ApproachProcess"
+          },
+          "approachOutputs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApproachOutput"
+            },
+            "nullable": true
+          },
+          "approachUsabilitiy": {
+            "$ref": "#/components/schemas/ApproachUsability"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ResultsQuality": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RuntimeArtifactInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ServiceType": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Technique": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ToolSupport": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ValidationMethod": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
