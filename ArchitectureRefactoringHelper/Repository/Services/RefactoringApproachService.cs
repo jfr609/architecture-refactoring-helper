@@ -67,6 +67,12 @@ public class RefactoringApproachService
 
     public RefactoringApproach AddRefactoringApproachIfNotExists(RefactoringApproach refactoringApproach)
     {
+        if (ExistsDuplicateRefactoringApproach(refactoringApproach.ApproachSource))
+        {
+            throw new DuplicateElementException(
+                $"A refactoring approach with the title '{refactoringApproach.ApproachSource.Title}' already exists. If you want to change information regarding this approach try updating the existing refactoring approach");
+        }
+
         return AddRefactoringApproach(refactoringApproach);
     }
 
@@ -160,6 +166,16 @@ public class RefactoringApproachService
                 return;
             db.RefactoringApproaches.Remove(approach);
             db.SaveChanges();
+        }
+    }
+
+    private bool ExistsDuplicateRefactoringApproach(ApproachSource source)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var savedSource = db.ApproachSources.FirstOrDefault(e => e.Title.Equals(source.Title));
+
+            return savedSource != null;
         }
     }
 }

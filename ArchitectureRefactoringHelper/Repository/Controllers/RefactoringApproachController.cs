@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Repository.Exceptions;
 using Repository.Models;
 using Repository.Services;
 
@@ -44,12 +45,23 @@ public class RefactoringApproachController : ControllerBase
     /// <returns>The created RefactoringApproach</returns>
     /// <response code="201">Returns the newly created RefactoringApproach</response>
     /// <response code="400">If the RefactoringApproach is null</response>
+    /// <response code="409">If a RefactoringApproach with the same title already exists</response>
     [HttpPost(Name = "AddRefactoringApproach")]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(RefactoringApproach))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
     public ActionResult<RefactoringApproach> AddRefactoringApproach([FromBody] RefactoringApproach approach)
     {
-        var refactoringApproach = _refactoringApproachService.AddRefactoringApproachIfNotExists(approach);
+        RefactoringApproach refactoringApproach;
+        try
+        {
+            refactoringApproach = _refactoringApproachService.AddRefactoringApproachIfNotExists(approach);
+        }
+        catch (DuplicateElementException e)
+        {
+            return Conflict(e.Message);
+        }
+
         return Created(
             Url.Action("GetRefactoringApproach", "RefactoringApproach",
                 new { id = refactoringApproach.RefactoringApproachId }, Request.Scheme)!, refactoringApproach);
