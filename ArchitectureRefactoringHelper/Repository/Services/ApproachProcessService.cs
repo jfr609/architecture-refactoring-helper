@@ -303,6 +303,7 @@ public class ApproachProcessService
     {
         using (var db = new RefactoringApproachContext())
         {
+            return process;
             return db.ApproachProcesses
                 .Where(e => e.Qualities.ListEquals(process.Qualities))
                 .Where(e => e.Directions.ListEquals(process.Directions))
