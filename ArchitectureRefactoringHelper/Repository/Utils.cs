@@ -16,36 +16,35 @@ public static class Utils
         where T : notnull
         where TKey : notnull
     {
+        if (list1 == null && list2 != null || list1 != null && list2 == null)
+            return false;
+        if (list1 == null && list2 == null)
+            return true;
+
         var counter = new Dictionary<TKey, int>();
-        if (list1 != null)
+        foreach (var element in list1!)
         {
-            foreach (var element in list1)
+            var key = keyFunction(element);
+            if (counter.ContainsKey(key))
             {
-                var key = keyFunction(element);
-                if (counter.ContainsKey(key))
-                {
-                    counter[key]++;
-                }
-                else
-                {
-                    counter.Add(key, 1);
-                }
+                counter[key]++;
+            }
+            else
+            {
+                counter.Add(key, 1);
             }
         }
 
-        if (list2 != null)
+        foreach (var element in list2!)
         {
-            foreach (var element in list2)
+            var key = keyFunction(element);
+            if (counter.ContainsKey(key))
             {
-                var key = keyFunction(element);
-                if (counter.ContainsKey(key))
-                {
-                    counter[key]--;
-                }
-                else
-                {
-                    return false;
-                }
+                counter[key]--;
+            }
+            else
+            {
+                return false;
             }
         }
 

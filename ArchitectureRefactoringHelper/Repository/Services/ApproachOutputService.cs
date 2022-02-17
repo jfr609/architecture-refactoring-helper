@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using Repository.Exceptions;
 using Repository.Models;
 
@@ -74,9 +73,9 @@ public class ApproachOutputService
         }
     }
 
-    public void AddApproachOutputsIfNotExist(IEnumerable<ApproachOutput>? outputs)
+    public void AddApproachOutputsIfNotExist(ICollection<ApproachOutput>? outputs)
     {
-        if (outputs == null)
+        if (outputs == null || outputs.Any())
             return;
 
         using (var db = new RefactoringApproachContext())

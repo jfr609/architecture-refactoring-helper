@@ -82,43 +82,11 @@ public class ApproachInputService
         }
     }
 
-    public void AddDomainArtifactInputs(IEnumerable<DomainArtifactInput>? inputs)
-    {
-        if (inputs == null)
-            return;
-
-        using (var db = new RefactoringApproachContext())
-        {
-            foreach (var input in inputs)
-            {
-                db.DomainArtifactInputs.Add(input);
-            }
-
-            db.SaveChanges();
-        }
-    }
-
     public void AddRuntimeArtifactInput(RuntimeArtifactInput input)
     {
         using (var db = new RefactoringApproachContext())
         {
             db.RuntimeArtifactInputs.Add(input);
-            db.SaveChanges();
-        }
-    }
-
-    public void AddRuntimeArtifactInputs(IEnumerable<RuntimeArtifactInput>? inputs)
-    {
-        if (inputs == null)
-            return;
-
-        using (var db = new RefactoringApproachContext())
-        {
-            foreach (var input in inputs)
-            {
-                db.RuntimeArtifactInputs.Add(input);
-            }
-
             db.SaveChanges();
         }
     }
@@ -132,43 +100,11 @@ public class ApproachInputService
         }
     }
 
-    public void AddModelArtifactInputs(IEnumerable<ModelArtifactInput>? inputs)
-    {
-        if (inputs == null)
-            return;
-
-        using (var db = new RefactoringApproachContext())
-        {
-            foreach (var input in inputs)
-            {
-                db.ModelArtifactInputs.Add(input);
-            }
-
-            db.SaveChanges();
-        }
-    }
-
     public void AddExecutableInput(ExecutableInput input)
     {
         using (var db = new RefactoringApproachContext())
         {
             db.ExecutableInputs.Add(input);
-            db.SaveChanges();
-        }
-    }
-
-    public void AddExecutableInputs(IEnumerable<ExecutableInput>? inputs)
-    {
-        if (inputs == null)
-            return;
-
-        using (var db = new RefactoringApproachContext())
-        {
-            foreach (var input in inputs)
-            {
-                db.ExecutableInputs.Add(input);
-            }
-
             db.SaveChanges();
         }
     }
