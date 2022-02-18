@@ -1,0 +1,16 @@
+.home-page-card{
+  width: 300px;
+  cursor: pointer;
+}
+
+.home-page-card:hover{
+  color: #035efc;
+}
+
+.card-group{
+  margin-top: 64px;
+}
+
+.max-width-500{
+  max-width: 500px;
+}

@@ -9,20 +9,30 @@ import {AppRoutingModule} from "./app-routing.module";
 import { ArchitectureRefactoringHelperComponent } from './components/views/architecture-refactoring-helper/architecture-refactoring-helper.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {FlexLayoutModule} from "@angular/flex-layout";
+import {MatCardModule} from "@angular/material/card";
+import {MatButtonModule} from "@angular/material/button";
+import { ApproachAdderComponent } from './components/views/approach-adder/approach-adder.component';
+import { ApproachFinderComponent } from './components/views/approach-finder/approach-finder.component';
+import { ApproachExplorerComponent } from './components/views/approach-explorer/approach-explorer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
     PageNotFoundComponent,
-    ArchitectureRefactoringHelperComponent
+    ArchitectureRefactoringHelperComponent,
+    ApproachAdderComponent,
+    ApproachFinderComponent,
+    ApproachExplorerComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     FlexLayoutModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCardModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
