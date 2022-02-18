@@ -1,28 +1,32 @@
 <div>
   <div fxLayout="column" fxLayoutAlign="start center">
     <h1 class="max-width-500">Architecture Refactoring Helper</h1>
-    <p class="max-width-500">The Architecture Refactoring Helper is an application which aims to help find suitable migration approaches to microservices architecture.</p>
+    <p class="max-width-500">The Architecture Refactoring Helper is an application which aims to help find suitable
+      migration approaches to microservices architecture.</p>
   </div>
 
   <div class="card-group" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="32px">
-    <mat-card class="home-page-card" routerLink="new-approach">
-      <mat-card-title>Add a new approach!</mat-card-title>
+    <mat-card class="home-page-card" routerLink="/new-approach">
+      <mat-card-title>Add a new refactoring approach!</mat-card-title>
       <mat-card-content>
-        <p>TODO</p>
+        <p>Add a new refactoring approach that is not yet represented in the repository.</p>
       </mat-card-content>
     </mat-card>
 
-    <mat-card class="home-page-card" routerLink="approaches">
-      <mat-card-title>Explore all existing approaches!</mat-card-title>
+    <mat-card class="home-page-card" routerLink="/approaches">
+      <mat-card-title>Explore existing refactoring approaches!</mat-card-title>
       <mat-card-content>
-        <p>TODO</p>
+        <p>Freely explore all refactoring approaches that exist in the repository. No recommendation for suitability for
+          your application will be made. If that is something you are interested in check out the 'Find refactoring
+          approaches for your application!' card.</p>
       </mat-card-content>
     </mat-card>
 
-    <mat-card class="home-page-card" routerLink="helper">
-      <mat-card-title>Find a refactoring approach for your application!</mat-card-title>
+    <mat-card class="home-page-card" routerLink="/helper">
+      <mat-card-title>Find refactoring approaches for your application!</mat-card-title>
       <mat-card-content>
-        <p>TODO</p>
+        <p>Find recommended refactoring approaches based on preferred inputs, outputs, processes and usability aspects
+          of the approach.</p>
       </mat-card-content>
     </mat-card>
   </div>

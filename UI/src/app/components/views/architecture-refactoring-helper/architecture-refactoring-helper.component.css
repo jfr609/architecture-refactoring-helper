@@ -2,3 +2,7 @@
   width: 100%;
   height: calc(100% - 128px);
 }
+
+.toolbar-title {
+  cursor: pointer;
+}

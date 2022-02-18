@@ -1,0 +1,12 @@
+.window {
+  left: 50%;
+  position: relative;
+  margin: 0 0 0 -150px;
+  padding: 250px 30px 30px 30px;
+  width: 300px;
+  height: 150px;
+}
+
+.window-body {
+  text-align: center;
+}

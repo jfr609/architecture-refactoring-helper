@@ -1,10 +1,11 @@
 .home-page-card{
-  width: 300px;
+  width: 320px;
   cursor: pointer;
 }
 
 .home-page-card:hover{
   color: #035efc;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.4),0px 1px 1px 0px rgba(0, 0, 0, 0.34),0px 1px 3px 0px rgba(0, 0, 0, 0.32);
 }
 
 .card-group{
