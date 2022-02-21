@@ -10,7 +10,7 @@ using Repository.Models;
 namespace Repository.Migrations
 {
     [DbContext(typeof(RefactoringApproachContext))]
-    [Migration("20220215163706_InitialCreate")]
+    [Migration("20220221115551_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -201,7 +201,7 @@ namespace Repository.Migrations
                         },
                         new
                         {
-                            Name = "NA",
+                            Name = "Not available",
                             Description = ""
                         });
                 });
@@ -469,19 +469,19 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Source code",
-                            Language = "NA",
+                            Language = "No specification",
                             Description = ""
                         },
                         new
                         {
                             Name = "Database file",
-                            Language = "NA",
+                            Language = "No specification",
                             Description = ""
                         },
                         new
                         {
                             Name = "Test cases",
-                            Language = "NA",
+                            Language = "No specification",
                             Description = ""
                         });
                 });
@@ -656,7 +656,7 @@ namespace Repository.Migrations
                         },
                         new
                         {
-                            Name = "NA",
+                            Name = "Not available",
                             Description = ""
                         });
                 });
@@ -731,7 +731,7 @@ namespace Repository.Migrations
                         },
                         new
                         {
-                            Name = "NA",
+                            Name = "No specification",
                             Description = ""
                         });
                 });

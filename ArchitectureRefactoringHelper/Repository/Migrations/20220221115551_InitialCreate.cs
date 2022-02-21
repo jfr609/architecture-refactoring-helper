@@ -575,17 +575,17 @@ namespace Repository.Migrations
             migrationBuilder.InsertData(
                 table: "Approach.Input.Executable",
                 columns: new[] { "Language", "Name", "Description" },
-                values: new object[] { "NA", "Database file", "" });
+                values: new object[] { "No specification", "Database file", "" });
 
             migrationBuilder.InsertData(
                 table: "Approach.Input.Executable",
                 columns: new[] { "Language", "Name", "Description" },
-                values: new object[] { "NA", "Source code", "" });
+                values: new object[] { "No specification", "Source code", "" });
 
             migrationBuilder.InsertData(
                 table: "Approach.Input.Executable",
                 columns: new[] { "Language", "Name", "Description" },
-                values: new object[] { "NA", "Test cases", "" });
+                values: new object[] { "No specification", "Test cases", "" });
 
             migrationBuilder.InsertData(
                 table: "Approach.Input.ModelArtifact",
@@ -660,7 +660,7 @@ namespace Repository.Migrations
             migrationBuilder.InsertData(
                 table: "Approach.Output.ServiceType",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "NA", "" });
+                values: new object[] { "No specification", "" });
 
             migrationBuilder.InsertData(
                 table: "Approach.Output.ServiceType",
@@ -810,7 +810,7 @@ namespace Repository.Migrations
             migrationBuilder.InsertData(
                 table: "Approach.Usability.AccuracyPrecision",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "NA", "" });
+                values: new object[] { "Not available", "" });
 
             migrationBuilder.InsertData(
                 table: "Approach.Usability.ResultsQuality",
@@ -830,7 +830,7 @@ namespace Repository.Migrations
             migrationBuilder.InsertData(
                 table: "Approach.Usability.ResultsQuality",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "NA", "" });
+                values: new object[] { "Not available", "" });
 
             migrationBuilder.InsertData(
                 table: "Approach.Usability.ToolSupport",

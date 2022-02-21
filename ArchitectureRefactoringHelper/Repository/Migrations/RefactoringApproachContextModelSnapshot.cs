@@ -199,7 +199,7 @@ namespace Repository.Migrations
                         },
                         new
                         {
-                            Name = "NA",
+                            Name = "Not available",
                             Description = ""
                         });
                 });
@@ -467,19 +467,19 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Source code",
-                            Language = "NA",
+                            Language = "No specification",
                             Description = ""
                         },
                         new
                         {
                             Name = "Database file",
-                            Language = "NA",
+                            Language = "No specification",
                             Description = ""
                         },
                         new
                         {
                             Name = "Test cases",
-                            Language = "NA",
+                            Language = "No specification",
                             Description = ""
                         });
                 });
@@ -654,7 +654,7 @@ namespace Repository.Migrations
                         },
                         new
                         {
-                            Name = "NA",
+                            Name = "Not available",
                             Description = ""
                         });
                 });
@@ -729,7 +729,7 @@ namespace Repository.Migrations
                         },
                         new
                         {
-                            Name = "NA",
+                            Name = "No specification",
                             Description = ""
                         });
                 });
