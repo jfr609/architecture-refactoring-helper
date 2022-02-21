@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Repository.Exceptions;
 using Repository.Models;
 
@@ -36,16 +37,31 @@ public class ApproachOutputService
     {
         using (var db = new RefactoringApproachContext())
         {
-            var output = db.ApproachOutputs
-                .Where(e => e.ApproachOutputId == outputId)
-                .IncludeAllApproachOutputData()
-                .FirstOrDefault();
-            if (output == null)
-            {
-                throw new ElementNotFoundException($"Approach output with ID '{outputId}' does not exist.");
-            }
+            return db.ApproachOutputs
+                       .Where(e => e.ApproachOutputId == outputId)
+                       .IncludeAllApproachOutputData()
+                       .FirstOrDefault() ??
+                   throw new ElementNotFoundException($"Approach output with ID '{outputId}' does not exist.");
+        }
+    }
 
-            return output;
+    public Architecture GetOutputArchitecture(string architectureName)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            return db.Architectures.Find(architectureName) ??
+                   throw new ElementNotFoundException(
+                       $"Output architecture with name '{architectureName}' does not exist.");
+        }
+    }
+
+    public ServiceType GetOutputServiceType(string serviceTypeName)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            return db.ServiceTypes.Find(serviceTypeName) ??
+                   throw new ElementNotFoundException(
+                       $"Output service type with name '{serviceTypeName}' does not exist.");
         }
     }
 
@@ -61,10 +77,8 @@ public class ApproachOutputService
         {
             var preparedOutput = new ApproachOutput
             {
-                Architecture = db.Architectures.Find(output.Architecture.Name) ??
-                               throw new InvalidOperationException(),
-                ServiceType = db.ServiceTypes.Find(output.ServiceType.Name) ??
-                              throw new InvalidOperationException()
+                Architecture = GetOutputArchitecture(output.Architecture.Name),
+                ServiceType = GetOutputServiceType(output.ServiceType.Name)
             };
 
             var savedOutput = db.ApproachOutputs.Add(preparedOutput);

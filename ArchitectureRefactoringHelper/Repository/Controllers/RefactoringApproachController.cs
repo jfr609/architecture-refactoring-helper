@@ -251,6 +251,8 @@ public class RefactoringApproachController : ControllerBase
         Name = "AddOutput")]
     public IActionResult AddOutput(int id, [FromBody] ApproachOutput output)
     {
+        _refactoringApproachService.AddOutput(id, output);
+        
         return Ok();
     }
 
@@ -258,6 +260,8 @@ public class RefactoringApproachController : ControllerBase
         Name = "RemoveOutput")]
     public IActionResult RemoveOutput(int id, int outputId)
     {
+        _refactoringApproachService.RemoveOutput(id, outputId);
+        
         return Ok();
     }
 

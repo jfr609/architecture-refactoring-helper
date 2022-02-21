@@ -566,4 +566,58 @@ public class RefactoringApproachService
             db.SaveChanges();
         }
     }
+
+    public void AddOutput(int approachId, ApproachOutput output)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            approach.ApproachOutputs ??= new List<ApproachOutput>();
+            if (approach.ApproachOutputs.Any(e =>
+                    e.Architecture.Name == output.Architecture.Name && e.ServiceType.Name == output.ServiceType.Name))
+            {
+                throw new DuplicateElementException(
+                    $"Output with architecture name '{output.Architecture.Name}' and service type name {output.ServiceType.Name} is already an output of the given refactoring approach(ID: {approachId}).");
+            }
+
+            var savedOutput = _outputService.AddApproachOutputIfNotExists(output);
+            foreach (var approachOutput in approach.ApproachOutputs)
+            {
+                if (approachOutput.Architecture.Name == savedOutput.Architecture.Name)
+                    savedOutput.Architecture = approachOutput.Architecture;
+
+                if (approachOutput.ServiceType.Name == savedOutput.ServiceType.Name)
+                    savedOutput.ServiceType = approachOutput.ServiceType;
+            }
+
+            db.Attach(savedOutput);
+            
+            approach.ApproachOutputs.Add(savedOutput);
+            db.SaveChanges();
+        }
+    }
+
+    public void RemoveOutput(int approachId, int outputId)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            if (approach.ApproachOutputs == null || !approach.ApproachOutputs.Any())
+                return;
+
+            var output = approach.ApproachOutputs.FirstOrDefault(e => e.ApproachOutputId == outputId);
+            if (output == null)
+            {
+                throw new ElementNotFoundException(
+                    $"Output(ID '{outputId}') is not an output of the given refactoring approach(ID: {approachId}).");
+            }
+
+            approach.ApproachOutputs.Remove(output);
+            db.SaveChanges();
+        }
+    }
 }
