@@ -620,4 +620,72 @@ public class RefactoringApproachService
             db.SaveChanges();
         }
     }
+
+    public void UpdateResultsQuality(int approachId, ResultsQuality resultsQuality)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            if (approach.ApproachUsabilitiy.ResultsQualitiy.Name == resultsQuality.Name)
+                return;
+
+            var savedResultsQuality = _usabilityService.GetResultsQuality(resultsQuality.Name);
+            db.Attach(savedResultsQuality);
+            approach.ApproachUsabilitiy.ResultsQualitiy = savedResultsQuality;
+            db.SaveChanges();
+        }
+    }
+    
+    public void UpdateToolSupport(int approachId, ToolSupport toolSupport)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            if (approach.ApproachUsabilitiy.ToolSupport.Name == toolSupport.Name)
+                return;
+
+            var savedToolSupport = _usabilityService.GetToolSupport(toolSupport.Name);
+            db.Attach(savedToolSupport);
+            approach.ApproachUsabilitiy.ToolSupport = savedToolSupport;
+            db.SaveChanges();
+        }
+    }
+    
+    public void UpdateAccuracyPrecision(int approachId, AccuracyPrecision accuracyPrecision)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            if (approach.ApproachUsabilitiy.AccuracyPrecision.Name == accuracyPrecision.Name)
+                return;
+
+            var savedAccuracyPrecision = _usabilityService.GetAccuracyPrecision(accuracyPrecision.Name);
+            db.Attach(savedAccuracyPrecision);
+            approach.ApproachUsabilitiy.AccuracyPrecision = savedAccuracyPrecision;
+            db.SaveChanges();
+        }
+    }
+    
+    public void UpdateValidationMethod(int approachId, ValidationMethod validationMethod)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            if (approach.ApproachUsabilitiy.ValidationMethod.Name == validationMethod.Name)
+                return;
+
+            var savedValidationMethod = _usabilityService.GetValidationMethod(validationMethod.Name);
+            db.Attach(savedValidationMethod);
+            approach.ApproachUsabilitiy.ValidationMethod = savedValidationMethod;
+            db.SaveChanges();
+        }
+    }
 }

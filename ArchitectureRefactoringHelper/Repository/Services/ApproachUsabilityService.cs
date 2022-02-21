@@ -56,33 +56,64 @@ public class ApproachUsabilityService
     {
         using (var db = new RefactoringApproachContext())
         {
-            var approachUsability = db.ApproachUsabilities
-                .Where(e => e.ApproachUsabilityId == usabilityId)
-                .IncludeAllApproachUsabilityData()
-                .FirstOrDefault();
-            if (approachUsability == null)
-            {
-                throw new ElementNotFoundException($"Usability definition with ID '{usabilityId}' does not exist");
-            }
-
-            return approachUsability;
+            return db.ApproachUsabilities
+                       .Where(e => e.ApproachUsabilityId == usabilityId)
+                       .IncludeAllApproachUsabilityData()
+                       .FirstOrDefault() ??
+                   throw new ElementNotFoundException($"Usability definition with ID '{usabilityId}' does not exist");
         }
     }
-    
+
+    public ResultsQuality GetResultsQuality(string resultsQualityName)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            return db.ResultsQualities.Find(resultsQualityName) ??
+                   throw new ElementNotFoundException(
+                       $"Results quality with name '{resultsQualityName}' does not exist.");
+        }
+    }
+
+    public ToolSupport GetToolSupport(string toolSupportName)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            return db.ToolSupports.Find(toolSupportName) ??
+                   throw new ElementNotFoundException(
+                       $"Tool support with name '{toolSupportName}' does not exist.");
+        }
+    }
+
+    public AccuracyPrecision GetAccuracyPrecision(string accuracyPrecisionName)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            return db.AccuracyPrecisions.Find(accuracyPrecisionName) ??
+                   throw new ElementNotFoundException(
+                       $"Accuracy precision with name '{accuracyPrecisionName}' does not exist.");
+        }
+    }
+
+    public ValidationMethod GetValidationMethod(string validationMethodName)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            return db.ValidationMethods.Find(validationMethodName) ??
+                   throw new ElementNotFoundException(
+                       $"Validation method with name '{validationMethodName}' does not exist.");
+        }
+    }
+
     public ApproachUsability AddApproachUsability(ApproachUsability usability)
     {
         using (var db = new RefactoringApproachContext())
         {
             var preparedUsability = new ApproachUsability
             {
-                ResultsQualitiy = db.ResultsQualities.Find(usability.ResultsQualitiy.Name) ??
-                                  throw new InvalidOperationException(),
-                ToolSupport = db.ToolSupports.Find(usability.ToolSupport.Name) ??
-                              throw new InvalidOperationException(),
-                AccuracyPrecision = db.AccuracyPrecisions.Find(usability.AccuracyPrecision.Name) ??
-                                    throw new InvalidOperationException(),
-                ValidationMethod = db.ValidationMethods.Find(usability.ValidationMethod.Name) ??
-                                   throw new InvalidOperationException()
+                ResultsQualitiy = GetResultsQuality(usability.ResultsQualitiy.Name),
+                ToolSupport = GetToolSupport(usability.ToolSupport.Name),
+                AccuracyPrecision = GetAccuracyPrecision(usability.AccuracyPrecision.Name),
+                ValidationMethod = GetValidationMethod(usability.ValidationMethod.Name)
             };
 
             var savedUsability = db.ApproachUsabilities.Add(preparedUsability);

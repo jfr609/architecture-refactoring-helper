@@ -9,7 +9,21 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { AccuracyPrecision } from '../models/accuracy-precision';
+import { AnalysisType } from '../models/analysis-type';
+import { ApproachOutput } from '../models/approach-output';
+import { AutomationLevel } from '../models/automation-level';
+import { Direction } from '../models/direction';
+import { DomainArtifactInput } from '../models/domain-artifact-input';
+import { ExecutableInput } from '../models/executable-input';
+import { ModelArtifactInput } from '../models/model-artifact-input';
+import { Quality } from '../models/quality';
 import { RefactoringApproach } from '../models/refactoring-approach';
+import { ResultsQuality } from '../models/results-quality';
+import { RuntimeArtifactInput } from '../models/runtime-artifact-input';
+import { Technique } from '../models/technique';
+import { ToolSupport } from '../models/tool-support';
+import { ValidationMethod } from '../models/validation-method';
 
 @Injectable({
   providedIn: 'root',
@@ -190,63 +204,6 @@ export class RefactoringApproachService extends BaseService {
   }
 
   /**
-   * Path part for operation updateRefactoringApproach
-   */
-  static readonly UpdateRefactoringApproachPath = '/api/v1/approaches/{id}';
-
-  /**
-   * Updated an existing RefactoringApproach.
-   *
-   *
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `updateRefactoringApproach()` instead.
-   *
-   * This method sends `application/*+json` and handles request body of type `application/*+json`.
-   */
-  updateRefactoringApproach$Response(params: {
-    id: number;
-    body?: RefactoringApproach
-  }): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.UpdateRefactoringApproachPath, 'put');
-    if (params) {
-      rb.path('id', params.id, {});
-      rb.body(params.body, 'application/*+json');
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
-  }
-
-  /**
-   * Updated an existing RefactoringApproach.
-   *
-   *
-   *
-   * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `updateRefactoringApproach$Response()` instead.
-   *
-   * This method sends `application/*+json` and handles request body of type `application/*+json`.
-   */
-  updateRefactoringApproach(params: {
-    id: number;
-    body?: RefactoringApproach
-  }): Observable<void> {
-
-    return this.updateRefactoringApproach$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
-    );
-  }
-
-  /**
    * Path part for operation deleteRefactoringApproach
    */
   static readonly DeleteRefactoringApproachPath = '/api/v1/approaches/{id}';
@@ -296,6 +253,1185 @@ export class RefactoringApproachService extends BaseService {
   }): Observable<void> {
 
     return this.deleteRefactoringApproach$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation addDomainArtifactAsInput
+   */
+  static readonly AddDomainArtifactAsInputPath = '/api/v1/approaches/{id}/inputs/domain-artifacts';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addDomainArtifactAsInput()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addDomainArtifactAsInput$Response(params: {
+    id: number;
+    body?: DomainArtifactInput
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.AddDomainArtifactAsInputPath, 'post');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `addDomainArtifactAsInput$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addDomainArtifactAsInput(params: {
+    id: number;
+    body?: DomainArtifactInput
+  }): Observable<void> {
+
+    return this.addDomainArtifactAsInput$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation removeDomainArtifactFromInputs
+   */
+  static readonly RemoveDomainArtifactFromInputsPath = '/api/v1/approaches/{id}/inputs/domain-artifacts/{inputName}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `removeDomainArtifactFromInputs()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeDomainArtifactFromInputs$Response(params: {
+    id: number;
+    inputName: string;
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.RemoveDomainArtifactFromInputsPath, 'delete');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.path('inputName', params.inputName, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `removeDomainArtifactFromInputs$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeDomainArtifactFromInputs(params: {
+    id: number;
+    inputName: string;
+  }): Observable<void> {
+
+    return this.removeDomainArtifactFromInputs$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation addRuntimeArtifactAsInput
+   */
+  static readonly AddRuntimeArtifactAsInputPath = '/api/v1/approaches/{id}/inputs/runtime-artifacts';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addRuntimeArtifactAsInput()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addRuntimeArtifactAsInput$Response(params: {
+    id: number;
+    body?: RuntimeArtifactInput
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.AddRuntimeArtifactAsInputPath, 'post');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `addRuntimeArtifactAsInput$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addRuntimeArtifactAsInput(params: {
+    id: number;
+    body?: RuntimeArtifactInput
+  }): Observable<void> {
+
+    return this.addRuntimeArtifactAsInput$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation removeRuntimeArtifactFromInputs
+   */
+  static readonly RemoveRuntimeArtifactFromInputsPath = '/api/v1/approaches/{id}/inputs/runtime-artifacts/{inputName}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `removeRuntimeArtifactFromInputs()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeRuntimeArtifactFromInputs$Response(params: {
+    id: number;
+    inputName: string;
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.RemoveRuntimeArtifactFromInputsPath, 'delete');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.path('inputName', params.inputName, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `removeRuntimeArtifactFromInputs$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeRuntimeArtifactFromInputs(params: {
+    id: number;
+    inputName: string;
+  }): Observable<void> {
+
+    return this.removeRuntimeArtifactFromInputs$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation addModelArtifactAsInput
+   */
+  static readonly AddModelArtifactAsInputPath = '/api/v1/approaches/{id}/inputs/model-artifacts';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addModelArtifactAsInput()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addModelArtifactAsInput$Response(params: {
+    id: number;
+    body?: ModelArtifactInput
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.AddModelArtifactAsInputPath, 'post');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `addModelArtifactAsInput$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addModelArtifactAsInput(params: {
+    id: number;
+    body?: ModelArtifactInput
+  }): Observable<void> {
+
+    return this.addModelArtifactAsInput$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation removeModelArtifactFromInputs
+   */
+  static readonly RemoveModelArtifactFromInputsPath = '/api/v1/approaches/{id}/inputs/model-artifacts/{inputName}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `removeModelArtifactFromInputs()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeModelArtifactFromInputs$Response(params: {
+    id: number;
+    inputName: string;
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.RemoveModelArtifactFromInputsPath, 'delete');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.path('inputName', params.inputName, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `removeModelArtifactFromInputs$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeModelArtifactFromInputs(params: {
+    id: number;
+    inputName: string;
+  }): Observable<void> {
+
+    return this.removeModelArtifactFromInputs$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation addExecutableAsInput
+   */
+  static readonly AddExecutableAsInputPath = '/api/v1/approaches/{id}/inputs/executables';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addExecutableAsInput()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addExecutableAsInput$Response(params: {
+    id: number;
+    body?: ExecutableInput
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.AddExecutableAsInputPath, 'post');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `addExecutableAsInput$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addExecutableAsInput(params: {
+    id: number;
+    body?: ExecutableInput
+  }): Observable<void> {
+
+    return this.addExecutableAsInput$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation removeExecutableFromInputs
+   */
+  static readonly RemoveExecutableFromInputsPath = '/api/v1/approaches/{id}/inputs/executables/{inputName}/{language}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `removeExecutableFromInputs()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeExecutableFromInputs$Response(params: {
+    id: number;
+    inputName: string;
+    language: string;
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.RemoveExecutableFromInputsPath, 'delete');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.path('inputName', params.inputName, {});
+      rb.path('language', params.language, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `removeExecutableFromInputs$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeExecutableFromInputs(params: {
+    id: number;
+    inputName: string;
+    language: string;
+  }): Observable<void> {
+
+    return this.removeExecutableFromInputs$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation addQualityToProcess
+   */
+  static readonly AddQualityToProcessPath = '/api/v1/approaches/{id}/processes/qualities';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addQualityToProcess()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addQualityToProcess$Response(params: {
+    id: number;
+    body?: Quality
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.AddQualityToProcessPath, 'post');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `addQualityToProcess$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addQualityToProcess(params: {
+    id: number;
+    body?: Quality
+  }): Observable<void> {
+
+    return this.addQualityToProcess$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation removeQualityFromProcess
+   */
+  static readonly RemoveQualityFromProcessPath = '/api/v1/approaches/{id}/processes/qualities/{qualityName}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `removeQualityFromProcess()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeQualityFromProcess$Response(params: {
+    id: number;
+    qualityName: string;
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.RemoveQualityFromProcessPath, 'delete');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.path('qualityName', params.qualityName, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `removeQualityFromProcess$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeQualityFromProcess(params: {
+    id: number;
+    qualityName: string;
+  }): Observable<void> {
+
+    return this.removeQualityFromProcess$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation addDirectionToProcess
+   */
+  static readonly AddDirectionToProcessPath = '/api/v1/approaches/{id}/processes/directions';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addDirectionToProcess()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addDirectionToProcess$Response(params: {
+    id: number;
+    body?: Direction
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.AddDirectionToProcessPath, 'post');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `addDirectionToProcess$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addDirectionToProcess(params: {
+    id: number;
+    body?: Direction
+  }): Observable<void> {
+
+    return this.addDirectionToProcess$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation removeDirectionFromProcess
+   */
+  static readonly RemoveDirectionFromProcessPath = '/api/v1/approaches/{id}/processes/directions/{directionName}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `removeDirectionFromProcess()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeDirectionFromProcess$Response(params: {
+    id: number;
+    directionName: string;
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.RemoveDirectionFromProcessPath, 'delete');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.path('directionName', params.directionName, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `removeDirectionFromProcess$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeDirectionFromProcess(params: {
+    id: number;
+    directionName: string;
+  }): Observable<void> {
+
+    return this.removeDirectionFromProcess$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation addAutomationLevelToProcess
+   */
+  static readonly AddAutomationLevelToProcessPath = '/api/v1/approaches/{id}/processes/automation-levels';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addAutomationLevelToProcess()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addAutomationLevelToProcess$Response(params: {
+    id: number;
+    body?: AutomationLevel
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.AddAutomationLevelToProcessPath, 'post');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `addAutomationLevelToProcess$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addAutomationLevelToProcess(params: {
+    id: number;
+    body?: AutomationLevel
+  }): Observable<void> {
+
+    return this.addAutomationLevelToProcess$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation removeAutomationLevelFromProcess
+   */
+  static readonly RemoveAutomationLevelFromProcessPath = '/api/v1/approaches/{id}/processes/automation-levels/{automationLevelName}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `removeAutomationLevelFromProcess()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeAutomationLevelFromProcess$Response(params: {
+    id: number;
+    automationLevelName: string;
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.RemoveAutomationLevelFromProcessPath, 'delete');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.path('automationLevelName', params.automationLevelName, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `removeAutomationLevelFromProcess$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeAutomationLevelFromProcess(params: {
+    id: number;
+    automationLevelName: string;
+  }): Observable<void> {
+
+    return this.removeAutomationLevelFromProcess$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation addAnalysisTypeToProcess
+   */
+  static readonly AddAnalysisTypeToProcessPath = '/api/v1/approaches/{id}/processes/analysis-types';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addAnalysisTypeToProcess()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addAnalysisTypeToProcess$Response(params: {
+    id: number;
+    body?: AnalysisType
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.AddAnalysisTypeToProcessPath, 'post');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `addAnalysisTypeToProcess$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addAnalysisTypeToProcess(params: {
+    id: number;
+    body?: AnalysisType
+  }): Observable<void> {
+
+    return this.addAnalysisTypeToProcess$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation removeAnalysisTypeFromProcess
+   */
+  static readonly RemoveAnalysisTypeFromProcessPath = '/api/v1/approaches/{id}/processes/analysis-types/{analysisTypeName}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `removeAnalysisTypeFromProcess()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeAnalysisTypeFromProcess$Response(params: {
+    id: number;
+    analysisTypeName: string;
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.RemoveAnalysisTypeFromProcessPath, 'delete');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.path('analysisTypeName', params.analysisTypeName, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `removeAnalysisTypeFromProcess$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeAnalysisTypeFromProcess(params: {
+    id: number;
+    analysisTypeName: string;
+  }): Observable<void> {
+
+    return this.removeAnalysisTypeFromProcess$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation addTechniqueToProcess
+   */
+  static readonly AddTechniqueToProcessPath = '/api/v1/approaches/{id}/processes/techniques';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addTechniqueToProcess()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addTechniqueToProcess$Response(params: {
+    id: number;
+    body?: Technique
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.AddTechniqueToProcessPath, 'post');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `addTechniqueToProcess$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addTechniqueToProcess(params: {
+    id: number;
+    body?: Technique
+  }): Observable<void> {
+
+    return this.addTechniqueToProcess$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation removeTechniqueFromProcess
+   */
+  static readonly RemoveTechniqueFromProcessPath = '/api/v1/approaches/{id}/processes/techniques/{techniqueName}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `removeTechniqueFromProcess()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeTechniqueFromProcess$Response(params: {
+    id: number;
+    techniqueName: string;
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.RemoveTechniqueFromProcessPath, 'delete');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.path('techniqueName', params.techniqueName, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `removeTechniqueFromProcess$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeTechniqueFromProcess(params: {
+    id: number;
+    techniqueName: string;
+  }): Observable<void> {
+
+    return this.removeTechniqueFromProcess$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation addOutput
+   */
+  static readonly AddOutputPath = '/api/v1/approaches/{id}/outputs';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addOutput()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addOutput$Response(params: {
+    id: number;
+    body?: ApproachOutput
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.AddOutputPath, 'post');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `addOutput$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addOutput(params: {
+    id: number;
+    body?: ApproachOutput
+  }): Observable<void> {
+
+    return this.addOutput$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation removeOutput
+   */
+  static readonly RemoveOutputPath = '/api/v1/approaches/{id}/outputs/{outputId}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `removeOutput()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeOutput$Response(params: {
+    id: number;
+    outputId: number;
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.RemoveOutputPath, 'delete');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.path('outputId', params.outputId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `removeOutput$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeOutput(params: {
+    id: number;
+    outputId: number;
+  }): Observable<void> {
+
+    return this.removeOutput$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation updateResultsQuality
+   */
+  static readonly UpdateResultsQualityPath = '/api/v1/approaches/{id}/usabilities/result-qualities';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `updateResultsQuality()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  updateResultsQuality$Response(params: {
+    id: number;
+    body?: ResultsQuality
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.UpdateResultsQualityPath, 'post');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `updateResultsQuality$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  updateResultsQuality(params: {
+    id: number;
+    body?: ResultsQuality
+  }): Observable<void> {
+
+    return this.updateResultsQuality$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation updateToolSupport
+   */
+  static readonly UpdateToolSupportPath = '/api/v1/approaches/{id}/usabilities/tool-supports';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `updateToolSupport()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  updateToolSupport$Response(params: {
+    id: number;
+    body?: ToolSupport
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.UpdateToolSupportPath, 'post');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `updateToolSupport$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  updateToolSupport(params: {
+    id: number;
+    body?: ToolSupport
+  }): Observable<void> {
+
+    return this.updateToolSupport$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation updateAccuracyPrecision
+   */
+  static readonly UpdateAccuracyPrecisionPath = '/api/v1/approaches/{id}/usabilities/accuracy-precisions';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `updateAccuracyPrecision()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  updateAccuracyPrecision$Response(params: {
+    id: number;
+    body?: AccuracyPrecision
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.UpdateAccuracyPrecisionPath, 'post');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `updateAccuracyPrecision$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  updateAccuracyPrecision(params: {
+    id: number;
+    body?: AccuracyPrecision
+  }): Observable<void> {
+
+    return this.updateAccuracyPrecision$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation updateValidationMethod
+   */
+  static readonly UpdateValidationMethodPath = '/api/v1/approaches/{id}/usabilities/validation-methods';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `updateValidationMethod()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  updateValidationMethod$Response(params: {
+    id: number;
+    body?: ValidationMethod
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.UpdateValidationMethodPath, 'post');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `updateValidationMethod$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  updateValidationMethod(params: {
+    id: number;
+    body?: ValidationMethod
+  }): Observable<void> {
+
+    return this.updateValidationMethod$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }

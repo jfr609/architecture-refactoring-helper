@@ -269,6 +269,8 @@ public class RefactoringApproachController : ControllerBase
         Name = "UpdateResultsQuality")]
     public IActionResult UpdateResultsQuality(int id, [FromBody] ResultsQuality resultsQuality)
     {
+        _refactoringApproachService.UpdateResultsQuality(id, resultsQuality);
+        
         return Ok();
     }
 
@@ -276,6 +278,8 @@ public class RefactoringApproachController : ControllerBase
         Name = "UpdateToolSupport")]
     public IActionResult UpdateToolSupport(int id, [FromBody] ToolSupport toolSupport)
     {
+        _refactoringApproachService.UpdateToolSupport(id, toolSupport);
+        
         return Ok();
     }
 
@@ -283,6 +287,8 @@ public class RefactoringApproachController : ControllerBase
         Name = "UpdateAccuracyPrecision")]
     public IActionResult UpdateAccuracyPrecision(int id, [FromBody] AccuracyPrecision accuracyPrecision)
     {
+        _refactoringApproachService.UpdateAccuracyPrecision(id, accuracyPrecision);
+        
         return Ok();
     }
 
@@ -290,6 +296,8 @@ public class RefactoringApproachController : ControllerBase
         Name = "UpdateValidationMethod")]
     public IActionResult UpdateValidationMethod(int id, [FromBody] ValidationMethod validationMethod)
     {
+        _refactoringApproachService.UpdateValidationMethod(id, validationMethod);
+        
         return Ok();
     }
 }
