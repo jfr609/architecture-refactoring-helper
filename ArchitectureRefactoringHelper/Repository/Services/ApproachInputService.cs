@@ -42,7 +42,7 @@ public class ApproachInputService
         using (var db = new RefactoringApproachContext())
         {
             return db.DomainArtifactInputs.Find(inputName) ??
-                   throw new ElementNotFoundExceptions($"Domain artifact with name {inputName} does not exist");
+                   throw new ElementNotFoundException($"Domain artifact with name {inputName} does not exist");
         }
     }
 
@@ -51,7 +51,7 @@ public class ApproachInputService
         using (var db = new RefactoringApproachContext())
         {
             return db.RuntimeArtifactInputs.Find(inputName) ??
-                   throw new ElementNotFoundExceptions($"Runtime artifact with name {inputName} does not exist");
+                   throw new ElementNotFoundException($"Runtime artifact with name {inputName} does not exist");
         }
     }
 
@@ -60,7 +60,7 @@ public class ApproachInputService
         using (var db = new RefactoringApproachContext())
         {
             return db.ModelArtifactInputs.Find(inputName) ??
-                   throw new ElementNotFoundExceptions($"Model artifact with name {inputName} does not exist");
+                   throw new ElementNotFoundException($"Model artifact with name {inputName} does not exist");
         }
     }
 
@@ -69,7 +69,7 @@ public class ApproachInputService
         using (var db = new RefactoringApproachContext())
         {
             return db.ExecutableInputs.Find(inputName, language) ??
-                   throw new ElementNotFoundExceptions($"Executable with name {inputName} and language {language} does not exist");
+                   throw new ElementNotFoundException($"Executable with name {inputName} and language {language} does not exist");
         }
     }
 

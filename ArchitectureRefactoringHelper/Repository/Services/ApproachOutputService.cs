@@ -42,7 +42,7 @@ public class ApproachOutputService
                 .FirstOrDefault();
             if (output == null)
             {
-                throw new ElementNotFoundExceptions($"Approach output with ID '{outputId}' does not exist.");
+                throw new ElementNotFoundException($"Approach output with ID '{outputId}' does not exist.");
             }
 
             return output;

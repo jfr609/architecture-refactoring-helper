@@ -57,7 +57,7 @@ public class RefactoringApproachService
                 .FirstOrDefault();
             if (refactoringApproach == null)
             {
-                throw new ElementNotFoundExceptions(
+                throw new ElementNotFoundException(
                     $"Refactoring approach with ID '{refactoringApproachId}' does not exist.");
             }
 
@@ -176,6 +176,190 @@ public class RefactoringApproachService
             var savedSource = db.ApproachSources.FirstOrDefault(e => e.Title.Equals(source.Title));
 
             return savedSource != null;
+        }
+    }
+
+    public void AddDomainArtifactAsInput(int approachId, DomainArtifactInput domainArtifact)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            approach.DomainArtifactInputs ??= new List<DomainArtifactInput>();
+            if (approach.DomainArtifactInputs.Any(e => e.Name == domainArtifact.Name))
+            {
+                throw new DuplicateElementException(
+                    $"Domain artifact input with name '{domainArtifact.Name}' is already an input of the given refactoring approach(ID: {approachId}).");
+            }
+
+            var input = _inputService.GetDomainArtifactInput(domainArtifact.Name);
+            db.Attach(input);
+
+            approach.DomainArtifactInputs.Add(input);
+            db.SaveChanges();
+        }
+    }
+
+    public void RemoveDomainArtifactFromInputs(int approachId, string inputName)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            if (approach.DomainArtifactInputs == null)
+            {
+                return;
+            }
+
+            var input = approach.DomainArtifactInputs.FirstOrDefault(e => e.Name == inputName);
+            if (input == null)
+            {
+                throw new ElementNotFoundException(
+                    $"Domain artifact input with name '{inputName}' is not an input of the given refactoring approach(ID: {approachId}).");
+            }
+
+            approach.DomainArtifactInputs.Remove(input);
+            db.SaveChanges();
+        }
+    }
+
+    public void AddRuntimeArtifactAsInput(int approachId, RuntimeArtifactInput runtimeArtifact)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            approach.RuntimeArtifactInputs ??= new List<RuntimeArtifactInput>();
+            if (approach.RuntimeArtifactInputs.Any(e => e.Name == runtimeArtifact.Name))
+            {
+                throw new DuplicateElementException(
+                    $"Runtime artifact input with name '{runtimeArtifact.Name}' is already an input of the given refactoring approach(ID: {approachId}).");
+            }
+
+            var input = _inputService.GetRuntimeArtifactInput(runtimeArtifact.Name);
+            db.Attach(input);
+
+            approach.RuntimeArtifactInputs.Add(input);
+            db.SaveChanges();
+        }
+    }
+
+    public void RemoveRuntimeArtifactFromInputs(int approachId, string inputName)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            if (approach.RuntimeArtifactInputs == null)
+            {
+                return;
+            }
+
+            var input = approach.RuntimeArtifactInputs.FirstOrDefault(e => e.Name == inputName);
+            if (input == null)
+            {
+                throw new ElementNotFoundException(
+                    $"Runtime artifact input with name '{inputName}' is not an input of the given refactoring approach(ID: {approachId}).");
+            }
+
+            approach.RuntimeArtifactInputs.Remove(input);
+            db.SaveChanges();
+        }
+    }
+
+    public void AddModelArtifactAsInput(int approachId, ModelArtifactInput modelArtifact)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            approach.ModelArtifactInputs ??= new List<ModelArtifactInput>();
+            if (approach.ModelArtifactInputs.Any(e => e.Name == modelArtifact.Name))
+            {
+                throw new DuplicateElementException(
+                    $"Model artifact input with name '{modelArtifact.Name}' is already an input of the given refactoring approach(ID: {approachId}).");
+            }
+
+            var input = _inputService.GetModelArtifactInput(modelArtifact.Name);
+            db.Attach(input);
+
+            approach.ModelArtifactInputs.Add(input);
+            db.SaveChanges();
+        }
+    }
+
+    public void RemoveModelArtifactFromInputs(int approachId, string inputName)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            if (approach.ModelArtifactInputs == null)
+            {
+                return;
+            }
+
+            var input = approach.ModelArtifactInputs.FirstOrDefault(e => e.Name == inputName);
+            if (input == null)
+            {
+                throw new ElementNotFoundException(
+                    $"Model artifact input with name '{inputName}' is not an input of the given refactoring approach(ID: {approachId}).");
+            }
+
+            approach.ModelArtifactInputs.Remove(input);
+            db.SaveChanges();
+        }
+    }
+
+    public void AddExecutableAsInput(int approachId, ExecutableInput executable)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            approach.ExecutableInputs ??= new List<ExecutableInput>();
+            if (approach.ExecutableInputs.Any(e => e.Name == executable.Name && e.Language == executable.Language))
+            {
+                throw new DuplicateElementException(
+                    $"Executable input with name '{executable.Name}' and language '{executable.Language}' is already an input of the given refactoring approach(ID: {approachId}).");
+            }
+
+            var input = _inputService.GetExecutableInput(executable.Name, executable.Language);
+            db.Attach(input);
+
+            approach.ExecutableInputs.Add(input);
+            db.SaveChanges();
+        }
+    }
+
+    public void RemoveExecutableFromInputs(int approachId, string inputName, string language)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            if (approach.ExecutableInputs == null)
+            {
+                return;
+            }
+
+            var input = approach.ExecutableInputs.FirstOrDefault(e => e.Name == inputName && e.Language == language);
+            if (input == null)
+            {
+                throw new ElementNotFoundException(
+                    $"Domain artifact input with name '{inputName}' and language '{language}' is not an input of the given refactoring approach(ID: {approachId}).");
+            }
+
+            approach.ExecutableInputs.Remove(input);
+            db.SaveChanges();
         }
     }
 }

@@ -66,7 +66,7 @@ public class ApproachProcessService
                 .FirstOrDefault();
             if (process == null)
             {
-                throw new ElementNotFoundExceptions($"Approach process with ID '{processId}' does not exist");
+                throw new ElementNotFoundException($"Approach process with ID '{processId}' does not exist");
             }
 
             return process;

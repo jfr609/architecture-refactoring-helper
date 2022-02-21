@@ -62,7 +62,7 @@ public class ApproachUsabilityService
                 .FirstOrDefault();
             if (approachUsability == null)
             {
-                throw new ElementNotFoundExceptions($"Usability definition with ID '{usabilityId}' does not exist");
+                throw new ElementNotFoundException($"Usability definition with ID '{usabilityId}' does not exist");
             }
 
             return approachUsability;

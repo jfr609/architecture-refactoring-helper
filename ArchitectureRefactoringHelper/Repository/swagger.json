@@ -1430,50 +1430,6 @@
           }
         }
       },
-      "put": {
-        "tags": [
-          "RefactoringApproach"
-        ],
-        "summary": "Updated an existing RefactoringApproach (Not yet implemented)",
-        "operationId": "UpdateRefactoringApproach",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RefactoringApproach"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RefactoringApproach"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/RefactoringApproach"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      },
       "delete": {
         "tags": [
           "RefactoringApproach"
