@@ -154,6 +154,8 @@ public class RefactoringApproachController : ControllerBase
         Name = "AddQualityToProcess")]
     public IActionResult AddQualityToProcess(int id, [FromBody] Quality quality)
     {
+        _refactoringApproachService.AddQualityToProcess(id, quality);
+        
         return Ok();
     }
 
@@ -162,6 +164,8 @@ public class RefactoringApproachController : ControllerBase
         Name = "RemoveQualityFromProcess")]
     public IActionResult RemoveQualityFromProcess(int id, string qualityName)
     {
+        _refactoringApproachService.RemoveQualityFromProcess(id, qualityName);
+        
         return Ok();
     }
 
@@ -169,6 +173,8 @@ public class RefactoringApproachController : ControllerBase
         Name = "AddDirectionToProcess")]
     public IActionResult AddDirectionToProcess(int id, [FromBody] Direction direction)
     {
+        _refactoringApproachService.AddDirectionToProcess(id, direction);
+        
         return Ok();
     }
 
@@ -177,6 +183,8 @@ public class RefactoringApproachController : ControllerBase
         Name = "RemoveDirectionFromProcess")]
     public IActionResult RemoveDirectionFromProcess(int id, string directionName)
     {
+        _refactoringApproachService.RemoveDirectionFromProcess(id, directionName);
+        
         return Ok();
     }
 
@@ -184,6 +192,8 @@ public class RefactoringApproachController : ControllerBase
         Name = "AddAutomationLevelToProcess")]
     public IActionResult AddAutomationLevelToProcess(int id, [FromBody] AutomationLevel automationLevel)
     {
+        _refactoringApproachService.AddAutomationLevelToProcess(id, automationLevel);
+        
         return Ok();
     }
 
@@ -193,6 +203,8 @@ public class RefactoringApproachController : ControllerBase
         Name = "RemoveAutomationLevelFromProcess")]
     public IActionResult RemoveAutomationLevelFromProcess(int id, string automationLevelName)
     {
+        _refactoringApproachService.RemoveAutomationLevelFromProcess(id, automationLevelName);
+        
         return Ok();
     }
 
@@ -200,6 +212,8 @@ public class RefactoringApproachController : ControllerBase
         Name = "AddAnalysisTypeToProcess")]
     public IActionResult AddAnalysisTypeToProcess(int id, [FromBody] AnalysisType analysisType)
     {
+        _refactoringApproachService.AddAnalysisTypeToProcess(id, analysisType);
+        
         return Ok();
     }
 
@@ -209,6 +223,8 @@ public class RefactoringApproachController : ControllerBase
         Name = "RemoveAnalysisTypeFromProcess")]
     public IActionResult RemoveAnalysisTypeFromProcess(int id, string analysisTypeName)
     {
+        _refactoringApproachService.RemoveAnalysisTypeFromProcess(id, analysisTypeName);
+        
         return Ok();
     }
 
@@ -216,6 +232,8 @@ public class RefactoringApproachController : ControllerBase
         Name = "AddTechniqueToProcess")]
     public IActionResult AddTechniqueToProcess(int id, [FromBody] Technique technique)
     {
+        _refactoringApproachService.AddTechniqueToProcess(id, technique);
+        
         return Ok();
     }
 
@@ -224,6 +242,8 @@ public class RefactoringApproachController : ControllerBase
         Name = "RemoveTechniqueFromProcess")]
     public IActionResult RemoveTechniqueFromProcess(int id, string techniqueName)
     {
+        _refactoringApproachService.RemoveTechniqueFromProcess(id, techniqueName);
+        
         return Ok();
     }
 

@@ -68,14 +68,8 @@ public class ApproachUsabilityService
             return approachUsability;
         }
     }
-
-    public ApproachUsability AddApproachUsabilityIfNotExists(ApproachUsability usability)
-    {
-        var savedUsability = FindDuplicateApproachUsability(usability);
-        return savedUsability ?? AddApproachUsability(usability);
-    }
-
-    private ApproachUsability AddApproachUsability(ApproachUsability usability)
+    
+    public ApproachUsability AddApproachUsability(ApproachUsability usability)
     {
         using (var db = new RefactoringApproachContext())
         {
@@ -184,20 +178,4 @@ public class ApproachUsabilityService
             db.SaveChanges();
         }
     }
-
-    private ApproachUsability? FindDuplicateApproachUsability(ApproachUsability usability)
-    {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.ApproachUsabilities
-                .Where(e => e.ResultsQualitiy.Equals(usability.ResultsQualitiy))
-                .Where(e => e.ToolSupport.Equals(usability.ToolSupport))
-                .Where(e => e.AccuracyPrecision.Equals(usability.AccuracyPrecision))
-                .Where(e => e.ValidationMethod.Equals(usability.ValidationMethod))
-                .IncludeAllApproachUsabilityData()
-                .FirstOrDefault();
-        }
-    }
-    
-
 }

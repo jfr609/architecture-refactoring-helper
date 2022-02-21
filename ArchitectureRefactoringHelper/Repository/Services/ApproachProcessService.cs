@@ -60,26 +60,62 @@ public class ApproachProcessService
     {
         using (var db = new RefactoringApproachContext())
         {
-            var process = db.ApproachProcesses
-                .Where(e => e.ApproachProcessId == processId)
-                .IncludeAllApproachProcessData()
-                .FirstOrDefault();
-            if (process == null)
-            {
-                throw new ElementNotFoundException($"Approach process with ID '{processId}' does not exist");
-            }
-
-            return process;
+            return db.ApproachProcesses
+                       .Where(e => e.ApproachProcessId == processId)
+                       .IncludeAllApproachProcessData()
+                       .FirstOrDefault() ??
+                   throw new ElementNotFoundException($"Approach process with ID '{processId}' does not exist.");
         }
     }
 
-    public ApproachProcess AddApproachProcessIfNotExists(ApproachProcess process)
+    public Quality GetProcessQuality(string qualityName)
     {
-        var savedProcess = FindDuplicateApproachProcess(process);
-        return savedProcess ?? AddApproachProcess(process);
+        using (var db = new RefactoringApproachContext())
+        {
+            return db.Qualities.Find(qualityName) ??
+                   throw new ElementNotFoundException($"Process quality with name '{qualityName}' does not exist.");
+        }
     }
 
-    private ApproachProcess AddApproachProcess(ApproachProcess process)
+    public Direction GetProcessDirection(string directionName)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            return db.Directions.Find(directionName) ??
+                   throw new ElementNotFoundException($"Process direction with name '{directionName}' does not exist.");
+        }
+    }
+
+    public AutomationLevel GetProcessAutomationLevel(string automationLevelName)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            return db.AutomationLevels.Find(automationLevelName) ??
+                   throw new ElementNotFoundException(
+                       $"Process automation level with name '{automationLevelName}' does not exist.");
+        }
+    }
+
+    public AnalysisType GetProcessAnalysisType(string analysisTypeName)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            return db.AnalysisTypes.Find(analysisTypeName) ??
+                   throw new ElementNotFoundException(
+                       $"Process analysis type with name '{analysisTypeName}' does not exist.");
+        }
+    }
+
+    public Technique GetProcessTechnique(string techniqueName)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            return db.Techniques.Find(techniqueName) ??
+                   throw new ElementNotFoundException($"Process technique with name '{techniqueName}' does not exist.");
+        }
+    }
+
+    public ApproachProcess AddApproachProcess(ApproachProcess process)
     {
         var preparedProcess = new ApproachProcess
         {
@@ -295,23 +331,6 @@ public class ApproachProcessService
                 return;
             db.Techniques.Remove(technique);
             db.SaveChanges();
-        }
-    }
-
-    private ApproachProcess? FindDuplicateApproachProcess(ApproachProcess process)
-    {
-        using (var db = new RefactoringApproachContext())
-        {
-            var savedProcess = db.ApproachProcesses
-                .IncludeAllApproachProcessData()
-                .AsEnumerable()
-                .Where(e => e.Qualities.EntityKeysEquals(process.Qualities, k => k.Name))
-                .Where(e => e.Directions.EntityKeysEquals(process.Directions, k => k.Name))
-                .Where(e => e.AutomationLevels.EntityKeysEquals(process.AutomationLevels, k => k.Name))
-                .Where(e => e.AnalysisTypes.EntityKeysEquals(process.AnalysisTypes, k => k.Name))
-                .FirstOrDefault(e => e.Techniques.EntityKeysEquals(process.Techniques, k => k.Name));
-
-            return savedProcess;
         }
     }
 }

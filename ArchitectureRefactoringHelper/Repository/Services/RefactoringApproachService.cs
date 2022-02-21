@@ -125,7 +125,7 @@ public class RefactoringApproachService
             preparedRefactoringApproach.ExecutableInputs = savedExecutableInputs;
 
             preparedRefactoringApproach.ApproachProcess =
-                _processService.AddApproachProcessIfNotExists(refactoringApproach.ApproachProcess);
+                _processService.AddApproachProcess(refactoringApproach.ApproachProcess);
             db.ApproachProcesses.Attach(preparedRefactoringApproach.ApproachProcess);
 
             var savedOutputs = new List<ApproachOutput>();
@@ -139,21 +139,12 @@ public class RefactoringApproachService
             preparedRefactoringApproach.ApproachOutputs = savedOutputs;
 
             preparedRefactoringApproach.ApproachUsabilitiy =
-                _usabilityService.AddApproachUsabilityIfNotExists(refactoringApproach.ApproachUsabilitiy);
+                _usabilityService.AddApproachUsability(refactoringApproach.ApproachUsabilitiy);
             db.ApproachUsabilities.Attach(preparedRefactoringApproach.ApproachUsabilitiy);
 
             var newRefactoringApproach = db.RefactoringApproaches.Update(preparedRefactoringApproach).Entity;
             db.SaveChanges();
             return newRefactoringApproach;
-        }
-    }
-
-    public void UpdateRefactoringApproach(int refactoringApproachId, RefactoringApproach refactoringApproach)
-    {
-        using (var db = new RefactoringApproachContext())
-        {
-            db.RefactoringApproaches.Update(refactoringApproach);
-            db.SaveChanges();
         }
     }
 
@@ -209,9 +200,7 @@ public class RefactoringApproachService
             db.Attach(approach);
 
             if (approach.DomainArtifactInputs == null)
-            {
                 return;
-            }
 
             var input = approach.DomainArtifactInputs.FirstOrDefault(e => e.Name == inputName);
             if (input == null)
@@ -255,9 +244,7 @@ public class RefactoringApproachService
             db.Attach(approach);
 
             if (approach.RuntimeArtifactInputs == null)
-            {
                 return;
-            }
 
             var input = approach.RuntimeArtifactInputs.FirstOrDefault(e => e.Name == inputName);
             if (input == null)
@@ -301,9 +288,7 @@ public class RefactoringApproachService
             db.Attach(approach);
 
             if (approach.ModelArtifactInputs == null)
-            {
                 return;
-            }
 
             var input = approach.ModelArtifactInputs.FirstOrDefault(e => e.Name == inputName);
             if (input == null)
@@ -347,9 +332,7 @@ public class RefactoringApproachService
             db.Attach(approach);
 
             if (approach.ExecutableInputs == null)
-            {
                 return;
-            }
 
             var input = approach.ExecutableInputs.FirstOrDefault(e => e.Name == inputName && e.Language == language);
             if (input == null)
@@ -359,6 +342,227 @@ public class RefactoringApproachService
             }
 
             approach.ExecutableInputs.Remove(input);
+            db.SaveChanges();
+        }
+    }
+
+    public void AddQualityToProcess(int approachId, Quality quality)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            approach.ApproachProcess.Qualities ??= new List<Quality>();
+            if (approach.ApproachProcess.Qualities.Any(e => e.Name == quality.Name))
+            {
+                throw new DuplicateElementException(
+                    $"Quality with name '{quality.Name}' is already a process attribute of the given refactoring approach(ID: {approachId}).");
+            }
+
+            var savedQuality = _processService.GetProcessQuality(quality.Name);
+            db.Attach(savedQuality);
+
+            approach.ApproachProcess.Qualities.Add(savedQuality);
+            db.SaveChanges();
+        }
+    }
+
+    public void RemoveQualityFromProcess(int approachId, string qualityName)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            if (approach.ApproachProcess.Qualities == null)
+                return;
+
+            var quality = approach.ApproachProcess.Qualities.FirstOrDefault(e => e.Name == qualityName);
+            if (quality == null)
+            {
+                throw new ElementNotFoundException(
+                    $"Quality with name '{qualityName}' is not a process attribute of the given refactoring approach(ID: {approachId}).");
+            }
+
+            approach.ApproachProcess.Qualities.Remove(quality);
+            db.SaveChanges();
+        }
+    }
+
+    public void AddDirectionToProcess(int approachId, Direction direction)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            approach.ApproachProcess.Directions ??= new List<Direction>();
+            if (approach.ApproachProcess.Directions.Any(e => e.Name == direction.Name))
+            {
+                throw new DuplicateElementException(
+                    $"Direction with name '{direction.Name}' is already a process attribute of the given refactoring approach(ID: {approachId}).");
+            }
+
+            var savedDirection = _processService.GetProcessDirection(direction.Name);
+            db.Attach(savedDirection);
+
+            approach.ApproachProcess.Directions.Add(savedDirection);
+            db.SaveChanges();
+        }
+    }
+
+    public void RemoveDirectionFromProcess(int approachId, string directionName)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            if (approach.ApproachProcess.Directions == null)
+                return;
+
+            var direction = approach.ApproachProcess.Directions.FirstOrDefault(e => e.Name == directionName);
+            if (direction == null)
+            {
+                throw new ElementNotFoundException(
+                    $"Direction with name '{directionName}' is not a process attribute of the given refactoring approach(ID: {approachId}).");
+            }
+
+            approach.ApproachProcess.Directions.Remove(direction);
+            db.SaveChanges();
+        }
+    }
+
+    public void AddAutomationLevelToProcess(int approachId, AutomationLevel automationLevel)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            approach.ApproachProcess.AutomationLevels ??= new List<AutomationLevel>();
+            if (approach.ApproachProcess.AutomationLevels.Any(e => e.Name == automationLevel.Name))
+            {
+                throw new DuplicateElementException(
+                    $"Automation level with name '{automationLevel.Name}' is already a process attribute of the given refactoring approach(ID: {approachId}).");
+            }
+
+            var savedAutomationLevel = _processService.GetProcessAutomationLevel(automationLevel.Name);
+            db.Attach(savedAutomationLevel);
+
+            approach.ApproachProcess.AutomationLevels.Add(savedAutomationLevel);
+            db.SaveChanges();
+        }
+    }
+
+    public void RemoveAutomationLevelFromProcess(int approachId, string automationLevelName)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            if (approach.ApproachProcess.AutomationLevels == null)
+                return;
+
+            var automationLevel =
+                approach.ApproachProcess.AutomationLevels.FirstOrDefault(e => e.Name == automationLevelName);
+            if (automationLevel == null)
+            {
+                throw new ElementNotFoundException(
+                    $"Automation level with name '{automationLevelName}' is not a process attribute of the given refactoring approach(ID: {approachId}).");
+            }
+
+            approach.ApproachProcess.AutomationLevels.Remove(automationLevel);
+            db.SaveChanges();
+        }
+    }
+
+    public void AddAnalysisTypeToProcess(int approachId, AnalysisType analysisType)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            approach.ApproachProcess.AnalysisTypes ??= new List<AnalysisType>();
+            if (approach.ApproachProcess.AnalysisTypes.Any(e => e.Name == analysisType.Name))
+            {
+                throw new DuplicateElementException(
+                    $"Analysis type with name '{analysisType.Name}' is already a process attribute of the given refactoring approach(ID: {approachId}).");
+            }
+
+            var savedAnalysisType = _processService.GetProcessAnalysisType(analysisType.Name);
+            db.Attach(savedAnalysisType);
+
+            approach.ApproachProcess.AnalysisTypes.Add(savedAnalysisType);
+            db.SaveChanges();
+        }
+    }
+
+    public void RemoveAnalysisTypeFromProcess(int approachId, string analysisTypeName)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            if (approach.ApproachProcess.AnalysisTypes == null)
+                return;
+
+            var analysisType = approach.ApproachProcess.AnalysisTypes.FirstOrDefault(e => e.Name == analysisTypeName);
+            if (analysisType == null)
+            {
+                throw new ElementNotFoundException(
+                    $"Analysis type with name '{analysisTypeName}' is not a process attribute of the given refactoring approach(ID: {approachId}).");
+            }
+
+            approach.ApproachProcess.AnalysisTypes.Remove(analysisType);
+            db.SaveChanges();
+        }
+    }
+
+    public void AddTechniqueToProcess(int approachId, Technique technique)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            approach.ApproachProcess.Techniques ??= new List<Technique>();
+            if (approach.ApproachProcess.Techniques.Any(e => e.Name == technique.Name))
+            {
+                throw new DuplicateElementException(
+                    $"Technique with name '{technique.Name}' is already a process attribute of the given refactoring approach(ID: {approachId}).");
+            }
+
+            var savedTechnique = _processService.GetProcessTechnique(technique.Name);
+            db.Attach(savedTechnique);
+
+            approach.ApproachProcess.Techniques.Add(savedTechnique);
+            db.SaveChanges();
+        }
+    }
+
+    public void RemoveTechniqueFromProcess(int approachId, string techniqueName)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            var approach = GetRefactoringApproach(approachId);
+            db.Attach(approach);
+
+            if (approach.ApproachProcess.Techniques == null)
+                return;
+
+            var technique = approach.ApproachProcess.Techniques.FirstOrDefault(e => e.Name == techniqueName);
+            if (technique == null)
+            {
+                throw new ElementNotFoundException(
+                    $"Technique with name '{techniqueName}' is not a process attribute of the given refactoring approach(ID: {approachId}).");
+            }
+
+            approach.ApproachProcess.Techniques.Remove(technique);
             db.SaveChanges();
         }
     }
