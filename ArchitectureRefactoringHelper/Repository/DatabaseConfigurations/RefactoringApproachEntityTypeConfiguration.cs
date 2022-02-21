@@ -18,7 +18,7 @@ public class RefactoringApproachEntityTypeConfiguration : IEntityTypeConfigurati
                 {
                     ApproachSourceId = 1,
                     Title = "Functionality-oriented Microservice Extraction Based on Execution Trace Clustering",
-                    Link = "",
+                    Link = "https://ieeexplore.ieee.org/abstract/document/8456351",
                     Year = 2018,
                     Authors = "W. Jin, T. Liu, Q. Zheng, D. Cui and Y. Cai" 
                 },
@@ -45,12 +45,12 @@ public class RefactoringApproachEntityTypeConfiguration : IEntityTypeConfigurati
                     new()
                     {
                         Name = "Source code",
-                        Language = "NA"
+                        Language = "No specification"
                     },
                     new()
                     {
                         Name = "Test cases",
-                        Language = "NA"
+                        Language = "No specification"
                     }
                 },
                 ApproachProcess = new ApproachProcess
@@ -113,7 +113,7 @@ public class RefactoringApproachEntityTypeConfiguration : IEntityTypeConfigurati
                         },
                         ServiceType = new ServiceType
                         {
-                            Name = "NA"
+                            Name = "No specification"
                         }
                     }
                 },
@@ -122,7 +122,7 @@ public class RefactoringApproachEntityTypeConfiguration : IEntityTypeConfigurati
                     ApproachUsabilityId = 1,
                     AccuracyPrecision = new AccuracyPrecision
                     {
-                        Name = "NA"
+                        Name = "Not available"
                     },
                     ResultsQualitiy = new ResultsQuality
                     {

@@ -43,7 +43,7 @@ public class ServiceTypeEntityTypeConfiguration : IEntityTypeConfiguration<Servi
             },
             new ServiceType
             {
-                Name = "NA",
+                Name = "No specification",
                 Description = ""
             });
     }

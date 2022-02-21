@@ -15,19 +15,19 @@ public class ExecutableInputInputEntityTypeConfiguration : IEntityTypeConfigurat
             new ExecutableInput
             {
                 Name = "Source code",
-                Language = "NA",
+                Language = "No specification",
                 Description = ""
             },
             new ExecutableInput
             {
                 Name = "Database file",
-                Language = "NA",
+                Language = "No specification",
                 Description = ""
             },
             new ExecutableInput
             {
                 Name = "Test cases",
-                Language = "NA",
+                Language = "No specification",
                 Description = ""
             });
     }

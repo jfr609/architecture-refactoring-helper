@@ -28,7 +28,7 @@ public class AccuracyPrecisionEntityTypeConfiguration : IEntityTypeConfiguration
             },
             new AccuracyPrecision
             {
-                Name = "NA",
+                Name = "Not available",
                 Description = ""
             });
     }

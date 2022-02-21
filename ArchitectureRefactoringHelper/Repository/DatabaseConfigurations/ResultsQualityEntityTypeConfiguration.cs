@@ -28,7 +28,7 @@ public class ResultsQualityEntityTypeConfiguration : IEntityTypeConfiguration<Re
             },
             new ResultsQuality
             {
-                Name = "NA",
+                Name = "Not available",
                 Description = ""
             });
     }
