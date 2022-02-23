@@ -35,10 +35,10 @@ public class ApproachOutputController : ControllerBase
     }
     
     [HttpPost(Constants.API_SUBPATH_ARCHITECTURES, Name = "AddArchitecture")]
-    public IActionResult AddArchitecture([FromBody] Architecture architecture)
+    public ActionResult<Architecture> AddArchitecture([FromBody] Architecture architecture)
     {
-        _outputService.AddArchitecture(architecture);
-        return Ok();
+        var savedArchitecture = _outputService.AddArchitecture(architecture);
+        return Ok(savedArchitecture);
     }
     
     [HttpDelete(Constants.API_SUBPATH_ARCHITECTURES + "/{name}", Name = "DeleteArchitecture")]
@@ -55,10 +55,10 @@ public class ApproachOutputController : ControllerBase
     }
     
     [HttpPost(Constants.API_SUBPATH_SERVICETYPES, Name = "AddServiceType")]
-    public IActionResult AddServiceType([FromBody] ServiceType serviceType)
+    public ActionResult<ServiceType> AddServiceType([FromBody] ServiceType serviceType)
     {
-        _outputService.AddServiceType(serviceType);
-        return Ok();
+        var savedServiceType = _outputService.AddServiceType(serviceType);
+        return Ok(savedServiceType);
     }
     
     [HttpDelete(Constants.API_SUBPATH_SERVICETYPES + "/{name}", Name = "DeleteServiceType")]

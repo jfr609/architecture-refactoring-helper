@@ -17,7 +17,11 @@ public class RefactoringApproach
     public ICollection<RuntimeArtifactInput>? RuntimeArtifactInputs { get; set; }
     public ICollection<ModelArtifactInput>? ModelArtifactInputs { get; set; }
     public ICollection<ExecutableInput>? ExecutableInputs { get; set; }
+    [JsonIgnore]
+    public int ApproachProcessId { get; set; }
     public ApproachProcess ApproachProcess { get; set; }
     public ICollection<ApproachOutput>? ApproachOutputs { get; set; }
+    [JsonIgnore]
+    public int ApproachUsabilityId { get; set; }
     public ApproachUsability ApproachUsabilitiy { get; set; }
 }

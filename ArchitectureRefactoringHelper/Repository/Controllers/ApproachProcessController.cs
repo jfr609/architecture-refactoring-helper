@@ -34,14 +34,7 @@ public class ApproachProcessController : ControllerBase
         _processService.AddApproachProcess(process);
         return Ok();
     }
-    
-    [HttpPut("{id:int}", Name = "UpdateApproachProcess")]
-    public IActionResult UpdateApproachProcess(int id, [FromBody] ApproachProcess process)
-    {
-        _processService.UpdateApproachProcess(id, process);
-        return Ok();
-    }
-    
+        
     [HttpDelete("{id:int}", Name = "DeleteApproachProcess")]
     public IActionResult DeleteApproachProcess(int id)
     {

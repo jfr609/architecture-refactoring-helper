@@ -35,138 +35,151 @@ public class ApproachOutputService
 
     public ApproachOutput GetApproachOutput(int outputId)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.ApproachOutputs
-                       .Where(e => e.ApproachOutputId == outputId)
-                       .IncludeAllApproachOutputData()
-                       .FirstOrDefault() ??
-                   throw new ElementNotFoundException($"Approach output with ID '{outputId}' does not exist.");
-        }
+        var db = new RefactoringApproachContext();
+        return GetApproachOutput(outputId, ref db);
+    }
+
+    public ApproachOutput GetApproachOutput(int outputId, ref RefactoringApproachContext db)
+    {
+        return db.ApproachOutputs
+                   .Where(e => e.ApproachOutputId == outputId)
+                   .IncludeAllApproachOutputData()
+                   .FirstOrDefault() ??
+               throw new ElementNotFoundException($"Approach output with ID '{outputId}' does not exist.");
     }
 
     public Architecture GetOutputArchitecture(string architectureName)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.Architectures.Find(architectureName) ??
-                   throw new ElementNotFoundException(
-                       $"Output architecture with name '{architectureName}' does not exist.");
-        }
+        var db = new RefactoringApproachContext();
+        return GetOutputArchitecture(architectureName, ref db);
+    }
+
+
+    public Architecture GetOutputArchitecture(string architectureName, ref RefactoringApproachContext db)
+    {
+        return db.Architectures.Find(architectureName) ??
+               throw new ElementNotFoundException(
+                   $"Output architecture with name '{architectureName}' does not exist.");
     }
 
     public ServiceType GetOutputServiceType(string serviceTypeName)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.ServiceTypes.Find(serviceTypeName) ??
-                   throw new ElementNotFoundException(
-                       $"Output service type with name '{serviceTypeName}' does not exist.");
-        }
+        var db = new RefactoringApproachContext();
+        return GetOutputServiceType(serviceTypeName, ref db);
+    }
+
+    public ServiceType GetOutputServiceType(string serviceTypeName, ref RefactoringApproachContext db)
+    {
+        return db.ServiceTypes.Find(serviceTypeName) ??
+               throw new ElementNotFoundException(
+                   $"Output service type with name '{serviceTypeName}' does not exist.");
     }
 
     public ApproachOutput AddApproachOutputIfNotExists(ApproachOutput output)
     {
-        var savedOutput = FindDuplicateApproachOutput(output);
-        return savedOutput ?? AddApproachOutput(output);
+        var db = new RefactoringApproachContext();
+        return AddApproachOutputIfNotExists(output, ref db);
     }
 
-    private ApproachOutput AddApproachOutput(ApproachOutput output)
+    public ApproachOutput AddApproachOutputIfNotExists(ApproachOutput output, ref RefactoringApproachContext db)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            var preparedOutput = new ApproachOutput
-            {
-                Architecture = GetOutputArchitecture(output.Architecture.Name),
-                ServiceType = GetOutputServiceType(output.ServiceType.Name)
-            };
-
-            var savedOutput = db.ApproachOutputs.Add(preparedOutput);
-            db.SaveChanges();
-            return savedOutput.Entity;
-        }
+        var savedOutput = FindDuplicateApproachOutput(output, ref db);
+        return savedOutput ?? AddApproachOutput(output, ref db);
     }
 
-    public void AddApproachOutputsIfNotExist(ICollection<ApproachOutput>? outputs)
+    private ApproachOutput AddApproachOutput(ApproachOutput output, ref RefactoringApproachContext db)
     {
-        if (outputs == null || outputs.Any())
-            return;
-
-        using (var db = new RefactoringApproachContext())
+        var preparedOutput = new ApproachOutput
         {
-            foreach (var output in outputs)
-            {
-                if (db.ApproachOutputs.Any(e =>
-                        e.Architecture.Equals(output.Architecture) && e.ServiceType.Equals(output.ServiceType)))
-                {
-                    break;
-                }
+            Architecture = GetOutputArchitecture(output.Architecture.Name),
+            ServiceType = GetOutputServiceType(output.ServiceType.Name)
+        };
 
-                var preparedOutput = new ApproachOutput
-                {
-                    Architecture = db.Architectures.Find(output.Architecture.Name) ??
-                                   throw new InvalidOperationException(),
-                    ServiceType = db.ServiceTypes.Find(output.ServiceType.Name) ??
-                                  throw new InvalidOperationException()
-                };
-                db.ApproachOutputs.Add(preparedOutput);
+        return Utils.AddEntity(preparedOutput, ref db);
+    }
+
+    public ICollection<ApproachOutput> AddApproachOutputsIfNotExist(ICollection<ApproachOutput>? outputs)
+    {
+        var db = new RefactoringApproachContext();
+        return AddApproachOutputsIfNotExist(outputs, ref db);
+    }
+
+    public ICollection<ApproachOutput> AddApproachOutputsIfNotExist(ICollection<ApproachOutput>? outputs,
+        ref RefactoringApproachContext db)
+    {
+        if (outputs == null || !outputs.Any())
+            return new List<ApproachOutput>();
+
+        var distinctOutputs = outputs.Distinct().ToList();
+
+        var savedOutputs = new List<ApproachOutput>();
+        foreach (var output in distinctOutputs)
+        {
+            var duplicateOutput = FindDuplicateApproachOutput(output, ref db);
+            if (duplicateOutput != null)
+            {
+                savedOutputs.Add(duplicateOutput);
+                break;
             }
 
-            db.SaveChanges();
+            var newOutput = new ApproachOutput
+            {
+                Architecture = GetOutputArchitecture(output.Architecture.Name, ref db),
+                ServiceType = GetOutputServiceType(output.ServiceType.Name, ref db)
+            };
+            savedOutputs.Add(db.ApproachOutputs.Add(newOutput).Entity);
         }
+
+        db.SaveChanges();
+        return savedOutputs;
     }
 
-    public void AddArchitecture(Architecture architecture)
+    public Architecture AddArchitecture(Architecture architecture)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            db.Architectures.Add(architecture);
-            db.SaveChanges();
-        }
+        var db = new RefactoringApproachContext();
+        return AddArchitecture(architecture, ref db);
     }
 
-    public void AddServiceType(ServiceType serviceType)
+    public Architecture AddArchitecture(Architecture architecture, ref RefactoringApproachContext db)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            db.ServiceTypes.Add(serviceType);
-            db.SaveChanges();
-        }
+        return Utils.AddEntity(architecture, ref db);
+    }
+
+    public ServiceType AddServiceType(ServiceType serviceType)
+    {
+        var db = new RefactoringApproachContext();
+        return AddServiceType(serviceType, ref db);
+    }
+
+    public ServiceType AddServiceType(ServiceType serviceType, ref RefactoringApproachContext db)
+    {
+        return Utils.AddEntity(serviceType, ref db);
     }
 
     public void DeleteArchitecture(string name)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            var architecture = db.Architectures.Find(name);
-            if (architecture == null)
-                return;
-            db.Architectures.Remove(architecture);
-            db.SaveChanges();
-        }
+        var db = new RefactoringApproachContext();
+        var deleteSuccess = Utils.DeleteEntity<Architecture>(ref db, name);
+        if (deleteSuccess)
+            throw new ElementNotFoundException(
+                $"Output architecture with name {name} could not be deleted because entity does not exist");
     }
 
     public void DeleteServiceType(string name)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            var serviceType = db.ServiceTypes.Find(name);
-            if (serviceType == null)
-                return;
-            db.ServiceTypes.Remove(serviceType);
-            db.SaveChanges();
-        }
+        var db = new RefactoringApproachContext();
+        var deleteSuccess = Utils.DeleteEntity<ServiceType>(ref db, name);
+        if (deleteSuccess)
+            throw new ElementNotFoundException(
+                $"Output service type with name {name} could not be deleted because entity does not exist");
     }
 
-    private ApproachOutput? FindDuplicateApproachOutput(ApproachOutput output)
+    private ApproachOutput? FindDuplicateApproachOutput(ApproachOutput output, ref RefactoringApproachContext db)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.ApproachOutputs
-                .Where(e => e.Architecture.Equals(output.Architecture))
-                .Where(e => e.ServiceType.Equals(output.ServiceType))
-                .IncludeAllApproachOutputData()
-                .FirstOrDefault();
-        }
+        return db.ApproachOutputs
+            .Where(e => e.Architecture.Name == output.Architecture.Name)
+            .Where(e => e.ServiceType.Name == output.ServiceType.Name)
+            .IncludeAllApproachOutputData()
+            .FirstOrDefault();
     }
 }

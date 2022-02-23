@@ -411,7 +411,7 @@ namespace Repository.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     ApproachSourceId = table.Column<int>(type: "INTEGER", nullable: false),
                     ApproachProcessId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ApproachUsabilitiyApproachUsabilityId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ApproachUsabilityId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -429,8 +429,8 @@ namespace Repository.Migrations
                         principalColumn: "ApproachSourceId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Approaches_Approach.Usability_ApproachUsabilitiyApproachUsabilityId",
-                        column: x => x.ApproachUsabilitiyApproachUsabilityId,
+                        name: "FK_Approaches_Approach.Usability_ApproachUsabilityId",
+                        column: x => x.ApproachUsabilityId,
                         principalTable: "Approach.Usability",
                         principalColumn: "ApproachUsabilityId",
                         onDelete: ReferentialAction.Cascade);
@@ -905,7 +905,8 @@ namespace Repository.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Approaches_ApproachProcessId",
                 table: "Approaches",
-                column: "ApproachProcessId");
+                column: "ApproachProcessId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Approaches_ApproachSourceId",
@@ -914,9 +915,10 @@ namespace Repository.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Approaches_ApproachUsabilitiyApproachUsabilityId",
+                name: "IX_Approaches_ApproachUsabilityId",
                 table: "Approaches",
-                column: "ApproachUsabilitiyApproachUsabilityId");
+                column: "ApproachUsabilityId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_JoinTable.Approach.Input.DomainArtifact_RefactoringApproachesRefactoringApproachId",

@@ -1,5 +1,6 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Repository.Models;
 
 namespace Repository;
@@ -49,6 +50,43 @@ public static class Utils
         }
 
         return counter.Values.All(count => count == 0);
+    }
+
+    public static T AddEntity<T>(T entity, ref RefactoringApproachContext db) where T : class
+    {
+        var savedEntity = db.Set<T>().Add(entity);
+        db.SaveChanges();
+        return savedEntity.Entity;
+    }
+
+    public static ICollection<T> AddEntitiesIfNotExist<T>(ICollection<T>? entities, Func<T, object?[]?> keyFunction, ref RefactoringApproachContext db)
+        where T : class
+    {
+        if (entities == null || !entities.Any())
+            return new List<T>();
+
+        var distinctEntities = entities.Distinct().ToList();
+        var savedEntities = new List<T>();
+        foreach (var entity in distinctEntities)
+        {
+            var duplicateEntity = db.Set<T>().Find(keyFunction(entity));
+            savedEntities.Add(duplicateEntity ?? db.Set<T>().Add(entity).Entity);
+        }
+
+        db.SaveChanges();
+        return savedEntities;
+    }
+
+    public static bool DeleteEntity<T>(ref RefactoringApproachContext db, params object?[]? keyValues) where T : class
+    {
+        var entity = db.Set<T>().Find(keyValues);
+        if (entity == null)
+            return false;
+
+        db.Set<T>().Remove(entity);
+        db.SaveChanges();
+
+        return true;
     }
 
     public static IQueryable<ApproachProcess> IncludeAllApproachProcessData(this IQueryable<ApproachProcess> source)

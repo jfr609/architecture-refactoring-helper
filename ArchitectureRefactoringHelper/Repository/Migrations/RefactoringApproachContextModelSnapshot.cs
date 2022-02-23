@@ -609,17 +609,19 @@ namespace Repository.Migrations
                     b.Property<int>("ApproachSourceId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ApproachUsabilitiyApproachUsabilityId")
+                    b.Property<int>("ApproachUsabilityId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("RefactoringApproachId");
 
-                    b.HasIndex("ApproachProcessId");
+                    b.HasIndex("ApproachProcessId")
+                        .IsUnique();
 
                     b.HasIndex("ApproachSourceId")
                         .IsUnique();
 
-                    b.HasIndex("ApproachUsabilitiyApproachUsabilityId");
+                    b.HasIndex("ApproachUsabilityId")
+                        .IsUnique();
 
                     b.ToTable("Approaches");
                 });
@@ -1054,8 +1056,8 @@ namespace Repository.Migrations
             modelBuilder.Entity("Repository.Models.RefactoringApproach", b =>
                 {
                     b.HasOne("Repository.Models.ApproachProcess", "ApproachProcess")
-                        .WithMany("RefactoringApproaches")
-                        .HasForeignKey("ApproachProcessId")
+                        .WithOne("RefactoringApproach")
+                        .HasForeignKey("Repository.Models.RefactoringApproach", "ApproachProcessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1066,8 +1068,8 @@ namespace Repository.Migrations
                         .IsRequired();
 
                     b.HasOne("Repository.Models.ApproachUsability", "ApproachUsabilitiy")
-                        .WithMany("RefactoringApproaches")
-                        .HasForeignKey("ApproachUsabilitiyApproachUsabilityId")
+                        .WithOne("RefactoringApproach")
+                        .HasForeignKey("Repository.Models.RefactoringApproach", "ApproachUsabilityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1085,7 +1087,7 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Repository.Models.ApproachProcess", b =>
                 {
-                    b.Navigation("RefactoringApproaches");
+                    b.Navigation("RefactoringApproach");
                 });
 
             modelBuilder.Entity("Repository.Models.ApproachSource", b =>
@@ -1095,7 +1097,7 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Repository.Models.ApproachUsability", b =>
                 {
-                    b.Navigation("RefactoringApproaches");
+                    b.Navigation("RefactoringApproach");
                 });
 
             modelBuilder.Entity("Repository.Models.Architecture", b =>

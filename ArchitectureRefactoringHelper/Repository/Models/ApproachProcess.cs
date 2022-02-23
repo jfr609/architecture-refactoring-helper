@@ -10,7 +10,7 @@ public class ApproachProcess
     [Key]
     public int ApproachProcessId { get; set; }
     [JsonIgnore]
-    public ICollection<RefactoringApproach>? RefactoringApproaches { get; set; }
+    public RefactoringApproach? RefactoringApproach { get; set; }
     
     public ICollection<Quality>? Qualities { get; set; }
     public ICollection<Direction>? Directions { get; set; }

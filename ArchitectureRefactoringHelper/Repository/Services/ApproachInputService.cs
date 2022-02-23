@@ -39,121 +39,154 @@ public class ApproachInputService
 
     public DomainArtifactInput GetDomainArtifactInput(string inputName)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.DomainArtifactInputs.Find(inputName) ??
-                   throw new ElementNotFoundException($"Domain artifact with name {inputName} does not exist");
-        }
+        var db = new RefactoringApproachContext();
+        return GetDomainArtifactInput(inputName, ref db);
+    }
+
+    public DomainArtifactInput GetDomainArtifactInput(string inputName, ref RefactoringApproachContext db)
+    {
+        return db.DomainArtifactInputs.Find(inputName) ??
+               throw new ElementNotFoundException($"Domain artifact with name {inputName} does not exist");
     }
 
     public RuntimeArtifactInput GetRuntimeArtifactInput(string inputName)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.RuntimeArtifactInputs.Find(inputName) ??
-                   throw new ElementNotFoundException($"Runtime artifact with name {inputName} does not exist");
-        }
+        var db = new RefactoringApproachContext();
+        return GetRuntimeArtifactInput(inputName, ref db);
+    }
+
+    public RuntimeArtifactInput GetRuntimeArtifactInput(string inputName, ref RefactoringApproachContext db)
+    {
+        return db.RuntimeArtifactInputs.Find(inputName) ??
+               throw new ElementNotFoundException($"Runtime artifact with name {inputName} does not exist");
     }
 
     public ModelArtifactInput GetModelArtifactInput(string inputName)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.ModelArtifactInputs.Find(inputName) ??
-                   throw new ElementNotFoundException($"Model artifact with name {inputName} does not exist");
-        }
+        var db = new RefactoringApproachContext();
+        return GetModelArtifactInput(inputName, ref db);
+    }
+
+    public ModelArtifactInput GetModelArtifactInput(string inputName, ref RefactoringApproachContext db)
+    {
+        return db.ModelArtifactInputs.Find(inputName) ??
+               throw new ElementNotFoundException($"Model artifact with name {inputName} does not exist");
     }
 
     public ExecutableInput GetExecutableInput(string inputName, string language)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.ExecutableInputs.Find(inputName, language) ??
-                   throw new ElementNotFoundException($"Executable with name {inputName} and language {language} does not exist");
-        }
+        var db = new RefactoringApproachContext();
+        return GetExecutableInput(inputName, language, ref db);
     }
 
-    public void AddDomainArtifactInput(DomainArtifactInput input)
+    public ExecutableInput GetExecutableInput(string inputName, string language, ref RefactoringApproachContext db)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            db.DomainArtifactInputs.Add(input);
-            db.SaveChanges();
-        }
+        return db.ExecutableInputs.Find(inputName, language) ??
+               throw new ElementNotFoundException(
+                   $"Executable with name {inputName} and language {language} does not exist");
     }
 
-    public void AddRuntimeArtifactInput(RuntimeArtifactInput input)
+    public DomainArtifactInput AddDomainArtifactInput(DomainArtifactInput input)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            db.RuntimeArtifactInputs.Add(input);
-            db.SaveChanges();
-        }
+        var db = new RefactoringApproachContext();
+        return AddDomainArtifactInput(input, ref db);
     }
 
-    public void AddModelArtifactInput(ModelArtifactInput input)
+    public DomainArtifactInput AddDomainArtifactInput(DomainArtifactInput input, ref RefactoringApproachContext db)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            db.ModelArtifactInputs.Add(input);
-            db.SaveChanges();
-        }
+        return Utils.AddEntity(input, ref db);
+    }
+    
+    public ICollection<DomainArtifactInput> AddDomainArtifactsIfNotExist(ICollection<DomainArtifactInput>? inputs,
+        ref RefactoringApproachContext db)
+    {
+        return Utils.AddEntitiesIfNotExist(inputs, e => new object[]{e.Name}, ref db);
     }
 
-    public void AddExecutableInput(ExecutableInput input)
+    public RuntimeArtifactInput AddRuntimeArtifactInput(RuntimeArtifactInput input)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            db.ExecutableInputs.Add(input);
-            db.SaveChanges();
-        }
+        var db = new RefactoringApproachContext();
+        return AddRuntimeArtifactInput(input, ref db);
+    }
+
+    public RuntimeArtifactInput AddRuntimeArtifactInput(RuntimeArtifactInput input, ref RefactoringApproachContext db)
+    {
+        return Utils.AddEntity(input, ref db);
+    }
+
+    public ICollection<RuntimeArtifactInput> AddRuntimeArtifactsIfNotExist(ICollection<RuntimeArtifactInput>? inputs,
+        ref RefactoringApproachContext db)
+    {
+        return Utils.AddEntitiesIfNotExist(inputs, e => new object[]{e.Name}, ref db);
+    }
+    
+    public ModelArtifactInput AddModelArtifactInput(ModelArtifactInput input)
+    {
+        var db = new RefactoringApproachContext();
+        return AddModelArtifactInput(input, ref db);
+    }
+
+    public ModelArtifactInput AddModelArtifactInput(ModelArtifactInput input, ref RefactoringApproachContext db)
+    {
+        return Utils.AddEntity(input, ref db);
+    }
+
+    public ICollection<ModelArtifactInput> AddModelArtifactsIfNotExist(ICollection<ModelArtifactInput>? inputs,
+        ref RefactoringApproachContext db)
+    {
+        return Utils.AddEntitiesIfNotExist(inputs, e => new object[]{e.Name}, ref db);
+    }
+    
+    public ExecutableInput AddExecutableInput(ExecutableInput input)
+    {
+        var db = new RefactoringApproachContext();
+        return AddExecutableInput(input, ref db);
+    }
+
+    public ExecutableInput AddExecutableInput(ExecutableInput input, ref RefactoringApproachContext db)
+    {
+        return Utils.AddEntity(input, ref db);
+    }
+    
+    public ICollection<ExecutableInput> AddExecutablesIfNotExist(ICollection<ExecutableInput>? inputs,
+        ref RefactoringApproachContext db)
+    {
+        return Utils.AddEntitiesIfNotExist(inputs, e => new object[]{e.Name, e.Language}, ref db);
     }
 
     public void DeleteDomainArtifactInput(string inputName)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            var input = db.DomainArtifactInputs.Find(inputName);
-            if (input == null)
-                return;
-            db.DomainArtifactInputs.Remove(input);
-            db.SaveChanges();
-        }
+        var db = new RefactoringApproachContext();
+        var deleteSuccess = Utils.DeleteEntity<DomainArtifactInput>(ref db, inputName);
+        if (deleteSuccess)
+            throw new ElementNotFoundException(
+                $"Domain artifact with name {inputName} could not be deleted because entity does not exist");
     }
 
     public void DeleteRuntimeArtifactInput(string inputName)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            var input = db.RuntimeArtifactInputs.Find(inputName);
-            if (input == null)
-                return;
-            db.RuntimeArtifactInputs.Remove(input);
-            db.SaveChanges();
-        }
+        var db = new RefactoringApproachContext();
+        var deleteSuccess = Utils.DeleteEntity<RuntimeArtifactInput>(ref db, inputName);
+        if (deleteSuccess)
+            throw new ElementNotFoundException(
+                $"Runtime artifact with name {inputName} could not be deleted because entity does not exist");
     }
 
     public void DeleteModelArtifactInput(string inputName)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            var input = db.ModelArtifactInputs.Find(inputName);
-            if (input == null)
-                return;
-            db.ModelArtifactInputs.Remove(input);
-            db.SaveChanges();
-        }
+        var db = new RefactoringApproachContext();
+        var deleteSuccess = Utils.DeleteEntity<ModelArtifactInput>(ref db, inputName);
+        if (deleteSuccess)
+            throw new ElementNotFoundException(
+                $"Model artifact with name {inputName} could not be deleted because entity does not exist");
     }
 
-    public void DeleteExecutableInput(string inputName, string executableLanguage)
+    public void DeleteExecutableInput(string inputName, string language)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            var input = db.ExecutableInputs.Find(inputName, executableLanguage);
-            if (input == null)
-                return;
-            db.ExecutableInputs.Remove(input);
-            db.SaveChanges();
-        }
+        var db = new RefactoringApproachContext();
+        var deleteSuccess = Utils.DeleteEntity<ExecutableInput>(ref db, inputName, language);
+        if (deleteSuccess)
+            throw new ElementNotFoundException(
+                $"Executable with name {inputName} and language {language} could not be deleted because entity does not exist");
     }
 }

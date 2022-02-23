@@ -10,7 +10,7 @@ public class ApproachUsability
     [Key]
     public int ApproachUsabilityId { get; set; }
     [JsonIgnore]
-    public ICollection<RefactoringApproach>? RefactoringApproaches { get; set; }
+    public RefactoringApproach? RefactoringApproach { get; set; }
     
     public ResultsQuality ResultsQualitiy { get; set; }
     public ToolSupport ToolSupport { get; set; }

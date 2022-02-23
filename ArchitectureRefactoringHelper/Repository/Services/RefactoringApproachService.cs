@@ -78,74 +78,23 @@ public class RefactoringApproachService
 
     private RefactoringApproach AddRefactoringApproach(RefactoringApproach refactoringApproach)
     {
-        var preparedRefactoringApproach = new RefactoringApproach
+        var db = new RefactoringApproachContext();
+        
+        var newApproach = new RefactoringApproach
         {
-            ApproachSource = refactoringApproach.ApproachSource
+            ApproachSource = refactoringApproach.ApproachSource,
+            DomainArtifactInputs = _inputService.AddDomainArtifactsIfNotExist(refactoringApproach.DomainArtifactInputs, ref db),
+            RuntimeArtifactInputs = _inputService.AddRuntimeArtifactsIfNotExist(refactoringApproach.RuntimeArtifactInputs, ref db),
+            ModelArtifactInputs = _inputService.AddModelArtifactsIfNotExist(refactoringApproach.ModelArtifactInputs, ref db),
+            ExecutableInputs = _inputService.AddExecutablesIfNotExist(refactoringApproach.ExecutableInputs, ref db),
+            ApproachProcess = _processService.AddApproachProcess(refactoringApproach.ApproachProcess, ref db),
+            ApproachOutputs = _outputService.AddApproachOutputsIfNotExist(refactoringApproach.ApproachOutputs, ref db),
+            ApproachUsabilitiy = _usabilityService.AddApproachUsability(refactoringApproach.ApproachUsabilitiy, ref db)
         };
-
-        using (var db = new RefactoringApproachContext())
-        {
-            var savedDomainArtifactInputs = new List<DomainArtifactInput>();
-            if (refactoringApproach.DomainArtifactInputs != null)
-            {
-                savedDomainArtifactInputs.AddRange(
-                    refactoringApproach.DomainArtifactInputs.Select(input =>
-                        _inputService.GetDomainArtifactInput(input.Name)));
-            }
-
-            preparedRefactoringApproach.DomainArtifactInputs = savedDomainArtifactInputs;
-
-            var savedRuntimeArtifactInputs = new List<RuntimeArtifactInput>();
-            if (refactoringApproach.RuntimeArtifactInputs != null)
-            {
-                savedRuntimeArtifactInputs.AddRange(
-                    refactoringApproach.RuntimeArtifactInputs.Select(input =>
-                        _inputService.GetRuntimeArtifactInput(input.Name)));
-            }
-
-            preparedRefactoringApproach.RuntimeArtifactInputs = savedRuntimeArtifactInputs;
-
-            var savedModelArtifactInputs = new List<ModelArtifactInput>();
-            if (refactoringApproach.ModelArtifactInputs != null)
-            {
-                savedModelArtifactInputs.AddRange(
-                    refactoringApproach.ModelArtifactInputs.Select(input =>
-                        _inputService.GetModelArtifactInput(input.Name)));
-            }
-
-            preparedRefactoringApproach.ModelArtifactInputs = savedModelArtifactInputs;
-
-            var savedExecutableInputs = new List<ExecutableInput>();
-            if (refactoringApproach.ExecutableInputs != null)
-            {
-                savedExecutableInputs.AddRange(refactoringApproach.ExecutableInputs.Select(input =>
-                    _inputService.GetExecutableInput(input.Name, input.Language)));
-            }
-
-            preparedRefactoringApproach.ExecutableInputs = savedExecutableInputs;
-
-            preparedRefactoringApproach.ApproachProcess =
-                _processService.AddApproachProcess(refactoringApproach.ApproachProcess);
-            db.ApproachProcesses.Attach(preparedRefactoringApproach.ApproachProcess);
-
-            var savedOutputs = new List<ApproachOutput>();
-            if (refactoringApproach.ApproachOutputs != null)
-            {
-                savedOutputs.AddRange(
-                    refactoringApproach.ApproachOutputs.Select(output =>
-                        _outputService.AddApproachOutputIfNotExists(output)));
-            }
-
-            preparedRefactoringApproach.ApproachOutputs = savedOutputs;
-
-            preparedRefactoringApproach.ApproachUsabilitiy =
-                _usabilityService.AddApproachUsability(refactoringApproach.ApproachUsabilitiy);
-            db.ApproachUsabilities.Attach(preparedRefactoringApproach.ApproachUsabilitiy);
-
-            var newRefactoringApproach = db.RefactoringApproaches.Update(preparedRefactoringApproach).Entity;
-            db.SaveChanges();
-            return newRefactoringApproach;
-        }
+        
+        var savedApproach = db.RefactoringApproaches.Update(newApproach).Entity;
+        db.SaveChanges();
+        return savedApproach;
     }
 
     public void DeleteRefactoringApproach(int refactoringApproachId)
@@ -593,7 +542,7 @@ public class RefactoringApproachService
             }
 
             db.Attach(savedOutput);
-            
+
             approach.ApproachOutputs.Add(savedOutput);
             db.SaveChanges();
         }
@@ -637,7 +586,7 @@ public class RefactoringApproachService
             db.SaveChanges();
         }
     }
-    
+
     public void UpdateToolSupport(int approachId, ToolSupport toolSupport)
     {
         using (var db = new RefactoringApproachContext())
@@ -654,7 +603,7 @@ public class RefactoringApproachService
             db.SaveChanges();
         }
     }
-    
+
     public void UpdateAccuracyPrecision(int approachId, AccuracyPrecision accuracyPrecision)
     {
         using (var db = new RefactoringApproachContext())
@@ -671,7 +620,7 @@ public class RefactoringApproachService
             db.SaveChanges();
         }
     }
-    
+
     public void UpdateValidationMethod(int approachId, ValidationMethod validationMethod)
     {
         using (var db = new RefactoringApproachContext())
