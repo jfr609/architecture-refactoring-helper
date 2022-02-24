@@ -11,7 +11,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
-import { ApproachAdderComponent } from './components/views/approach-adder/approach-adder.component';
+import { ApproachViewComponent } from './components/views/approach-view/approach-view.component';
 import { ApproachFinderComponent } from './components/views/approach-finder/approach-finder.component';
 import { ApproachExplorerComponent } from './components/views/approach-explorer/approach-explorer.component';
 
@@ -21,7 +21,7 @@ import { ApproachExplorerComponent } from './components/views/approach-explorer/
     HomePageComponent,
     PageNotFoundComponent,
     ArchitectureRefactoringHelperComponent,
-    ApproachAdderComponent,
+    ApproachViewComponent,
     ApproachFinderComponent,
     ApproachExplorerComponent
   ],
