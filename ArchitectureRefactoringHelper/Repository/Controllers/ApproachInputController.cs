@@ -26,14 +26,14 @@ public class ApproachInputController : ControllerBase
     public ActionResult<DomainArtifactInput> AddDomainArtifact([FromBody] DomainArtifactInput input)
     {
         var savedInput = _inputService.AddDomainArtifactInput(input);
-        return Ok(savedInput);
+        return Created("", savedInput);
     }
 
     [HttpDelete(Constants.API_SUBPATH_DOMAINARTIFACTS + "/{name}", Name = "DeleteDomainArtifact")]
     public IActionResult DeleteDomainArtifact(string name)
     {
         _inputService.DeleteDomainArtifactInput(name);
-        return Ok();
+        return NoContent();
     }
 
     [HttpGet(Constants.API_SUBPATH_RUNTIMEARTIFACTS, Name = "ListRuntimeArtifact")]
@@ -46,14 +46,14 @@ public class ApproachInputController : ControllerBase
     public ActionResult<RuntimeArtifactInput> AddRuntimeArtifact([FromBody] RuntimeArtifactInput input)
     {
         var savedInput = _inputService.AddRuntimeArtifactInput(input);
-        return Ok(savedInput);
+        return Created("", savedInput);
     }
 
     [HttpDelete(Constants.API_SUBPATH_RUNTIMEARTIFACTS + "/{name}", Name = "DeleteRuntimeArtifact")]
     public IActionResult DeleteRuntimeArtifact(string name)
     {
         _inputService.DeleteRuntimeArtifactInput(name);
-        return Ok();
+        return NoContent();
     }
 
     [HttpGet(Constants.API_SUBPATH_MODELARTIFACTS, Name = "ListModelArtifacts")]
@@ -66,14 +66,14 @@ public class ApproachInputController : ControllerBase
     public ActionResult<ModelArtifactInput> AddModelArtifact([FromBody] ModelArtifactInput input)
     {
         var savedInput = _inputService.AddModelArtifactInput(input);
-        return Ok(savedInput);
+        return Created("", savedInput);
     }
 
     [HttpDelete(Constants.API_SUBPATH_MODELARTIFACTS + "/{name}", Name = "DeleteModelArtifact")]
     public IActionResult DeleteModelArtifact(string name)
     {
         _inputService.DeleteModelArtifactInput(name);
-        return Ok();
+        return NoContent();
     }
 
     [HttpGet(Constants.API_SUBPATH_EXECUTABLES, Name = "ListExecutables")]
@@ -86,13 +86,13 @@ public class ApproachInputController : ControllerBase
     public ActionResult<ExecutableInput> AddExecutable([FromBody] ExecutableInput input)
     {
         var savedInput = _inputService.AddExecutableInput(input);
-        return Ok(savedInput);
+        return Created("", savedInput);
     }
 
     [HttpDelete(Constants.API_SUBPATH_EXECUTABLES + "/{name}/{language}", Name = "DeleteExecutable")]
     public IActionResult DeleteExecutable(string name, string language)
     {
         _inputService.DeleteExecutableInput(name, language);
-        return Ok();
+        return NoContent();
     }
 }

@@ -38,14 +38,14 @@ public class ApproachUsabilityController : ControllerBase
     public ActionResult<ResultsQuality> AddResultsQuality([FromBody] ResultsQuality resultsQuality)
     {
         var savedResultsQuality = _usabilityService.AddResultsQuality(resultsQuality);
-        return Ok(savedResultsQuality);
+        return Created("", savedResultsQuality);
     }
 
     [HttpDelete(Constants.API_SUBPATH_RESULTSQUALITIES + "/{name}", Name = "DeleteResultsQuality")]
     public IActionResult DeleteResultsQuality(string name)
     {
         _usabilityService.DeleteResultsQuality(name);
-        return Ok();
+        return NoContent();
     }
 
     [HttpGet(Constants.API_SUBPATH_TOOLSUPPORTS, Name = "ListToolSupports")]
@@ -58,14 +58,14 @@ public class ApproachUsabilityController : ControllerBase
     public ActionResult<ToolSupport> AddToolSupport([FromBody] ToolSupport toolSupport)
     {
         var savedToolSupport = _usabilityService.AddToolSupport(toolSupport);
-        return Ok(savedToolSupport);
+        return Created("", savedToolSupport);
     }
 
     [HttpDelete(Constants.API_SUBPATH_TOOLSUPPORTS + "/{name}", Name = "DeleteToolSupport")]
     public IActionResult DeleteToolSupport(string name)
     {
         _usabilityService.DeleteToolSupport(name);
-        return Ok();
+        return NoContent();
     }
 
     [HttpGet(Constants.API_SUBPATH_ACCURACYPRECISIONS, Name = "ListAccuracyPrecisions")]
@@ -78,14 +78,14 @@ public class ApproachUsabilityController : ControllerBase
     public ActionResult<AccuracyPrecision> AddAccuracyPrecision([FromBody] AccuracyPrecision accuracyPrecision)
     {
         var savedAccuracyPrecision = _usabilityService.AddAccuracyPrecision(accuracyPrecision);
-        return Ok(savedAccuracyPrecision);
+        return Created("", savedAccuracyPrecision);
     }
 
     [HttpDelete(Constants.API_SUBPATH_ACCURACYPRECISIONS + "/{name}", Name = "DeleteAccuracyPrecision")]
     public IActionResult DeleteAccuracyPrecision(string name)
     {
         _usabilityService.DeleteAccuracyPrecision(name);
-        return Ok();
+        return NoContent();
     }
 
     [HttpGet(Constants.API_SUBPATH_VALIDATIONMETHODS, Name = "ListValidationMethods")]
@@ -98,13 +98,13 @@ public class ApproachUsabilityController : ControllerBase
     public ActionResult<ValidationMethod> AddValidationMethod([FromBody] ValidationMethod validationMethod)
     {
         var savedValidationMethod = _usabilityService.AddValidationMethod(validationMethod);
-        return Ok(savedValidationMethod);
+        return Created("", savedValidationMethod);
     }
 
     [HttpDelete(Constants.API_SUBPATH_VALIDATIONMETHODS + "/{name}", Name = "DeleteValidationMethod")]
     public IActionResult DeleteValidationMethod(string name)
     {
         _usabilityService.DeleteValidationMethod(name);
-        return Ok();
+        return NoContent();
     }
 }

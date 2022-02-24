@@ -15,56 +15,56 @@ public class ApproachOutputController : ControllerBase
     {
         _outputService = outputService;
     }
-    
+
     [HttpGet(Name = "ListApproachOutputs")]
     public ActionResult<IEnumerable<ApproachOutput>> ListApproachOutputs()
     {
         return Ok(_outputService.ListApproachOutputs());
     }
-    
+
     [HttpGet("{id:int}", Name = "GetApproachOutput")]
     public ActionResult<ApproachOutput> GetApproachOutput(int id)
     {
         return Ok(_outputService.GetApproachOutput(id));
     }
-    
+
     [HttpGet(Constants.API_SUBPATH_ARCHITECTURES, Name = "ListArchitectures")]
     public ActionResult<IEnumerable<Architecture>> ListArchitectures()
     {
         return Ok(_outputService.ListArchitectures());
     }
-    
+
     [HttpPost(Constants.API_SUBPATH_ARCHITECTURES, Name = "AddArchitecture")]
     public ActionResult<Architecture> AddArchitecture([FromBody] Architecture architecture)
     {
         var savedArchitecture = _outputService.AddArchitecture(architecture);
-        return Ok(savedArchitecture);
+        return Created("", savedArchitecture);
     }
-    
+
     [HttpDelete(Constants.API_SUBPATH_ARCHITECTURES + "/{name}", Name = "DeleteArchitecture")]
     public IActionResult DeleteArchitecture(string name)
     {
         _outputService.DeleteArchitecture(name);
-        return Ok();
+        return NoContent();
     }
-    
+
     [HttpGet(Constants.API_SUBPATH_SERVICETYPES, Name = "ListServiceTypes")]
     public ActionResult<IEnumerable<ServiceType>> ListServiceTypes()
     {
         return Ok(_outputService.ListServiceTypes());
     }
-    
+
     [HttpPost(Constants.API_SUBPATH_SERVICETYPES, Name = "AddServiceType")]
     public ActionResult<ServiceType> AddServiceType([FromBody] ServiceType serviceType)
     {
         var savedServiceType = _outputService.AddServiceType(serviceType);
-        return Ok(savedServiceType);
+        return Created("", savedServiceType);
     }
-    
+
     [HttpDelete(Constants.API_SUBPATH_SERVICETYPES + "/{name}", Name = "DeleteServiceType")]
     public IActionResult DeleteServiceType(string name)
     {
         _outputService.DeleteServiceType(name);
-        return Ok();
+        return NoContent();
     }
 }
