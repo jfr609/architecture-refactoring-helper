@@ -1,1 +1,11 @@
-<p>approach-adder works!</p>
+<div fxLayout="column" fxLayoutAlign="start center">
+  <div *ngIf="isCreateView; then newApproachTitle else updateApproachTitle">  </div>
+  <ng-template #newApproachTitle>
+    <h1>Create a new refactoring approach</h1>
+  </ng-template>
+  <ng-template #updateApproachTitle>
+    <h1>{{refactoringApproach.approachSource?.title}}</h1>
+  </ng-template>
+</div>
+
+

@@ -81,7 +81,7 @@ export class ApproachInputService extends BaseService {
    */
   addDomainArtifact$Response(params?: {
     body?: DomainArtifactInput
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<DomainArtifactInput>> {
 
     const rb = new RequestBuilder(this.rootUrl, ApproachInputService.AddDomainArtifactPath, 'post');
     if (params) {
@@ -89,12 +89,12 @@ export class ApproachInputService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
+      responseType: 'json',
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<DomainArtifactInput>;
       })
     );
   }
@@ -107,10 +107,10 @@ export class ApproachInputService extends BaseService {
    */
   addDomainArtifact(params?: {
     body?: DomainArtifactInput
-  }): Observable<void> {
+  }): Observable<DomainArtifactInput> {
 
     return this.addDomainArtifact$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<DomainArtifactInput>) => r.body as DomainArtifactInput)
     );
   }
 
@@ -216,7 +216,7 @@ export class ApproachInputService extends BaseService {
    */
   addRuntimeArtifact$Response(params?: {
     body?: RuntimeArtifactInput
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<RuntimeArtifactInput>> {
 
     const rb = new RequestBuilder(this.rootUrl, ApproachInputService.AddRuntimeArtifactPath, 'post');
     if (params) {
@@ -224,12 +224,12 @@ export class ApproachInputService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
+      responseType: 'json',
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<RuntimeArtifactInput>;
       })
     );
   }
@@ -242,10 +242,10 @@ export class ApproachInputService extends BaseService {
    */
   addRuntimeArtifact(params?: {
     body?: RuntimeArtifactInput
-  }): Observable<void> {
+  }): Observable<RuntimeArtifactInput> {
 
     return this.addRuntimeArtifact$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<RuntimeArtifactInput>) => r.body as RuntimeArtifactInput)
     );
   }
 
@@ -351,7 +351,7 @@ export class ApproachInputService extends BaseService {
    */
   addModelArtifact$Response(params?: {
     body?: ModelArtifactInput
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<ModelArtifactInput>> {
 
     const rb = new RequestBuilder(this.rootUrl, ApproachInputService.AddModelArtifactPath, 'post');
     if (params) {
@@ -359,12 +359,12 @@ export class ApproachInputService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
+      responseType: 'json',
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<ModelArtifactInput>;
       })
     );
   }
@@ -377,10 +377,10 @@ export class ApproachInputService extends BaseService {
    */
   addModelArtifact(params?: {
     body?: ModelArtifactInput
-  }): Observable<void> {
+  }): Observable<ModelArtifactInput> {
 
     return this.addModelArtifact$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<ModelArtifactInput>) => r.body as ModelArtifactInput)
     );
   }
 
@@ -486,7 +486,7 @@ export class ApproachInputService extends BaseService {
    */
   addExecutable$Response(params?: {
     body?: ExecutableInput
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<ExecutableInput>> {
 
     const rb = new RequestBuilder(this.rootUrl, ApproachInputService.AddExecutablePath, 'post');
     if (params) {
@@ -494,12 +494,12 @@ export class ApproachInputService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
+      responseType: 'json',
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<ExecutableInput>;
       })
     );
   }
@@ -512,10 +512,10 @@ export class ApproachInputService extends BaseService {
    */
   addExecutable(params?: {
     body?: ExecutableInput
-  }): Observable<void> {
+  }): Observable<ExecutableInput> {
 
     return this.addExecutable$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<ExecutableInput>) => r.body as ExecutableInput)
     );
   }
 

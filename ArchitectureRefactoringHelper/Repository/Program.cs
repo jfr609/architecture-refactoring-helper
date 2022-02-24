@@ -34,7 +34,7 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
 
-    var context = services.GetRequiredService<RefactoringApproachContext>();    
+    var context = services.GetRequiredService<RefactoringApproachContext>();
     context.Database.Migrate();
 }
 
@@ -46,6 +46,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(policyBuilder =>
+{
+    policyBuilder.AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowAnyOrigin();
+});
 
 app.UseAuthorization();
 

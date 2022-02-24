@@ -667,7 +667,14 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Quality"
+                }
+              }
+            }
           }
         }
       }
@@ -743,7 +750,14 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Direction"
+                }
+              }
+            }
           }
         }
       }
@@ -819,7 +833,14 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutomationLevel"
+                }
+              }
+            }
           }
         }
       }
@@ -895,7 +916,14 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysisType"
+                }
+              }
+            }
           }
         }
       }
@@ -971,7 +999,14 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Technique"
+                }
+              }
+            }
           }
         }
       }
@@ -2784,7 +2819,7 @@
             },
             "nullable": true
           },
-          "approachUsabilitiy": {
+          "approachUsability": {
             "$ref": "#/components/schemas/ApproachUsability"
           }
         },

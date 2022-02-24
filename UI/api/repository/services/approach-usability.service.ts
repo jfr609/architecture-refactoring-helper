@@ -171,7 +171,7 @@ export class ApproachUsabilityService extends BaseService {
    */
   addResultsQuality$Response(params?: {
     body?: ResultsQuality
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<ResultsQuality>> {
 
     const rb = new RequestBuilder(this.rootUrl, ApproachUsabilityService.AddResultsQualityPath, 'post');
     if (params) {
@@ -179,12 +179,12 @@ export class ApproachUsabilityService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
+      responseType: 'json',
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<ResultsQuality>;
       })
     );
   }
@@ -197,10 +197,10 @@ export class ApproachUsabilityService extends BaseService {
    */
   addResultsQuality(params?: {
     body?: ResultsQuality
-  }): Observable<void> {
+  }): Observable<ResultsQuality> {
 
     return this.addResultsQuality$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<ResultsQuality>) => r.body as ResultsQuality)
     );
   }
 
@@ -306,7 +306,7 @@ export class ApproachUsabilityService extends BaseService {
    */
   addToolSupport$Response(params?: {
     body?: ToolSupport
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<ToolSupport>> {
 
     const rb = new RequestBuilder(this.rootUrl, ApproachUsabilityService.AddToolSupportPath, 'post');
     if (params) {
@@ -314,12 +314,12 @@ export class ApproachUsabilityService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
+      responseType: 'json',
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<ToolSupport>;
       })
     );
   }
@@ -332,10 +332,10 @@ export class ApproachUsabilityService extends BaseService {
    */
   addToolSupport(params?: {
     body?: ToolSupport
-  }): Observable<void> {
+  }): Observable<ToolSupport> {
 
     return this.addToolSupport$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<ToolSupport>) => r.body as ToolSupport)
     );
   }
 
@@ -441,7 +441,7 @@ export class ApproachUsabilityService extends BaseService {
    */
   addAccuracyPrecision$Response(params?: {
     body?: AccuracyPrecision
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<AccuracyPrecision>> {
 
     const rb = new RequestBuilder(this.rootUrl, ApproachUsabilityService.AddAccuracyPrecisionPath, 'post');
     if (params) {
@@ -449,12 +449,12 @@ export class ApproachUsabilityService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
+      responseType: 'json',
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<AccuracyPrecision>;
       })
     );
   }
@@ -467,10 +467,10 @@ export class ApproachUsabilityService extends BaseService {
    */
   addAccuracyPrecision(params?: {
     body?: AccuracyPrecision
-  }): Observable<void> {
+  }): Observable<AccuracyPrecision> {
 
     return this.addAccuracyPrecision$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<AccuracyPrecision>) => r.body as AccuracyPrecision)
     );
   }
 
@@ -576,7 +576,7 @@ export class ApproachUsabilityService extends BaseService {
    */
   addValidationMethod$Response(params?: {
     body?: ValidationMethod
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<ValidationMethod>> {
 
     const rb = new RequestBuilder(this.rootUrl, ApproachUsabilityService.AddValidationMethodPath, 'post');
     if (params) {
@@ -584,12 +584,12 @@ export class ApproachUsabilityService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
+      responseType: 'json',
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<ValidationMethod>;
       })
     );
   }
@@ -602,10 +602,10 @@ export class ApproachUsabilityService extends BaseService {
    */
   addValidationMethod(params?: {
     body?: ValidationMethod
-  }): Observable<void> {
+  }): Observable<ValidationMethod> {
 
     return this.addValidationMethod$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<ValidationMethod>) => r.body as ValidationMethod)
     );
   }
 

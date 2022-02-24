@@ -14,6 +14,11 @@ import {MatButtonModule} from "@angular/material/button";
 import { ApproachViewComponent } from './components/views/approach-view/approach-view.component';
 import { ApproachFinderComponent } from './components/views/approach-finder/approach-finder.component';
 import { ApproachExplorerComponent } from './components/views/approach-explorer/approach-explorer.component';
+import {ApiModule} from "../../api/repository/api.module";
+import {environment} from "../environments/environment";
+import {HttpClientModule} from "@angular/common/http";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -29,10 +34,14 @@ import { ApproachExplorerComponent } from './components/views/approach-explorer/
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    HttpClientModule,
+    ApiModule.forRoot({rootUrl: environment.API_URL}),
     FlexLayoutModule,
     MatToolbarModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

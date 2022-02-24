@@ -172,7 +172,7 @@ export class ApproachProcessService extends BaseService {
    */
   addQuality$Response(params?: {
     body?: Quality
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<Quality>> {
 
     const rb = new RequestBuilder(this.rootUrl, ApproachProcessService.AddQualityPath, 'post');
     if (params) {
@@ -180,12 +180,12 @@ export class ApproachProcessService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
+      responseType: 'json',
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<Quality>;
       })
     );
   }
@@ -198,10 +198,10 @@ export class ApproachProcessService extends BaseService {
    */
   addQuality(params?: {
     body?: Quality
-  }): Observable<void> {
+  }): Observable<Quality> {
 
     return this.addQuality$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<Quality>) => r.body as Quality)
     );
   }
 
@@ -307,7 +307,7 @@ export class ApproachProcessService extends BaseService {
    */
   addDirection$Response(params?: {
     body?: Direction
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<Direction>> {
 
     const rb = new RequestBuilder(this.rootUrl, ApproachProcessService.AddDirectionPath, 'post');
     if (params) {
@@ -315,12 +315,12 @@ export class ApproachProcessService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
+      responseType: 'json',
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<Direction>;
       })
     );
   }
@@ -333,10 +333,10 @@ export class ApproachProcessService extends BaseService {
    */
   addDirection(params?: {
     body?: Direction
-  }): Observable<void> {
+  }): Observable<Direction> {
 
     return this.addDirection$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<Direction>) => r.body as Direction)
     );
   }
 
@@ -442,7 +442,7 @@ export class ApproachProcessService extends BaseService {
    */
   addAutomationLevel$Response(params?: {
     body?: AutomationLevel
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<AutomationLevel>> {
 
     const rb = new RequestBuilder(this.rootUrl, ApproachProcessService.AddAutomationLevelPath, 'post');
     if (params) {
@@ -450,12 +450,12 @@ export class ApproachProcessService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
+      responseType: 'json',
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<AutomationLevel>;
       })
     );
   }
@@ -468,10 +468,10 @@ export class ApproachProcessService extends BaseService {
    */
   addAutomationLevel(params?: {
     body?: AutomationLevel
-  }): Observable<void> {
+  }): Observable<AutomationLevel> {
 
     return this.addAutomationLevel$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<AutomationLevel>) => r.body as AutomationLevel)
     );
   }
 
@@ -577,7 +577,7 @@ export class ApproachProcessService extends BaseService {
    */
   addAnalysisType$Response(params?: {
     body?: AnalysisType
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<AnalysisType>> {
 
     const rb = new RequestBuilder(this.rootUrl, ApproachProcessService.AddAnalysisTypePath, 'post');
     if (params) {
@@ -585,12 +585,12 @@ export class ApproachProcessService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
+      responseType: 'json',
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<AnalysisType>;
       })
     );
   }
@@ -603,10 +603,10 @@ export class ApproachProcessService extends BaseService {
    */
   addAnalysisType(params?: {
     body?: AnalysisType
-  }): Observable<void> {
+  }): Observable<AnalysisType> {
 
     return this.addAnalysisType$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<AnalysisType>) => r.body as AnalysisType)
     );
   }
 
@@ -712,7 +712,7 @@ export class ApproachProcessService extends BaseService {
    */
   addTechnique$Response(params?: {
     body?: Technique
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<Technique>> {
 
     const rb = new RequestBuilder(this.rootUrl, ApproachProcessService.AddTechniquePath, 'post');
     if (params) {
@@ -720,12 +720,12 @@ export class ApproachProcessService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
+      responseType: 'json',
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<Technique>;
       })
     );
   }
@@ -738,10 +738,10 @@ export class ApproachProcessService extends BaseService {
    */
   addTechnique(params?: {
     body?: Technique
-  }): Observable<void> {
+  }): Observable<Technique> {
 
     return this.addTechnique$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<Technique>) => r.body as Technique)
     );
   }
 

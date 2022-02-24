@@ -117,7 +117,7 @@ public class RefactoringApproachEntityTypeConfiguration : IEntityTypeConfigurati
                         }
                     }
                 },
-                ApproachUsabilitiy = new ApproachUsability
+                ApproachUsability = new ApproachUsability
                 {
                     ApproachUsabilityId = 1,
                     AccuracyPrecision = new AccuracyPrecision

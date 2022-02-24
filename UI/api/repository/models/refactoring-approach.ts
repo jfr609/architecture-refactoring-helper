@@ -12,7 +12,7 @@ export interface RefactoringApproach {
   approachOutputs?: null | Array<ApproachOutput>;
   approachProcess?: ApproachProcess;
   approachSource?: ApproachSource;
-  approachUsabilitiy?: ApproachUsability;
+  approachUsability?: ApproachUsability;
   domainArtifactInputs?: null | Array<DomainArtifactInput>;
   executableInputs?: null | Array<ExecutableInput>;
   modelArtifactInputs?: null | Array<ModelArtifactInput>;

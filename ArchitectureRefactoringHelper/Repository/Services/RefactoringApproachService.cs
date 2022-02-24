@@ -53,10 +53,10 @@ public class RefactoringApproachService
             .ThenInclude(e => e.Architecture)
             .Include(e => e.ApproachOutputs)!
             .ThenInclude(e => e.ServiceType)
-            .Include(e => e.ApproachUsabilitiy.ResultsQualitiy)
-            .Include(e => e.ApproachUsabilitiy.ToolSupport)
-            .Include(e => e.ApproachUsabilitiy.AccuracyPrecision)
-            .Include(e => e.ApproachUsabilitiy.ValidationMethod)
+            .Include(e => e.ApproachUsability.ResultsQualitiy)
+            .Include(e => e.ApproachUsability.ToolSupport)
+            .Include(e => e.ApproachUsability.AccuracyPrecision)
+            .Include(e => e.ApproachUsability.ValidationMethod)
             .FirstOrDefault();
         if (refactoringApproach == null)
         {
@@ -94,7 +94,7 @@ public class RefactoringApproachService
             ExecutableInputs = _inputService.AddExecutablesIfNotExist(refactoringApproach.ExecutableInputs, ref db),
             ApproachProcess = _processService.AddApproachProcess(refactoringApproach.ApproachProcess, ref db),
             ApproachOutputs = _outputService.AddApproachOutputsIfNotExist(refactoringApproach.ApproachOutputs, ref db),
-            ApproachUsabilitiy = _usabilityService.AddApproachUsability(refactoringApproach.ApproachUsabilitiy, ref db)
+            ApproachUsability = _usabilityService.AddApproachUsability(refactoringApproach.ApproachUsability, ref db)
         };
 
         return Utils.AddEntity(newApproach, ref db);
@@ -509,10 +509,10 @@ public class RefactoringApproachService
 
         var approach = GetRefactoringApproach(approachId, ref db);
 
-        if (approach.ApproachUsabilitiy.ResultsQualitiy.Name == resultsQuality.Name)
+        if (approach.ApproachUsability.ResultsQualitiy.Name == resultsQuality.Name)
             return;
 
-        approach.ApproachUsabilitiy.ResultsQualitiy = _usabilityService.GetResultsQuality(resultsQuality.Name, ref db);
+        approach.ApproachUsability.ResultsQualitiy = _usabilityService.GetResultsQuality(resultsQuality.Name, ref db);
         db.SaveChanges();
     }
 
@@ -522,10 +522,10 @@ public class RefactoringApproachService
 
         var approach = GetRefactoringApproach(approachId, ref db);
 
-        if (approach.ApproachUsabilitiy.ToolSupport.Name == toolSupport.Name)
+        if (approach.ApproachUsability.ToolSupport.Name == toolSupport.Name)
             return;
 
-        approach.ApproachUsabilitiy.ToolSupport = _usabilityService.GetToolSupport(toolSupport.Name, ref db);
+        approach.ApproachUsability.ToolSupport = _usabilityService.GetToolSupport(toolSupport.Name, ref db);
         db.SaveChanges();
     }
 
@@ -535,10 +535,10 @@ public class RefactoringApproachService
 
         var approach = GetRefactoringApproach(approachId, ref db);
 
-        if (approach.ApproachUsabilitiy.AccuracyPrecision.Name == accuracyPrecision.Name)
+        if (approach.ApproachUsability.AccuracyPrecision.Name == accuracyPrecision.Name)
             return;
 
-        approach.ApproachUsabilitiy.AccuracyPrecision =
+        approach.ApproachUsability.AccuracyPrecision =
             _usabilityService.GetAccuracyPrecision(accuracyPrecision.Name, ref db);
         db.SaveChanges();
     }
@@ -549,10 +549,10 @@ public class RefactoringApproachService
 
         var approach = GetRefactoringApproach(approachId, ref db);
 
-        if (approach.ApproachUsabilitiy.ValidationMethod.Name == validationMethod.Name)
+        if (approach.ApproachUsability.ValidationMethod.Name == validationMethod.Name)
             return;
 
-        approach.ApproachUsabilitiy.ValidationMethod =
+        approach.ApproachUsability.ValidationMethod =
             _usabilityService.GetValidationMethod(validationMethod.Name, ref db);
         db.SaveChanges();
     }

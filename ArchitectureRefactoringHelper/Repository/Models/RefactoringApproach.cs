@@ -23,5 +23,5 @@ public class RefactoringApproach
     public ICollection<ApproachOutput>? ApproachOutputs { get; set; }
     [JsonIgnore]
     public int ApproachUsabilityId { get; set; }
-    public ApproachUsability ApproachUsabilitiy { get; set; }
+    public ApproachUsability ApproachUsability { get; set; }
 }

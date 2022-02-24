@@ -169,7 +169,7 @@ export class ApproachOutputService extends BaseService {
    */
   addArchitecture$Response(params?: {
     body?: Architecture
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<Architecture>> {
 
     const rb = new RequestBuilder(this.rootUrl, ApproachOutputService.AddArchitecturePath, 'post');
     if (params) {
@@ -177,12 +177,12 @@ export class ApproachOutputService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
+      responseType: 'json',
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<Architecture>;
       })
     );
   }
@@ -195,10 +195,10 @@ export class ApproachOutputService extends BaseService {
    */
   addArchitecture(params?: {
     body?: Architecture
-  }): Observable<void> {
+  }): Observable<Architecture> {
 
     return this.addArchitecture$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<Architecture>) => r.body as Architecture)
     );
   }
 
@@ -304,7 +304,7 @@ export class ApproachOutputService extends BaseService {
    */
   addServiceType$Response(params?: {
     body?: ServiceType
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<ServiceType>> {
 
     const rb = new RequestBuilder(this.rootUrl, ApproachOutputService.AddServiceTypePath, 'post');
     if (params) {
@@ -312,12 +312,12 @@ export class ApproachOutputService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
+      responseType: 'json',
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<ServiceType>;
       })
     );
   }
@@ -330,10 +330,10 @@ export class ApproachOutputService extends BaseService {
    */
   addServiceType(params?: {
     body?: ServiceType
-  }): Observable<void> {
+  }): Observable<ServiceType> {
 
     return this.addServiceType$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<ServiceType>) => r.body as ServiceType)
     );
   }
 
