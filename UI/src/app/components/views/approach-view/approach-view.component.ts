@@ -4,7 +4,7 @@ import {Subscription} from "rxjs";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {RefactoringApproachService} from "../../../../../api/repository/services/refactoring-approach.service";
 import {UtilService} from "../../../services/util.service";
-import {NAV_PARAM_APPROACH_ID, URL_REGEX} from "../../../app.constants";
+import {NAV_PARAM_APPROACH_ID} from "../../../app.constants";
 import {MatAccordion} from "@angular/material/expansion";
 import {FormControl, Validators} from "@angular/forms";
 import {CustomValidators} from "../../../utils/custom-validators";
