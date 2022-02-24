@@ -1,0 +1,16 @@
+<div>
+  <div mat-dialog-title>
+    <p>{{data.title}}</p>
+  </div>
+  <mat-divider></mat-divider>
+  <div mat-dialog-content>
+    <p>{{data.message}}</p>
+  </div>
+  <mat-divider></mat-divider>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary"
+            [mat-dialog-close]="data">{{data.confirmButtonText}}</button>
+    <button mat-raised-button color="warn"
+            (click)="onCancelClicked()">{{data.cancelButtonText}}</button>
+  </div>
+</div>

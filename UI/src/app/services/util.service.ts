@@ -1,6 +1,8 @@
-import {Injectable} from '@angular/core';
+import {Component, Injectable} from '@angular/core';
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {ComponentType} from "@angular/cdk/overlay";
+import {DialogData} from "../utils/models/dialog-data";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,7 @@ export class UtilService {
               public dialog: MatDialog) {
   }
 
-  public createDialog(dialogComponent: any, data: any, width?: string, height?: string): MatDialogRef<any> {
+  public createDialog(dialogComponent: ComponentType<any>, data: DialogData, width?: string, height?: string): MatDialogRef<any> {
     return this.dialog.open(dialogComponent, {
       width: width || '400px',
       height: height || undefined,

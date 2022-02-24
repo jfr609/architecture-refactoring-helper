@@ -19,6 +19,12 @@ import {environment} from "../environments/environment";
 import {HttpClientModule} from "@angular/common/http";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {ReactiveFormsModule} from "@angular/forms";
+import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
+import {MatDividerModule} from "@angular/material/divider";
 
 @NgModule({
   declarations: [
@@ -28,7 +34,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     ArchitectureRefactoringHelperComponent,
     ApproachViewComponent,
     ApproachFinderComponent,
-    ApproachExplorerComponent
+    ApproachExplorerComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +48,12 @@ import {MatDialogModule} from "@angular/material/dialog";
     MatCardModule,
     MatButtonModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

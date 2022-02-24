@@ -5,6 +5,7 @@ import {HomePageComponent} from "./components/views/home-page/home-page.componen
 import {ApproachViewComponent} from "./components/views/approach-view/approach-view.component";
 import {ApproachExplorerComponent} from "./components/views/approach-explorer/approach-explorer.component";
 import {ApproachFinderComponent} from "./components/views/approach-finder/approach-finder.component";
+import {NAV_PARAM_APPROACH_ID} from "./app.constants";
 
 const routes: Routes = [
   {
@@ -16,7 +17,7 @@ const routes: Routes = [
     component: ApproachViewComponent
   },
   {
-    path: 'approach/:approachId',
+    path: `approach/:${NAV_PARAM_APPROACH_ID}`,
     component: ApproachViewComponent
   },
   {
