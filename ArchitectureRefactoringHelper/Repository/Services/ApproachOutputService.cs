@@ -91,8 +91,8 @@ public class ApproachOutputService
     {
         var preparedOutput = new ApproachOutput
         {
-            Architecture = GetOutputArchitecture(output.Architecture.Name),
-            ServiceType = GetOutputServiceType(output.ServiceType.Name)
+            Architecture = GetOutputArchitecture(output.Architecture.Name, ref db),
+            ServiceType = GetOutputServiceType(output.ServiceType.Name, ref db)
         };
 
         return Utils.AddEntity(preparedOutput, ref db);

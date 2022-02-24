@@ -58,14 +58,17 @@ public class ApproachProcessService
 
     public ApproachProcess GetApproachProcess(int processId)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.ApproachProcesses
-                       .Where(e => e.ApproachProcessId == processId)
-                       .IncludeAllApproachProcessData()
-                       .FirstOrDefault() ??
-                   throw new ElementNotFoundException($"Approach process with ID '{processId}' does not exist.");
-        }
+        var db = new RefactoringApproachContext();
+        return GetApproachProcess(processId, ref db);
+    }
+
+    public ApproachProcess GetApproachProcess(int processId, ref RefactoringApproachContext db)
+    {
+        return db.ApproachProcesses
+                   .Where(e => e.ApproachProcessId == processId)
+                   .IncludeAllApproachProcessData()
+                   .FirstOrDefault() ??
+               throw new ElementNotFoundException($"Approach process with ID '{processId}' does not exist.");
     }
 
     public Quality GetProcessQuality(string qualityName)
@@ -164,7 +167,7 @@ public class ApproachProcessService
     public ICollection<Quality> AddQualitiesIfNotExist(ICollection<Quality>? qualities,
         ref RefactoringApproachContext db)
     {
-        return Utils.AddEntitiesIfNotExist(qualities, e => new object[]{e.Name}, ref db);
+        return Utils.AddEntitiesIfNotExist(qualities, e => new object[] { e.Name }, ref db);
     }
 
     public Direction AddDirection(Direction direction)
@@ -181,7 +184,7 @@ public class ApproachProcessService
     public ICollection<Direction> AddDirectionsIfNotExist(ICollection<Direction>? directions,
         ref RefactoringApproachContext db)
     {
-        return Utils.AddEntitiesIfNotExist(directions, e => new object[]{e.Name}, ref db);
+        return Utils.AddEntitiesIfNotExist(directions, e => new object[] { e.Name }, ref db);
     }
 
     public AutomationLevel AddAutomationLevel(AutomationLevel automationLevel)
@@ -198,7 +201,7 @@ public class ApproachProcessService
     public ICollection<AutomationLevel> AddAutomationLevelsIfNotExist(ICollection<AutomationLevel>? automationLevels,
         ref RefactoringApproachContext db)
     {
-        return Utils.AddEntitiesIfNotExist(automationLevels, e => new object[]{e.Name}, ref db);
+        return Utils.AddEntitiesIfNotExist(automationLevels, e => new object[] { e.Name }, ref db);
     }
 
     public AnalysisType AddAnalysisType(AnalysisType analysisType)
@@ -215,7 +218,7 @@ public class ApproachProcessService
     public ICollection<AnalysisType> AddAnalysisTypesIfNotExist(ICollection<AnalysisType>? analysisTypes,
         ref RefactoringApproachContext db)
     {
-        return Utils.AddEntitiesIfNotExist(analysisTypes, e => new object[]{e.Name}, ref db);
+        return Utils.AddEntitiesIfNotExist(analysisTypes, e => new object[] { e.Name }, ref db);
     }
 
     public Technique AddTechnique(Technique technique)
@@ -232,7 +235,7 @@ public class ApproachProcessService
     public ICollection<Technique> AddTechniquesIfNotExist(ICollection<Technique>? techniques,
         ref RefactoringApproachContext db)
     {
-        return Utils.AddEntitiesIfNotExist(techniques, e => new object[]{e.Name}, ref db);
+        return Utils.AddEntitiesIfNotExist(techniques, e => new object[] { e.Name }, ref db);
     }
 
     public void DeleteApproachProcess(int processId)

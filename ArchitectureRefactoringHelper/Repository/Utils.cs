@@ -1,6 +1,5 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Repository.Models;
 
 namespace Repository;
@@ -52,6 +51,11 @@ public static class Utils
         return counter.Values.All(count => count == 0);
     }
 
+    public static bool IsNullOrEmpty<T>(this IEnumerable<T>? enumerable)
+    {
+        return enumerable == null || !enumerable.Any();
+    }
+
     public static T AddEntity<T>(T entity, ref RefactoringApproachContext db) where T : class
     {
         var savedEntity = db.Set<T>().Add(entity);
@@ -59,7 +63,8 @@ public static class Utils
         return savedEntity.Entity;
     }
 
-    public static ICollection<T> AddEntitiesIfNotExist<T>(ICollection<T>? entities, Func<T, object?[]?> keyFunction, ref RefactoringApproachContext db)
+    public static ICollection<T> AddEntitiesIfNotExist<T>(ICollection<T>? entities, Func<T, object?[]?> keyFunction,
+        ref RefactoringApproachContext db)
         where T : class
     {
         if (entities == null || !entities.Any())

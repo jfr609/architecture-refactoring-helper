@@ -54,14 +54,17 @@ public class ApproachUsabilityService
 
     public ApproachUsability GetApproachUsability(int usabilityId)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.ApproachUsabilities
-                       .Where(e => e.ApproachUsabilityId == usabilityId)
-                       .IncludeAllApproachUsabilityData()
-                       .FirstOrDefault() ??
-                   throw new ElementNotFoundException($"Usability definition with ID '{usabilityId}' does not exist");
-        }
+        var db = new RefactoringApproachContext();
+        return GetApproachUsability(usabilityId, ref db);
+    }
+
+    public ApproachUsability GetApproachUsability(int usabilityId, ref RefactoringApproachContext db)
+    {
+        return db.ApproachUsabilities
+                   .Where(e => e.ApproachUsabilityId == usabilityId)
+                   .IncludeAllApproachUsabilityData()
+                   .FirstOrDefault() ??
+               throw new ElementNotFoundException($"Usability definition with ID '{usabilityId}' does not exist");
     }
 
     public ResultsQuality GetResultsQuality(string resultsQualityName)
