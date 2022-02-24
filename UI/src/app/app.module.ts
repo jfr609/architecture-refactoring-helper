@@ -25,6 +25,8 @@ import {MatInputModule} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
 import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
 import {MatDividerModule} from "@angular/material/divider";
+import { ConnectedDataListsComponent } from './components/generics/connected-data-lists/connected-data-lists.component';
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import {MatDividerModule} from "@angular/material/divider";
     ApproachViewComponent,
     ApproachFinderComponent,
     ApproachExplorerComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    ConnectedDataListsComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,8 @@ import {MatDividerModule} from "@angular/material/divider";
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatDividerModule
+    MatDividerModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]
