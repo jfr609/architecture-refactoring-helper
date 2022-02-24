@@ -4,7 +4,7 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag
 @Component({
   selector: 'app-connected-data-lists',
   templateUrl: './connected-data-lists.component.html',
-  styleUrls: ['./connected-data-lists.component.css']
+  styleUrls: ['./connected-data-lists.component.scss']
 })
 export class ConnectedDataListsComponent implements OnInit {
 

@@ -13,7 +13,7 @@ import {ConfirmDialogComponent, ConfirmDialogData} from "../../dialogs/confirm-d
 @Component({
   selector: 'app-approach-view',
   templateUrl: './approach-view.component.html',
-  styleUrls: ['./approach-view.component.css']
+  styleUrls: ['./approach-view.component.scss']
 })
 export class ApproachViewComponent implements OnInit {
 
