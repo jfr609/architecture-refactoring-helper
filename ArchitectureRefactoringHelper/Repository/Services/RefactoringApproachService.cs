@@ -97,9 +97,7 @@ public class RefactoringApproachService
             ApproachUsabilitiy = _usabilityService.AddApproachUsability(refactoringApproach.ApproachUsabilitiy, ref db)
         };
 
-        var savedApproach = db.RefactoringApproaches.Update(newApproach).Entity;
-        db.SaveChanges();
-        return savedApproach;
+        return Utils.AddEntity(newApproach, ref db);
     }
 
     public void DeleteRefactoringApproach(int refactoringApproachId)
@@ -137,7 +135,8 @@ public class RefactoringApproachService
         }
 
         var input = _inputService.GetDomainArtifactInput(domainArtifact.Name, ref db);
-        Utils.AddEntity(input, ref db);
+        approach.DomainArtifactInputs.Add(input);
+        db.SaveChanges();
     }
 
     public void RemoveDomainArtifactFromInputs(int approachId, string inputName)
@@ -174,7 +173,8 @@ public class RefactoringApproachService
         }
 
         var input = _inputService.GetRuntimeArtifactInput(runtimeArtifact.Name, ref db);
-        Utils.AddEntity(input, ref db);
+        approach.RuntimeArtifactInputs.Add(input);
+        db.SaveChanges();
     }
 
     public void RemoveRuntimeArtifactFromInputs(int approachId, string inputName)
@@ -211,7 +211,8 @@ public class RefactoringApproachService
         }
 
         var input = _inputService.GetModelArtifactInput(modelArtifact.Name, ref db);
-        Utils.AddEntity(input, ref db);
+        approach.ModelArtifactInputs.Add(input);
+        db.SaveChanges();
     }
 
     public void RemoveModelArtifactFromInputs(int approachId, string inputName)
@@ -248,7 +249,8 @@ public class RefactoringApproachService
         }
 
         var input = _inputService.GetExecutableInput(executable.Name, executable.Language, ref db);
-        Utils.AddEntity(input, ref db);
+        approach.ExecutableInputs.Add(input);
+        db.SaveChanges();
     }
 
     public void RemoveExecutableFromInputs(int approachId, string inputName, string language)
@@ -285,7 +287,8 @@ public class RefactoringApproachService
         }
 
         var savedQuality = _processService.GetProcessQuality(quality.Name, ref db);
-        Utils.AddEntity(savedQuality, ref db);
+        approach.ApproachProcess.Qualities.Add(savedQuality);
+        db.SaveChanges();
     }
 
     public void RemoveQualityFromProcess(int approachId, string qualityName)
@@ -322,7 +325,8 @@ public class RefactoringApproachService
         }
 
         var savedDirection = _processService.GetProcessDirection(direction.Name, ref db);
-        Utils.AddEntity(savedDirection, ref db);
+        approach.ApproachProcess.Directions.Add(savedDirection);
+        db.SaveChanges();
     }
 
     public void RemoveDirectionFromProcess(int approachId, string directionName)
@@ -359,7 +363,8 @@ public class RefactoringApproachService
         }
 
         var savedAutomationLevel = _processService.GetProcessAutomationLevel(automationLevel.Name, ref db);
-        Utils.AddEntity(savedAutomationLevel, ref db);
+        approach.ApproachProcess.AutomationLevels.Add(savedAutomationLevel);
+        db.SaveChanges();
     }
 
     public void RemoveAutomationLevelFromProcess(int approachId, string automationLevelName)
@@ -397,7 +402,8 @@ public class RefactoringApproachService
         }
 
         var savedAnalysisType = _processService.GetProcessAnalysisType(analysisType.Name, ref db);
-        Utils.AddEntity(savedAnalysisType, ref db);
+        approach.ApproachProcess.AnalysisTypes.Add(savedAnalysisType);
+        db.SaveChanges();
     }
 
     public void RemoveAnalysisTypeFromProcess(int approachId, string analysisTypeName)
@@ -434,7 +440,8 @@ public class RefactoringApproachService
         }
 
         var savedTechnique = _processService.GetProcessTechnique(technique.Name, ref db);
-        Utils.AddEntity(savedTechnique, ref db);
+        approach.ApproachProcess.Techniques.Add(savedTechnique);
+        db.SaveChanges();
     }
 
     public void RemoveTechniqueFromProcess(int approachId, string techniqueName)
@@ -472,7 +479,6 @@ public class RefactoringApproachService
         }
 
         var savedOutput = _outputService.AddApproachOutputIfNotExists(output, ref db);
-
         approach.ApproachOutputs.Add(savedOutput);
         db.SaveChanges();
     }
@@ -527,8 +533,7 @@ public class RefactoringApproachService
     {
         var db = new RefactoringApproachContext();
 
-        var approach = GetRefactoringApproach(approachId);
-        db.Attach(approach);
+        var approach = GetRefactoringApproach(approachId, ref db);
 
         if (approach.ApproachUsabilitiy.AccuracyPrecision.Name == accuracyPrecision.Name)
             return;
@@ -542,8 +547,7 @@ public class RefactoringApproachService
     {
         var db = new RefactoringApproachContext();
 
-        var approach = GetRefactoringApproach(approachId);
-        db.Attach(approach);
+        var approach = GetRefactoringApproach(approachId, ref db);
 
         if (approach.ApproachUsabilitiy.ValidationMethod.Name == validationMethod.Name)
             return;

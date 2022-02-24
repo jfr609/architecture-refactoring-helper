@@ -96,11 +96,11 @@ public class ApproachInputService
     {
         return Utils.AddEntity(input, ref db);
     }
-    
+
     public ICollection<DomainArtifactInput> AddDomainArtifactsIfNotExist(ICollection<DomainArtifactInput>? inputs,
         ref RefactoringApproachContext db)
     {
-        return Utils.AddEntitiesIfNotExist(inputs, e => new object[]{e.Name}, ref db);
+        return Utils.AddEntitiesIfNotExist(inputs, e => new object[] { e.Name }, ref db);
     }
 
     public RuntimeArtifactInput AddRuntimeArtifactInput(RuntimeArtifactInput input)
@@ -117,9 +117,9 @@ public class ApproachInputService
     public ICollection<RuntimeArtifactInput> AddRuntimeArtifactsIfNotExist(ICollection<RuntimeArtifactInput>? inputs,
         ref RefactoringApproachContext db)
     {
-        return Utils.AddEntitiesIfNotExist(inputs, e => new object[]{e.Name}, ref db);
+        return Utils.AddEntitiesIfNotExist(inputs, e => new object[] { e.Name }, ref db);
     }
-    
+
     public ModelArtifactInput AddModelArtifactInput(ModelArtifactInput input)
     {
         var db = new RefactoringApproachContext();
@@ -134,9 +134,9 @@ public class ApproachInputService
     public ICollection<ModelArtifactInput> AddModelArtifactsIfNotExist(ICollection<ModelArtifactInput>? inputs,
         ref RefactoringApproachContext db)
     {
-        return Utils.AddEntitiesIfNotExist(inputs, e => new object[]{e.Name}, ref db);
+        return Utils.AddEntitiesIfNotExist(inputs, e => new object[] { e.Name }, ref db);
     }
-    
+
     public ExecutableInput AddExecutableInput(ExecutableInput input)
     {
         var db = new RefactoringApproachContext();
@@ -147,11 +147,11 @@ public class ApproachInputService
     {
         return Utils.AddEntity(input, ref db);
     }
-    
+
     public ICollection<ExecutableInput> AddExecutablesIfNotExist(ICollection<ExecutableInput>? inputs,
         ref RefactoringApproachContext db)
     {
-        return Utils.AddEntitiesIfNotExist(inputs, e => new object[]{e.Name, e.Language}, ref db);
+        return Utils.AddEntitiesIfNotExist(inputs, e => new object[] { e.Name, e.Language }, ref db);
     }
 
     public void DeleteDomainArtifactInput(string inputName)
