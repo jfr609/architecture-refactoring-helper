@@ -9,7 +9,9 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header="id" sortActionDescription="Sort by id">
         ID
       </th>
-      <td mat-cell *matCellDef="let approach"> {{approach.refactoringApproachId}} </td>
+      <td mat-cell *matCellDef="let approach">
+        {{approach.refactoringApproachId}}
+      </td>
     </ng-container>
 
     <!-- Title Column -->
@@ -17,7 +19,9 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header="title" sortActionDescription="Sort by title">
         Title
       </th>
-      <td mat-cell *matCellDef="let approach"> {{approach.approachSource.title}} </td>
+      <td mat-cell *matCellDef="let approach">
+        {{approach.approachSource.title}}
+      </td>
     </ng-container>
 
     <!-- Year Column -->
@@ -25,7 +29,9 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header="year" sortActionDescription="Sort by year">
         Year
       </th>
-      <td mat-cell *matCellDef="let approach"> {{approach.approachSource.year}} </td>
+      <td mat-cell *matCellDef="let approach">
+        {{approach.approachSource.year}}
+      </td>
     </ng-container>
 
     <!-- Authors Column -->
@@ -33,7 +39,9 @@
       <th mat-header-cell *matHeaderCellDef>
         Authors
       </th>
-      <td mat-cell *matCellDef="let approach"> {{approach.approachSource.authors}} </td>
+      <td mat-cell *matCellDef="let approach">
+        {{approach.approachSource.authors}}
+      </td>
     </ng-container>
 
     <!-- Link Column -->
@@ -41,7 +49,11 @@
       <th mat-header-cell *matHeaderCellDef>
         Link
       </th>
-      <td mat-cell *matCellDef="let approach"> {{approach.approachSource.link}} </td>
+      <td mat-cell *matCellDef="let approach">
+        <button mat-icon-button color="accent" (click)="goToLink(approach.approachSource.link)">
+          <mat-icon>open_in_new</mat-icon>
+        </button>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

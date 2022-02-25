@@ -32,7 +32,10 @@ export class ApproachExplorerComponent implements OnInit {
       error: () => {
         this.utilService.callSnackBar('Error: Refactoring approaches could not be retrieved.');
       }
-    })
+    });
   }
 
+  goToLink(url: string): void {
+    window.open(url, '_blank');
+  }
 }
