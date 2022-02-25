@@ -22,11 +22,14 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
 import {MatDividerModule} from "@angular/material/divider";
 import { ConnectedDataListsComponent } from './components/generics/connected-data-lists/connected-data-lists.component';
 import {DragDropModule} from "@angular/cdk/drag-drop";
+import {MatListModule} from "@angular/material/list";
+import {MatSelectModule} from "@angular/material/select";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -57,7 +60,11 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
     MatInputModule,
     ReactiveFormsModule,
     MatDividerModule,
-    DragDropModule
+    DragDropModule,
+    MatListModule,
+    MatSelectModule,
+    FormsModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

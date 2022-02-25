@@ -23,7 +23,7 @@
           <h2>Source</h2>
         </mat-panel-title>
         <mat-panel-description>
-          Test description
+          Add a source for the refactoring approach.
         </mat-panel-description>
       </mat-expansion-panel-header>
 
@@ -77,7 +77,7 @@
           <h2>Inputs</h2>
         </mat-panel-title>
         <mat-panel-description>
-          Test description
+          Define the inputs of the refactoring approach.
         </mat-panel-description>
       </mat-expansion-panel-header>
       <app-connected-data-lists
@@ -115,7 +115,7 @@
           <h2>Process</h2>
         </mat-panel-title>
         <mat-panel-description>
-          Test description
+          Define the process of the refactoring approach.
         </mat-panel-description>
       </mat-expansion-panel-header>
       <app-connected-data-lists
@@ -160,11 +160,49 @@
           <h2>Outputs</h2>
         </mat-panel-title>
         <mat-panel-description>
-          Test description
+          Define the outputs of the refactoring approach.
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <div>
-        Test
+      <div fxLayout="row" fxLayoutGap="16px">
+        <div style="padding: 16px" fxFlex="33" fxLayout="column">
+          <mat-form-field appearance="fill">
+            <mat-label>Output architecture</mat-label>
+            <mat-select [(ngModel)]="selectedOutputArchitecture" name="food">
+              <mat-option *ngFor="let architecture of architectures" [value]="architecture">
+                {{architecture.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Output service type</mat-label>
+            <mat-select [(ngModel)]="selectedOutputServiceType" name="food">
+              <mat-option *ngFor="let serviceType of serviceTypes" [value]="serviceType">
+                {{serviceType.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" (click)="addOutput()">Add</button>
+        </div>
+
+        <div fxFlex="66" fxLayout="column">
+          <h3 style="padding: 0 16px">Current outputs</h3>
+          <mat-list *ngIf="currentOutputList.length >= 1" class="output-list">
+            <mat-list-item *ngFor="let output of currentOutputList">
+              <p *ngIf="output.architecture && output.serviceType">{{output.architecture.name}}: {{output.serviceType.name}}</p>
+              <p *ngIf="!output.architecture || !output.serviceType">Undefined output!</p>
+              <button mat-icon-button color="warn" (click)="removeOutput(output)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-list-item>
+          </mat-list>
+
+          <div *ngIf="currentOutputList.length < 1" fxFlex fxLayout="column" fxLayoutAlign="center center">
+            <mat-icon class="icon-2x" color="accent">info</mat-icon>
+            <p>No outputs</p>
+          </div>
+        </div>
       </div>
     </mat-expansion-panel>
 
@@ -174,7 +212,7 @@
           <h2>Usability</h2>
         </mat-panel-title>
         <mat-panel-description>
-          Test description
+          Define the usability attributes of the refactoring approach.
         </mat-panel-description>
       </mat-expansion-panel-header>
       <div>

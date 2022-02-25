@@ -23,6 +23,10 @@ import {Direction} from "../../../../../api/repository/models/direction";
 import {AutomationLevel} from "../../../../../api/repository/models/automation-level";
 import {AnalysisType} from "../../../../../api/repository/models/analysis-type";
 import {Technique} from "../../../../../api/repository/models/technique";
+import {Architecture} from "../../../../../api/repository/models/architecture";
+import {ServiceType} from "../../../../../api/repository/models/service-type";
+import {ApproachOutput} from "../../../../../api/repository/models/approach-output";
+import {removeElementFromArray} from "../../../utils/utils";
 
 @Component({
   selector: 'app-approach-view',
@@ -49,6 +53,8 @@ export class ApproachViewComponent implements OnInit {
   automationLevels: AutomationLevel[] = [];
   analysisTypes: AnalysisType[] = [];
   techniques: Technique[] = [];
+  architectures: Architecture[] = [];
+  serviceTypes: ServiceType[] = [];
 
   domainArtifactSourceDataList: ConnectedDataListElement[] = [];
   domainArtifactTargetDataList: ConnectedDataListElement[] = [];
@@ -69,6 +75,9 @@ export class ApproachViewComponent implements OnInit {
   techniqueSourceDataList: ConnectedDataListElement[] = [];
   techniqueTargetDataList: ConnectedDataListElement[] = [];
 
+  selectedOutputArchitecture!: Architecture;
+  selectedOutputServiceType!: ServiceType;
+  currentOutputList: ApproachOutput[] = [];
 
   isCreateView: boolean = true;
 
@@ -104,11 +113,15 @@ export class ApproachViewComponent implements OnInit {
     this.requestAutomationLevels();
     this.requestAnalysisTypes();
     this.requestTechniques();
+    this.requestArchitectures();
+    this.requestServiceTypes();
 
     if (this.isCreateView) {
 
     } else {
-
+      if (this.refactoringApproach.approachOutputs != null) {
+        this.currentOutputList = this.refactoringApproach.approachOutputs;
+      }
     }
   }
 
@@ -312,12 +325,74 @@ export class ApproachViewComponent implements OnInit {
     }
   }
 
+  requestArchitectures(): void {
+    this.outputService.listArchitectures().subscribe({
+      next: (response: Architecture[]) => {
+        this.architectures = response;
+      },
+      error: () => {
+        this.utilService.callSnackBar('Error! Output architectures could not be retrieved.');
+      }
+    });
+  }
+
+  requestServiceTypes(): void {
+    this.outputService.listServiceTypes().subscribe({
+      next: (response: ServiceType[]) => {
+        this.serviceTypes = response;
+      },
+      error: () => {
+        this.utilService.callSnackBar('Error! Output service types could not be retrieved.');
+      }
+    });
+  }
+
+  addOutput(): void {
+    if (this.selectedOutputArchitecture === undefined || this.selectedOutputServiceType === undefined) {
+      this.utilService.callSnackBar('Error! Output must have an architecture and service type selected');
+      return;
+    }
+
+    if (this.currentOutputList.find(output =>
+      output.architecture?.name === this.selectedOutputArchitecture.name &&
+      output.serviceType?.name === this.selectedOutputServiceType.name) !== undefined) {
+      this.utilService.callSnackBar('Output already exists.');
+      // TODO return
+    }
+
+    // TODO maybe dialog
+    this.currentOutputList.push({
+      architecture: this.selectedOutputArchitecture,
+      serviceType: this.selectedOutputServiceType
+    })
+  }
+
+  removeOutput(output: ApproachOutput): void {
+    let data: ConfirmDialogData = {
+      title: 'Remove the selected output?',
+      message: `Do you want to remove the output with architecture \"${output.architecture?.name}\" and service type \"${output.serviceType?.name}\"?`,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel',
+    }
+    this.utilService.createDialog(ConfirmDialogComponent, data).afterClosed().subscribe({
+      next: data => {
+        if (data == null)
+          return
+
+        removeElementFromArray<ApproachOutput>(this.currentOutputList, output,
+          (a, b) =>
+            a.architecture?.name === b.architecture?.name &&
+            a.serviceType?.name === b.serviceType?.name);
+      }
+    });
+  }
+
   createRefactoringApproach(): void {
     let data: ConfirmDialogData = {
-      title: "Create a new refactoring approach?",
-      message: "Do you want to create a new refactoring approach based on the given data?",
-      confirmButtonText: "Confirm",
-      cancelButtonText: "Cancel",
+      title: 'Create a new refactoring approach?',
+      message: 'Do you want to create a new refactoring approach based on the given data?',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel',
     }
 
     this.utilService.createDialog(ConfirmDialogComponent, data).afterClosed().subscribe({
@@ -332,10 +407,10 @@ export class ApproachViewComponent implements OnInit {
 
   updateRefactoringApproach(): void {
     let data: ConfirmDialogData = {
-      title: "Update the current refactoring approach?",
-      message: "Do you want to update the current refactoring approach based on the current changes?",
-      confirmButtonText: "Confirm",
-      cancelButtonText: "Cancel",
+      title: 'Update the current refactoring approach?',
+      message: 'Do you want to update the current refactoring approach based on the current changes?',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel',
     }
 
     this.utilService.createDialog(ConfirmDialogComponent, data).afterClosed().subscribe({
@@ -352,17 +427,17 @@ export class ApproachViewComponent implements OnInit {
     let data: ConfirmDialogData;
     if (this.isCreateView) {
       data = {
-        title: "Stop adding new refactoring approach?",
-        message: "Do you want to stop adding a refactoring approach? All filled in data will be lost.",
-        confirmButtonText: "Yes",
-        cancelButtonText: "No",
+        title: 'Stop adding new refactoring approach?',
+        message: 'Do you want to stop adding a refactoring approach? All filled in data will be lost.',
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
       }
     } else {
       data = {
-        title: "Stop updating refactoring approach?",
-        message: "Do you want to stop updating the refactoring approach? All unsaved changed will be lost.",
-        confirmButtonText: "Yes",
-        cancelButtonText: "No",
+        title: 'Stop updating refactoring approach?',
+        message: 'Do you want to stop updating the refactoring approach? All unsaved changed will be lost.',
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
       }
     }
 
