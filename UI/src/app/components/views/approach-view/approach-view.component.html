@@ -190,7 +190,9 @@
           <h3 style="padding: 0 16px">Current outputs</h3>
           <mat-list *ngIf="currentOutputList.length >= 1" class="output-list">
             <mat-list-item *ngFor="let output of currentOutputList">
-              <p *ngIf="output.architecture && output.serviceType">{{output.architecture.name}}: {{output.serviceType.name}}</p>
+              <p *ngIf="output.architecture && output.serviceType">
+                {{output.architecture.name}}: {{output.serviceType.name}}
+              </p>
               <p *ngIf="!output.architecture || !output.serviceType">Undefined output!</p>
               <button mat-icon-button color="warn" (click)="removeOutput(output)">
                 <mat-icon>delete</mat-icon>
@@ -279,5 +281,3 @@
     </mat-expansion-panel>
   </mat-accordion>
 </div>
-
-

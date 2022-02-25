@@ -1,1 +1,50 @@
-<p>approach-explorer works!</p>
+<div fxLayout="column" fxLayoutAlign="start center">
+  <h1>Explore all currently available refactoring approaches</h1>
+
+  <table mat-table [dataSource]="dataSource" matSort recycleRows
+         class="mat-elevation-z8">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="id" sortActionDescription="Sort by id">
+        ID
+      </th>
+      <td mat-cell *matCellDef="let approach"> {{approach.refactoringApproachId}} </td>
+    </ng-container>
+
+    <!-- Title Column -->
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="title" sortActionDescription="Sort by title">
+        Title
+      </th>
+      <td mat-cell *matCellDef="let approach"> {{approach.approachSource.title}} </td>
+    </ng-container>
+
+    <!-- Year Column -->
+    <ng-container matColumnDef="year">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="year" sortActionDescription="Sort by year">
+        Year
+      </th>
+      <td mat-cell *matCellDef="let approach"> {{approach.approachSource.year}} </td>
+    </ng-container>
+
+    <!-- Authors Column -->
+    <ng-container matColumnDef="authors">
+      <th mat-header-cell *matHeaderCellDef>
+        Authors
+      </th>
+      <td mat-cell *matCellDef="let approach"> {{approach.approachSource.authors}} </td>
+    </ng-container>
+
+    <!-- Link Column -->
+    <ng-container matColumnDef="link">
+      <th mat-header-cell *matHeaderCellDef>
+        Link
+      </th>
+      <td mat-cell *matCellDef="let approach"> {{approach.approachSource.link}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

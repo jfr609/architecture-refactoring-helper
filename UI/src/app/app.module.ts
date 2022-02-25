@@ -31,6 +31,8 @@ import {MatListModule} from "@angular/material/list";
 import {MatSelectModule} from "@angular/material/select";
 import {MatIconModule} from "@angular/material/icon";
 import {MatRadioModule} from "@angular/material/radio";
+import {MatTableModule} from "@angular/material/table";
+import {MatSortModule} from "@angular/material/sort";
 
 @NgModule({
   declarations: [
@@ -66,7 +68,9 @@ import {MatRadioModule} from "@angular/material/radio";
     MatSelectModule,
     FormsModule,
     MatIconModule,
-    MatRadioModule
+    MatRadioModule,
+    MatTableModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
