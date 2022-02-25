@@ -27,6 +27,10 @@ import {Architecture} from "../../../../../api/repository/models/architecture";
 import {ServiceType} from "../../../../../api/repository/models/service-type";
 import {ApproachOutput} from "../../../../../api/repository/models/approach-output";
 import {removeElementFromArray} from "../../../utils/utils";
+import {ResultsQuality} from "../../../../../api/repository/models/results-quality";
+import {ToolSupport} from "../../../../../api/repository/models/tool-support";
+import {AccuracyPrecision} from "../../../../../api/repository/models/accuracy-precision";
+import {ValidationMethod} from "../../../../../api/repository/models/validation-method";
 
 @Component({
   selector: 'app-approach-view',
@@ -55,6 +59,10 @@ export class ApproachViewComponent implements OnInit {
   techniques: Technique[] = [];
   architectures: Architecture[] = [];
   serviceTypes: ServiceType[] = [];
+  resultsQualities: ResultsQuality[] = [];
+  toolSupports: ToolSupport[] = [];
+  accuracyPrecisions: AccuracyPrecision[] = [];
+  validationMethods: ValidationMethod[] = [];
 
   domainArtifactSourceDataList: ConnectedDataListElement[] = [];
   domainArtifactTargetDataList: ConnectedDataListElement[] = [];
@@ -78,6 +86,11 @@ export class ApproachViewComponent implements OnInit {
   selectedOutputArchitecture!: Architecture;
   selectedOutputServiceType!: ServiceType;
   currentOutputList: ApproachOutput[] = [];
+
+  selectedResultsQuality!: ResultsQuality;
+  selectedToolSupport!: ToolSupport;
+  selectedAccuracyPrecision!: AccuracyPrecision;
+  selectedValidationMethod!: ValidationMethod;
 
   isCreateView: boolean = true;
 
@@ -115,6 +128,10 @@ export class ApproachViewComponent implements OnInit {
     this.requestTechniques();
     this.requestArchitectures();
     this.requestServiceTypes();
+    this.requestResultsQualities();
+    this.requestToolSupports();
+    this.requestAccuracyPrecisions();
+    this.requestValidationMethods();
 
     if (this.isCreateView) {
 
@@ -343,6 +360,50 @@ export class ApproachViewComponent implements OnInit {
       },
       error: () => {
         this.utilService.callSnackBar('Error! Output service types could not be retrieved.');
+      }
+    });
+  }
+
+  requestResultsQualities(): void {
+    this.usabilityService.listResultsQualities().subscribe({
+      next: (response: ResultsQuality[]) => {
+        this.resultsQualities = response;
+      },
+      error: () => {
+        this.utilService.callSnackBar('Error! Results quality options could not be retrieved.');
+      }
+    });
+  }
+
+  requestToolSupports(): void {
+    this.usabilityService.listToolSupports().subscribe({
+      next: (response: ToolSupport[]) => {
+        this.toolSupports = response;
+      },
+      error: () => {
+        this.utilService.callSnackBar('Error! Tool support options could not be retrieved.');
+      }
+    });
+  }
+
+  requestAccuracyPrecisions(): void {
+    this.usabilityService.listAccuracyPrecisions().subscribe({
+      next: (response: AccuracyPrecision[]) => {
+        this.accuracyPrecisions = response;
+      },
+      error: () => {
+        this.utilService.callSnackBar('Error! Accuracy/Precision options could not be retrieved.');
+      }
+    });
+  }
+
+  requestValidationMethods(): void {
+    this.usabilityService.listValidationMethods().subscribe({
+      next: (response: ValidationMethod[]) => {
+        this.validationMethods = response;
+      },
+      error: () => {
+        this.utilService.callSnackBar('Error! Validation method options could not be retrieved.');
       }
     });
   }

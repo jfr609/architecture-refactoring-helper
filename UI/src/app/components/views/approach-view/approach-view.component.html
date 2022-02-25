@@ -215,8 +215,66 @@
           Define the usability attributes of the refactoring approach.
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <div>
-        Test
+      <div fxLayout="row" fxLayoutGap="16px">
+        <div fxFlex fxLayout="column" fxLayoutGap="16px">
+          <h4 id="results-quality-radio-group-label">
+            Pick the quality of the results
+          </h4>
+          <mat-radio-group
+            fxLayout="column"
+            fxLayoutGap="8px"
+            aria-labelledby="results-quality-radio-group-label"
+            [(ngModel)]="selectedResultsQuality">
+            <mat-radio-button *ngFor="let resultsQuality of resultsQualities" [value]="resultsQuality">
+              {{resultsQuality.name}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div fxFlex fxLayout="column" fxLayoutGap="16px">
+          <h4 id="tool-support-radio-group-label">
+            Pick a tool support option
+          </h4>
+          <mat-radio-group
+            fxLayout="column"
+            fxLayoutGap="8px"
+            aria-labelledby="tool-support-radio-group-label"
+            [(ngModel)]="selectedToolSupport">
+            <mat-radio-button *ngFor="let toolSupport of toolSupports" [value]="toolSupport">
+              {{toolSupport.name}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div fxFlex fxLayout="column" fxLayoutGap="16px">
+          <h4 id="accuracy-precision-radio-group-label">
+            Pick a Accuracy/Precision option
+          </h4>
+          <mat-radio-group
+            fxLayout="column"
+            fxLayoutGap="8px"
+            aria-labelledby="accuracy-precision-radio-group-label"
+            [(ngModel)]="selectedAccuracyPrecision">
+            <mat-radio-button *ngFor="let accuracyPrecision of accuracyPrecisions" [value]="accuracyPrecision">
+              {{accuracyPrecision.name}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div fxFlex fxLayout="column" fxLayoutGap="16px">
+          <h4 id="validation-method-radio-group-label">
+            Pick the quality of the results
+          </h4>
+          <mat-radio-group
+            fxLayout="column"
+            fxLayoutGap="8px"
+            aria-labelledby="validation-method-radio-group-label"
+            [(ngModel)]="selectedValidationMethod">
+            <mat-radio-button *ngFor="let validationMethod of validationMethods" [value]="validationMethod">
+              {{validationMethod.name}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
       </div>
     </mat-expansion-panel>
   </mat-accordion>
