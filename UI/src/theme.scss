@@ -1,4 +1,5 @@
 @import "../node_modules/@angular/material/theming";
+@import "styles";
 @include mat-core();
 
 $light-theme-primary: mat-palette($mat-green, 400);
@@ -8,3 +9,19 @@ $light-theme-warn: mat-palette($mat-red, 600);
 $light-theme: mat-light-theme($light-theme-primary, $light-theme-accent, $light-theme-warn);
 
 @include angular-material-theme($light-theme);
+
+:root {
+  --color-primary: #{mat-color($light-theme-primary)};
+  --color-primary-lighter: #{mat-color($light-theme-primary, lighter)};
+  --color-primary-darker: #{mat-color($light-theme-primary, darker)};
+  --color-primary-15: #{mat-color($light-theme-primary, 0.15)};
+  --color-primary-30: #{mat-color($light-theme-primary, 0.3)};
+  --color-accent: #{mat-color($light-theme-accent)};
+  --color-accent-lighter: #{mat-color($light-theme-accent, lighter)};
+  --color-accent-darker: #{mat-color($light-theme-accent, darker)};
+  --color-accent-15: #{mat-color($light-theme-accent, 0.15)};
+  --color-accent-30: #{mat-color($light-theme-accent, 0.3)};
+  --color-warn: #{mat-color($light-theme-warn)};
+  --color-warn-15: #{mat-color($light-theme-warn, 0.15)};
+  --color-warn-30: #{mat-color($light-theme-warn, 0.3)};
+}
