@@ -81,31 +81,31 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <app-connected-data-lists
-        [listTitle1]="'Domain artifacts'"
-        [listTitle2]="'Approach domain artifacts'"
-        [listData1]="domainArtifactDataList1"
-        [listData2]="domainArtifactDataList2">
+        [sourceDataListTitle]="'Domain artifacts'"
+        [targetDataListTitle]="'Approach domain artifacts'"
+        [sourceDataList]="domainArtifactSourceDataList"
+        [targetDataList]="domainArtifactTargetDataList">
       </app-connected-data-lists>
 
       <app-connected-data-lists
-        [listTitle1]="'Runtime artifacts'"
-        [listTitle2]="'Approach runtime artifacts'"
-        [listData1]="runtimeArtifactDataList1"
-        [listData2]="runtimeArtifactDataList2">
+        [sourceDataListTitle]="'Runtime artifacts'"
+        [targetDataListTitle]="'Approach runtime artifacts'"
+        [sourceDataList]="runtimeArtifactSourceDataList"
+        [targetDataList]="runtimeArtifactTargetDataList">
       </app-connected-data-lists>
 
       <app-connected-data-lists
-        [listTitle1]="'Model artifacts'"
-        [listTitle2]="'Approach model artifacts'"
-        [listData1]="modelArtifactDataList1"
-        [listData2]="modelArtifactDataList2">
+        [sourceDataListTitle]="'Model artifacts'"
+        [targetDataListTitle]="'Approach model artifacts'"
+        [sourceDataList]="modelArtifactSourceDataList"
+        [targetDataList]="modelArtifactTargetDataList">
       </app-connected-data-lists>
 
       <app-connected-data-lists
-        [listTitle1]="'Executables'"
-        [listTitle2]="'Approach executables'"
-        [listData1]="executableDataList1"
-        [listData2]="executableDataList2">
+        [sourceDataListTitle]="'Executables'"
+        [targetDataListTitle]="'Approach executables'"
+        [sourceDataList]="executableSourceDataList"
+        [targetDataList]="executableTargetDataList">
       </app-connected-data-lists>
     </mat-expansion-panel>
 
@@ -118,9 +118,40 @@
           Test description
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <div>
-        Test
-      </div>
+      <app-connected-data-lists
+        [sourceDataListTitle]="'Qualities'"
+        [targetDataListTitle]="'Approach process qualities'"
+        [sourceDataList]="qualitySourceDataList"
+        [targetDataList]="qualityTargetDataList">
+      </app-connected-data-lists>
+
+      <app-connected-data-lists
+        [sourceDataListTitle]="'Directions'"
+        [targetDataListTitle]="'Approach process directions'"
+        [sourceDataList]="directionSourceDataList"
+        [targetDataList]="directionTargetDataList">
+      </app-connected-data-lists>
+
+      <app-connected-data-lists
+        [sourceDataListTitle]="'Automation levels'"
+        [targetDataListTitle]="'Approach process automation levels'"
+        [sourceDataList]="automationLevelSourceDataList"
+        [targetDataList]="automationLevelTargetDataList">
+      </app-connected-data-lists>
+
+      <app-connected-data-lists
+        [sourceDataListTitle]="'Analysis types'"
+        [targetDataListTitle]="'Approach process analysis types'"
+        [sourceDataList]="analysisTypeSourceDataList"
+        [targetDataList]="analysisTypeTargetDataList">
+      </app-connected-data-lists>
+
+      <app-connected-data-lists
+        [sourceDataListTitle]="'Techniques'"
+        [targetDataListTitle]="'Approach process techniques'"
+        [sourceDataList]="techniqueSourceDataList"
+        [targetDataList]="techniqueTargetDataList">
+      </app-connected-data-lists>
     </mat-expansion-panel>
 
     <mat-expansion-panel expanded>

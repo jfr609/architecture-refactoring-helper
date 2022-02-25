@@ -19,7 +19,8 @@ public class ApproachProcessService
         var db = new RefactoringApproachContext();
 
         return db.Qualities
-            .OrderBy(e => e.Name)
+            .OrderBy(e => e.Category)
+            .ThenBy(e => e.Name)
             .ToList();
     }
 

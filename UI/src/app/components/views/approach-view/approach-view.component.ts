@@ -18,6 +18,11 @@ import {ApproachProcessService} from "../../../../../api/repository/services/app
 import {ApproachOutputService} from "../../../../../api/repository/services/approach-output.service";
 import {ApproachUsabilityService} from "../../../../../api/repository/services/approach-usability.service";
 import {ConnectedDataListElement} from "../../generics/connected-data-lists/connected-data-lists.component";
+import {Quality} from "../../../../../api/repository/models/quality";
+import {Direction} from "../../../../../api/repository/models/direction";
+import {AutomationLevel} from "../../../../../api/repository/models/automation-level";
+import {AnalysisType} from "../../../../../api/repository/models/analysis-type";
+import {Technique} from "../../../../../api/repository/models/technique";
 
 @Component({
   selector: 'app-approach-view',
@@ -39,15 +44,31 @@ export class ApproachViewComponent implements OnInit {
   runtimeArtifacts: RuntimeArtifactInput[] = [];
   modelArtifacts: ModelArtifactInput[] = [];
   executables: ExecutableInput[] = [];
+  qualities: Quality[] = [];
+  directions: Direction[] = [];
+  automationLevels: AutomationLevel[] = [];
+  analysisTypes: AnalysisType[] = [];
+  techniques: Technique[] = [];
 
-  domainArtifactDataList1: ConnectedDataListElement[] = [];
-  domainArtifactDataList2: ConnectedDataListElement[] = [];
-  runtimeArtifactDataList1: ConnectedDataListElement[] = [];
-  runtimeArtifactDataList2: ConnectedDataListElement[] = [];
-  modelArtifactDataList1: ConnectedDataListElement[] = [];
-  modelArtifactDataList2: ConnectedDataListElement[] = [];
-  executableDataList1: ConnectedDataListElement[] = [];
-  executableDataList2: ConnectedDataListElement[] = [];
+  domainArtifactSourceDataList: ConnectedDataListElement[] = [];
+  domainArtifactTargetDataList: ConnectedDataListElement[] = [];
+  runtimeArtifactSourceDataList: ConnectedDataListElement[] = [];
+  runtimeArtifactTargetDataList: ConnectedDataListElement[] = [];
+  modelArtifactSourceDataList: ConnectedDataListElement[] = [];
+  modelArtifactTargetDataList: ConnectedDataListElement[] = [];
+  executableSourceDataList: ConnectedDataListElement[] = [];
+  executableTargetDataList: ConnectedDataListElement[] = [];
+  qualitySourceDataList: ConnectedDataListElement[] = [];
+  qualityTargetDataList: ConnectedDataListElement[] = [];
+  directionSourceDataList: ConnectedDataListElement[] = [];
+  directionTargetDataList: ConnectedDataListElement[] = [];
+  automationLevelSourceDataList: ConnectedDataListElement[] = [];
+  automationLevelTargetDataList: ConnectedDataListElement[] = [];
+  analysisTypeSourceDataList: ConnectedDataListElement[] = [];
+  analysisTypeTargetDataList: ConnectedDataListElement[] = [];
+  techniqueSourceDataList: ConnectedDataListElement[] = [];
+  techniqueTargetDataList: ConnectedDataListElement[] = [];
+
 
   isCreateView: boolean = true;
 
@@ -74,10 +95,15 @@ export class ApproachViewComponent implements OnInit {
         this.requestRefactoringApproach(approachId);
       }
     });
-    this.requestAllDomainArtifacts();
-    this.requestAllRuntimeArtifacts();
-    this.requestAllModelArtifacts();
-    this.requestAllExecutables();
+    this.requestDomainArtifacts();
+    this.requestRuntimeArtifacts();
+    this.requestModelArtifacts();
+    this.requestExecutables();
+    this.requestQualities();
+    this.requestDirections();
+    this.requestAutomationLevels();
+    this.requestAnalysisTypes();
+    this.requestTechniques();
 
     if (this.isCreateView) {
 
@@ -97,7 +123,7 @@ export class ApproachViewComponent implements OnInit {
     });
   }
 
-  requestAllDomainArtifacts(): void {
+  requestDomainArtifacts(): void {
     this.inputService.listDomainArtifacts().subscribe({
       next: (response: DomainArtifactInput[]) => {
         this.domainArtifacts = response;
@@ -111,14 +137,14 @@ export class ApproachViewComponent implements OnInit {
 
   fillDomainArtifactDataLists(): void {
     if (this.isCreateView) {
-      this.domainArtifactDataList1 = this.utilService.createConnectedDataListFromList<DomainArtifactInput>(
+      this.domainArtifactSourceDataList = this.utilService.createConnectedDataListFromList<DomainArtifactInput>(
         this.domainArtifacts, (e: DomainArtifactInput) => e.name);
     } else {
       // TODO
     }
   }
 
-  requestAllRuntimeArtifacts(): void {
+  requestRuntimeArtifacts(): void {
     this.inputService.listRuntimeArtifact().subscribe({
       next: (response: RuntimeArtifactInput[]) => {
         this.runtimeArtifacts = response;
@@ -132,14 +158,14 @@ export class ApproachViewComponent implements OnInit {
 
   fillRuntimeArtifactDataLists(): void {
     if (this.isCreateView) {
-      this.runtimeArtifactDataList1 = this.utilService.createConnectedDataListFromList<RuntimeArtifactInput>(
+      this.runtimeArtifactSourceDataList = this.utilService.createConnectedDataListFromList<RuntimeArtifactInput>(
         this.runtimeArtifacts, (e: RuntimeArtifactInput) => e.name);
     } else {
       // TODO
     }
   }
 
-  requestAllModelArtifacts(): void {
+  requestModelArtifacts(): void {
     this.inputService.listModelArtifacts().subscribe({
       next: (response: ModelArtifactInput[]) => {
         this.modelArtifacts = response;
@@ -153,14 +179,14 @@ export class ApproachViewComponent implements OnInit {
 
   fillModelArtifactDataLists(): void {
     if (this.isCreateView) {
-      this.modelArtifactDataList1 = this.utilService.createConnectedDataListFromList<ModelArtifactInput>(
+      this.modelArtifactSourceDataList = this.utilService.createConnectedDataListFromList<ModelArtifactInput>(
         this.modelArtifacts, (e: ModelArtifactInput) => e.name);
     } else {
       // TODO
     }
   }
 
-  requestAllExecutables(): void {
+  requestExecutables(): void {
     this.inputService.listExecutables().subscribe({
       next: (response: ExecutableInput[]) => {
         this.executables = response;
@@ -174,8 +200,113 @@ export class ApproachViewComponent implements OnInit {
 
   fillExecutableDataLists(): void {
     if (this.isCreateView) {
-      this.executableDataList1 = this.utilService.createConnectedDataListFromList<ExecutableInput>(
+      this.executableSourceDataList = this.utilService.createConnectedDataListFromList<ExecutableInput>(
         this.executables, (e: ExecutableInput) => `${e.name}: ${e.language}`);
+    } else {
+      // TODO
+    }
+  }
+
+  requestQualities(): void {
+    this.processService.listQualities().subscribe({
+      next: (response: Quality[]) => {
+        this.qualities = response;
+        this.fillQualityDataLists();
+      },
+      error: () => {
+        this.utilService.callSnackBar('Error! Process qualities could not be retrieved.');
+      }
+    });
+  }
+
+  fillQualityDataLists(): void {
+    if (this.isCreateView) {
+      this.qualitySourceDataList = this.utilService.createConnectedDataListFromList<Quality>(
+        this.qualities, (e: Quality) => `${e.category}: ${e.name}`);
+    } else {
+      // TODO
+    }
+  }
+
+  requestDirections(): void {
+    this.processService.listDirections().subscribe({
+      next: (response: Direction[]) => {
+        this.directions = response;
+        this.fillDirectionDataLists();
+      },
+      error: () => {
+        this.utilService.callSnackBar('Error! Process directions could not be retrieved.');
+      }
+    });
+  }
+
+  fillDirectionDataLists(): void {
+    if (this.isCreateView) {
+      this.directionSourceDataList = this.utilService.createConnectedDataListFromList<Direction>(
+        this.directions, (e: Direction) => e.name);
+    } else {
+      // TODO
+    }
+  }
+
+  requestAutomationLevels(): void {
+    this.processService.listAutomationLevels().subscribe({
+      next: (response: AutomationLevel[]) => {
+        this.automationLevels = response;
+        this.fillAutomationLevelDataLists();
+      },
+      error: () => {
+        this.utilService.callSnackBar('Error! Process automation levels could not be retrieved.');
+      }
+    });
+  }
+
+  fillAutomationLevelDataLists(): void {
+    if (this.isCreateView) {
+      this.automationLevelSourceDataList = this.utilService.createConnectedDataListFromList<AutomationLevel>(
+        this.automationLevels, (e: AutomationLevel) => e.name);
+    } else {
+      // TODO
+    }
+  }
+
+  requestAnalysisTypes(): void {
+    this.processService.listAnalysisTypes().subscribe({
+      next: (response: AnalysisType[]) => {
+        this.analysisTypes = response;
+        this.fillAnalysisTypeDataLists();
+      },
+      error: () => {
+        this.utilService.callSnackBar('Error! Process analysis types could not be retrieved.');
+      }
+    });
+  }
+
+  fillAnalysisTypeDataLists(): void {
+    if (this.isCreateView) {
+      this.analysisTypeSourceDataList = this.utilService.createConnectedDataListFromList<AnalysisType>(
+        this.analysisTypes, (e: AnalysisType) => e.name);
+    } else {
+      // TODO
+    }
+  }
+
+  requestTechniques(): void {
+    this.processService.listTechniques().subscribe({
+      next: (response: Technique[]) => {
+        this.techniques = response;
+        this.fillTechniqueDataLists();
+      },
+      error: () => {
+        this.utilService.callSnackBar('Error! Process techniques could not be retrieved.');
+      }
+    });
+  }
+
+  fillTechniqueDataLists(): void {
+    if (this.isCreateView) {
+      this.techniqueSourceDataList = this.utilService.createConnectedDataListFromList<Technique>(
+        this.techniques, (e: Technique) => e.name);
     } else {
       // TODO
     }

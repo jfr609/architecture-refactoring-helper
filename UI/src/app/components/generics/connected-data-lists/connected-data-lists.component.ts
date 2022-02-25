@@ -13,10 +13,10 @@ export class ConnectedDataListElement{
 })
 export class ConnectedDataListsComponent implements OnInit {
 
-  @Input() listTitle1 = "List1";
-  @Input() listTitle2 = "List2";
-  @Input() listData1: ConnectedDataListElement[] = [];
-  @Input() listData2: ConnectedDataListElement[] = [];
+  @Input() sourceDataListTitle = "Source List";
+  @Input() targetDataListTitle = "Target List";
+  @Input() sourceDataList: ConnectedDataListElement[] = [];
+  @Input() targetDataList: ConnectedDataListElement[] = [];
 
   constructor() { }
 

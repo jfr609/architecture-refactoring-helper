@@ -1,22 +1,22 @@
 <div cdkDropListGroup fxLayout="row" fxLayoutGap="40px">
   <div fxFlex="50">
-    <h3>{{listTitle1}}</h3>
+    <h3>{{sourceDataListTitle}}</h3>
     <div cdkDropList
-         [cdkDropListData]="listData1"
+         [cdkDropListData]="sourceDataList"
          (cdkDropListDropped)="drop($event)"
          class="connected-data-list">
-      <div *ngFor="let item1 of listData1" class="connected-data-list-item" cdkDrag>
+      <div *ngFor="let item1 of sourceDataList" class="connected-data-list-item" cdkDrag>
         {{item1.displayName}}
       </div>
     </div>
   </div>
   <div fxFlex="50">
-    <h3>{{listTitle2}}</h3>
+    <h3>{{targetDataListTitle}}</h3>
     <div cdkDropList
-         [cdkDropListData]="listData2"
+         [cdkDropListData]="targetDataList"
          (cdkDropListDropped)="drop($event)"
          class="connected-data-list">
-      <div *ngFor="let item2 of listData2" class="connected-data-list-item" cdkDrag>
+      <div *ngFor="let item2 of targetDataList" class="connected-data-list-item" cdkDrag>
         {{item2.displayName}}
       </div>
     </div>
