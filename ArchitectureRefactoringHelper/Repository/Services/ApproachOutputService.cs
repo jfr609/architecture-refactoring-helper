@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using Repository.Exceptions;
 using Repository.Models;
 
@@ -8,29 +7,31 @@ public class ApproachOutputService
 {
     public IEnumerable<ApproachOutput> ListApproachOutputs()
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            var list = db.ApproachOutputs
-                .IncludeAllApproachOutputData()
-                .ToList();
-            return list;
-        }
+        var db = new RefactoringApproachContext();
+
+        return db.ApproachOutputs
+            .OrderBy(e => e.Architecture.Name)
+            .ThenBy(e => e.ServiceType.Name)
+            .IncludeAllApproachOutputData()
+            .ToList();
     }
 
     public IEnumerable<Architecture> ListArchitectures()
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.Architectures.ToList();
-        }
+        var db = new RefactoringApproachContext();
+
+        return db.Architectures
+            .OrderBy(e => e.Name)
+            .ToList();
     }
 
     public IEnumerable<ServiceType> ListServiceTypes()
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.ServiceTypes.ToList();
-        }
+        var db = new RefactoringApproachContext();
+
+        return db.ServiceTypes
+            .OrderBy(e => e.Name)
+            .ToList();
     }
 
     public ApproachOutput GetApproachOutput(int outputId)

@@ -11,45 +11,47 @@ public class ApproachUsabilityService
 {
     public IEnumerable<ApproachUsability> ListApproachUsabilities()
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            var list = db.ApproachUsabilities
-                .IncludeAllApproachUsabilityData()
-                .ToList();
-            return list;
-        }
+        var db = new RefactoringApproachContext();
+
+        return db.ApproachUsabilities
+            .IncludeAllApproachUsabilityData()
+            .ToList();
     }
 
     public IEnumerable<ResultsQuality> ListResultsQualities()
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.ResultsQualities.ToList();
-        }
+        var db = new RefactoringApproachContext();
+
+        return db.ResultsQualities
+            .OrderBy(e => e.Name)
+            .ToList();
     }
 
     public IEnumerable<ToolSupport> ListToolSupports()
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.ToolSupports.ToList();
-        }
+        var db = new RefactoringApproachContext();
+
+        return db.ToolSupports
+            .OrderBy(e => e.Name)
+            .ToList();
     }
 
     public IEnumerable<AccuracyPrecision> ListAccuracyPrecisions()
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.AccuracyPrecisions.ToList();
-        }
+        var db = new RefactoringApproachContext();
+
+        return db.AccuracyPrecisions
+            .OrderBy(e => e.Name)
+            .ToList();
     }
 
     public IEnumerable<ValidationMethod> ListValidationMethods()
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.ValidationMethods.ToList();
-        }
+        var db = new RefactoringApproachContext();
+
+        return db.ValidationMethods
+            .OrderBy(e => e.Name)
+            .ToList();
     }
 
     public ApproachUsability GetApproachUsability(int usabilityId)

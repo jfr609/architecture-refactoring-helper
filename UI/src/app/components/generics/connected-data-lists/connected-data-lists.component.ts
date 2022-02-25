@@ -1,6 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 
+export class ConnectedDataListElement{
+  displayName!: string;
+  dataElement?: {};
+}
+
 @Component({
   selector: 'app-connected-data-lists',
   templateUrl: './connected-data-lists.component.html',
@@ -10,8 +15,8 @@ export class ConnectedDataListsComponent implements OnInit {
 
   @Input() listTitle1 = "List1";
   @Input() listTitle2 = "List2";
-  @Input() listData1: any[] = ['1', '2', '3', '4'];
-  @Input() listData2: any[] = ['5', '6'];
+  @Input() listData1: ConnectedDataListElement[] = [];
+  @Input() listData2: ConnectedDataListElement[] = [];
 
   constructor() { }
 

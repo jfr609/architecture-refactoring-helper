@@ -7,34 +7,39 @@ public class ApproachInputService
 {
     public IEnumerable<DomainArtifactInput> ListDomainArtifactInputs()
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.DomainArtifactInputs.ToList();
-        }
+        var db = new RefactoringApproachContext();
+
+        return db.DomainArtifactInputs
+            .OrderBy(e => e.Name)
+            .ToList();
     }
 
     public IEnumerable<RuntimeArtifactInput> ListRuntimeArtifactInputs()
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.RuntimeArtifactInputs.ToList();
-        }
+        var db = new RefactoringApproachContext();
+
+        return db.RuntimeArtifactInputs
+            .OrderBy(e => e.Name)
+            .ToList();
     }
 
     public IEnumerable<ModelArtifactInput> ListModelArtifactInputs()
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.ModelArtifactInputs.ToList();
-        }
+        var db = new RefactoringApproachContext();
+
+        return db.ModelArtifactInputs
+            .OrderBy(e => e.Name)
+            .ToList();
     }
 
     public IEnumerable<ExecutableInput> ListExecutableInputs()
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.ExecutableInputs.ToList();
-        }
+        var db = new RefactoringApproachContext();
+
+        return db.ExecutableInputs
+            .OrderBy(e => e.Name)
+            .ThenBy(e => e.Language)
+            .ToList();
     }
 
     public DomainArtifactInput GetDomainArtifactInput(string inputName)

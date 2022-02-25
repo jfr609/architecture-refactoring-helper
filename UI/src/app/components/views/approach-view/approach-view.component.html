@@ -9,7 +9,8 @@
 
   <div style="padding: 16px" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="12px">
     <button *ngIf="isCreateView" mat-raised-button color="primary" (click)="createRefactoringApproach()">Create</button>
-    <button *ngIf="!isCreateView" mat-raised-button color="primary" (click)="updateRefactoringApproach()">Create</button>
+    <button *ngIf="!isCreateView" mat-raised-button color="primary" (click)="updateRefactoringApproach()">Create
+    </button>
     <button mat-raised-button (click)="accordion.openAll()">Expand All</button>
     <button mat-raised-button (click)="accordion.closeAll()">Collapse All</button>
     <button mat-raised-button color="warn" (click)="cancel()">Cancel</button>
@@ -19,7 +20,7 @@
     <mat-expansion-panel expanded>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <h3>Source</h3>
+          <h2>Source</h2>
         </mat-panel-title>
         <mat-panel-description>
           Test description
@@ -73,21 +74,45 @@
     <mat-expansion-panel expanded>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <h3>Inputs</h3>
+          <h2>Inputs</h2>
         </mat-panel-title>
         <mat-panel-description>
           Test description
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <div>
-        <app-connected-data-lists></app-connected-data-lists>
-      </div>
+      <app-connected-data-lists
+        [listTitle1]="'Domain artifacts'"
+        [listTitle2]="'Approach domain artifacts'"
+        [listData1]="domainArtifactDataList1"
+        [listData2]="domainArtifactDataList2">
+      </app-connected-data-lists>
+
+      <app-connected-data-lists
+        [listTitle1]="'Runtime artifacts'"
+        [listTitle2]="'Approach runtime artifacts'"
+        [listData1]="runtimeArtifactDataList1"
+        [listData2]="runtimeArtifactDataList2">
+      </app-connected-data-lists>
+
+      <app-connected-data-lists
+        [listTitle1]="'Model artifacts'"
+        [listTitle2]="'Approach model artifacts'"
+        [listData1]="modelArtifactDataList1"
+        [listData2]="modelArtifactDataList2">
+      </app-connected-data-lists>
+
+      <app-connected-data-lists
+        [listTitle1]="'Executables'"
+        [listTitle2]="'Approach executables'"
+        [listData1]="executableDataList1"
+        [listData2]="executableDataList2">
+      </app-connected-data-lists>
     </mat-expansion-panel>
 
     <mat-expansion-panel expanded>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <h3>Process</h3>
+          <h2>Process</h2>
         </mat-panel-title>
         <mat-panel-description>
           Test description
@@ -101,7 +126,7 @@
     <mat-expansion-panel expanded>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <h3>Outputs</h3>
+          <h2>Outputs</h2>
         </mat-panel-title>
         <mat-panel-description>
           Test description
@@ -115,7 +140,7 @@
     <mat-expansion-panel expanded>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <h3>Usability</h3>
+          <h2>Usability</h2>
         </mat-panel-title>
         <mat-panel-description>
           Test description
@@ -126,8 +151,6 @@
       </div>
     </mat-expansion-panel>
   </mat-accordion>
-
-
 </div>
 
 

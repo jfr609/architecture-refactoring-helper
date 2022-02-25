@@ -7,53 +7,56 @@ public class ApproachProcessService
 {
     public IEnumerable<ApproachProcess> ListApproachProcesses()
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            var list = db.ApproachProcesses
-                .IncludeAllApproachProcessData()
-                .ToList();
-            return list;
-        }
+        var db = new RefactoringApproachContext();
+
+        return db.ApproachProcesses
+            .IncludeAllApproachProcessData()
+            .ToList();
     }
 
     public IEnumerable<Quality> ListQualities()
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.Qualities.ToList();
-        }
+        var db = new RefactoringApproachContext();
+
+        return db.Qualities
+            .OrderBy(e => e.Name)
+            .ToList();
     }
 
     public IEnumerable<Direction> ListDirections()
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.Directions.ToList();
-        }
+        var db = new RefactoringApproachContext();
+
+        return db.Directions
+            .OrderBy(e => e.Name)
+            .ToList();
     }
 
     public IEnumerable<AutomationLevel> ListAutomationLevels()
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.AutomationLevels.ToList();
-        }
+        var db = new RefactoringApproachContext();
+
+        return db.AutomationLevels
+            .OrderBy(e => e.Name)
+            .ToList();
     }
 
     public IEnumerable<AnalysisType> ListAnalysisTypes()
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.AnalysisTypes.ToList();
-        }
+        var db = new RefactoringApproachContext();
+
+        return db.AnalysisTypes
+            .OrderBy(e => e.Name)
+            .ToList();
     }
 
     public IEnumerable<Technique> ListTechniques()
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            return db.Techniques.ToList();
-        }
+        var db = new RefactoringApproachContext();
+
+        return db.Techniques
+            .OrderBy(e => e.Name)
+            .ToList();
     }
 
     public ApproachProcess GetApproachProcess(int processId)

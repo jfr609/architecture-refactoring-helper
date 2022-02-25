@@ -9,6 +9,15 @@ import {MatAccordion} from "@angular/material/expansion";
 import {FormControl, Validators} from "@angular/forms";
 import {CustomValidators} from "../../../utils/custom-validators";
 import {ConfirmDialogComponent, ConfirmDialogData} from "../../dialogs/confirm-dialog/confirm-dialog.component";
+import {DomainArtifactInput} from "../../../../../api/repository/models/domain-artifact-input";
+import {RuntimeArtifactInput} from "../../../../../api/repository/models/runtime-artifact-input";
+import {ModelArtifactInput} from "../../../../../api/repository/models/model-artifact-input";
+import {ExecutableInput} from "../../../../../api/repository/models/executable-input";
+import {ApproachInputService} from "../../../../../api/repository/services/approach-input.service";
+import {ApproachProcessService} from "../../../../../api/repository/services/approach-process.service";
+import {ApproachOutputService} from "../../../../../api/repository/services/approach-output.service";
+import {ApproachUsabilityService} from "../../../../../api/repository/services/approach-usability.service";
+import {ConnectedDataListElement} from "../../generics/connected-data-lists/connected-data-lists.component";
 
 @Component({
   selector: 'app-approach-view',
@@ -26,11 +35,29 @@ export class ApproachViewComponent implements OnInit {
   authorsFormControl = new FormControl('', [Validators.required])
 
   refactoringApproach: RefactoringApproach = {};
+  domainArtifacts: DomainArtifactInput[] = [];
+  runtimeArtifacts: RuntimeArtifactInput[] = [];
+  modelArtifacts: ModelArtifactInput[] = [];
+  executables: ExecutableInput[] = [];
+
+  domainArtifactDataList1: ConnectedDataListElement[] = [];
+  domainArtifactDataList2: ConnectedDataListElement[] = [];
+  runtimeArtifactDataList1: ConnectedDataListElement[] = [];
+  runtimeArtifactDataList2: ConnectedDataListElement[] = [];
+  modelArtifactDataList1: ConnectedDataListElement[] = [];
+  modelArtifactDataList2: ConnectedDataListElement[] = [];
+  executableDataList1: ConnectedDataListElement[] = [];
+  executableDataList2: ConnectedDataListElement[] = [];
+
   isCreateView: boolean = true;
 
   private routeSub!: Subscription;
 
   constructor(private refactoringApproachService: RefactoringApproachService,
+              private inputService: ApproachInputService,
+              private processService: ApproachProcessService,
+              private outputService: ApproachOutputService,
+              private usabilityService: ApproachUsabilityService,
               private utilService: UtilService,
               private router: Router,
               private route: ActivatedRoute) {
@@ -46,10 +73,20 @@ export class ApproachViewComponent implements OnInit {
         let approachId = parseInt(<string>paramMap.get(NAV_PARAM_APPROACH_ID));
         this.requestRefactoringApproach(approachId);
       }
-    })
+    });
+    this.requestAllDomainArtifacts();
+    this.requestAllRuntimeArtifacts();
+    this.requestAllModelArtifacts();
+    this.requestAllExecutables();
+
+    if (this.isCreateView) {
+
+    } else {
+
+    }
   }
 
-  requestRefactoringApproach(approachId: number) {
+  requestRefactoringApproach(approachId: number): void {
     this.refactoringApproachService.getRefactoringApproach({id: approachId}).subscribe({
       next: (response: RefactoringApproach) => {
         this.refactoringApproach = response;
@@ -60,7 +97,91 @@ export class ApproachViewComponent implements OnInit {
     });
   }
 
-  createRefactoringApproach() {
+  requestAllDomainArtifacts(): void {
+    this.inputService.listDomainArtifacts().subscribe({
+      next: (response: DomainArtifactInput[]) => {
+        this.domainArtifacts = response;
+        this.fillDomainArtifactDataLists();
+      },
+      error: () => {
+        this.utilService.callSnackBar('Error! Input domain artifacts could not be retrieved.');
+      }
+    });
+  }
+
+  fillDomainArtifactDataLists(): void {
+    if (this.isCreateView) {
+      this.domainArtifactDataList1 = this.utilService.createConnectedDataListFromList<DomainArtifactInput>(
+        this.domainArtifacts, (e: DomainArtifactInput) => e.name);
+    } else {
+      // TODO
+    }
+  }
+
+  requestAllRuntimeArtifacts(): void {
+    this.inputService.listRuntimeArtifact().subscribe({
+      next: (response: RuntimeArtifactInput[]) => {
+        this.runtimeArtifacts = response;
+        this.fillRuntimeArtifactDataLists();
+      },
+      error: () => {
+        this.utilService.callSnackBar('Error! Input runtime artifacts could not be retrieved.');
+      }
+    });
+  }
+
+  fillRuntimeArtifactDataLists(): void {
+    if (this.isCreateView) {
+      this.runtimeArtifactDataList1 = this.utilService.createConnectedDataListFromList<RuntimeArtifactInput>(
+        this.runtimeArtifacts, (e: RuntimeArtifactInput) => e.name);
+    } else {
+      // TODO
+    }
+  }
+
+  requestAllModelArtifacts(): void {
+    this.inputService.listModelArtifacts().subscribe({
+      next: (response: ModelArtifactInput[]) => {
+        this.modelArtifacts = response;
+        this.fillModelArtifactDataLists();
+      },
+      error: () => {
+        this.utilService.callSnackBar('Error! Input model artifacts could not be retrieved.');
+      }
+    });
+  }
+
+  fillModelArtifactDataLists(): void {
+    if (this.isCreateView) {
+      this.modelArtifactDataList1 = this.utilService.createConnectedDataListFromList<ModelArtifactInput>(
+        this.modelArtifacts, (e: ModelArtifactInput) => e.name);
+    } else {
+      // TODO
+    }
+  }
+
+  requestAllExecutables(): void {
+    this.inputService.listExecutables().subscribe({
+      next: (response: ExecutableInput[]) => {
+        this.executables = response;
+        this.fillExecutableDataLists();
+      },
+      error: () => {
+        this.utilService.callSnackBar('Error! Input executables could not be retrieved.');
+      }
+    });
+  }
+
+  fillExecutableDataLists(): void {
+    if (this.isCreateView) {
+      this.executableDataList1 = this.utilService.createConnectedDataListFromList<ExecutableInput>(
+        this.executables, (e: ExecutableInput) => `${e.name}: ${e.language}`);
+    } else {
+      // TODO
+    }
+  }
+
+  createRefactoringApproach(): void {
     let data: ConfirmDialogData = {
       title: "Create a new refactoring approach?",
       message: "Do you want to create a new refactoring approach based on the given data?",
@@ -78,7 +199,7 @@ export class ApproachViewComponent implements OnInit {
     })
   }
 
-  updateRefactoringApproach() {
+  updateRefactoringApproach(): void {
     let data: ConfirmDialogData = {
       title: "Update the current refactoring approach?",
       message: "Do you want to update the current refactoring approach based on the current changes?",
@@ -96,7 +217,7 @@ export class ApproachViewComponent implements OnInit {
     })
   }
 
-  cancel() {
+  cancel(): void {
     let data: ConfirmDialogData;
     if (this.isCreateView) {
       data = {
