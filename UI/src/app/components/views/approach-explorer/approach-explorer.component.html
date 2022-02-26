@@ -1,12 +1,12 @@
 <div fxLayout="column" fxLayoutAlign="start center">
   <h1>Explore all currently available refactoring approaches</h1>
 
-  <table mat-table [dataSource]="dataSource" matSort recycleRows
+  <table mat-table [dataSource]="dataSource" matSort
          class="mat-elevation-z8">
 
-    <!-- Position Column -->
+    <!-- ID Column -->
     <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="id" sortActionDescription="Sort by id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="id">
         ID
       </th>
       <td mat-cell *matCellDef="let approach">
@@ -16,7 +16,7 @@
 
     <!-- Title Column -->
     <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="title" sortActionDescription="Sort by title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="title">
         Title
       </th>
       <td mat-cell *matCellDef="let approach">
@@ -26,7 +26,7 @@
 
     <!-- Year Column -->
     <ng-container matColumnDef="year">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="year" sortActionDescription="Sort by year">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="year">
         Year
       </th>
       <td mat-cell *matCellDef="let approach">
