@@ -1,3 +1,6 @@
+<div *ngIf="this.isDataLoading" class="loading-container" fxLayout="column" fxLayoutAlign="center center">
+  <mat-spinner color="accent"></mat-spinner>
+</div>
 <div *ngIf="!isDataLoading" fxLayout="column" fxLayoutAlign="start center">
   <div *ngIf="isCreateView; then newApproachTitle else updateApproachTitle"></div>
   <ng-template #newApproachTitle>
@@ -7,7 +10,7 @@
     <h1>{{refactoringApproach.approachSource?.title}}</h1>
   </ng-template>
 
-  <div style="padding: 16px" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="12px">
+  <div style="padding: 16px" fxLayout="row" fxLayoutGap="12px">
     <button *ngIf="isCreateView" mat-raised-button color="primary" (click)="createRefactoringApproach()">
       <mat-icon>add</mat-icon>
       <span>Create</span>
@@ -30,7 +33,7 @@
     </button>
   </div>
 
-  <mat-accordion style="width: 80%" multi>
+  <mat-accordion multi>
     <mat-expansion-panel expanded>
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -297,7 +300,4 @@
       </div>
     </mat-expansion-panel>
   </mat-accordion>
-</div>
-<div *ngIf="this.isDataLoading" class="loading-container" fxLayout="column" fxLayoutAlign="center center">
-  <mat-spinner color="accent"></mat-spinner>
 </div>
