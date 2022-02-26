@@ -111,37 +111,50 @@ export class ApproachViewComponent implements OnInit {
     this.routeSub = this.route.paramMap.subscribe({
       next: (paramMap: ParamMap) => {
         this.isCreateView = !paramMap.has(NAV_PARAM_APPROACH_ID);
-        if (this.isCreateView)
-          return;
-
-        this.isDataLoading = true;
-        let approachId = parseInt(<string>paramMap.get(NAV_PARAM_APPROACH_ID));
-        this.requestRefactoringApproach(approachId).then(() => {
-          let dataLoadingPromises: Promise<any>[] = [];
-          dataLoadingPromises.push(this.requestDomainArtifacts());
-          dataLoadingPromises.push(this.requestRuntimeArtifacts());
-          dataLoadingPromises.push(this.requestModelArtifacts());
-          dataLoadingPromises.push(this.requestExecutables());
-          dataLoadingPromises.push(this.requestQualities());
-          dataLoadingPromises.push(this.requestDirections());
-          dataLoadingPromises.push(this.requestAutomationLevels());
-          dataLoadingPromises.push(this.requestAnalysisTypes());
-          dataLoadingPromises.push(this.requestTechniques());
-          dataLoadingPromises.push(this.requestArchitectures());
-          dataLoadingPromises.push(this.requestServiceTypes());
-          dataLoadingPromises.push(this.requestResultsQualities());
-          dataLoadingPromises.push(this.requestToolSupports());
-          dataLoadingPromises.push(this.requestAccuracyPrecisions());
-          dataLoadingPromises.push(this.requestValidationMethods());
+        if (this.isCreateView) {
+          let dataLoadingPromises: Promise<any>[] = this.requestAllData();
 
           Promise.all(dataLoadingPromises).then(() => {
-            this.fillInOutputs();
-            this.fillInUsabilityAttributes();
             this.isDataLoading = false;
-          })
-        });
+          });
+        } else {
+          this.isDataLoading = true;
+          let approachId = parseInt(<string>paramMap.get(NAV_PARAM_APPROACH_ID));
+
+          this.requestRefactoringApproach(approachId).then(() => {
+            let dataLoadingPromises: Promise<any>[] = this.requestAllData();
+
+            Promise.all(dataLoadingPromises).then(() => {
+              this.fillInOutputs();
+              this.fillInUsabilityAttributes();
+              this.isDataLoading = false;
+            });
+          });
+        }
       }
     });
+  }
+
+  requestAllData(): Promise<any>[] {
+    let dataLoadingPromises: Promise<any>[] = [];
+
+    dataLoadingPromises.push(this.requestDomainArtifacts());
+    dataLoadingPromises.push(this.requestRuntimeArtifacts());
+    dataLoadingPromises.push(this.requestModelArtifacts());
+    dataLoadingPromises.push(this.requestExecutables());
+    dataLoadingPromises.push(this.requestQualities());
+    dataLoadingPromises.push(this.requestDirections());
+    dataLoadingPromises.push(this.requestAutomationLevels());
+    dataLoadingPromises.push(this.requestAnalysisTypes());
+    dataLoadingPromises.push(this.requestTechniques());
+    dataLoadingPromises.push(this.requestArchitectures());
+    dataLoadingPromises.push(this.requestServiceTypes());
+    dataLoadingPromises.push(this.requestResultsQualities());
+    dataLoadingPromises.push(this.requestToolSupports());
+    dataLoadingPromises.push(this.requestAccuracyPrecisions());
+    dataLoadingPromises.push(this.requestValidationMethods());
+
+    return dataLoadingPromises;
   }
 
   requestRefactoringApproach(approachId: number): Promise<void> {
