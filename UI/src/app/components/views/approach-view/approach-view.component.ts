@@ -111,32 +111,30 @@ export class ApproachViewComponent implements OnInit {
     this.routeSub = this.route.paramMap.subscribe({
       next: (paramMap: ParamMap) => {
         this.isCreateView = !paramMap.has(NAV_PARAM_APPROACH_ID);
+        this.isDataLoading = true;
         if (this.isCreateView) {
-          let dataLoadingPromises: Promise<any>[] = this.requestAllData();
-
-          Promise.all(dataLoadingPromises).then(() => {
+          this.requestAllData(() => {
             this.isDataLoading = false;
           });
         } else {
-          this.isDataLoading = true;
           let approachId = parseInt(<string>paramMap.get(NAV_PARAM_APPROACH_ID));
 
           this.requestRefactoringApproach(approachId).then(() => {
-            let dataLoadingPromises: Promise<any>[] = this.requestAllData();
-
-            Promise.all(dataLoadingPromises).then(() => {
+            this.requestAllData(() => {
               this.fillInOutputs();
               this.fillInUsabilityAttributes();
               this.isDataLoading = false;
             });
+          }).catch(() => {
+            this.router.navigate(['/not-found']);
           });
         }
       }
     });
   }
 
-  requestAllData(): Promise<any>[] {
-    let dataLoadingPromises: Promise<any>[] = [];
+  requestAllData(onDataLoaded: () => void | PromiseLike<void>): void {
+    let dataLoadingPromises: Promise<void>[] = [];
 
     dataLoadingPromises.push(this.requestDomainArtifacts());
     dataLoadingPromises.push(this.requestRuntimeArtifacts());
@@ -154,7 +152,10 @@ export class ApproachViewComponent implements OnInit {
     dataLoadingPromises.push(this.requestAccuracyPrecisions());
     dataLoadingPromises.push(this.requestValidationMethods());
 
-    return dataLoadingPromises;
+    Promise.all(dataLoadingPromises).then(() => {
+      onDataLoaded();
+      this.isDataLoading = false;
+    });
   }
 
   requestRefactoringApproach(approachId: number): Promise<void> {
