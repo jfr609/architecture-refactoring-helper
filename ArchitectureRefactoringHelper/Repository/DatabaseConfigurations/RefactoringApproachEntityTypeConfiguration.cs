@@ -124,7 +124,7 @@ public class RefactoringApproachEntityTypeConfiguration : IEntityTypeConfigurati
                     {
                         Name = "Not available"
                     },
-                    ResultsQualitiy = new ResultsQuality
+                    ResultsQuality = new ResultsQuality
                     {
                         Name = "Low"
                     },

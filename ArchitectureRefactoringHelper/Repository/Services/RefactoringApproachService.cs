@@ -53,7 +53,7 @@ public class RefactoringApproachService
             .ThenInclude(e => e.Architecture)
             .Include(e => e.ApproachOutputs)!
             .ThenInclude(e => e.ServiceType)
-            .Include(e => e.ApproachUsability.ResultsQualitiy)
+            .Include(e => e.ApproachUsability.ResultsQuality)
             .Include(e => e.ApproachUsability.ToolSupport)
             .Include(e => e.ApproachUsability.AccuracyPrecision)
             .Include(e => e.ApproachUsability.ValidationMethod)
@@ -509,10 +509,10 @@ public class RefactoringApproachService
 
         var approach = GetRefactoringApproach(approachId, ref db);
 
-        if (approach.ApproachUsability.ResultsQualitiy.Name == resultsQuality.Name)
+        if (approach.ApproachUsability.ResultsQuality.Name == resultsQuality.Name)
             return;
 
-        approach.ApproachUsability.ResultsQualitiy = _usabilityService.GetResultsQuality(resultsQuality.Name, ref db);
+        approach.ApproachUsability.ResultsQuality = _usabilityService.GetResultsQuality(resultsQuality.Name, ref db);
         db.SaveChanges();
     }
 

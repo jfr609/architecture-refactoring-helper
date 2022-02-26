@@ -370,7 +370,7 @@ namespace Repository.Migrations
                 {
                     ApproachUsabilityId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ResultsQualitiyName = table.Column<string>(type: "TEXT", nullable: false),
+                    ResultsQualityName = table.Column<string>(type: "TEXT", nullable: false),
                     ToolSupportName = table.Column<string>(type: "TEXT", nullable: false),
                     AccuracyPrecisionName = table.Column<string>(type: "TEXT", nullable: true),
                     ValidationMethodName = table.Column<string>(type: "TEXT", nullable: false)
@@ -384,8 +384,8 @@ namespace Repository.Migrations
                         principalTable: "Approach.Usability.AccuracyPrecision",
                         principalColumn: "Name");
                     table.ForeignKey(
-                        name: "FK_Approach.Usability_Approach.Usability.ResultsQuality_ResultsQualitiyName",
-                        column: x => x.ResultsQualitiyName,
+                        name: "FK_Approach.Usability_Approach.Usability.ResultsQuality_ResultsQualityName",
+                        column: x => x.ResultsQualityName,
                         principalTable: "Approach.Usability.ResultsQuality",
                         principalColumn: "Name",
                         onDelete: ReferentialAction.Cascade);
@@ -888,9 +888,9 @@ namespace Repository.Migrations
                 column: "AccuracyPrecisionName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Approach.Usability_ResultsQualitiyName",
+                name: "IX_Approach.Usability_ResultsQualityName",
                 table: "Approach.Usability",
-                column: "ResultsQualitiyName");
+                column: "ResultsQualityName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Approach.Usability_ToolSupportName",

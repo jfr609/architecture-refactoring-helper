@@ -12,7 +12,7 @@ public class ApproachUsability
     [JsonIgnore]
     public RefactoringApproach? RefactoringApproach { get; set; }
     
-    public ResultsQuality ResultsQualitiy { get; set; }
+    public ResultsQuality ResultsQuality { get; set; }
     public ToolSupport ToolSupport { get; set; }
     public AccuracyPrecision AccuracyPrecision { get; set; }
     public ValidationMethod ValidationMethod { get; set; }

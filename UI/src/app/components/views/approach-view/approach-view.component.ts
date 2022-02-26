@@ -64,6 +64,11 @@ export class ApproachViewComponent implements OnInit {
   accuracyPrecisions: AccuracyPrecision[] = [];
   validationMethods: ValidationMethod[] = [];
 
+  titleInputValue: string = '';
+  yearInputValue: string = '';
+  authorsInputValue: string = '';
+  linkInputValue: string = '';
+
   domainArtifactSourceDataList: ConnectedDataListElement[] = [];
   domainArtifactTargetDataList: ConnectedDataListElement[] = [];
   runtimeArtifactSourceDataList: ConnectedDataListElement[] = [];
@@ -182,9 +187,9 @@ export class ApproachViewComponent implements OnInit {
   }
 
   fillInUsabilityAttributes() {
-    if (this.refactoringApproach.approachUsability?.resultsQualitiy != null) {
+    if (this.refactoringApproach.approachUsability?.resultsQuality != null) {
       // @ts-ignore
-      this.selectedResultsQuality = this.resultsQualities.find(value => value.name === this.refactoringApproach.approachUsability.resultsQualitiy.name);
+      this.selectedResultsQuality = this.resultsQualities.find(value => value.name === this.refactoringApproach.approachUsability.resultsQuality.name);
     }
     if (this.refactoringApproach.approachUsability?.toolSupport != null) {
       // @ts-ignore
@@ -605,8 +610,10 @@ export class ApproachViewComponent implements OnInit {
           return
 
         // TODO create
+        let refactoringApproach = this.createRefactoringApproachFromFilledInData();
+        console.log(refactoringApproach);
       },
-    })
+    });
   }
 
   updateRefactoringApproach(): void {
@@ -623,8 +630,85 @@ export class ApproachViewComponent implements OnInit {
           return
 
         // TODO update
+        let refactoringApproach = this.createRefactoringApproachFromFilledInData();
+        refactoringApproach.approachSource = this.refactoringApproach.approachSource;
+        console.log(refactoringApproach);
       },
-    })
+    });
+  }
+
+  createRefactoringApproachFromFilledInData(): RefactoringApproach {
+    let domainArtifactInputs: DomainArtifactInput[] = [];
+    for (const element of this.domainArtifactTargetDataList) {
+      domainArtifactInputs.push(<DomainArtifactInput>element.dataElement);
+    }
+
+    let runtimeArtifactInputs: RuntimeArtifactInput[] = [];
+    for (const element of this.runtimeArtifactTargetDataList) {
+      runtimeArtifactInputs.push(<RuntimeArtifactInput>element.dataElement);
+    }
+
+    let modelArtifactInputs: ModelArtifactInput[] = [];
+    for (const element of this.modelArtifactTargetDataList) {
+      modelArtifactInputs.push(<ModelArtifactInput>element.dataElement);
+    }
+
+    let executableInputs: ExecutableInput[] = [];
+    for (const element of this.executableTargetDataList) {
+      executableInputs.push(<ExecutableInput>element.dataElement);
+    }
+
+    let qualities: Quality[] = [];
+    for (const element of this.qualityTargetDataList) {
+      qualities.push(<Quality>element.dataElement);
+    }
+
+    let directions: Direction[] = [];
+    for (const element of this.directionTargetDataList) {
+      directions.push(<Direction>element.dataElement);
+    }
+
+    let automationLevels: AutomationLevel[] = [];
+    for (const element of this.automationLevelTargetDataList) {
+      automationLevels.push(<AutomationLevel>element.dataElement);
+    }
+
+    let analysisTypes: AnalysisType[] = [];
+    for (const element of this.analysisTypeTargetDataList) {
+      analysisTypes.push(<AnalysisType>element.dataElement);
+    }
+
+    let techniques: Technique[] = [];
+    for (const element of this.techniqueTargetDataList) {
+      techniques.push(<Technique>element.dataElement);
+    }
+
+    return {
+      approachSource: {
+        title: this.titleInputValue,
+        year: parseInt(this.yearInputValue),
+        link: this.linkInputValue,
+        authors: this.authorsInputValue
+      },
+      domainArtifactInputs: domainArtifactInputs,
+      runtimeArtifactInputs: runtimeArtifactInputs,
+      modelArtifactInputs: modelArtifactInputs,
+      executableInputs: executableInputs,
+      approachProcess: {
+        qualities: qualities,
+        directions: directions,
+        automationLevels: automationLevels,
+        analysisTypes: analysisTypes,
+        techniques: techniques,
+      },
+      approachOutputs: this.currentOutputList,
+      approachUsability: {
+        resultsQuality: this.selectedResultsQuality,
+        toolSupport: this.selectedToolSupport,
+        accuracyPrecision: this.selectedAccuracyPrecision,
+        validationMethod: this.selectedValidationMethod,
+      }
+    };
   }
 
   cancel(): void {
@@ -635,14 +719,14 @@ export class ApproachViewComponent implements OnInit {
         message: 'Do you want to stop adding a refactoring approach? All filled in data will be lost.',
         confirmButtonText: 'Yes',
         cancelButtonText: 'Cancel',
-      }
+      };
     } else {
       data = {
         title: 'Stop updating refactoring approach?',
         message: 'Do you want to stop updating the refactoring approach? All unsaved changed will be lost.',
         confirmButtonText: 'Yes',
         cancelButtonText: 'Cancel',
-      }
+      };
     }
 
     this.utilService.createDialog(ConfirmDialogComponent, data).afterClosed().subscribe({
@@ -652,6 +736,6 @@ export class ApproachViewComponent implements OnInit {
 
         this.router.navigate(['/home']);
       },
-    })
+    });
   }
 }

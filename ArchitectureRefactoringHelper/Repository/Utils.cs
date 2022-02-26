@@ -115,7 +115,7 @@ public static class Utils
         this IQueryable<ApproachUsability> source)
     {
         return source
-            .Include(e => e.ResultsQualitiy)
+            .Include(e => e.ResultsQuality)
             .Include(e => e.ToolSupport)
             .Include(e => e.AccuracyPrecision)
             .Include(e => e.ValidationMethod);

@@ -7,7 +7,7 @@ import { ValidationMethod } from './validation-method';
 export interface ApproachUsability {
   accuracyPrecision?: AccuracyPrecision;
   approachUsabilityId?: number;
-  resultsQualitiy?: ResultsQuality;
+  resultsQuality?: ResultsQuality;
   toolSupport?: ToolSupport;
   validationMethod?: ValidationMethod;
 }

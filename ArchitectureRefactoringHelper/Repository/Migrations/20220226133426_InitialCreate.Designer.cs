@@ -10,7 +10,7 @@ using Repository.Models;
 namespace Repository.Migrations
 {
     [DbContext(typeof(RefactoringApproachContext))]
-    [Migration("20220221203130_InitialCreate")]
+    [Migration("20220226133426_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -310,7 +310,7 @@ namespace Repository.Migrations
                     b.Property<string>("AccuracyPrecisionName")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ResultsQualitiyName")
+                    b.Property<string>("ResultsQualityName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -326,7 +326,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("AccuracyPrecisionName");
 
-                    b.HasIndex("ResultsQualitiyName");
+                    b.HasIndex("ResultsQualityName");
 
                     b.HasIndex("ToolSupportName");
 
@@ -1028,9 +1028,9 @@ namespace Repository.Migrations
                         .WithMany("ApproachUsabilities")
                         .HasForeignKey("AccuracyPrecisionName");
 
-                    b.HasOne("Repository.Models.ResultsQuality", "ResultsQualitiy")
+                    b.HasOne("Repository.Models.ResultsQuality", "ResultsQuality")
                         .WithMany("ApproachUsabilities")
-                        .HasForeignKey("ResultsQualitiyName")
+                        .HasForeignKey("ResultsQualityName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1048,7 +1048,7 @@ namespace Repository.Migrations
 
                     b.Navigation("AccuracyPrecision");
 
-                    b.Navigation("ResultsQualitiy");
+                    b.Navigation("ResultsQuality");
 
                     b.Navigation("ToolSupport");
 
@@ -1069,7 +1069,7 @@ namespace Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Repository.Models.ApproachUsability", "ApproachUsabilitiy")
+                    b.HasOne("Repository.Models.ApproachUsability", "ApproachUsability")
                         .WithOne("RefactoringApproach")
                         .HasForeignKey("Repository.Models.RefactoringApproach", "ApproachUsabilityId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1079,7 +1079,7 @@ namespace Repository.Migrations
 
                     b.Navigation("ApproachSource");
 
-                    b.Navigation("ApproachUsabilitiy");
+                    b.Navigation("ApproachUsability");
                 });
 
             modelBuilder.Entity("Repository.Models.AccuracyPrecision", b =>

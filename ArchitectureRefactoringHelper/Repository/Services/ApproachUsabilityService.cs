@@ -131,7 +131,7 @@ public class ApproachUsabilityService
     {
         var preparedUsability = new ApproachUsability
         {
-            ResultsQualitiy = GetResultsQuality(usability.ResultsQualitiy.Name, ref db),
+            ResultsQuality = GetResultsQuality(usability.ResultsQuality.Name, ref db),
             ToolSupport = GetToolSupport(usability.ToolSupport.Name, ref db),
             AccuracyPrecision = GetAccuracyPrecision(usability.AccuracyPrecision.Name, ref db),
             ValidationMethod = GetValidationMethod(usability.ValidationMethod.Name, ref db)

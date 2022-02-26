@@ -2616,7 +2616,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "resultsQualitiy": {
+          "resultsQuality": {
             "$ref": "#/components/schemas/ResultsQuality"
           },
           "toolSupport": {

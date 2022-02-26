@@ -34,7 +34,7 @@
   </div>
 
   <mat-accordion multi>
-    <mat-expansion-panel expanded>
+    <mat-expansion-panel *ngIf="this.isCreateView" expanded>
       <mat-expansion-panel-header>
         <mat-panel-title>
           <h2>Source</h2>
@@ -47,7 +47,10 @@
       <div style="margin-bottom: 24px;" fxLayout="row">
         <mat-form-field fxFlex style="margin-right: 24px" appearance="fill">
           <mat-label>Title</mat-label>
-          <input matInput type="text" [formControl]="titleFormControl">
+          <input matInput type="text" [(ngModel)]="titleInputValue" [formControl]="titleFormControl">
+          <button *ngIf="titleInputValue" matSuffix mat-icon-button aria-label="Clear" (click)="titleInputValue=''">
+            <mat-icon>close</mat-icon>
+          </button>
           <mat-error *ngIf="titleFormControl.hasError('required')">
             Title is <strong>required</strong>
           </mat-error>
@@ -55,7 +58,7 @@
 
         <mat-form-field appearance="fill">
           <mat-label>Year</mat-label>
-          <input matInput type="number" [formControl]="yearFormControl">
+          <input matInput type="number" [(ngModel)]="yearInputValue" [formControl]="yearFormControl">
           <mat-error *ngIf="!yearFormControl.hasError('required') &&
           (yearFormControl.hasError('min') || yearFormControl.hasError('max'))">
             Year has to be between 1900 and the current year
@@ -69,7 +72,10 @@
       <div fxLayout="row">
         <mat-form-field fxFlex="50" style="margin-right: 24px" appearance="fill">
           <mat-label>Link</mat-label>
-          <input matInput type="text" [formControl]="linkFormControl">
+          <input matInput type="text" [(ngModel)]="linkInputValue" [formControl]="linkFormControl">
+          <button *ngIf="linkInputValue" matSuffix mat-icon-button aria-label="Clear" (click)="linkInputValue=''">
+            <mat-icon>close</mat-icon>
+          </button>
           <mat-error *ngIf="!linkFormControl.hasError('required') && linkFormControl.hasError('url')">
             Link has to be a valid URL
           </mat-error>
@@ -80,7 +86,10 @@
 
         <mat-form-field fxFlex="50" appearance="fill">
           <mat-label>Authors</mat-label>
-          <input matInput type="text" [formControl]="authorsFormControl">
+          <input matInput type="text" [(ngModel)]="authorsInputValue" [formControl]="authorsFormControl">
+          <button *ngIf="authorsInputValue" matSuffix mat-icon-button aria-label="Clear" (click)="authorsInputValue=''">
+            <mat-icon>close</mat-icon>
+          </button>
           <mat-error *ngIf="authorsFormControl.hasError('required')">
             Authors are <strong>required</strong>
           </mat-error>
