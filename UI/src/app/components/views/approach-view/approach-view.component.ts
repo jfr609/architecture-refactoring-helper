@@ -122,7 +122,7 @@ export class ApproachViewComponent implements OnInit {
             this.isDataLoading = false;
           });
         } else {
-          let approachId = parseInt(<string>paramMap.get(NAV_PARAM_APPROACH_ID));
+          let approachId = parseInt(paramMap.get(NAV_PARAM_APPROACH_ID) as string);
 
           this.requestRefactoringApproach(approachId).then(() => {
             this.requestAllData(() => {
@@ -588,7 +588,7 @@ export class ApproachViewComponent implements OnInit {
         if (data == null)
           return
 
-        removeElementFromArray<ApproachOutput>(this.currentOutputList, output,
+        removeElementFromArray(this.currentOutputList, output,
           (a, b) =>
             a.architecture?.name === b.architecture?.name &&
             a.serviceType?.name === b.serviceType?.name);
@@ -640,47 +640,47 @@ export class ApproachViewComponent implements OnInit {
   createRefactoringApproachFromFilledInData(): RefactoringApproach {
     let domainArtifactInputs: DomainArtifactInput[] = [];
     for (const element of this.domainArtifactTargetDataList) {
-      domainArtifactInputs.push(<DomainArtifactInput>element.dataElement);
+      domainArtifactInputs.push(element.dataElement as DomainArtifactInput);
     }
 
     let runtimeArtifactInputs: RuntimeArtifactInput[] = [];
     for (const element of this.runtimeArtifactTargetDataList) {
-      runtimeArtifactInputs.push(<RuntimeArtifactInput>element.dataElement);
+      runtimeArtifactInputs.push(element.dataElement as RuntimeArtifactInput);
     }
 
     let modelArtifactInputs: ModelArtifactInput[] = [];
     for (const element of this.modelArtifactTargetDataList) {
-      modelArtifactInputs.push(<ModelArtifactInput>element.dataElement);
+      modelArtifactInputs.push(element.dataElement as ModelArtifactInput);
     }
 
     let executableInputs: ExecutableInput[] = [];
     for (const element of this.executableTargetDataList) {
-      executableInputs.push(<ExecutableInput>element.dataElement);
+      executableInputs.push(element.dataElement as ExecutableInput);
     }
 
     let qualities: Quality[] = [];
     for (const element of this.qualityTargetDataList) {
-      qualities.push(<Quality>element.dataElement);
+      qualities.push(element.dataElement as Quality);
     }
 
     let directions: Direction[] = [];
     for (const element of this.directionTargetDataList) {
-      directions.push(<Direction>element.dataElement);
+      directions.push(element.dataElement as Direction);
     }
 
     let automationLevels: AutomationLevel[] = [];
     for (const element of this.automationLevelTargetDataList) {
-      automationLevels.push(<AutomationLevel>element.dataElement);
+      automationLevels.push(element.dataElement as AutomationLevel);
     }
 
     let analysisTypes: AnalysisType[] = [];
     for (const element of this.analysisTypeTargetDataList) {
-      analysisTypes.push(<AnalysisType>element.dataElement);
+      analysisTypes.push(element.dataElement as AnalysisType);
     }
 
     let techniques: Technique[] = [];
     for (const element of this.techniqueTargetDataList) {
-      techniques.push(<Technique>element.dataElement);
+      techniques.push(element.dataElement as Technique);
     }
 
     return {
@@ -737,5 +737,28 @@ export class ApproachViewComponent implements OnInit {
         this.router.navigate(['/home']);
       },
     });
+  }
+
+  isCreateButtonActive(): boolean {
+    return this.titleFormControl.valid &&
+      this.yearFormControl.valid &&
+      this.linkFormControl.valid &&
+      this.authorsFormControl.valid;
+  }
+
+  onChangeTitle(event: Event) {
+    this.titleInputValue = (event.target as HTMLInputElement).value;
+  }
+
+  onChangeYear(event: Event) {
+    this.yearInputValue = (event.target as HTMLInputElement).value;
+  }
+
+  onChangeLink(event: Event) {
+    this.linkInputValue = (event.target as HTMLInputElement).value;
+  }
+
+  onChangeAuthors(event: Event) {
+    this.authorsInputValue = (event.target as HTMLInputElement).value;
   }
 }

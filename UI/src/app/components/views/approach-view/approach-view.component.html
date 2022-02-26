@@ -11,7 +11,7 @@
   </ng-template>
 
   <div style="padding: 16px" fxLayout="row" fxLayoutGap="12px">
-    <button *ngIf="isCreateView" mat-raised-button color="primary" (click)="createRefactoringApproach()">
+    <button *ngIf="isCreateView" mat-raised-button color="primary" [disabled]="!isCreateButtonActive()" (click)="createRefactoringApproach()">
       <mat-icon>add</mat-icon>
       <span>Create</span>
     </button>
@@ -47,7 +47,7 @@
       <div style="margin-bottom: 24px;" fxLayout="row">
         <mat-form-field fxFlex style="margin-right: 24px" appearance="fill">
           <mat-label>Title</mat-label>
-          <input matInput type="text" [(ngModel)]="titleInputValue" [formControl]="titleFormControl">
+          <input matInput type="text" (change)="onChangeTitle($event)" [value]="titleInputValue" [formControl]="titleFormControl">
           <button *ngIf="titleInputValue" matSuffix mat-icon-button aria-label="Clear" (click)="titleInputValue=''">
             <mat-icon>close</mat-icon>
           </button>
@@ -58,7 +58,7 @@
 
         <mat-form-field appearance="fill">
           <mat-label>Year</mat-label>
-          <input matInput type="number" [(ngModel)]="yearInputValue" [formControl]="yearFormControl">
+          <input matInput type="number" (change)="onChangeYear($event)" [value]="yearInputValue" [formControl]="yearFormControl">
           <mat-error *ngIf="!yearFormControl.hasError('required') &&
           (yearFormControl.hasError('min') || yearFormControl.hasError('max'))">
             Year has to be between 1900 and the current year
@@ -72,7 +72,7 @@
       <div fxLayout="row">
         <mat-form-field fxFlex="50" style="margin-right: 24px" appearance="fill">
           <mat-label>Link</mat-label>
-          <input matInput type="text" [(ngModel)]="linkInputValue" [formControl]="linkFormControl">
+          <input matInput type="text" (change)="onChangeLink($event)" [value]="linkInputValue" [formControl]="linkFormControl">
           <button *ngIf="linkInputValue" matSuffix mat-icon-button aria-label="Clear" (click)="linkInputValue=''">
             <mat-icon>close</mat-icon>
           </button>
@@ -86,7 +86,7 @@
 
         <mat-form-field fxFlex="50" appearance="fill">
           <mat-label>Authors</mat-label>
-          <input matInput type="text" [(ngModel)]="authorsInputValue" [formControl]="authorsFormControl">
+          <input matInput type="text" (change)="onChangeAuthors($event)" [value]="authorsInputValue" [formControl]="authorsFormControl">
           <button *ngIf="authorsInputValue" matSuffix mat-icon-button aria-label="Clear" (click)="authorsInputValue=''">
             <mat-icon>close</mat-icon>
           </button>
