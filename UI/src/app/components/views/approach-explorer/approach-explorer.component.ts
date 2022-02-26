@@ -3,6 +3,7 @@ import {RefactoringApproach} from "../../../../../api/repository/models/refactor
 import {RefactoringApproachService} from "../../../../../api/repository/services/refactoring-approach.service";
 import {UtilService} from "../../../services/util.service";
 import {MatTableDataSource} from "@angular/material/table";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-approach-explorer',
@@ -11,13 +12,14 @@ import {MatTableDataSource} from "@angular/material/table";
 })
 export class ApproachExplorerComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'title', 'year', 'authors', 'link'];
+  displayedColumns: string[] = ['id', 'title', 'year', 'authors', 'actions'];
   dataSource!: MatTableDataSource<RefactoringApproach>;
 
   refactoringApproaches: RefactoringApproach[] = [];
 
   constructor(private refactoringApproachService: RefactoringApproachService,
-              private utilService: UtilService) { }
+              private utilService: UtilService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.requestRefactoringApproaches();
@@ -37,5 +39,9 @@ export class ApproachExplorerComponent implements OnInit {
 
   goToLink(url: string): void {
     window.open(url, '_blank');
+  }
+
+  goToEdit(refactoringApproachId: number) {
+    this.router.navigate(['/approach', refactoringApproachId]);
   }
 }

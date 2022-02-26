@@ -44,12 +44,15 @@
       </td>
     </ng-container>
 
-    <!-- Link Column -->
-    <ng-container matColumnDef="link">
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>
-        Link
+        Actions
       </th>
       <td mat-cell *matCellDef="let approach">
+        <button mat-icon-button color="accent" (click)="goToEdit(approach.refactoringApproachId)">
+          <mat-icon>edit</mat-icon>
+        </button>
         <button mat-icon-button color="accent" (click)="goToLink(approach.approachSource.link)">
           <mat-icon>open_in_new</mat-icon>
         </button>
