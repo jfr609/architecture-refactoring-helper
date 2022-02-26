@@ -97,7 +97,7 @@ public class RefactoringApproachService
             ApproachUsability = _usabilityService.AddApproachUsability(refactoringApproach.ApproachUsability, ref db)
         };
 
-        return Utils.AddEntity(newApproach, ref db);
+        return Utils.AddEntityAndSaveChanges(newApproach, ref db);
     }
 
     public void DeleteRefactoringApproach(int refactoringApproachId)

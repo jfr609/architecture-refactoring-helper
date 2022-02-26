@@ -133,7 +133,6 @@ public class ApproachOutputService
             savedOutputs.Add(db.ApproachOutputs.Add(newOutput).Entity);
         }
 
-        db.SaveChanges();
         return savedOutputs;
     }
 
