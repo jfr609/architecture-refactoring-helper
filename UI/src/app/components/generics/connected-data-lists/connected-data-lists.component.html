@@ -4,7 +4,7 @@
     <div cdkDropList
          [cdkDropListData]="sourceDataList"
          (cdkDropListDropped)="drop($event)"
-         class="connected-data-list">
+         class="connected-data-list mat-elevation-z8">
       <div *ngFor="let item1 of sourceDataList" class="connected-data-list-item" cdkDrag>
         {{item1.displayName}}
       </div>
@@ -15,7 +15,7 @@
     <div cdkDropList
          [cdkDropListData]="targetDataList"
          (cdkDropListDropped)="drop($event)"
-         class="connected-data-list">
+         class="connected-data-list mat-elevation-z8">
       <div *ngFor="let item2 of targetDataList" class="connected-data-list-item" cdkDrag>
         {{item2.displayName}}
       </div>

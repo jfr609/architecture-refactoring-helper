@@ -6,14 +6,16 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HomePageComponent} from './components/views/home-page/home-page.component';
 import {PageNotFoundComponent} from './components/views/page-not-found/page-not-found.component';
 import {AppRoutingModule} from "./app-routing.module";
-import { ArchitectureRefactoringHelperComponent } from './components/views/architecture-refactoring-helper/architecture-refactoring-helper.component';
+import {
+  ArchitectureRefactoringHelperComponent
+} from './components/views/architecture-refactoring-helper/architecture-refactoring-helper.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
-import { ApproachViewComponent } from './components/views/approach-view/approach-view.component';
-import { ApproachFinderComponent } from './components/views/approach-finder/approach-finder.component';
-import { ApproachExplorerComponent } from './components/views/approach-explorer/approach-explorer.component';
+import {ApproachViewComponent} from './components/views/approach-view/approach-view.component';
+import {ApproachFinderComponent} from './components/views/approach-finder/approach-finder.component';
+import {ApproachExplorerComponent} from './components/views/approach-explorer/approach-explorer.component';
 import {ApiModule} from "../../api/repository/api.module";
 import {environment} from "../environments/environment";
 import {HttpClientModule} from "@angular/common/http";
@@ -23,9 +25,9 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
+import {ConfirmDialogComponent} from './components/dialogs/confirm-dialog/confirm-dialog.component';
 import {MatDividerModule} from "@angular/material/divider";
-import { ConnectedDataListsComponent } from './components/generics/connected-data-lists/connected-data-lists.component';
+import {ConnectedDataListsComponent} from './components/generics/connected-data-lists/connected-data-lists.component';
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MatListModule} from "@angular/material/list";
 import {MatSelectModule} from "@angular/material/select";
@@ -33,6 +35,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from "@angular/material/sort";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -70,7 +73,8 @@ import {MatSortModule} from "@angular/material/sort";
     MatIconModule,
     MatRadioModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

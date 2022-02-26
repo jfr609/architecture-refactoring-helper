@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {PageNotFoundComponent} from "./components/views/page-not-found/page-not-found.component";
 import {HomePageComponent} from "./components/views/home-page/home-page.component";
 import {ApproachViewComponent} from "./components/views/approach-view/approach-view.component";

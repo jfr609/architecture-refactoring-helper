@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { APP_TITLE } from '../../../app.constants';
+import {Component, OnInit} from '@angular/core';
+import {APP_TITLE} from '../../../app.constants';
 
 @Component({
   selector: 'app-architecture-refactoring-helper',

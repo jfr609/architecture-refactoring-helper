@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutAlign="start center">
+<div *ngIf="!isDataLoading" fxLayout="column" fxLayoutAlign="start center">
   <div *ngIf="isCreateView; then newApproachTitle else updateApproachTitle"></div>
   <ng-template #newApproachTitle>
     <h1>Create a new refactoring approach</h1>
@@ -177,7 +177,7 @@
           Define the outputs of the refactoring approach.
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <div fxLayout="row" fxLayoutGap="16px">
+      <div fxLayout="row" fxLayoutGap="16px" style="margin-bottom: 20px;">
         <div style="padding: 16px" fxFlex="33" fxLayout="column">
           <mat-form-field appearance="fill">
             <mat-label>Output architecture</mat-label>
@@ -205,7 +205,7 @@
 
         <div fxFlex="66" fxLayout="column">
           <h3 style="padding: 0 16px">Current outputs</h3>
-          <mat-list *ngIf="currentOutputList.length >= 1" class="output-list">
+          <mat-list *ngIf="currentOutputList.length >= 1" class="output-list mat-elevation-z8">
             <mat-list-item *ngFor="let output of currentOutputList">
               <p *ngIf="output.architecture && output.serviceType">
                 {{output.architecture.name}}: {{output.serviceType.name}}
@@ -297,4 +297,7 @@
       </div>
     </mat-expansion-panel>
   </mat-accordion>
+</div>
+<div *ngIf="this.isDataLoading" class="loading-container" fxLayout="column" fxLayoutAlign="center center">
+  <mat-spinner color="accent"></mat-spinner>
 </div>
