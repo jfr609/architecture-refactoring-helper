@@ -124,7 +124,9 @@ public class ApproachUsabilityService
     public ApproachUsability AddApproachUsability(ApproachUsability usability)
     {
         var db = new RefactoringApproachContext();
-        return AddApproachUsability(usability, ref db);
+        var savedUsability = AddApproachUsability(usability, ref db);
+        db.SaveChanges();
+        return savedUsability;
     }
 
     public ApproachUsability AddApproachUsability(ApproachUsability usability, ref RefactoringApproachContext db)
@@ -143,7 +145,7 @@ public class ApproachUsabilityService
     public ResultsQuality AddResultsQuality(ResultsQuality resultsQuality)
     {
         var db = new RefactoringApproachContext();
-        return AddResultsQuality(resultsQuality, ref db);
+        return Utils.AddEntityAndSaveChanges(resultsQuality, ref db);
     }
 
     public ResultsQuality AddResultsQuality(ResultsQuality resultsQuality, ref RefactoringApproachContext db)
@@ -154,7 +156,7 @@ public class ApproachUsabilityService
     public ToolSupport AddToolSupport(ToolSupport toolSupport)
     {
         var db = new RefactoringApproachContext();
-        return AddToolSupport(toolSupport, ref db);
+        return Utils.AddEntityAndSaveChanges(toolSupport, ref db);
     }
 
     public ToolSupport AddToolSupport(ToolSupport toolSupport, ref RefactoringApproachContext db)
@@ -165,7 +167,7 @@ public class ApproachUsabilityService
     public AccuracyPrecision AddAccuracyPrecision(AccuracyPrecision accuracyPrecision)
     {
         var db = new RefactoringApproachContext();
-        return AddAccuracyPrecision(accuracyPrecision, ref db);
+        return Utils.AddEntityAndSaveChanges(accuracyPrecision, ref db);
     }
 
     public AccuracyPrecision AddAccuracyPrecision(AccuracyPrecision accuracyPrecision,
@@ -177,7 +179,7 @@ public class ApproachUsabilityService
     public ValidationMethod AddValidationMethod(ValidationMethod validationMethod)
     {
         var db = new RefactoringApproachContext();
-        return AddValidationMethod(validationMethod, ref db);
+        return Utils.AddEntityAndSaveChanges(validationMethod, ref db);
     }
 
     public ValidationMethod AddValidationMethod(ValidationMethod validationMethod, ref RefactoringApproachContext db)

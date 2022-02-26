@@ -1,0 +1,92 @@
+[
+  {
+    "approachSource": {
+      "title": "Functionality-oriented Microservice Extraction Based on Execution Trace Clustering",
+      "link": "https://ieeexplore.ieee.org/abstract/document/8456351",
+      "year": 2018,
+      "authors": "W. Jin, T. Liu, Q. Zheng, D. Cui and Y. Cai"
+    },
+    "runtimeArtifactInputs": [
+      {
+        "name": "Log traces"
+      },
+      {
+        "name": "User-Application interactions"
+      }
+    ],
+    "domainArtifactInputs": [
+      {
+        "name": "Human expertise"
+      }
+    ],
+    "executableInputs": [
+      {
+        "name": "Source code",
+        "language": "No specification"
+      },
+      {
+        "name": "Test cases",
+        "language": "No specification"
+      }
+    ],
+    "approachProcess": {
+      "directions": [
+        {
+          "name": "Bottom-up"
+        }
+      ],
+      "qualities": [
+        {
+          "name": "Coupling",
+          "category": 1
+        },
+        {
+          "name": "Cohesion",
+          "category": 1
+        }
+      ],
+      "techniques": [
+        {
+          "name": "Clustering"
+        },
+        {
+          "name": "Custom heuristics"
+        }
+      ],
+      "analysisTypes": [
+        {
+          "name": "Dynamic"
+        }
+      ],
+      "automationLevels": [
+        {
+          "name": "Semi-automatic"
+        }
+      ]
+    },
+    "approachOutputs": [
+      {
+        "architecture": {
+          "name": "Microservices"
+        },
+        "serviceType": {
+          "name": "No specification"
+        }
+      }
+    ],
+    "approachUsability": {
+      "accuracyPrecision": {
+        "name": "Not available"
+      },
+      "resultsQuality": {
+        "name": "Low"
+      },
+      "toolSupport": {
+        "name": "No tool support"
+      },
+      "validationMethod": {
+        "name": "Experiment"
+      }
+    }
+  }
+]

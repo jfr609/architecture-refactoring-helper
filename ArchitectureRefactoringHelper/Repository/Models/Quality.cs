@@ -8,9 +8,12 @@ namespace Repository.Models;
 public class Quality
 {
     [Key]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
+    [JsonPropertyName("description")]
     public string? Description { get; set; }
     [JsonConverter(typeof(JsonStringEnumConverter))]
+    [JsonPropertyName("category")]
     public QualityCategory Category { get; set; }
 
     [JsonIgnore]

@@ -8,11 +8,16 @@ namespace Repository.Models;
 public class ApproachSource
 {
     [Key]
+    [JsonPropertyName("approachSourceId")]
     public int ApproachSourceId { get; set; }
     
+    [JsonPropertyName("title")]
     public string Title { get; set; }
+    [JsonPropertyName("year")]
     public int Year { get; set; }
+    [JsonPropertyName("link")]
     public string Link { get; set; }
+    [JsonPropertyName("authors")]
     public string Authors { get; set; }
 
     [JsonIgnore]

@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
+using Repository;
 using Repository.Models;
 using Repository.Services;
 
@@ -35,7 +36,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
 
     var context = services.GetRequiredService<RefactoringApproachContext>();
-    context.Database.Migrate();
+    await context.Database.MigrateAsync();
 }
 
 // Configure the HTTP request pipeline.
@@ -57,5 +58,9 @@ app.UseCors(policyBuilder =>
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Seed database with initial data
+var dataSeeder = new DataSeeder();
+dataSeeder.GenerateSeedDataAsync(app).Wait();
 
 app.Run();

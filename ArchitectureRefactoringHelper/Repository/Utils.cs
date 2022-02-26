@@ -58,9 +58,14 @@ public static class Utils
 
     public static T AddEntity<T>(T entity, ref RefactoringApproachContext db) where T : class
     {
-        var savedEntity = db.Set<T>().Add(entity);
+        return db.Set<T>().Add(entity).Entity;
+    }
+    
+    public static T AddEntityAndSaveChanges<T>(T entity, ref RefactoringApproachContext db) where T : class
+    {
+        var savedEntity = AddEntity(entity, ref db);
         db.SaveChanges();
-        return savedEntity.Entity;
+        return savedEntity;
     }
 
     public static ICollection<T> AddEntitiesIfNotExist<T>(ICollection<T>? entities, Func<T, object?[]?> keyFunction,
@@ -75,10 +80,9 @@ public static class Utils
         foreach (var entity in distinctEntities)
         {
             var duplicateEntity = db.Set<T>().Find(keyFunction(entity));
-            savedEntities.Add(duplicateEntity ?? db.Set<T>().Add(entity).Entity);
+            savedEntities.Add(duplicateEntity ?? AddEntity(entity, ref db));
         }
 
-        db.SaveChanges();
         return savedEntities;
     }
 

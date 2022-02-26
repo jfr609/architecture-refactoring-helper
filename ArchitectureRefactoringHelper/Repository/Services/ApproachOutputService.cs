@@ -79,7 +79,9 @@ public class ApproachOutputService
     public ApproachOutput AddApproachOutputIfNotExists(ApproachOutput output)
     {
         var db = new RefactoringApproachContext();
-        return AddApproachOutputIfNotExists(output, ref db);
+        var savedOutput = AddApproachOutputIfNotExists(output, ref db);
+        db.SaveChanges();
+        return savedOutput;
     }
 
     public ApproachOutput AddApproachOutputIfNotExists(ApproachOutput output, ref RefactoringApproachContext db)
@@ -138,7 +140,7 @@ public class ApproachOutputService
     public Architecture AddArchitecture(Architecture architecture)
     {
         var db = new RefactoringApproachContext();
-        return AddArchitecture(architecture, ref db);
+        return Utils.AddEntityAndSaveChanges(architecture, ref db);
     }
 
     public Architecture AddArchitecture(Architecture architecture, ref RefactoringApproachContext db)
@@ -149,7 +151,7 @@ public class ApproachOutputService
     public ServiceType AddServiceType(ServiceType serviceType)
     {
         var db = new RefactoringApproachContext();
-        return AddServiceType(serviceType, ref db);
+        return Utils.AddEntityAndSaveChanges(serviceType, ref db);
     }
 
     public ServiceType AddServiceType(ServiceType serviceType, ref RefactoringApproachContext db)

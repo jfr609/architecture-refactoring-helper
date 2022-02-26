@@ -8,7 +8,9 @@ namespace Repository.Models;
 public class ValidationMethod
 {
     [Key]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
+    [JsonPropertyName("description")]
     public string? Description { get; set; }
     
     [JsonIgnore]

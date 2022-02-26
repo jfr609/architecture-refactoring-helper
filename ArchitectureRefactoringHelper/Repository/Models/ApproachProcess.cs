@@ -8,14 +8,20 @@ namespace Repository.Models;
 public class ApproachProcess
 {
     [Key]
+    [JsonPropertyName("approachProcessId")]
     public int ApproachProcessId { get; set; }
     [JsonIgnore]
     public RefactoringApproach? RefactoringApproach { get; set; }
     
+    [JsonPropertyName("qualities")]
     public ICollection<Quality>? Qualities { get; set; }
+    [JsonPropertyName("directions")]
     public ICollection<Direction>? Directions { get; set; }
+    [JsonPropertyName("automationLevels")]
     public ICollection<AutomationLevel>? AutomationLevels { get; set; }
+    [JsonPropertyName("analysisTypes")]
     public ICollection<AnalysisType>? AnalysisTypes { get; set; }
+    [JsonPropertyName("techniques")]
     public ICollection<Technique>? Techniques { get; set; }
     
     // public ICollection<ProcessStrategy> ProcessStrategies { get; set; }

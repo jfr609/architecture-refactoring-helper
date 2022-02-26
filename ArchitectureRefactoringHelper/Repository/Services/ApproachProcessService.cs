@@ -140,7 +140,9 @@ public class ApproachProcessService
     public ApproachProcess AddApproachProcess(ApproachProcess process)
     {
         var db = new RefactoringApproachContext();
-        return AddApproachProcess(process, ref db);
+        var savedProcess = AddApproachProcess(process, ref db);
+        db.SaveChanges();
+        return savedProcess;
     }
 
     public ApproachProcess AddApproachProcess(ApproachProcess process, ref RefactoringApproachContext db)
@@ -154,13 +156,13 @@ public class ApproachProcessService
             Techniques = AddTechniquesIfNotExist(process.Techniques, ref db)
         };
 
-        return Utils.AddEntity(preparedProcess, ref db);
+        return db.ApproachProcesses.Add(preparedProcess).Entity;
     }
 
     public Quality AddQuality(Quality quality)
     {
         var db = new RefactoringApproachContext();
-        return AddQuality(quality, ref db);
+        return Utils.AddEntityAndSaveChanges(quality, ref db);
     }
 
     public Quality AddQuality(Quality quality, ref RefactoringApproachContext db)
@@ -177,7 +179,7 @@ public class ApproachProcessService
     public Direction AddDirection(Direction direction)
     {
         var db = new RefactoringApproachContext();
-        return AddDirection(direction, ref db);
+        return Utils.AddEntityAndSaveChanges(direction, ref db);
     }
 
     public Direction AddDirection(Direction direction, ref RefactoringApproachContext db)
@@ -194,7 +196,7 @@ public class ApproachProcessService
     public AutomationLevel AddAutomationLevel(AutomationLevel automationLevel)
     {
         var db = new RefactoringApproachContext();
-        return AddAutomationLevel(automationLevel, ref db);
+        return Utils.AddEntityAndSaveChanges(automationLevel, ref db);
     }
 
     public AutomationLevel AddAutomationLevel(AutomationLevel automationLevel, ref RefactoringApproachContext db)
@@ -211,7 +213,7 @@ public class ApproachProcessService
     public AnalysisType AddAnalysisType(AnalysisType analysisType)
     {
         var db = new RefactoringApproachContext();
-        return AddAnalysisType(analysisType, ref db);
+        return Utils.AddEntityAndSaveChanges(analysisType, ref db);
     }
 
     public AnalysisType AddAnalysisType(AnalysisType analysisType, ref RefactoringApproachContext db)
@@ -228,7 +230,7 @@ public class ApproachProcessService
     public Technique AddTechnique(Technique technique)
     {
         var db = new RefactoringApproachContext();
-        return AddTechnique(technique, ref db);
+        return Utils.AddEntityAndSaveChanges(technique, ref db);
     }
 
     public Technique AddTechnique(Technique technique, ref RefactoringApproachContext db)

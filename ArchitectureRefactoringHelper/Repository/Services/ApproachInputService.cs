@@ -94,7 +94,7 @@ public class ApproachInputService
     public DomainArtifactInput AddDomainArtifactInput(DomainArtifactInput input)
     {
         var db = new RefactoringApproachContext();
-        return AddDomainArtifactInput(input, ref db);
+        return Utils.AddEntityAndSaveChanges(input, ref db);
     }
 
     public DomainArtifactInput AddDomainArtifactInput(DomainArtifactInput input, ref RefactoringApproachContext db)
@@ -111,7 +111,7 @@ public class ApproachInputService
     public RuntimeArtifactInput AddRuntimeArtifactInput(RuntimeArtifactInput input)
     {
         var db = new RefactoringApproachContext();
-        return AddRuntimeArtifactInput(input, ref db);
+        return Utils.AddEntityAndSaveChanges(input, ref db);
     }
 
     public RuntimeArtifactInput AddRuntimeArtifactInput(RuntimeArtifactInput input, ref RefactoringApproachContext db)
@@ -128,7 +128,7 @@ public class ApproachInputService
     public ModelArtifactInput AddModelArtifactInput(ModelArtifactInput input)
     {
         var db = new RefactoringApproachContext();
-        return AddModelArtifactInput(input, ref db);
+        return Utils.AddEntityAndSaveChanges(input, ref db);
     }
 
     public ModelArtifactInput AddModelArtifactInput(ModelArtifactInput input, ref RefactoringApproachContext db)
@@ -145,7 +145,7 @@ public class ApproachInputService
     public ExecutableInput AddExecutableInput(ExecutableInput input)
     {
         var db = new RefactoringApproachContext();
-        return AddExecutableInput(input, ref db);
+        return Utils.AddEntityAndSaveChanges(input, ref db);
     }
 
     public ExecutableInput AddExecutableInput(ExecutableInput input, ref RefactoringApproachContext db)
