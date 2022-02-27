@@ -1,10 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {RefactoringApproach} from "../../../../../api/repository/models/refactoring-approach";
-import {RefactoringApproachService} from "../../../../../api/repository/services/refactoring-approach.service";
-import {UtilService} from "../../../services/util.service";
-import {MatTableDataSource} from "@angular/material/table";
-import {Router} from "@angular/router";
-import {MatSort} from "@angular/material/sort";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { RefactoringApproach } from '../../../../../api/repository/models/refactoring-approach';
+import { RefactoringApproachService } from '../../../../../api/repository/services/refactoring-approach.service';
+import { UtilService } from '../../../services/util.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-approach-explorer',
@@ -19,10 +19,11 @@ export class ApproachExplorerComponent implements OnInit {
 
   refactoringApproaches: RefactoringApproach[] = [];
 
-  constructor(private refactoringApproachService: RefactoringApproachService,
-              private utilService: UtilService,
-              private router: Router) {
-  }
+  constructor(
+    private refactoringApproachService: RefactoringApproachService,
+    private utilService: UtilService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.requestRefactoringApproaches();
@@ -35,7 +36,9 @@ export class ApproachExplorerComponent implements OnInit {
         this.setDataSource();
       },
       error: () => {
-        this.utilService.callSnackBar('Error: Refactoring approaches could not be retrieved.');
+        this.utilService.callSnackBar(
+          'Error: Refactoring approaches could not be retrieved.'
+        );
       }
     });
   }
@@ -52,7 +55,8 @@ export class ApproachExplorerComponent implements OnInit {
           return data.approachSource?.year;
         case 'authors':
           return data.approachSource?.authors;
-        default: // @ts-ignore
+        default:
+          // @ts-ignore
           return data[sortHeaderId];
       }
     };

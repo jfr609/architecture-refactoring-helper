@@ -1,7 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
+import { Component, Input, OnInit } from '@angular/core';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem
+} from '@angular/cdk/drag-drop';
 
-export class ConnectedDataListElement{
+export class ConnectedDataListElement {
   displayName!: string;
   dataElement?: {};
 }
@@ -12,26 +16,28 @@ export class ConnectedDataListElement{
   styleUrls: ['./connected-data-lists.component.scss']
 })
 export class ConnectedDataListsComponent implements OnInit {
-
-  @Input() sourceDataListTitle = "Source List";
-  @Input() targetDataListTitle = "Target List";
+  @Input() sourceDataListTitle = 'Source List';
+  @Input() targetDataListTitle = 'Target List';
   @Input() sourceDataList: ConnectedDataListElement[] = [];
   @Input() targetDataList: ConnectedDataListElement[] = [];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   drop(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     } else {
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex,
+        event.currentIndex
       );
     }
   }

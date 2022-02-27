@@ -1,3 +1,3 @@
-export interface DialogData{
-  title: string
+export interface DialogData {
+  title: string;
 }

@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {APP_TITLE} from '../../../app.constants';
+import { Component, OnInit } from '@angular/core';
+import { APP_TITLE } from '../../../app.constants';
 
 @Component({
   selector: 'app-architecture-refactoring-helper',
@@ -9,9 +9,7 @@ import {APP_TITLE} from '../../../app.constants';
 export class ArchitectureRefactoringHelperComponent implements OnInit {
   applicationTitle = APP_TITLE;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-approach-finder',
@@ -6,10 +6,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./approach-finder.component.scss']
 })
 export class ApproachFinderComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

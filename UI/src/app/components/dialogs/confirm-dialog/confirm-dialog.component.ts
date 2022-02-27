@@ -1,6 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {DialogData} from "../../../utils/models/dialog-data";
+import { Component, Inject, OnInit } from '@angular/core';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef
+} from '@angular/material/dialog';
+import { DialogData } from '../../../utils/models/dialog-data';
 
 @Component({
   selector: 'app-confirm-dialog',
@@ -8,20 +12,20 @@ import {DialogData} from "../../../utils/models/dialog-data";
   styleUrls: ['./confirm-dialog.component.scss']
 })
 export class ConfirmDialogComponent implements OnInit {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogData,
+    public dialogRef: MatDialogRef<ConfirmDialogComponent>,
+    public dialog: MatDialog
+  ) {}
 
-  constructor(public dialogRef: MatDialogRef<ConfirmDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogData,
-              public dialog: MatDialog) { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onCancelClicked() {
     this.dialogRef.close();
   }
 }
 
-export interface ConfirmDialogData extends DialogData{
+export interface ConfirmDialogData extends DialogData {
   message: string;
   confirmButtonText: string;
   cancelButtonText: string;

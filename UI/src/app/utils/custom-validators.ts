@@ -1,5 +1,5 @@
-import {AbstractControl, ValidationErrors} from "@angular/forms";
-import {URL_REGEX} from "../app.constants";
+import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { URL_REGEX } from '../app.constants';
 
 export class CustomValidators {
   static url(control: AbstractControl): ValidationErrors | null {
