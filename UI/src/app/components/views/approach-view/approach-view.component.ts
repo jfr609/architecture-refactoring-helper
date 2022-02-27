@@ -1,36 +1,43 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {RefactoringApproach} from "../../../../../api/repository/models/refactoring-approach";
-import {Subscription} from "rxjs";
-import {ActivatedRoute, ParamMap, Router} from "@angular/router";
-import {RefactoringApproachService} from "../../../../../api/repository/services/refactoring-approach.service";
-import {UtilService} from "../../../services/util.service";
-import {NAV_PARAM_APPROACH_ID} from "../../../app.constants";
-import {MatAccordion} from "@angular/material/expansion";
-import {FormControl, Validators} from "@angular/forms";
-import {CustomValidators} from "../../../utils/custom-validators";
-import {ConfirmDialogComponent, ConfirmDialogData} from "../../dialogs/confirm-dialog/confirm-dialog.component";
-import {DomainArtifactInput} from "../../../../../api/repository/models/domain-artifact-input";
-import {RuntimeArtifactInput} from "../../../../../api/repository/models/runtime-artifact-input";
-import {ModelArtifactInput} from "../../../../../api/repository/models/model-artifact-input";
-import {ExecutableInput} from "../../../../../api/repository/models/executable-input";
-import {ApproachInputService} from "../../../../../api/repository/services/approach-input.service";
-import {ApproachProcessService} from "../../../../../api/repository/services/approach-process.service";
-import {ApproachOutputService} from "../../../../../api/repository/services/approach-output.service";
-import {ApproachUsabilityService} from "../../../../../api/repository/services/approach-usability.service";
-import {ConnectedDataListElement} from "../../generics/connected-data-lists/connected-data-lists.component";
-import {Quality} from "../../../../../api/repository/models/quality";
-import {Direction} from "../../../../../api/repository/models/direction";
-import {AutomationLevel} from "../../../../../api/repository/models/automation-level";
-import {AnalysisType} from "../../../../../api/repository/models/analysis-type";
-import {Technique} from "../../../../../api/repository/models/technique";
-import {Architecture} from "../../../../../api/repository/models/architecture";
-import {ServiceType} from "../../../../../api/repository/models/service-type";
-import {ApproachOutput} from "../../../../../api/repository/models/approach-output";
-import {copy, removeElementFromArray} from "../../../utils/utils";
-import {ResultsQuality} from "../../../../../api/repository/models/results-quality";
-import {ToolSupport} from "../../../../../api/repository/models/tool-support";
-import {AccuracyPrecision} from "../../../../../api/repository/models/accuracy-precision";
-import {ValidationMethod} from "../../../../../api/repository/models/validation-method";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { RefactoringApproach } from '../../../../../api/repository/models/refactoring-approach';
+import { lastValueFrom, Subscription } from 'rxjs';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { RefactoringApproachService } from '../../../../../api/repository/services/refactoring-approach.service';
+import { UtilService } from '../../../services/util.service';
+import { NAV_PARAM_APPROACH_ID } from '../../../app.constants';
+import { MatAccordion } from '@angular/material/expansion';
+import { FormControl, Validators } from '@angular/forms';
+import { CustomValidators } from '../../../utils/custom-validators';
+import {
+  ConfirmDialogComponent,
+  ConfirmDialogData
+} from '../../dialogs/confirm-dialog/confirm-dialog.component';
+import { DomainArtifactInput } from '../../../../../api/repository/models/domain-artifact-input';
+import { RuntimeArtifactInput } from '../../../../../api/repository/models/runtime-artifact-input';
+import { ModelArtifactInput } from '../../../../../api/repository/models/model-artifact-input';
+import { ExecutableInput } from '../../../../../api/repository/models/executable-input';
+import { ApproachInputService } from '../../../../../api/repository/services/approach-input.service';
+import { ApproachProcessService } from '../../../../../api/repository/services/approach-process.service';
+import { ApproachOutputService } from '../../../../../api/repository/services/approach-output.service';
+import { ApproachUsabilityService } from '../../../../../api/repository/services/approach-usability.service';
+import { ConnectedDataListElement } from '../../generics/connected-data-lists/connected-data-lists.component';
+import { Quality } from '../../../../../api/repository/models/quality';
+import { Direction } from '../../../../../api/repository/models/direction';
+import { AutomationLevel } from '../../../../../api/repository/models/automation-level';
+import { AnalysisType } from '../../../../../api/repository/models/analysis-type';
+import { Technique } from '../../../../../api/repository/models/technique';
+import { Architecture } from '../../../../../api/repository/models/architecture';
+import { ServiceType } from '../../../../../api/repository/models/service-type';
+import { ApproachOutput } from '../../../../../api/repository/models/approach-output';
+import {
+  copy,
+  findArrayDifference,
+  removeElementFromArray
+} from '../../../utils/utils';
+import { ResultsQuality } from '../../../../../api/repository/models/results-quality';
+import { ToolSupport } from '../../../../../api/repository/models/tool-support';
+import { AccuracyPrecision } from '../../../../../api/repository/models/accuracy-precision';
+import { ValidationMethod } from '../../../../../api/repository/models/validation-method';
 
 @Component({
   selector: 'app-approach-view',
@@ -38,14 +45,20 @@ import {ValidationMethod} from "../../../../../api/repository/models/validation-
   styleUrls: ['./approach-view.component.scss']
 })
 export class ApproachViewComponent implements OnInit {
-
   @ViewChild(MatAccordion)
   accordion!: MatAccordion;
 
-  titleFormControl = new FormControl('', [Validators.required])
-  yearFormControl = new FormControl('', [Validators.required, Validators.min(1900), Validators.max(new Date().getFullYear())])
-  linkFormControl = new FormControl('', [Validators.required, CustomValidators.url])
-  authorsFormControl = new FormControl('', [Validators.required])
+  titleFormControl = new FormControl('', [Validators.required]);
+  yearFormControl = new FormControl('', [
+    Validators.required,
+    Validators.min(1900),
+    Validators.max(new Date().getFullYear())
+  ]);
+  linkFormControl = new FormControl('', [
+    Validators.required,
+    CustomValidators.url
+  ]);
+  authorsFormControl = new FormControl('', [Validators.required]);
 
   refactoringApproach: RefactoringApproach = {};
   domainArtifacts: DomainArtifactInput[] = [];
@@ -102,15 +115,16 @@ export class ApproachViewComponent implements OnInit {
 
   private routeSub!: Subscription;
 
-  constructor(private refactoringApproachService: RefactoringApproachService,
-              private inputService: ApproachInputService,
-              private processService: ApproachProcessService,
-              private outputService: ApproachOutputService,
-              private usabilityService: ApproachUsabilityService,
-              private utilService: UtilService,
-              private router: Router,
-              private route: ActivatedRoute) {
-  }
+  constructor(
+    private refactoringApproachService: RefactoringApproachService,
+    private inputService: ApproachInputService,
+    private processService: ApproachProcessService,
+    private outputService: ApproachOutputService,
+    private usabilityService: ApproachUsabilityService,
+    private utilService: UtilService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.routeSub = this.route.paramMap.subscribe({
@@ -122,17 +136,21 @@ export class ApproachViewComponent implements OnInit {
             this.isDataLoading = false;
           });
         } else {
-          let approachId = parseInt(paramMap.get(NAV_PARAM_APPROACH_ID) as string);
+          let approachId = parseInt(
+            paramMap.get(NAV_PARAM_APPROACH_ID) as string
+          );
 
-          this.requestRefactoringApproach(approachId).then(() => {
-            this.requestAllData(() => {
-              this.fillInOutputs();
-              this.fillInUsabilityAttributes();
-              this.isDataLoading = false;
+          this.requestRefactoringApproach(approachId)
+            .then(() => {
+              this.requestAllData(() => {
+                this.fillInOutputs();
+                this.fillInUsabilityAttributes();
+                this.isDataLoading = false;
+              });
+            })
+            .catch(() => {
+              this.router.navigate(['/not-found']);
             });
-          }).catch(() => {
-            this.router.navigate(['/not-found']);
-          });
         }
       }
     });
@@ -165,22 +183,26 @@ export class ApproachViewComponent implements OnInit {
 
   requestRefactoringApproach(approachId: number): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.refactoringApproachService.getRefactoringApproach({id: approachId}).subscribe({
-        next: (response: RefactoringApproach) => {
-          this.refactoringApproach = response;
-          resolve();
-        },
-        error: () => {
-          this.utilService.callSnackBar('Error! Refactoring approach could not be retrieved.');
-          reject();
-        }
-      });
+      this.refactoringApproachService
+        .getRefactoringApproach({ id: approachId })
+        .subscribe({
+          next: (response: RefactoringApproach) => {
+            this.refactoringApproach = response;
+            resolve();
+          },
+          error: () => {
+            this.utilService.callSnackBar(
+              'Error! Refactoring approach could not be retrieved.'
+            );
+            reject();
+          }
+        });
     });
   }
 
   fillInOutputs() {
     if (this.refactoringApproach.approachOutputs == null) {
-      this.currentOutputList = []
+      this.currentOutputList = [];
     } else {
       this.currentOutputList = copy(this.refactoringApproach.approachOutputs);
     }
@@ -189,19 +211,39 @@ export class ApproachViewComponent implements OnInit {
   fillInUsabilityAttributes() {
     if (this.refactoringApproach.approachUsability?.resultsQuality != null) {
       // @ts-ignore
-      this.selectedResultsQuality = this.resultsQualities.find(value => value.name === this.refactoringApproach.approachUsability.resultsQuality.name);
+      this.selectedResultsQuality = this.resultsQualities.find(
+        (value) =>
+          value.name ===
+          // @ts-ignore
+          this.refactoringApproach.approachUsability.resultsQuality.name
+      );
     }
     if (this.refactoringApproach.approachUsability?.toolSupport != null) {
       // @ts-ignore
-      this.selectedToolSupport = this.toolSupports.find(value => value.name === this.refactoringApproach.approachUsability.toolSupport.name);
+      this.selectedToolSupport = this.toolSupports.find(
+        (value) =>
+          value.name ===
+          // @ts-ignore
+          this.refactoringApproach.approachUsability.toolSupport.name
+      );
     }
     if (this.refactoringApproach.approachUsability?.accuracyPrecision != null) {
       // @ts-ignore
-      this.selectedAccuracyPrecision = this.accuracyPrecisions.find(value => value.name === this.refactoringApproach.approachUsability.accuracyPrecision.name);
+      this.selectedAccuracyPrecision = this.accuracyPrecisions.find(
+        (value) =>
+          value.name ===
+          // @ts-ignore
+          this.refactoringApproach.approachUsability.accuracyPrecision.name
+      );
     }
     if (this.refactoringApproach.approachUsability?.validationMethod != null) {
       // @ts-ignore
-      this.selectedValidationMethod = this.validationMethods.find(value => value.name === this.refactoringApproach.approachUsability.validationMethod.name);
+      this.selectedValidationMethod = this.validationMethods.find(
+        (value) =>
+          value.name ===
+          // @ts-ignore
+          this.refactoringApproach.approachUsability.validationMethod.name
+      );
     }
   }
 
@@ -214,7 +256,9 @@ export class ApproachViewComponent implements OnInit {
           resolve();
         },
         error: () => {
-          this.utilService.callSnackBar('Error! Input domain artifacts could not be retrieved.');
+          this.utilService.callSnackBar(
+            'Error! Input domain artifacts could not be retrieved.'
+          );
           reject();
         }
       });
@@ -222,16 +266,18 @@ export class ApproachViewComponent implements OnInit {
   }
 
   fillDomainArtifactDataLists(): void {
-    this.domainArtifactSourceDataList = []
-    this.domainArtifactTargetDataList = []
+    this.domainArtifactSourceDataList = [];
+    this.domainArtifactTargetDataList = [];
 
-    this.utilService.fillDataLists(this.isCreateView,
+    this.utilService.fillConnectedDataLists(
+      this.isCreateView,
       this.refactoringApproach.domainArtifactInputs,
       this.domainArtifacts,
       this.domainArtifactSourceDataList,
       this.domainArtifactTargetDataList,
       (a: DomainArtifactInput, b: DomainArtifactInput) => a.name === b.name,
-      (e: DomainArtifactInput) => e.name);
+      (e: DomainArtifactInput) => e.name
+    );
   }
 
   requestRuntimeArtifacts(): Promise<void> {
@@ -243,7 +289,9 @@ export class ApproachViewComponent implements OnInit {
           resolve();
         },
         error: () => {
-          this.utilService.callSnackBar('Error! Input runtime artifacts could not be retrieved.');
+          this.utilService.callSnackBar(
+            'Error! Input runtime artifacts could not be retrieved.'
+          );
           reject();
         }
       });
@@ -251,16 +299,18 @@ export class ApproachViewComponent implements OnInit {
   }
 
   fillRuntimeArtifactDataLists(): void {
-    this.runtimeArtifactSourceDataList = []
-    this.runtimeArtifactTargetDataList = []
+    this.runtimeArtifactSourceDataList = [];
+    this.runtimeArtifactTargetDataList = [];
 
-    this.utilService.fillDataLists(this.isCreateView,
+    this.utilService.fillConnectedDataLists(
+      this.isCreateView,
       this.refactoringApproach.runtimeArtifactInputs,
       this.runtimeArtifacts,
       this.runtimeArtifactSourceDataList,
       this.runtimeArtifactTargetDataList,
       (a: RuntimeArtifactInput, b: RuntimeArtifactInput) => a.name === b.name,
-      (e: RuntimeArtifactInput) => e.name);
+      (e: RuntimeArtifactInput) => e.name
+    );
   }
 
   requestModelArtifacts(): Promise<void> {
@@ -272,7 +322,9 @@ export class ApproachViewComponent implements OnInit {
           resolve();
         },
         error: () => {
-          this.utilService.callSnackBar('Error! Input model artifacts could not be retrieved.');
+          this.utilService.callSnackBar(
+            'Error! Input model artifacts could not be retrieved.'
+          );
           reject();
         }
       });
@@ -280,16 +332,18 @@ export class ApproachViewComponent implements OnInit {
   }
 
   fillModelArtifactDataLists(): void {
-    this.modelArtifactSourceDataList = []
-    this.modelArtifactTargetDataList = []
+    this.modelArtifactSourceDataList = [];
+    this.modelArtifactTargetDataList = [];
 
-    this.utilService.fillDataLists(this.isCreateView,
+    this.utilService.fillConnectedDataLists(
+      this.isCreateView,
       this.refactoringApproach.modelArtifactInputs,
       this.modelArtifacts,
       this.modelArtifactSourceDataList,
       this.modelArtifactTargetDataList,
       (a: ModelArtifactInput, b: ModelArtifactInput) => a.name === b.name,
-      (e: ModelArtifactInput) => e.name);
+      (e: ModelArtifactInput) => e.name
+    );
   }
 
   requestExecutables(): Promise<void> {
@@ -301,7 +355,9 @@ export class ApproachViewComponent implements OnInit {
           resolve();
         },
         error: () => {
-          this.utilService.callSnackBar('Error! Input executables could not be retrieved.');
+          this.utilService.callSnackBar(
+            'Error! Input executables could not be retrieved.'
+          );
           reject();
         }
       });
@@ -309,16 +365,19 @@ export class ApproachViewComponent implements OnInit {
   }
 
   fillExecutableDataLists(): void {
-    this.executableSourceDataList = []
-    this.executableTargetDataList = []
+    this.executableSourceDataList = [];
+    this.executableTargetDataList = [];
 
-    this.utilService.fillDataLists(this.isCreateView,
+    this.utilService.fillConnectedDataLists(
+      this.isCreateView,
       this.refactoringApproach.executableInputs,
       this.executables,
       this.executableSourceDataList,
       this.executableTargetDataList,
-      (a: ExecutableInput, b: ExecutableInput) => a.name === b.name && a.language === a.language,
-      (e: ExecutableInput) => `${e.name}: ${e.language}`);
+      (a: ExecutableInput, b: ExecutableInput) =>
+        a.name === b.name && a.language === a.language,
+      (e: ExecutableInput) => `${e.name}: ${e.language}`
+    );
   }
 
   requestQualities(): Promise<void> {
@@ -330,7 +389,9 @@ export class ApproachViewComponent implements OnInit {
           resolve();
         },
         error: () => {
-          this.utilService.callSnackBar('Error! Process qualities could not be retrieved.');
+          this.utilService.callSnackBar(
+            'Error! Process qualities could not be retrieved.'
+          );
           reject();
         }
       });
@@ -338,16 +399,18 @@ export class ApproachViewComponent implements OnInit {
   }
 
   fillQualityDataLists(): void {
-    this.qualitySourceDataList = []
-    this.qualityTargetDataList = []
+    this.qualitySourceDataList = [];
+    this.qualityTargetDataList = [];
 
-    this.utilService.fillDataLists(this.isCreateView,
+    this.utilService.fillConnectedDataLists(
+      this.isCreateView,
       this.refactoringApproach.approachProcess?.qualities,
       this.qualities,
       this.qualitySourceDataList,
       this.qualityTargetDataList,
       (a: Quality, b: Quality) => a.name === b.name,
-      (e: Quality) => `${e.category}: ${e.name}`);
+      (e: Quality) => `${e.category}: ${e.name}`
+    );
   }
 
   requestDirections(): Promise<void> {
@@ -359,7 +422,9 @@ export class ApproachViewComponent implements OnInit {
           resolve();
         },
         error: () => {
-          this.utilService.callSnackBar('Error! Process directions could not be retrieved.');
+          this.utilService.callSnackBar(
+            'Error! Process directions could not be retrieved.'
+          );
           reject();
         }
       });
@@ -367,16 +432,18 @@ export class ApproachViewComponent implements OnInit {
   }
 
   fillDirectionDataLists(): void {
-    this.directionSourceDataList = []
-    this.directionTargetDataList = []
+    this.directionSourceDataList = [];
+    this.directionTargetDataList = [];
 
-    this.utilService.fillDataLists(this.isCreateView,
+    this.utilService.fillConnectedDataLists(
+      this.isCreateView,
       this.refactoringApproach.approachProcess?.directions,
       this.directions,
       this.directionSourceDataList,
       this.directionTargetDataList,
       (a: Direction, b: Direction) => a.name === b.name,
-      (e: Direction) => e.name);
+      (e: Direction) => e.name
+    );
   }
 
   requestAutomationLevels(): Promise<void> {
@@ -388,7 +455,9 @@ export class ApproachViewComponent implements OnInit {
           resolve();
         },
         error: () => {
-          this.utilService.callSnackBar('Error! Process automation levels could not be retrieved.');
+          this.utilService.callSnackBar(
+            'Error! Process automation levels could not be retrieved.'
+          );
           reject();
         }
       });
@@ -396,16 +465,18 @@ export class ApproachViewComponent implements OnInit {
   }
 
   fillAutomationLevelDataLists(): void {
-    this.automationLevelSourceDataList = []
-    this.automationLevelTargetDataList = []
+    this.automationLevelSourceDataList = [];
+    this.automationLevelTargetDataList = [];
 
-    this.utilService.fillDataLists(this.isCreateView,
+    this.utilService.fillConnectedDataLists(
+      this.isCreateView,
       this.refactoringApproach.approachProcess?.automationLevels,
       this.automationLevels,
       this.automationLevelSourceDataList,
       this.automationLevelTargetDataList,
       (a: AutomationLevel, b: AutomationLevel) => a.name === b.name,
-      (e: AutomationLevel) => e.name);
+      (e: AutomationLevel) => e.name
+    );
   }
 
   requestAnalysisTypes(): Promise<void> {
@@ -417,7 +488,9 @@ export class ApproachViewComponent implements OnInit {
           resolve();
         },
         error: () => {
-          this.utilService.callSnackBar('Error! Process analysis types could not be retrieved.');
+          this.utilService.callSnackBar(
+            'Error! Process analysis types could not be retrieved.'
+          );
           reject();
         }
       });
@@ -425,16 +498,18 @@ export class ApproachViewComponent implements OnInit {
   }
 
   fillAnalysisTypeDataLists(): void {
-    this.analysisTypeSourceDataList = []
-    this.analysisTypeTargetDataList = []
+    this.analysisTypeSourceDataList = [];
+    this.analysisTypeTargetDataList = [];
 
-    this.utilService.fillDataLists(this.isCreateView,
+    this.utilService.fillConnectedDataLists(
+      this.isCreateView,
       this.refactoringApproach.approachProcess?.analysisTypes,
       this.analysisTypes,
       this.analysisTypeSourceDataList,
       this.analysisTypeTargetDataList,
       (a: AnalysisType, b: AnalysisType) => a.name === b.name,
-      (e: AnalysisType) => e.name);
+      (e: AnalysisType) => e.name
+    );
   }
 
   requestTechniques(): Promise<void> {
@@ -446,7 +521,9 @@ export class ApproachViewComponent implements OnInit {
           resolve();
         },
         error: () => {
-          this.utilService.callSnackBar('Error! Process techniques could not be retrieved.');
+          this.utilService.callSnackBar(
+            'Error! Process techniques could not be retrieved.'
+          );
           reject();
         }
       });
@@ -454,16 +531,18 @@ export class ApproachViewComponent implements OnInit {
   }
 
   fillTechniqueDataLists(): void {
-    this.techniqueSourceDataList = []
-    this.techniqueTargetDataList = []
+    this.techniqueSourceDataList = [];
+    this.techniqueTargetDataList = [];
 
-    this.utilService.fillDataLists(this.isCreateView,
+    this.utilService.fillConnectedDataLists(
+      this.isCreateView,
       this.refactoringApproach.approachProcess?.techniques,
       this.techniques,
       this.techniqueSourceDataList,
       this.techniqueTargetDataList,
       (a: Technique, b: Technique) => a.name === b.name,
-      (e: Technique) => e.name);
+      (e: Technique) => e.name
+    );
   }
 
   requestArchitectures(): Promise<void> {
@@ -474,7 +553,9 @@ export class ApproachViewComponent implements OnInit {
           resolve();
         },
         error: () => {
-          this.utilService.callSnackBar('Error! Output architectures could not be retrieved.');
+          this.utilService.callSnackBar(
+            'Error! Output architectures could not be retrieved.'
+          );
           reject();
         }
       });
@@ -489,7 +570,9 @@ export class ApproachViewComponent implements OnInit {
           resolve();
         },
         error: () => {
-          this.utilService.callSnackBar('Error! Output service types could not be retrieved.');
+          this.utilService.callSnackBar(
+            'Error! Output service types could not be retrieved.'
+          );
           reject();
         }
       });
@@ -501,7 +584,9 @@ export class ApproachViewComponent implements OnInit {
       this.usabilityService.listResultsQualities().subscribe({
         next: (response: ResultsQuality[]) => {
           this.resultsQualities = response;
-          let defaultValue = this.resultsQualities.find(value => value.name === 'Not available');
+          let defaultValue = this.resultsQualities.find(
+            (value) => value.name === 'Not available'
+          );
           if (defaultValue !== undefined) {
             this.selectedResultsQuality = defaultValue;
           } else {
@@ -510,7 +595,9 @@ export class ApproachViewComponent implements OnInit {
           resolve();
         },
         error: () => {
-          this.utilService.callSnackBar('Error! Results quality options could not be retrieved.');
+          this.utilService.callSnackBar(
+            'Error! Results quality options could not be retrieved.'
+          );
           reject();
         }
       });
@@ -522,7 +609,9 @@ export class ApproachViewComponent implements OnInit {
       this.usabilityService.listToolSupports().subscribe({
         next: (response: ToolSupport[]) => {
           this.toolSupports = response;
-          let defaultValue = this.toolSupports.find(value => value.name === 'No tool support');
+          let defaultValue = this.toolSupports.find(
+            (value) => value.name === 'No tool support'
+          );
           if (defaultValue !== undefined) {
             this.selectedToolSupport = defaultValue;
           } else {
@@ -531,7 +620,9 @@ export class ApproachViewComponent implements OnInit {
           resolve();
         },
         error: () => {
-          this.utilService.callSnackBar('Error! Tool support options could not be retrieved.');
+          this.utilService.callSnackBar(
+            'Error! Tool support options could not be retrieved.'
+          );
           reject();
         }
       });
@@ -543,7 +634,9 @@ export class ApproachViewComponent implements OnInit {
       this.usabilityService.listAccuracyPrecisions().subscribe({
         next: (response: AccuracyPrecision[]) => {
           this.accuracyPrecisions = response;
-          let defaultValue = this.accuracyPrecisions.find(value => value.name === 'Not available');
+          let defaultValue = this.accuracyPrecisions.find(
+            (value) => value.name === 'Not available'
+          );
           if (defaultValue !== undefined) {
             this.selectedAccuracyPrecision = defaultValue;
           } else {
@@ -552,7 +645,9 @@ export class ApproachViewComponent implements OnInit {
           resolve();
         },
         error: () => {
-          this.utilService.callSnackBar('Error! Accuracy/Precision options could not be retrieved.');
+          this.utilService.callSnackBar(
+            'Error! Accuracy/Precision options could not be retrieved.'
+          );
           reject();
         }
       });
@@ -564,7 +659,9 @@ export class ApproachViewComponent implements OnInit {
       this.usabilityService.listValidationMethods().subscribe({
         next: (response: ValidationMethod[]) => {
           this.validationMethods = response;
-          let defaultValue = this.validationMethods.find(value => value.name === 'No validation');
+          let defaultValue = this.validationMethods.find(
+            (value) => value.name === 'No validation'
+          );
           if (defaultValue !== undefined) {
             this.selectedValidationMethod = defaultValue;
           } else {
@@ -573,7 +670,9 @@ export class ApproachViewComponent implements OnInit {
           resolve();
         },
         error: () => {
-          this.utilService.callSnackBar('Error! Validation method options could not be retrieved.');
+          this.utilService.callSnackBar(
+            'Error! Validation method options could not be retrieved.'
+          );
           reject();
         }
       });
@@ -581,14 +680,23 @@ export class ApproachViewComponent implements OnInit {
   }
 
   addOutput(): void {
-    if (this.selectedOutputArchitecture === undefined || this.selectedOutputServiceType === undefined) {
-      this.utilService.callSnackBar('Error! Output must have an architecture and service type selected.');
+    if (
+      this.selectedOutputArchitecture === undefined ||
+      this.selectedOutputServiceType === undefined
+    ) {
+      this.utilService.callSnackBar(
+        'Error! Output must have an architecture and service type selected.'
+      );
       return;
     }
 
-    if (this.currentOutputList.find(output =>
-      output.architecture?.name === this.selectedOutputArchitecture.name &&
-      output.serviceType?.name === this.selectedOutputServiceType.name) !== undefined) {
+    if (
+      this.currentOutputList.find(
+        (output) =>
+          output.architecture?.name === this.selectedOutputArchitecture.name &&
+          output.serviceType?.name === this.selectedOutputServiceType.name
+      ) !== undefined
+    ) {
       this.utilService.callSnackBar('Output already exists.');
       return;
     }
@@ -597,7 +705,7 @@ export class ApproachViewComponent implements OnInit {
     this.currentOutputList.push({
       architecture: this.selectedOutputArchitecture,
       serviceType: this.selectedOutputServiceType
-    })
+    });
   }
 
   removeOutput(output: ApproachOutput): void {
@@ -605,68 +713,305 @@ export class ApproachViewComponent implements OnInit {
       title: 'Remove the selected output?',
       message: `Do you want to remove the output with architecture \"${output.architecture?.name}\" and service type \"${output.serviceType?.name}\"?`,
       confirmButtonText: 'Yes',
-      cancelButtonText: 'Cancel',
-    }
-    this.utilService.createDialog(ConfirmDialogComponent, data).afterClosed().subscribe({
-      next: data => {
-        if (data == null)
-          return
+      cancelButtonText: 'Cancel'
+    };
+    this.utilService
+      .createDialog(ConfirmDialogComponent, data)
+      .afterClosed()
+      .subscribe({
+        next: (data) => {
+          if (data == null) return;
 
-        removeElementFromArray(this.currentOutputList, output,
-          (a, b) =>
-            a.architecture?.name === b.architecture?.name &&
-            a.serviceType?.name === b.serviceType?.name);
-      }
-    });
+          removeElementFromArray(
+            this.currentOutputList,
+            output,
+            (a, b) =>
+              a.architecture?.name === b.architecture?.name &&
+              a.serviceType?.name === b.serviceType?.name
+          );
+        }
+      });
   }
 
   createRefactoringApproach(): void {
     let data: ConfirmDialogData = {
       title: 'Create a new refactoring approach?',
-      message: 'Do you want to create a new refactoring approach based on the given data?',
+      message:
+        'Do you want to create a new refactoring approach based on the given data?',
       confirmButtonText: 'Yes',
-      cancelButtonText: 'Cancel',
-    }
+      cancelButtonText: 'Cancel'
+    };
 
-    this.utilService.createDialog(ConfirmDialogComponent, data).afterClosed().subscribe({
-      next: (data: ConfirmDialogData) => {
-        if (data === undefined)
-          return
+    this.utilService
+      .createDialog(ConfirmDialogComponent, data)
+      .afterClosed()
+      .subscribe({
+        next: (data: ConfirmDialogData) => {
+          if (data === undefined) return;
 
-        let refactoringApproach = this.createRefactoringApproachFromFilledInData();
-        this.refactoringApproachService.addRefactoringApproach({body: refactoringApproach}).subscribe({
-          next: (value: RefactoringApproach) => {
-            this.refactoringApproach = value;
-            this.isCreateView = false;
-            this.router.navigate([value.refactoringApproachId], {relativeTo: this.route});
-          },
-          error: () => {
-            this.utilService.callSnackBar("Refactoring approach could not be created.");
-          }
-        });
-      },
-    });
+          let refactoringApproach =
+            this.createRefactoringApproachFromFilledInData();
+          this.refactoringApproachService
+            .addRefactoringApproach({ body: refactoringApproach })
+            .subscribe({
+              next: (value: RefactoringApproach) => {
+                this.refactoringApproach = value;
+                this.isCreateView = false;
+                this.router.navigate([value.refactoringApproachId], {
+                  relativeTo: this.route
+                });
+              },
+              error: () => {
+                this.utilService.callSnackBar(
+                  'Refactoring approach could not be created.'
+                );
+              }
+            });
+        }
+      });
   }
 
   updateRefactoringApproach(): void {
     let data: ConfirmDialogData = {
       title: 'Update the current refactoring approach?',
-      message: 'Do you want to update the current refactoring approach based on the current changes?',
+      message:
+        'Do you want to update the current refactoring approach based on the current changes?',
       confirmButtonText: 'Yes',
-      cancelButtonText: 'Cancel',
+      cancelButtonText: 'Cancel'
+    };
+
+    this.utilService
+      .createDialog(ConfirmDialogComponent, data)
+      .afterClosed()
+      .subscribe({
+        next: (data: ConfirmDialogData) => {
+          if (data === undefined) return;
+
+          // TODO update
+          this.processRefactoringApproachUpdate();
+        }
+      });
+  }
+
+  processRefactoringApproachUpdate(): void {
+    if (this.refactoringApproach.refactoringApproachId == null) return;
+
+    let refactoringApproach = this.createRefactoringApproachFromFilledInData();
+    let updatePromises: Promise<void>[] = [];
+
+    updatePromises.push(...this.updateDomainArtifacts(refactoringApproach));
+    updatePromises.push(...this.updateRuntimeArtifacts(refactoringApproach));
+    updatePromises.push(...this.updateModelArtifacts(refactoringApproach));
+    updatePromises.push(...this.updateExecutables(refactoringApproach));
+
+    updatePromises.push(
+      lastValueFrom(
+        this.refactoringApproachService.updateResultsQuality({
+          id: this.refactoringApproach.refactoringApproachId,
+          body: this.selectedResultsQuality
+        })
+      )
+    );
+    updatePromises.push(
+      lastValueFrom(
+        this.refactoringApproachService.updateToolSupport({
+          id: this.refactoringApproach.refactoringApproachId,
+          body: this.selectedToolSupport
+        })
+      )
+    );
+    updatePromises.push(
+      lastValueFrom(
+        this.refactoringApproachService.updateAccuracyPrecision({
+          id: this.refactoringApproach.refactoringApproachId,
+          body: this.selectedAccuracyPrecision
+        })
+      )
+    );
+    updatePromises.push(
+      lastValueFrom(
+        this.refactoringApproachService.updateValidationMethod({
+          id: this.refactoringApproach.refactoringApproachId,
+          body: this.selectedValidationMethod
+        })
+      )
+    );
+
+    Promise.all(updatePromises);
+  }
+
+  updateDomainArtifacts(
+    refactoringApproach: RefactoringApproach
+  ): Promise<void>[] {
+    let elementsToRemove: DomainArtifactInput[] = findArrayDifference(
+      this.refactoringApproach.domainArtifactInputs,
+      refactoringApproach.domainArtifactInputs,
+      (a: DomainArtifactInput, b: DomainArtifactInput) => a.name === b.name
+    );
+    let elementsToAdd: DomainArtifactInput[] = findArrayDifference(
+      refactoringApproach.domainArtifactInputs,
+      this.refactoringApproach.domainArtifactInputs,
+      (a: DomainArtifactInput, b: DomainArtifactInput) => a.name === b.name
+    );
+
+    let updatePromises: Promise<void>[] = [];
+    for (const elementToAdd of elementsToAdd) {
+      updatePromises.push(
+        lastValueFrom(
+          this.refactoringApproachService.addDomainArtifactAsInput({
+            // @ts-ignore
+            id: this.refactoringApproach.refactoringApproachId,
+            body: elementToAdd
+          })
+        )
+      );
+    }
+    for (const elementToRemove of elementsToRemove) {
+      if (elementToRemove.name == null) break;
+
+      updatePromises.push(
+        lastValueFrom(
+          this.refactoringApproachService.removeDomainArtifactFromInputs({
+            // @ts-ignore
+            id: this.refactoringApproach.refactoringApproachId,
+            inputName: elementToRemove.name
+          })
+        )
+      );
     }
 
-    this.utilService.createDialog(ConfirmDialogComponent, data).afterClosed().subscribe({
-      next: (data: ConfirmDialogData) => {
-        if (data === undefined)
-          return
+    return updatePromises;
+  }
 
-        // TODO update
-        let refactoringApproach = this.createRefactoringApproachFromFilledInData();
-        refactoringApproach.approachSource = this.refactoringApproach.approachSource;
-        console.log(refactoringApproach);
-      },
-    });
+  updateRuntimeArtifacts(
+    refactoringApproach: RefactoringApproach
+  ): Promise<void>[] {
+    let elementsToRemove: RuntimeArtifactInput[] = findArrayDifference(
+      this.refactoringApproach.runtimeArtifactInputs,
+      refactoringApproach.runtimeArtifactInputs,
+      (a: RuntimeArtifactInput, b: RuntimeArtifactInput) => a.name === b.name
+    );
+    let elementsToAdd: RuntimeArtifactInput[] = findArrayDifference(
+      refactoringApproach.runtimeArtifactInputs,
+      this.refactoringApproach.runtimeArtifactInputs,
+      (a: RuntimeArtifactInput, b: RuntimeArtifactInput) => a.name === b.name
+    );
+
+    let updatePromises: Promise<void>[] = [];
+    for (const elementToAdd of elementsToAdd) {
+      updatePromises.push(
+        lastValueFrom(
+          this.refactoringApproachService.addRuntimeArtifactAsInput({
+            // @ts-ignore
+            id: this.refactoringApproach.refactoringApproachId,
+            body: elementToAdd
+          })
+        )
+      );
+    }
+    for (const elementToRemove of elementsToRemove) {
+      if (elementToRemove.name == null) break;
+
+      updatePromises.push(
+        lastValueFrom(
+          this.refactoringApproachService.removeRuntimeArtifactFromInputs({
+            // @ts-ignore
+            id: this.refactoringApproach.refactoringApproachId,
+            inputName: elementToRemove.name
+          })
+        )
+      );
+    }
+
+    return updatePromises;
+  }
+
+  updateModelArtifacts(
+    refactoringApproach: RefactoringApproach
+  ): Promise<void>[] {
+    let elementsToRemove: ModelArtifactInput[] = findArrayDifference(
+      this.refactoringApproach.modelArtifactInputs,
+      refactoringApproach.modelArtifactInputs,
+      (a: ModelArtifactInput, b: ModelArtifactInput) => a.name === b.name
+    );
+    let elementsToAdd: ModelArtifactInput[] = findArrayDifference(
+      refactoringApproach.modelArtifactInputs,
+      this.refactoringApproach.modelArtifactInputs,
+      (a: ModelArtifactInput, b: ModelArtifactInput) => a.name === b.name
+    );
+
+    let updatePromises: Promise<void>[] = [];
+    for (const elementToAdd of elementsToAdd) {
+      updatePromises.push(
+        lastValueFrom(
+          this.refactoringApproachService.addModelArtifactAsInput({
+            // @ts-ignore
+            id: this.refactoringApproach.refactoringApproachId,
+            body: elementToAdd
+          })
+        )
+      );
+    }
+    for (const elementToRemove of elementsToRemove) {
+      if (elementToRemove.name == null) break;
+
+      updatePromises.push(
+        lastValueFrom(
+          this.refactoringApproachService.removeModelArtifactFromInputs({
+            // @ts-ignore
+            id: this.refactoringApproach.refactoringApproachId,
+            inputName: elementToRemove.name
+          })
+        )
+      );
+    }
+
+    return updatePromises;
+  }
+
+  updateExecutables(refactoringApproach: RefactoringApproach): Promise<void>[] {
+    let elementsToRemove: ExecutableInput[] = findArrayDifference(
+      this.refactoringApproach.executableInputs,
+      refactoringApproach.executableInputs,
+      (a: ExecutableInput, b: ExecutableInput) =>
+        a.name === b.name && a.language === b.language
+    );
+    let elementsToAdd: ExecutableInput[] = findArrayDifference(
+      refactoringApproach.executableInputs,
+      this.refactoringApproach.executableInputs,
+      (a: ExecutableInput, b: ExecutableInput) =>
+        a.name === b.name && a.language === b.language
+    );
+
+    let updatePromises: Promise<void>[] = [];
+    for (const elementToAdd of elementsToAdd) {
+      updatePromises.push(
+        lastValueFrom(
+          this.refactoringApproachService.addExecutableAsInput({
+            // @ts-ignore
+            id: this.refactoringApproach.refactoringApproachId,
+            body: elementToAdd
+          })
+        )
+      );
+    }
+    for (const elementToRemove of elementsToRemove) {
+      if (elementToRemove.name == null || elementToRemove.language == null)
+        break;
+
+      updatePromises.push(
+        lastValueFrom(
+          this.refactoringApproachService.removeExecutableFromInputs({
+            // @ts-ignore
+            id: this.refactoringApproach.refactoringApproachId,
+            inputName: elementToRemove.name,
+            language: elementToRemove.language
+          })
+        )
+      );
+    }
+
+    return updatePromises;
   }
 
   createRefactoringApproachFromFilledInData(): RefactoringApproach {
@@ -731,14 +1076,14 @@ export class ApproachViewComponent implements OnInit {
         directions: directions,
         automationLevels: automationLevels,
         analysisTypes: analysisTypes,
-        techniques: techniques,
+        techniques: techniques
       },
       approachOutputs: this.currentOutputList,
       approachUsability: {
         resultsQuality: this.selectedResultsQuality,
         toolSupport: this.selectedToolSupport,
         accuracyPrecision: this.selectedAccuracyPrecision,
-        validationMethod: this.selectedValidationMethod,
+        validationMethod: this.selectedValidationMethod
       }
     };
   }
@@ -748,34 +1093,40 @@ export class ApproachViewComponent implements OnInit {
     if (this.isCreateView) {
       data = {
         title: 'Stop adding new refactoring approach?',
-        message: 'Do you want to stop adding a refactoring approach? All filled in data will be lost.',
+        message:
+          'Do you want to stop adding a refactoring approach? All filled in data will be lost.',
         confirmButtonText: 'Yes',
-        cancelButtonText: 'Cancel',
+        cancelButtonText: 'Cancel'
       };
     } else {
       data = {
         title: 'Stop updating refactoring approach?',
-        message: 'Do you want to stop updating the refactoring approach? All unsaved changed will be lost.',
+        message:
+          'Do you want to stop updating the refactoring approach? All unsaved changed will be lost.',
         confirmButtonText: 'Yes',
-        cancelButtonText: 'Cancel',
+        cancelButtonText: 'Cancel'
       };
     }
 
-    this.utilService.createDialog(ConfirmDialogComponent, data).afterClosed().subscribe({
-      next: (data: ConfirmDialogData) => {
-        if (data === undefined)
-          return
+    this.utilService
+      .createDialog(ConfirmDialogComponent, data)
+      .afterClosed()
+      .subscribe({
+        next: (data: ConfirmDialogData) => {
+          if (data === undefined) return;
 
-        this.router.navigate(['/home']);
-      },
-    });
+          this.router.navigate(['/home']);
+        }
+      });
   }
 
   isCreateButtonActive(): boolean {
-    return this.titleFormControl.valid &&
+    return (
+      this.titleFormControl.valid &&
       this.yearFormControl.valid &&
       this.linkFormControl.valid &&
-      this.authorsFormControl.valid;
+      this.authorsFormControl.valid
+    );
   }
 
   onChangeTitle(event: Event) {
