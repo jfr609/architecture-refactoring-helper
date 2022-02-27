@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace Repository.Models;
+namespace Repository.Models.Database;
 
 [Table(Constants.TABLE_NAME_APPROACH_PROCESS)]
 public class ApproachProcess
@@ -23,7 +23,4 @@ public class ApproachProcess
     public ICollection<AnalysisType>? AnalysisTypes { get; set; }
     [JsonPropertyName("techniques")]
     public ICollection<Technique>? Techniques { get; set; }
-    
-    // public ICollection<ProcessStrategy> ProcessStrategies { get; set; }
-    // public ICollection<DecompositionStrategy> DecompositionStrategies { get; set; }
 }

@@ -1,17 +1,12 @@
 /* tslint:disable */
 /* eslint-disable */
-import { RecommendationSuitability } from './recommendation-suitability';
+import { DomainArtifactInformation } from './domain-artifact-information';
+import { ExecutableInformation } from './executable-information';
+import { ModelArtifactInformation } from './model-artifact-information';
+import { RuntimeArtifactInformation } from './runtime-artifact-information';
 export interface InputRecommendationInformation {
-  domainArtifactInformation?: null | {
-[key: string]: RecommendationSuitability;
-};
-  executableInformation?: null | {
-[key: string]: RecommendationSuitability;
-};
-  modelArtifactInformation?: null | {
-[key: string]: RecommendationSuitability;
-};
-  runtimeArtifactInformation?: null | {
-[key: string]: RecommendationSuitability;
-};
+  domainArtifactInformation?: null | Array<DomainArtifactInformation>;
+  executableInformation?: null | Array<ExecutableInformation>;
+  modelArtifactInformation?: null | Array<ModelArtifactInformation>;
+  runtimeArtifactInformation?: null | Array<RuntimeArtifactInformation>;
 }

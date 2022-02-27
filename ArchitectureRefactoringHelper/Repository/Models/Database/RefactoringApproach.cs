@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace Repository.Models;
+namespace Repository.Models.Database;
 
 [Table(Constants.TABLE_NAME_APPROACH + "es")]
 public class RefactoringApproach
@@ -23,12 +23,15 @@ public class RefactoringApproach
     public ICollection<ModelArtifactInput>? ModelArtifactInputs { get; set; }
     [JsonPropertyName("executableInputs")]
     public ICollection<ExecutableInput>? ExecutableInputs { get; set; }
+    
     [JsonIgnore]
     public int ApproachProcessId { get; set; }
     [JsonPropertyName("approachProcess")]
     public ApproachProcess ApproachProcess { get; set; }
+    
     [JsonPropertyName("approachOutputs")]
     public ICollection<ApproachOutput>? ApproachOutputs { get; set; }
+    
     [JsonIgnore]
     public int ApproachUsabilityId { get; set; }
     [JsonPropertyName("approachUsability")]

@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Repository.Models;
+using Repository.Models.Database;
 using Repository.Services;
 
 namespace Repository.Controllers;

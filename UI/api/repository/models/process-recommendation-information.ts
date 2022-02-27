@@ -1,20 +1,14 @@
 /* tslint:disable */
 /* eslint-disable */
-import { RecommendationSuitability } from './recommendation-suitability';
+import { AnalysisTypeInformation } from './analysis-type-information';
+import { AutomationLevelInformation } from './automation-level-information';
+import { DirectionInformation } from './direction-information';
+import { QualityInformation } from './quality-information';
+import { TechniqueInformation } from './technique-information';
 export interface ProcessRecommendationInformation {
-  analysisTypeInformation?: null | {
-[key: string]: RecommendationSuitability;
-};
-  automationLevelInformation?: null | {
-[key: string]: RecommendationSuitability;
-};
-  directionInformation?: null | {
-[key: string]: RecommendationSuitability;
-};
-  qualityInformation?: null | {
-[key: string]: RecommendationSuitability;
-};
-  techniqueInformation?: null | {
-[key: string]: RecommendationSuitability;
-};
+  analysisTypeInformation?: null | Array<AnalysisTypeInformation>;
+  automationLevelInformation?: null | Array<AutomationLevelInformation>;
+  directionInformation?: null | Array<DirectionInformation>;
+  qualityInformation?: null | Array<QualityInformation>;
+  techniqueInformation?: null | Array<TechniqueInformation>;
 }

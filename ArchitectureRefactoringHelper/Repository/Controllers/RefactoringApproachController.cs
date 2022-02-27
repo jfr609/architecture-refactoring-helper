@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Repository.Exceptions;
-using Repository.Models;
+using Repository.Models.Database;
+using Repository.Models.Recommendation;
 using Repository.Services;
 
 namespace Repository.Controllers;
@@ -71,7 +72,6 @@ public class RefactoringApproachController : ControllerBase
 
         return NoContent();
     }
-
 
     [HttpPost("recommendation", Name = "GenerateRefactoringApproachRecommendation")]
     public ActionResult<IEnumerable<ApproachRecommendation>> GenerateRefactoringApproachRecommendation(

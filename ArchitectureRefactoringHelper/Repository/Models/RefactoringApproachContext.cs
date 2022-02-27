@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Repository.DatabaseConfigurations;
+using Repository.Models.Database;
 
 namespace Repository.Models;
 
@@ -8,8 +9,7 @@ public class RefactoringApproachContext : DbContext
     public DbSet<RefactoringApproach> RefactoringApproaches { get; set; }
     
     public DbSet<ApproachSource> ApproachSources { get; set; }
-    
-    // public DbSet<ApproachInput> ApproachInputs { get; set; }
+
     public DbSet<ApproachProcess> ApproachProcesses { get; set; }
     public DbSet<ApproachOutput> ApproachOutputs { get; set; }
     public DbSet<ApproachUsability> ApproachUsabilities { get; set; }
@@ -32,9 +32,6 @@ public class RefactoringApproachContext : DbContext
     public DbSet<ToolSupport> ToolSupports { get; set; }
     public DbSet<AccuracyPrecision> AccuracyPrecisions { get; set; }
     public DbSet<ValidationMethod> ValidationMethods { get; set; }
-    
-    // public DbSet<ProcessStrategy> ProcessStrategies { get; set; }
-    // public DbSet<DecompositionStrategy> DecompositionStrategies { get; set; }
 
     public string DbPath { get; }
 

@@ -2,12 +2,13 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace Repository.Models;
+namespace Repository.Models.Database;
 
 [Table(Constants.TABLE_NAME_APPROACH_USABILITY_ACCURACYPRECISION)]
 public class AccuracyPrecision
 {
     [Key]
+    [Required]
     [JsonPropertyName("name")]
     public string Name { get; set; }
     [JsonPropertyName("description")]

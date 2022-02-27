@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
-import { RecommendationSuitability } from './recommendation-suitability';
+import { ArchitectureInformation } from './architecture-information';
+import { ServiceTypeInformation } from './service-type-information';
 export interface OutputRecommendationInformation {
-  information?: null | {
-[key: string]: RecommendationSuitability;
-};
+  architectureInformation?: null | Array<ArchitectureInformation>;
+  serviceTypeInformation?: null | Array<ServiceTypeInformation>;
 }

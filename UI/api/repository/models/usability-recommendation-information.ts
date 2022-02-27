@@ -1,17 +1,12 @@
 /* tslint:disable */
 /* eslint-disable */
-import { RecommendationSuitability } from './recommendation-suitability';
+import { AccuracyPrecisionInformation } from './accuracy-precision-information';
+import { ResultsQualityInformation } from './results-quality-information';
+import { ToolSupportInformation } from './tool-support-information';
+import { ValidationMethodInformation } from './validation-method-information';
 export interface UsabilityRecommendationInformation {
-  accuracyPrecisionInformation?: null | {
-[key: string]: RecommendationSuitability;
-};
-  resultsQualityInformation?: null | {
-[key: string]: RecommendationSuitability;
-};
-  toolSupportInformation?: null | {
-[key: string]: RecommendationSuitability;
-};
-  validationMethodInformation?: null | {
-[key: string]: RecommendationSuitability;
-};
+  accuracyPrecisionInformation?: null | Array<AccuracyPrecisionInformation>;
+  resultsQualityInformation?: null | Array<ResultsQualityInformation>;
+  toolSupportInformation?: null | Array<ToolSupportInformation>;
+  validationMethodInformation?: null | Array<ValidationMethodInformation>;
 }

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Repository.Exceptions;
 using Repository.Models;
+using Repository.Models.Database;
 
 namespace Repository.Services;
 

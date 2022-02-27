@@ -1,5 +1,6 @@
 using System.Text.Json;
 using Repository.Models;
+using Repository.Models.Database;
 using Repository.Services;
 
 namespace Repository;
