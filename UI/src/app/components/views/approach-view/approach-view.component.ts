@@ -501,6 +501,12 @@ export class ApproachViewComponent implements OnInit {
       this.usabilityService.listResultsQualities().subscribe({
         next: (response: ResultsQuality[]) => {
           this.resultsQualities = response;
+          let defaultValue = this.resultsQualities.find(value => value.name === 'Not available');
+          if (defaultValue !== undefined) {
+            this.selectedResultsQuality = defaultValue;
+          } else {
+            this.selectedResultsQuality = this.resultsQualities[0];
+          }
           resolve();
         },
         error: () => {
@@ -516,6 +522,12 @@ export class ApproachViewComponent implements OnInit {
       this.usabilityService.listToolSupports().subscribe({
         next: (response: ToolSupport[]) => {
           this.toolSupports = response;
+          let defaultValue = this.toolSupports.find(value => value.name === 'No tool support');
+          if (defaultValue !== undefined) {
+            this.selectedToolSupport = defaultValue;
+          } else {
+            this.selectedToolSupport = this.toolSupports[0];
+          }
           resolve();
         },
         error: () => {
@@ -531,6 +543,12 @@ export class ApproachViewComponent implements OnInit {
       this.usabilityService.listAccuracyPrecisions().subscribe({
         next: (response: AccuracyPrecision[]) => {
           this.accuracyPrecisions = response;
+          let defaultValue = this.accuracyPrecisions.find(value => value.name === 'Not available');
+          if (defaultValue !== undefined) {
+            this.selectedAccuracyPrecision = defaultValue;
+          } else {
+            this.selectedAccuracyPrecision = this.accuracyPrecisions[0];
+          }
           resolve();
         },
         error: () => {
@@ -546,6 +564,12 @@ export class ApproachViewComponent implements OnInit {
       this.usabilityService.listValidationMethods().subscribe({
         next: (response: ValidationMethod[]) => {
           this.validationMethods = response;
+          let defaultValue = this.validationMethods.find(value => value.name === 'No validation');
+          if (defaultValue !== undefined) {
+            this.selectedValidationMethod = defaultValue;
+          } else {
+            this.selectedValidationMethod = this.validationMethods[0];
+          }
           resolve();
         },
         error: () => {
@@ -558,7 +582,7 @@ export class ApproachViewComponent implements OnInit {
 
   addOutput(): void {
     if (this.selectedOutputArchitecture === undefined || this.selectedOutputServiceType === undefined) {
-      this.utilService.callSnackBar('Error! Output must have an architecture and service type selected');
+      this.utilService.callSnackBar('Error! Output must have an architecture and service type selected.');
       return;
     }
 
@@ -609,9 +633,17 @@ export class ApproachViewComponent implements OnInit {
         if (data === undefined)
           return
 
-        // TODO create
         let refactoringApproach = this.createRefactoringApproachFromFilledInData();
-        console.log(refactoringApproach);
+        this.refactoringApproachService.addRefactoringApproach({body: refactoringApproach}).subscribe({
+          next: (value: RefactoringApproach) => {
+            this.refactoringApproach = value;
+            this.isCreateView = false;
+            this.router.navigate([value.refactoringApproachId], {relativeTo: this.route});
+          },
+          error: () => {
+            this.utilService.callSnackBar("Refactoring approach could not be created.");
+          }
+        });
       },
     });
   }
