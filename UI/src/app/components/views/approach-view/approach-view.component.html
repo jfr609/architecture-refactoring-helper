@@ -1,1 +1,7 @@
-<p>approach-view works!</p>
+<div *ngIf='this.isDataLoading' class='loading-container' fxLayout='column' fxLayoutAlign='center center'>
+  <mat-spinner color='accent'></mat-spinner>
+</div>
+<div *ngIf='!isDataLoading' style='margin-bottom: 32px' fxLayout='column' fxLayoutAlign='start center'>
+  <h1>{{refactoringApproach.approachSource?.title}}</h1>
+  <p>{{getTempRefactoringApproach()}}</p>
+</div>

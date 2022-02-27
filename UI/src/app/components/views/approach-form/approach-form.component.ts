@@ -39,6 +39,7 @@ import { ResultsQuality } from '../../../../../api/repository/models/results-qua
 import { ToolSupport } from '../../../../../api/repository/models/tool-support';
 import { AccuracyPrecision } from '../../../../../api/repository/models/accuracy-precision';
 import { ValidationMethod } from '../../../../../api/repository/models/validation-method';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-approach-form',
@@ -123,6 +124,7 @@ export class ApproachFormComponent implements OnInit {
     private outputService: ApproachOutputService,
     private usabilityService: ApproachUsabilityService,
     private utilService: UtilService,
+    private apiService: ApiService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -183,22 +185,16 @@ export class ApproachFormComponent implements OnInit {
   }
 
   requestRefactoringApproach(approachId: number): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.refactoringApproachService
-        .getRefactoringApproach({ id: approachId })
-        .subscribe({
-          next: (response: RefactoringApproach) => {
-            this.refactoringApproach = response;
-            resolve();
-          },
-          error: () => {
-            this.utilService.callSnackBar(
-              'Error! Refactoring approach could not be retrieved.'
-            );
-            reject();
-          }
-        });
-    });
+    return this.apiService
+      .requestRefactoringApproach(approachId)
+      .then((value: RefactoringApproach) => {
+        this.refactoringApproach = value;
+      })
+      .catch(() => {
+        this.utilService.callSnackBar(
+          'Error! Refactoring approach could not be retrieved.'
+        );
+      });
   }
 
   fillInOutputs() {

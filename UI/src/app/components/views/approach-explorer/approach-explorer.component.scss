@@ -1,7 +1,20 @@
+table {
+  margin-top: 20px;
+}
+
 .mat-row {
   height: auto;
 }
 
+.mat-row:hover .mat-cell {
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
 .mat-cell {
-  padding: 8px 16px 8px 0;
+  padding: 8px 20px 8px 0;
+}
+
+.mat-cell:last-child {
+  padding: 8px 8px 8px 0;
 }

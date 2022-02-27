@@ -63,11 +63,23 @@ export class ApproachExplorerComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  goToLink(url: string): void {
-    window.open(url, '_blank');
+  goToLink(refactoringApproach: RefactoringApproach): void {
+    if (refactoringApproach.approachSource?.link == null) return;
+    window.open(refactoringApproach.approachSource?.link, '_blank');
   }
 
-  goToEdit(refactoringApproachId: number) {
-    this.router.navigate(['/approach', refactoringApproachId, 'edit']);
+  goToEdit(refactoringApproach: RefactoringApproach) {
+    this.router.navigate([
+      '/approach',
+      refactoringApproach.refactoringApproachId,
+      'edit'
+    ]);
+  }
+
+  openApproachView(refactoringApproach: RefactoringApproach) {
+    this.router.navigate([
+      '/approach',
+      refactoringApproach.refactoringApproachId
+    ]);
   }
 }
