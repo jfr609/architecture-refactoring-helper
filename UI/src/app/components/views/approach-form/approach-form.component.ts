@@ -186,7 +186,7 @@ export class ApproachFormComponent implements OnInit {
 
   requestRefactoringApproach(approachId: number): Promise<void> {
     return this.apiService
-      .requestRefactoringApproach(approachId)
+      .getRefactoringApproach(approachId)
       .then((value: RefactoringApproach) => {
         this.refactoringApproach = value;
       })
@@ -245,21 +245,17 @@ export class ApproachFormComponent implements OnInit {
   }
 
   requestDomainArtifacts(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.inputService.listDomainArtifacts().subscribe({
-        next: (response: DomainArtifactInput[]) => {
-          this.domainArtifacts = response;
-          this.fillDomainArtifactDataLists();
-          resolve();
-        },
-        error: () => {
-          this.utilService.callSnackBar(
-            'Error! Input domain artifacts could not be retrieved.'
-          );
-          reject();
-        }
+    return this.apiService
+      .listDomainArtifacts()
+      .then((value: DomainArtifactInput[]) => {
+        this.domainArtifacts = value;
+        this.fillDomainArtifactDataLists();
+      })
+      .catch(() => {
+        this.utilService.callSnackBar(
+          'Error! Input domain artifacts could not be retrieved.'
+        );
       });
-    });
   }
 
   fillDomainArtifactDataLists(): void {
@@ -277,21 +273,17 @@ export class ApproachFormComponent implements OnInit {
   }
 
   requestRuntimeArtifacts(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.inputService.listRuntimeArtifact().subscribe({
-        next: (response: RuntimeArtifactInput[]) => {
-          this.runtimeArtifacts = response;
-          this.fillRuntimeArtifactDataLists();
-          resolve();
-        },
-        error: () => {
-          this.utilService.callSnackBar(
-            'Error! Input runtime artifacts could not be retrieved.'
-          );
-          reject();
-        }
+    return this.apiService
+      .listRuntimeArtifact()
+      .then((value: RuntimeArtifactInput[]) => {
+        this.runtimeArtifacts = value;
+        this.fillRuntimeArtifactDataLists();
+      })
+      .catch(() => {
+        this.utilService.callSnackBar(
+          'Error! Input runtime artifacts could not be retrieved.'
+        );
       });
-    });
   }
 
   fillRuntimeArtifactDataLists(): void {
@@ -309,21 +301,17 @@ export class ApproachFormComponent implements OnInit {
   }
 
   requestModelArtifacts(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.inputService.listModelArtifacts().subscribe({
-        next: (response: ModelArtifactInput[]) => {
-          this.modelArtifacts = response;
-          this.fillModelArtifactDataLists();
-          resolve();
-        },
-        error: () => {
-          this.utilService.callSnackBar(
-            'Error! Input model artifacts could not be retrieved.'
-          );
-          reject();
-        }
+    return this.apiService
+      .listModelArtifacts()
+      .then((value: ModelArtifactInput[]) => {
+        this.modelArtifacts = value;
+        this.fillModelArtifactDataLists();
+      })
+      .catch(() => {
+        this.utilService.callSnackBar(
+          'Error! Input model artifacts could not be retrieved.'
+        );
       });
-    });
   }
 
   fillModelArtifactDataLists(): void {
@@ -341,21 +329,17 @@ export class ApproachFormComponent implements OnInit {
   }
 
   requestExecutables(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.inputService.listExecutables().subscribe({
-        next: (response: ExecutableInput[]) => {
-          this.executables = response;
-          this.fillExecutableDataLists();
-          resolve();
-        },
-        error: () => {
-          this.utilService.callSnackBar(
-            'Error! Input executables could not be retrieved.'
-          );
-          reject();
-        }
+    return this.apiService
+      .listExecutables()
+      .then((value: ExecutableInput[]) => {
+        this.executables = value;
+        this.fillExecutableDataLists();
+      })
+      .catch(() => {
+        this.utilService.callSnackBar(
+          'Error! Input executables could not be retrieved.'
+        );
       });
-    });
   }
 
   fillExecutableDataLists(): void {
@@ -373,21 +357,17 @@ export class ApproachFormComponent implements OnInit {
   }
 
   requestQualities(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.processService.listQualities().subscribe({
-        next: (response: Quality[]) => {
-          this.qualities = response;
-          this.fillQualityDataLists();
-          resolve();
-        },
-        error: () => {
-          this.utilService.callSnackBar(
-            'Error! Process qualities could not be retrieved.'
-          );
-          reject();
-        }
+    return this.apiService
+      .listQualities()
+      .then((value: Quality[]) => {
+        this.qualities = value;
+        this.fillQualityDataLists();
+      })
+      .catch(() => {
+        this.utilService.callSnackBar(
+          'Error! Process qualities could not be retrieved.'
+        );
       });
-    });
   }
 
   fillQualityDataLists(): void {
@@ -405,21 +385,17 @@ export class ApproachFormComponent implements OnInit {
   }
 
   requestDirections(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.processService.listDirections().subscribe({
-        next: (response: Direction[]) => {
-          this.directions = response;
-          this.fillDirectionDataLists();
-          resolve();
-        },
-        error: () => {
-          this.utilService.callSnackBar(
-            'Error! Process directions could not be retrieved.'
-          );
-          reject();
-        }
+    return this.apiService
+      .listDirections()
+      .then((value: Direction[]) => {
+        this.directions = value;
+        this.fillDirectionDataLists();
+      })
+      .catch(() => {
+        this.utilService.callSnackBar(
+          'Error! Process directions could not be retrieved.'
+        );
       });
-    });
   }
 
   fillDirectionDataLists(): void {
@@ -437,21 +413,17 @@ export class ApproachFormComponent implements OnInit {
   }
 
   requestAutomationLevels(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.processService.listAutomationLevels().subscribe({
-        next: (response: AutomationLevel[]) => {
-          this.automationLevels = response;
-          this.fillAutomationLevelDataLists();
-          resolve();
-        },
-        error: () => {
-          this.utilService.callSnackBar(
-            'Error! Process automation levels could not be retrieved.'
-          );
-          reject();
-        }
+    return this.apiService
+      .listAutomationLevels()
+      .then((value: AutomationLevel[]) => {
+        this.automationLevels = value;
+        this.fillAutomationLevelDataLists();
+      })
+      .catch(() => {
+        this.utilService.callSnackBar(
+          'Error! Process automation levels could not be retrieved.'
+        );
       });
-    });
   }
 
   fillAutomationLevelDataLists(): void {
@@ -469,21 +441,17 @@ export class ApproachFormComponent implements OnInit {
   }
 
   requestAnalysisTypes(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.processService.listAnalysisTypes().subscribe({
-        next: (response: AnalysisType[]) => {
-          this.analysisTypes = response;
-          this.fillAnalysisTypeDataLists();
-          resolve();
-        },
-        error: () => {
-          this.utilService.callSnackBar(
-            'Error! Process analysis types could not be retrieved.'
-          );
-          reject();
-        }
+    return this.apiService
+      .listAnalysisTypes()
+      .then((value: AnalysisType[]) => {
+        this.analysisTypes = value;
+        this.fillAnalysisTypeDataLists();
+      })
+      .catch(() => {
+        this.utilService.callSnackBar(
+          'Error! Process analysis types could not be retrieved.'
+        );
       });
-    });
   }
 
   fillAnalysisTypeDataLists(): void {
@@ -501,21 +469,17 @@ export class ApproachFormComponent implements OnInit {
   }
 
   requestTechniques(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.processService.listTechniques().subscribe({
-        next: (response: Technique[]) => {
-          this.techniques = response;
-          this.fillTechniqueDataLists();
-          resolve();
-        },
-        error: () => {
-          this.utilService.callSnackBar(
-            'Error! Process techniques could not be retrieved.'
-          );
-          reject();
-        }
+    return this.apiService
+      .listTechniques()
+      .then((value: Technique[]) => {
+        this.techniques = value;
+        this.fillTechniqueDataLists();
+      })
+      .catch(() => {
+        this.utilService.callSnackBar(
+          'Error! Process techniques could not be retrieved.'
+        );
       });
-    });
   }
 
   fillTechniqueDataLists(): void {
@@ -533,137 +497,113 @@ export class ApproachFormComponent implements OnInit {
   }
 
   requestArchitectures(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.outputService.listArchitectures().subscribe({
-        next: (response: Architecture[]) => {
-          this.architectures = response;
-          resolve();
-        },
-        error: () => {
-          this.utilService.callSnackBar(
-            'Error! Output architectures could not be retrieved.'
-          );
-          reject();
-        }
+    return this.apiService
+      .listArchitectures()
+      .then((value: Architecture[]) => {
+        this.architectures = value;
+      })
+      .catch(() => {
+        this.utilService.callSnackBar(
+          'Error! Output architectures could not be retrieved.'
+        );
       });
-    });
   }
 
   requestServiceTypes(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.outputService.listServiceTypes().subscribe({
-        next: (response: ServiceType[]) => {
-          this.serviceTypes = response;
-          resolve();
-        },
-        error: () => {
-          this.utilService.callSnackBar(
-            'Error! Output service types could not be retrieved.'
-          );
-          reject();
-        }
+    return this.apiService
+      .listServiceTypes()
+      .then((value: ServiceType[]) => {
+        this.serviceTypes = value;
+      })
+      .catch(() => {
+        this.utilService.callSnackBar(
+          'Error! Output service types could not be retrieved.'
+        );
       });
-    });
   }
 
   requestResultsQualities(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.usabilityService.listResultsQualities().subscribe({
-        next: (response: ResultsQuality[]) => {
-          this.resultsQualities = response;
-          let defaultValue = this.resultsQualities.find(
-            (value) => value.name === 'Not available'
-          );
-          if (defaultValue !== undefined) {
-            this.selectedResultsQuality = defaultValue;
-          } else {
-            this.selectedResultsQuality = this.resultsQualities[0];
-          }
-          resolve();
-        },
-        error: () => {
-          this.utilService.callSnackBar(
-            'Error! Results quality options could not be retrieved.'
-          );
-          reject();
+    return this.apiService
+      .listResultsQualities()
+      .then((value: ResultsQuality[]) => {
+        this.resultsQualities = value;
+        let defaultValue = this.resultsQualities.find(
+          (value: ResultsQuality) => value.name === 'Not available'
+        );
+        if (defaultValue !== undefined) {
+          this.selectedResultsQuality = defaultValue;
+        } else {
+          this.selectedResultsQuality = this.resultsQualities[0];
         }
+      })
+      .catch(() => {
+        this.utilService.callSnackBar(
+          'Error! Results quality options could not be retrieved.'
+        );
       });
-    });
   }
 
   requestToolSupports(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.usabilityService.listToolSupports().subscribe({
-        next: (response: ToolSupport[]) => {
-          this.toolSupports = response;
-          let defaultValue = this.toolSupports.find(
-            (value) => value.name === 'No tool support'
-          );
-          if (defaultValue !== undefined) {
-            this.selectedToolSupport = defaultValue;
-          } else {
-            this.selectedToolSupport = this.toolSupports[0];
-          }
-          resolve();
-        },
-        error: () => {
-          this.utilService.callSnackBar(
-            'Error! Tool support options could not be retrieved.'
-          );
-          reject();
+    return this.apiService
+      .listToolSupports()
+      .then((value: ToolSupport[]) => {
+        this.toolSupports = value;
+        let defaultValue = this.toolSupports.find(
+          (value: ToolSupport) => value.name === 'No tool support'
+        );
+        if (defaultValue !== undefined) {
+          this.selectedToolSupport = defaultValue;
+        } else {
+          this.selectedToolSupport = this.toolSupports[0];
         }
+      })
+      .catch(() => {
+        this.utilService.callSnackBar(
+          'Error! Tool support options could not be retrieved.'
+        );
       });
-    });
   }
 
   requestAccuracyPrecisions(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.usabilityService.listAccuracyPrecisions().subscribe({
-        next: (response: AccuracyPrecision[]) => {
-          this.accuracyPrecisions = response;
-          let defaultValue = this.accuracyPrecisions.find(
-            (value) => value.name === 'Not available'
-          );
-          if (defaultValue !== undefined) {
-            this.selectedAccuracyPrecision = defaultValue;
-          } else {
-            this.selectedAccuracyPrecision = this.accuracyPrecisions[0];
-          }
-          resolve();
-        },
-        error: () => {
-          this.utilService.callSnackBar(
-            'Error! Accuracy/Precision options could not be retrieved.'
-          );
-          reject();
+    return this.apiService
+      .listAccuracyPrecisions()
+      .then((value: AccuracyPrecision[]) => {
+        this.accuracyPrecisions = value;
+        let defaultValue = this.accuracyPrecisions.find(
+          (value: AccuracyPrecision) => value.name === 'Not available'
+        );
+        if (defaultValue !== undefined) {
+          this.selectedAccuracyPrecision = defaultValue;
+        } else {
+          this.selectedAccuracyPrecision = this.accuracyPrecisions[0];
         }
+      })
+      .catch(() => {
+        this.utilService.callSnackBar(
+          'Error! Accuracy/Precision options could not be retrieved.'
+        );
       });
-    });
   }
 
   requestValidationMethods(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.usabilityService.listValidationMethods().subscribe({
-        next: (response: ValidationMethod[]) => {
-          this.validationMethods = response;
-          let defaultValue = this.validationMethods.find(
-            (value) => value.name === 'No validation'
-          );
-          if (defaultValue !== undefined) {
-            this.selectedValidationMethod = defaultValue;
-          } else {
-            this.selectedValidationMethod = this.validationMethods[0];
-          }
-          resolve();
-        },
-        error: () => {
-          this.utilService.callSnackBar(
-            'Error! Validation method options could not be retrieved.'
-          );
-          reject();
+    return this.apiService
+      .listValidationMethods()
+      .then((value: ValidationMethod[]) => {
+        this.validationMethods = value;
+        let defaultValue = this.validationMethods.find(
+          (value: ValidationMethod) => value.name === 'No validation'
+        );
+        if (defaultValue !== undefined) {
+          this.selectedValidationMethod = defaultValue;
+        } else {
+          this.selectedValidationMethod = this.validationMethods[0];
         }
+      })
+      .catch(() => {
+        this.utilService.callSnackBar(
+          'Error! Validation method options could not be retrieved.'
+        );
       });
-    });
   }
 
   addOutput(): void {
@@ -738,21 +678,20 @@ export class ApproachFormComponent implements OnInit {
 
           let refactoringApproach =
             this.createRefactoringApproachFromFilledInData();
-          this.refactoringApproachService
-            .addRefactoringApproach({ body: refactoringApproach })
-            .subscribe({
-              next: (value: RefactoringApproach) => {
-                this.refactoringApproach = value;
-                this.isCreateView = false;
-                this.router.navigate([value.refactoringApproachId], {
-                  relativeTo: this.route
-                });
-              },
-              error: () => {
-                this.utilService.callSnackBar(
-                  'Refactoring approach could not be created.'
-                );
-              }
+
+          this.apiService
+            .addRefactoringApproach(refactoringApproach)
+            .then((value: RefactoringApproach) => {
+              this.refactoringApproach = value;
+              this.isCreateView = false;
+              this.router.navigate([value.refactoringApproachId], {
+                relativeTo: this.route
+              });
+            })
+            .catch(() => {
+              this.utilService.callSnackBar(
+                'Refactoring approach could not be created.'
+              );
             });
         }
       });

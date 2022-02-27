@@ -9,7 +9,7 @@ import { UtilService } from '../../../services/util.service';
 @Component({
   selector: 'app-approach-form',
   templateUrl: './approach-view.component.html',
-  styleUrls: ['./approach-view.component.css']
+  styleUrls: ['./approach-view.component.scss']
 })
 export class ApproachViewComponent implements OnInit {
   refactoringApproach: RefactoringApproach = {};
@@ -33,7 +33,7 @@ export class ApproachViewComponent implements OnInit {
         );
 
         this.apiService
-          .requestRefactoringApproach(approachId)
+          .getRefactoringApproach(approachId)
           .then((value: RefactoringApproach) => {
             this.refactoringApproach = value;
             this.isDataLoading = false;
