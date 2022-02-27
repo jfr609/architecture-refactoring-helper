@@ -11,12 +11,15 @@ public class ApproachSource
     [JsonPropertyName("approachSourceId")]
     public int ApproachSourceId { get; set; }
     
+    [Required]
     [JsonPropertyName("title")]
     public string Title { get; set; }
+    [Required]
     [JsonPropertyName("year")]
     public int Year { get; set; }
     [JsonPropertyName("link")]
-    public string Link { get; set; }
+    public string? Link { get; set; }
+    [Required]
     [JsonPropertyName("authors")]
     public string Authors { get; set; }
 

@@ -2,5 +2,5 @@
 /* eslint-disable */
 export interface ServiceType {
   description?: null | string;
-  name?: null | string;
+  name: string;
 }

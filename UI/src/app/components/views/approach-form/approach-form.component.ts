@@ -1173,7 +1173,7 @@ export class ApproachFormComponent implements OnInit {
           this.refactoringApproachService.removeOutput({
             // @ts-ignore
             id: this.refactoringApproach.refactoringApproachId,
-            techniqueName: elementToRemove.approachOutputId
+            outputId: elementToRemove.approachOutputId
           })
         )
       );

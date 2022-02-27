@@ -8,6 +8,7 @@ namespace Repository.Models;
 public class Technique
 {
     [Key]
+    [Required]
     [JsonPropertyName("name")]
     public string Name { get; set; }
     [JsonPropertyName("description")]

@@ -13,12 +13,16 @@ public class ApproachUsability
     [JsonIgnore]
     public RefactoringApproach? RefactoringApproach { get; set; }
     
+    [Required]
     [JsonPropertyName("resultsQuality")]
     public ResultsQuality ResultsQuality { get; set; }
+    [Required]
     [JsonPropertyName("toolSupport")]
     public ToolSupport ToolSupport { get; set; }
+    [Required]
     [JsonPropertyName("accuracyPrecision")]
     public AccuracyPrecision AccuracyPrecision { get; set; }
+    [Required]
     [JsonPropertyName("validationMethod")]
     public ValidationMethod ValidationMethod { get; set; }
 }

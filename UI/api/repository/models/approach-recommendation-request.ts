@@ -5,8 +5,8 @@ import { OutputRecommendationInformation } from './output-recommendation-informa
 import { ProcessRecommendationInformation } from './process-recommendation-information';
 import { UsabilityRecommendationInformation } from './usability-recommendation-information';
 export interface ApproachRecommendationRequest {
-  inputRecommendationInformation?: InputRecommendationInformation;
-  outputRecommendationInformation?: OutputRecommendationInformation;
-  processRecommendationInformation?: ProcessRecommendationInformation;
-  usabilityRecommendationInformation?: UsabilityRecommendationInformation;
+  inputRecommendationInformation: InputRecommendationInformation;
+  outputRecommendationInformation: OutputRecommendationInformation;
+  processRecommendationInformation: ProcessRecommendationInformation;
+  usabilityRecommendationInformation: UsabilityRecommendationInformation;
 }

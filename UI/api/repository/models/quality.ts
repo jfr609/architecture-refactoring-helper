@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { QualityCategory } from './quality-category';
 export interface Quality {
-  category?: QualityCategory;
+  category: QualityCategory;
   description?: null | string;
-  name?: null | string;
+  name: string;
 }

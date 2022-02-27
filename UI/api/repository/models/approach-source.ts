@@ -2,8 +2,8 @@
 /* eslint-disable */
 export interface ApproachSource {
   approachSourceId?: number;
-  authors?: null | string;
+  authors: string;
   link?: null | string;
-  title?: null | string;
-  year?: number;
+  title: string;
+  year: number;
 }

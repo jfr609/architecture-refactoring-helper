@@ -5,9 +5,9 @@ import { ResultsQuality } from './results-quality';
 import { ToolSupport } from './tool-support';
 import { ValidationMethod } from './validation-method';
 export interface ApproachUsability {
-  accuracyPrecision?: AccuracyPrecision;
+  accuracyPrecision: AccuracyPrecision;
   approachUsabilityId?: number;
-  resultsQuality?: ResultsQuality;
-  toolSupport?: ToolSupport;
-  validationMethod?: ValidationMethod;
+  resultsQuality: ResultsQuality;
+  toolSupport: ToolSupport;
+  validationMethod: ValidationMethod;
 }

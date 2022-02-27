@@ -13,8 +13,10 @@ public class ApproachOutput
     [JsonIgnore]
     public ICollection<RefactoringApproach>? RefactoringApproaches { get; set; }
     
+    [Required]
     [JsonPropertyName("architecture")]
     public Architecture Architecture { get; set; }
+    [Required]
     [JsonPropertyName("serviceType")]
     public ServiceType ServiceType { get; set; }
 }
@@ -23,6 +25,7 @@ public class ApproachOutput
 public class Architecture
 {
     [Key]
+    [Required]
     [JsonPropertyName("name")]
     public string Name { get; set; }
     [JsonPropertyName("description")]
@@ -36,6 +39,7 @@ public class Architecture
 public class ServiceType
 {
     [Key]
+    [Required]
     [JsonPropertyName("name")]
     public string Name { get; set; }
     [JsonPropertyName("description")]
