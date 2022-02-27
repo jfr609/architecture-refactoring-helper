@@ -1,0 +1,317 @@
+<div *ngIf='this.isDataLoading' class='loading-container' fxLayout='column' fxLayoutAlign='center center'>
+  <mat-spinner color='accent'></mat-spinner>
+</div>
+<div *ngIf='!isDataLoading' style='margin-bottom: 32px' fxLayout='column' fxLayoutAlign='start center'>
+  <div *ngIf='isCreateView; then newApproachTitle else editApproachTitle'></div>
+  <ng-template #newApproachTitle>
+    <h1>Create a new refactoring approach</h1>
+  </ng-template>
+  <ng-template #editApproachTitle>
+    <h1>{{refactoringApproach.approachSource?.title}}</h1>
+  </ng-template>
+
+  <div style='padding: 16px' fxLayout='row' fxLayoutGap='12px'>
+    <button *ngIf='isCreateView' mat-raised-button color='primary' [disabled]='!isCreateButtonActive()'
+            (click)='createRefactoringApproach()'>
+      <mat-icon>add</mat-icon>
+      <span>Create</span>
+    </button>
+    <button *ngIf='!isCreateView' mat-raised-button color='primary' (click)='updateRefactoringApproach()'>
+      <mat-icon>save</mat-icon>
+      <span>Save</span>
+    </button>
+    <button mat-raised-button color='accent' (click)='accordion.openAll()'>
+      <mat-icon>unfold_more</mat-icon>
+      <span>Expand All</span>
+    </button>
+    <button mat-raised-button color='accent' (click)='accordion.closeAll()'>
+      <mat-icon>unfold_less</mat-icon>
+      <span>Collapse All</span>
+    </button>
+    <button mat-raised-button color='warn' (click)='cancel()'>
+      <mat-icon>clear</mat-icon>
+      <span>Cancel</span>
+    </button>
+  </div>
+
+  <mat-accordion multi>
+    <mat-expansion-panel *ngIf='this.isCreateView' expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h2>Source</h2>
+        </mat-panel-title>
+        <mat-panel-description>
+          Add a source for the refactoring approach.
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div style='margin-bottom: 24px;' fxLayout='row'>
+        <mat-form-field fxFlex style='margin-right: 24px' appearance='fill'>
+          <mat-label>Title</mat-label>
+          <input matInput type='text' (change)='onChangeTitle($event)' [value]='titleInputValue'
+                 [formControl]='titleFormControl'>
+          <button *ngIf='titleInputValue' matSuffix mat-icon-button aria-label='Clear' (click)="titleInputValue=''">
+            <mat-icon>close</mat-icon>
+          </button>
+          <mat-error *ngIf="titleFormControl.hasError('required')">
+            Title is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance='fill'>
+          <mat-label>Year</mat-label>
+          <input matInput type='number' (change)='onChangeYear($event)' [value]='yearInputValue'
+                 [formControl]='yearFormControl'>
+          <mat-error *ngIf="!yearFormControl.hasError('required') &&
+          (yearFormControl.hasError('min') || yearFormControl.hasError('max'))">
+            Year has to be between 1900 and the current year
+          </mat-error>
+          <mat-error *ngIf="yearFormControl.hasError('required')">
+            Year is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout='row'>
+        <mat-form-field fxFlex='50' style='margin-right: 24px' appearance='fill'>
+          <mat-label>Link</mat-label>
+          <input matInput type='text' (change)='onChangeLink($event)' [value]='linkInputValue'
+                 [formControl]='linkFormControl'>
+          <button *ngIf='linkInputValue' matSuffix mat-icon-button aria-label='Clear' (click)="linkInputValue=''">
+            <mat-icon>close</mat-icon>
+          </button>
+          <mat-error *ngIf="!linkFormControl.hasError('required') && linkFormControl.hasError('url')">
+            Link has to be a valid URL
+          </mat-error>
+          <mat-error *ngIf="linkFormControl.hasError('required')">
+            Link is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex='50' appearance='fill'>
+          <mat-label>Authors</mat-label>
+          <input matInput type='text' (change)='onChangeAuthors($event)' [value]='authorsInputValue'
+                 [formControl]='authorsFormControl'>
+          <button *ngIf='authorsInputValue' matSuffix mat-icon-button aria-label='Clear' (click)="authorsInputValue=''">
+            <mat-icon>close</mat-icon>
+          </button>
+          <mat-error *ngIf="authorsFormControl.hasError('required')">
+            Authors are <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h2>Inputs</h2>
+        </mat-panel-title>
+        <mat-panel-description>
+          Define the inputs of the refactoring approach.
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <app-connected-data-lists
+        [sourceDataListTitle]="'Domain artifacts'"
+        [targetDataListTitle]="'Approach domain artifacts'"
+        [sourceDataList]='domainArtifactSourceDataList'
+        [targetDataList]='domainArtifactTargetDataList'>
+      </app-connected-data-lists>
+
+      <app-connected-data-lists
+        [sourceDataListTitle]="'Runtime artifacts'"
+        [targetDataListTitle]="'Approach runtime artifacts'"
+        [sourceDataList]='runtimeArtifactSourceDataList'
+        [targetDataList]='runtimeArtifactTargetDataList'>
+      </app-connected-data-lists>
+
+      <app-connected-data-lists
+        [sourceDataListTitle]="'Model artifacts'"
+        [targetDataListTitle]="'Approach model artifacts'"
+        [sourceDataList]='modelArtifactSourceDataList'
+        [targetDataList]='modelArtifactTargetDataList'>
+      </app-connected-data-lists>
+
+      <app-connected-data-lists
+        [sourceDataListTitle]="'Executables'"
+        [targetDataListTitle]="'Approach executables'"
+        [sourceDataList]='executableSourceDataList'
+        [targetDataList]='executableTargetDataList'>
+      </app-connected-data-lists>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h2>Process</h2>
+        </mat-panel-title>
+        <mat-panel-description>
+          Define the process of the refactoring approach.
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <app-connected-data-lists
+        [sourceDataListTitle]="'Qualities'"
+        [targetDataListTitle]="'Approach process qualities'"
+        [sourceDataList]='qualitySourceDataList'
+        [targetDataList]='qualityTargetDataList'>
+      </app-connected-data-lists>
+
+      <app-connected-data-lists
+        [sourceDataListTitle]="'Directions'"
+        [targetDataListTitle]="'Approach process directions'"
+        [sourceDataList]='directionSourceDataList'
+        [targetDataList]='directionTargetDataList'>
+      </app-connected-data-lists>
+
+      <app-connected-data-lists
+        [sourceDataListTitle]="'Automation levels'"
+        [targetDataListTitle]="'Approach process automation levels'"
+        [sourceDataList]='automationLevelSourceDataList'
+        [targetDataList]='automationLevelTargetDataList'>
+      </app-connected-data-lists>
+
+      <app-connected-data-lists
+        [sourceDataListTitle]="'Analysis types'"
+        [targetDataListTitle]="'Approach process analysis types'"
+        [sourceDataList]='analysisTypeSourceDataList'
+        [targetDataList]='analysisTypeTargetDataList'>
+      </app-connected-data-lists>
+
+      <app-connected-data-lists
+        [sourceDataListTitle]="'Techniques'"
+        [targetDataListTitle]="'Approach process techniques'"
+        [sourceDataList]='techniqueSourceDataList'
+        [targetDataList]='techniqueTargetDataList'>
+      </app-connected-data-lists>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h2>Outputs</h2>
+        </mat-panel-title>
+        <mat-panel-description>
+          Define the outputs of the refactoring approach.
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div fxLayout='row' fxLayoutGap='16px' style='margin-bottom: 20px;'>
+        <div style='padding: 16px' fxFlex='33' fxLayout='column'>
+          <mat-form-field appearance='fill'>
+            <mat-label>Output architecture</mat-label>
+            <mat-select [(ngModel)]='selectedOutputArchitecture' name='food'>
+              <mat-option *ngFor='let architecture of architectures' [value]='architecture'>
+                {{architecture.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance='fill'>
+            <mat-label>Output service type</mat-label>
+            <mat-select [(ngModel)]='selectedOutputServiceType' name='food'>
+              <mat-option *ngFor='let serviceType of serviceTypes' [value]='serviceType'>
+                {{serviceType.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button mat-raised-button color='primary' (click)='addOutput()'>
+            <mat-icon>add</mat-icon>
+            <span>Add</span>
+          </button>
+        </div>
+
+        <div fxFlex='66' fxLayout='column'>
+          <h3 style='padding: 0 16px'>Current outputs</h3>
+          <mat-list *ngIf='currentOutputList.length >= 1' class='output-list mat-elevation-z8'>
+            <mat-list-item *ngFor='let output of currentOutputList'>
+              <p *ngIf='output.architecture && output.serviceType'>
+                {{output.architecture.name}}: {{output.serviceType.name}}
+              </p>
+              <p *ngIf='!output.architecture || !output.serviceType'>Undefined output!</p>
+              <button mat-icon-button color='warn' (click)='removeOutput(output)'>
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-list-item>
+          </mat-list>
+
+          <div *ngIf='currentOutputList.length < 1' fxFlex fxLayout='column' fxLayoutAlign='center center'>
+            <mat-icon class='icon-2x' color='accent'>info</mat-icon>
+            <p>No outputs</p>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h2>Usability</h2>
+        </mat-panel-title>
+        <mat-panel-description>
+          Define the usability attributes of the refactoring approach.
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div fxLayout='row' fxLayoutGap='16px'>
+        <div fxFlex fxLayout='column' fxLayoutGap='16px'>
+          <h4 id='results-quality-radio-group-label'>
+            Pick the quality of the results
+          </h4>
+          <mat-radio-group
+            fxLayout='column'
+            fxLayoutGap='8px'
+            aria-labelledby='results-quality-radio-group-label'
+            [(ngModel)]='selectedResultsQuality'>
+            <mat-radio-button *ngFor='let resultsQuality of resultsQualities' [value]='resultsQuality'>
+              {{resultsQuality.name}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div fxFlex fxLayout='column' fxLayoutGap='16px'>
+          <h4 id='tool-support-radio-group-label'>
+            Pick a tool support option
+          </h4>
+          <mat-radio-group
+            fxLayout='column'
+            fxLayoutGap='8px'
+            aria-labelledby='tool-support-radio-group-label'
+            [(ngModel)]='selectedToolSupport'>
+            <mat-radio-button *ngFor='let toolSupport of toolSupports' [value]='toolSupport'>
+              {{toolSupport.name}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div fxFlex fxLayout='column' fxLayoutGap='16px'>
+          <h4 id='accuracy-precision-radio-group-label'>
+            Pick a Accuracy/Precision option
+          </h4>
+          <mat-radio-group
+            fxLayout='column'
+            fxLayoutGap='8px'
+            aria-labelledby='accuracy-precision-radio-group-label'
+            [(ngModel)]='selectedAccuracyPrecision'>
+            <mat-radio-button *ngFor='let accuracyPrecision of accuracyPrecisions' [value]='accuracyPrecision'>
+              {{accuracyPrecision.name}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div fxFlex fxLayout='column' fxLayoutGap='16px'>
+          <h4 id='validation-method-radio-group-label'>
+            Pick the quality of the results
+          </h4>
+          <mat-radio-group
+            fxLayout='column'
+            fxLayoutGap='8px'
+            aria-labelledby='validation-method-radio-group-label'
+            [(ngModel)]='selectedValidationMethod'>
+            <mat-radio-button *ngFor='let validationMethod of validationMethods' [value]='validationMethod'>
+              {{validationMethod.name}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

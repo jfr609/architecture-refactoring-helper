@@ -68,6 +68,6 @@ export class ApproachExplorerComponent implements OnInit {
   }
 
   goToEdit(refactoringApproachId: number) {
-    this.router.navigate(['/approach', refactoringApproachId]);
+    this.router.navigate(['/approach', refactoringApproachId, 'edit']);
   }
 }

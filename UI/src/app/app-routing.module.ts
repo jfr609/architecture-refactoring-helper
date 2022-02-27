@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './components/views/page-not-found/page-not-found.component';
 import { HomePageComponent } from './components/views/home-page/home-page.component';
-import { ApproachViewComponent } from './components/views/approach-view/approach-view.component';
+import { ApproachFormComponent } from './components/views/approach-form/approach-form.component';
 import { ApproachExplorerComponent } from './components/views/approach-explorer/approach-explorer.component';
 import { ApproachFinderComponent } from './components/views/approach-finder/approach-finder.component';
 import { NAV_PARAM_APPROACH_ID } from './app.constants';
@@ -14,11 +14,15 @@ const routes: Routes = [
   },
   {
     path: 'approach',
-    component: ApproachViewComponent
+    component: ApproachFormComponent
   },
   {
     path: `approach/:${NAV_PARAM_APPROACH_ID}`,
-    component: ApproachViewComponent
+    component: ApproachFormComponent
+  },
+  {
+    path: `approach/:${NAV_PARAM_APPROACH_ID}/edit`,
+    component: ApproachFormComponent
   },
   {
     path: 'approaches',

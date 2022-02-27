@@ -1,22 +1,22 @@
-<div cdkDropListGroup fxLayout="row" fxLayoutGap="40px">
-  <div fxFlex="50">
+<div cdkDropListGroup fxLayout='row' fxLayoutGap='40px'>
+  <div fxFlex='50'>
     <h3>{{sourceDataListTitle}}</h3>
     <div cdkDropList
-         [cdkDropListData]="sourceDataList"
-         (cdkDropListDropped)="drop($event)"
-         class="connected-data-list mat-elevation-z8">
-      <div *ngFor="let item1 of sourceDataList" class="connected-data-list-item" cdkDrag>
+         [cdkDropListData]='sourceDataList'
+         (cdkDropListDropped)='drop($event)'
+         class='connected-data-list mat-elevation-z8'>
+      <div *ngFor='let item1 of sourceDataList' class='connected-data-list-item' cdkDrag>
         {{item1.displayName}}
       </div>
     </div>
   </div>
-  <div fxFlex="50">
+  <div fxFlex='50'>
     <h3>{{targetDataListTitle}}</h3>
     <div cdkDropList
-         [cdkDropListData]="targetDataList"
-         (cdkDropListDropped)="drop($event)"
-         class="connected-data-list mat-elevation-z8">
-      <div *ngFor="let item2 of targetDataList" class="connected-data-list-item" cdkDrag>
+         [cdkDropListData]='targetDataList'
+         (cdkDropListDropped)='drop($event)'
+         class='connected-data-list mat-elevation-z8'>
+      <div *ngFor='let item2 of targetDataList' class='connected-data-list-item' cdkDrag>
         {{item2.displayName}}
       </div>
     </div>

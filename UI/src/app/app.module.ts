@@ -11,7 +11,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { ApproachViewComponent } from './components/views/approach-view/approach-view.component';
+import { ApproachFormComponent } from './components/views/approach-form/approach-form.component';
 import { ApproachFinderComponent } from './components/views/approach-finder/approach-finder.component';
 import { ApproachExplorerComponent } from './components/views/approach-explorer/approach-explorer.component';
 import { ApiModule } from '../../api/repository/api.module';
@@ -34,6 +34,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ApproachViewComponent } from './components/views/approach-view/approach-view.component';
 
 @NgModule({
   declarations: [
@@ -41,11 +42,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     HomePageComponent,
     PageNotFoundComponent,
     ArchitectureRefactoringHelperComponent,
-    ApproachViewComponent,
+    ApproachFormComponent,
     ApproachFinderComponent,
     ApproachExplorerComponent,
     ConfirmDialogComponent,
-    ConnectedDataListsComponent
+    ConnectedDataListsComponent,
+    ApproachViewComponent
   ],
   imports: [
     BrowserModule,
