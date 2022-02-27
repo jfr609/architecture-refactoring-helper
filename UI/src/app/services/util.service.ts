@@ -58,16 +58,11 @@ export class UtilService {
     allElements: T[],
     sourceDataList: ConnectedDataListElement[],
     targetDataList: ConnectedDataListElement[],
-    elementsEqual: (a: T, b: T) => boolean = (a: T, b: T) => a === b,
     getDisplayName: (e: T) => string | null | undefined
   ): void {
     if (!isCreateView && approachElements != null) {
       let allElementsCopy: T[] = copy(allElements);
-      let difference = findArrayDifference(
-        allElementsCopy,
-        approachElements,
-        elementsEqual
-      );
+      let difference = findArrayDifference(allElementsCopy, approachElements);
 
       if (difference.length !== 0) {
         sourceDataList.push(
