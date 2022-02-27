@@ -16,10 +16,6 @@ import { DomainArtifactInput } from '../../../../../api/repository/models/domain
 import { RuntimeArtifactInput } from '../../../../../api/repository/models/runtime-artifact-input';
 import { ModelArtifactInput } from '../../../../../api/repository/models/model-artifact-input';
 import { ExecutableInput } from '../../../../../api/repository/models/executable-input';
-import { ApproachInputService } from '../../../../../api/repository/services/approach-input.service';
-import { ApproachProcessService } from '../../../../../api/repository/services/approach-process.service';
-import { ApproachOutputService } from '../../../../../api/repository/services/approach-output.service';
-import { ApproachUsabilityService } from '../../../../../api/repository/services/approach-usability.service';
 import { ConnectedDataListElement } from '../../generics/connected-data-lists/connected-data-lists.component';
 import { Quality } from '../../../../../api/repository/models/quality';
 import { Direction } from '../../../../../api/repository/models/direction';
@@ -119,12 +115,8 @@ export class ApproachFormComponent implements OnInit {
 
   constructor(
     private refactoringApproachService: RefactoringApproachService,
-    private inputService: ApproachInputService,
-    private processService: ApproachProcessService,
-    private outputService: ApproachOutputService,
-    private usabilityService: ApproachUsabilityService,
-    private utilService: UtilService,
     private apiService: ApiService,
+    private utilService: UtilService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -209,7 +201,7 @@ export class ApproachFormComponent implements OnInit {
     if (this.refactoringApproach.approachUsability?.resultsQuality != null) {
       // @ts-ignore
       this.selectedResultsQuality = this.resultsQualities.find(
-        (value) =>
+        (value: ResultsQuality) =>
           value.name ===
           // @ts-ignore
           this.refactoringApproach.approachUsability.resultsQuality.name
@@ -218,7 +210,7 @@ export class ApproachFormComponent implements OnInit {
     if (this.refactoringApproach.approachUsability?.toolSupport != null) {
       // @ts-ignore
       this.selectedToolSupport = this.toolSupports.find(
-        (value) =>
+        (value: ToolSupport) =>
           value.name ===
           // @ts-ignore
           this.refactoringApproach.approachUsability.toolSupport.name
@@ -227,7 +219,7 @@ export class ApproachFormComponent implements OnInit {
     if (this.refactoringApproach.approachUsability?.accuracyPrecision != null) {
       // @ts-ignore
       this.selectedAccuracyPrecision = this.accuracyPrecisions.find(
-        (value) =>
+        (value: AccuracyPrecision) =>
           value.name ===
           // @ts-ignore
           this.refactoringApproach.approachUsability.accuracyPrecision.name
@@ -236,7 +228,7 @@ export class ApproachFormComponent implements OnInit {
     if (this.refactoringApproach.approachUsability?.validationMethod != null) {
       // @ts-ignore
       this.selectedValidationMethod = this.validationMethods.find(
-        (value) =>
+        (value: ValidationMethod) =>
           value.name ===
           // @ts-ignore
           this.refactoringApproach.approachUsability.validationMethod.name

@@ -12,6 +12,8 @@ import { map, filter } from 'rxjs/operators';
 import { AccuracyPrecision } from '../models/accuracy-precision';
 import { AnalysisType } from '../models/analysis-type';
 import { ApproachOutput } from '../models/approach-output';
+import { ApproachRecommendation } from '../models/approach-recommendation';
+import { ApproachRecommendationRequest } from '../models/approach-recommendation-request';
 import { AutomationLevel } from '../models/automation-level';
 import { Direction } from '../models/direction';
 import { DomainArtifactInput } from '../models/domain-artifact-input';
@@ -254,6 +256,52 @@ export class RefactoringApproachService extends BaseService {
 
     return this.deleteRefactoringApproach$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation generateRefactoringApproachRecommendation
+   */
+  static readonly GenerateRefactoringApproachRecommendationPath = '/api/v1/approaches/recommendation';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `generateRefactoringApproachRecommendation()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  generateRefactoringApproachRecommendation$Response(params?: {
+    body?: ApproachRecommendationRequest
+  }): Observable<StrictHttpResponse<Array<ApproachRecommendation>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.GenerateRefactoringApproachRecommendationPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<ApproachRecommendation>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `generateRefactoringApproachRecommendation$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  generateRefactoringApproachRecommendation(params?: {
+    body?: ApproachRecommendationRequest
+  }): Observable<Array<ApproachRecommendation>> {
+
+    return this.generateRefactoringApproachRecommendation$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<ApproachRecommendation>>) => r.body as Array<ApproachRecommendation>)
     );
   }
 

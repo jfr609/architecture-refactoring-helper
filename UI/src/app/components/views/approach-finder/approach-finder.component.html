@@ -1,1 +1,35 @@
-<p>approach-finder works!</p>
+<mat-stepper>
+  <mat-step>
+    <ng-template matStepLabel>Fill out your input settings</ng-template>
+    <h1>Step 1</h1>
+    <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px'>
+      <button mat-flat-button matStepperNext color='accent'>Next</button>
+    </div>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Fill out your process settings</ng-template>
+    <h1>Step 2</h1>
+    <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px'>
+      <button mat-flat-button matStepperPrevious color='accent'>Back</button>
+      <button mat-flat-button matStepperNext color='accent'>Next</button>
+    </div>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Fill out your output settings</ng-template>
+    <h1>Step 3</h1>
+    <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px'>
+      <button mat-flat-button matStepperPrevious color='accent'>Back</button>
+      <button mat-flat-button matStepperNext color='accent'>Next</button>
+    </div>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Fill out you usability settings</ng-template>
+    <h1>Step 4</h1>
+    <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px'>
+      <button mat-flat-button matStepperPrevious color='accent'>Back</button>
+    </div>
+  </mat-step>
+</mat-stepper>

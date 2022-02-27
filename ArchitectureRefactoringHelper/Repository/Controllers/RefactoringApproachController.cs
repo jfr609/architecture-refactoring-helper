@@ -72,6 +72,15 @@ public class RefactoringApproachController : ControllerBase
         return NoContent();
     }
 
+
+    [HttpPost("recommendation", Name = "GenerateRefactoringApproachRecommendation")]
+    public ActionResult<IEnumerable<ApproachRecommendation>> GenerateRefactoringApproachRecommendation(
+        [FromBody] ApproachRecommendationRequest approachRecommendationRequest)
+    {
+        
+        return Ok();
+    }
+
     [HttpPost("{id:int}/" + Constants.API_SUBPATH_INPUTS + "/" + Constants.API_SUBPATH_DOMAINARTIFACTS,
         Name = "AddDomainArtifactAsInput")]
     public IActionResult AddDomainArtifactAsInput(int id, [FromBody] DomainArtifactInput domainArtifact)

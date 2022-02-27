@@ -35,6 +35,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ApproachViewComponent } from './components/views/approach-view/approach-view.component';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { ApproachViewComponent } from './components/views/approach-view/approach
     MatRadioModule,
     MatTableModule,
     MatSortModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatStepperModule
   ],
   providers: [],
   bootstrap: [AppComponent]

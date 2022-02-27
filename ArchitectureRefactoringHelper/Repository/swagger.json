@@ -1560,6 +1560,48 @@
         }
       }
     },
+    "/api/v1/approaches/recommendation": {
+      "post": {
+        "tags": [
+          "RefactoringApproach"
+        ],
+        "operationId": "GenerateRefactoringApproachRecommendation",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApproachRecommendationRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApproachRecommendationRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApproachRecommendationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ApproachRecommendation"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/approaches/{id}/inputs/domain-artifacts": {
       "post": {
         "tags": [
@@ -2583,6 +2625,28 @@
         },
         "additionalProperties": false
       },
+      "ApproachRecommendation": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "ApproachRecommendationRequest": {
+        "type": "object",
+        "properties": {
+          "inputRecommendationInformation": {
+            "$ref": "#/components/schemas/InputRecommendationInformation"
+          },
+          "processRecommendationInformation": {
+            "$ref": "#/components/schemas/ProcessRecommendationInformation"
+          },
+          "outputRecommendationInformation": {
+            "$ref": "#/components/schemas/OutputRecommendationInformation"
+          },
+          "usabilityRecommendationInformation": {
+            "$ref": "#/components/schemas/UsabilityRecommendationInformation"
+          }
+        },
+        "additionalProperties": false
+      },
       "ApproachSource": {
         "type": "object",
         "properties": {
@@ -2705,6 +2769,40 @@
         },
         "additionalProperties": false
       },
+      "InputRecommendationInformation": {
+        "type": "object",
+        "properties": {
+          "domainArtifactInformation": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/RecommendationSuitability"
+            },
+            "nullable": true
+          },
+          "runtimeArtifactInformation": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/RecommendationSuitability"
+            },
+            "nullable": true
+          },
+          "modelArtifactInformation": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/RecommendationSuitability"
+            },
+            "nullable": true
+          },
+          "executableInformation": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/RecommendationSuitability"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "ModelArtifactInput": {
         "type": "object",
         "properties": {
@@ -2714,6 +2812,19 @@
           },
           "description": {
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OutputRecommendationInformation": {
+        "type": "object",
+        "properties": {
+          "information": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/RecommendationSuitability"
+            },
             "nullable": true
           }
         },
@@ -2746,6 +2857,47 @@
         },
         "additionalProperties": { }
       },
+      "ProcessRecommendationInformation": {
+        "type": "object",
+        "properties": {
+          "qualityInformation": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/RecommendationSuitability"
+            },
+            "nullable": true
+          },
+          "directionInformation": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/RecommendationSuitability"
+            },
+            "nullable": true
+          },
+          "automationLevelInformation": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/RecommendationSuitability"
+            },
+            "nullable": true
+          },
+          "analysisTypeInformation": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/RecommendationSuitability"
+            },
+            "nullable": true
+          },
+          "techniqueInformation": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/RecommendationSuitability"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Quality": {
         "type": "object",
         "properties": {
@@ -2765,11 +2917,18 @@
       },
       "QualityCategory": {
         "enum": [
-          0,
-          1
+          "Requirement",
+          "Metric"
         ],
-        "type": "integer",
-        "format": "int32"
+        "type": "string"
+      },
+      "RecommendationSuitability": {
+        "enum": [
+          "Include",
+          "Neutral",
+          "Exclude"
+        ],
+        "type": "string"
       },
       "RefactoringApproach": {
         "type": "object",
@@ -2890,6 +3049,40 @@
           },
           "description": {
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UsabilityRecommendationInformation": {
+        "type": "object",
+        "properties": {
+          "resultsQualityInformation": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/RecommendationSuitability"
+            },
+            "nullable": true
+          },
+          "toolSupportInformation": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/RecommendationSuitability"
+            },
+            "nullable": true
+          },
+          "accuracyPrecisionInformation": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/RecommendationSuitability"
+            },
+            "nullable": true
+          },
+          "validationMethodInformation": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/RecommendationSuitability"
+            },
             "nullable": true
           }
         },
