@@ -36,6 +36,7 @@ import { ToolSupport } from '../../../../../api/repository/models/tool-support';
 import { AccuracyPrecision } from '../../../../../api/repository/models/accuracy-precision';
 import { ValidationMethod } from '../../../../../api/repository/models/validation-method';
 import { ApiService } from '../../../services/api.service';
+import { AttributeOptionsService } from '../../../services/attribute-options.service';
 
 @Component({
   selector: 'app-approach-form',
@@ -59,21 +60,6 @@ export class ApproachFormComponent implements OnInit {
   authorsFormControl = new FormControl('', [Validators.required]);
 
   refactoringApproach: RefactoringApproach = {};
-  domainArtifacts: DomainArtifactInput[] = [];
-  runtimeArtifacts: RuntimeArtifactInput[] = [];
-  modelArtifacts: ModelArtifactInput[] = [];
-  executables: ExecutableInput[] = [];
-  qualities: Quality[] = [];
-  directions: Direction[] = [];
-  automationLevels: AutomationLevel[] = [];
-  analysisTypes: AnalysisType[] = [];
-  techniques: Technique[] = [];
-  architectures: Architecture[] = [];
-  serviceTypes: ServiceType[] = [];
-  resultsQualities: ResultsQuality[] = [];
-  toolSupports: ToolSupport[] = [];
-  accuracyPrecisions: AccuracyPrecision[] = [];
-  validationMethods: ValidationMethod[] = [];
 
   titleInputValue: string = '';
   yearInputValue: string = '';
@@ -116,6 +102,7 @@ export class ApproachFormComponent implements OnInit {
   constructor(
     private refactoringApproachService: RefactoringApproachService,
     private apiService: ApiService,
+    public attributeOptionsService: AttributeOptionsService,
     private utilService: UtilService,
     private router: Router,
     private route: ActivatedRoute
@@ -127,9 +114,13 @@ export class ApproachFormComponent implements OnInit {
         this.isCreateView = !paramMap.has(NAV_PARAM_APPROACH_ID);
         this.isDataLoading = true;
         if (this.isCreateView) {
-          this.requestAllData(() => {
-            this.isDataLoading = false;
-          });
+          this.attributeOptionsService
+            .requestAttributeOptions(this.utilService)
+            .then(() => {
+              this.fillDataLists();
+              this.setRadioDefaults();
+              this.isDataLoading = false;
+            });
         } else {
           let approachId = parseInt(
             paramMap.get(NAV_PARAM_APPROACH_ID) as string
@@ -137,42 +128,20 @@ export class ApproachFormComponent implements OnInit {
 
           this.requestRefactoringApproach(approachId)
             .then(() => {
-              this.requestAllData(() => {
-                this.fillInOutputs();
-                this.fillInUsabilityAttributes();
-                this.isDataLoading = false;
-              });
+              this.attributeOptionsService
+                .requestAttributeOptions(this.utilService)
+                .then(() => {
+                  this.fillDataLists();
+                  this.fillInOutputs();
+                  this.fillInUsabilityAttributes();
+                  this.isDataLoading = false;
+                });
             })
             .catch(() => {
               this.router.navigate(['/not-found']);
             });
         }
       }
-    });
-  }
-
-  requestAllData(onDataLoaded: () => void | PromiseLike<void>): void {
-    let dataLoadingPromises: Promise<void>[] = [];
-
-    dataLoadingPromises.push(this.requestDomainArtifacts());
-    dataLoadingPromises.push(this.requestRuntimeArtifacts());
-    dataLoadingPromises.push(this.requestModelArtifacts());
-    dataLoadingPromises.push(this.requestExecutables());
-    dataLoadingPromises.push(this.requestQualities());
-    dataLoadingPromises.push(this.requestDirections());
-    dataLoadingPromises.push(this.requestAutomationLevels());
-    dataLoadingPromises.push(this.requestAnalysisTypes());
-    dataLoadingPromises.push(this.requestTechniques());
-    dataLoadingPromises.push(this.requestArchitectures());
-    dataLoadingPromises.push(this.requestServiceTypes());
-    dataLoadingPromises.push(this.requestResultsQualities());
-    dataLoadingPromises.push(this.requestToolSupports());
-    dataLoadingPromises.push(this.requestAccuracyPrecisions());
-    dataLoadingPromises.push(this.requestValidationMethods());
-
-    Promise.all(dataLoadingPromises).then(() => {
-      onDataLoaded();
-      this.isDataLoading = false;
     });
   }
 
@@ -189,6 +158,19 @@ export class ApproachFormComponent implements OnInit {
       });
   }
 
+  fillDataLists(): void {
+    this.fillDomainArtifactDataLists();
+    this.fillRuntimeArtifactDataLists();
+    this.fillModelArtifactDataLists();
+    this.fillExecutableDataLists();
+
+    this.fillQualityDataLists();
+    this.fillDirectionDataLists();
+    this.fillAutomationLevelDataLists();
+    this.fillAnalysisTypeDataLists();
+    this.fillTechniqueDataLists();
+  }
+
   fillInOutputs() {
     if (this.refactoringApproach.approachOutputs == null) {
       this.currentOutputList = [];
@@ -197,19 +179,27 @@ export class ApproachFormComponent implements OnInit {
     }
   }
 
+  setRadioDefaults(): void {
+    this.setSelectedResultsQualityToDefault();
+    this.setSelectedToolSupportToDefault();
+    this.setSelectedAccuracyPrecisionToDefault();
+    this.setSelectedValidationMethodToDefault();
+  }
+
   fillInUsabilityAttributes() {
     if (this.refactoringApproach.approachUsability?.resultsQuality != null) {
       // @ts-ignore
-      this.selectedResultsQuality = this.resultsQualities.find(
-        (value: ResultsQuality) =>
-          value.name ===
-          // @ts-ignore
-          this.refactoringApproach.approachUsability.resultsQuality.name
-      );
+      this.selectedResultsQuality =
+        this.attributeOptionsService.resultsQualities.find(
+          (value: ResultsQuality) =>
+            value.name ===
+            // @ts-ignore
+            this.refactoringApproach.approachUsability.resultsQuality.name
+        );
     }
     if (this.refactoringApproach.approachUsability?.toolSupport != null) {
       // @ts-ignore
-      this.selectedToolSupport = this.toolSupports.find(
+      this.selectedToolSupport = this.attributeOptionsService.toolSupports.find(
         (value: ToolSupport) =>
           value.name ===
           // @ts-ignore
@@ -218,36 +208,24 @@ export class ApproachFormComponent implements OnInit {
     }
     if (this.refactoringApproach.approachUsability?.accuracyPrecision != null) {
       // @ts-ignore
-      this.selectedAccuracyPrecision = this.accuracyPrecisions.find(
-        (value: AccuracyPrecision) =>
-          value.name ===
-          // @ts-ignore
-          this.refactoringApproach.approachUsability.accuracyPrecision.name
-      );
+      this.selectedAccuracyPrecision =
+        this.attributeOptionsService.accuracyPrecisions.find(
+          (value: AccuracyPrecision) =>
+            value.name ===
+            // @ts-ignore
+            this.refactoringApproach.approachUsability.accuracyPrecision.name
+        );
     }
     if (this.refactoringApproach.approachUsability?.validationMethod != null) {
       // @ts-ignore
-      this.selectedValidationMethod = this.validationMethods.find(
-        (value: ValidationMethod) =>
-          value.name ===
-          // @ts-ignore
-          this.refactoringApproach.approachUsability.validationMethod.name
-      );
-    }
-  }
-
-  requestDomainArtifacts(): Promise<void> {
-    return this.apiService
-      .listDomainArtifacts()
-      .then((value: DomainArtifactInput[]) => {
-        this.domainArtifacts = value;
-        this.fillDomainArtifactDataLists();
-      })
-      .catch(() => {
-        this.utilService.callSnackBar(
-          'Error! Input domain artifacts could not be retrieved.'
+      this.selectedValidationMethod =
+        this.attributeOptionsService.validationMethods.find(
+          (value: ValidationMethod) =>
+            value.name ===
+            // @ts-ignore
+            this.refactoringApproach.approachUsability.validationMethod.name
         );
-      });
+    }
   }
 
   fillDomainArtifactDataLists(): void {
@@ -257,25 +235,11 @@ export class ApproachFormComponent implements OnInit {
     this.utilService.fillConnectedDataLists(
       this.isCreateView,
       this.refactoringApproach.domainArtifactInputs,
-      this.domainArtifacts,
+      this.attributeOptionsService.domainArtifacts,
       this.domainArtifactSourceDataList,
       this.domainArtifactTargetDataList,
       (e: DomainArtifactInput) => e.name
     );
-  }
-
-  requestRuntimeArtifacts(): Promise<void> {
-    return this.apiService
-      .listRuntimeArtifact()
-      .then((value: RuntimeArtifactInput[]) => {
-        this.runtimeArtifacts = value;
-        this.fillRuntimeArtifactDataLists();
-      })
-      .catch(() => {
-        this.utilService.callSnackBar(
-          'Error! Input runtime artifacts could not be retrieved.'
-        );
-      });
   }
 
   fillRuntimeArtifactDataLists(): void {
@@ -285,25 +249,11 @@ export class ApproachFormComponent implements OnInit {
     this.utilService.fillConnectedDataLists(
       this.isCreateView,
       this.refactoringApproach.runtimeArtifactInputs,
-      this.runtimeArtifacts,
+      this.attributeOptionsService.runtimeArtifacts,
       this.runtimeArtifactSourceDataList,
       this.runtimeArtifactTargetDataList,
       (e: RuntimeArtifactInput) => e.name
     );
-  }
-
-  requestModelArtifacts(): Promise<void> {
-    return this.apiService
-      .listModelArtifacts()
-      .then((value: ModelArtifactInput[]) => {
-        this.modelArtifacts = value;
-        this.fillModelArtifactDataLists();
-      })
-      .catch(() => {
-        this.utilService.callSnackBar(
-          'Error! Input model artifacts could not be retrieved.'
-        );
-      });
   }
 
   fillModelArtifactDataLists(): void {
@@ -313,25 +263,11 @@ export class ApproachFormComponent implements OnInit {
     this.utilService.fillConnectedDataLists(
       this.isCreateView,
       this.refactoringApproach.modelArtifactInputs,
-      this.modelArtifacts,
+      this.attributeOptionsService.modelArtifacts,
       this.modelArtifactSourceDataList,
       this.modelArtifactTargetDataList,
       (e: ModelArtifactInput) => e.name
     );
-  }
-
-  requestExecutables(): Promise<void> {
-    return this.apiService
-      .listExecutables()
-      .then((value: ExecutableInput[]) => {
-        this.executables = value;
-        this.fillExecutableDataLists();
-      })
-      .catch(() => {
-        this.utilService.callSnackBar(
-          'Error! Input executables could not be retrieved.'
-        );
-      });
   }
 
   fillExecutableDataLists(): void {
@@ -341,25 +277,11 @@ export class ApproachFormComponent implements OnInit {
     this.utilService.fillConnectedDataLists(
       this.isCreateView,
       this.refactoringApproach.executableInputs,
-      this.executables,
+      this.attributeOptionsService.executables,
       this.executableSourceDataList,
       this.executableTargetDataList,
       (e: ExecutableInput) => `${e.name}: ${e.language}`
     );
-  }
-
-  requestQualities(): Promise<void> {
-    return this.apiService
-      .listQualities()
-      .then((value: Quality[]) => {
-        this.qualities = value;
-        this.fillQualityDataLists();
-      })
-      .catch(() => {
-        this.utilService.callSnackBar(
-          'Error! Process qualities could not be retrieved.'
-        );
-      });
   }
 
   fillQualityDataLists(): void {
@@ -369,25 +291,11 @@ export class ApproachFormComponent implements OnInit {
     this.utilService.fillConnectedDataLists(
       this.isCreateView,
       this.refactoringApproach.approachProcess?.qualities,
-      this.qualities,
+      this.attributeOptionsService.qualities,
       this.qualitySourceDataList,
       this.qualityTargetDataList,
       (e: Quality) => `${e.category}: ${e.name}`
     );
-  }
-
-  requestDirections(): Promise<void> {
-    return this.apiService
-      .listDirections()
-      .then((value: Direction[]) => {
-        this.directions = value;
-        this.fillDirectionDataLists();
-      })
-      .catch(() => {
-        this.utilService.callSnackBar(
-          'Error! Process directions could not be retrieved.'
-        );
-      });
   }
 
   fillDirectionDataLists(): void {
@@ -397,25 +305,11 @@ export class ApproachFormComponent implements OnInit {
     this.utilService.fillConnectedDataLists(
       this.isCreateView,
       this.refactoringApproach.approachProcess?.directions,
-      this.directions,
+      this.attributeOptionsService.directions,
       this.directionSourceDataList,
       this.directionTargetDataList,
       (e: Direction) => e.name
     );
-  }
-
-  requestAutomationLevels(): Promise<void> {
-    return this.apiService
-      .listAutomationLevels()
-      .then((value: AutomationLevel[]) => {
-        this.automationLevels = value;
-        this.fillAutomationLevelDataLists();
-      })
-      .catch(() => {
-        this.utilService.callSnackBar(
-          'Error! Process automation levels could not be retrieved.'
-        );
-      });
   }
 
   fillAutomationLevelDataLists(): void {
@@ -425,25 +319,11 @@ export class ApproachFormComponent implements OnInit {
     this.utilService.fillConnectedDataLists(
       this.isCreateView,
       this.refactoringApproach.approachProcess?.automationLevels,
-      this.automationLevels,
+      this.attributeOptionsService.automationLevels,
       this.automationLevelSourceDataList,
       this.automationLevelTargetDataList,
       (e: AutomationLevel) => e.name
     );
-  }
-
-  requestAnalysisTypes(): Promise<void> {
-    return this.apiService
-      .listAnalysisTypes()
-      .then((value: AnalysisType[]) => {
-        this.analysisTypes = value;
-        this.fillAnalysisTypeDataLists();
-      })
-      .catch(() => {
-        this.utilService.callSnackBar(
-          'Error! Process analysis types could not be retrieved.'
-        );
-      });
   }
 
   fillAnalysisTypeDataLists(): void {
@@ -453,25 +333,11 @@ export class ApproachFormComponent implements OnInit {
     this.utilService.fillConnectedDataLists(
       this.isCreateView,
       this.refactoringApproach.approachProcess?.analysisTypes,
-      this.analysisTypes,
+      this.attributeOptionsService.analysisTypes,
       this.analysisTypeSourceDataList,
       this.analysisTypeTargetDataList,
       (e: AnalysisType) => e.name
     );
-  }
-
-  requestTechniques(): Promise<void> {
-    return this.apiService
-      .listTechniques()
-      .then((value: Technique[]) => {
-        this.techniques = value;
-        this.fillTechniqueDataLists();
-      })
-      .catch(() => {
-        this.utilService.callSnackBar(
-          'Error! Process techniques could not be retrieved.'
-        );
-      });
   }
 
   fillTechniqueDataLists(): void {
@@ -481,121 +347,58 @@ export class ApproachFormComponent implements OnInit {
     this.utilService.fillConnectedDataLists(
       this.isCreateView,
       this.refactoringApproach.approachProcess?.techniques,
-      this.techniques,
+      this.attributeOptionsService.techniques,
       this.techniqueSourceDataList,
       this.techniqueTargetDataList,
       (e: Technique) => e.name
     );
   }
 
-  requestArchitectures(): Promise<void> {
-    return this.apiService
-      .listArchitectures()
-      .then((value: Architecture[]) => {
-        this.architectures = value;
-      })
-      .catch(() => {
-        this.utilService.callSnackBar(
-          'Error! Output architectures could not be retrieved.'
-        );
-      });
+  setSelectedResultsQualityToDefault(): void {
+    let defaultValue = this.attributeOptionsService.resultsQualities.find(
+      (value: ResultsQuality) => value.name === 'Not available'
+    );
+    if (defaultValue !== undefined) {
+      this.selectedResultsQuality = defaultValue;
+    } else {
+      this.selectedResultsQuality =
+        this.attributeOptionsService.resultsQualities[0];
+    }
   }
 
-  requestServiceTypes(): Promise<void> {
-    return this.apiService
-      .listServiceTypes()
-      .then((value: ServiceType[]) => {
-        this.serviceTypes = value;
-      })
-      .catch(() => {
-        this.utilService.callSnackBar(
-          'Error! Output service types could not be retrieved.'
-        );
-      });
+  setSelectedToolSupportToDefault(): void {
+    let defaultValue = this.attributeOptionsService.toolSupports.find(
+      (value: ToolSupport) => value.name === 'No tool support'
+    );
+    if (defaultValue !== undefined) {
+      this.selectedToolSupport = defaultValue;
+    } else {
+      this.selectedToolSupport = this.attributeOptionsService.toolSupports[0];
+    }
   }
 
-  requestResultsQualities(): Promise<void> {
-    return this.apiService
-      .listResultsQualities()
-      .then((value: ResultsQuality[]) => {
-        this.resultsQualities = value;
-        let defaultValue = this.resultsQualities.find(
-          (value: ResultsQuality) => value.name === 'Not available'
-        );
-        if (defaultValue !== undefined) {
-          this.selectedResultsQuality = defaultValue;
-        } else {
-          this.selectedResultsQuality = this.resultsQualities[0];
-        }
-      })
-      .catch(() => {
-        this.utilService.callSnackBar(
-          'Error! Results quality options could not be retrieved.'
-        );
-      });
+  setSelectedAccuracyPrecisionToDefault(): void {
+    let defaultValue = this.attributeOptionsService.accuracyPrecisions.find(
+      (value: AccuracyPrecision) => value.name === 'Not available'
+    );
+    if (defaultValue !== undefined) {
+      this.selectedAccuracyPrecision = defaultValue;
+    } else {
+      this.selectedAccuracyPrecision =
+        this.attributeOptionsService.accuracyPrecisions[0];
+    }
   }
 
-  requestToolSupports(): Promise<void> {
-    return this.apiService
-      .listToolSupports()
-      .then((value: ToolSupport[]) => {
-        this.toolSupports = value;
-        let defaultValue = this.toolSupports.find(
-          (value: ToolSupport) => value.name === 'No tool support'
-        );
-        if (defaultValue !== undefined) {
-          this.selectedToolSupport = defaultValue;
-        } else {
-          this.selectedToolSupport = this.toolSupports[0];
-        }
-      })
-      .catch(() => {
-        this.utilService.callSnackBar(
-          'Error! Tool support options could not be retrieved.'
-        );
-      });
-  }
-
-  requestAccuracyPrecisions(): Promise<void> {
-    return this.apiService
-      .listAccuracyPrecisions()
-      .then((value: AccuracyPrecision[]) => {
-        this.accuracyPrecisions = value;
-        let defaultValue = this.accuracyPrecisions.find(
-          (value: AccuracyPrecision) => value.name === 'Not available'
-        );
-        if (defaultValue !== undefined) {
-          this.selectedAccuracyPrecision = defaultValue;
-        } else {
-          this.selectedAccuracyPrecision = this.accuracyPrecisions[0];
-        }
-      })
-      .catch(() => {
-        this.utilService.callSnackBar(
-          'Error! Accuracy/Precision options could not be retrieved.'
-        );
-      });
-  }
-
-  requestValidationMethods(): Promise<void> {
-    return this.apiService
-      .listValidationMethods()
-      .then((value: ValidationMethod[]) => {
-        this.validationMethods = value;
-        let defaultValue = this.validationMethods.find(
-          (value: ValidationMethod) => value.name === 'No validation'
-        );
-        if (defaultValue !== undefined) {
-          this.selectedValidationMethod = defaultValue;
-        } else {
-          this.selectedValidationMethod = this.validationMethods[0];
-        }
-      })
-      .catch(() => {
-        this.utilService.callSnackBar(
-          'Error! Validation method options could not be retrieved.'
-        );
-      });
+  setSelectedValidationMethodToDefault(): void {
+    let defaultValue = this.attributeOptionsService.validationMethods.find(
+      (value: ValidationMethod) => value.name === 'No validation'
+    );
+    if (defaultValue !== undefined) {
+      this.selectedValidationMethod = defaultValue;
+    } else {
+      this.selectedValidationMethod =
+        this.attributeOptionsService.validationMethods[0];
+    }
   }
 
   addOutput(): void {

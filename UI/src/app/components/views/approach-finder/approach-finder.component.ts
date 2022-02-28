@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../../services/api.service';
+import { UtilService } from '../../../services/util.service';
+import { AttributeOptionsService } from '../../../services/attribute-options.service';
 
 @Component({
   selector: 'app-approach-finder',
@@ -6,7 +9,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./approach-finder.component.scss']
 })
 export class ApproachFinderComponent implements OnInit {
-  constructor() {}
+  isDataLoading: boolean = true;
 
-  ngOnInit(): void {}
+  constructor(
+    private apiService: ApiService,
+    private attributeOptionsService: AttributeOptionsService,
+    private utilService: UtilService
+  ) {}
+
+  ngOnInit(): void {
+    this.isDataLoading = true;
+    this.attributeOptionsService
+      .requestAttributeOptions(this.utilService)
+      .then(() => {
+        this.isDataLoading = false;
+      });
+  }
 }

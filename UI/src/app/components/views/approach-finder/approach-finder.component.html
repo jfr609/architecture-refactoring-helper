@@ -1,6 +1,12 @@
-<mat-stepper>
+<div *ngIf='this.isDataLoading' class='loading-container' fxLayout='column' fxLayoutAlign='center center'>
+  <mat-spinner color='accent'></mat-spinner>
+</div>
+<mat-stepper *ngIf='!this.isDataLoading'>
   <mat-step>
     <ng-template matStepLabel>Fill out your input settings</ng-template>
+    <div>
+
+    </div>
     <h1>Step 1</h1>
     <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px'>
       <button mat-flat-button matStepperNext color='accent'>Next</button>
