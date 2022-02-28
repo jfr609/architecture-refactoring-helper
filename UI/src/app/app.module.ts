@@ -36,6 +36,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ApproachViewComponent } from './components/views/approach-view/approach-view.component';
 import { MatStepperModule } from '@angular/material/stepper';
+import { CreateAttributeDialogComponent } from './components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
+import { DeleteAttributeDialogComponent } from './components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { MatStepperModule } from '@angular/material/stepper';
     ApproachExplorerComponent,
     ConfirmDialogComponent,
     ConnectedDataListsComponent,
-    ApproachViewComponent
+    ApproachViewComponent,
+    CreateAttributeDialogComponent,
+    DeleteAttributeDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -2,11 +2,12 @@
   <mat-spinner color='accent'></mat-spinner>
 </div>
 <div *ngIf='!isDataLoading' style='margin-bottom: 32px' fxLayout='column' fxLayoutAlign='start center'>
-  <h1>{{refactoringApproach.approachSource?.title}}</h1>
-  <button mat-raised-button color='accent' (click)='goToEdit()'>
-    <mat-icon>edit</mat-icon>
-    <span>Edit</span>
-  </button>
+  <h1 fxLayout='row'>
+    {{refactoringApproach.approachSource?.title}}
+    <button mat-mini-fab style='margin-left: 8px' (click)='goToEdit()'>
+      <mat-icon>edit</mat-icon>
+    </button>
+  </h1>
 
   <mat-card>
     <mat-card-title>Source</mat-card-title>

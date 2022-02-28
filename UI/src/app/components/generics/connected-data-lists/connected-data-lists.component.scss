@@ -16,11 +16,12 @@
 }
 
 .connected-data-list-item:hover {
-  background-color: var(--color-primary-15);
+  background-color: var(--color-accent-lighter);
 }
 
 .cdk-drag-preview {
-  background-color: var(--color-primary-lighter);
+  background-color: var(--color-accent);
+  color: white;
   border-radius: 4px;
   box-sizing: border-box;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
@@ -42,4 +43,8 @@
 
 .connected-data-list.cdk-drop-list-dragging .connected-data-list-item:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+h3 {
+  line-height: 40px;
 }

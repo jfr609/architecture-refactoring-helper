@@ -1,6 +1,16 @@
 <div cdkDropListGroup fxLayout='row' fxLayoutGap='40px'>
   <div fxFlex='50'>
-    <h3>{{sourceDataListTitle}}</h3>
+    <h3>
+      {{sourceDataListTitle}}
+      <button *ngIf='attributeCreationActive' mat-mini-fab color='primary' style='margin-left: 8px'
+              (click)='onAddAttributeClicked()'>
+        <mat-icon>add</mat-icon>
+      </button>
+      <button *ngIf='attributeDeletionActive' mat-mini-fab color='warn' style='margin-left: 8px'
+              (click)='onDeleteAttributeClicked()'>
+        <mat-icon>remove</mat-icon>
+      </button>
+    </h3>
     <div cdkDropList
          [cdkDropListData]='sourceDataList'
          (cdkDropListDropped)='drop($event)'

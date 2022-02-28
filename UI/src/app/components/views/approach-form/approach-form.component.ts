@@ -35,7 +35,6 @@ import { ResultsQuality } from '../../../../../api/repository/models/results-qua
 import { ToolSupport } from '../../../../../api/repository/models/tool-support';
 import { AccuracyPrecision } from '../../../../../api/repository/models/accuracy-precision';
 import { ValidationMethod } from '../../../../../api/repository/models/validation-method';
-import { ApiService } from '../../../services/api.service';
 import { AttributeOptionsService } from '../../../services/attribute-options.service';
 
 @Component({
@@ -98,7 +97,6 @@ export class ApproachFormComponent implements OnInit {
 
   constructor(
     private refactoringApproachService: RefactoringApproachService,
-    private apiService: ApiService,
     public attributeOptionsService: AttributeOptionsService,
     private utilService: UtilService,
     private router: Router,
@@ -111,13 +109,11 @@ export class ApproachFormComponent implements OnInit {
         this.isCreateView = !paramMap.has(NAV_PARAM_APPROACH_ID);
         this.isDataLoading = true;
         if (this.isCreateView) {
-          this.attributeOptionsService
-            .requestAttributeOptions(this.utilService)
-            .then(() => {
-              this.fillDataLists();
-              this.setRadioDefaults();
-              this.isDataLoading = false;
-            });
+          this.attributeOptionsService.requestAttributeOptions().then(() => {
+            this.fillDataLists();
+            this.setRadioDefaults();
+            this.isDataLoading = false;
+          });
         } else {
           let approachId = parseInt(
             paramMap.get(NAV_PARAM_APPROACH_ID) as string
@@ -126,7 +122,7 @@ export class ApproachFormComponent implements OnInit {
           this.requestRefactoringApproach(approachId)
             .then(() => {
               this.attributeOptionsService
-                .requestAttributeOptions(this.utilService)
+                .requestAttributeOptions()
                 .then(() => {
                   this.fillDataLists();
                   this.fillInOutputs();
@@ -143,8 +139,9 @@ export class ApproachFormComponent implements OnInit {
   }
 
   requestRefactoringApproach(approachId: number): Promise<void> {
-    return this.apiService
-      .getRefactoringApproach(approachId)
+    return lastValueFrom(
+      this.refactoringApproachService.getRefactoringApproach({ id: approachId })
+    )
       .then((value: RefactoringApproach) => {
         this.refactoringApproach = value;
       })
@@ -474,19 +471,24 @@ export class ApproachFormComponent implements OnInit {
           let refactoringApproach =
             this.createRefactoringApproachFromFilledInData();
 
-          this.apiService
-            .addRefactoringApproach(refactoringApproach)
-            .then((value: RefactoringApproach) => {
-              this.refactoringApproach = value;
-              this.isCreateView = false;
-              this.router.navigate([value.refactoringApproachId], {
-                relativeTo: this.route
-              });
+          this.refactoringApproachService
+            .addRefactoringApproach({
+              body: refactoringApproach
             })
-            .catch(() => {
-              this.utilService.callSnackBar(
-                'Refactoring approach could not be created.'
-              );
+            .subscribe({
+              next: (value) => {
+                this.refactoringApproach = value;
+                this.isCreateView = false;
+                this.router.navigate([value.refactoringApproachId], {
+                  relativeTo: this.route
+                });
+              },
+              error: (err) => {
+                console.log(err);
+                this.utilService.callSnackBar(
+                  'Refactoring approach could not be created.'
+                );
+              }
             });
         }
       });

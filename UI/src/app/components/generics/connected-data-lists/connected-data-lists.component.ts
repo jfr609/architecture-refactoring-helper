@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -20,6 +20,11 @@ export class ConnectedDataListsComponent implements OnInit {
   @Input() targetDataListTitle = 'Target List';
   @Input() sourceDataList: ConnectedDataListElement[] = [];
   @Input() targetDataList: ConnectedDataListElement[] = [];
+  @Input() attributeCreationActive: boolean = false;
+  @Input() attributeDeletionActive: boolean = false;
+
+  @Output() onCreateAttribute: EventEmitter<void> = new EventEmitter<void>();
+  @Output() onDeleteAttribute: EventEmitter<void> = new EventEmitter<void>();
 
   constructor() {}
 
@@ -40,5 +45,13 @@ export class ConnectedDataListsComponent implements OnInit {
         event.currentIndex
       );
     }
+  }
+
+  onAddAttributeClicked() {
+    this.onCreateAttribute.emit();
+  }
+
+  onDeleteAttributeClicked() {
+    this.onDeleteAttribute.emit();
   }
 }

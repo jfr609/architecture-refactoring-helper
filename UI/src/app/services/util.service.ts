@@ -12,7 +12,7 @@ import { copy, findArrayDifference } from '../utils/utils';
 export class UtilService {
   timeOut = 3000;
 
-  constructor(private snackBar: MatSnackBar, public dialog: MatDialog) {}
+  constructor(private snackBar: MatSnackBar, private dialog: MatDialog) {}
 
   public createDialog(
     dialogComponent: ComponentType<any>,

@@ -27,6 +27,4 @@ export class ConfirmDialogComponent implements OnInit {
 
 export interface ConfirmDialogData extends DialogData {
   message: string;
-  confirmButtonText: string;
-  cancelButtonText: string;
 }

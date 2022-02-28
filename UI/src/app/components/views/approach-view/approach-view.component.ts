@@ -3,8 +3,8 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { RefactoringApproach } from '../../../../../api/repository/models/refactoring-approach';
 import { NAV_PARAM_APPROACH_ID } from '../../../app.constants';
-import { ApiService } from '../../../services/api.service';
 import { UtilService } from '../../../services/util.service';
+import { RefactoringApproachService } from '../../../../../api/repository/services/refactoring-approach.service';
 
 @Component({
   selector: 'app-approach-form',
@@ -18,7 +18,7 @@ export class ApproachViewComponent implements OnInit {
   isDataLoading: boolean = true;
 
   constructor(
-    private apiService: ApiService,
+    private refactoringApproachService: RefactoringApproachService,
     private utilService: UtilService,
     private router: Router,
     private route: ActivatedRoute
@@ -32,21 +32,29 @@ export class ApproachViewComponent implements OnInit {
         let approachId = parseInt(
           paramMap.get(NAV_PARAM_APPROACH_ID) as string
         );
-
-        this.apiService
-          .getRefactoringApproach(approachId)
-          .then((value: RefactoringApproach) => {
-            this.refactoringApproach = value;
-            this.temperWithApproachDescriptions();
-            this.isDataLoading = false;
-          })
-          .catch(() => {
-            this.utilService.callSnackBar(
-              'Error! Refactoring approach could not be retrieved.'
-            );
-          });
+        this.requestRefactoringApproach(approachId);
       }
     });
+  }
+
+  requestRefactoringApproach(approachId: number): void {
+    this.refactoringApproachService
+      .getRefactoringApproach({
+        id: approachId
+      })
+      .subscribe({
+        next: (value) => {
+          this.refactoringApproach = value;
+          this.temperWithApproachDescriptions();
+          this.isDataLoading = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.utilService.callSnackBar(
+            'Error! Refactoring approach could not be retrieved.'
+          );
+        }
+      });
   }
 
   temperWithApproachDescriptions(): void {

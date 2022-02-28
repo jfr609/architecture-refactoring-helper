@@ -1,0 +1,14 @@
+<div>
+  <div mat-dialog-title>
+    <h3>{{data.title}}</h3>
+  </div>
+  <div mat-dialog-content>
+    <p>TODO</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button color='primary'
+            [mat-dialog-close]='data'>{{data.confirmButtonText}}</button>
+    <button mat-raised-button color='warn'
+            (click)='onCancelClicked()'>{{data.cancelButtonText}}</button>
+  </div>
+</div>

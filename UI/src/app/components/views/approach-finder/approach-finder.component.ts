@@ -62,13 +62,11 @@ export class ApproachFinderComponent implements OnInit {
 
   ngOnInit(): void {
     this.isDataLoading = true;
-    this.attributeOptionsService
-      .requestAttributeOptions(this.utilService)
-      .then(() => {
-        this.setRadioButtonDefaults();
+    this.attributeOptionsService.requestAttributeOptions().then(() => {
+      this.setRadioButtonDefaults();
 
-        this.isDataLoading = false;
-      });
+      this.isDataLoading = false;
+    });
 
     this.recommendationSuitabilityOptions = Object.values(
       RecommendationSuitability
