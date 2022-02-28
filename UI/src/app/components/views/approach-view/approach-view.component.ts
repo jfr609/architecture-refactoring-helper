@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { RefactoringApproach } from '../../../../../api/repository/models/refactoring-approach';
 import { NAV_PARAM_APPROACH_ID } from '../../../app.constants';
@@ -20,6 +20,7 @@ export class ApproachViewComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private utilService: UtilService,
+    private router: Router,
     private route: ActivatedRoute
   ) {}
 
@@ -72,5 +73,9 @@ export class ApproachViewComponent implements OnInit {
         item.description = 'test executable description';
       }
     }
+  }
+
+  goToEdit() {
+    this.router.navigate(['edit'], { relativeTo: this.route });
   }
 }

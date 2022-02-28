@@ -53,10 +53,7 @@ export class ApproachFormComponent implements OnInit {
     Validators.min(1900),
     Validators.max(new Date().getFullYear())
   ]);
-  linkFormControl = new FormControl('', [
-    Validators.required,
-    CustomValidators.url
-  ]);
+  linkFormControl = new FormControl('', [CustomValidators.url]);
   authorsFormControl = new FormControl('', [Validators.required]);
 
   refactoringApproach: RefactoringApproach = {};
