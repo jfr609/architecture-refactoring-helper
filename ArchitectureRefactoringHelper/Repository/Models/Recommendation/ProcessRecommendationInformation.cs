@@ -25,7 +25,7 @@ public class ProcessRecommendationInformation
 public class QualityInformation
 {
     [Required]
-    [JsonPropertyName("Quality")]
+    [JsonPropertyName("quality")]
     public Quality Quality { get; set; }
 
     [Required]

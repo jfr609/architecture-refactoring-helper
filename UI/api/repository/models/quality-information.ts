@@ -3,6 +3,6 @@
 import { Quality } from './quality';
 import { RecommendationSuitability } from './recommendation-suitability';
 export interface QualityInformation {
-  Quality: Quality;
+  quality: Quality;
   recommendationSuitability: RecommendationSuitability;
 }

@@ -3110,12 +3110,12 @@
       },
       "QualityInformation": {
         "required": [
-          "Quality",
+          "quality",
           "recommendationSuitability"
         ],
         "type": "object",
         "properties": {
-          "Quality": {
+          "quality": {
             "$ref": "#/components/schemas/Quality"
           },
           "recommendationSuitability": {

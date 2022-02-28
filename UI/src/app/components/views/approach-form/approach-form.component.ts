@@ -197,6 +197,7 @@ export class ApproachFormComponent implements OnInit {
             this.refactoringApproach.approachUsability.resultsQuality.name
         );
     }
+
     if (this.refactoringApproach.approachUsability?.toolSupport != null) {
       // @ts-ignore
       this.selectedToolSupport = this.attributeOptionsService.toolSupports.find(
@@ -206,6 +207,7 @@ export class ApproachFormComponent implements OnInit {
           this.refactoringApproach.approachUsability.toolSupport.name
       );
     }
+
     if (this.refactoringApproach.approachUsability?.accuracyPrecision != null) {
       // @ts-ignore
       this.selectedAccuracyPrecision =
@@ -216,6 +218,7 @@ export class ApproachFormComponent implements OnInit {
             this.refactoringApproach.approachUsability.accuracyPrecision.name
         );
     }
+
     if (this.refactoringApproach.approachUsability?.validationMethod != null) {
       // @ts-ignore
       this.selectedValidationMethod =
