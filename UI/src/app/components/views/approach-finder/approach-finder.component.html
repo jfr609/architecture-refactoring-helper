@@ -4,6 +4,13 @@
 <mat-stepper *ngIf='!this.isDataLoading'>
   <mat-step>
     <ng-template matStepLabel>Fill out your input settings</ng-template>
+    <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px'>
+      <button mat-flat-button matStepperNext color='accent'>
+        <span>Next</span>
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </div>
+
     <div fxLayout='row'>
       <div fxFlex='25' fxLayout='column'>
         <h2>Domain artifacts</h2>
@@ -77,16 +84,21 @@
         </div>
       </div>
     </div>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Fill out your process settings</ng-template>
     <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px'>
+      <button mat-flat-button matStepperPrevious color='accent'>
+        <mat-icon>arrow_back</mat-icon>
+        <span>Back</span>
+      </button>
       <button mat-flat-button matStepperNext color='accent'>
         <span>Next</span>
         <mat-icon>arrow_forward</mat-icon>
       </button>
     </div>
-  </mat-step>
 
-  <mat-step>
-    <ng-template matStepLabel>Fill out your process settings</ng-template>
     <div fxLayout='column'>
       <div fxLayout='row'>
         <div fxFlex='25' fxLayout='column'>
@@ -199,6 +211,10 @@
         </div>
       </div>
     </div>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Fill out your output settings</ng-template>
     <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px'>
       <button mat-flat-button matStepperPrevious color='accent'>
         <mat-icon>arrow_back</mat-icon>
@@ -209,10 +225,7 @@
         <mat-icon>arrow_forward</mat-icon>
       </button>
     </div>
-  </mat-step>
 
-  <mat-step>
-    <ng-template matStepLabel>Fill out your output settings</ng-template>
     <div fxLayout='row'>
       <div fxFlex='25' fxLayout='column'>
         <h2>Architectures</h2>
@@ -250,20 +263,21 @@
         </div>
       </div>
     </div>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Fill out you usability settings</ng-template>
     <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px'>
       <button mat-flat-button matStepperPrevious color='accent'>
         <mat-icon>arrow_back</mat-icon>
         <span>Back</span>
       </button>
-      <button mat-flat-button matStepperNext color='accent'>
-        <span>Next</span>
-        <mat-icon>arrow_forward</mat-icon>
+      <button mat-flat-button color='primary' (click)='onSearchRecommendation()'>
+        <mat-icon>search</mat-icon>
+        <span>Search</span>
       </button>
     </div>
-  </mat-step>
 
-  <mat-step>
-    <ng-template matStepLabel>Fill out you usability settings</ng-template>
     <div fxLayout='row'>
       <div fxFlex='25' fxLayout='column'>
         <h2>Validation methods</h2>
@@ -336,16 +350,6 @@
           </mat-radio-group>
         </div>
       </div>
-    </div>
-    <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px'>
-      <button mat-flat-button matStepperPrevious color='accent'>
-        <mat-icon>arrow_back</mat-icon>
-        <span>Back</span>
-      </button>
-      <button mat-flat-button color='primary' (click)='onSearchRecommendation()'>
-        <mat-icon>search</mat-icon>
-        <span>Search</span>
-      </button>
     </div>
   </mat-step>
 </mat-stepper>
