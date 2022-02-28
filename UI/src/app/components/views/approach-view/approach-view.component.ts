@@ -36,6 +36,7 @@ export class ApproachViewComponent implements OnInit {
           .getRefactoringApproach(approachId)
           .then((value: RefactoringApproach) => {
             this.refactoringApproach = value;
+            this.temperWithApproachDescriptions();
             this.isDataLoading = false;
           })
           .catch(() => {
@@ -47,7 +48,29 @@ export class ApproachViewComponent implements OnInit {
     });
   }
 
-  getTempRefactoringApproach(): string {
-    return JSON.stringify(this.refactoringApproach);
+  temperWithApproachDescriptions(): void {
+    if (this.refactoringApproach.domainArtifactInputs != null) {
+      for (const item of this.refactoringApproach.domainArtifactInputs) {
+        item.description = 'Test domain artifact description';
+      }
+    }
+
+    if (this.refactoringApproach.runtimeArtifactInputs != null) {
+      for (const item of this.refactoringApproach.runtimeArtifactInputs) {
+        item.description = 'Test runtime artifact description';
+      }
+    }
+
+    if (this.refactoringApproach.modelArtifactInputs != null) {
+      for (const item of this.refactoringApproach.modelArtifactInputs) {
+        item.description = 'Test model artifact description';
+      }
+    }
+
+    if (this.refactoringApproach.executableInputs != null) {
+      for (const item of this.refactoringApproach.executableInputs) {
+        item.description = 'test executable description';
+      }
+    }
   }
 }

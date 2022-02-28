@@ -3,5 +3,242 @@
 </div>
 <div *ngIf='!isDataLoading' style='margin-bottom: 32px' fxLayout='column' fxLayoutAlign='start center'>
   <h1>{{refactoringApproach.approachSource?.title}}</h1>
-  <p>{{getTempRefactoringApproach()}}</p>
+
+  <mat-card>
+    <mat-card-title>Source</mat-card-title>
+    <mat-card-content *ngIf='refactoringApproach.approachSource'>
+      <div fxLayout='row'>
+        <div fxFlex='33'>
+          <h3>Authors</h3>
+        </div>
+        <div fxFlex>
+          <span>{{refactoringApproach.approachSource.authors}}</span>
+        </div>
+      </div>
+
+      <div fxLayout='row'>
+        <div fxFlex='33'>
+          <h3>Year</h3>
+        </div>
+        <div fxFlex>
+          <span>{{refactoringApproach.approachSource.year}}</span>
+        </div>
+      </div>
+
+      <div *ngIf='refactoringApproach.approachSource.link' fxLayout='row'>
+        <div fxFlex='33'>
+          <h3>Link</h3>
+        </div>
+        <div fxFlex>
+          <span>{{refactoringApproach.approachSource.link}}</span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card style='width: 80%'>
+    <mat-card-title>Inputs</mat-card-title>
+    <mat-card-content>
+      <div *ngIf='refactoringApproach.domainArtifactInputs && refactoringApproach.domainArtifactInputs.length > 0'
+           fxLayout='row'>
+        <div fxFlex='33'>
+          <h3>Domain Artifacts</h3>
+        </div>
+        <div fxFlex fxLayout='column'>
+          <div *ngFor='let domainArtifact of refactoringApproach.domainArtifactInputs'>
+            <h4>{{domainArtifact.name}}</h4>
+            <div *ngIf='domainArtifact.description'>
+              {{domainArtifact.description}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf='refactoringApproach.runtimeArtifactInputs && refactoringApproach.runtimeArtifactInputs.length > 0'
+           fxLayout='row'>
+        <div fxFlex='33'>
+          <h3>Runtime Artifacts</h3>
+        </div>
+        <div fxFlex fxLayout='column'>
+          <div *ngFor='let runtimeArtifact of refactoringApproach.runtimeArtifactInputs'>
+            <h4>{{runtimeArtifact.name}}</h4>
+            <div *ngIf='runtimeArtifact.description'>
+              {{runtimeArtifact.description}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf='refactoringApproach.modelArtifactInputs && refactoringApproach.modelArtifactInputs.length > 0'
+           fxLayout='row'>
+        <div fxFlex='33'>
+          <h3>Model Artifacts</h3>
+        </div>
+        <div fxFlex fxLayout='column'>
+          <div *ngFor='let modelArtifact of refactoringApproach.modelArtifactInputs'>
+            <h4>{{modelArtifact.name}}</h4>
+            <div *ngIf='modelArtifact.description'>
+              {{modelArtifact.description}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf='refactoringApproach.executableInputs && refactoringApproach.executableInputs.length > 0'
+           fxLayout='row'>
+        <div fxFlex='33'>
+          <h3>Executables</h3>
+        </div>
+        <div fxFlex fxLayout='column'>
+          <div *ngFor='let executable of refactoringApproach.executableInputs'>
+            <h4>{{executable.name}}, Language: {{executable.language}}</h4>
+            <div *ngIf='executable.description'>
+              {{executable.description}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>Process</mat-card-title>
+    <mat-card-content *ngIf='refactoringApproach.approachProcess'>
+      <div
+        *ngIf='refactoringApproach.approachProcess.qualities && refactoringApproach.approachProcess.qualities.length > 0'
+        fxLayout='row'>
+        <div fxFlex='33'>
+          <h3>Qualities</h3>
+        </div>
+        <div fxFlex fxLayout='column'>
+          <div *ngFor='let quality of refactoringApproach.approachProcess.qualities'>
+            <h4>{{quality.name}}</h4>
+            <div *ngIf='quality.description'>
+              {{quality.description}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        *ngIf='refactoringApproach.approachProcess.directions && refactoringApproach.approachProcess.directions.length > 0'
+        fxLayout='row'>
+        <div fxFlex='33'>
+          <h3>Directions</h3>
+        </div>
+        <div fxFlex fxLayout='column'>
+          <div *ngFor='let direction of refactoringApproach.approachProcess.directions'>
+            <h4>{{direction.name}}</h4>
+            <div *ngIf='direction.description'>
+              {{direction.description}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        *ngIf='refactoringApproach.approachProcess.automationLevels && refactoringApproach.approachProcess.automationLevels.length > 0'
+        fxLayout='row'>
+        <div fxFlex='33'>
+          <h3>Automation levels</h3>
+        </div>
+        <div fxFlex fxLayout='column'>
+          <div *ngFor='let automationLevel of refactoringApproach.approachProcess.automationLevels'>
+            <h4>{{automationLevel.name}}</h4>
+            <div *ngIf='automationLevel.description'>
+              {{automationLevel.description}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        *ngIf='refactoringApproach.approachProcess.analysisTypes && refactoringApproach.approachProcess.analysisTypes.length > 0'
+        fxLayout='row'>
+        <div fxFlex='33'>
+          <h3>Analysis types</h3>
+        </div>
+        <div fxFlex fxLayout='column'>
+          <div *ngFor='let analysisType of refactoringApproach.approachProcess.analysisTypes'>
+            <h4>{{analysisType.name}}</h4>
+            <div *ngIf='analysisType.description'>
+              {{analysisType.description}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        *ngIf='refactoringApproach.approachProcess.techniques && refactoringApproach.approachProcess.techniques.length > 0'
+        fxLayout='row'>
+        <div fxFlex='33'>
+          <h3>Techniques</h3>
+        </div>
+        <div fxFlex fxLayout='column'>
+          <div *ngFor='let technique of refactoringApproach.approachProcess.techniques'>
+            <h4>{{technique.name}}</h4>
+            <div *ngIf='technique.description'>
+              {{technique.description}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>Outputs</mat-card-title>
+    <mat-card-content *ngIf='refactoringApproach.approachOutputs'>
+      <div *ngFor='let output of refactoringApproach.approachOutputs'
+           fxLayout='row'>
+        <div fxFlex='33'>
+          <span><strong>Architecture</strong>: {{output.architecture.name}}</span>
+        </div>
+        <div fxFlex='33'>
+          <span><strong>Service type</strong>: {{output.serviceType.name}}</span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>Usability</mat-card-title>
+    <mat-card-content *ngIf='refactoringApproach.approachUsability'>
+      <div fxLayout='row'>
+        <div fxFlex='33'>
+          <h3>Validation method</h3>
+        </div>
+        <div fxFlex>
+          <span>{{refactoringApproach.approachUsability.validationMethod.name}}</span>
+        </div>
+      </div>
+
+      <div fxLayout='row'>
+        <div fxFlex='33'>
+          <h3>Tool support</h3>
+        </div>
+        <div fxFlex>
+          <span>{{refactoringApproach.approachUsability.toolSupport.name}}</span>
+        </div>
+      </div>
+
+      <div fxLayout='row'>
+        <div fxFlex='33'>
+          <h3>Results quality</h3>
+        </div>
+        <div fxFlex>
+          <span>{{refactoringApproach.approachUsability.resultsQuality.name}}</span>
+        </div>
+      </div>
+
+      <div fxLayout='row'>
+        <div fxFlex='33'>
+          <h3>Accuracy/Precision</h3>
+        </div>
+        <div fxFlex>
+          <span>{{refactoringApproach.approachUsability.accuracyPrecision.name}}</span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>
