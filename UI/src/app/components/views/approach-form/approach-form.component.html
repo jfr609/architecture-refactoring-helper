@@ -80,11 +80,8 @@
           <button *ngIf='linkInputValue' matSuffix mat-icon-button aria-label='Clear' (click)="linkInputValue=''">
             <mat-icon>close</mat-icon>
           </button>
-          <mat-error *ngIf="!linkFormControl.hasError('required') && linkFormControl.hasError('url')">
+          <mat-error *ngIf="linkFormControl.hasError('url')">
             Link has to be a valid URL
-          </mat-error>
-          <mat-error *ngIf="linkFormControl.hasError('required')">
-            Link is <strong>required</strong>
           </mat-error>
         </mat-form-field>
 

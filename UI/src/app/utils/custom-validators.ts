@@ -1,5 +1,6 @@
-import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { URL_REGEX } from '../app.constants';
+import { keyEquals } from './utils';
 
 export class CustomValidators {
   static url(control: AbstractControl): ValidationErrors | null {
@@ -11,6 +12,22 @@ export class CustomValidators {
     }
     return {
       url: true
+    };
+  }
+
+  static disallowDuplicates(duplicateList: any[]): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      let element: any = control.value;
+      let duplicate = duplicateList.find((value) => keyEquals(value, element));
+      if (duplicate == null) {
+        return null;
+      }
+
+      return {
+        disallowDuplicates: {
+          duplicate: duplicate
+        }
+      };
     };
   }
 }

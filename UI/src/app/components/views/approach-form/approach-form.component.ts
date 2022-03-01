@@ -29,7 +29,7 @@ import {
   copy,
   findArrayDifference,
   findArrayDifferenceWithCustomEquals,
-  removeElementFromArray
+  removeValueFromArray
 } from '../../../utils/utils';
 import { ResultsQuality } from '../../../../../api/repository/models/results-quality';
 import { ToolSupport } from '../../../../../api/repository/models/tool-support';
@@ -441,7 +441,7 @@ export class ApproachFormComponent implements OnInit {
         next: (data) => {
           if (data == null) return;
 
-          removeElementFromArray(
+          removeValueFromArray(
             this.currentOutputList,
             output,
             (a, b) =>

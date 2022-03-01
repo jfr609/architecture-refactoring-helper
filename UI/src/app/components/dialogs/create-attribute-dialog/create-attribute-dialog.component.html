@@ -2,32 +2,51 @@
   <div mat-dialog-title>
     <h3>{{data.title}}</h3>
   </div>
-  <div mat-dialog-content fxLayout='column'>
-    <mat-form-field *ngFor='let field of createAttributeFields; let i = index' fxFlex appearance='fill'>
-      <mat-label>{{field.config.inputTitle}}</mat-label>
-      <div *ngIf='field.config.isTextArea; then textarea else input'></div>
-      <ng-template #input>
-        <input matInput type='text' (change)='onChangeAttribute($event, i)' [value]='field.value'
-               [formControl]='field.formControl'>
-      </ng-template>
-      <ng-template #textarea>
-        <textarea matInput type='text' (change)='onChangeAttribute($event, i)' [value]='field.value'
-                  [formControl]='field.formControl'></textarea>
-      </ng-template>
-      <button *ngIf='field.value' matSuffix mat-icon-button aria-label='Clear' (click)="field.value=''">
-        <mat-icon>close</mat-icon>
-      </button>
-      <mat-error *ngIf="field.formControl.hasError('required')">
-        Field is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
+  <div mat-dialog-content>
+    <form fxLayout='column' [formGroup]='createAttributeForm'>
+      <mat-form-field *ngFor='let field of fields; let i = index' fxFlex appearance='fill'>
+        <mat-label>{{field.config.title}}</mat-label>
+        <div *ngIf='field.config.isTextArea; then textarea else input'></div>
+        <ng-template #input>
+          <input matInput type='text'
+                 [value]='field.value'
+                 [formControlName]='field.config.variableName'
+                 [matAutocomplete]='auto'
+                 (input)='onInputChanged($event, i)'>
+          <mat-autocomplete #auto='matAutocomplete'>
+            <mat-option *ngFor='let option of this.filteredOptions[i] | async'
+                        [value]='option'
+                        (click)='onAutocompleteOptionSelected(option, i)'>
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </ng-template>
+        <ng-template #textarea>
+        <textarea matInput type='text'
+                  [value]='field.value'
+                  [formControlName]='field.config.variableName'
+                  (input)='onInputChanged($event, i)'></textarea>
+        </ng-template>
+        <button *ngIf='field.value' matSuffix mat-icon-button aria-label='Clear' (click)="field.value=''">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-error *ngIf="this.createAttributeForm.get(field.config.variableName)?.hasError('required')">
+          Field is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </form>
+    <div fxLayout='row' *ngIf="createAttributeForm.hasError('disallowDuplicates')">
+      <mat-icon color='warn'>report_problem</mat-icon>
+      <p class='error-text'>
+        Attribute does already exist
+      </p>
+    </div>
   </div>
   <div mat-dialog-actions>
     <button mat-raised-button color='primary'
-            (click)='onConfirmClicked()' [disabled]='!isConfirmButtonActive()'>{{data.confirmButtonText}}</button>
+            (click)='onConfirmClicked()'
+            [disabled]='!this.createAttributeForm.valid'>{{data.confirmButtonText}}</button>
     <button mat-raised-button color='warn'
             (click)='onCancelClicked()'>{{data.cancelButtonText}}</button>
   </div>
 </div>
-
-

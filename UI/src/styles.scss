@@ -22,3 +22,9 @@ body {
 .loading-container {
   height: 100%;
 }
+
+.error-text {
+  color: var(--color-warn);
+  line-height: 24px;
+  margin: 0 0 0 8px;
+}

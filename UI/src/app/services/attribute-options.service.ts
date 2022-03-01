@@ -283,14 +283,16 @@ export class AttributeOptionsService {
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
       currentAttributeList: this.domainArtifacts,
-      createAttributeConfigs: [
+      configs: [
         {
-          inputTitle: 'name',
+          title: 'name',
+          variableName: 'name',
           isTextArea: false,
           validators: [Validators.required]
         },
         {
-          inputTitle: 'description',
+          title: 'description',
+          variableName: 'description',
           isTextArea: true,
           validators: null
         }
@@ -356,14 +358,16 @@ export class AttributeOptionsService {
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
       currentAttributeList: this.runtimeArtifacts,
-      createAttributeConfigs: [
+      configs: [
         {
-          inputTitle: 'name',
+          title: 'name',
+          variableName: 'name',
           isTextArea: false,
           validators: [Validators.required]
         },
         {
-          inputTitle: 'description',
+          title: 'description',
+          variableName: 'description',
           isTextArea: true,
           validators: null
         }
@@ -414,14 +418,16 @@ export class AttributeOptionsService {
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
       currentAttributeList: this.modelArtifacts,
-      createAttributeConfigs: [
+      configs: [
         {
-          inputTitle: 'name',
+          title: 'name',
+          variableName: 'name',
           isTextArea: false,
           validators: [Validators.required]
         },
         {
-          inputTitle: 'description',
+          title: 'description',
+          variableName: 'description',
           isTextArea: true,
           validators: null
         }
@@ -472,19 +478,24 @@ export class AttributeOptionsService {
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
       currentAttributeList: this.executables,
-      createAttributeConfigs: [
+      configs: [
         {
-          inputTitle: 'name',
+          title: 'name',
+          variableName: 'name',
           isTextArea: false,
+          autocompleteActive: true,
           validators: [Validators.required]
         },
         {
-          inputTitle: 'language',
+          title: 'language',
+          variableName: 'language',
           isTextArea: false,
+          autocompleteActive: true,
           validators: [Validators.required]
         },
         {
-          inputTitle: 'description',
+          title: 'description',
+          variableName: 'description',
           isTextArea: true,
           validators: null
         }
@@ -498,6 +509,7 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
+          console.log(data.attributesToCreate);
           this.createExecutable();
         }
       });
@@ -535,14 +547,16 @@ export class AttributeOptionsService {
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
       currentAttributeList: this.qualities,
-      createAttributeConfigs: [
+      configs: [
         {
-          inputTitle: 'name',
+          title: 'name',
+          variableName: 'name',
           isTextArea: false,
           validators: [Validators.required]
         },
         {
-          inputTitle: 'description',
+          title: 'description',
+          variableName: 'description',
           isTextArea: true,
           validators: null
         }
@@ -593,14 +607,16 @@ export class AttributeOptionsService {
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
       currentAttributeList: this.directions,
-      createAttributeConfigs: [
+      configs: [
         {
-          inputTitle: 'name',
+          title: 'name',
+          variableName: 'name',
           isTextArea: false,
           validators: [Validators.required]
         },
         {
-          inputTitle: 'description',
+          title: 'description',
+          variableName: 'description',
           isTextArea: true,
           validators: null
         }
@@ -651,14 +667,16 @@ export class AttributeOptionsService {
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
       currentAttributeList: this.automationLevels,
-      createAttributeConfigs: [
+      configs: [
         {
-          inputTitle: 'name',
+          title: 'name',
+          variableName: 'name',
           isTextArea: false,
           validators: [Validators.required]
         },
         {
-          inputTitle: 'description',
+          title: 'description',
+          variableName: 'description',
           isTextArea: true,
           validators: null
         }
@@ -709,14 +727,16 @@ export class AttributeOptionsService {
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
       currentAttributeList: this.analysisTypes,
-      createAttributeConfigs: [
+      configs: [
         {
-          inputTitle: 'name',
+          title: 'name',
+          variableName: 'name',
           isTextArea: false,
           validators: [Validators.required]
         },
         {
-          inputTitle: 'description',
+          title: 'description',
+          variableName: 'description',
           isTextArea: true,
           validators: null
         }
@@ -767,14 +787,16 @@ export class AttributeOptionsService {
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
       currentAttributeList: this.techniques,
-      createAttributeConfigs: [
+      configs: [
         {
-          inputTitle: 'name',
+          title: 'name',
+          variableName: 'name',
           isTextArea: false,
           validators: [Validators.required]
         },
         {
-          inputTitle: 'description',
+          title: 'description',
+          variableName: 'description',
           isTextArea: true,
           validators: null
         }
@@ -825,14 +847,16 @@ export class AttributeOptionsService {
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
       currentAttributeList: this.architectures,
-      createAttributeConfigs: [
+      configs: [
         {
-          inputTitle: 'name',
+          title: 'name',
+          variableName: 'name',
           isTextArea: false,
           validators: [Validators.required]
         },
         {
-          inputTitle: 'description',
+          title: 'description',
+          variableName: 'description',
           isTextArea: true,
           validators: null
         }
@@ -883,14 +907,16 @@ export class AttributeOptionsService {
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
       currentAttributeList: this.serviceTypes,
-      createAttributeConfigs: [
+      configs: [
         {
-          inputTitle: 'name',
+          title: 'name',
+          variableName: 'name',
           isTextArea: false,
           validators: [Validators.required]
         },
         {
-          inputTitle: 'description',
+          title: 'description',
+          variableName: 'description',
           isTextArea: true,
           validators: null
         }
@@ -941,14 +967,16 @@ export class AttributeOptionsService {
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
       currentAttributeList: this.validationMethods,
-      createAttributeConfigs: [
+      configs: [
         {
-          inputTitle: 'name',
+          title: 'name',
+          variableName: 'name',
           isTextArea: false,
           validators: [Validators.required]
         },
         {
-          inputTitle: 'description',
+          title: 'description',
+          variableName: 'description',
           isTextArea: true,
           validators: null
         }
@@ -999,14 +1027,16 @@ export class AttributeOptionsService {
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
       currentAttributeList: this.toolSupports,
-      createAttributeConfigs: [
+      configs: [
         {
-          inputTitle: 'name',
+          title: 'name',
+          variableName: 'name',
           isTextArea: false,
           validators: [Validators.required]
         },
         {
-          inputTitle: 'description',
+          title: 'description',
+          variableName: 'description',
           isTextArea: true,
           validators: null
         }
@@ -1057,14 +1087,16 @@ export class AttributeOptionsService {
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
       currentAttributeList: this.resultsQualities,
-      createAttributeConfigs: [
+      configs: [
         {
-          inputTitle: 'name',
+          title: 'name',
+          variableName: 'name',
           isTextArea: false,
           validators: [Validators.required]
         },
         {
-          inputTitle: 'description',
+          title: 'description',
+          variableName: 'description',
           isTextArea: true,
           validators: null
         }
@@ -1115,14 +1147,16 @@ export class AttributeOptionsService {
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
       currentAttributeList: this.accuracyPrecisions,
-      createAttributeConfigs: [
+      configs: [
         {
-          inputTitle: 'name',
+          title: 'name',
+          variableName: 'name',
           isTextArea: false,
           validators: [Validators.required]
         },
         {
-          inputTitle: 'description',
+          title: 'description',
+          variableName: 'description',
           isTextArea: true,
           validators: null
         }

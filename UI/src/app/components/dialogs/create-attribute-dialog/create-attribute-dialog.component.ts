@@ -5,7 +5,15 @@ import {
   MatDialog,
   MatDialogRef
 } from '@angular/material/dialog';
-import { FormControl, FormControlOptions, ValidatorFn } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControlOptions,
+  FormGroup,
+  ValidatorFn
+} from '@angular/forms';
+import { CustomValidators } from '../../../utils/custom-validators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-attribute-dialog',
@@ -13,40 +21,92 @@ import { FormControl, FormControlOptions, ValidatorFn } from '@angular/forms';
   styleUrls: ['./create-attribute-dialog.component.css']
 })
 export class CreateAttributeDialogComponent implements OnInit {
-  createAttributeFields: CreateAttributeField[] = [];
+  createAttributeForm: FormGroup = new FormGroup({});
+  fields: CreateField[] = [];
+
+  filteredOptions: Observable<string[]>[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: CreateAttributeDialogData<any>,
     public dialogRef: MatDialogRef<CreateAttributeDialogComponent>,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private builder: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    for (const attributeConfig of this.data.createAttributeConfigs) {
-      this.createAttributeFields.push({
+    let controls: any = {};
+
+    for (const fieldConfig of this.data.configs) {
+      if (fieldConfig.autocompleteActive) {
+        fieldConfig.autocompleteValues = this.data.currentAttributeList.map(
+          (value) => value[fieldConfig.variableName]
+        );
+      }
+
+      this.fields.push({
         value: '',
-        formControl: new FormControl('', attributeConfig.validators),
-        config: attributeConfig
+        config: fieldConfig
       });
+
+      controls[fieldConfig.variableName] = ['', fieldConfig.validators];
     }
+
+    this.createAttributeForm = this.builder.group(controls, {
+      validators: [
+        CustomValidators.disallowDuplicates(this.data.currentAttributeList)
+      ]
+    });
+
+    this.data.configs.forEach(
+      (fieldConfig: CreateFieldConfig, index: number) => {
+        if (!fieldConfig.autocompleteActive) return;
+
+        this.filteredOptions[index] = this.createAttributeForm.controls[
+          fieldConfig.variableName
+        ].valueChanges.pipe(
+          map((value) => this._filter(value, fieldConfig.variableName))
+        );
+      }
+    );
+  }
+
+  private _filter(value: string, variableName: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.data.currentAttributeList
+      .filter((option) =>
+        option[variableName].toLowerCase().startsWith(filterValue)
+      )
+      .map((option) => option[variableName])
+      .filter(
+        (option, index: number, self: any[]) => index === self.indexOf(option)
+      );
   }
 
   isConfirmButtonActive(): boolean {
-    let active: boolean = true;
-    for (const attributeField of this.createAttributeFields) {
-      active &&= attributeField.formControl.valid;
-    }
-    return active;
+    return this.createAttributeForm.valid;
   }
 
-  onChangeAttribute(event: Event, index: number) {
-    this.createAttributeFields[index].value = (
-      event.target as HTMLInputElement
-    ).value;
+  onInputChanged(event: Event, index: number) {
+    this.fields[index].value = (event.target as HTMLInputElement).value;
+  }
+
+  onAutocompleteOptionSelected(value: string, index: number) {
+    this.fields[index].value = value;
   }
 
   onConfirmClicked() {
+    this.createAttributeObjects();
     this.dialogRef.close(this.data);
+  }
+
+  createAttributeObjects() {
+    this.data.attributesToCreate = [];
+    let attribute: any = {};
+    for (const fieldInfo of this.fields) {
+      attribute[fieldInfo.config.variableName] = fieldInfo.value;
+    }
+    this.data.attributesToCreate.push(attribute);
   }
 
   onCancelClicked() {
@@ -57,17 +117,20 @@ export class CreateAttributeDialogComponent implements OnInit {
 export interface CreateAttributeDialogData<T> extends DialogData {
   attributesToCreate?: T[];
   currentAttributeList: T[];
-  createAttributeConfigs: CreateAttributeConfig[];
+  activateMultiCreate?: boolean;
+  configs: CreateFieldConfig[];
 }
 
-export interface CreateAttributeField {
+export interface CreateField {
   value: string;
-  formControl: FormControl;
-  config: CreateAttributeConfig;
+  config: CreateFieldConfig;
 }
 
-export interface CreateAttributeConfig {
-  inputTitle: string;
+export interface CreateFieldConfig {
+  title: string;
+  variableName: string;
   isTextArea: boolean;
+  autocompleteActive?: boolean;
+  autocompleteValues?: string[];
   validators: ValidatorFn | ValidatorFn[] | FormControlOptions | null;
 }

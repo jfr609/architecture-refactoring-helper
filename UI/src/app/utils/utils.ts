@@ -1,13 +1,13 @@
 import { KeyWrapper } from './models/key-wrapper';
 
-export function removeElementFromArray<T>(
+export function removeValueFromArray<T>(
   list: T[],
-  element: T,
-  elementsEqual: (a: T, b: T) => boolean = (a: T, b: T) => a === b
+  value: T,
+  valueEquals: (a: T, b: T) => boolean = (a: T, b: T) => a === b
 ): void {
   let index: number = -1;
   list.find((value: T, i: number) => {
-    if (elementsEqual(value, element)) {
+    if (valueEquals(value, value)) {
       index = i;
       return true;
     }
@@ -49,41 +49,47 @@ export function findArrayDifferenceWithCustomEquals<T>(
 }
 
 export function getKeyValue(
-  element: any | undefined | null
+  value: any | undefined | null
 ): KeyWrapper | undefined {
-  switch (element) {
-    case element.refactoringApproachId !== undefined:
-      return { key: element.refactoringApproachId, secondKey: undefined };
-    case element.approachSourceId !== undefined:
-      return { key: element.approachSourceId, secondKey: undefined };
-    case element.approachProcessId !== undefined:
-      return { key: element.approachProcessId, secondKey: undefined };
-    case element.approachOutputId !== undefined:
-      return { key: element.approachOutputId, secondKey: undefined };
-    case element.approachUsabilityId !== undefined:
-      return { key: element.approachUsabilityId, secondKey: undefined };
-    case element.language !== undefined && element.name !== undefined:
-      return { key: element.name, secondKey: element.language };
-    case element.name !== undefined:
-      return { key: element.name, secondKey: undefined };
-    default:
-      return undefined;
+  if (value.refactoringApproachId !== undefined) {
+    return { key: value.refactoringApproachId, secondKey: undefined };
+  } else if (value.approachSourceId !== undefined) {
+    return { key: value.approachSourceId, secondKey: undefined };
+  } else if (value.approachProcessId !== undefined) {
+    return { key: value.approachProcessId, secondKey: undefined };
+  } else if (value.approachOutputId !== undefined) {
+    return { key: value.approachOutputId, secondKey: undefined };
+  } else if (value.approachUsabilityId !== undefined) {
+    return { key: value.approachUsabilityId, secondKey: undefined };
+  } else if (value.name !== undefined) {
+    if (value.language !== undefined) {
+      return {
+        key: value.name.toLowerCase(),
+        secondKey: value.language.toLowerCase()
+      };
+    }
+    return { key: value.name.toLowerCase(), secondKey: undefined };
+  } else {
+    return undefined;
   }
 }
 
 export function keyEquals(
-  element1: any | undefined | null,
-  element2: any | undefined | null
+  value1: any | undefined | null,
+  value2: any | undefined | null
 ): boolean {
-  let element1Key = getKeyValue(element1);
-  let element2Key = getKeyValue(element2);
+  let keyValue1 = getKeyValue(value1);
+  let keyValue2 = getKeyValue(value2);
 
-  if (element1Key === undefined || element2Key === undefined)
-    return element1 === element2;
+  if (keyValue1 === undefined || keyValue2 === undefined)
+    return value1 === value2;
 
-  return element1 === element2;
+  return (
+    keyValue1.key === keyValue2.key &&
+    keyValue1.secondKey === keyValue2.secondKey
+  );
 }
 
-export function copy<T>(element: T): T {
-  return JSON.parse(JSON.stringify(element));
+export function copy<T>(value: T): T {
+  return JSON.parse(JSON.stringify(value));
 }

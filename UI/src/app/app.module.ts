@@ -38,6 +38,8 @@ import { ApproachViewComponent } from './components/views/approach-view/approach
 import { MatStepperModule } from '@angular/material/stepper';
 import { CreateAttributeDialogComponent } from './components/dialogs/create-attribute-dialog/create-attribute-dialog.component';
 import { DeleteAttributeDialogComponent } from './components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -80,7 +82,9 @@ import { DeleteAttributeDialogComponent } from './components/dialogs/delete-attr
     MatTableModule,
     MatSortModule,
     MatProgressSpinnerModule,
-    MatStepperModule
+    MatStepperModule,
+    MatAutocompleteModule,
+    MatButtonToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
