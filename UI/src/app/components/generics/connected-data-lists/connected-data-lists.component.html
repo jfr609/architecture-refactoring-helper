@@ -2,11 +2,11 @@
   <div fxFlex='50'>
     <h3>
       {{sourceDataListTitle}}
-      <button *ngIf='attributeCreationActive' mat-mini-fab color='primary' style='margin-left: 8px'
+      <button *ngIf='attributeCreationActive' mat-mini-fab class='attribute-button' color='primary'
               (click)='onAddAttributeClicked()'>
         <mat-icon>add</mat-icon>
       </button>
-      <button *ngIf='attributeDeletionActive' mat-mini-fab color='warn' style='margin-left: 8px'
+      <button *ngIf='attributeDeletionActive' mat-mini-fab class='attribute-button' color='warn'
               (click)='onDeleteAttributeClicked()'>
         <mat-icon>remove</mat-icon>
       </button>

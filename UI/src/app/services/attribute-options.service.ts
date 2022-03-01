@@ -29,6 +29,7 @@ import {
   DeleteAttributeDialogComponent,
   DeleteAttributeDialogData
 } from '../components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
+import { Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -276,29 +277,58 @@ export class AttributeOptionsService {
       });
   }
 
-  createDomainArtifactWithDialog() {
-    let data: CreateAttributeDialogData = {
+  createDomainArtifactWithDialog(): void {
+    let data: CreateAttributeDialogData<DomainArtifactInput> = {
       title: 'Create a new domain artifact input option',
       confirmButtonText: 'Create',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.domainArtifacts,
+      createAttributeConfigs: [
+        {
+          inputTitle: 'name',
+          isTextArea: false,
+          validators: [Validators.required]
+        },
+        {
+          inputTitle: 'description',
+          isTextArea: true,
+          validators: null
+        }
+      ]
     };
     this.utilService
       .createDialog(CreateAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: CreateAttributeDialogData) => {
-          if (data === undefined) return;
+        next: (data: CreateAttributeDialogData<DomainArtifactInput>) => {
+          if (data === undefined || data.attributesToCreate === undefined)
+            return;
 
-          this.createDomainArtifact();
+          let createPromises: Promise<void>[] = [];
+          for (const attribute of data.attributesToCreate) {
+            createPromises.push(this.createDomainArtifact(attribute));
+          }
+          Promise.all(createPromises);
         }
       });
   }
 
-  createDomainArtifact() {
+  createDomainArtifact(domainArtifact: DomainArtifactInput): Promise<void> {
     this.utilService.callSnackBar('Test create');
+
+    return lastValueFrom(
+      this.inputService.addDomainArtifact({ body: domainArtifact })
+    )
+      .then((value: DomainArtifactInput) => {
+        this.domainArtifacts.push(value);
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar('');
+      });
   }
 
-  deleteDomainArtifactWithDialog() {
+  deleteDomainArtifactWithDialog(): void {
     let data: DeleteAttributeDialogData = {
       title: 'Delete an existing domain artifact input option',
       confirmButtonText: 'Delete',
@@ -320,18 +350,32 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test delete');
   }
 
-  createRuntimeArtifactWithDialog() {
-    let data: CreateAttributeDialogData = {
+  createRuntimeArtifactWithDialog(): void {
+    let data: CreateAttributeDialogData<RuntimeArtifactInput> = {
       title: 'Create a new runtime artifact input option',
       confirmButtonText: 'Create',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.runtimeArtifacts,
+      createAttributeConfigs: [
+        {
+          inputTitle: 'name',
+          isTextArea: false,
+          validators: [Validators.required]
+        },
+        {
+          inputTitle: 'description',
+          isTextArea: true,
+          validators: null
+        }
+      ]
     };
     this.utilService
       .createDialog(CreateAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: CreateAttributeDialogData) => {
-          if (data === undefined) return;
+        next: (data: CreateAttributeDialogData<RuntimeArtifactInput>) => {
+          if (data === undefined || data.attributesToCreate === undefined)
+            return;
 
           this.createRuntimeArtifact();
         }
@@ -342,7 +386,7 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test create');
   }
 
-  deleteRuntimeArtifactWithDialog() {
+  deleteRuntimeArtifactWithDialog(): void {
     let data: DeleteAttributeDialogData = {
       title: 'Delete an existing runtime artifact input option',
       confirmButtonText: 'Delete',
@@ -364,18 +408,32 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test delete');
   }
 
-  createModelArtifactWithDialog() {
-    let data: CreateAttributeDialogData = {
+  createModelArtifactWithDialog(): void {
+    let data: CreateAttributeDialogData<ModelArtifactInput> = {
       title: 'Create a new model artifact input option',
       confirmButtonText: 'Create',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.modelArtifacts,
+      createAttributeConfigs: [
+        {
+          inputTitle: 'name',
+          isTextArea: false,
+          validators: [Validators.required]
+        },
+        {
+          inputTitle: 'description',
+          isTextArea: true,
+          validators: null
+        }
+      ]
     };
     this.utilService
       .createDialog(CreateAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: CreateAttributeDialogData) => {
-          if (data === undefined) return;
+        next: (data: CreateAttributeDialogData<ModelArtifactInput>) => {
+          if (data === undefined || data.attributesToCreate === undefined)
+            return;
 
           this.createModelArtifact();
         }
@@ -386,7 +444,7 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test create');
   }
 
-  deleteModelArtifactWithDialog() {
+  deleteModelArtifactWithDialog(): void {
     let data: DeleteAttributeDialogData = {
       title: 'Delete an existing model artifact input option',
       confirmButtonText: 'Delete',
@@ -408,18 +466,37 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test delete');
   }
 
-  createExecutableWithDialog() {
-    let data: CreateAttributeDialogData = {
+  createExecutableWithDialog(): void {
+    let data: CreateAttributeDialogData<ExecutableInput> = {
       title: 'Create a new executable input option',
       confirmButtonText: 'Create',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.executables,
+      createAttributeConfigs: [
+        {
+          inputTitle: 'name',
+          isTextArea: false,
+          validators: [Validators.required]
+        },
+        {
+          inputTitle: 'language',
+          isTextArea: false,
+          validators: [Validators.required]
+        },
+        {
+          inputTitle: 'description',
+          isTextArea: true,
+          validators: null
+        }
+      ]
     };
     this.utilService
       .createDialog(CreateAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: CreateAttributeDialogData) => {
-          if (data === undefined) return;
+        next: (data: CreateAttributeDialogData<ExecutableInput>) => {
+          if (data === undefined || data.attributesToCreate === undefined)
+            return;
 
           this.createExecutable();
         }
@@ -430,7 +507,7 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test create');
   }
 
-  deleteExecutableWithDialog() {
+  deleteExecutableWithDialog(): void {
     let data: DeleteAttributeDialogData = {
       title: 'Delete an existing executable input option',
       confirmButtonText: 'Delete',
@@ -452,18 +529,32 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test delete');
   }
 
-  createQualityWithDialog() {
-    let data: CreateAttributeDialogData = {
+  createQualityWithDialog(): void {
+    let data: CreateAttributeDialogData<Quality> = {
       title: 'Create a new process quality option',
       confirmButtonText: 'Create',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.qualities,
+      createAttributeConfigs: [
+        {
+          inputTitle: 'name',
+          isTextArea: false,
+          validators: [Validators.required]
+        },
+        {
+          inputTitle: 'description',
+          isTextArea: true,
+          validators: null
+        }
+      ]
     };
     this.utilService
       .createDialog(CreateAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: CreateAttributeDialogData) => {
-          if (data === undefined) return;
+        next: (data: CreateAttributeDialogData<Quality>) => {
+          if (data === undefined || data.attributesToCreate === undefined)
+            return;
 
           this.createQuality();
         }
@@ -474,7 +565,7 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test create');
   }
 
-  deleteQualityWithDialog() {
+  deleteQualityWithDialog(): void {
     let data: DeleteAttributeDialogData = {
       title: 'Delete an existing process quality option',
       confirmButtonText: 'Delete',
@@ -496,18 +587,32 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test delete');
   }
 
-  createDirectionWithDialog() {
-    let data: CreateAttributeDialogData = {
+  createDirectionWithDialog(): void {
+    let data: CreateAttributeDialogData<Direction> = {
       title: 'Create a new process direction option',
       confirmButtonText: 'Create',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.directions,
+      createAttributeConfigs: [
+        {
+          inputTitle: 'name',
+          isTextArea: false,
+          validators: [Validators.required]
+        },
+        {
+          inputTitle: 'description',
+          isTextArea: true,
+          validators: null
+        }
+      ]
     };
     this.utilService
       .createDialog(CreateAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: CreateAttributeDialogData) => {
-          if (data === undefined) return;
+        next: (data: CreateAttributeDialogData<Direction>) => {
+          if (data === undefined || data.attributesToCreate === undefined)
+            return;
 
           this.createDirection();
         }
@@ -518,7 +623,7 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test create');
   }
 
-  deleteDirectionWithDialog() {
+  deleteDirectionWithDialog(): void {
     let data: DeleteAttributeDialogData = {
       title: 'Delete an existing process direction option',
       confirmButtonText: 'Delete',
@@ -540,18 +645,32 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test delete');
   }
 
-  createAutomationLevelWithDialog() {
-    let data: CreateAttributeDialogData = {
+  createAutomationLevelWithDialog(): void {
+    let data: CreateAttributeDialogData<AutomationLevel> = {
       title: 'Create a new process level of automation option',
       confirmButtonText: 'Create',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.automationLevels,
+      createAttributeConfigs: [
+        {
+          inputTitle: 'name',
+          isTextArea: false,
+          validators: [Validators.required]
+        },
+        {
+          inputTitle: 'description',
+          isTextArea: true,
+          validators: null
+        }
+      ]
     };
     this.utilService
       .createDialog(CreateAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: CreateAttributeDialogData) => {
-          if (data === undefined) return;
+        next: (data: CreateAttributeDialogData<AutomationLevel>) => {
+          if (data === undefined || data.attributesToCreate === undefined)
+            return;
 
           this.createAutomationLevel();
         }
@@ -562,7 +681,7 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test create');
   }
 
-  deleteAutomationLevelWithDialog() {
+  deleteAutomationLevelWithDialog(): void {
     let data: DeleteAttributeDialogData = {
       title: 'Delete an existing process level of automation option',
       confirmButtonText: 'Delete',
@@ -584,18 +703,32 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test delete');
   }
 
-  createAnalysisTypeWithDialog() {
-    let data: CreateAttributeDialogData = {
+  createAnalysisTypeWithDialog(): void {
+    let data: CreateAttributeDialogData<AnalysisType> = {
       title: 'Create a new process analysis type option',
       confirmButtonText: 'Create',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.analysisTypes,
+      createAttributeConfigs: [
+        {
+          inputTitle: 'name',
+          isTextArea: false,
+          validators: [Validators.required]
+        },
+        {
+          inputTitle: 'description',
+          isTextArea: true,
+          validators: null
+        }
+      ]
     };
     this.utilService
       .createDialog(CreateAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: CreateAttributeDialogData) => {
-          if (data === undefined) return;
+        next: (data: CreateAttributeDialogData<AnalysisType>) => {
+          if (data === undefined || data.attributesToCreate === undefined)
+            return;
 
           this.createAnalysisType();
         }
@@ -606,7 +739,7 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test create');
   }
 
-  deleteAnalysisTypeWithDialog() {
+  deleteAnalysisTypeWithDialog(): void {
     let data: DeleteAttributeDialogData = {
       title: 'Delete an existing process analysis type option',
       confirmButtonText: 'Delete',
@@ -628,18 +761,32 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test delete');
   }
 
-  createTechniqueWithDialog() {
-    let data: CreateAttributeDialogData = {
+  createTechniqueWithDialog(): void {
+    let data: CreateAttributeDialogData<Technique> = {
       title: 'Create a new process technique option',
       confirmButtonText: 'Create',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.techniques,
+      createAttributeConfigs: [
+        {
+          inputTitle: 'name',
+          isTextArea: false,
+          validators: [Validators.required]
+        },
+        {
+          inputTitle: 'description',
+          isTextArea: true,
+          validators: null
+        }
+      ]
     };
     this.utilService
       .createDialog(CreateAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: CreateAttributeDialogData) => {
-          if (data === undefined) return;
+        next: (data: CreateAttributeDialogData<Technique>) => {
+          if (data === undefined || data.attributesToCreate === undefined)
+            return;
 
           this.createTechnique();
         }
@@ -650,7 +797,7 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test create');
   }
 
-  deleteTechniqueWithDialog() {
+  deleteTechniqueWithDialog(): void {
     let data: DeleteAttributeDialogData = {
       title: 'Delete an existing process technique option',
       confirmButtonText: 'Delete',
@@ -672,18 +819,32 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test delete');
   }
 
-  createArchitectureWithDialog() {
-    let data: CreateAttributeDialogData = {
+  createArchitectureWithDialog(): void {
+    let data: CreateAttributeDialogData<Architecture> = {
       title: 'Create a new output architecture option',
       confirmButtonText: 'Create',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.architectures,
+      createAttributeConfigs: [
+        {
+          inputTitle: 'name',
+          isTextArea: false,
+          validators: [Validators.required]
+        },
+        {
+          inputTitle: 'description',
+          isTextArea: true,
+          validators: null
+        }
+      ]
     };
     this.utilService
       .createDialog(CreateAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: CreateAttributeDialogData) => {
-          if (data === undefined) return;
+        next: (data: CreateAttributeDialogData<Architecture>) => {
+          if (data === undefined || data.attributesToCreate === undefined)
+            return;
 
           this.createArchitecture();
         }
@@ -694,7 +855,7 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test create');
   }
 
-  deleteArchitectureWithDialog() {
+  deleteArchitectureWithDialog(): void {
     let data: DeleteAttributeDialogData = {
       title: 'Delete an existing output architecture option',
       confirmButtonText: 'Delete',
@@ -716,18 +877,32 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test delete');
   }
 
-  createServiceTypeWithDialog() {
-    let data: CreateAttributeDialogData = {
+  createServiceTypeWithDialog(): void {
+    let data: CreateAttributeDialogData<ServiceType> = {
       title: 'Create a new output service type option',
       confirmButtonText: 'Create',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.serviceTypes,
+      createAttributeConfigs: [
+        {
+          inputTitle: 'name',
+          isTextArea: false,
+          validators: [Validators.required]
+        },
+        {
+          inputTitle: 'description',
+          isTextArea: true,
+          validators: null
+        }
+      ]
     };
     this.utilService
       .createDialog(CreateAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: CreateAttributeDialogData) => {
-          if (data === undefined) return;
+        next: (data: CreateAttributeDialogData<ServiceType>) => {
+          if (data === undefined || data.attributesToCreate === undefined)
+            return;
 
           this.createServiceType();
         }
@@ -738,7 +913,7 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test create');
   }
 
-  deleteServiceTypeWithDialog() {
+  deleteServiceTypeWithDialog(): void {
     let data: DeleteAttributeDialogData = {
       title: 'Delete an existing output service type option',
       confirmButtonText: 'Delete',
@@ -760,18 +935,32 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test delete');
   }
 
-  createValidationMethodWithDialog() {
-    let data: CreateAttributeDialogData = {
+  createValidationMethodWithDialog(): void {
+    let data: CreateAttributeDialogData<ValidationMethod> = {
       title: 'Create a new validation method option',
       confirmButtonText: 'Create',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.validationMethods,
+      createAttributeConfigs: [
+        {
+          inputTitle: 'name',
+          isTextArea: false,
+          validators: [Validators.required]
+        },
+        {
+          inputTitle: 'description',
+          isTextArea: true,
+          validators: null
+        }
+      ]
     };
     this.utilService
       .createDialog(CreateAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: CreateAttributeDialogData) => {
-          if (data === undefined) return;
+        next: (data: CreateAttributeDialogData<ValidationMethod>) => {
+          if (data === undefined || data.attributesToCreate === undefined)
+            return;
 
           this.createValidationMethod();
         }
@@ -782,7 +971,7 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test create');
   }
 
-  deleteValidationMethodWithDialog() {
+  deleteValidationMethodWithDialog(): void {
     let data: DeleteAttributeDialogData = {
       title: 'Delete an existing validation method option',
       confirmButtonText: 'Delete',
@@ -804,18 +993,32 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test delete');
   }
 
-  createToolSupportWithDialog() {
-    let data: CreateAttributeDialogData = {
+  createToolSupportWithDialog(): void {
+    let data: CreateAttributeDialogData<ToolSupport> = {
       title: 'Create a new tool support option',
       confirmButtonText: 'Create',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.toolSupports,
+      createAttributeConfigs: [
+        {
+          inputTitle: 'name',
+          isTextArea: false,
+          validators: [Validators.required]
+        },
+        {
+          inputTitle: 'description',
+          isTextArea: true,
+          validators: null
+        }
+      ]
     };
     this.utilService
       .createDialog(CreateAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: CreateAttributeDialogData) => {
-          if (data === undefined) return;
+        next: (data: CreateAttributeDialogData<ToolSupport>) => {
+          if (data === undefined || data.attributesToCreate === undefined)
+            return;
 
           this.createToolSupport();
         }
@@ -826,7 +1029,7 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test create');
   }
 
-  deleteToolSupportWithDialog() {
+  deleteToolSupportWithDialog(): void {
     let data: DeleteAttributeDialogData = {
       title: 'Delete an existing tool support option',
       confirmButtonText: 'Delete',
@@ -848,18 +1051,32 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test delete');
   }
 
-  createResultsQualityWithDialog() {
-    let data: CreateAttributeDialogData = {
+  createResultsQualityWithDialog(): void {
+    let data: CreateAttributeDialogData<ResultsQuality> = {
       title: 'Create a new quality of results option',
       confirmButtonText: 'Create',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.resultsQualities,
+      createAttributeConfigs: [
+        {
+          inputTitle: 'name',
+          isTextArea: false,
+          validators: [Validators.required]
+        },
+        {
+          inputTitle: 'description',
+          isTextArea: true,
+          validators: null
+        }
+      ]
     };
     this.utilService
       .createDialog(CreateAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: CreateAttributeDialogData) => {
-          if (data === undefined) return;
+        next: (data: CreateAttributeDialogData<ResultsQuality>) => {
+          if (data === undefined || data.attributesToCreate === undefined)
+            return;
 
           this.createResultsQuality();
         }
@@ -870,7 +1087,7 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test create');
   }
 
-  deleteResultsQualityWithDialog() {
+  deleteResultsQualityWithDialog(): void {
     let data: DeleteAttributeDialogData = {
       title: 'Delete an existing quality of results option',
       confirmButtonText: 'Delete',
@@ -892,18 +1109,32 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test delete');
   }
 
-  createAccuracyPrecisionWithDialog() {
-    let data: CreateAttributeDialogData = {
+  createAccuracyPrecisionWithDialog(): void {
+    let data: CreateAttributeDialogData<AccuracyPrecision> = {
       title: 'Create a new accuracy/precision option',
       confirmButtonText: 'Create',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.accuracyPrecisions,
+      createAttributeConfigs: [
+        {
+          inputTitle: 'name',
+          isTextArea: false,
+          validators: [Validators.required]
+        },
+        {
+          inputTitle: 'description',
+          isTextArea: true,
+          validators: null
+        }
+      ]
     };
     this.utilService
       .createDialog(CreateAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: CreateAttributeDialogData) => {
-          if (data === undefined) return;
+        next: (data: CreateAttributeDialogData<AccuracyPrecision>) => {
+          if (data === undefined || data.attributesToCreate === undefined)
+            return;
 
           this.createAccuracyPrecision();
         }
@@ -914,7 +1145,7 @@ export class AttributeOptionsService {
     this.utilService.callSnackBar('Test create');
   }
 
-  deleteAccuracyPrecisionWithDialog() {
+  deleteAccuracyPrecisionWithDialog(): void {
     let data: DeleteAttributeDialogData = {
       title: 'Delete an existing accuracy/precision option',
       confirmButtonText: 'Delete',

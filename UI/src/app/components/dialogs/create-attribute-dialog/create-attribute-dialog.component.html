@@ -2,13 +2,32 @@
   <div mat-dialog-title>
     <h3>{{data.title}}</h3>
   </div>
-  <div mat-dialog-content>
-    <p>TODO</p>
+  <div mat-dialog-content fxLayout='column'>
+    <mat-form-field *ngFor='let field of createAttributeFields; let i = index' fxFlex appearance='fill'>
+      <mat-label>{{field.config.inputTitle}}</mat-label>
+      <div *ngIf='field.config.isTextArea; then textarea else input'></div>
+      <ng-template #input>
+        <input matInput type='text' (change)='onChangeAttribute($event, i)' [value]='field.value'
+               [formControl]='field.formControl'>
+      </ng-template>
+      <ng-template #textarea>
+        <textarea matInput type='text' (change)='onChangeAttribute($event, i)' [value]='field.value'
+                  [formControl]='field.formControl'></textarea>
+      </ng-template>
+      <button *ngIf='field.value' matSuffix mat-icon-button aria-label='Clear' (click)="field.value=''">
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-error *ngIf="field.formControl.hasError('required')">
+        Field is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
   </div>
   <div mat-dialog-actions>
     <button mat-raised-button color='primary'
-            [mat-dialog-close]='data'>{{data.confirmButtonText}}</button>
+            (click)='onConfirmClicked()' [disabled]='!isConfirmButtonActive()'>{{data.confirmButtonText}}</button>
     <button mat-raised-button color='warn'
             (click)='onCancelClicked()'>{{data.cancelButtonText}}</button>
   </div>
 </div>
+
+
