@@ -331,18 +331,21 @@ export class AttributeOptionsService {
   }
 
   deleteDomainArtifactWithDialog(): void {
-    let data: DeleteAttributeDialogData = {
+    let data: DeleteAttributeDialogData<DomainArtifactInput> = {
       title: 'Delete an existing domain artifact input option',
       confirmButtonText: 'Delete',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.domainArtifacts,
+      getDisplayName: (value: DomainArtifactInput) => value.name
     };
     this.utilService
       .createDialog(DeleteAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: DeleteAttributeDialogData) => {
+        next: (data: DeleteAttributeDialogData<DomainArtifactInput>) => {
           if (data === undefined) return;
 
+          console.log(data);
           this.deleteDomainArtifact();
         }
       });
@@ -391,16 +394,18 @@ export class AttributeOptionsService {
   }
 
   deleteRuntimeArtifactWithDialog(): void {
-    let data: DeleteAttributeDialogData = {
+    let data: DeleteAttributeDialogData<RuntimeArtifactInput> = {
       title: 'Delete an existing runtime artifact input option',
       confirmButtonText: 'Delete',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.runtimeArtifacts,
+      getDisplayName: (value: RuntimeArtifactInput) => value.name
     };
     this.utilService
       .createDialog(DeleteAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: DeleteAttributeDialogData) => {
+        next: (data: DeleteAttributeDialogData<RuntimeArtifactInput>) => {
           if (data === undefined) return;
 
           this.deleteRuntimeArtifact();
@@ -451,16 +456,18 @@ export class AttributeOptionsService {
   }
 
   deleteModelArtifactWithDialog(): void {
-    let data: DeleteAttributeDialogData = {
+    let data: DeleteAttributeDialogData<ModelArtifactInput> = {
       title: 'Delete an existing model artifact input option',
       confirmButtonText: 'Delete',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.modelArtifacts,
+      getDisplayName: (value: ModelArtifactInput) => value.name
     };
     this.utilService
       .createDialog(DeleteAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: DeleteAttributeDialogData) => {
+        next: (data: DeleteAttributeDialogData<ModelArtifactInput>) => {
           if (data === undefined) return;
 
           this.deleteModelArtifact();
@@ -520,16 +527,19 @@ export class AttributeOptionsService {
   }
 
   deleteExecutableWithDialog(): void {
-    let data: DeleteAttributeDialogData = {
+    let data: DeleteAttributeDialogData<ExecutableInput> = {
       title: 'Delete an existing executable input option',
       confirmButtonText: 'Delete',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.executables,
+      getDisplayName: (value: ExecutableInput) =>
+        `${value.name}: ${value.language}`
     };
     this.utilService
       .createDialog(DeleteAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: DeleteAttributeDialogData) => {
+        next: (data: DeleteAttributeDialogData<ExecutableInput>) => {
           if (data === undefined) return;
 
           this.deleteExecutable();
@@ -552,6 +562,13 @@ export class AttributeOptionsService {
           title: 'name',
           variableName: 'name',
           isTextArea: false,
+          validators: [Validators.required]
+        },
+        {
+          title: 'category',
+          variableName: 'category',
+          isTextArea: false,
+          autocompleteActive: true,
           validators: [Validators.required]
         },
         {
@@ -580,16 +597,18 @@ export class AttributeOptionsService {
   }
 
   deleteQualityWithDialog(): void {
-    let data: DeleteAttributeDialogData = {
+    let data: DeleteAttributeDialogData<Quality> = {
       title: 'Delete an existing process quality option',
       confirmButtonText: 'Delete',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.qualities,
+      getDisplayName: (value: Quality) => `${value.category}: ${value.name}`
     };
     this.utilService
       .createDialog(DeleteAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: DeleteAttributeDialogData) => {
+        next: (data: DeleteAttributeDialogData<Quality>) => {
           if (data === undefined) return;
 
           this.deleteQuality();
@@ -640,16 +659,18 @@ export class AttributeOptionsService {
   }
 
   deleteDirectionWithDialog(): void {
-    let data: DeleteAttributeDialogData = {
+    let data: DeleteAttributeDialogData<Direction> = {
       title: 'Delete an existing process direction option',
       confirmButtonText: 'Delete',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.directions,
+      getDisplayName: (value: Direction) => value.name
     };
     this.utilService
       .createDialog(DeleteAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: DeleteAttributeDialogData) => {
+        next: (data: DeleteAttributeDialogData<Direction>) => {
           if (data === undefined) return;
 
           this.deleteDirection();
@@ -700,16 +721,18 @@ export class AttributeOptionsService {
   }
 
   deleteAutomationLevelWithDialog(): void {
-    let data: DeleteAttributeDialogData = {
+    let data: DeleteAttributeDialogData<AutomationLevel> = {
       title: 'Delete an existing process level of automation option',
       confirmButtonText: 'Delete',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.automationLevels,
+      getDisplayName: (value: AutomationLevel) => value.name
     };
     this.utilService
       .createDialog(DeleteAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: DeleteAttributeDialogData) => {
+        next: (data: DeleteAttributeDialogData<AutomationLevel>) => {
           if (data === undefined) return;
 
           this.deleteAutomationLevel();
@@ -760,16 +783,18 @@ export class AttributeOptionsService {
   }
 
   deleteAnalysisTypeWithDialog(): void {
-    let data: DeleteAttributeDialogData = {
+    let data: DeleteAttributeDialogData<AnalysisType> = {
       title: 'Delete an existing process analysis type option',
       confirmButtonText: 'Delete',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.analysisTypes,
+      getDisplayName: (value: AnalysisType) => value.name
     };
     this.utilService
       .createDialog(DeleteAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: DeleteAttributeDialogData) => {
+        next: (data: DeleteAttributeDialogData<AnalysisType>) => {
           if (data === undefined) return;
 
           this.deleteAnalysisType();
@@ -820,16 +845,18 @@ export class AttributeOptionsService {
   }
 
   deleteTechniqueWithDialog(): void {
-    let data: DeleteAttributeDialogData = {
+    let data: DeleteAttributeDialogData<Technique> = {
       title: 'Delete an existing process technique option',
       confirmButtonText: 'Delete',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.techniques,
+      getDisplayName: (value: Technique) => value.name
     };
     this.utilService
       .createDialog(DeleteAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: DeleteAttributeDialogData) => {
+        next: (data: DeleteAttributeDialogData<Technique>) => {
           if (data === undefined) return;
 
           this.deleteTechnique();
@@ -880,16 +907,18 @@ export class AttributeOptionsService {
   }
 
   deleteArchitectureWithDialog(): void {
-    let data: DeleteAttributeDialogData = {
+    let data: DeleteAttributeDialogData<Architecture> = {
       title: 'Delete an existing output architecture option',
       confirmButtonText: 'Delete',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.architectures,
+      getDisplayName: (value: Architecture) => value.name
     };
     this.utilService
       .createDialog(DeleteAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: DeleteAttributeDialogData) => {
+        next: (data: DeleteAttributeDialogData<Architecture>) => {
           if (data === undefined) return;
 
           this.deleteArchitecture();
@@ -940,16 +969,18 @@ export class AttributeOptionsService {
   }
 
   deleteServiceTypeWithDialog(): void {
-    let data: DeleteAttributeDialogData = {
+    let data: DeleteAttributeDialogData<ServiceType> = {
       title: 'Delete an existing output service type option',
       confirmButtonText: 'Delete',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.serviceTypes,
+      getDisplayName: (value: ServiceType) => value.name
     };
     this.utilService
       .createDialog(DeleteAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: DeleteAttributeDialogData) => {
+        next: (data: DeleteAttributeDialogData<ServiceType>) => {
           if (data === undefined) return;
 
           this.deleteServiceType();
@@ -1000,16 +1031,18 @@ export class AttributeOptionsService {
   }
 
   deleteValidationMethodWithDialog(): void {
-    let data: DeleteAttributeDialogData = {
+    let data: DeleteAttributeDialogData<ValidationMethod> = {
       title: 'Delete an existing validation method option',
       confirmButtonText: 'Delete',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.validationMethods,
+      getDisplayName: (value: ValidationMethod) => value.name
     };
     this.utilService
       .createDialog(DeleteAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: DeleteAttributeDialogData) => {
+        next: (data: DeleteAttributeDialogData<ValidationMethod>) => {
           if (data === undefined) return;
 
           this.deleteValidationMethod();
@@ -1060,16 +1093,18 @@ export class AttributeOptionsService {
   }
 
   deleteToolSupportWithDialog(): void {
-    let data: DeleteAttributeDialogData = {
+    let data: DeleteAttributeDialogData<ToolSupport> = {
       title: 'Delete an existing tool support option',
       confirmButtonText: 'Delete',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.toolSupports,
+      getDisplayName: (value: ToolSupport) => value.name
     };
     this.utilService
       .createDialog(DeleteAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: DeleteAttributeDialogData) => {
+        next: (data: DeleteAttributeDialogData<ToolSupport>) => {
           if (data === undefined) return;
 
           this.deleteToolSupport();
@@ -1120,16 +1155,18 @@ export class AttributeOptionsService {
   }
 
   deleteResultsQualityWithDialog(): void {
-    let data: DeleteAttributeDialogData = {
+    let data: DeleteAttributeDialogData<ResultsQuality> = {
       title: 'Delete an existing quality of results option',
       confirmButtonText: 'Delete',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.resultsQualities,
+      getDisplayName: (value: ResultsQuality) => value.name
     };
     this.utilService
       .createDialog(DeleteAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: DeleteAttributeDialogData) => {
+        next: (data: DeleteAttributeDialogData<ResultsQuality>) => {
           if (data === undefined) return;
 
           this.deleteResultsQuality();
@@ -1180,16 +1217,18 @@ export class AttributeOptionsService {
   }
 
   deleteAccuracyPrecisionWithDialog(): void {
-    let data: DeleteAttributeDialogData = {
+    let data: DeleteAttributeDialogData<AccuracyPrecision> = {
       title: 'Delete an existing accuracy/precision option',
       confirmButtonText: 'Delete',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.accuracyPrecisions,
+      getDisplayName: (value: AccuracyPrecision) => value.name
     };
     this.utilService
       .createDialog(DeleteAttributeDialogComponent, data)
       .afterClosed()
       .subscribe({
-        next: (data: DeleteAttributeDialogData) => {
+        next: (data: DeleteAttributeDialogData<AccuracyPrecision>) => {
           if (data === undefined) return;
 
           this.deleteAccuracyPrecision();

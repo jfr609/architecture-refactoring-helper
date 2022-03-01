@@ -3,11 +3,16 @@
     <h3>{{data.title}}</h3>
   </div>
   <div mat-dialog-content>
-    <p>TODO</p>
+    <mat-selection-list #attributes [(ngModel)]='selectedAttributes'>
+      <mat-list-option *ngFor='let attribute of data.currentAttributeList' [value]='attribute'>
+        {{data.getDisplayName(attribute)}}
+      </mat-list-option>
+    </mat-selection-list>
   </div>
   <div mat-dialog-actions>
     <button mat-raised-button color='primary'
-            [mat-dialog-close]='data'>{{data.confirmButtonText}}</button>
+            [disabled]='attributes.selectedOptions.selected.length < 1'
+            (click)='onConfirmClicked()'>{{data.confirmButtonText}}</button>
     <button mat-raised-button color='warn'
             (click)='onCancelClicked()'>{{data.cancelButtonText}}</button>
   </div>
