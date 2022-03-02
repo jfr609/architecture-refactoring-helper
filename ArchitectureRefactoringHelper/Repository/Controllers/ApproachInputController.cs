@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Repository.Exceptions;
 using Repository.Models.Database;
 using Repository.Services;
 
@@ -7,6 +8,7 @@ namespace Repository.Controllers;
 [ApiController]
 [Route($"api/v{Constants.ApiVersion}/{Constants.ApiSubPathInputs}")]
 [Produces("application/json")]
+[TypeFilter(typeof(ServiceExceptionFilter))]
 public class ApproachInputController : ControllerBase
 {
     private readonly ApproachInputService _inputService;

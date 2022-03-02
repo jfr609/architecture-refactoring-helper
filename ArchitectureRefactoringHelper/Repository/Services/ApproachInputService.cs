@@ -164,7 +164,7 @@ public class ApproachInputService
     {
         var db = new RefactoringApproachContext();
         var deleteSuccess = Utils.DeleteEntity<DomainArtifactInput>(ref db, inputName);
-        if (deleteSuccess)
+        if (!deleteSuccess)
             throw new ElementNotFoundException(
                 $"Domain artifact with name {inputName} could not be deleted because entity does not exist");
     }
@@ -173,7 +173,7 @@ public class ApproachInputService
     {
         var db = new RefactoringApproachContext();
         var deleteSuccess = Utils.DeleteEntity<RuntimeArtifactInput>(ref db, inputName);
-        if (deleteSuccess)
+        if (!deleteSuccess)
             throw new ElementNotFoundException(
                 $"Runtime artifact with name {inputName} could not be deleted because entity does not exist");
     }
@@ -182,7 +182,7 @@ public class ApproachInputService
     {
         var db = new RefactoringApproachContext();
         var deleteSuccess = Utils.DeleteEntity<ModelArtifactInput>(ref db, inputName);
-        if (deleteSuccess)
+        if (!deleteSuccess)
             throw new ElementNotFoundException(
                 $"Model artifact with name {inputName} could not be deleted because entity does not exist");
     }
@@ -191,7 +191,7 @@ public class ApproachInputService
     {
         var db = new RefactoringApproachContext();
         var deleteSuccess = Utils.DeleteEntity<ExecutableInput>(ref db, inputName, language);
-        if (deleteSuccess)
+        if (!deleteSuccess)
             throw new ElementNotFoundException(
                 $"Executable with name {inputName} and language {language} could not be deleted because entity does not exist");
     }

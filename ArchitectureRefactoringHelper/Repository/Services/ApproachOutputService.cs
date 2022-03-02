@@ -163,7 +163,7 @@ public class ApproachOutputService
     {
         var db = new RefactoringApproachContext();
         var deleteSuccess = Utils.DeleteEntity<Architecture>(ref db, name);
-        if (deleteSuccess)
+        if (!deleteSuccess)
             throw new ElementNotFoundException(
                 $"Output architecture with name {name} could not be deleted because entity does not exist");
     }
@@ -172,7 +172,7 @@ public class ApproachOutputService
     {
         var db = new RefactoringApproachContext();
         var deleteSuccess = Utils.DeleteEntity<ServiceType>(ref db, name);
-        if (deleteSuccess)
+        if (!deleteSuccess)
             throw new ElementNotFoundException(
                 $"Output service type with name {name} could not be deleted because entity does not exist");
     }

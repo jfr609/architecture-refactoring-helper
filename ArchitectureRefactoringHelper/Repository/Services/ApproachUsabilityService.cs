@@ -25,7 +25,6 @@ public class ApproachUsabilityService
             .ThenBy(e => e.Name == Constants.AttributeDefaultMedium)
             .ThenBy(e => e.Name == Constants.AttributeDefaultHigh)
             .ToList();
-        ;
     }
 
     public IEnumerable<ToolSupport> ListToolSupports()
@@ -195,7 +194,7 @@ public class ApproachUsabilityService
     {
         var db = new RefactoringApproachContext();
         var deleteSuccess = Utils.DeleteEntity<ResultsQuality>(ref db, name);
-        if (deleteSuccess)
+        if (!deleteSuccess)
             throw new ElementNotFoundException(
                 $"Results quality with name {name} could not be deleted because entity does not exist");
     }
@@ -204,7 +203,7 @@ public class ApproachUsabilityService
     {
         var db = new RefactoringApproachContext();
         var deleteSuccess = Utils.DeleteEntity<ToolSupport>(ref db, name);
-        if (deleteSuccess)
+        if (!deleteSuccess)
             throw new ElementNotFoundException(
                 $"Tool support with name {name} could not be deleted because entity does not exist");
     }
@@ -213,7 +212,7 @@ public class ApproachUsabilityService
     {
         var db = new RefactoringApproachContext();
         var deleteSuccess = Utils.DeleteEntity<AccuracyPrecision>(ref db, name);
-        if (deleteSuccess)
+        if (!deleteSuccess)
             throw new ElementNotFoundException(
                 $"Accuracy precision with name {name} could not be deleted because entity does not exist");
     }
@@ -222,7 +221,7 @@ public class ApproachUsabilityService
     {
         var db = new RefactoringApproachContext();
         var deleteSuccess = Utils.DeleteEntity<ValidationMethod>(ref db, name);
-        if (deleteSuccess)
+        if (!deleteSuccess)
             throw new ElementNotFoundException(
                 $"Executable with name {name} could not be deleted because entity does not exist");
     }

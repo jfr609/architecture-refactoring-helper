@@ -316,17 +316,18 @@ export class AttributeOptionsService {
   }
 
   createDomainArtifact(domainArtifact: DomainArtifactInput): Promise<void> {
-    this.utilService.callSnackBar('Test create');
-
     return lastValueFrom(
       this.inputService.addDomainArtifact({ body: domainArtifact })
     )
       .then((value: DomainArtifactInput) => {
         this.domainArtifacts.push(value);
+        this.utilService.callSnackBar('Created domain artifact input.');
       })
       .catch((reason) => {
         console.log(reason);
-        this.utilService.callSnackBar('');
+        this.utilService.callSnackBar(
+          'Domain artifact input could ne be created.'
+        );
       });
   }
 
@@ -343,16 +344,32 @@ export class AttributeOptionsService {
       .afterClosed()
       .subscribe({
         next: (data: DeleteAttributeDialogData<DomainArtifactInput>) => {
-          if (data === undefined) return;
+          if (data === undefined || data.attributesToDelete === undefined)
+            return;
 
-          console.log(data);
-          this.deleteDomainArtifact();
+          const deletePromises: Promise<void>[] = [];
+          for (const attribute of data.attributesToDelete) {
+            console.log('delete');
+            deletePromises.push(this.deleteDomainArtifact(attribute));
+          }
+          Promise.all(deletePromises);
         }
       });
   }
 
-  deleteDomainArtifact() {
-    this.utilService.callSnackBar('Test delete');
+  deleteDomainArtifact(domainArtifact: DomainArtifactInput) {
+    return lastValueFrom(
+      this.inputService.deleteDomainArtifact({ name: domainArtifact.name })
+    )
+      .then(() => {
+        this.utilService.callSnackBar('Deleted domain artifact input.');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Domain artifact input could not be deleted.'
+        );
+      });
   }
 
   createRuntimeArtifactWithDialog(): void {
@@ -406,7 +423,8 @@ export class AttributeOptionsService {
       .afterClosed()
       .subscribe({
         next: (data: DeleteAttributeDialogData<RuntimeArtifactInput>) => {
-          if (data === undefined) return;
+          if (data === undefined || data.attributesToDelete === undefined)
+            return;
 
           this.deleteRuntimeArtifact();
         }
@@ -468,7 +486,8 @@ export class AttributeOptionsService {
       .afterClosed()
       .subscribe({
         next: (data: DeleteAttributeDialogData<ModelArtifactInput>) => {
-          if (data === undefined) return;
+          if (data === undefined || data.attributesToDelete === undefined)
+            return;
 
           this.deleteModelArtifact();
         }
@@ -540,7 +559,8 @@ export class AttributeOptionsService {
       .afterClosed()
       .subscribe({
         next: (data: DeleteAttributeDialogData<ExecutableInput>) => {
-          if (data === undefined) return;
+          if (data === undefined || data.attributesToDelete === undefined)
+            return;
 
           this.deleteExecutable();
         }
@@ -609,7 +629,8 @@ export class AttributeOptionsService {
       .afterClosed()
       .subscribe({
         next: (data: DeleteAttributeDialogData<Quality>) => {
-          if (data === undefined) return;
+          if (data === undefined || data.attributesToDelete === undefined)
+            return;
 
           this.deleteQuality();
         }
@@ -671,7 +692,8 @@ export class AttributeOptionsService {
       .afterClosed()
       .subscribe({
         next: (data: DeleteAttributeDialogData<Direction>) => {
-          if (data === undefined) return;
+          if (data === undefined || data.attributesToDelete === undefined)
+            return;
 
           this.deleteDirection();
         }
@@ -733,7 +755,8 @@ export class AttributeOptionsService {
       .afterClosed()
       .subscribe({
         next: (data: DeleteAttributeDialogData<AutomationLevel>) => {
-          if (data === undefined) return;
+          if (data === undefined || data.attributesToDelete === undefined)
+            return;
 
           this.deleteAutomationLevel();
         }
@@ -795,7 +818,8 @@ export class AttributeOptionsService {
       .afterClosed()
       .subscribe({
         next: (data: DeleteAttributeDialogData<AnalysisType>) => {
-          if (data === undefined) return;
+          if (data === undefined || data.attributesToDelete === undefined)
+            return;
 
           this.deleteAnalysisType();
         }
@@ -857,7 +881,8 @@ export class AttributeOptionsService {
       .afterClosed()
       .subscribe({
         next: (data: DeleteAttributeDialogData<Technique>) => {
-          if (data === undefined) return;
+          if (data === undefined || data.attributesToDelete === undefined)
+            return;
 
           this.deleteTechnique();
         }
@@ -919,7 +944,8 @@ export class AttributeOptionsService {
       .afterClosed()
       .subscribe({
         next: (data: DeleteAttributeDialogData<Architecture>) => {
-          if (data === undefined) return;
+          if (data === undefined || data.attributesToDelete === undefined)
+            return;
 
           this.deleteArchitecture();
         }
@@ -981,7 +1007,8 @@ export class AttributeOptionsService {
       .afterClosed()
       .subscribe({
         next: (data: DeleteAttributeDialogData<ServiceType>) => {
-          if (data === undefined) return;
+          if (data === undefined || data.attributesToDelete === undefined)
+            return;
 
           this.deleteServiceType();
         }
@@ -1043,7 +1070,8 @@ export class AttributeOptionsService {
       .afterClosed()
       .subscribe({
         next: (data: DeleteAttributeDialogData<ValidationMethod>) => {
-          if (data === undefined) return;
+          if (data === undefined || data.attributesToDelete === undefined)
+            return;
 
           this.deleteValidationMethod();
         }
@@ -1105,7 +1133,8 @@ export class AttributeOptionsService {
       .afterClosed()
       .subscribe({
         next: (data: DeleteAttributeDialogData<ToolSupport>) => {
-          if (data === undefined) return;
+          if (data === undefined || data.attributesToDelete === undefined)
+            return;
 
           this.deleteToolSupport();
         }
@@ -1167,7 +1196,8 @@ export class AttributeOptionsService {
       .afterClosed()
       .subscribe({
         next: (data: DeleteAttributeDialogData<ResultsQuality>) => {
-          if (data === undefined) return;
+          if (data === undefined || data.attributesToDelete === undefined)
+            return;
 
           this.deleteResultsQuality();
         }
@@ -1229,7 +1259,8 @@ export class AttributeOptionsService {
       .afterClosed()
       .subscribe({
         next: (data: DeleteAttributeDialogData<AccuracyPrecision>) => {
-          if (data === undefined) return;
+          if (data === undefined || data.attributesToDelete === undefined)
+            return;
 
           this.deleteAccuracyPrecision();
         }

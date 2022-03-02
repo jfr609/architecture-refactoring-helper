@@ -261,7 +261,7 @@ public class ApproachProcessService
     {
         var db = new RefactoringApproachContext();
         var deleteSuccess = Utils.DeleteEntity<Quality>(ref db, name);
-        if (deleteSuccess)
+        if (!deleteSuccess)
             throw new ElementNotFoundException(
                 $"Process quality with name {name} could not be deleted because entity does not exist");
     }
@@ -270,7 +270,7 @@ public class ApproachProcessService
     {
         var db = new RefactoringApproachContext();
         var deleteSuccess = Utils.DeleteEntity<Direction>(ref db, name);
-        if (deleteSuccess)
+        if (!deleteSuccess)
             throw new ElementNotFoundException(
                 $"Process direction with name {name} could not be deleted because entity does not exist");
     }
@@ -279,7 +279,7 @@ public class ApproachProcessService
     {
         var db = new RefactoringApproachContext();
         var deleteSuccess = Utils.DeleteEntity<AutomationLevel>(ref db, name);
-        if (deleteSuccess)
+        if (!deleteSuccess)
             throw new ElementNotFoundException(
                 $"Process automation level with name {name} could not be deleted because entity does not exist");
     }
@@ -288,7 +288,7 @@ public class ApproachProcessService
     {
         var db = new RefactoringApproachContext();
         var deleteSuccess = Utils.DeleteEntity<AnalysisType>(ref db, name);
-        if (deleteSuccess)
+        if (!deleteSuccess)
             throw new ElementNotFoundException(
                 $"Process analysis type with name {name} could not be deleted because entity does not exist");
     }
@@ -297,7 +297,7 @@ public class ApproachProcessService
     {
         var db = new RefactoringApproachContext();
         var deleteSuccess = Utils.DeleteEntity<Technique>(ref db, name);
-        if (deleteSuccess)
+        if (!deleteSuccess)
             throw new ElementNotFoundException(
                 $"Process technique with name {name} could not be deleted because entity does not exist");
     }
