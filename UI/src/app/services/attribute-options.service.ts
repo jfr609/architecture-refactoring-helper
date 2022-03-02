@@ -30,6 +30,7 @@ import {
   DeleteAttributeDialogData
 } from '../components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
 import { Validators } from '@angular/forms';
+import { removeValueFromArray } from '../utils/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -82,199 +83,197 @@ export class AttributeOptionsService {
     return Promise.all(dataLoadingPromises);
   }
 
-  requestDomainArtifacts(): Promise<void> {
-    return lastValueFrom(this.inputService.listDomainArtifacts())
-      .then((value: DomainArtifactInput[]) => {
-        this.domainArtifacts = value;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.utilService.callSnackBar(
-          'Error! Domain artifact inputs could not be retrieved.'
-        );
-      });
+  async requestDomainArtifacts(): Promise<void> {
+    try {
+      this.domainArtifacts = await lastValueFrom(
+        this.inputService.listDomainArtifacts()
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+        'Error! Domain artifact inputs could not be retrieved.'
+      );
+    }
   }
 
-  requestRuntimeArtifacts(): Promise<void> {
-    return lastValueFrom(this.inputService.listRuntimeArtifact())
-      .then((value: RuntimeArtifactInput[]) => {
-        this.runtimeArtifacts = value;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.utilService.callSnackBar(
-          'Error! Runtime artifact inputs could not be retrieved.'
-        );
-      });
+  async requestRuntimeArtifacts(): Promise<void> {
+    try {
+      this.runtimeArtifacts = await lastValueFrom(
+        this.inputService.listRuntimeArtifact()
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+        'Error! Runtime artifact inputs could not be retrieved.'
+      );
+    }
   }
 
-  requestModelArtifacts(): Promise<void> {
-    return lastValueFrom(this.inputService.listModelArtifacts())
-      .then((value: ModelArtifactInput[]) => {
-        this.modelArtifacts = value;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.utilService.callSnackBar(
-          'Error! Model artifact inputs could not be retrieved.'
-        );
-      });
+  async requestModelArtifacts(): Promise<void> {
+    try {
+      this.modelArtifacts = await lastValueFrom(
+        this.inputService.listModelArtifacts()
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+        'Error! Model artifact inputs could not be retrieved.'
+      );
+    }
   }
 
-  requestExecutables(): Promise<void> {
-    return lastValueFrom(this.inputService.listExecutables())
-      .then((value: ExecutableInput[]) => {
-        this.executables = value;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.utilService.callSnackBar(
-          'Error! Executable inputs could not be retrieved.'
-        );
-      });
+  async requestExecutables(): Promise<void> {
+    try {
+      this.executables = await lastValueFrom(
+        this.inputService.listExecutables()
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+        'Error! Executable inputs could not be retrieved.'
+      );
+    }
   }
 
-  requestQualities(): Promise<void> {
-    return lastValueFrom(this.processService.listQualities())
-      .then((value: Quality[]) => {
-        this.qualities = value;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.utilService.callSnackBar(
-          'Error! Process qualities could not be retrieved.'
-        );
-      });
+  async requestQualities(): Promise<void> {
+    try {
+      this.qualities = await lastValueFrom(this.processService.listQualities());
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+        'Error! Process qualities could not be retrieved.'
+      );
+    }
   }
 
-  requestDirections(): Promise<void> {
-    return lastValueFrom(this.processService.listDirections())
-      .then((value: Direction[]) => {
-        this.directions = value;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.utilService.callSnackBar(
-          'Error! Process directions could not be retrieved.'
-        );
-      });
+  async requestDirections(): Promise<void> {
+    try {
+      this.directions = await lastValueFrom(
+        this.processService.listDirections()
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+        'Error! Process directions could not be retrieved.'
+      );
+    }
   }
 
-  requestAutomationLevels(): Promise<void> {
-    return lastValueFrom(this.processService.listAutomationLevels())
-      .then((value: AutomationLevel[]) => {
-        this.automationLevels = value;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.utilService.callSnackBar(
-          'Error! Process automation levels could not be retrieved.'
-        );
-      });
+  async requestAutomationLevels(): Promise<void> {
+    try {
+      this.automationLevels = await lastValueFrom(
+        this.processService.listAutomationLevels()
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+        'Error! Process automation levels could not be retrieved.'
+      );
+    }
   }
 
-  requestAnalysisTypes(): Promise<void> {
-    return lastValueFrom(this.processService.listAnalysisTypes())
-      .then((value: AnalysisType[]) => {
-        this.analysisTypes = value;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.utilService.callSnackBar(
-          'Error! Process analysis types could not be retrieved.'
-        );
-      });
+  async requestAnalysisTypes(): Promise<void> {
+    try {
+      this.analysisTypes = await lastValueFrom(
+        this.processService.listAnalysisTypes()
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+        'Error! Process analysis types could not be retrieved.'
+      );
+    }
   }
 
-  requestTechniques(): Promise<void> {
-    return lastValueFrom(this.processService.listTechniques())
-      .then((value: Technique[]) => {
-        this.techniques = value;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.utilService.callSnackBar(
-          'Error! Process techniques could not be retrieved.'
-        );
-      });
+  async requestTechniques(): Promise<void> {
+    try {
+      this.techniques = await lastValueFrom(
+        this.processService.listTechniques()
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+        'Error! Process techniques could not be retrieved.'
+      );
+    }
   }
 
-  requestArchitectures(): Promise<void> {
-    return lastValueFrom(this.outputService.listArchitectures())
-      .then((value: Architecture[]) => {
-        this.architectures = value;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.utilService.callSnackBar(
-          'Error! Output architectures could not be retrieved.'
-        );
-      });
+  async requestArchitectures(): Promise<void> {
+    try {
+      this.architectures = await lastValueFrom(
+        this.outputService.listArchitectures()
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+        'Error! Output architectures could not be retrieved.'
+      );
+    }
   }
 
-  requestServiceTypes(): Promise<void> {
-    return lastValueFrom(this.outputService.listServiceTypes())
-      .then((value: ServiceType[]) => {
-        this.serviceTypes = value;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.utilService.callSnackBar(
-          'Error! Output service types could not be retrieved.'
-        );
-      });
+  async requestServiceTypes(): Promise<void> {
+    try {
+      this.serviceTypes = await lastValueFrom(
+        this.outputService.listServiceTypes()
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+        'Error! Output service types could not be retrieved.'
+      );
+    }
   }
 
-  requestValidationMethods(): Promise<void> {
-    return lastValueFrom(this.usabilityService.listValidationMethods())
-      .then((value: ValidationMethod[]) => {
-        this.validationMethods = value;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.utilService.callSnackBar(
-          'Error! Validation method options could not be retrieved.'
-        );
-      });
+  async requestValidationMethods(): Promise<void> {
+    try {
+      this.validationMethods = await lastValueFrom(
+        this.usabilityService.listValidationMethods()
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+        'Error! Validation method options could not be retrieved.'
+      );
+    }
   }
 
-  requestToolSupports(): Promise<void> {
-    return lastValueFrom(this.usabilityService.listToolSupports())
-      .then((value: ToolSupport[]) => {
-        this.toolSupports = value;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.utilService.callSnackBar(
-          'Error! Tool support options could not be retrieved.'
-        );
-      });
+  async requestToolSupports(): Promise<void> {
+    try {
+      this.toolSupports = await lastValueFrom(
+        this.usabilityService.listToolSupports()
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+        'Error! Tool support options could not be retrieved.'
+      );
+    }
   }
 
-  requestResultsQualities(): Promise<void> {
-    return lastValueFrom(this.usabilityService.listResultsQualities())
-      .then((value: ResultsQuality[]) => {
-        this.resultsQualities = value;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.utilService.callSnackBar(
-          'Error! Results quality options could not be retrieved.'
-        );
-      });
+  async requestResultsQualities(): Promise<void> {
+    try {
+      this.resultsQualities = await lastValueFrom(
+        this.usabilityService.listResultsQualities()
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+        'Error! Results quality options could not be retrieved.'
+      );
+    }
   }
 
-  requestAccuracyPrecisions(): Promise<void> {
-    return lastValueFrom(this.usabilityService.listAccuracyPrecisions())
-      .then((value: AccuracyPrecision[]) => {
-        this.accuracyPrecisions = value;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.utilService.callSnackBar(
-          'Error! Accuracy/Precision options could not be retrieved.'
-        );
-      });
+  async requestAccuracyPrecisions(): Promise<void> {
+    try {
+      this.accuracyPrecisions = await lastValueFrom(
+        this.usabilityService.listAccuracyPrecisions()
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+        'Error! Accuracy/Precision options could not be retrieved.'
+      );
+    }
   }
 
   createDomainArtifactWithDialog(): void {
@@ -306,29 +305,36 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          const createPromises: Promise<void>[] = [];
-          for (const attribute of data.attributesToCreate) {
-            createPromises.push(this.createDomainArtifact(attribute));
-          }
-          Promise.all(createPromises);
+          this.createDomainArtifacts(data.attributesToCreate);
         }
       });
   }
 
-  createDomainArtifact(domainArtifact: DomainArtifactInput): Promise<void> {
-    return lastValueFrom(
-      this.inputService.addDomainArtifact({ body: domainArtifact })
-    )
-      .then((value: DomainArtifactInput) => {
-        this.domainArtifacts.push(value);
-        this.utilService.callSnackBar('Created domain artifact input.');
+  createDomainArtifacts(domainArtifacts: DomainArtifactInput[]): void {
+    const createPromises: Promise<void>[] = [];
+    for (const attribute of domainArtifacts) {
+      createPromises.push(this.createDomainArtifact(attribute));
+    }
+    Promise.all(createPromises)
+      .then(() => {
+        this.domainArtifacts = [...this.domainArtifacts];
+        this.utilService.callSnackBar('Created domain artifact input(s).');
       })
       .catch((reason) => {
         console.log(reason);
         this.utilService.callSnackBar(
-          'Domain artifact input could ne be created.'
+          'Error! Some domain artifact inputs could not be created.'
         );
       });
+  }
+
+  private async createDomainArtifact(
+    domainArtifact: DomainArtifactInput
+  ): Promise<void> {
+    const value: DomainArtifactInput = await lastValueFrom(
+      this.inputService.addDomainArtifact({ body: domainArtifact })
+    );
+    this.domainArtifacts.push(value);
   }
 
   deleteDomainArtifactWithDialog(): void {
@@ -347,29 +353,37 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          const deletePromises: Promise<void>[] = [];
-          for (const attribute of data.attributesToDelete) {
-            console.log('delete');
-            deletePromises.push(this.deleteDomainArtifact(attribute));
-          }
-          Promise.all(deletePromises);
+          this.deleteDomainArtifacts(data.attributesToDelete);
         }
       });
   }
 
-  deleteDomainArtifact(domainArtifact: DomainArtifactInput) {
-    return lastValueFrom(
-      this.inputService.deleteDomainArtifact({ name: domainArtifact.name })
-    )
+  deleteDomainArtifacts(domainArtifacts: DomainArtifactInput[]): void {
+    const deletePromises: Promise<void>[] = [];
+    for (const attribute of domainArtifacts) {
+      deletePromises.push(this.deleteDomainArtifact(attribute));
+    }
+
+    Promise.all(deletePromises)
       .then(() => {
-        this.utilService.callSnackBar('Deleted domain artifact input.');
+        this.domainArtifacts = [...this.domainArtifacts];
+        this.utilService.callSnackBar('Deleted domain artifact input(s).');
       })
       .catch((reason) => {
         console.log(reason);
         this.utilService.callSnackBar(
-          'Domain artifact input could not be deleted.'
+          'Error! Some domain artifact inputs could not be deleted.'
         );
       });
+  }
+
+  private async deleteDomainArtifact(
+    domainArtifact: DomainArtifactInput
+  ): Promise<void> {
+    await lastValueFrom(
+      this.inputService.deleteDomainArtifact({ name: domainArtifact.name })
+    );
+    removeValueFromArray(this.domainArtifacts, domainArtifact);
   }
 
   createRuntimeArtifactWithDialog(): void {
@@ -401,13 +415,36 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createRuntimeArtifact();
+          this.createRuntimeArtifacts(data.attributesToCreate);
         }
       });
   }
 
-  createRuntimeArtifact() {
-    this.utilService.callSnackBar('Test create');
+  createRuntimeArtifacts(runtimeArtifacts: RuntimeArtifactInput[]): void {
+    const createPromises: Promise<void>[] = [];
+    for (const attribute of runtimeArtifacts) {
+      createPromises.push(this.createRuntimeArtifact(attribute));
+    }
+    Promise.all(createPromises)
+      .then(() => {
+        this.runtimeArtifacts = [...this.runtimeArtifacts];
+        this.utilService.callSnackBar('Created runtime artifact input(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some runtime artifact inputs could not be created.'
+        );
+      });
+  }
+
+  private async createRuntimeArtifact(
+    runtimeArtifact: RuntimeArtifactInput
+  ): Promise<void> {
+    const value: RuntimeArtifactInput = await lastValueFrom(
+      this.inputService.addRuntimeArtifact({ body: runtimeArtifact })
+    );
+    this.runtimeArtifacts.push(value);
   }
 
   deleteRuntimeArtifactWithDialog(): void {
@@ -426,13 +463,39 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteRuntimeArtifact();
+          this.deleteRuntimeArtifacts(data.attributesToDelete);
         }
       });
   }
 
-  deleteRuntimeArtifact() {
-    this.utilService.callSnackBar('Test delete');
+  deleteRuntimeArtifacts(runtimeArtifacts: RuntimeArtifactInput[]): void {
+    const deletePromises: Promise<void>[] = [];
+    for (const attribute of runtimeArtifacts) {
+      deletePromises.push(this.deleteRuntimeArtifact(attribute));
+    }
+
+    Promise.all(deletePromises)
+      .then(() => {
+        this.runtimeArtifacts = [...this.runtimeArtifacts];
+        this.utilService.callSnackBar('Deleted runtime artifact input(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some runtime artifact inputs could not be deleted.'
+        );
+      });
+  }
+
+  private async deleteRuntimeArtifact(
+    runtimeArtifactInput: RuntimeArtifactInput
+  ): Promise<void> {
+    await lastValueFrom(
+      this.inputService.deleteRuntimeArtifact({
+        name: runtimeArtifactInput.name
+      })
+    );
+    removeValueFromArray(this.runtimeArtifacts, runtimeArtifactInput);
   }
 
   createModelArtifactWithDialog(): void {
@@ -464,13 +527,36 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createModelArtifact();
+          this.createModelArtifacts(data.attributesToCreate);
         }
       });
   }
 
-  createModelArtifact() {
-    this.utilService.callSnackBar('Test create');
+  createModelArtifacts(modelArtifacts: ModelArtifactInput[]): void {
+    const createPromises: Promise<void>[] = [];
+    for (const attribute of modelArtifacts) {
+      createPromises.push(this.createModelArtifact(attribute));
+    }
+    Promise.all(createPromises)
+      .then(() => {
+        this.modelArtifacts = [...this.modelArtifacts];
+        this.utilService.callSnackBar('Created model artifact input(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some model artifact inputs could not be created.'
+        );
+      });
+  }
+
+  private async createModelArtifact(
+    modelArtifact: ModelArtifactInput
+  ): Promise<void> {
+    const value: ModelArtifactInput = await lastValueFrom(
+      this.inputService.addModelArtifact({ body: modelArtifact })
+    );
+    this.modelArtifacts.push(value);
   }
 
   deleteModelArtifactWithDialog(): void {
@@ -489,13 +575,37 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteModelArtifact();
+          this.deleteModelArtifacts(data.attributesToDelete);
         }
       });
   }
 
-  deleteModelArtifact() {
-    this.utilService.callSnackBar('Test delete');
+  deleteModelArtifacts(modelArtifacts: ModelArtifactInput[]): void {
+    const deletePromises: Promise<void>[] = [];
+    for (const attribute of modelArtifacts) {
+      deletePromises.push(this.deleteModelArtifact(attribute));
+    }
+
+    Promise.all(deletePromises)
+      .then(() => {
+        this.modelArtifacts = [...this.modelArtifacts];
+        this.utilService.callSnackBar('Deleted model artifact input(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some model artifact inputs could not be deleted.'
+        );
+      });
+  }
+
+  private async deleteModelArtifact(
+    modelArtifact: ModelArtifactInput
+  ): Promise<void> {
+    await lastValueFrom(
+      this.inputService.deleteModelArtifact({ name: modelArtifact.name })
+    );
+    removeValueFromArray(this.modelArtifacts, modelArtifact);
   }
 
   createExecutableWithDialog(): void {
@@ -535,14 +645,34 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          console.log(data.attributesToCreate);
-          this.createExecutable();
+          this.createExecutables(data.attributesToCreate);
         }
       });
   }
 
-  createExecutable() {
-    this.utilService.callSnackBar('Test create');
+  createExecutables(executables: ExecutableInput[]): void {
+    const createPromises: Promise<void>[] = [];
+    for (const attribute of executables) {
+      createPromises.push(this.createExecutable(attribute));
+    }
+    Promise.all(createPromises)
+      .then(() => {
+        this.executables = [...this.executables];
+        this.utilService.callSnackBar('Created executable input(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some executable inputs could not be created.'
+        );
+      });
+  }
+
+  private async createExecutable(executable: ExecutableInput): Promise<void> {
+    const value: ExecutableInput = await lastValueFrom(
+      this.inputService.addExecutable({ body: executable })
+    );
+    this.executables.push(value);
   }
 
   deleteExecutableWithDialog(): void {
@@ -562,13 +692,38 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteExecutable();
+          this.deleteExecutables(data.attributesToDelete);
         }
       });
   }
 
-  deleteExecutable() {
-    this.utilService.callSnackBar('Test delete');
+  deleteExecutables(executables: ExecutableInput[]): void {
+    const deletePromises: Promise<void>[] = [];
+    for (const attribute of executables) {
+      deletePromises.push(this.deleteExecutable(attribute));
+    }
+
+    Promise.all(deletePromises)
+      .then(() => {
+        this.executables = [...this.executables];
+        this.utilService.callSnackBar('Deleted executable input(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some executable inputs could not be deleted.'
+        );
+      });
+  }
+
+  private async deleteExecutable(executable: ExecutableInput): Promise<void> {
+    await lastValueFrom(
+      this.inputService.deleteExecutable({
+        name: executable.name,
+        language: executable.language
+      })
+    );
+    removeValueFromArray(this.executables, executable);
   }
 
   createQualityWithDialog(): void {
@@ -607,13 +762,34 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createQuality();
+          this.createQualities(data.attributesToCreate);
         }
       });
   }
 
-  createQuality() {
-    this.utilService.callSnackBar('Test create');
+  createQualities(qualities: Quality[]): void {
+    const createPromises: Promise<void>[] = [];
+    for (const attribute of qualities) {
+      createPromises.push(this.createQuality(attribute));
+    }
+    Promise.all(createPromises)
+      .then(() => {
+        this.qualities = [...this.qualities];
+        this.utilService.callSnackBar('Created process quality option(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some process quality options could not be created.'
+        );
+      });
+  }
+
+  private async createQuality(quality: Quality): Promise<void> {
+    const value: Quality = await lastValueFrom(
+      this.processService.addQuality({ body: quality })
+    );
+    this.qualities.push(value);
   }
 
   deleteQualityWithDialog(): void {
@@ -632,13 +808,35 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteQuality();
+          this.deleteQualities(data.attributesToDelete);
         }
       });
   }
 
-  deleteQuality() {
-    this.utilService.callSnackBar('Test delete');
+  deleteQualities(qualities: Quality[]): void {
+    const deletePromises: Promise<void>[] = [];
+    for (const attribute of qualities) {
+      deletePromises.push(this.deleteQuality(attribute));
+    }
+
+    Promise.all(deletePromises)
+      .then(() => {
+        this.qualities = [...this.qualities];
+        this.utilService.callSnackBar('Deleted process quality option(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some process quality options could not be deleted.'
+        );
+      });
+  }
+
+  private async deleteQuality(quality: Quality): Promise<void> {
+    await lastValueFrom(
+      this.processService.deleteQuality({ name: quality.name })
+    );
+    removeValueFromArray(this.qualities, quality);
   }
 
   createDirectionWithDialog(): void {
@@ -670,13 +868,34 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createDirection();
+          this.createDirections(data.attributesToCreate);
         }
       });
   }
 
-  createDirection() {
-    this.utilService.callSnackBar('Test create');
+  createDirections(directions: Direction[]): void {
+    const createPromises: Promise<void>[] = [];
+    for (const attribute of directions) {
+      createPromises.push(this.createDirection(attribute));
+    }
+    Promise.all(createPromises)
+      .then(() => {
+        this.directions = [...this.directions];
+        this.utilService.callSnackBar('Created process direction(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some process directions could not be created.'
+        );
+      });
+  }
+
+  private async createDirection(direction: Direction): Promise<void> {
+    const value: Direction = await lastValueFrom(
+      this.processService.addDirection({ body: direction })
+    );
+    this.directions.push(value);
   }
 
   deleteDirectionWithDialog(): void {
@@ -695,13 +914,35 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteDirection();
+          this.deleteDirections(data.attributesToDelete);
         }
       });
   }
 
-  deleteDirection() {
-    this.utilService.callSnackBar('Test delete');
+  deleteDirections(directions: Direction[]): void {
+    const deletePromises: Promise<void>[] = [];
+    for (const attribute of directions) {
+      deletePromises.push(this.deleteDirection(attribute));
+    }
+
+    Promise.all(deletePromises)
+      .then(() => {
+        this.directions = [...this.directions];
+        this.utilService.callSnackBar('Deleted process direction(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some process directions could not be deleted.'
+        );
+      });
+  }
+
+  private async deleteDirection(direction: Direction): Promise<void> {
+    await lastValueFrom(
+      this.processService.deleteDirection({ name: direction.name })
+    );
+    removeValueFromArray(this.directions, direction);
   }
 
   createAutomationLevelWithDialog(): void {
@@ -733,13 +974,36 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createAutomationLevel();
+          this.createAutomationLevels(data.attributesToCreate);
         }
       });
   }
 
-  createAutomationLevel() {
-    this.utilService.callSnackBar('Test create');
+  createAutomationLevels(automationLevels: AutomationLevel[]): void {
+    const createPromises: Promise<void>[] = [];
+    for (const attribute of automationLevels) {
+      createPromises.push(this.createAutomationLevel(attribute));
+    }
+    Promise.all(createPromises)
+      .then(() => {
+        this.automationLevels = [...this.automationLevels];
+        this.utilService.callSnackBar('Created process automation level(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some process automation levels could not be created.'
+        );
+      });
+  }
+
+  private async createAutomationLevel(
+    automationLevel: AutomationLevel
+  ): Promise<void> {
+    const value: AutomationLevel = await lastValueFrom(
+      this.processService.addAutomationLevel({ body: automationLevel })
+    );
+    this.automationLevels.push(value);
   }
 
   deleteAutomationLevelWithDialog(): void {
@@ -758,13 +1022,37 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteAutomationLevel();
+          this.deleteAutomationLevels(data.attributesToDelete);
         }
       });
   }
 
-  deleteAutomationLevel() {
-    this.utilService.callSnackBar('Test delete');
+  deleteAutomationLevels(automationLevels: AutomationLevel[]): void {
+    const deletePromises: Promise<void>[] = [];
+    for (const attribute of automationLevels) {
+      deletePromises.push(this.deleteAutomationLevel(attribute));
+    }
+
+    Promise.all(deletePromises)
+      .then(() => {
+        this.automationLevels = [...this.automationLevels];
+        this.utilService.callSnackBar('Deleted process automation level(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some process automation levels could not be deleted.'
+        );
+      });
+  }
+
+  private async deleteAutomationLevel(
+    automationLevel: AutomationLevel
+  ): Promise<void> {
+    await lastValueFrom(
+      this.processService.deleteAutomationLevel({ name: automationLevel.name })
+    );
+    removeValueFromArray(this.automationLevels, automationLevel);
   }
 
   createAnalysisTypeWithDialog(): void {
@@ -796,13 +1084,34 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createAnalysisType();
+          this.createAnalysisTypes(data.attributesToCreate);
         }
       });
   }
 
-  createAnalysisType() {
-    this.utilService.callSnackBar('Test create');
+  createAnalysisTypes(analysisTypes: AnalysisType[]): void {
+    const createPromises: Promise<void>[] = [];
+    for (const attribute of analysisTypes) {
+      createPromises.push(this.createAnalysisType(attribute));
+    }
+    Promise.all(createPromises)
+      .then(() => {
+        this.analysisTypes = [...this.analysisTypes];
+        this.utilService.callSnackBar('Created process analysis type(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some process analysis types could not be created.'
+        );
+      });
+  }
+
+  private async createAnalysisType(analysisType: AnalysisType): Promise<void> {
+    const value: AnalysisType = await lastValueFrom(
+      this.processService.addAnalysisType({ body: analysisType })
+    );
+    this.techniques.push(value);
   }
 
   deleteAnalysisTypeWithDialog(): void {
@@ -821,13 +1130,35 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteAnalysisType();
+          this.deleteAnalysisTypes(data.attributesToDelete);
         }
       });
   }
 
-  deleteAnalysisType() {
-    this.utilService.callSnackBar('Test delete');
+  deleteAnalysisTypes(analysisTypes: AnalysisType[]): void {
+    const deletePromises: Promise<void>[] = [];
+    for (const attribute of analysisTypes) {
+      deletePromises.push(this.deleteAnalysisType(attribute));
+    }
+
+    Promise.all(deletePromises)
+      .then(() => {
+        this.analysisTypes = [...this.analysisTypes];
+        this.utilService.callSnackBar('Deleted process analysis type(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some process analysis types could not be deleted.'
+        );
+      });
+  }
+
+  private async deleteAnalysisType(analysisType: AnalysisType): Promise<void> {
+    await lastValueFrom(
+      this.processService.deleteAnalysisType({ name: analysisType.name })
+    );
+    removeValueFromArray(this.analysisTypes, analysisType);
   }
 
   createTechniqueWithDialog(): void {
@@ -859,13 +1190,34 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createTechnique();
+          this.createTechniques(data.attributesToCreate);
         }
       });
   }
 
-  createTechnique() {
-    this.utilService.callSnackBar('Test create');
+  createTechniques(techniques: Technique[]): void {
+    const createPromises: Promise<void>[] = [];
+    for (const attribute of techniques) {
+      createPromises.push(this.createTechnique(attribute));
+    }
+    Promise.all(createPromises)
+      .then(() => {
+        this.techniques = [...this.techniques];
+        this.utilService.callSnackBar('Created process technique(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some process techniques could not be created.'
+        );
+      });
+  }
+
+  private async createTechnique(technique: Technique): Promise<void> {
+    const value: Technique = await lastValueFrom(
+      this.processService.addTechnique({ body: technique })
+    );
+    this.techniques.push(value);
   }
 
   deleteTechniqueWithDialog(): void {
@@ -884,13 +1236,35 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteTechnique();
+          this.deleteTechniques(data.attributesToDelete);
         }
       });
   }
 
-  deleteTechnique() {
-    this.utilService.callSnackBar('Test delete');
+  deleteTechniques(techniques: Technique[]): void {
+    const deletePromises: Promise<void>[] = [];
+    for (const attribute of techniques) {
+      deletePromises.push(this.deleteTechnique(attribute));
+    }
+
+    Promise.all(deletePromises)
+      .then(() => {
+        this.techniques = [...this.techniques];
+        this.utilService.callSnackBar('Deleted process technique(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some process techniques could not be deleted.'
+        );
+      });
+  }
+
+  private async deleteTechnique(technique: Technique): Promise<void> {
+    await lastValueFrom(
+      this.processService.deleteTechnique({ name: technique.name })
+    );
+    removeValueFromArray(this.techniques, technique);
   }
 
   createArchitectureWithDialog(): void {
@@ -922,13 +1296,34 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createArchitecture();
+          this.createArchitectures(data.attributesToCreate);
         }
       });
   }
 
-  createArchitecture() {
-    this.utilService.callSnackBar('Test create');
+  createArchitectures(architectures: Architecture[]): void {
+    const createPromises: Promise<void>[] = [];
+    for (const attribute of architectures) {
+      createPromises.push(this.createArchitecture(attribute));
+    }
+    Promise.all(createPromises)
+      .then(() => {
+        this.architectures = [...this.architectures];
+        this.utilService.callSnackBar('Created output architecture(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some output architectures could not be created.'
+        );
+      });
+  }
+
+  private async createArchitecture(architecture: Architecture): Promise<void> {
+    const value: Architecture = await lastValueFrom(
+      this.outputService.addArchitecture({ body: architecture })
+    );
+    this.architectures.push(value);
   }
 
   deleteArchitectureWithDialog(): void {
@@ -947,13 +1342,35 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteArchitecture();
+          this.deleteArchitectures(data.attributesToDelete);
         }
       });
   }
 
-  deleteArchitecture() {
-    this.utilService.callSnackBar('Test delete');
+  deleteArchitectures(architectures: Architecture[]): void {
+    const deletePromises: Promise<void>[] = [];
+    for (const attribute of architectures) {
+      deletePromises.push(this.deleteArchitecture(attribute));
+    }
+
+    Promise.all(deletePromises)
+      .then(() => {
+        this.architectures = [...this.architectures];
+        this.utilService.callSnackBar('Deleted output architecture(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some output architectures could not be deleted.'
+        );
+      });
+  }
+
+  private async deleteArchitecture(architecture: Architecture): Promise<void> {
+    await lastValueFrom(
+      this.outputService.deleteArchitecture({ name: architecture.name })
+    );
+    removeValueFromArray(this.architectures, architecture);
   }
 
   createServiceTypeWithDialog(): void {
@@ -985,13 +1402,34 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createServiceType();
+          this.createServiceTypes(data.attributesToCreate);
         }
       });
   }
 
-  createServiceType() {
-    this.utilService.callSnackBar('Test create');
+  createServiceTypes(serviceTypes: ServiceType[]): void {
+    const createPromises: Promise<void>[] = [];
+    for (const attribute of serviceTypes) {
+      createPromises.push(this.createServiceType(attribute));
+    }
+    Promise.all(createPromises)
+      .then(() => {
+        this.serviceTypes = [...this.serviceTypes];
+        this.utilService.callSnackBar('Created output service type(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some output service types could not be created.'
+        );
+      });
+  }
+
+  private async createServiceType(serviceType: ServiceType): Promise<void> {
+    const value: ServiceType = await lastValueFrom(
+      this.outputService.addServiceType({ body: serviceType })
+    );
+    this.serviceTypes.push(value);
   }
 
   deleteServiceTypeWithDialog(): void {
@@ -1010,13 +1448,35 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteServiceType();
+          this.deleteServiceTypes(data.attributesToDelete);
         }
       });
   }
 
-  deleteServiceType() {
-    this.utilService.callSnackBar('Test delete');
+  deleteServiceTypes(serviceTypes: ServiceType[]): void {
+    const deletePromises: Promise<void>[] = [];
+    for (const attribute of serviceTypes) {
+      deletePromises.push(this.deleteServiceType(attribute));
+    }
+
+    Promise.all(deletePromises)
+      .then(() => {
+        this.serviceTypes = [...this.serviceTypes];
+        this.utilService.callSnackBar('Deleted output service type(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some output service types could not be deleted.'
+        );
+      });
+  }
+
+  private async deleteServiceType(serviceType: ServiceType): Promise<void> {
+    await lastValueFrom(
+      this.outputService.deleteServiceType({ name: serviceType.name })
+    );
+    removeValueFromArray(this.serviceTypes, serviceType);
   }
 
   createValidationMethodWithDialog(): void {
@@ -1048,13 +1508,36 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createValidationMethod();
+          this.createValidationMethods(data.attributesToCreate);
         }
       });
   }
 
-  createValidationMethod() {
-    this.utilService.callSnackBar('Test create');
+  createValidationMethods(validationMethods: ValidationMethod[]): void {
+    const createPromises: Promise<void>[] = [];
+    for (const attribute of validationMethods) {
+      createPromises.push(this.createValidationMethod(attribute));
+    }
+    Promise.all(createPromises)
+      .then(() => {
+        this.validationMethods = [...this.validationMethods];
+        this.utilService.callSnackBar('Created validation method option(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some validation method options could not be created.'
+        );
+      });
+  }
+
+  private async createValidationMethod(
+    validationMethod: ValidationMethod
+  ): Promise<void> {
+    const value: ValidationMethod = await lastValueFrom(
+      this.usabilityService.addValidationMethod({ body: validationMethod })
+    );
+    this.validationMethods.push(value);
   }
 
   deleteValidationMethodWithDialog(): void {
@@ -1073,13 +1556,39 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteValidationMethod();
+          this.deleteValidationMethods(data.attributesToDelete);
         }
       });
   }
 
-  deleteValidationMethod() {
-    this.utilService.callSnackBar('Test delete');
+  deleteValidationMethods(validationMethods: ValidationMethod[]): void {
+    const deletePromises: Promise<void>[] = [];
+    for (const attribute of validationMethods) {
+      deletePromises.push(this.deleteValidationMethod(attribute));
+    }
+
+    Promise.all(deletePromises)
+      .then(() => {
+        this.validationMethods = [...this.validationMethods];
+        this.utilService.callSnackBar('Deleted validation method option(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some validation method options could not be deleted.'
+        );
+      });
+  }
+
+  private async deleteValidationMethod(
+    validationMethod: ValidationMethod
+  ): Promise<void> {
+    await lastValueFrom(
+      this.usabilityService.deleteValidationMethod({
+        name: validationMethod.name
+      })
+    );
+    removeValueFromArray(this.validationMethods, validationMethod);
   }
 
   createToolSupportWithDialog(): void {
@@ -1111,13 +1620,34 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createToolSupport();
+          this.createToolSupports(data.attributesToCreate);
         }
       });
   }
 
-  createToolSupport() {
-    this.utilService.callSnackBar('Test create');
+  createToolSupports(toolSupports: ToolSupport[]): void {
+    const createPromises: Promise<void>[] = [];
+    for (const attribute of toolSupports) {
+      createPromises.push(this.createToolSupport(attribute));
+    }
+    Promise.all(createPromises)
+      .then(() => {
+        this.toolSupports = [...this.toolSupports];
+        this.utilService.callSnackBar('Created tool support option(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some tool support options could not be created.'
+        );
+      });
+  }
+
+  private async createToolSupport(toolSupport: ToolSupport): Promise<void> {
+    const value: ToolSupport = await lastValueFrom(
+      this.usabilityService.addToolSupport({ body: toolSupport })
+    );
+    this.toolSupports.push(value);
   }
 
   deleteToolSupportWithDialog(): void {
@@ -1136,13 +1666,35 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteToolSupport();
+          this.deleteToolSupports(data.attributesToDelete);
         }
       });
   }
 
-  deleteToolSupport() {
-    this.utilService.callSnackBar('Test delete');
+  deleteToolSupports(toolSupports: ToolSupport[]): void {
+    const deletePromises: Promise<void>[] = [];
+    for (const attribute of toolSupports) {
+      deletePromises.push(this.deleteToolSupport(attribute));
+    }
+
+    Promise.all(deletePromises)
+      .then(() => {
+        this.toolSupports = [...this.toolSupports];
+        this.utilService.callSnackBar('Deleted tool support option(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some tool support options could not be deleted.'
+        );
+      });
+  }
+
+  private async deleteToolSupport(toolSupport: ToolSupport): Promise<void> {
+    await lastValueFrom(
+      this.usabilityService.deleteToolSupport({ name: toolSupport.name })
+    );
+    removeValueFromArray(this.toolSupports, toolSupport);
   }
 
   createResultsQualityWithDialog(): void {
@@ -1174,13 +1726,36 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createResultsQuality();
+          this.createResultsQualities(data.attributesToCreate);
         }
       });
   }
 
-  createResultsQuality() {
-    this.utilService.callSnackBar('Test create');
+  createResultsQualities(resultsQualities: ResultsQuality[]): void {
+    const createPromises: Promise<void>[] = [];
+    for (const attribute of resultsQualities) {
+      createPromises.push(this.createResultsQuality(attribute));
+    }
+    Promise.all(createPromises)
+      .then(() => {
+        this.resultsQualities = [...this.resultsQualities];
+        this.utilService.callSnackBar('Created quality of results option(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some quality of results options could not be created.'
+        );
+      });
+  }
+
+  private async createResultsQuality(
+    resultsQuality: ResultsQuality
+  ): Promise<void> {
+    const value: ResultsQuality = await lastValueFrom(
+      this.usabilityService.addResultsQuality({ body: resultsQuality })
+    );
+    this.resultsQualities.push(value);
   }
 
   deleteResultsQualityWithDialog(): void {
@@ -1199,13 +1774,37 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteResultsQuality();
+          this.deleteResultsQualities(data.attributesToDelete);
         }
       });
   }
 
-  deleteResultsQuality() {
-    this.utilService.callSnackBar('Test delete');
+  deleteResultsQualities(resultsQualities: ResultsQuality[]): void {
+    const deletePromises: Promise<void>[] = [];
+    for (const attribute of resultsQualities) {
+      deletePromises.push(this.deleteResultsQuality(attribute));
+    }
+
+    Promise.all(deletePromises)
+      .then(() => {
+        this.resultsQualities = [...this.resultsQualities];
+        this.utilService.callSnackBar('Deleted quality of results option(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some quality of results options could not be deleted.'
+        );
+      });
+  }
+
+  private async deleteResultsQuality(
+    resultsQuality: ResultsQuality
+  ): Promise<void> {
+    await lastValueFrom(
+      this.usabilityService.deleteResultsQuality({ name: resultsQuality.name })
+    );
+    removeValueFromArray(this.resultsQualities, resultsQuality);
   }
 
   createAccuracyPrecisionWithDialog(): void {
@@ -1237,13 +1836,36 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createAccuracyPrecision();
+          this.createAccuracyPrecisions(data.attributesToCreate);
         }
       });
   }
 
-  createAccuracyPrecision() {
-    this.utilService.callSnackBar('Test create');
+  createAccuracyPrecisions(accuracyPrecisions: AccuracyPrecision[]): void {
+    const createPromises: Promise<void>[] = [];
+    for (const attribute of accuracyPrecisions) {
+      createPromises.push(this.createAccuracyPrecision(attribute));
+    }
+    Promise.all(createPromises)
+      .then(() => {
+        this.accuracyPrecisions = [...this.accuracyPrecisions];
+        this.utilService.callSnackBar('Created accuracy/precision option(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some accuracy/precision options could not be created.'
+        );
+      });
+  }
+
+  private async createAccuracyPrecision(
+    accuracyPrecision: AccuracyPrecision
+  ): Promise<void> {
+    const value: AccuracyPrecision = await lastValueFrom(
+      this.usabilityService.addAccuracyPrecision({ body: accuracyPrecision })
+    );
+    this.accuracyPrecisions.push(value);
   }
 
   deleteAccuracyPrecisionWithDialog(): void {
@@ -1262,12 +1884,38 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteAccuracyPrecision();
+          this.deleteAccuracyPrecisions(data.attributesToDelete);
         }
       });
   }
 
-  deleteAccuracyPrecision() {
-    this.utilService.callSnackBar('Test delete');
+  deleteAccuracyPrecisions(accuracyPrecisions: AccuracyPrecision[]): void {
+    const deletePromises: Promise<void>[] = [];
+    for (const attribute of accuracyPrecisions) {
+      deletePromises.push(this.deleteAccuracyPrecision(attribute));
+    }
+
+    Promise.all(deletePromises)
+      .then(() => {
+        this.accuracyPrecisions = [...this.accuracyPrecisions];
+        this.utilService.callSnackBar('Deleted accuracy/precision option(s).');
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Some accuracy/precision options could not be deleted.'
+        );
+      });
+  }
+
+  private async deleteAccuracyPrecision(
+    accuracyPrecision: AccuracyPrecision
+  ): Promise<void> {
+    await lastValueFrom(
+      this.usabilityService.deleteAccuracyPrecision({
+        name: accuracyPrecision.name
+      })
+    );
+    removeValueFromArray(this.accuracyPrecisions, accuracyPrecision);
   }
 }
