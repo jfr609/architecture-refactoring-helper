@@ -53,61 +53,61 @@ public class RefactoringApproachContext : DbContext
         modelBuilder.Entity<RefactoringApproach>()
             .HasMany(left => left.ApproachOutputs)
             .WithMany(right => right.RefactoringApproaches)
-            .UsingEntity(join => join.ToTable(Constants.JOIN_TABLE_PREFIX + Constants.TABLE_NAME_APPROACH_OUTPUT));
+            .UsingEntity(join => join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachOutput));
         
         // Define Join Table for RefactoringApproach and DomainArtifactInput
         modelBuilder.Entity<RefactoringApproach>()
             .HasMany(left => left.DomainArtifactInputs)
             .WithMany(right => right.RefactoringApproaches)
-            .UsingEntity(join => join.ToTable(Constants.JOIN_TABLE_PREFIX + Constants.TABLE_NAME_APPROACH_INPUT_DOMAINARTIFACT));
+            .UsingEntity(join => join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachInputDomainArtifact));
         
         // Define Join Table for RefactoringApproach and RuntimeArtifactInput
         modelBuilder.Entity<RefactoringApproach>()
             .HasMany(left => left.RuntimeArtifactInputs)
             .WithMany(right => right.RefactoringApproaches)
-            .UsingEntity(join => join.ToTable(Constants.JOIN_TABLE_PREFIX + Constants.TABLE_NAME_APPROACH_INPUT_RUNTIMEARTIFACT));
+            .UsingEntity(join => join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachInputRuntimeArtifact));
         
         // Define Join Table for RefactoringApproach and ModelArtifactInput
         modelBuilder.Entity<RefactoringApproach>()
             .HasMany(left => left.ModelArtifactInputs)
             .WithMany(right => right.RefactoringApproaches)
-            .UsingEntity(join => join.ToTable(Constants.JOIN_TABLE_PREFIX + Constants.TABLE_NAME_APPROACH_INPUT_MODELARTIFACT));
+            .UsingEntity(join => join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachInputModelArtifact));
         
         // Define Join Table for RefactoringApproach and ExecutableInput
         modelBuilder.Entity<RefactoringApproach>()
             .HasMany(left => left.ExecutableInputs)
             .WithMany(right => right.RefactoringApproaches)
-            .UsingEntity(join => join.ToTable(Constants.JOIN_TABLE_PREFIX + Constants.TABLE_NAME_APPROACH_INPUT_EXECUTABLE));
+            .UsingEntity(join => join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachInputExecutable));
         
         // Define Join Table for ApproachProcess and Quality
         modelBuilder.Entity<ApproachProcess>()
             .HasMany(left => left.Qualities)
             .WithMany(right => right.ApproachProcesses)
-            .UsingEntity(join => join.ToTable(Constants.JOIN_TABLE_PREFIX + Constants.TABLE_NAME_APPROACH_PROCESS_QUALITY));
+            .UsingEntity(join => join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachProcessQuality));
         
         // Define Join Table for ApproachProcess and Direction
         modelBuilder.Entity<ApproachProcess>()
             .HasMany(left => left.Directions)
             .WithMany(right => right.ApproachProcesses)
-            .UsingEntity(join => join.ToTable(Constants.JOIN_TABLE_PREFIX + Constants.TABLE_NAME_APPROACH_PROCESS_DIRECTION));
+            .UsingEntity(join => join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachProcessDirection));
         
         // Define Join Table for ApproachProcess and AutomationLevel
         modelBuilder.Entity<ApproachProcess>()
             .HasMany(left => left.AutomationLevels)
             .WithMany(right => right.ApproachProcesses)
-            .UsingEntity(join => join.ToTable(Constants.JOIN_TABLE_PREFIX + Constants.TABLE_NAME_APPROACH_PROCESS_AUTOMATIONLEVEL));
+            .UsingEntity(join => join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachProcessAutomationLevel));
         
         // Define Join Table for ApproachProcess and AnalysisType
         modelBuilder.Entity<ApproachProcess>()
             .HasMany(left => left.AnalysisTypes)
             .WithMany(right => right.ApproachProcesses)
-            .UsingEntity(join => join.ToTable(Constants.JOIN_TABLE_PREFIX + Constants.TABLE_NAME_APPROACH_PROCESS_ANALYSISTYPE));
+            .UsingEntity(join => join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachProcessAnalysisType));
         
         // Define Join Table for ApproachProcess and Technique
         modelBuilder.Entity<ApproachProcess>()
             .HasMany(left => left.Techniques)
             .WithMany(right => right.ApproachProcesses)
-            .UsingEntity(join => join.ToTable(Constants.JOIN_TABLE_PREFIX + Constants.TABLE_NAME_APPROACH_PROCESS_TECHNIQUE));
+            .UsingEntity(join => join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachProcessTechnique));
         
         // Apply Configurations
         modelBuilder.ApplyConfiguration(new DomainArtifactInputEntityTypeConfiguration());

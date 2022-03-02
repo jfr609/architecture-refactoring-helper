@@ -8,7 +8,7 @@ public class ArchitectureEntityTypeConfiguration : IEntityTypeConfiguration<Arch
 {
     public void Configure(EntityTypeBuilder<Architecture> builder)
     {
-        builder.ToTable(Constants.TABLE_NAME_APPROACH_OUTPUT_ARCHITECTURE);
+        builder.ToTable(Constants.TableNameApproachOutputArchitecture);
 
         builder.HasData(
             new Architecture

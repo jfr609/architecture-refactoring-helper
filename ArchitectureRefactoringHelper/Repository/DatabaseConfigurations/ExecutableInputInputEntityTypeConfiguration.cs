@@ -8,7 +8,7 @@ public class ExecutableInputInputEntityTypeConfiguration : IEntityTypeConfigurat
 {
     public void Configure(EntityTypeBuilder<ExecutableInput> builder)
     {
-        builder.ToTable(Constants.TABLE_NAME_APPROACH_INPUT_EXECUTABLE);
+        builder.ToTable(Constants.TableNameApproachInputExecutable);
         builder.HasKey(e => new { e.Name, e.Language });
         
         builder.HasData(

@@ -8,7 +8,7 @@ public class TechniqueEntityTypeConfiguration : IEntityTypeConfiguration<Techniq
 {
     public void Configure(EntityTypeBuilder<Technique> builder)
     {
-        builder.ToTable(Constants.TABLE_NAME_APPROACH_PROCESS_TECHNIQUE);
+        builder.ToTable(Constants.TableNameApproachProcessTechnique);
         
         builder.HasData(
             new Technique

@@ -8,27 +8,27 @@ public class AccuracyPrecisionEntityTypeConfiguration : IEntityTypeConfiguration
 {
     public void Configure(EntityTypeBuilder<AccuracyPrecision> builder)
     {
-        builder.ToTable(Constants.TABLE_NAME_APPROACH_USABILITY_ACCURACYPRECISION);
-        
+        builder.ToTable(Constants.TableNameApproachUsabilityAccuracyPrecision);
+
         builder.HasData(
             new AccuracyPrecision
             {
-                Name = "High",
+                Name = Constants.AttributeDefaultHigh,
                 Description = ""
             },
             new AccuracyPrecision
             {
-                Name = "Medium",
+                Name = Constants.AttributeDefaultMedium,
                 Description = ""
             },
             new AccuracyPrecision
             {
-                Name = "Low",
+                Name = Constants.AttributeDefaultLow,
                 Description = ""
             },
             new AccuracyPrecision
             {
-                Name = "Not available",
+                Name = Constants.AttributeDefaultNotAvailable,
                 Description = ""
             });
     }

@@ -8,7 +8,7 @@ public class AnalysisTypeEntityTypeConfiguration : IEntityTypeConfiguration<Anal
 {
     public void Configure(EntityTypeBuilder<AnalysisType> builder)
     {
-        builder.ToTable(Constants.TABLE_NAME_APPROACH_PROCESS_ANALYSISTYPE);
+        builder.ToTable(Constants.TableNameApproachProcessAnalysisType);
 
         builder.HasData(
             new AnalysisType

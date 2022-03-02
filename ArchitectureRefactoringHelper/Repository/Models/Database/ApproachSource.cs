@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Repository.Models.Database;
 
-[Table(Constants.TABLE_NAME_APPROACH_SOURCE)]
+[Table(Constants.TableNameApproachSource)]
 public class ApproachSource
 {
     [Key]

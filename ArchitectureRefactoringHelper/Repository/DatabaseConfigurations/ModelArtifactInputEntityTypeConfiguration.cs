@@ -8,7 +8,7 @@ public class ModelArtifactInputEntityTypeConfiguration : IEntityTypeConfiguratio
 {
     public void Configure(EntityTypeBuilder<ModelArtifactInput> builder)
     {
-        builder.ToTable(Constants.TABLE_NAME_APPROACH_INPUT_MODELARTIFACT);
+        builder.ToTable(Constants.TableNameApproachInputModelArtifact);
         
         builder.HasData(
             new ModelArtifactInput

@@ -8,7 +8,7 @@ public class RuntimeArtifactInputEntityTypeConfiguration : IEntityTypeConfigurat
 {
     public void Configure(EntityTypeBuilder<RuntimeArtifactInput> builder)
     {
-        builder.ToTable(Constants.TABLE_NAME_APPROACH_INPUT_RUNTIMEARTIFACT);
+        builder.ToTable(Constants.TableNameApproachInputRuntimeArtifact);
         
         builder.HasData(
             new RuntimeArtifactInput

@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Repository.Models.Database;
 
-[Table(Constants.TABLE_NAME_APPROACH_PROCESS_DIRECTION)]
+[Table(Constants.TableNameApproachProcessDirection)]
 public class Direction
 {
     [Key]

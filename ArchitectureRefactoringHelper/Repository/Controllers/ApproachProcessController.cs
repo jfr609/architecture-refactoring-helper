@@ -5,7 +5,7 @@ using Repository.Services;
 namespace Repository.Controllers;
 
 [ApiController]
-[Route($"api/v{Constants.API_VERSION}/{Constants.API_SUBPATH_PROCESSES}")]
+[Route($"api/v{Constants.ApiVersion}/{Constants.ApiSubPathProcesses}")]
 [Produces("application/json")]
 public class ApproachProcessController : ControllerBase
 {
@@ -42,100 +42,100 @@ public class ApproachProcessController : ControllerBase
         return Ok();
     }*/
 
-    [HttpGet(Constants.API_SUBPATH_QUALITIES, Name = "ListQualities")]
+    [HttpGet(Constants.ApiSubPathQualities, Name = "ListQualities")]
     public ActionResult<IEnumerable<Quality>> ListQualities()
     {
         return Ok(_processService.ListQualities());
     }
 
-    [HttpPost(Constants.API_SUBPATH_QUALITIES, Name = "AddQuality")]
+    [HttpPost(Constants.ApiSubPathQualities, Name = "AddQuality")]
     public ActionResult<Quality> AddQuality([FromBody] Quality quality)
     {
         var savedQuality = _processService.AddQuality(quality);
         return Created("", savedQuality);
     }
 
-    [HttpDelete(Constants.API_SUBPATH_QUALITIES + "/{name}", Name = "DeleteQuality")]
+    [HttpDelete(Constants.ApiSubPathQualities + "/{name}", Name = "DeleteQuality")]
     public IActionResult DeleteQuality(string name)
     {
         _processService.DeleteQuality(name);
         return NoContent();
     }
 
-    [HttpGet(Constants.API_SUBPATH_DIRECTIONS, Name = "ListDirections")]
+    [HttpGet(Constants.ApiSubPathDirections, Name = "ListDirections")]
     public ActionResult<IEnumerable<Direction>> ListDirections()
     {
         return Ok(_processService.ListDirections());
     }
 
-    [HttpPost(Constants.API_SUBPATH_DIRECTIONS, Name = "AddDirection")]
+    [HttpPost(Constants.ApiSubPathDirections, Name = "AddDirection")]
     public ActionResult<Direction> AddDirection([FromBody] Direction direction)
     {
         var savedDirection = _processService.AddDirection(direction);
         return Created("", savedDirection);
     }
 
-    [HttpDelete(Constants.API_SUBPATH_DIRECTIONS + "/{name}", Name = "DeleteDirection")]
+    [HttpDelete(Constants.ApiSubPathDirections + "/{name}", Name = "DeleteDirection")]
     public IActionResult DeleteDirection(string name)
     {
         _processService.DeleteDirection(name);
         return NoContent();
     }
 
-    [HttpGet(Constants.API_SUBPATH_AUTOMATIONLEVELS, Name = "ListAutomationLevels")]
+    [HttpGet(Constants.ApiSubPathAutomationLevels, Name = "ListAutomationLevels")]
     public ActionResult<IEnumerable<AutomationLevel>> ListAutomationLevels()
     {
         return Ok(_processService.ListAutomationLevels());
     }
 
-    [HttpPost(Constants.API_SUBPATH_AUTOMATIONLEVELS, Name = "AddAutomationLevel")]
+    [HttpPost(Constants.ApiSubPathAutomationLevels, Name = "AddAutomationLevel")]
     public ActionResult<AutomationLevel> AddAutomationLevel([FromBody] AutomationLevel automationLevel)
     {
         var savedAutomationLevel = _processService.AddAutomationLevel(automationLevel);
         return Created("", savedAutomationLevel);
     }
 
-    [HttpDelete(Constants.API_SUBPATH_AUTOMATIONLEVELS + "/{name}", Name = "DeleteAutomationLevel")]
+    [HttpDelete(Constants.ApiSubPathAutomationLevels + "/{name}", Name = "DeleteAutomationLevel")]
     public IActionResult DeleteAutomationLevel(string name)
     {
         _processService.DeleteAutomationLevel(name);
         return NoContent();
     }
 
-    [HttpGet(Constants.API_SUBPATH_ANALYSISTYPES, Name = "ListAnalysisTypes")]
+    [HttpGet(Constants.ApiSubPathAnalysisTypes, Name = "ListAnalysisTypes")]
     public ActionResult<IEnumerable<AnalysisType>> ListAnalysisTypes()
     {
         return Ok(_processService.ListAnalysisTypes());
     }
 
-    [HttpPost(Constants.API_SUBPATH_ANALYSISTYPES, Name = "AddAnalysisType")]
+    [HttpPost(Constants.ApiSubPathAnalysisTypes, Name = "AddAnalysisType")]
     public ActionResult<AnalysisType> AddAnalysisType([FromBody] AnalysisType analysisType)
     {
         var savedAnalysisType = _processService.AddAnalysisType(analysisType);
         return Created("", savedAnalysisType);
     }
 
-    [HttpDelete(Constants.API_SUBPATH_ANALYSISTYPES + "/{name}", Name = "DeleteAnalysisType")]
+    [HttpDelete(Constants.ApiSubPathAnalysisTypes + "/{name}", Name = "DeleteAnalysisType")]
     public IActionResult DeleteAnalysisType(string name)
     {
         _processService.DeleteAnalysisType(name);
         return NoContent();
     }
 
-    [HttpGet(Constants.API_SUBPATH_TECHNIQUES, Name = "ListTechniques")]
+    [HttpGet(Constants.ApiSubPathTechniques, Name = "ListTechniques")]
     public ActionResult<IEnumerable<Quality>> ListTechniques()
     {
         return Ok(_processService.ListTechniques());
     }
 
-    [HttpPost(Constants.API_SUBPATH_TECHNIQUES, Name = "AddTechnique")]
+    [HttpPost(Constants.ApiSubPathTechniques, Name = "AddTechnique")]
     public ActionResult<Technique> AddTechnique([FromBody] Technique technique)
     {
         var savedTechnique = _processService.AddTechnique(technique);
         return Created("", savedTechnique);
     }
 
-    [HttpDelete(Constants.API_SUBPATH_TECHNIQUES + "/{name}", Name = "DeleteTechnique")]
+    [HttpDelete(Constants.ApiSubPathTechniques + "/{name}", Name = "DeleteTechnique")]
     public IActionResult DeleteTechnique(string name)
     {
         _processService.DeleteTechnique(name);

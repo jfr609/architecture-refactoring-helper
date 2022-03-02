@@ -8,8 +8,8 @@ public class ValidationMethodEntityTypeConfiguration : IEntityTypeConfiguration<
 {
     public void Configure(EntityTypeBuilder<ValidationMethod> builder)
     {
-        builder.ToTable(Constants.TABLE_NAME_APPROACH_USABILITY_VALIDATIONMETHOD);
-        
+        builder.ToTable(Constants.TableNameApproachUsabilityValidationMethod);
+
         builder.HasData(
             new ValidationMethod
             {
@@ -28,7 +28,7 @@ public class ValidationMethodEntityTypeConfiguration : IEntityTypeConfiguration<
             },
             new ValidationMethod
             {
-                Name = "No validation",
+                Name = Constants.AttributeDefaultNoValidation,
                 Description = ""
             });
     }

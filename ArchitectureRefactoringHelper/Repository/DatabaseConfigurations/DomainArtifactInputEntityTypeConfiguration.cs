@@ -8,7 +8,7 @@ public class DomainArtifactInputEntityTypeConfiguration : IEntityTypeConfigurati
 {
     public void Configure(EntityTypeBuilder<DomainArtifactInput> builder)
     {
-        builder.ToTable(Constants.TABLE_NAME_APPROACH_INPUT_DOMAINARTIFACT);
+        builder.ToTable(Constants.TableNameApproachInputDomainArtifact);
         
         builder.HasData(
             new DomainArtifactInput

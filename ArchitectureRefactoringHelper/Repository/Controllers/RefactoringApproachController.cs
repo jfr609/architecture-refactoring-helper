@@ -7,7 +7,7 @@ using Repository.Services;
 namespace Repository.Controllers;
 
 [ApiController]
-[Route($"api/v{Constants.API_VERSION}/{Constants.API_SUBPATH_APPROACHES}")]
+[Route($"api/v{Constants.ApiVersion}/{Constants.ApiSubPathApproaches}")]
 [Produces("application/json")]
 [TypeFilter(typeof(ServiceExceptionFilter))]
 public class RefactoringApproachController : ControllerBase
@@ -81,7 +81,7 @@ public class RefactoringApproachController : ControllerBase
         return Ok();
     }
 
-    [HttpPost("{id:int}/" + Constants.API_SUBPATH_INPUTS + "/" + Constants.API_SUBPATH_DOMAINARTIFACTS,
+    [HttpPost("{id:int}/" + Constants.ApiSubPathInputs + "/" + Constants.ApiSubPathDomainArtifacts,
         Name = "AddDomainArtifactAsInput")]
     public IActionResult AddDomainArtifactAsInput(int id, [FromBody] DomainArtifactInput domainArtifact)
     {
@@ -91,7 +91,7 @@ public class RefactoringApproachController : ControllerBase
     }
 
     [HttpDelete(
-        "{id:int}/" + Constants.API_SUBPATH_INPUTS + "/" + Constants.API_SUBPATH_DOMAINARTIFACTS + "/{inputName}",
+        "{id:int}/" + Constants.ApiSubPathInputs + "/" + Constants.ApiSubPathDomainArtifacts + "/{inputName}",
         Name = "RemoveDomainArtifactFromInputs")]
     public IActionResult RemoveDomainArtifactFromInputs(int id, string inputName)
     {
@@ -100,7 +100,7 @@ public class RefactoringApproachController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("{id:int}/" + Constants.API_SUBPATH_INPUTS + "/" + Constants.API_SUBPATH_RUNTIMEARTIFACTS,
+    [HttpPost("{id:int}/" + Constants.ApiSubPathInputs + "/" + Constants.ApiSubPathRuntimeArtifacts,
         Name = "AddRuntimeArtifactAsInput")]
     public IActionResult AddRuntimeArtifactAsInput(int id, [FromBody] RuntimeArtifactInput runtimeArtifact)
     {
@@ -110,7 +110,7 @@ public class RefactoringApproachController : ControllerBase
     }
 
     [HttpDelete(
-        "{id:int}/" + Constants.API_SUBPATH_INPUTS + "/" + Constants.API_SUBPATH_RUNTIMEARTIFACTS + "/{inputName}",
+        "{id:int}/" + Constants.ApiSubPathInputs + "/" + Constants.ApiSubPathRuntimeArtifacts + "/{inputName}",
         Name = "RemoveRuntimeArtifactFromInputs")]
     public IActionResult RemoveRuntimeArtifactFromInputs(int id, string inputName)
     {
@@ -119,7 +119,7 @@ public class RefactoringApproachController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("{id:int}/" + Constants.API_SUBPATH_INPUTS + "/" + Constants.API_SUBPATH_MODELARTIFACTS,
+    [HttpPost("{id:int}/" + Constants.ApiSubPathInputs + "/" + Constants.ApiSubPathModelArtifacts,
         Name = "AddModelArtifactAsInput")]
     public IActionResult AddModelArtifactAsInput(int id, [FromBody] ModelArtifactInput modelArtifact)
     {
@@ -129,7 +129,7 @@ public class RefactoringApproachController : ControllerBase
     }
 
     [HttpDelete(
-        "{id:int}/" + Constants.API_SUBPATH_INPUTS + "/" + Constants.API_SUBPATH_MODELARTIFACTS + "/{inputName}",
+        "{id:int}/" + Constants.ApiSubPathInputs + "/" + Constants.ApiSubPathModelArtifacts + "/{inputName}",
         Name = "RemoveModelArtifactFromInputs")]
     public IActionResult RemoveModelArtifactFromInputs(int id, string inputName)
     {
@@ -138,7 +138,7 @@ public class RefactoringApproachController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("{id:int}/" + Constants.API_SUBPATH_INPUTS + "/" + Constants.API_SUBPATH_EXECUTABLES,
+    [HttpPost("{id:int}/" + Constants.ApiSubPathInputs + "/" + Constants.ApiSubPathExecutables,
         Name = "AddExecutableAsInput")]
     public IActionResult AddExecutableAsInput(int id, [FromBody] ExecutableInput executable)
     {
@@ -148,7 +148,7 @@ public class RefactoringApproachController : ControllerBase
     }
 
     [HttpDelete(
-        "{id:int}/" + Constants.API_SUBPATH_INPUTS + "/" + Constants.API_SUBPATH_EXECUTABLES +
+        "{id:int}/" + Constants.ApiSubPathInputs + "/" + Constants.ApiSubPathExecutables +
         "/{inputName}/{language}",
         Name = "RemoveExecutableFromInputs")]
     public IActionResult RemoveExecutableFromInputs(int id, string inputName, string language)
@@ -158,7 +158,7 @@ public class RefactoringApproachController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("{id:int}/" + Constants.API_SUBPATH_PROCESSES + "/" + Constants.API_SUBPATH_QUALITIES,
+    [HttpPost("{id:int}/" + Constants.ApiSubPathProcesses + "/" + Constants.ApiSubPathQualities,
         Name = "AddQualityToProcess")]
     public IActionResult AddQualityToProcess(int id, [FromBody] Quality quality)
     {
@@ -168,7 +168,7 @@ public class RefactoringApproachController : ControllerBase
     }
 
     [HttpDelete(
-        "{id:int}/" + Constants.API_SUBPATH_PROCESSES + "/" + Constants.API_SUBPATH_QUALITIES + "/{qualityName}",
+        "{id:int}/" + Constants.ApiSubPathProcesses + "/" + Constants.ApiSubPathQualities + "/{qualityName}",
         Name = "RemoveQualityFromProcess")]
     public IActionResult RemoveQualityFromProcess(int id, string qualityName)
     {
@@ -177,7 +177,7 @@ public class RefactoringApproachController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("{id:int}/" + Constants.API_SUBPATH_PROCESSES + "/" + Constants.API_SUBPATH_DIRECTIONS,
+    [HttpPost("{id:int}/" + Constants.ApiSubPathProcesses + "/" + Constants.ApiSubPathDirections,
         Name = "AddDirectionToProcess")]
     public IActionResult AddDirectionToProcess(int id, [FromBody] Direction direction)
     {
@@ -187,7 +187,7 @@ public class RefactoringApproachController : ControllerBase
     }
 
     [HttpDelete(
-        "{id:int}/" + Constants.API_SUBPATH_PROCESSES + "/" + Constants.API_SUBPATH_DIRECTIONS + "/{directionName}",
+        "{id:int}/" + Constants.ApiSubPathProcesses + "/" + Constants.ApiSubPathDirections + "/{directionName}",
         Name = "RemoveDirectionFromProcess")]
     public IActionResult RemoveDirectionFromProcess(int id, string directionName)
     {
@@ -196,7 +196,7 @@ public class RefactoringApproachController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("{id:int}/" + Constants.API_SUBPATH_PROCESSES + "/" + Constants.API_SUBPATH_AUTOMATIONLEVELS,
+    [HttpPost("{id:int}/" + Constants.ApiSubPathProcesses + "/" + Constants.ApiSubPathAutomationLevels,
         Name = "AddAutomationLevelToProcess")]
     public IActionResult AddAutomationLevelToProcess(int id, [FromBody] AutomationLevel automationLevel)
     {
@@ -206,7 +206,7 @@ public class RefactoringApproachController : ControllerBase
     }
 
     [HttpDelete(
-        "{id:int}/" + Constants.API_SUBPATH_PROCESSES + "/" + Constants.API_SUBPATH_AUTOMATIONLEVELS +
+        "{id:int}/" + Constants.ApiSubPathProcesses + "/" + Constants.ApiSubPathAutomationLevels +
         "/{automationLevelName}",
         Name = "RemoveAutomationLevelFromProcess")]
     public IActionResult RemoveAutomationLevelFromProcess(int id, string automationLevelName)
@@ -216,7 +216,7 @@ public class RefactoringApproachController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("{id:int}/" + Constants.API_SUBPATH_PROCESSES + "/" + Constants.API_SUBPATH_ANALYSISTYPES,
+    [HttpPost("{id:int}/" + Constants.ApiSubPathProcesses + "/" + Constants.ApiSubPathAnalysisTypes,
         Name = "AddAnalysisTypeToProcess")]
     public IActionResult AddAnalysisTypeToProcess(int id, [FromBody] AnalysisType analysisType)
     {
@@ -226,7 +226,7 @@ public class RefactoringApproachController : ControllerBase
     }
 
     [HttpDelete(
-        "{id:int}/" + Constants.API_SUBPATH_PROCESSES + "/" + Constants.API_SUBPATH_ANALYSISTYPES +
+        "{id:int}/" + Constants.ApiSubPathProcesses + "/" + Constants.ApiSubPathAnalysisTypes +
         "/{analysisTypeName}",
         Name = "RemoveAnalysisTypeFromProcess")]
     public IActionResult RemoveAnalysisTypeFromProcess(int id, string analysisTypeName)
@@ -236,7 +236,7 @@ public class RefactoringApproachController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("{id:int}/" + Constants.API_SUBPATH_PROCESSES + "/" + Constants.API_SUBPATH_TECHNIQUES,
+    [HttpPost("{id:int}/" + Constants.ApiSubPathProcesses + "/" + Constants.ApiSubPathTechniques,
         Name = "AddTechniqueToProcess")]
     public IActionResult AddTechniqueToProcess(int id, [FromBody] Technique technique)
     {
@@ -246,7 +246,7 @@ public class RefactoringApproachController : ControllerBase
     }
 
     [HttpDelete(
-        "{id:int}/" + Constants.API_SUBPATH_PROCESSES + "/" + Constants.API_SUBPATH_TECHNIQUES + "/{techniqueName}",
+        "{id:int}/" + Constants.ApiSubPathProcesses + "/" + Constants.ApiSubPathTechniques + "/{techniqueName}",
         Name = "RemoveTechniqueFromProcess")]
     public IActionResult RemoveTechniqueFromProcess(int id, string techniqueName)
     {
@@ -255,7 +255,7 @@ public class RefactoringApproachController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("{id:int}/" + Constants.API_SUBPATH_OUTPUTS,
+    [HttpPost("{id:int}/" + Constants.ApiSubPathOutputs,
         Name = "AddOutput")]
     public IActionResult AddOutput(int id, [FromBody] ApproachOutput output)
     {
@@ -264,7 +264,7 @@ public class RefactoringApproachController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("{id:int}/" + Constants.API_SUBPATH_OUTPUTS + "/{outputId:int}",
+    [HttpDelete("{id:int}/" + Constants.ApiSubPathOutputs + "/{outputId:int}",
         Name = "RemoveOutput")]
     public IActionResult RemoveOutput(int id, int outputId)
     {
@@ -273,7 +273,7 @@ public class RefactoringApproachController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("{id:int}/" + Constants.API_SUBPATH_USABILITIES + "/" + Constants.API_SUBPATH_RESULTSQUALITIES,
+    [HttpPost("{id:int}/" + Constants.ApiSubPathUsabilities + "/" + Constants.ApiSubPathResultsQualities,
         Name = "UpdateResultsQuality")]
     public IActionResult UpdateResultsQuality(int id, [FromBody] ResultsQuality resultsQuality)
     {
@@ -282,7 +282,7 @@ public class RefactoringApproachController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("{id:int}/" + Constants.API_SUBPATH_USABILITIES + "/" + Constants.API_SUBPATH_TOOLSUPPORTS,
+    [HttpPost("{id:int}/" + Constants.ApiSubPathUsabilities + "/" + Constants.ApiSubPathToolSupports,
         Name = "UpdateToolSupport")]
     public IActionResult UpdateToolSupport(int id, [FromBody] ToolSupport toolSupport)
     {
@@ -291,7 +291,7 @@ public class RefactoringApproachController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("{id:int}/" + Constants.API_SUBPATH_USABILITIES + "/" + Constants.API_SUBPATH_ACCURACYPRECISIONS,
+    [HttpPost("{id:int}/" + Constants.ApiSubPathUsabilities + "/" + Constants.ApiSubPathAccuracyPrecisions,
         Name = "UpdateAccuracyPrecision")]
     public IActionResult UpdateAccuracyPrecision(int id, [FromBody] AccuracyPrecision accuracyPrecision)
     {
@@ -300,7 +300,7 @@ public class RefactoringApproachController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("{id:int}/" + Constants.API_SUBPATH_USABILITIES + "/" + Constants.API_SUBPATH_VALIDATIONMETHODS,
+    [HttpPost("{id:int}/" + Constants.ApiSubPathUsabilities + "/" + Constants.ApiSubPathValidationMethods,
         Name = "UpdateValidationMethod")]
     public IActionResult UpdateValidationMethod(int id, [FromBody] ValidationMethod validationMethod)
     {

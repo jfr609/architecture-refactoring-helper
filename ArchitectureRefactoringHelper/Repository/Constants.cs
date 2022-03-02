@@ -3,57 +3,65 @@ namespace Repository;
 public static class Constants
 {
     // Table name constants
-    public const string JOIN_TABLE_PREFIX = "JoinTable.";
-    public const string TABLE_NAME_APPROACH = "Approach";
-    public const string TABLE_NAME_APPROACH_SOURCE = TABLE_NAME_APPROACH + ".Source";
-    
-    public const string TABLE_NAME_APPROACH_INPUT = TABLE_NAME_APPROACH + ".Input";
-    public const string TABLE_NAME_APPROACH_INPUT_DOMAINARTIFACT = TABLE_NAME_APPROACH_INPUT + ".DomainArtifact";
-    public const string TABLE_NAME_APPROACH_INPUT_RUNTIMEARTIFACT = TABLE_NAME_APPROACH_INPUT + ".RuntimeArtifact";
-    public const string TABLE_NAME_APPROACH_INPUT_MODELARTIFACT = TABLE_NAME_APPROACH_INPUT + ".ModelArtifact";
-    public const string TABLE_NAME_APPROACH_INPUT_EXECUTABLE = TABLE_NAME_APPROACH_INPUT + ".Executable";
-    
-    public const string TABLE_NAME_APPROACH_PROCESS = TABLE_NAME_APPROACH + ".Process";
-    public const string TABLE_NAME_APPROACH_PROCESS_QUALITY = TABLE_NAME_APPROACH_PROCESS + ".Quality";
-    public const string TABLE_NAME_APPROACH_PROCESS_DIRECTION = TABLE_NAME_APPROACH_PROCESS + ".Direction";
-    public const string TABLE_NAME_APPROACH_PROCESS_AUTOMATIONLEVEL = TABLE_NAME_APPROACH_PROCESS + ".AutomationLevel";
-    public const string TABLE_NAME_APPROACH_PROCESS_ANALYSISTYPE = TABLE_NAME_APPROACH_PROCESS + ".AnalysisType";
-    public const string TABLE_NAME_APPROACH_PROCESS_TECHNIQUE = TABLE_NAME_APPROACH_PROCESS + ".Technique";
-    
-    public const string TABLE_NAME_APPROACH_OUTPUT = TABLE_NAME_APPROACH + ".Output";
-    public const string TABLE_NAME_APPROACH_OUTPUT_ARCHITECTURE = TABLE_NAME_APPROACH_OUTPUT + ".Architecture";
-    public const string TABLE_NAME_APPROACH_OUTPUT_SERVICETYPE = TABLE_NAME_APPROACH_OUTPUT + ".ServiceType";
-    
-    public const string TABLE_NAME_APPROACH_USABILITY = TABLE_NAME_APPROACH + ".Usability";
-    public const string TABLE_NAME_APPROACH_USABILITY_RESULTSQUALITY = TABLE_NAME_APPROACH_USABILITY + ".ResultsQuality";
-    public const string TABLE_NAME_APPROACH_USABILITY_TOOLSUPPORT = TABLE_NAME_APPROACH_USABILITY + ".ToolSupport";
-    public const string TABLE_NAME_APPROACH_USABILITY_ACCURACYPRECISION = TABLE_NAME_APPROACH_USABILITY + ".AccuracyPrecision";
-    public const string TABLE_NAME_APPROACH_USABILITY_VALIDATIONMETHOD = TABLE_NAME_APPROACH_USABILITY + ".ValidationMethod";
-    
+    public const string JoinTablePrefix = "JoinTable.";
+    public const string TableNameApproach = "Approach";
+    public const string TableNameApproachSource = TableNameApproach + ".Source";
+
+    public const string TableNameApproachInput = TableNameApproach + ".Input";
+    public const string TableNameApproachInputDomainArtifact = TableNameApproachInput + ".DomainArtifact";
+    public const string TableNameApproachInputRuntimeArtifact = TableNameApproachInput + ".RuntimeArtifact";
+    public const string TableNameApproachInputModelArtifact = TableNameApproachInput + ".ModelArtifact";
+    public const string TableNameApproachInputExecutable = TableNameApproachInput + ".Executable";
+
+    public const string TableNameApproachProcess = TableNameApproach + ".Process";
+    public const string TableNameApproachProcessQuality = TableNameApproachProcess + ".Quality";
+    public const string TableNameApproachProcessDirection = TableNameApproachProcess + ".Direction";
+    public const string TableNameApproachProcessAutomationLevel = TableNameApproachProcess + ".AutomationLevel";
+    public const string TableNameApproachProcessAnalysisType = TableNameApproachProcess + ".AnalysisType";
+    public const string TableNameApproachProcessTechnique = TableNameApproachProcess + ".Technique";
+
+    public const string TableNameApproachOutput = TableNameApproach + ".Output";
+    public const string TableNameApproachOutputArchitecture = TableNameApproachOutput + ".Architecture";
+    public const string TableNameApproachOutputServiceType = TableNameApproachOutput + ".ServiceType";
+
+    public const string TableNameApproachUsability = TableNameApproach + ".Usability";
+    public const string TableNameApproachUsabilityResultsQuality = TableNameApproachUsability + ".ResultsQuality";
+    public const string TableNameApproachUsabilityToolSupport = TableNameApproachUsability + ".ToolSupport";
+    public const string TableNameApproachUsabilityAccuracyPrecision = TableNameApproachUsability + ".AccuracyPrecision";
+    public const string TableNameApproachUsabilityValidationMethod = TableNameApproachUsability + ".ValidationMethod";
+
     // Controller api path constants
-    public const string API_VERSION = "1";
-    public const string API_SUBPATH_APPROACHES = "approaches";
-    
-    public const string API_SUBPATH_INPUTS = "inputs";
-    public const string API_SUBPATH_DOMAINARTIFACTS = "domain-artifacts";
-    public const string API_SUBPATH_RUNTIMEARTIFACTS = "runtime-artifacts";
-    public const string API_SUBPATH_MODELARTIFACTS = "model-artifacts";
-    public const string API_SUBPATH_EXECUTABLES = "executables";
-    
-    public const string API_SUBPATH_PROCESSES = "processes";
-    public const string API_SUBPATH_QUALITIES = "qualities";
-    public const string API_SUBPATH_DIRECTIONS = "directions";
-    public const string API_SUBPATH_AUTOMATIONLEVELS = "automation-levels";
-    public const string API_SUBPATH_ANALYSISTYPES = "analysis-types";
-    public const string API_SUBPATH_TECHNIQUES = "techniques";
-    
-    public const string API_SUBPATH_OUTPUTS = "outputs";
-    public const string API_SUBPATH_ARCHITECTURES = "architectures";
-    public const string API_SUBPATH_SERVICETYPES = "service-types";
-    
-    public const string API_SUBPATH_USABILITIES = "usabilities";
-    public const string API_SUBPATH_RESULTSQUALITIES = "result-qualities";
-    public const string API_SUBPATH_TOOLSUPPORTS = "tool-supports";
-    public const string API_SUBPATH_ACCURACYPRECISIONS = "accuracy-precisions";
-    public const string API_SUBPATH_VALIDATIONMETHODS = "validation-methods";
+    public const string ApiVersion = "1";
+    public const string ApiSubPathApproaches = "approaches";
+
+    public const string ApiSubPathInputs = "inputs";
+    public const string ApiSubPathDomainArtifacts = "domain-artifacts";
+    public const string ApiSubPathRuntimeArtifacts = "runtime-artifacts";
+    public const string ApiSubPathModelArtifacts = "model-artifacts";
+    public const string ApiSubPathExecutables = "executables";
+
+    public const string ApiSubPathProcesses = "processes";
+    public const string ApiSubPathQualities = "qualities";
+    public const string ApiSubPathDirections = "directions";
+    public const string ApiSubPathAutomationLevels = "automation-levels";
+    public const string ApiSubPathAnalysisTypes = "analysis-types";
+    public const string ApiSubPathTechniques = "techniques";
+
+    public const string ApiSubPathOutputs = "outputs";
+    public const string ApiSubPathArchitectures = "architectures";
+    public const string ApiSubPathServiceTypes = "service-types";
+
+    public const string ApiSubPathUsabilities = "usabilities";
+    public const string ApiSubPathResultsQualities = "result-qualities";
+    public const string ApiSubPathToolSupports = "tool-supports";
+    public const string ApiSubPathAccuracyPrecisions = "accuracy-precisions";
+    public const string ApiSubPathValidationMethods = "validation-methods";
+
+    // Default attribute options
+    public const string AttributeDefaultHigh = "High";
+    public const string AttributeDefaultMedium = "Medium";
+    public const string AttributeDefaultLow = "Low";
+    public const string AttributeDefaultNotAvailable = "Not available";
+    public const string AttributeDefaultNoToolSupport = "No tool support";
+    public const string AttributeDefaultNoValidation = "No validation";
 }

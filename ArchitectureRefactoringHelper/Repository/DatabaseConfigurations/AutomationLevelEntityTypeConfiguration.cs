@@ -8,7 +8,7 @@ public class AutomationLevelEntityTypeConfiguration : IEntityTypeConfiguration<A
 {
     public void Configure(EntityTypeBuilder<AutomationLevel> builder)
     {
-        builder.ToTable(Constants.TABLE_NAME_APPROACH_PROCESS_AUTOMATIONLEVEL);
+        builder.ToTable(Constants.TableNameApproachProcessAutomationLevel);
         
         builder.HasData(
             new AutomationLevel

@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Repository.Models.Database;
 
-[Table(Constants.TABLE_NAME_APPROACH_USABILITY)]
+[Table(Constants.TableNameApproachUsability)]
 public class ApproachUsability
 {
     [Key]

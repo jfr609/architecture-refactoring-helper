@@ -8,7 +8,7 @@ public class ServiceTypeEntityTypeConfiguration : IEntityTypeConfiguration<Servi
 {
     public void Configure(EntityTypeBuilder<ServiceType> builder)
     {
-        builder.ToTable(Constants.TABLE_NAME_APPROACH_OUTPUT_SERVICETYPE);
+        builder.ToTable(Constants.TableNameApproachOutputServiceType);
         
         builder.HasData(
             new ServiceType

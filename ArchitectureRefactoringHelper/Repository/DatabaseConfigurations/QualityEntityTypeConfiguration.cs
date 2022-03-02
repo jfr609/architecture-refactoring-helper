@@ -8,7 +8,7 @@ public class QualityEntityTypeConfiguration : IEntityTypeConfiguration<Quality>
 {
     public void Configure(EntityTypeBuilder<Quality> builder)
     {
-        builder.ToTable(Constants.TABLE_NAME_APPROACH_PROCESS_QUALITY);
+        builder.ToTable(Constants.TableNameApproachProcessQuality);
         // Define that enum field is saved as string
         builder.Property(q => q.Category)
             .HasConversion<string>();

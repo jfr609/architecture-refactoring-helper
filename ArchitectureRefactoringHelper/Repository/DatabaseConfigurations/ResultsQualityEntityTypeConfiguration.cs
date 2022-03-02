@@ -8,27 +8,27 @@ public class ResultsQualityEntityTypeConfiguration : IEntityTypeConfiguration<Re
 {
     public void Configure(EntityTypeBuilder<ResultsQuality> builder)
     {
-        builder.ToTable(Constants.TABLE_NAME_APPROACH_USABILITY_RESULTSQUALITY);
-        
+        builder.ToTable(Constants.TableNameApproachUsabilityResultsQuality);
+
         builder.HasData(
             new ResultsQuality
             {
-                Name = "High",
+                Name = Constants.AttributeDefaultHigh,
                 Description = ""
             },
             new ResultsQuality
             {
-                Name = "Medium",
+                Name = Constants.AttributeDefaultMedium,
                 Description = ""
             },
             new ResultsQuality
             {
-                Name = "Low",
+                Name = Constants.AttributeDefaultLow,
                 Description = ""
             },
             new ResultsQuality
             {
-                Name = "Not available",
+                Name = Constants.AttributeDefaultNotAvailable,
                 Description = ""
             });
     }

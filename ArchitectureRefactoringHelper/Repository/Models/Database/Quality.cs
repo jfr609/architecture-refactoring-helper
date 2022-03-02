@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Repository.Models.Database;
 
-[Table(Constants.TABLE_NAME_APPROACH_PROCESS_QUALITY)]
+[Table(Constants.TableNameApproachProcessQuality)]
 public class Quality
 {
     [Key]

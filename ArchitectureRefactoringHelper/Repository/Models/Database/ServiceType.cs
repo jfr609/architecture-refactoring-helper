@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Repository.Models.Database;
 
-[Table(Constants.TABLE_NAME_APPROACH_OUTPUT_SERVICETYPE)]
+[Table(Constants.TableNameApproachOutputServiceType)]
 public class ServiceType
 {
     [Key]

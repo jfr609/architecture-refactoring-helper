@@ -8,8 +8,8 @@ public class ToolSupportEntityTypeConfiguration : IEntityTypeConfiguration<ToolS
 {
     public void Configure(EntityTypeBuilder<ToolSupport> builder)
     {
-        builder.ToTable(Constants.TABLE_NAME_APPROACH_USABILITY_TOOLSUPPORT);
-        
+        builder.ToTable(Constants.TableNameApproachUsabilityToolSupport);
+
         builder.HasData(
             new ToolSupport
             {
@@ -28,7 +28,7 @@ public class ToolSupportEntityTypeConfiguration : IEntityTypeConfiguration<ToolS
             },
             new ToolSupport
             {
-                Name = "No tool support",
+                Name = Constants.AttributeDefaultNoToolSupport,
                 Description = ""
             });
     }

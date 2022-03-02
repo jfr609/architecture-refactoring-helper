@@ -8,7 +8,7 @@ public class DirectionEntityTypeConfiguration : IEntityTypeConfiguration<Directi
 {
     public void Configure(EntityTypeBuilder<Direction> builder)
     {
-        builder.ToTable(Constants.TABLE_NAME_APPROACH_PROCESS_DIRECTION);
+        builder.ToTable(Constants.TableNameApproachProcessDirection);
         
         builder.HasData(
             new Direction

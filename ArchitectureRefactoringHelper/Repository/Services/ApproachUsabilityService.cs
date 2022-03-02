@@ -20,8 +20,12 @@ public class ApproachUsabilityService
         var db = new RefactoringApproachContext();
 
         return db.ResultsQualities
-            .OrderBy(e => e.Name)
+            .OrderBy(e => e.Name == Constants.AttributeDefaultNotAvailable)
+            .ThenBy(e => e.Name == Constants.AttributeDefaultLow)
+            .ThenBy(e => e.Name == Constants.AttributeDefaultMedium)
+            .ThenBy(e => e.Name == Constants.AttributeDefaultHigh)
             .ToList();
+        ;
     }
 
     public IEnumerable<ToolSupport> ListToolSupports()
@@ -29,7 +33,7 @@ public class ApproachUsabilityService
         var db = new RefactoringApproachContext();
 
         return db.ToolSupports
-            .OrderBy(e => e.Name)
+            .OrderBy(e => e.Name == Constants.AttributeDefaultNoToolSupport)
             .ToList();
     }
 
@@ -38,7 +42,10 @@ public class ApproachUsabilityService
         var db = new RefactoringApproachContext();
 
         return db.AccuracyPrecisions
-            .OrderBy(e => e.Name)
+            .OrderBy(e => e.Name == Constants.AttributeDefaultNotAvailable)
+            .ThenBy(e => e.Name == Constants.AttributeDefaultLow)
+            .ThenBy(e => e.Name == Constants.AttributeDefaultMedium)
+            .ThenBy(e => e.Name == Constants.AttributeDefaultHigh)
             .ToList();
     }
 
@@ -47,7 +54,7 @@ public class ApproachUsabilityService
         var db = new RefactoringApproachContext();
 
         return db.ValidationMethods
-            .OrderBy(e => e.Name)
+            .OrderBy(e => e.Name == Constants.AttributeDefaultNoValidation)
             .ToList();
     }
 
