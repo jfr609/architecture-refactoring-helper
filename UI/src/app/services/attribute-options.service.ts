@@ -61,7 +61,7 @@ export class AttributeOptionsService {
   ) {}
 
   requestAttributeOptions(): Promise<Awaited<void>[]> {
-    let dataLoadingPromises: Promise<void>[] = [];
+    const dataLoadingPromises: Promise<void>[] = [];
 
     dataLoadingPromises.push(this.requestDomainArtifacts());
     dataLoadingPromises.push(this.requestRuntimeArtifacts());
@@ -278,7 +278,7 @@ export class AttributeOptionsService {
   }
 
   createDomainArtifactWithDialog(): void {
-    let data: CreateAttributeDialogData<DomainArtifactInput> = {
+    const data: CreateAttributeDialogData<DomainArtifactInput> = {
       title: 'Create a new domain artifact input option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
@@ -306,7 +306,7 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          let createPromises: Promise<void>[] = [];
+          const createPromises: Promise<void>[] = [];
           for (const attribute of data.attributesToCreate) {
             createPromises.push(this.createDomainArtifact(attribute));
           }
@@ -331,7 +331,7 @@ export class AttributeOptionsService {
   }
 
   deleteDomainArtifactWithDialog(): void {
-    let data: DeleteAttributeDialogData<DomainArtifactInput> = {
+    const data: DeleteAttributeDialogData<DomainArtifactInput> = {
       title: 'Delete an existing domain artifact input option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
@@ -356,7 +356,7 @@ export class AttributeOptionsService {
   }
 
   createRuntimeArtifactWithDialog(): void {
-    let data: CreateAttributeDialogData<RuntimeArtifactInput> = {
+    const data: CreateAttributeDialogData<RuntimeArtifactInput> = {
       title: 'Create a new runtime artifact input option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
@@ -394,7 +394,7 @@ export class AttributeOptionsService {
   }
 
   deleteRuntimeArtifactWithDialog(): void {
-    let data: DeleteAttributeDialogData<RuntimeArtifactInput> = {
+    const data: DeleteAttributeDialogData<RuntimeArtifactInput> = {
       title: 'Delete an existing runtime artifact input option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
@@ -418,7 +418,7 @@ export class AttributeOptionsService {
   }
 
   createModelArtifactWithDialog(): void {
-    let data: CreateAttributeDialogData<ModelArtifactInput> = {
+    const data: CreateAttributeDialogData<ModelArtifactInput> = {
       title: 'Create a new model artifact input option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
@@ -456,7 +456,7 @@ export class AttributeOptionsService {
   }
 
   deleteModelArtifactWithDialog(): void {
-    let data: DeleteAttributeDialogData<ModelArtifactInput> = {
+    const data: DeleteAttributeDialogData<ModelArtifactInput> = {
       title: 'Delete an existing model artifact input option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
@@ -480,7 +480,7 @@ export class AttributeOptionsService {
   }
 
   createExecutableWithDialog(): void {
-    let data: CreateAttributeDialogData<ExecutableInput> = {
+    const data: CreateAttributeDialogData<ExecutableInput> = {
       title: 'Create a new executable input option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
@@ -527,7 +527,7 @@ export class AttributeOptionsService {
   }
 
   deleteExecutableWithDialog(): void {
-    let data: DeleteAttributeDialogData<ExecutableInput> = {
+    const data: DeleteAttributeDialogData<ExecutableInput> = {
       title: 'Delete an existing executable input option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
@@ -552,7 +552,7 @@ export class AttributeOptionsService {
   }
 
   createQualityWithDialog(): void {
-    let data: CreateAttributeDialogData<Quality> = {
+    const data: CreateAttributeDialogData<Quality> = {
       title: 'Create a new process quality option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
@@ -597,7 +597,7 @@ export class AttributeOptionsService {
   }
 
   deleteQualityWithDialog(): void {
-    let data: DeleteAttributeDialogData<Quality> = {
+    const data: DeleteAttributeDialogData<Quality> = {
       title: 'Delete an existing process quality option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
@@ -621,7 +621,7 @@ export class AttributeOptionsService {
   }
 
   createDirectionWithDialog(): void {
-    let data: CreateAttributeDialogData<Direction> = {
+    const data: CreateAttributeDialogData<Direction> = {
       title: 'Create a new process direction option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
@@ -659,7 +659,7 @@ export class AttributeOptionsService {
   }
 
   deleteDirectionWithDialog(): void {
-    let data: DeleteAttributeDialogData<Direction> = {
+    const data: DeleteAttributeDialogData<Direction> = {
       title: 'Delete an existing process direction option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
@@ -683,7 +683,7 @@ export class AttributeOptionsService {
   }
 
   createAutomationLevelWithDialog(): void {
-    let data: CreateAttributeDialogData<AutomationLevel> = {
+    const data: CreateAttributeDialogData<AutomationLevel> = {
       title: 'Create a new process level of automation option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
@@ -721,7 +721,7 @@ export class AttributeOptionsService {
   }
 
   deleteAutomationLevelWithDialog(): void {
-    let data: DeleteAttributeDialogData<AutomationLevel> = {
+    const data: DeleteAttributeDialogData<AutomationLevel> = {
       title: 'Delete an existing process level of automation option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
@@ -745,7 +745,7 @@ export class AttributeOptionsService {
   }
 
   createAnalysisTypeWithDialog(): void {
-    let data: CreateAttributeDialogData<AnalysisType> = {
+    const data: CreateAttributeDialogData<AnalysisType> = {
       title: 'Create a new process analysis type option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
@@ -783,7 +783,7 @@ export class AttributeOptionsService {
   }
 
   deleteAnalysisTypeWithDialog(): void {
-    let data: DeleteAttributeDialogData<AnalysisType> = {
+    const data: DeleteAttributeDialogData<AnalysisType> = {
       title: 'Delete an existing process analysis type option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
@@ -807,7 +807,7 @@ export class AttributeOptionsService {
   }
 
   createTechniqueWithDialog(): void {
-    let data: CreateAttributeDialogData<Technique> = {
+    const data: CreateAttributeDialogData<Technique> = {
       title: 'Create a new process technique option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
@@ -845,7 +845,7 @@ export class AttributeOptionsService {
   }
 
   deleteTechniqueWithDialog(): void {
-    let data: DeleteAttributeDialogData<Technique> = {
+    const data: DeleteAttributeDialogData<Technique> = {
       title: 'Delete an existing process technique option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
@@ -869,7 +869,7 @@ export class AttributeOptionsService {
   }
 
   createArchitectureWithDialog(): void {
-    let data: CreateAttributeDialogData<Architecture> = {
+    const data: CreateAttributeDialogData<Architecture> = {
       title: 'Create a new output architecture option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
@@ -907,7 +907,7 @@ export class AttributeOptionsService {
   }
 
   deleteArchitectureWithDialog(): void {
-    let data: DeleteAttributeDialogData<Architecture> = {
+    const data: DeleteAttributeDialogData<Architecture> = {
       title: 'Delete an existing output architecture option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
@@ -931,7 +931,7 @@ export class AttributeOptionsService {
   }
 
   createServiceTypeWithDialog(): void {
-    let data: CreateAttributeDialogData<ServiceType> = {
+    const data: CreateAttributeDialogData<ServiceType> = {
       title: 'Create a new output service type option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
@@ -969,7 +969,7 @@ export class AttributeOptionsService {
   }
 
   deleteServiceTypeWithDialog(): void {
-    let data: DeleteAttributeDialogData<ServiceType> = {
+    const data: DeleteAttributeDialogData<ServiceType> = {
       title: 'Delete an existing output service type option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
@@ -993,7 +993,7 @@ export class AttributeOptionsService {
   }
 
   createValidationMethodWithDialog(): void {
-    let data: CreateAttributeDialogData<ValidationMethod> = {
+    const data: CreateAttributeDialogData<ValidationMethod> = {
       title: 'Create a new validation method option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
@@ -1031,7 +1031,7 @@ export class AttributeOptionsService {
   }
 
   deleteValidationMethodWithDialog(): void {
-    let data: DeleteAttributeDialogData<ValidationMethod> = {
+    const data: DeleteAttributeDialogData<ValidationMethod> = {
       title: 'Delete an existing validation method option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
@@ -1055,7 +1055,7 @@ export class AttributeOptionsService {
   }
 
   createToolSupportWithDialog(): void {
-    let data: CreateAttributeDialogData<ToolSupport> = {
+    const data: CreateAttributeDialogData<ToolSupport> = {
       title: 'Create a new tool support option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
@@ -1093,7 +1093,7 @@ export class AttributeOptionsService {
   }
 
   deleteToolSupportWithDialog(): void {
-    let data: DeleteAttributeDialogData<ToolSupport> = {
+    const data: DeleteAttributeDialogData<ToolSupport> = {
       title: 'Delete an existing tool support option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
@@ -1117,7 +1117,7 @@ export class AttributeOptionsService {
   }
 
   createResultsQualityWithDialog(): void {
-    let data: CreateAttributeDialogData<ResultsQuality> = {
+    const data: CreateAttributeDialogData<ResultsQuality> = {
       title: 'Create a new quality of results option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
@@ -1155,7 +1155,7 @@ export class AttributeOptionsService {
   }
 
   deleteResultsQualityWithDialog(): void {
-    let data: DeleteAttributeDialogData<ResultsQuality> = {
+    const data: DeleteAttributeDialogData<ResultsQuality> = {
       title: 'Delete an existing quality of results option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
@@ -1179,7 +1179,7 @@ export class AttributeOptionsService {
   }
 
   createAccuracyPrecisionWithDialog(): void {
-    let data: CreateAttributeDialogData<AccuracyPrecision> = {
+    const data: CreateAttributeDialogData<AccuracyPrecision> = {
       title: 'Create a new accuracy/precision option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
@@ -1217,7 +1217,7 @@ export class AttributeOptionsService {
   }
 
   deleteAccuracyPrecisionWithDialog(): void {
-    let data: DeleteAttributeDialogData<AccuracyPrecision> = {
+    const data: DeleteAttributeDialogData<AccuracyPrecision> = {
       title: 'Delete an existing accuracy/precision option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',

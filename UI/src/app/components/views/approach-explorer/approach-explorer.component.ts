@@ -45,7 +45,10 @@ export class ApproachExplorerComponent implements OnInit {
 
   setDataSource(): void {
     this.dataSource = new MatTableDataSource(this.refactoringApproaches);
-    this.dataSource.sortingDataAccessor = (data, sortHeaderId) => {
+    this.dataSource.sortingDataAccessor = (
+      data: RefactoringApproach,
+      sortHeaderId: string
+    ) => {
       switch (sortHeaderId) {
         case 'id':
           return data.refactoringApproachId;
@@ -56,6 +59,7 @@ export class ApproachExplorerComponent implements OnInit {
         case 'authors':
           return data.approachSource?.authors;
         default:
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           return data[sortHeaderId];
       }

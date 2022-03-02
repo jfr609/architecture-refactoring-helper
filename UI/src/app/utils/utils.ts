@@ -5,7 +5,7 @@ export function removeValueFromArray<T>(
   value: T,
   valueEquals: (a: T, b: T) => boolean = (a: T, b: T) => a === b
 ): void {
-  let index: number = -1;
+  let index = -1;
   list.find((value: T, i: number) => {
     if (valueEquals(value, value)) {
       index = i;
@@ -75,11 +75,11 @@ export function getKeyValue(
 }
 
 export function keyEquals(
-  value1: any | undefined | null,
-  value2: any | undefined | null
+  value1: unknown | undefined | null,
+  value2: unknown | undefined | null
 ): boolean {
-  let keyValue1 = getKeyValue(value1);
-  let keyValue2 = getKeyValue(value2);
+  const keyValue1 = getKeyValue(value1);
+  const keyValue2 = getKeyValue(value2);
 
   if (keyValue1 === undefined || keyValue2 === undefined)
     return value1 === value2;

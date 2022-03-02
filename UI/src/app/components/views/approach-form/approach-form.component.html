@@ -48,7 +48,7 @@
       <div style='margin-bottom: 24px;' fxLayout='row'>
         <mat-form-field fxFlex style='margin-right: 24px' appearance='fill'>
           <mat-label>Title</mat-label>
-          <input matInput type='text' (change)='onChangeTitle($event)' [value]='titleInputValue'
+          <input matInput type='text' (input)='onChangeTitle($event)' [value]='titleInputValue'
                  [formControl]='titleFormControl'>
           <button *ngIf='titleInputValue' matSuffix mat-icon-button aria-label='Clear' (click)="titleInputValue=''">
             <mat-icon>close</mat-icon>
@@ -60,7 +60,7 @@
 
         <mat-form-field appearance='fill'>
           <mat-label>Year</mat-label>
-          <input matInput type='number' (change)='onChangeYear($event)' [value]='yearInputValue'
+          <input matInput type='number' (input)='onChangeYear($event)' [value]='yearInputValue'
                  [formControl]='yearFormControl'>
           <mat-error *ngIf="!yearFormControl.hasError('required') &&
           (yearFormControl.hasError('min') || yearFormControl.hasError('max'))">
@@ -74,26 +74,26 @@
 
       <div fxLayout='row'>
         <mat-form-field fxFlex='50' style='margin-right: 24px' appearance='fill'>
-          <mat-label>Link</mat-label>
-          <input matInput type='text' (change)='onChangeLink($event)' [value]='linkInputValue'
-                 [formControl]='linkFormControl'>
-          <button *ngIf='linkInputValue' matSuffix mat-icon-button aria-label='Clear' (click)="linkInputValue=''">
-            <mat-icon>close</mat-icon>
-          </button>
-          <mat-error *ngIf="linkFormControl.hasError('url')">
-            Link has to be a valid URL
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field fxFlex='50' appearance='fill'>
           <mat-label>Authors</mat-label>
-          <input matInput type='text' (change)='onChangeAuthors($event)' [value]='authorsInputValue'
+          <input matInput type='text' (input)='onChangeAuthors($event)' [value]='authorsInputValue'
                  [formControl]='authorsFormControl'>
           <button *ngIf='authorsInputValue' matSuffix mat-icon-button aria-label='Clear' (click)="authorsInputValue=''">
             <mat-icon>close</mat-icon>
           </button>
           <mat-error *ngIf="authorsFormControl.hasError('required')">
             Authors are <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex='50' appearance='fill'>
+          <mat-label>Link</mat-label>
+          <input matInput type='text' (input)='onChangeLink($event)' [value]='linkInputValue'
+                 [formControl]='linkFormControl'>
+          <button *ngIf='linkInputValue' matSuffix mat-icon-button aria-label='Clear' (click)="linkInputValue=''">
+            <mat-icon>close</mat-icon>
+          </button>
+          <mat-error *ngIf="linkFormControl.hasError('url')">
+            Link has to be a valid URL
           </mat-error>
         </mat-form-field>
       </div>
@@ -115,8 +115,8 @@
         [targetDataList]='domainArtifactTargetDataList'
         [attributeCreationActive]='true'
         [attributeDeletionActive]='true'
-        (onCreateAttribute)='attributeOptionsService.createDomainArtifactWithDialog()'
-        (onDeleteAttribute)='attributeOptionsService.deleteDomainArtifactWithDialog()'>
+        (createAttribute)='attributeOptionsService.createDomainArtifactWithDialog()'
+        (deleteAttribute)='attributeOptionsService.deleteDomainArtifactWithDialog()'>
       </app-connected-data-lists>
 
       <app-connected-data-lists
@@ -126,8 +126,8 @@
         [targetDataList]='runtimeArtifactTargetDataList'
         [attributeCreationActive]='true'
         [attributeDeletionActive]='true'
-        (onCreateAttribute)='attributeOptionsService.createRuntimeArtifactWithDialog()'
-        (onDeleteAttribute)='attributeOptionsService.deleteRuntimeArtifactWithDialog()'>
+        (createAttribute)='attributeOptionsService.createRuntimeArtifactWithDialog()'
+        (deleteAttribute)='attributeOptionsService.deleteRuntimeArtifactWithDialog()'>
       </app-connected-data-lists>
 
       <app-connected-data-lists
@@ -137,8 +137,8 @@
         [targetDataList]='modelArtifactTargetDataList'
         [attributeCreationActive]='true'
         [attributeDeletionActive]='true'
-        (onCreateAttribute)='attributeOptionsService.createModelArtifactWithDialog()'
-        (onDeleteAttribute)='attributeOptionsService.deleteModelArtifactWithDialog()'>
+        (createAttribute)='attributeOptionsService.createModelArtifactWithDialog()'
+        (deleteAttribute)='attributeOptionsService.deleteModelArtifactWithDialog()'>
       </app-connected-data-lists>
 
       <app-connected-data-lists
@@ -148,8 +148,8 @@
         [targetDataList]='executableTargetDataList'
         [attributeCreationActive]='true'
         [attributeDeletionActive]='true'
-        (onCreateAttribute)='attributeOptionsService.createExecutableWithDialog()'
-        (onDeleteAttribute)='attributeOptionsService.deleteExecutableWithDialog()'>
+        (createAttribute)='attributeOptionsService.createExecutableWithDialog()'
+        (deleteAttribute)='attributeOptionsService.deleteExecutableWithDialog()'>
       </app-connected-data-lists>
     </mat-expansion-panel>
 
@@ -169,8 +169,8 @@
         [targetDataList]='qualityTargetDataList'
         [attributeCreationActive]='true'
         [attributeDeletionActive]='true'
-        (onCreateAttribute)='attributeOptionsService.createQualityWithDialog()'
-        (onDeleteAttribute)='attributeOptionsService.deleteQualityWithDialog()'>
+        (createAttribute)='attributeOptionsService.createQualityWithDialog()'
+        (deleteAttribute)='attributeOptionsService.deleteQualityWithDialog()'>
       </app-connected-data-lists>
 
       <app-connected-data-lists
@@ -180,8 +180,8 @@
         [targetDataList]='directionTargetDataList'
         [attributeCreationActive]='true'
         [attributeDeletionActive]='true'
-        (onCreateAttribute)='attributeOptionsService.createDirectionWithDialog()'
-        (onDeleteAttribute)='attributeOptionsService.deleteDirectionWithDialog()'>
+        (createAttribute)='attributeOptionsService.createDirectionWithDialog()'
+        (deleteAttribute)='attributeOptionsService.deleteDirectionWithDialog()'>
       </app-connected-data-lists>
 
       <app-connected-data-lists
@@ -191,8 +191,8 @@
         [targetDataList]='automationLevelTargetDataList'
         [attributeCreationActive]='true'
         [attributeDeletionActive]='true'
-        (onCreateAttribute)='attributeOptionsService.createAutomationLevelWithDialog()'
-        (onDeleteAttribute)='attributeOptionsService.deleteAutomationLevelWithDialog()'>
+        (createAttribute)='attributeOptionsService.createAutomationLevelWithDialog()'
+        (deleteAttribute)='attributeOptionsService.deleteAutomationLevelWithDialog()'>
       </app-connected-data-lists>
 
       <app-connected-data-lists
@@ -202,8 +202,8 @@
         [targetDataList]='analysisTypeTargetDataList'
         [attributeCreationActive]='true'
         [attributeDeletionActive]='true'
-        (onCreateAttribute)='attributeOptionsService.createAnalysisTypeWithDialog()'
-        (onDeleteAttribute)='attributeOptionsService.deleteAnalysisTypeWithDialog()'>
+        (createAttribute)='attributeOptionsService.createAnalysisTypeWithDialog()'
+        (deleteAttribute)='attributeOptionsService.deleteAnalysisTypeWithDialog()'>
       </app-connected-data-lists>
 
       <app-connected-data-lists
@@ -213,8 +213,8 @@
         [targetDataList]='techniqueTargetDataList'
         [attributeCreationActive]='true'
         [attributeDeletionActive]='true'
-        (onCreateAttribute)='attributeOptionsService.createTechniqueWithDialog()'
-        (onDeleteAttribute)='attributeOptionsService.deleteTechniqueWithDialog()'>
+        (createAttribute)='attributeOptionsService.createTechniqueWithDialog()'
+        (deleteAttribute)='attributeOptionsService.deleteTechniqueWithDialog()'>
       </app-connected-data-lists>
     </mat-expansion-panel>
 

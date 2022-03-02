@@ -12,10 +12,10 @@ import {
   styleUrls: ['./delete-attribute-dialog.component.css']
 })
 export class DeleteAttributeDialogComponent implements OnInit {
-  selectedAttributes: any[] = [];
+  selectedAttributes: unknown[] = [];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: DeleteAttributeDialogData<any>,
+    @Inject(MAT_DIALOG_DATA) public data: DeleteAttributeDialogData<unknown>,
     public dialogRef: MatDialogRef<DeleteAttributeDialogComponent>,
     public dialog: MatDialog
   ) {}
@@ -48,5 +48,5 @@ export interface DeleteAttributeDialogData<T> extends DialogData {
   attributesToDelete?: T[];
   currentAttributeList: T[];
 
-  getDisplayName: (value: any) => string;
+  getDisplayName: (value: T) => string;
 }

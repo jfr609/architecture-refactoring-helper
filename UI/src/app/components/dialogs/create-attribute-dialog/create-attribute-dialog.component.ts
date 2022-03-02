@@ -34,7 +34,7 @@ export class CreateAttributeDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    let controls: any = {};
+    const controlsConfig: { [p: string]: unknown } = {};
 
     for (const fieldConfig of this.data.configs) {
       if (fieldConfig.autocompleteActive) {
@@ -48,10 +48,10 @@ export class CreateAttributeDialogComponent implements OnInit {
         config: fieldConfig
       });
 
-      controls[fieldConfig.variableName] = ['', fieldConfig.validators];
+      controlsConfig[fieldConfig.variableName] = ['', fieldConfig.validators];
     }
 
-    this.createAttributeForm = this.builder.group(controls, {
+    this.createAttributeForm = this.builder.group(controlsConfig, {
       validators: [
         CustomValidators.disallowDuplicates(this.data.currentAttributeList)
       ]
@@ -102,7 +102,7 @@ export class CreateAttributeDialogComponent implements OnInit {
 
   createAttributeObjects() {
     this.data.attributesToCreate = [];
-    let attribute: any = {};
+    const attribute: any = {};
     for (const fieldInfo of this.fields) {
       attribute[fieldInfo.config.variableName] = fieldInfo.value;
     }

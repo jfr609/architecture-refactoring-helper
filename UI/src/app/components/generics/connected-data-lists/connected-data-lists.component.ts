@@ -7,7 +7,7 @@ import {
 
 export class ConnectedDataListElement {
   displayName!: string;
-  dataElement?: {};
+  dataElement?: unknown;
 }
 
 @Component({
@@ -20,11 +20,11 @@ export class ConnectedDataListsComponent implements OnInit {
   @Input() targetDataListTitle = 'Target List';
   @Input() sourceDataList: ConnectedDataListElement[] = [];
   @Input() targetDataList: ConnectedDataListElement[] = [];
-  @Input() attributeCreationActive: boolean = false;
-  @Input() attributeDeletionActive: boolean = false;
+  @Input() attributeCreationActive = false;
+  @Input() attributeDeletionActive = false;
 
-  @Output() onCreateAttribute: EventEmitter<void> = new EventEmitter<void>();
-  @Output() onDeleteAttribute: EventEmitter<void> = new EventEmitter<void>();
+  @Output() createAttribute: EventEmitter<void> = new EventEmitter<void>();
+  @Output() deleteAttribute: EventEmitter<void> = new EventEmitter<void>();
 
   constructor() {}
 
@@ -48,10 +48,10 @@ export class ConnectedDataListsComponent implements OnInit {
   }
 
   onAddAttributeClicked() {
-    this.onCreateAttribute.emit();
+    this.createAttribute.emit();
   }
 
   onDeleteAttributeClicked() {
-    this.onDeleteAttribute.emit();
+    this.deleteAttribute.emit();
   }
 }

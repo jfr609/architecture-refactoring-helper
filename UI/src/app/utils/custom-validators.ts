@@ -5,7 +5,7 @@ import { keyEquals } from './utils';
 export class CustomValidators {
   static url(control: AbstractControl): ValidationErrors | null {
     if (typeof control.value === 'string') {
-      let url: string = control.value;
+      const url: string = control.value;
       if (url.match(URL_REGEX)) {
         return null;
       }
@@ -15,10 +15,12 @@ export class CustomValidators {
     };
   }
 
-  static disallowDuplicates(duplicateList: any[]): ValidatorFn {
+  static disallowDuplicates(duplicateList: unknown[]): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      let element: any = control.value;
-      let duplicate = duplicateList.find((value) => keyEquals(value, element));
+      const element: unknown = control.value;
+      const duplicate = duplicateList.find((value) =>
+        keyEquals(value, element)
+      );
       if (duplicate == null) {
         return null;
       }

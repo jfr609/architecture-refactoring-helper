@@ -30,7 +30,7 @@ import { ApproachRecommendation } from '../../../../../api/repository/models/app
   styleUrls: ['./approach-finder.component.scss']
 })
 export class ApproachFinderComponent implements OnInit {
-  isDataLoading: boolean = true;
+  isDataLoading = true;
   qualityCategories = QualityCategory;
   recommendationSuitabilityOptions: RecommendationSuitability[] = [];
 
@@ -210,7 +210,7 @@ export class ApproachFinderComponent implements OnInit {
   }
 
   onSearchRecommendation(): void {
-    let approachRecommendationRequest: ApproachRecommendationRequest = {
+    const approachRecommendationRequest: ApproachRecommendationRequest = {
       inputRecommendationInformation: {
         domainArtifactInformation: this.domainArtifactInformation,
         runtimeArtifactInformation: this.runtimeArtifactInformation,

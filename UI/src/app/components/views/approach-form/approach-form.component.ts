@@ -57,10 +57,10 @@ export class ApproachFormComponent implements OnInit {
 
   refactoringApproach: RefactoringApproach = {};
 
-  titleInputValue: string = '';
-  yearInputValue: string = '';
-  authorsInputValue: string = '';
-  linkInputValue: string = '';
+  titleInputValue = '';
+  yearInputValue = '';
+  authorsInputValue = '';
+  linkInputValue = '';
 
   domainArtifactSourceDataList: ConnectedDataListElement[] = [];
   domainArtifactTargetDataList: ConnectedDataListElement[] = [];
@@ -90,8 +90,8 @@ export class ApproachFormComponent implements OnInit {
   selectedAccuracyPrecision!: AccuracyPrecision;
   selectedValidationMethod!: ValidationMethod;
 
-  isCreateView: boolean = true;
-  isDataLoading: boolean = true;
+  isCreateView = true;
+  isDataLoading = true;
 
   private routeSub!: Subscription;
 
@@ -115,7 +115,7 @@ export class ApproachFormComponent implements OnInit {
             this.isDataLoading = false;
           });
         } else {
-          let approachId = parseInt(
+          const approachId = parseInt(
             paramMap.get(NAV_PARAM_APPROACH_ID) as string
           );
 
@@ -182,46 +182,50 @@ export class ApproachFormComponent implements OnInit {
 
   fillInUsabilityAttributes() {
     if (this.refactoringApproach.approachUsability?.resultsQuality != null) {
-      // @ts-ignore
-      this.selectedResultsQuality =
+      const foundResultsQuality =
         this.attributeOptionsService.resultsQualities.find(
           (value: ResultsQuality) =>
             value.name ===
-            // @ts-ignore
-            this.refactoringApproach.approachUsability.resultsQuality.name
+            this.refactoringApproach.approachUsability?.resultsQuality.name
         );
+      if (foundResultsQuality != null) {
+        this.selectedResultsQuality = foundResultsQuality;
+      }
     }
 
     if (this.refactoringApproach.approachUsability?.toolSupport != null) {
-      // @ts-ignore
-      this.selectedToolSupport = this.attributeOptionsService.toolSupports.find(
+      const foundToolSupport = this.attributeOptionsService.toolSupports.find(
         (value: ToolSupport) =>
           value.name ===
-          // @ts-ignore
-          this.refactoringApproach.approachUsability.toolSupport.name
+          this.refactoringApproach.approachUsability?.toolSupport.name
       );
+      if (foundToolSupport != null) {
+        this.selectedToolSupport = foundToolSupport;
+      }
     }
 
     if (this.refactoringApproach.approachUsability?.accuracyPrecision != null) {
-      // @ts-ignore
-      this.selectedAccuracyPrecision =
+      const foundAccuracyPrecision =
         this.attributeOptionsService.accuracyPrecisions.find(
           (value: AccuracyPrecision) =>
             value.name ===
-            // @ts-ignore
-            this.refactoringApproach.approachUsability.accuracyPrecision.name
+            this.refactoringApproach.approachUsability?.accuracyPrecision.name
         );
+      if (foundAccuracyPrecision != null) {
+        this.selectedAccuracyPrecision = foundAccuracyPrecision;
+      }
     }
 
     if (this.refactoringApproach.approachUsability?.validationMethod != null) {
-      // @ts-ignore
-      this.selectedValidationMethod =
+      const foundValidationMethod =
         this.attributeOptionsService.validationMethods.find(
           (value: ValidationMethod) =>
             value.name ===
-            // @ts-ignore
-            this.refactoringApproach.approachUsability.validationMethod.name
+            this.refactoringApproach.approachUsability?.validationMethod.name
         );
+      if (foundValidationMethod != null) {
+        this.selectedValidationMethod = foundValidationMethod;
+      }
     }
   }
 
@@ -352,7 +356,7 @@ export class ApproachFormComponent implements OnInit {
   }
 
   setSelectedResultsQualityToDefault(): void {
-    let defaultValue = this.attributeOptionsService.resultsQualities.find(
+    const defaultValue = this.attributeOptionsService.resultsQualities.find(
       (value: ResultsQuality) => value.name === 'Not available'
     );
     if (defaultValue !== undefined) {
@@ -364,7 +368,7 @@ export class ApproachFormComponent implements OnInit {
   }
 
   setSelectedToolSupportToDefault(): void {
-    let defaultValue = this.attributeOptionsService.toolSupports.find(
+    const defaultValue = this.attributeOptionsService.toolSupports.find(
       (value: ToolSupport) => value.name === 'No tool support'
     );
     if (defaultValue !== undefined) {
@@ -375,7 +379,7 @@ export class ApproachFormComponent implements OnInit {
   }
 
   setSelectedAccuracyPrecisionToDefault(): void {
-    let defaultValue = this.attributeOptionsService.accuracyPrecisions.find(
+    const defaultValue = this.attributeOptionsService.accuracyPrecisions.find(
       (value: AccuracyPrecision) => value.name === 'Not available'
     );
     if (defaultValue !== undefined) {
@@ -387,7 +391,7 @@ export class ApproachFormComponent implements OnInit {
   }
 
   setSelectedValidationMethodToDefault(): void {
-    let defaultValue = this.attributeOptionsService.validationMethods.find(
+    const defaultValue = this.attributeOptionsService.validationMethods.find(
       (value: ValidationMethod) => value.name === 'No validation'
     );
     if (defaultValue !== undefined) {
@@ -428,9 +432,9 @@ export class ApproachFormComponent implements OnInit {
   }
 
   removeOutput(output: ApproachOutput): void {
-    let data: ConfirmDialogData = {
+    const data: ConfirmDialogData = {
       title: 'Remove the selected output?',
-      message: `Do you want to remove the output with architecture \"${output.architecture?.name}\" and service type \"${output.serviceType?.name}\"?`,
+      message: `Do you want to remove the output with architecture "${output.architecture?.name}" and service type "${output.serviceType?.name}"?`,
       confirmButtonText: 'Yes',
       cancelButtonText: 'Cancel'
     };
@@ -453,7 +457,7 @@ export class ApproachFormComponent implements OnInit {
   }
 
   createRefactoringApproach(): void {
-    let data: ConfirmDialogData = {
+    const data: ConfirmDialogData = {
       title: 'Create a new refactoring approach?',
       message:
         'Do you want to create a new refactoring approach based on the given data?',
@@ -468,7 +472,7 @@ export class ApproachFormComponent implements OnInit {
         next: (data: ConfirmDialogData) => {
           if (data === undefined) return;
 
-          let refactoringApproach =
+          const refactoringApproach =
             this.createRefactoringApproachFromFilledInData();
 
           this.refactoringApproachService
@@ -495,7 +499,7 @@ export class ApproachFormComponent implements OnInit {
   }
 
   updateRefactoringApproach(): void {
-    let data: ConfirmDialogData = {
+    const data: ConfirmDialogData = {
       title: 'Update the current refactoring approach?',
       message:
         'Do you want to update the current refactoring approach based on the current changes?',
@@ -518,8 +522,9 @@ export class ApproachFormComponent implements OnInit {
   processRefactoringApproachUpdate(): void {
     if (this.refactoringApproach.refactoringApproachId == null) return;
 
-    let refactoringApproach = this.createRefactoringApproachFromFilledInData();
-    let updatePromises: Promise<void>[] = [];
+    const refactoringApproach =
+      this.createRefactoringApproachFromFilledInData();
+    const updatePromises: Promise<void>[] = [];
 
     updatePromises.push(...this.updateDomainArtifacts(refactoringApproach));
     updatePromises.push(...this.updateRuntimeArtifacts(refactoringApproach));
@@ -581,21 +586,23 @@ export class ApproachFormComponent implements OnInit {
   updateDomainArtifacts(
     refactoringApproach: RefactoringApproach
   ): Promise<void>[] {
-    let elementsToRemove: DomainArtifactInput[] = findArrayDifference(
+    if (this.refactoringApproach.refactoringApproachId == null)
+      return [Promise.resolve()];
+
+    const elementsToRemove: DomainArtifactInput[] = findArrayDifference(
       this.refactoringApproach.domainArtifactInputs,
       refactoringApproach.domainArtifactInputs
     );
-    let elementsToAdd: DomainArtifactInput[] = findArrayDifference(
+    const elementsToAdd: DomainArtifactInput[] = findArrayDifference(
       refactoringApproach.domainArtifactInputs,
       this.refactoringApproach.domainArtifactInputs
     );
 
-    let updatePromises: Promise<void>[] = [];
+    const updatePromises: Promise<void>[] = [];
     for (const elementToAdd of elementsToAdd) {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.addDomainArtifactAsInput({
-            // @ts-ignore
             id: this.refactoringApproach.refactoringApproachId,
             body: elementToAdd
           })
@@ -608,7 +615,6 @@ export class ApproachFormComponent implements OnInit {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.removeDomainArtifactFromInputs({
-            // @ts-ignore
             id: this.refactoringApproach.refactoringApproachId,
             inputName: elementToRemove.name
           })
@@ -622,21 +628,23 @@ export class ApproachFormComponent implements OnInit {
   updateRuntimeArtifacts(
     refactoringApproach: RefactoringApproach
   ): Promise<void>[] {
-    let elementsToRemove: RuntimeArtifactInput[] = findArrayDifference(
+    if (this.refactoringApproach.refactoringApproachId == null)
+      return [Promise.resolve()];
+
+    const elementsToRemove: RuntimeArtifactInput[] = findArrayDifference(
       this.refactoringApproach.runtimeArtifactInputs,
       refactoringApproach.runtimeArtifactInputs
     );
-    let elementsToAdd: RuntimeArtifactInput[] = findArrayDifference(
+    const elementsToAdd: RuntimeArtifactInput[] = findArrayDifference(
       refactoringApproach.runtimeArtifactInputs,
       this.refactoringApproach.runtimeArtifactInputs
     );
 
-    let updatePromises: Promise<void>[] = [];
+    const updatePromises: Promise<void>[] = [];
     for (const elementToAdd of elementsToAdd) {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.addRuntimeArtifactAsInput({
-            // @ts-ignore
             id: this.refactoringApproach.refactoringApproachId,
             body: elementToAdd
           })
@@ -649,7 +657,6 @@ export class ApproachFormComponent implements OnInit {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.removeRuntimeArtifactFromInputs({
-            // @ts-ignore
             id: this.refactoringApproach.refactoringApproachId,
             inputName: elementToRemove.name
           })
@@ -663,21 +670,23 @@ export class ApproachFormComponent implements OnInit {
   updateModelArtifacts(
     refactoringApproach: RefactoringApproach
   ): Promise<void>[] {
-    let elementsToRemove: ModelArtifactInput[] = findArrayDifference(
+    if (this.refactoringApproach.refactoringApproachId == null)
+      return [Promise.resolve()];
+
+    const elementsToRemove: ModelArtifactInput[] = findArrayDifference(
       this.refactoringApproach.modelArtifactInputs,
       refactoringApproach.modelArtifactInputs
     );
-    let elementsToAdd: ModelArtifactInput[] = findArrayDifference(
+    const elementsToAdd: ModelArtifactInput[] = findArrayDifference(
       refactoringApproach.modelArtifactInputs,
       this.refactoringApproach.modelArtifactInputs
     );
 
-    let updatePromises: Promise<void>[] = [];
+    const updatePromises: Promise<void>[] = [];
     for (const elementToAdd of elementsToAdd) {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.addModelArtifactAsInput({
-            // @ts-ignore
             id: this.refactoringApproach.refactoringApproachId,
             body: elementToAdd
           })
@@ -690,7 +699,6 @@ export class ApproachFormComponent implements OnInit {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.removeModelArtifactFromInputs({
-            // @ts-ignore
             id: this.refactoringApproach.refactoringApproachId,
             inputName: elementToRemove.name
           })
@@ -702,21 +710,23 @@ export class ApproachFormComponent implements OnInit {
   }
 
   updateExecutables(refactoringApproach: RefactoringApproach): Promise<void>[] {
-    let elementsToRemove: ExecutableInput[] = findArrayDifference(
+    if (this.refactoringApproach.refactoringApproachId == null)
+      return [Promise.resolve()];
+
+    const elementsToRemove: ExecutableInput[] = findArrayDifference(
       this.refactoringApproach.executableInputs,
       refactoringApproach.executableInputs
     );
-    let elementsToAdd: ExecutableInput[] = findArrayDifference(
+    const elementsToAdd: ExecutableInput[] = findArrayDifference(
       refactoringApproach.executableInputs,
       this.refactoringApproach.executableInputs
     );
 
-    let updatePromises: Promise<void>[] = [];
+    const updatePromises: Promise<void>[] = [];
     for (const elementToAdd of elementsToAdd) {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.addExecutableAsInput({
-            // @ts-ignore
             id: this.refactoringApproach.refactoringApproachId,
             body: elementToAdd
           })
@@ -730,7 +740,6 @@ export class ApproachFormComponent implements OnInit {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.removeExecutableFromInputs({
-            // @ts-ignore
             id: this.refactoringApproach.refactoringApproachId,
             inputName: elementToRemove.name,
             language: elementToRemove.language
@@ -743,21 +752,23 @@ export class ApproachFormComponent implements OnInit {
   }
 
   updateQualities(refactoringApproach: RefactoringApproach): Promise<void>[] {
-    let elementsToRemove: Quality[] = findArrayDifference(
+    if (this.refactoringApproach.refactoringApproachId == null)
+      return [Promise.resolve()];
+
+    const elementsToRemove: Quality[] = findArrayDifference(
       this.refactoringApproach.approachProcess?.qualities,
       refactoringApproach.approachProcess?.qualities
     );
-    let elementsToAdd: Quality[] = findArrayDifference(
+    const elementsToAdd: Quality[] = findArrayDifference(
       refactoringApproach.approachProcess?.qualities,
       this.refactoringApproach.approachProcess?.qualities
     );
 
-    let updatePromises: Promise<void>[] = [];
+    const updatePromises: Promise<void>[] = [];
     for (const elementToAdd of elementsToAdd) {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.addQualityToProcess({
-            // @ts-ignore
             id: this.refactoringApproach.refactoringApproachId,
             body: elementToAdd
           })
@@ -770,7 +781,6 @@ export class ApproachFormComponent implements OnInit {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.removeQualityFromProcess({
-            // @ts-ignore
             id: this.refactoringApproach.refactoringApproachId,
             qualityName: elementToRemove.name
           })
@@ -782,21 +792,23 @@ export class ApproachFormComponent implements OnInit {
   }
 
   updateDirections(refactoringApproach: RefactoringApproach): Promise<void>[] {
-    let elementsToRemove: Direction[] = findArrayDifference(
+    if (this.refactoringApproach.refactoringApproachId == null)
+      return [Promise.resolve()];
+
+    const elementsToRemove: Direction[] = findArrayDifference(
       this.refactoringApproach.approachProcess?.directions,
       refactoringApproach.approachProcess?.directions
     );
-    let elementsToAdd: Direction[] = findArrayDifference(
+    const elementsToAdd: Direction[] = findArrayDifference(
       refactoringApproach.approachProcess?.directions,
       this.refactoringApproach.approachProcess?.directions
     );
 
-    let updatePromises: Promise<void>[] = [];
+    const updatePromises: Promise<void>[] = [];
     for (const elementToAdd of elementsToAdd) {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.addDirectionToProcess({
-            // @ts-ignore
             id: this.refactoringApproach.refactoringApproachId,
             body: elementToAdd
           })
@@ -809,7 +821,6 @@ export class ApproachFormComponent implements OnInit {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.removeDirectionFromProcess({
-            // @ts-ignore
             id: this.refactoringApproach.refactoringApproachId,
             directionName: elementToRemove.name
           })
@@ -823,21 +834,23 @@ export class ApproachFormComponent implements OnInit {
   updateAutomationLevels(
     refactoringApproach: RefactoringApproach
   ): Promise<void>[] {
-    let elementsToRemove: AutomationLevel[] = findArrayDifference(
+    if (this.refactoringApproach.refactoringApproachId == null)
+      return [Promise.resolve()];
+
+    const elementsToRemove: AutomationLevel[] = findArrayDifference(
       this.refactoringApproach.approachProcess?.automationLevels,
       refactoringApproach.approachProcess?.automationLevels
     );
-    let elementsToAdd: AutomationLevel[] = findArrayDifference(
+    const elementsToAdd: AutomationLevel[] = findArrayDifference(
       refactoringApproach.approachProcess?.automationLevels,
       this.refactoringApproach.approachProcess?.automationLevels
     );
 
-    let updatePromises: Promise<void>[] = [];
+    const updatePromises: Promise<void>[] = [];
     for (const elementToAdd of elementsToAdd) {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.addAutomationLevelToProcess({
-            // @ts-ignore
             id: this.refactoringApproach.refactoringApproachId,
             body: elementToAdd
           })
@@ -850,7 +863,6 @@ export class ApproachFormComponent implements OnInit {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.removeAutomationLevelFromProcess({
-            // @ts-ignore
             id: this.refactoringApproach.refactoringApproachId,
             automationLevelName: elementToRemove.name
           })
@@ -864,21 +876,23 @@ export class ApproachFormComponent implements OnInit {
   updateAnalysisTypes(
     refactoringApproach: RefactoringApproach
   ): Promise<void>[] {
-    let elementsToRemove: AnalysisType[] = findArrayDifference(
+    if (this.refactoringApproach.refactoringApproachId == null)
+      return [Promise.resolve()];
+
+    const elementsToRemove: AnalysisType[] = findArrayDifference(
       this.refactoringApproach.approachProcess?.analysisTypes,
       refactoringApproach.approachProcess?.analysisTypes
     );
-    let elementsToAdd: AnalysisType[] = findArrayDifference(
+    const elementsToAdd: AnalysisType[] = findArrayDifference(
       refactoringApproach.approachProcess?.analysisTypes,
       this.refactoringApproach.approachProcess?.analysisTypes
     );
 
-    let updatePromises: Promise<void>[] = [];
+    const updatePromises: Promise<void>[] = [];
     for (const elementToAdd of elementsToAdd) {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.addAnalysisTypeToProcess({
-            // @ts-ignore
             id: this.refactoringApproach.refactoringApproachId,
             body: elementToAdd
           })
@@ -891,7 +905,6 @@ export class ApproachFormComponent implements OnInit {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.removeAnalysisTypeFromProcess({
-            // @ts-ignore
             id: this.refactoringApproach.refactoringApproachId,
             analysisTypeName: elementToRemove.name
           })
@@ -903,21 +916,23 @@ export class ApproachFormComponent implements OnInit {
   }
 
   updateTechniques(refactoringApproach: RefactoringApproach): Promise<void>[] {
-    let elementsToRemove: Technique[] = findArrayDifference(
+    if (this.refactoringApproach.refactoringApproachId == null)
+      return [Promise.resolve()];
+
+    const elementsToRemove: Technique[] = findArrayDifference(
       this.refactoringApproach.approachProcess?.techniques,
       refactoringApproach.approachProcess?.techniques
     );
-    let elementsToAdd: Technique[] = findArrayDifference(
+    const elementsToAdd: Technique[] = findArrayDifference(
       refactoringApproach.approachProcess?.techniques,
       this.refactoringApproach.approachProcess?.techniques
     );
 
-    let updatePromises: Promise<void>[] = [];
+    const updatePromises: Promise<void>[] = [];
     for (const elementToAdd of elementsToAdd) {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.addTechniqueToProcess({
-            // @ts-ignore
             id: this.refactoringApproach.refactoringApproachId,
             body: elementToAdd
           })
@@ -930,7 +945,6 @@ export class ApproachFormComponent implements OnInit {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.removeTechniqueFromProcess({
-            // @ts-ignore
             id: this.refactoringApproach.refactoringApproachId,
             techniqueName: elementToRemove.name
           })
@@ -942,7 +956,10 @@ export class ApproachFormComponent implements OnInit {
   }
 
   updateOutputs(refactoringApproach: RefactoringApproach) {
-    let elementsToRemove: ApproachOutput[] =
+    if (this.refactoringApproach.refactoringApproachId == null)
+      return [Promise.resolve()];
+
+    const elementsToRemove: ApproachOutput[] =
       findArrayDifferenceWithCustomEquals(
         this.refactoringApproach.approachOutputs,
         refactoringApproach.approachOutputs,
@@ -950,7 +967,7 @@ export class ApproachFormComponent implements OnInit {
           a.architecture?.name === b.architecture?.name &&
           a.serviceType?.name === b.serviceType?.name
       );
-    let elementsToAdd: ApproachOutput[] = findArrayDifferenceWithCustomEquals(
+    const elementsToAdd: ApproachOutput[] = findArrayDifferenceWithCustomEquals(
       refactoringApproach.approachOutputs,
       this.refactoringApproach.approachOutputs,
       (a: ApproachOutput, b: ApproachOutput) =>
@@ -958,12 +975,11 @@ export class ApproachFormComponent implements OnInit {
         a.serviceType?.name === b.serviceType?.name
     );
 
-    let updatePromises: Promise<void>[] = [];
+    const updatePromises: Promise<void>[] = [];
     for (const elementToAdd of elementsToAdd) {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.addOutput({
-            // @ts-ignore
             id: this.refactoringApproach.refactoringApproachId,
             body: elementToAdd
           })
@@ -976,7 +992,6 @@ export class ApproachFormComponent implements OnInit {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.removeOutput({
-            // @ts-ignore
             id: this.refactoringApproach.refactoringApproachId,
             outputId: elementToRemove.approachOutputId
           })
@@ -988,47 +1003,47 @@ export class ApproachFormComponent implements OnInit {
   }
 
   createRefactoringApproachFromFilledInData(): RefactoringApproach {
-    let domainArtifactInputs: DomainArtifactInput[] = [];
+    const domainArtifactInputs: DomainArtifactInput[] = [];
     for (const element of this.domainArtifactTargetDataList) {
       domainArtifactInputs.push(element.dataElement as DomainArtifactInput);
     }
 
-    let runtimeArtifactInputs: RuntimeArtifactInput[] = [];
+    const runtimeArtifactInputs: RuntimeArtifactInput[] = [];
     for (const element of this.runtimeArtifactTargetDataList) {
       runtimeArtifactInputs.push(element.dataElement as RuntimeArtifactInput);
     }
 
-    let modelArtifactInputs: ModelArtifactInput[] = [];
+    const modelArtifactInputs: ModelArtifactInput[] = [];
     for (const element of this.modelArtifactTargetDataList) {
       modelArtifactInputs.push(element.dataElement as ModelArtifactInput);
     }
 
-    let executableInputs: ExecutableInput[] = [];
+    const executableInputs: ExecutableInput[] = [];
     for (const element of this.executableTargetDataList) {
       executableInputs.push(element.dataElement as ExecutableInput);
     }
 
-    let qualities: Quality[] = [];
+    const qualities: Quality[] = [];
     for (const element of this.qualityTargetDataList) {
       qualities.push(element.dataElement as Quality);
     }
 
-    let directions: Direction[] = [];
+    const directions: Direction[] = [];
     for (const element of this.directionTargetDataList) {
       directions.push(element.dataElement as Direction);
     }
 
-    let automationLevels: AutomationLevel[] = [];
+    const automationLevels: AutomationLevel[] = [];
     for (const element of this.automationLevelTargetDataList) {
       automationLevels.push(element.dataElement as AutomationLevel);
     }
 
-    let analysisTypes: AnalysisType[] = [];
+    const analysisTypes: AnalysisType[] = [];
     for (const element of this.analysisTypeTargetDataList) {
       analysisTypes.push(element.dataElement as AnalysisType);
     }
 
-    let techniques: Technique[] = [];
+    const techniques: Technique[] = [];
     for (const element of this.techniqueTargetDataList) {
       techniques.push(element.dataElement as Technique);
     }

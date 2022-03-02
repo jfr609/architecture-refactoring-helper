@@ -15,7 +15,7 @@ export class ApproachViewComponent implements OnInit {
   refactoringApproach: RefactoringApproach = {};
 
   routeSub!: Subscription;
-  isDataLoading: boolean = true;
+  isDataLoading = true;
 
   constructor(
     private refactoringApproachService: RefactoringApproachService,
@@ -29,7 +29,7 @@ export class ApproachViewComponent implements OnInit {
       next: (paramMap: ParamMap) => {
         this.isDataLoading = true;
 
-        let approachId = parseInt(
+        const approachId = parseInt(
           paramMap.get(NAV_PARAM_APPROACH_ID) as string
         );
         this.requestRefactoringApproach(approachId);

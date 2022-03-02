@@ -15,11 +15,11 @@ export class UtilService {
   constructor(private snackBar: MatSnackBar, private dialog: MatDialog) {}
 
   public createDialog(
-    dialogComponent: ComponentType<any>,
+    dialogComponent: ComponentType<unknown>,
     data: DialogData,
     width?: string,
     height?: string
-  ): MatDialogRef<any> {
+  ): MatDialogRef<unknown> {
     return this.dialog.open(dialogComponent, {
       width: width || '400px',
       height: height || undefined,
@@ -37,13 +37,13 @@ export class UtilService {
     list: T[],
     getDisplayName: (e: T) => string | null | undefined
   ): ConnectedDataListElement[] {
-    let connectedDataList: ConnectedDataListElement[] = [];
+    const connectedDataList: ConnectedDataListElement[] = [];
     for (const element of list) {
       let displayName = getDisplayName(element);
       if (displayName == null) {
         displayName = 'Unknown display name!';
       }
-      let dataListElement: ConnectedDataListElement = {
+      const dataListElement: ConnectedDataListElement = {
         displayName: displayName,
         dataElement: element
       };
@@ -58,11 +58,11 @@ export class UtilService {
     allElements: T[],
     sourceDataList: ConnectedDataListElement[],
     targetDataList: ConnectedDataListElement[],
-    getDisplayName: (e: T) => string | null | undefined
+    getDisplayName: (value: T) => string | null | undefined
   ): void {
     if (!isCreateView && approachElements != null) {
-      let allElementsCopy: T[] = copy(allElements);
-      let difference = findArrayDifference(allElementsCopy, approachElements);
+      const allElementsCopy: T[] = copy(allElements);
+      const difference = findArrayDifference(allElementsCopy, approachElements);
 
       if (difference.length !== 0) {
         sourceDataList.push(
