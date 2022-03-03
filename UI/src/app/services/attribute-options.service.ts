@@ -20,7 +20,7 @@ import { ApproachInputService } from '../../../api/repository/services/approach-
 import { ApproachProcessService } from '../../../api/repository/services/approach-process.service';
 import { ApproachOutputService } from '../../../api/repository/services/approach-output.service';
 import { ApproachUsabilityService } from '../../../api/repository/services/approach-usability.service';
-import { lastValueFrom } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
 import {
   CreateAttributeDialogComponent,
   CreateAttributeDialogData
@@ -36,21 +36,47 @@ import { removeValueFromArray } from '../utils/utils';
   providedIn: 'root'
 })
 export class AttributeOptionsService {
-  domainArtifacts: DomainArtifactInput[] = [];
-  runtimeArtifacts: RuntimeArtifactInput[] = [];
-  modelArtifacts: ModelArtifactInput[] = [];
-  executables: ExecutableInput[] = [];
-  qualities: Quality[] = [];
-  directions: Direction[] = [];
-  automationLevels: AutomationLevel[] = [];
-  analysisTypes: AnalysisType[] = [];
-  techniques: Technique[] = [];
-  architectures: Architecture[] = [];
-  serviceTypes: ServiceType[] = [];
-  resultsQualities: ResultsQuality[] = [];
-  toolSupports: ToolSupport[] = [];
-  accuracyPrecisions: AccuracyPrecision[] = [];
-  validationMethods: ValidationMethod[] = [];
+  domainArtifacts: BehaviorSubject<DomainArtifactInput[]> = new BehaviorSubject<
+    DomainArtifactInput[]
+  >([]);
+  runtimeArtifacts: BehaviorSubject<RuntimeArtifactInput[]> =
+    new BehaviorSubject<RuntimeArtifactInput[]>([]);
+  modelArtifacts: BehaviorSubject<ModelArtifactInput[]> = new BehaviorSubject<
+    ModelArtifactInput[]
+  >([]);
+  executables: BehaviorSubject<ExecutableInput[]> = new BehaviorSubject<
+    ExecutableInput[]
+  >([]);
+  qualities: BehaviorSubject<Quality[]> = new BehaviorSubject<Quality[]>([]);
+  directions: BehaviorSubject<Direction[]> = new BehaviorSubject<Direction[]>(
+    []
+  );
+  automationLevels: BehaviorSubject<AutomationLevel[]> = new BehaviorSubject<
+    AutomationLevel[]
+  >([]);
+  analysisTypes: BehaviorSubject<AnalysisType[]> = new BehaviorSubject<
+    AnalysisType[]
+  >([]);
+  techniques: BehaviorSubject<Technique[]> = new BehaviorSubject<Technique[]>(
+    []
+  );
+  architectures: BehaviorSubject<Architecture[]> = new BehaviorSubject<
+    Architecture[]
+  >([]);
+  serviceTypes: BehaviorSubject<ServiceType[]> = new BehaviorSubject<
+    ServiceType[]
+  >([]);
+  resultsQualities: BehaviorSubject<ResultsQuality[]> = new BehaviorSubject<
+    ResultsQuality[]
+  >([]);
+  toolSupports: BehaviorSubject<ToolSupport[]> = new BehaviorSubject<
+    ToolSupport[]
+  >([]);
+  accuracyPrecisions: BehaviorSubject<AccuracyPrecision[]> =
+    new BehaviorSubject<AccuracyPrecision[]>([]);
+  validationMethods: BehaviorSubject<ValidationMethod[]> = new BehaviorSubject<
+    ValidationMethod[]
+  >([]);
 
   constructor(
     private refactoringApproachService: RefactoringApproachService,
@@ -85,8 +111,8 @@ export class AttributeOptionsService {
 
   async requestDomainArtifacts(): Promise<void> {
     try {
-      this.domainArtifacts = await lastValueFrom(
-        this.inputService.listDomainArtifacts()
+      this.domainArtifacts.next(
+        await lastValueFrom(this.inputService.listDomainArtifacts())
       );
     } catch (err) {
       console.log(err);
@@ -98,8 +124,8 @@ export class AttributeOptionsService {
 
   async requestRuntimeArtifacts(): Promise<void> {
     try {
-      this.runtimeArtifacts = await lastValueFrom(
-        this.inputService.listRuntimeArtifact()
+      this.runtimeArtifacts.next(
+        await lastValueFrom(this.inputService.listRuntimeArtifact())
       );
     } catch (err) {
       console.log(err);
@@ -111,8 +137,8 @@ export class AttributeOptionsService {
 
   async requestModelArtifacts(): Promise<void> {
     try {
-      this.modelArtifacts = await lastValueFrom(
-        this.inputService.listModelArtifacts()
+      this.modelArtifacts.next(
+        await lastValueFrom(this.inputService.listModelArtifacts())
       );
     } catch (err) {
       console.log(err);
@@ -124,8 +150,8 @@ export class AttributeOptionsService {
 
   async requestExecutables(): Promise<void> {
     try {
-      this.executables = await lastValueFrom(
-        this.inputService.listExecutables()
+      this.executables.next(
+        await lastValueFrom(this.inputService.listExecutables())
       );
     } catch (err) {
       console.log(err);
@@ -137,7 +163,9 @@ export class AttributeOptionsService {
 
   async requestQualities(): Promise<void> {
     try {
-      this.qualities = await lastValueFrom(this.processService.listQualities());
+      this.qualities.next(
+        await lastValueFrom(this.processService.listQualities())
+      );
     } catch (err) {
       console.log(err);
       this.utilService.callSnackBar(
@@ -148,8 +176,8 @@ export class AttributeOptionsService {
 
   async requestDirections(): Promise<void> {
     try {
-      this.directions = await lastValueFrom(
-        this.processService.listDirections()
+      this.directions.next(
+        await lastValueFrom(this.processService.listDirections())
       );
     } catch (err) {
       console.log(err);
@@ -161,8 +189,8 @@ export class AttributeOptionsService {
 
   async requestAutomationLevels(): Promise<void> {
     try {
-      this.automationLevels = await lastValueFrom(
-        this.processService.listAutomationLevels()
+      this.automationLevels.next(
+        await lastValueFrom(this.processService.listAutomationLevels())
       );
     } catch (err) {
       console.log(err);
@@ -174,8 +202,8 @@ export class AttributeOptionsService {
 
   async requestAnalysisTypes(): Promise<void> {
     try {
-      this.analysisTypes = await lastValueFrom(
-        this.processService.listAnalysisTypes()
+      this.analysisTypes.next(
+        await lastValueFrom(this.processService.listAnalysisTypes())
       );
     } catch (err) {
       console.log(err);
@@ -187,8 +215,8 @@ export class AttributeOptionsService {
 
   async requestTechniques(): Promise<void> {
     try {
-      this.techniques = await lastValueFrom(
-        this.processService.listTechniques()
+      this.techniques.next(
+        await lastValueFrom(this.processService.listTechniques())
       );
     } catch (err) {
       console.log(err);
@@ -200,8 +228,8 @@ export class AttributeOptionsService {
 
   async requestArchitectures(): Promise<void> {
     try {
-      this.architectures = await lastValueFrom(
-        this.outputService.listArchitectures()
+      this.architectures.next(
+        await lastValueFrom(this.outputService.listArchitectures())
       );
     } catch (err) {
       console.log(err);
@@ -213,8 +241,8 @@ export class AttributeOptionsService {
 
   async requestServiceTypes(): Promise<void> {
     try {
-      this.serviceTypes = await lastValueFrom(
-        this.outputService.listServiceTypes()
+      this.serviceTypes.next(
+        await lastValueFrom(this.outputService.listServiceTypes())
       );
     } catch (err) {
       console.log(err);
@@ -226,8 +254,8 @@ export class AttributeOptionsService {
 
   async requestValidationMethods(): Promise<void> {
     try {
-      this.validationMethods = await lastValueFrom(
-        this.usabilityService.listValidationMethods()
+      this.validationMethods.next(
+        await lastValueFrom(this.usabilityService.listValidationMethods())
       );
     } catch (err) {
       console.log(err);
@@ -239,8 +267,8 @@ export class AttributeOptionsService {
 
   async requestToolSupports(): Promise<void> {
     try {
-      this.toolSupports = await lastValueFrom(
-        this.usabilityService.listToolSupports()
+      this.toolSupports.next(
+        await lastValueFrom(this.usabilityService.listToolSupports())
       );
     } catch (err) {
       console.log(err);
@@ -252,8 +280,8 @@ export class AttributeOptionsService {
 
   async requestResultsQualities(): Promise<void> {
     try {
-      this.resultsQualities = await lastValueFrom(
-        this.usabilityService.listResultsQualities()
+      this.resultsQualities.next(
+        await lastValueFrom(this.usabilityService.listResultsQualities())
       );
     } catch (err) {
       console.log(err);
@@ -265,8 +293,8 @@ export class AttributeOptionsService {
 
   async requestAccuracyPrecisions(): Promise<void> {
     try {
-      this.accuracyPrecisions = await lastValueFrom(
-        this.usabilityService.listAccuracyPrecisions()
+      this.accuracyPrecisions.next(
+        await lastValueFrom(this.usabilityService.listAccuracyPrecisions())
       );
     } catch (err) {
       console.log(err);
@@ -276,12 +304,72 @@ export class AttributeOptionsService {
     }
   }
 
+  createAttributes<T>(
+    attributes: T[],
+    attributeList: BehaviorSubject<T[]>,
+    createFunction: (params?: { body?: T }) => Observable<T>
+  ): Promise<void> {
+    const createPromises: Promise<void>[] = [];
+    for (const attribute of attributes) {
+      createPromises.push(
+        AttributeOptionsService.createAttribute(
+          attribute,
+          attributeList,
+          createFunction
+        )
+      );
+    }
+
+    return Promise.all(createPromises).then(() => {
+      attributeList.next(attributeList.value);
+    });
+  }
+
+  private static async createAttribute<T>(
+    attribute: T,
+    attributeList: BehaviorSubject<T[]>,
+    createFunction: (params?: { body?: T }) => Observable<T>
+  ): Promise<void> {
+    const value: T = await lastValueFrom(createFunction({ body: attribute }));
+    attributeList.value.push(value);
+  }
+
+  deleteAttributes<T>(
+    attributes: T[],
+    attributeList: BehaviorSubject<T[]>,
+    deleteFunction: (value: T) => Observable<void>
+  ): Promise<void> {
+    const deletePromises: Promise<void>[] = [];
+    for (const attribute of attributes) {
+      deletePromises.push(
+        AttributeOptionsService.deleteAttribute(
+          attribute,
+          attributeList,
+          (value: T) => deleteFunction(value)
+        )
+      );
+    }
+
+    return Promise.all(deletePromises).then(() => {
+      attributeList.next(attributeList.value);
+    });
+  }
+
+  private static async deleteAttribute<T>(
+    attribute: T,
+    attributeList: BehaviorSubject<T[]>,
+    deleteFunction: (value: T) => Observable<void>
+  ): Promise<void> {
+    await lastValueFrom(deleteFunction(attribute));
+    removeValueFromArray(attributeList.value, attribute);
+  }
+
   createDomainArtifactWithDialog(): void {
     const data: CreateAttributeDialogData<DomainArtifactInput> = {
       title: 'Create a new domain artifact input option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.domainArtifacts,
+      currentAttributeList: this.domainArtifacts.value,
       configs: [
         {
           title: 'name',
@@ -305,36 +393,24 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createDomainArtifacts(data.attributesToCreate);
+          this.createAttributes(
+            data.attributesToCreate,
+            this.domainArtifacts,
+            (params) => this.inputService.addDomainArtifact(params)
+          )
+            .then(() => {
+              this.utilService.callSnackBar(
+                'Created domain artifact input(s).'
+              );
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some domain artifact inputs could not be created.'
+              );
+            });
         }
       });
-  }
-
-  createDomainArtifacts(domainArtifacts: DomainArtifactInput[]): void {
-    const createPromises: Promise<void>[] = [];
-    for (const attribute of domainArtifacts) {
-      createPromises.push(this.createDomainArtifact(attribute));
-    }
-    Promise.all(createPromises)
-      .then(() => {
-        this.domainArtifacts = [...this.domainArtifacts];
-        this.utilService.callSnackBar('Created domain artifact input(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some domain artifact inputs could not be created.'
-        );
-      });
-  }
-
-  private async createDomainArtifact(
-    domainArtifact: DomainArtifactInput
-  ): Promise<void> {
-    const value: DomainArtifactInput = await lastValueFrom(
-      this.inputService.addDomainArtifact({ body: domainArtifact })
-    );
-    this.domainArtifacts.push(value);
   }
 
   deleteDomainArtifactWithDialog(): void {
@@ -342,7 +418,7 @@ export class AttributeOptionsService {
       title: 'Delete an existing domain artifact input option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.domainArtifacts,
+      currentAttributeList: this.domainArtifacts.value,
       getDisplayName: (value: DomainArtifactInput) => value.name
     };
     this.utilService
@@ -353,37 +429,25 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteDomainArtifacts(data.attributesToDelete);
+          this.deleteAttributes(
+            data.attributesToDelete,
+            this.domainArtifacts,
+            (value: DomainArtifactInput) =>
+              this.inputService.deleteDomainArtifact(value)
+          )
+            .then(() => {
+              this.utilService.callSnackBar(
+                'Deleted domain artifact input(s).'
+              );
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some domain artifact inputs could not be deleted.'
+              );
+            });
         }
       });
-  }
-
-  deleteDomainArtifacts(domainArtifacts: DomainArtifactInput[]): void {
-    const deletePromises: Promise<void>[] = [];
-    for (const attribute of domainArtifacts) {
-      deletePromises.push(this.deleteDomainArtifact(attribute));
-    }
-
-    Promise.all(deletePromises)
-      .then(() => {
-        this.domainArtifacts = [...this.domainArtifacts];
-        this.utilService.callSnackBar('Deleted domain artifact input(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some domain artifact inputs could not be deleted.'
-        );
-      });
-  }
-
-  private async deleteDomainArtifact(
-    domainArtifact: DomainArtifactInput
-  ): Promise<void> {
-    await lastValueFrom(
-      this.inputService.deleteDomainArtifact({ name: domainArtifact.name })
-    );
-    removeValueFromArray(this.domainArtifacts, domainArtifact);
   }
 
   createRuntimeArtifactWithDialog(): void {
@@ -391,7 +455,7 @@ export class AttributeOptionsService {
       title: 'Create a new runtime artifact input option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.runtimeArtifacts,
+      currentAttributeList: this.runtimeArtifacts.value,
       configs: [
         {
           title: 'name',
@@ -415,36 +479,24 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createRuntimeArtifacts(data.attributesToCreate);
+          this.createAttributes(
+            data.attributesToCreate,
+            this.runtimeArtifacts,
+            (params) => this.inputService.addRuntimeArtifact(params)
+          )
+            .then(() => {
+              this.utilService.callSnackBar(
+                'Created runtime artifact input(s).'
+              );
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some runtime artifact inputs could not be created.'
+              );
+            });
         }
       });
-  }
-
-  createRuntimeArtifacts(runtimeArtifacts: RuntimeArtifactInput[]): void {
-    const createPromises: Promise<void>[] = [];
-    for (const attribute of runtimeArtifacts) {
-      createPromises.push(this.createRuntimeArtifact(attribute));
-    }
-    Promise.all(createPromises)
-      .then(() => {
-        this.runtimeArtifacts = [...this.runtimeArtifacts];
-        this.utilService.callSnackBar('Created runtime artifact input(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some runtime artifact inputs could not be created.'
-        );
-      });
-  }
-
-  private async createRuntimeArtifact(
-    runtimeArtifact: RuntimeArtifactInput
-  ): Promise<void> {
-    const value: RuntimeArtifactInput = await lastValueFrom(
-      this.inputService.addRuntimeArtifact({ body: runtimeArtifact })
-    );
-    this.runtimeArtifacts.push(value);
   }
 
   deleteRuntimeArtifactWithDialog(): void {
@@ -452,7 +504,7 @@ export class AttributeOptionsService {
       title: 'Delete an existing runtime artifact input option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.runtimeArtifacts,
+      currentAttributeList: this.runtimeArtifacts.value,
       getDisplayName: (value: RuntimeArtifactInput) => value.name
     };
     this.utilService
@@ -463,39 +515,25 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteRuntimeArtifacts(data.attributesToDelete);
+          this.deleteAttributes(
+            data.attributesToDelete,
+            this.runtimeArtifacts,
+            (value: RuntimeArtifactInput) =>
+              this.inputService.deleteRuntimeArtifact(value)
+          )
+            .then(() => {
+              this.utilService.callSnackBar(
+                'Deleted runtime artifact input(s).'
+              );
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some runtime artifact inputs could not be deleted.'
+              );
+            });
         }
       });
-  }
-
-  deleteRuntimeArtifacts(runtimeArtifacts: RuntimeArtifactInput[]): void {
-    const deletePromises: Promise<void>[] = [];
-    for (const attribute of runtimeArtifacts) {
-      deletePromises.push(this.deleteRuntimeArtifact(attribute));
-    }
-
-    Promise.all(deletePromises)
-      .then(() => {
-        this.runtimeArtifacts = [...this.runtimeArtifacts];
-        this.utilService.callSnackBar('Deleted runtime artifact input(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some runtime artifact inputs could not be deleted.'
-        );
-      });
-  }
-
-  private async deleteRuntimeArtifact(
-    runtimeArtifactInput: RuntimeArtifactInput
-  ): Promise<void> {
-    await lastValueFrom(
-      this.inputService.deleteRuntimeArtifact({
-        name: runtimeArtifactInput.name
-      })
-    );
-    removeValueFromArray(this.runtimeArtifacts, runtimeArtifactInput);
   }
 
   createModelArtifactWithDialog(): void {
@@ -503,7 +541,7 @@ export class AttributeOptionsService {
       title: 'Create a new model artifact input option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.modelArtifacts,
+      currentAttributeList: this.modelArtifacts.value,
       configs: [
         {
           title: 'name',
@@ -527,36 +565,22 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createModelArtifacts(data.attributesToCreate);
+          this.createAttributes(
+            data.attributesToCreate,
+            this.modelArtifacts,
+            (params) => this.inputService.addModelArtifact(params)
+          )
+            .then(() => {
+              this.utilService.callSnackBar('Created model artifact input(s).');
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some model artifact inputs could not be created.'
+              );
+            });
         }
       });
-  }
-
-  createModelArtifacts(modelArtifacts: ModelArtifactInput[]): void {
-    const createPromises: Promise<void>[] = [];
-    for (const attribute of modelArtifacts) {
-      createPromises.push(this.createModelArtifact(attribute));
-    }
-    Promise.all(createPromises)
-      .then(() => {
-        this.modelArtifacts = [...this.modelArtifacts];
-        this.utilService.callSnackBar('Created model artifact input(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some model artifact inputs could not be created.'
-        );
-      });
-  }
-
-  private async createModelArtifact(
-    modelArtifact: ModelArtifactInput
-  ): Promise<void> {
-    const value: ModelArtifactInput = await lastValueFrom(
-      this.inputService.addModelArtifact({ body: modelArtifact })
-    );
-    this.modelArtifacts.push(value);
   }
 
   deleteModelArtifactWithDialog(): void {
@@ -564,7 +588,7 @@ export class AttributeOptionsService {
       title: 'Delete an existing model artifact input option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.modelArtifacts,
+      currentAttributeList: this.modelArtifacts.value,
       getDisplayName: (value: ModelArtifactInput) => value.name
     };
     this.utilService
@@ -575,37 +599,23 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteModelArtifacts(data.attributesToDelete);
+          this.deleteAttributes(
+            data.attributesToDelete,
+            this.modelArtifacts,
+            (value: ModelArtifactInput) =>
+              this.inputService.deleteModelArtifact(value)
+          )
+            .then(() => {
+              this.utilService.callSnackBar('Deleted model artifact input(s).');
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some model artifact inputs could not be deleted.'
+              );
+            });
         }
       });
-  }
-
-  deleteModelArtifacts(modelArtifacts: ModelArtifactInput[]): void {
-    const deletePromises: Promise<void>[] = [];
-    for (const attribute of modelArtifacts) {
-      deletePromises.push(this.deleteModelArtifact(attribute));
-    }
-
-    Promise.all(deletePromises)
-      .then(() => {
-        this.modelArtifacts = [...this.modelArtifacts];
-        this.utilService.callSnackBar('Deleted model artifact input(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some model artifact inputs could not be deleted.'
-        );
-      });
-  }
-
-  private async deleteModelArtifact(
-    modelArtifact: ModelArtifactInput
-  ): Promise<void> {
-    await lastValueFrom(
-      this.inputService.deleteModelArtifact({ name: modelArtifact.name })
-    );
-    removeValueFromArray(this.modelArtifacts, modelArtifact);
   }
 
   createExecutableWithDialog(): void {
@@ -613,7 +623,7 @@ export class AttributeOptionsService {
       title: 'Create a new executable input option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.executables,
+      currentAttributeList: this.executables.value,
       configs: [
         {
           title: 'name',
@@ -645,34 +655,22 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createExecutables(data.attributesToCreate);
+          this.createAttributes(
+            data.attributesToCreate,
+            this.executables,
+            (params) => this.inputService.addExecutable(params)
+          )
+            .then(() => {
+              this.utilService.callSnackBar('Created executable input(s).');
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some executable inputs could not be created.'
+              );
+            });
         }
       });
-  }
-
-  createExecutables(executables: ExecutableInput[]): void {
-    const createPromises: Promise<void>[] = [];
-    for (const attribute of executables) {
-      createPromises.push(this.createExecutable(attribute));
-    }
-    Promise.all(createPromises)
-      .then(() => {
-        this.executables = [...this.executables];
-        this.utilService.callSnackBar('Created executable input(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some executable inputs could not be created.'
-        );
-      });
-  }
-
-  private async createExecutable(executable: ExecutableInput): Promise<void> {
-    const value: ExecutableInput = await lastValueFrom(
-      this.inputService.addExecutable({ body: executable })
-    );
-    this.executables.push(value);
   }
 
   deleteExecutableWithDialog(): void {
@@ -680,7 +678,7 @@ export class AttributeOptionsService {
       title: 'Delete an existing executable input option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.executables,
+      currentAttributeList: this.executables.value,
       getDisplayName: (value: ExecutableInput) =>
         `${value.name}: ${value.language}`
     };
@@ -692,38 +690,23 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteExecutables(data.attributesToDelete);
+          this.deleteAttributes(
+            data.attributesToDelete,
+            this.executables,
+            (value: ExecutableInput) =>
+              this.inputService.deleteExecutable(value)
+          )
+            .then(() => {
+              this.utilService.callSnackBar('Deleted executable input(s).');
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some model artifact inputs could not be deleted.'
+              );
+            });
         }
       });
-  }
-
-  deleteExecutables(executables: ExecutableInput[]): void {
-    const deletePromises: Promise<void>[] = [];
-    for (const attribute of executables) {
-      deletePromises.push(this.deleteExecutable(attribute));
-    }
-
-    Promise.all(deletePromises)
-      .then(() => {
-        this.executables = [...this.executables];
-        this.utilService.callSnackBar('Deleted executable input(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some executable inputs could not be deleted.'
-        );
-      });
-  }
-
-  private async deleteExecutable(executable: ExecutableInput): Promise<void> {
-    await lastValueFrom(
-      this.inputService.deleteExecutable({
-        name: executable.name,
-        language: executable.language
-      })
-    );
-    removeValueFromArray(this.executables, executable);
   }
 
   createQualityWithDialog(): void {
@@ -731,7 +714,7 @@ export class AttributeOptionsService {
       title: 'Create a new process quality option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.qualities,
+      currentAttributeList: this.qualities.value,
       configs: [
         {
           title: 'name',
@@ -762,34 +745,24 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createQualities(data.attributesToCreate);
+          this.createAttributes(
+            data.attributesToCreate,
+            this.qualities,
+            (params) => this.processService.addQuality(params)
+          )
+            .then(() => {
+              this.utilService.callSnackBar(
+                'Created process quality option(s).'
+              );
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some process quality options could not be created.'
+              );
+            });
         }
       });
-  }
-
-  createQualities(qualities: Quality[]): void {
-    const createPromises: Promise<void>[] = [];
-    for (const attribute of qualities) {
-      createPromises.push(this.createQuality(attribute));
-    }
-    Promise.all(createPromises)
-      .then(() => {
-        this.qualities = [...this.qualities];
-        this.utilService.callSnackBar('Created process quality option(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some process quality options could not be created.'
-        );
-      });
-  }
-
-  private async createQuality(quality: Quality): Promise<void> {
-    const value: Quality = await lastValueFrom(
-      this.processService.addQuality({ body: quality })
-    );
-    this.qualities.push(value);
   }
 
   deleteQualityWithDialog(): void {
@@ -797,7 +770,7 @@ export class AttributeOptionsService {
       title: 'Delete an existing process quality option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.qualities,
+      currentAttributeList: this.qualities.value,
       getDisplayName: (value: Quality) => `${value.category}: ${value.name}`
     };
     this.utilService
@@ -808,35 +781,24 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteQualities(data.attributesToDelete);
+          this.deleteAttributes(
+            data.attributesToDelete,
+            this.qualities,
+            (value: Quality) => this.processService.deleteQuality(value)
+          )
+            .then(() => {
+              this.utilService.callSnackBar(
+                'Deleted process quality option(s).'
+              );
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some process quality options could not be deleted.'
+              );
+            });
         }
       });
-  }
-
-  deleteQualities(qualities: Quality[]): void {
-    const deletePromises: Promise<void>[] = [];
-    for (const attribute of qualities) {
-      deletePromises.push(this.deleteQuality(attribute));
-    }
-
-    Promise.all(deletePromises)
-      .then(() => {
-        this.qualities = [...this.qualities];
-        this.utilService.callSnackBar('Deleted process quality option(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some process quality options could not be deleted.'
-        );
-      });
-  }
-
-  private async deleteQuality(quality: Quality): Promise<void> {
-    await lastValueFrom(
-      this.processService.deleteQuality({ name: quality.name })
-    );
-    removeValueFromArray(this.qualities, quality);
   }
 
   createDirectionWithDialog(): void {
@@ -844,7 +806,7 @@ export class AttributeOptionsService {
       title: 'Create a new process direction option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.directions,
+      currentAttributeList: this.directions.value,
       configs: [
         {
           title: 'name',
@@ -868,34 +830,22 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createDirections(data.attributesToCreate);
+          this.createAttributes(
+            data.attributesToCreate,
+            this.directions,
+            (params) => this.processService.addDirection(params)
+          )
+            .then(() => {
+              this.utilService.callSnackBar('Created process direction(s).');
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some process directions could not be created.'
+              );
+            });
         }
       });
-  }
-
-  createDirections(directions: Direction[]): void {
-    const createPromises: Promise<void>[] = [];
-    for (const attribute of directions) {
-      createPromises.push(this.createDirection(attribute));
-    }
-    Promise.all(createPromises)
-      .then(() => {
-        this.directions = [...this.directions];
-        this.utilService.callSnackBar('Created process direction(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some process directions could not be created.'
-        );
-      });
-  }
-
-  private async createDirection(direction: Direction): Promise<void> {
-    const value: Direction = await lastValueFrom(
-      this.processService.addDirection({ body: direction })
-    );
-    this.directions.push(value);
   }
 
   deleteDirectionWithDialog(): void {
@@ -903,7 +853,7 @@ export class AttributeOptionsService {
       title: 'Delete an existing process direction option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.directions,
+      currentAttributeList: this.directions.value,
       getDisplayName: (value: Direction) => value.name
     };
     this.utilService
@@ -914,35 +864,22 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteDirections(data.attributesToDelete);
+          this.deleteAttributes(
+            data.attributesToDelete,
+            this.directions,
+            (value: Direction) => this.processService.deleteDirection(value)
+          )
+            .then(() => {
+              this.utilService.callSnackBar('Deleted process direction(s).');
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some process directions could not be deleted.'
+              );
+            });
         }
       });
-  }
-
-  deleteDirections(directions: Direction[]): void {
-    const deletePromises: Promise<void>[] = [];
-    for (const attribute of directions) {
-      deletePromises.push(this.deleteDirection(attribute));
-    }
-
-    Promise.all(deletePromises)
-      .then(() => {
-        this.directions = [...this.directions];
-        this.utilService.callSnackBar('Deleted process direction(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some process directions could not be deleted.'
-        );
-      });
-  }
-
-  private async deleteDirection(direction: Direction): Promise<void> {
-    await lastValueFrom(
-      this.processService.deleteDirection({ name: direction.name })
-    );
-    removeValueFromArray(this.directions, direction);
   }
 
   createAutomationLevelWithDialog(): void {
@@ -950,7 +887,7 @@ export class AttributeOptionsService {
       title: 'Create a new process level of automation option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.automationLevels,
+      currentAttributeList: this.automationLevels.value,
       configs: [
         {
           title: 'name',
@@ -974,36 +911,24 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createAutomationLevels(data.attributesToCreate);
+          this.createAttributes(
+            data.attributesToCreate,
+            this.automationLevels,
+            (params) => this.processService.addAutomationLevel(params)
+          )
+            .then(() => {
+              this.utilService.callSnackBar(
+                'Created process automation level(s).'
+              );
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some process automation levels could not be created.'
+              );
+            });
         }
       });
-  }
-
-  createAutomationLevels(automationLevels: AutomationLevel[]): void {
-    const createPromises: Promise<void>[] = [];
-    for (const attribute of automationLevels) {
-      createPromises.push(this.createAutomationLevel(attribute));
-    }
-    Promise.all(createPromises)
-      .then(() => {
-        this.automationLevels = [...this.automationLevels];
-        this.utilService.callSnackBar('Created process automation level(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some process automation levels could not be created.'
-        );
-      });
-  }
-
-  private async createAutomationLevel(
-    automationLevel: AutomationLevel
-  ): Promise<void> {
-    const value: AutomationLevel = await lastValueFrom(
-      this.processService.addAutomationLevel({ body: automationLevel })
-    );
-    this.automationLevels.push(value);
   }
 
   deleteAutomationLevelWithDialog(): void {
@@ -1011,7 +936,7 @@ export class AttributeOptionsService {
       title: 'Delete an existing process level of automation option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.automationLevels,
+      currentAttributeList: this.automationLevels.value,
       getDisplayName: (value: AutomationLevel) => value.name
     };
     this.utilService
@@ -1022,37 +947,25 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteAutomationLevels(data.attributesToDelete);
+          this.deleteAttributes(
+            data.attributesToDelete,
+            this.automationLevels,
+            (value: AutomationLevel) =>
+              this.processService.deleteAutomationLevel(value)
+          )
+            .then(() => {
+              this.utilService.callSnackBar(
+                'Deleted process automation level(s).'
+              );
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some process automation levels could not be deleted.'
+              );
+            });
         }
       });
-  }
-
-  deleteAutomationLevels(automationLevels: AutomationLevel[]): void {
-    const deletePromises: Promise<void>[] = [];
-    for (const attribute of automationLevels) {
-      deletePromises.push(this.deleteAutomationLevel(attribute));
-    }
-
-    Promise.all(deletePromises)
-      .then(() => {
-        this.automationLevels = [...this.automationLevels];
-        this.utilService.callSnackBar('Deleted process automation level(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some process automation levels could not be deleted.'
-        );
-      });
-  }
-
-  private async deleteAutomationLevel(
-    automationLevel: AutomationLevel
-  ): Promise<void> {
-    await lastValueFrom(
-      this.processService.deleteAutomationLevel({ name: automationLevel.name })
-    );
-    removeValueFromArray(this.automationLevels, automationLevel);
   }
 
   createAnalysisTypeWithDialog(): void {
@@ -1060,7 +973,7 @@ export class AttributeOptionsService {
       title: 'Create a new process analysis type option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.analysisTypes,
+      currentAttributeList: this.analysisTypes.value,
       configs: [
         {
           title: 'name',
@@ -1084,34 +997,24 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createAnalysisTypes(data.attributesToCreate);
+          this.createAttributes(
+            data.attributesToCreate,
+            this.analysisTypes,
+            (params) => this.processService.addAnalysisType(params)
+          )
+            .then(() => {
+              this.utilService.callSnackBar(
+                'Created process analysis type(s).'
+              );
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some process analysis types could not be created.'
+              );
+            });
         }
       });
-  }
-
-  createAnalysisTypes(analysisTypes: AnalysisType[]): void {
-    const createPromises: Promise<void>[] = [];
-    for (const attribute of analysisTypes) {
-      createPromises.push(this.createAnalysisType(attribute));
-    }
-    Promise.all(createPromises)
-      .then(() => {
-        this.analysisTypes = [...this.analysisTypes];
-        this.utilService.callSnackBar('Created process analysis type(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some process analysis types could not be created.'
-        );
-      });
-  }
-
-  private async createAnalysisType(analysisType: AnalysisType): Promise<void> {
-    const value: AnalysisType = await lastValueFrom(
-      this.processService.addAnalysisType({ body: analysisType })
-    );
-    this.techniques.push(value);
   }
 
   deleteAnalysisTypeWithDialog(): void {
@@ -1119,7 +1022,7 @@ export class AttributeOptionsService {
       title: 'Delete an existing process analysis type option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.analysisTypes,
+      currentAttributeList: this.analysisTypes.value,
       getDisplayName: (value: AnalysisType) => value.name
     };
     this.utilService
@@ -1130,35 +1033,25 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteAnalysisTypes(data.attributesToDelete);
+          this.deleteAttributes(
+            data.attributesToDelete,
+            this.analysisTypes,
+            (value: AnalysisType) =>
+              this.processService.deleteAnalysisType(value)
+          )
+            .then(() => {
+              this.utilService.callSnackBar(
+                'Deleted process analysis type(s).'
+              );
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some process analysis types could not be deleted.'
+              );
+            });
         }
       });
-  }
-
-  deleteAnalysisTypes(analysisTypes: AnalysisType[]): void {
-    const deletePromises: Promise<void>[] = [];
-    for (const attribute of analysisTypes) {
-      deletePromises.push(this.deleteAnalysisType(attribute));
-    }
-
-    Promise.all(deletePromises)
-      .then(() => {
-        this.analysisTypes = [...this.analysisTypes];
-        this.utilService.callSnackBar('Deleted process analysis type(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some process analysis types could not be deleted.'
-        );
-      });
-  }
-
-  private async deleteAnalysisType(analysisType: AnalysisType): Promise<void> {
-    await lastValueFrom(
-      this.processService.deleteAnalysisType({ name: analysisType.name })
-    );
-    removeValueFromArray(this.analysisTypes, analysisType);
   }
 
   createTechniqueWithDialog(): void {
@@ -1166,7 +1059,7 @@ export class AttributeOptionsService {
       title: 'Create a new process technique option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.techniques,
+      currentAttributeList: this.techniques.value,
       configs: [
         {
           title: 'name',
@@ -1190,34 +1083,22 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createTechniques(data.attributesToCreate);
+          this.createAttributes(
+            data.attributesToCreate,
+            this.techniques,
+            (params) => this.processService.addTechnique(params)
+          )
+            .then(() => {
+              this.utilService.callSnackBar('Created process technique(s).');
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some process techniques could not be created.'
+              );
+            });
         }
       });
-  }
-
-  createTechniques(techniques: Technique[]): void {
-    const createPromises: Promise<void>[] = [];
-    for (const attribute of techniques) {
-      createPromises.push(this.createTechnique(attribute));
-    }
-    Promise.all(createPromises)
-      .then(() => {
-        this.techniques = [...this.techniques];
-        this.utilService.callSnackBar('Created process technique(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some process techniques could not be created.'
-        );
-      });
-  }
-
-  private async createTechnique(technique: Technique): Promise<void> {
-    const value: Technique = await lastValueFrom(
-      this.processService.addTechnique({ body: technique })
-    );
-    this.techniques.push(value);
   }
 
   deleteTechniqueWithDialog(): void {
@@ -1225,7 +1106,7 @@ export class AttributeOptionsService {
       title: 'Delete an existing process technique option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.techniques,
+      currentAttributeList: this.techniques.value,
       getDisplayName: (value: Technique) => value.name
     };
     this.utilService
@@ -1236,35 +1117,22 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteTechniques(data.attributesToDelete);
+          this.deleteAttributes(
+            data.attributesToDelete,
+            this.techniques,
+            (value: Technique) => this.processService.deleteTechnique(value)
+          )
+            .then(() => {
+              this.utilService.callSnackBar('Deleted process technique(s).');
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some process techniques could not be deleted.'
+              );
+            });
         }
       });
-  }
-
-  deleteTechniques(techniques: Technique[]): void {
-    const deletePromises: Promise<void>[] = [];
-    for (const attribute of techniques) {
-      deletePromises.push(this.deleteTechnique(attribute));
-    }
-
-    Promise.all(deletePromises)
-      .then(() => {
-        this.techniques = [...this.techniques];
-        this.utilService.callSnackBar('Deleted process technique(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some process techniques could not be deleted.'
-        );
-      });
-  }
-
-  private async deleteTechnique(technique: Technique): Promise<void> {
-    await lastValueFrom(
-      this.processService.deleteTechnique({ name: technique.name })
-    );
-    removeValueFromArray(this.techniques, technique);
   }
 
   createArchitectureWithDialog(): void {
@@ -1272,7 +1140,7 @@ export class AttributeOptionsService {
       title: 'Create a new output architecture option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.architectures,
+      currentAttributeList: this.architectures.value,
       configs: [
         {
           title: 'name',
@@ -1296,34 +1164,22 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createArchitectures(data.attributesToCreate);
+          this.createAttributes(
+            data.attributesToCreate,
+            this.architectures,
+            (params) => this.outputService.addArchitecture(params)
+          )
+            .then(() => {
+              this.utilService.callSnackBar('Created output architecture(s).');
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some output architectures could not be created.'
+              );
+            });
         }
       });
-  }
-
-  createArchitectures(architectures: Architecture[]): void {
-    const createPromises: Promise<void>[] = [];
-    for (const attribute of architectures) {
-      createPromises.push(this.createArchitecture(attribute));
-    }
-    Promise.all(createPromises)
-      .then(() => {
-        this.architectures = [...this.architectures];
-        this.utilService.callSnackBar('Created output architecture(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some output architectures could not be created.'
-        );
-      });
-  }
-
-  private async createArchitecture(architecture: Architecture): Promise<void> {
-    const value: Architecture = await lastValueFrom(
-      this.outputService.addArchitecture({ body: architecture })
-    );
-    this.architectures.push(value);
   }
 
   deleteArchitectureWithDialog(): void {
@@ -1331,7 +1187,7 @@ export class AttributeOptionsService {
       title: 'Delete an existing output architecture option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.architectures,
+      currentAttributeList: this.architectures.value,
       getDisplayName: (value: Architecture) => value.name
     };
     this.utilService
@@ -1342,35 +1198,23 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteArchitectures(data.attributesToDelete);
+          this.deleteAttributes(
+            data.attributesToDelete,
+            this.architectures,
+            (value: Architecture) =>
+              this.outputService.deleteArchitecture(value)
+          )
+            .then(() => {
+              this.utilService.callSnackBar('Deleted output architecture(s).');
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some output architectures could not be deleted.'
+              );
+            });
         }
       });
-  }
-
-  deleteArchitectures(architectures: Architecture[]): void {
-    const deletePromises: Promise<void>[] = [];
-    for (const attribute of architectures) {
-      deletePromises.push(this.deleteArchitecture(attribute));
-    }
-
-    Promise.all(deletePromises)
-      .then(() => {
-        this.architectures = [...this.architectures];
-        this.utilService.callSnackBar('Deleted output architecture(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some output architectures could not be deleted.'
-        );
-      });
-  }
-
-  private async deleteArchitecture(architecture: Architecture): Promise<void> {
-    await lastValueFrom(
-      this.outputService.deleteArchitecture({ name: architecture.name })
-    );
-    removeValueFromArray(this.architectures, architecture);
   }
 
   createServiceTypeWithDialog(): void {
@@ -1378,7 +1222,7 @@ export class AttributeOptionsService {
       title: 'Create a new output service type option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.serviceTypes,
+      currentAttributeList: this.serviceTypes.value,
       configs: [
         {
           title: 'name',
@@ -1402,34 +1246,22 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createServiceTypes(data.attributesToCreate);
+          this.createAttributes(
+            data.attributesToCreate,
+            this.serviceTypes,
+            (params) => this.outputService.addServiceType(params)
+          )
+            .then(() => {
+              this.utilService.callSnackBar('Created output service type(s).');
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some output service types could not be created.'
+              );
+            });
         }
       });
-  }
-
-  createServiceTypes(serviceTypes: ServiceType[]): void {
-    const createPromises: Promise<void>[] = [];
-    for (const attribute of serviceTypes) {
-      createPromises.push(this.createServiceType(attribute));
-    }
-    Promise.all(createPromises)
-      .then(() => {
-        this.serviceTypes = [...this.serviceTypes];
-        this.utilService.callSnackBar('Created output service type(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some output service types could not be created.'
-        );
-      });
-  }
-
-  private async createServiceType(serviceType: ServiceType): Promise<void> {
-    const value: ServiceType = await lastValueFrom(
-      this.outputService.addServiceType({ body: serviceType })
-    );
-    this.serviceTypes.push(value);
   }
 
   deleteServiceTypeWithDialog(): void {
@@ -1437,7 +1269,7 @@ export class AttributeOptionsService {
       title: 'Delete an existing output service type option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.serviceTypes,
+      currentAttributeList: this.serviceTypes.value,
       getDisplayName: (value: ServiceType) => value.name
     };
     this.utilService
@@ -1448,35 +1280,22 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteServiceTypes(data.attributesToDelete);
+          this.deleteAttributes(
+            data.attributesToDelete,
+            this.serviceTypes,
+            (value: ServiceType) => this.outputService.deleteServiceType(value)
+          )
+            .then(() => {
+              this.utilService.callSnackBar('Deleted output service type(s).');
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some output service types could not be deleted.'
+              );
+            });
         }
       });
-  }
-
-  deleteServiceTypes(serviceTypes: ServiceType[]): void {
-    const deletePromises: Promise<void>[] = [];
-    for (const attribute of serviceTypes) {
-      deletePromises.push(this.deleteServiceType(attribute));
-    }
-
-    Promise.all(deletePromises)
-      .then(() => {
-        this.serviceTypes = [...this.serviceTypes];
-        this.utilService.callSnackBar('Deleted output service type(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some output service types could not be deleted.'
-        );
-      });
-  }
-
-  private async deleteServiceType(serviceType: ServiceType): Promise<void> {
-    await lastValueFrom(
-      this.outputService.deleteServiceType({ name: serviceType.name })
-    );
-    removeValueFromArray(this.serviceTypes, serviceType);
   }
 
   createValidationMethodWithDialog(): void {
@@ -1484,7 +1303,7 @@ export class AttributeOptionsService {
       title: 'Create a new validation method option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.validationMethods,
+      currentAttributeList: this.validationMethods.value,
       configs: [
         {
           title: 'name',
@@ -1508,36 +1327,24 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createValidationMethods(data.attributesToCreate);
+          this.createAttributes(
+            data.attributesToCreate,
+            this.validationMethods,
+            (params) => this.usabilityService.addValidationMethod(params)
+          )
+            .then(() => {
+              this.utilService.callSnackBar(
+                'Created validation method option(s).'
+              );
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some validation method options could not be created.'
+              );
+            });
         }
       });
-  }
-
-  createValidationMethods(validationMethods: ValidationMethod[]): void {
-    const createPromises: Promise<void>[] = [];
-    for (const attribute of validationMethods) {
-      createPromises.push(this.createValidationMethod(attribute));
-    }
-    Promise.all(createPromises)
-      .then(() => {
-        this.validationMethods = [...this.validationMethods];
-        this.utilService.callSnackBar('Created validation method option(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some validation method options could not be created.'
-        );
-      });
-  }
-
-  private async createValidationMethod(
-    validationMethod: ValidationMethod
-  ): Promise<void> {
-    const value: ValidationMethod = await lastValueFrom(
-      this.usabilityService.addValidationMethod({ body: validationMethod })
-    );
-    this.validationMethods.push(value);
   }
 
   deleteValidationMethodWithDialog(): void {
@@ -1545,7 +1352,7 @@ export class AttributeOptionsService {
       title: 'Delete an existing validation method option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.validationMethods,
+      currentAttributeList: this.validationMethods.value,
       getDisplayName: (value: ValidationMethod) => value.name
     };
     this.utilService
@@ -1556,39 +1363,25 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteValidationMethods(data.attributesToDelete);
+          this.deleteAttributes(
+            data.attributesToDelete,
+            this.validationMethods,
+            (value: ValidationMethod) =>
+              this.usabilityService.deleteValidationMethod(value)
+          )
+            .then(() => {
+              this.utilService.callSnackBar(
+                'Deleted validation method option(s).'
+              );
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some validation method options could not be deleted.'
+              );
+            });
         }
       });
-  }
-
-  deleteValidationMethods(validationMethods: ValidationMethod[]): void {
-    const deletePromises: Promise<void>[] = [];
-    for (const attribute of validationMethods) {
-      deletePromises.push(this.deleteValidationMethod(attribute));
-    }
-
-    Promise.all(deletePromises)
-      .then(() => {
-        this.validationMethods = [...this.validationMethods];
-        this.utilService.callSnackBar('Deleted validation method option(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some validation method options could not be deleted.'
-        );
-      });
-  }
-
-  private async deleteValidationMethod(
-    validationMethod: ValidationMethod
-  ): Promise<void> {
-    await lastValueFrom(
-      this.usabilityService.deleteValidationMethod({
-        name: validationMethod.name
-      })
-    );
-    removeValueFromArray(this.validationMethods, validationMethod);
   }
 
   createToolSupportWithDialog(): void {
@@ -1596,7 +1389,7 @@ export class AttributeOptionsService {
       title: 'Create a new tool support option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.toolSupports,
+      currentAttributeList: this.toolSupports.value,
       configs: [
         {
           title: 'name',
@@ -1620,34 +1413,22 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createToolSupports(data.attributesToCreate);
+          this.createAttributes(
+            data.attributesToCreate,
+            this.toolSupports,
+            (params) => this.usabilityService.addToolSupport(params)
+          )
+            .then(() => {
+              this.utilService.callSnackBar('Created tool support option(s).');
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some tool support options could not be created.'
+              );
+            });
         }
       });
-  }
-
-  createToolSupports(toolSupports: ToolSupport[]): void {
-    const createPromises: Promise<void>[] = [];
-    for (const attribute of toolSupports) {
-      createPromises.push(this.createToolSupport(attribute));
-    }
-    Promise.all(createPromises)
-      .then(() => {
-        this.toolSupports = [...this.toolSupports];
-        this.utilService.callSnackBar('Created tool support option(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some tool support options could not be created.'
-        );
-      });
-  }
-
-  private async createToolSupport(toolSupport: ToolSupport): Promise<void> {
-    const value: ToolSupport = await lastValueFrom(
-      this.usabilityService.addToolSupport({ body: toolSupport })
-    );
-    this.toolSupports.push(value);
   }
 
   deleteToolSupportWithDialog(): void {
@@ -1655,7 +1436,7 @@ export class AttributeOptionsService {
       title: 'Delete an existing tool support option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.toolSupports,
+      currentAttributeList: this.toolSupports.value,
       getDisplayName: (value: ToolSupport) => value.name
     };
     this.utilService
@@ -1666,35 +1447,23 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteToolSupports(data.attributesToDelete);
+          this.deleteAttributes(
+            data.attributesToDelete,
+            this.toolSupports,
+            (value: ToolSupport) =>
+              this.usabilityService.deleteToolSupport(value)
+          )
+            .then(() => {
+              this.utilService.callSnackBar('Deleted tool support option(s).');
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some tool support options could not be deleted.'
+              );
+            });
         }
       });
-  }
-
-  deleteToolSupports(toolSupports: ToolSupport[]): void {
-    const deletePromises: Promise<void>[] = [];
-    for (const attribute of toolSupports) {
-      deletePromises.push(this.deleteToolSupport(attribute));
-    }
-
-    Promise.all(deletePromises)
-      .then(() => {
-        this.toolSupports = [...this.toolSupports];
-        this.utilService.callSnackBar('Deleted tool support option(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some tool support options could not be deleted.'
-        );
-      });
-  }
-
-  private async deleteToolSupport(toolSupport: ToolSupport): Promise<void> {
-    await lastValueFrom(
-      this.usabilityService.deleteToolSupport({ name: toolSupport.name })
-    );
-    removeValueFromArray(this.toolSupports, toolSupport);
   }
 
   createResultsQualityWithDialog(): void {
@@ -1702,7 +1471,7 @@ export class AttributeOptionsService {
       title: 'Create a new quality of results option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.resultsQualities,
+      currentAttributeList: this.resultsQualities.value,
       configs: [
         {
           title: 'name',
@@ -1726,36 +1495,24 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createResultsQualities(data.attributesToCreate);
+          this.createAttributes(
+            data.attributesToCreate,
+            this.resultsQualities,
+            (params) => this.usabilityService.addResultsQuality(params)
+          )
+            .then(() => {
+              this.utilService.callSnackBar(
+                'Created quality of results option(s).'
+              );
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some quality of results options could not be created.'
+              );
+            });
         }
       });
-  }
-
-  createResultsQualities(resultsQualities: ResultsQuality[]): void {
-    const createPromises: Promise<void>[] = [];
-    for (const attribute of resultsQualities) {
-      createPromises.push(this.createResultsQuality(attribute));
-    }
-    Promise.all(createPromises)
-      .then(() => {
-        this.resultsQualities = [...this.resultsQualities];
-        this.utilService.callSnackBar('Created quality of results option(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some quality of results options could not be created.'
-        );
-      });
-  }
-
-  private async createResultsQuality(
-    resultsQuality: ResultsQuality
-  ): Promise<void> {
-    const value: ResultsQuality = await lastValueFrom(
-      this.usabilityService.addResultsQuality({ body: resultsQuality })
-    );
-    this.resultsQualities.push(value);
   }
 
   deleteResultsQualityWithDialog(): void {
@@ -1763,7 +1520,7 @@ export class AttributeOptionsService {
       title: 'Delete an existing quality of results option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.resultsQualities,
+      currentAttributeList: this.resultsQualities.value,
       getDisplayName: (value: ResultsQuality) => value.name
     };
     this.utilService
@@ -1774,37 +1531,25 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteResultsQualities(data.attributesToDelete);
+          this.deleteAttributes(
+            data.attributesToDelete,
+            this.resultsQualities,
+            (value: ResultsQuality) =>
+              this.usabilityService.deleteResultsQuality(value)
+          )
+            .then(() => {
+              this.utilService.callSnackBar(
+                'Deleted quality of results option(s).'
+              );
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some quality of results options could not be deleted.'
+              );
+            });
         }
       });
-  }
-
-  deleteResultsQualities(resultsQualities: ResultsQuality[]): void {
-    const deletePromises: Promise<void>[] = [];
-    for (const attribute of resultsQualities) {
-      deletePromises.push(this.deleteResultsQuality(attribute));
-    }
-
-    Promise.all(deletePromises)
-      .then(() => {
-        this.resultsQualities = [...this.resultsQualities];
-        this.utilService.callSnackBar('Deleted quality of results option(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some quality of results options could not be deleted.'
-        );
-      });
-  }
-
-  private async deleteResultsQuality(
-    resultsQuality: ResultsQuality
-  ): Promise<void> {
-    await lastValueFrom(
-      this.usabilityService.deleteResultsQuality({ name: resultsQuality.name })
-    );
-    removeValueFromArray(this.resultsQualities, resultsQuality);
   }
 
   createAccuracyPrecisionWithDialog(): void {
@@ -1812,7 +1557,7 @@ export class AttributeOptionsService {
       title: 'Create a new accuracy/precision option',
       confirmButtonText: 'Create',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.accuracyPrecisions,
+      currentAttributeList: this.accuracyPrecisions.value,
       configs: [
         {
           title: 'name',
@@ -1836,36 +1581,24 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToCreate === undefined)
             return;
 
-          this.createAccuracyPrecisions(data.attributesToCreate);
+          this.createAttributes(
+            data.attributesToCreate,
+            this.accuracyPrecisions,
+            (params) => this.usabilityService.addAccuracyPrecision(params)
+          )
+            .then(() => {
+              this.utilService.callSnackBar(
+                'Created accuracy/precision option(s).'
+              );
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some accuracy/precision options could not be created.'
+              );
+            });
         }
       });
-  }
-
-  createAccuracyPrecisions(accuracyPrecisions: AccuracyPrecision[]): void {
-    const createPromises: Promise<void>[] = [];
-    for (const attribute of accuracyPrecisions) {
-      createPromises.push(this.createAccuracyPrecision(attribute));
-    }
-    Promise.all(createPromises)
-      .then(() => {
-        this.accuracyPrecisions = [...this.accuracyPrecisions];
-        this.utilService.callSnackBar('Created accuracy/precision option(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some accuracy/precision options could not be created.'
-        );
-      });
-  }
-
-  private async createAccuracyPrecision(
-    accuracyPrecision: AccuracyPrecision
-  ): Promise<void> {
-    const value: AccuracyPrecision = await lastValueFrom(
-      this.usabilityService.addAccuracyPrecision({ body: accuracyPrecision })
-    );
-    this.accuracyPrecisions.push(value);
   }
 
   deleteAccuracyPrecisionWithDialog(): void {
@@ -1873,7 +1606,7 @@ export class AttributeOptionsService {
       title: 'Delete an existing accuracy/precision option',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
-      currentAttributeList: this.accuracyPrecisions,
+      currentAttributeList: this.accuracyPrecisions.value,
       getDisplayName: (value: AccuracyPrecision) => value.name
     };
     this.utilService
@@ -1884,38 +1617,24 @@ export class AttributeOptionsService {
           if (data === undefined || data.attributesToDelete === undefined)
             return;
 
-          this.deleteAccuracyPrecisions(data.attributesToDelete);
+          this.deleteAttributes(
+            data.attributesToDelete,
+            this.accuracyPrecisions,
+            (value: AccuracyPrecision) =>
+              this.usabilityService.deleteAccuracyPrecision(value)
+          )
+            .then(() => {
+              this.utilService.callSnackBar(
+                'Deleted accuracy/precision option(s).'
+              );
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some accuracy/precision options could not be deleted.'
+              );
+            });
         }
       });
-  }
-
-  deleteAccuracyPrecisions(accuracyPrecisions: AccuracyPrecision[]): void {
-    const deletePromises: Promise<void>[] = [];
-    for (const attribute of accuracyPrecisions) {
-      deletePromises.push(this.deleteAccuracyPrecision(attribute));
-    }
-
-    Promise.all(deletePromises)
-      .then(() => {
-        this.accuracyPrecisions = [...this.accuracyPrecisions];
-        this.utilService.callSnackBar('Deleted accuracy/precision option(s).');
-      })
-      .catch((reason) => {
-        console.log(reason);
-        this.utilService.callSnackBar(
-          'Error! Some accuracy/precision options could not be deleted.'
-        );
-      });
-  }
-
-  private async deleteAccuracyPrecision(
-    accuracyPrecision: AccuracyPrecision
-  ): Promise<void> {
-    await lastValueFrom(
-      this.usabilityService.deleteAccuracyPrecision({
-        name: accuracyPrecision.name
-      })
-    );
-    removeValueFromArray(this.accuracyPrecisions, accuracyPrecision);
   }
 }

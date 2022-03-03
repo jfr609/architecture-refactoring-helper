@@ -14,7 +14,7 @@
     <div fxLayout='row'>
       <div fxFlex='25' fxLayout='column'>
         <h2>Domain artifacts</h2>
-        <div *ngFor='let domainArtifact of attributeOptionsService.domainArtifacts, let i = index'
+        <div *ngFor='let domainArtifact of attributeOptionsService.domainArtifacts.value, let i = index'
              class='attribute-option-container'>
           <span>{{domainArtifact.name}}</span>
           <mat-radio-group
@@ -32,7 +32,7 @@
 
       <div fxFlex='25' fxLayout='column'>
         <h2>Runtime artifacts</h2>
-        <div *ngFor='let runtimeArtifact of attributeOptionsService.runtimeArtifacts, let i = index'
+        <div *ngFor='let runtimeArtifact of attributeOptionsService.runtimeArtifacts.value, let i = index'
              class='attribute-option-container'>
           <span>{{runtimeArtifact.name}}</span>
           <mat-radio-group
@@ -50,7 +50,7 @@
 
       <div fxFlex='25' fxLayout='column'>
         <h2>Model artifacts</h2>
-        <div *ngFor='let modelArtifact of attributeOptionsService.modelArtifacts, let i = index'
+        <div *ngFor='let modelArtifact of attributeOptionsService.modelArtifacts.value, let i = index'
              class='attribute-option-container'>
           <span>{{modelArtifact.name}}</span>
           <mat-radio-group
@@ -68,7 +68,7 @@
 
       <div fxFlex='25' fxLayout='column'>
         <h2>Executables</h2>
-        <div *ngFor='let executable of attributeOptionsService.executables, let i = index'
+        <div *ngFor='let executable of attributeOptionsService.executables.value, let i = index'
              class='attribute-option-container'>
           <span>{{executable.name}}</span>
           <mat-radio-group
@@ -103,7 +103,7 @@
       <div fxLayout='row'>
         <div fxFlex='25' fxLayout='column'>
           <h2>Directions</h2>
-          <div *ngFor='let direction of attributeOptionsService.directions, let i = index'
+          <div *ngFor='let direction of attributeOptionsService.directions.value, let i = index'
                class='attribute-option-container'>
             <span>{{direction.name}}</span>
             <mat-radio-group
@@ -121,7 +121,7 @@
 
         <div fxFlex='25' fxLayout='column'>
           <h2>Levels of automation</h2>
-          <div *ngFor='let automationLevel of attributeOptionsService.automationLevels, let i = index'
+          <div *ngFor='let automationLevel of attributeOptionsService.automationLevels.value, let i = index'
                class='attribute-option-container'>
             <span>{{automationLevel.name}}</span>
             <mat-radio-group
@@ -139,7 +139,7 @@
 
         <div fxFlex='25' fxLayout='column'>
           <h2>Analysis types</h2>
-          <div *ngFor='let analysisType of attributeOptionsService.analysisTypes, let i = index'
+          <div *ngFor='let analysisType of attributeOptionsService.analysisTypes.value, let i = index'
                class='attribute-option-container'>
             <span>{{analysisType.name}}</span>
             <mat-radio-group
@@ -157,7 +157,7 @@
 
         <div fxFlex='25' fxLayout='column'>
           <h2>Techniques</h2>
-          <div *ngFor='let technique of attributeOptionsService.techniques, let i = index'
+          <div *ngFor='let technique of attributeOptionsService.techniques.value, let i = index'
                class='attribute-option-container'>
             <span>{{technique.name}}</span>
             <mat-radio-group
@@ -229,7 +229,7 @@
     <div fxLayout='row'>
       <div fxFlex='25' fxLayout='column'>
         <h2>Architectures</h2>
-        <div *ngFor='let architecture of attributeOptionsService.architectures, let i = index'
+        <div *ngFor='let architecture of attributeOptionsService.architectures.value, let i = index'
              class='attribute-option-container'>
           <span>{{architecture.name}}</span>
           <mat-radio-group
@@ -247,7 +247,7 @@
 
       <div fxFlex='25' fxLayout='column'>
         <h2>Service types</h2>
-        <div *ngFor='let serviceType of attributeOptionsService.serviceTypes, let i = index'
+        <div *ngFor='let serviceType of attributeOptionsService.serviceTypes.value, let i = index'
              class='attribute-option-container'>
           <span>{{serviceType.name}}</span>
           <mat-radio-group
@@ -281,7 +281,7 @@
     <div fxLayout='row'>
       <div fxFlex='25' fxLayout='column'>
         <h2>Validation methods</h2>
-        <div *ngFor='let validationMethod of attributeOptionsService.validationMethods, let i = index'
+        <div *ngFor='let validationMethod of attributeOptionsService.validationMethods.value, let i = index'
              class='attribute-option-container'>
           <span>{{validationMethod.name}}</span>
           <mat-radio-group
@@ -299,7 +299,7 @@
 
       <div fxFlex='25' fxLayout='column'>
         <h2>Tool supports</h2>
-        <div *ngFor='let toolSupport of attributeOptionsService.toolSupports, let i = index'
+        <div *ngFor='let toolSupport of attributeOptionsService.toolSupports.value, let i = index'
              class='attribute-option-container'>
           <span>{{toolSupport.name}}</span>
           <mat-radio-group
@@ -317,7 +317,7 @@
 
       <div fxFlex='25' fxLayout='column'>
         <h2>Quality of results</h2>
-        <div *ngFor='let resultsQuality of attributeOptionsService.resultsQualities, let i = index'
+        <div *ngFor='let resultsQuality of attributeOptionsService.resultsQualities.value, let i = index'
              class='attribute-option-container'>
           <span>{{resultsQuality.name}}</span>
           <mat-radio-group
@@ -335,7 +335,7 @@
 
       <div fxFlex='25' fxLayout='column'>
         <h2>Accuracy/Precision of service identification approaches</h2>
-        <div *ngFor='let accuracyPrecision of attributeOptionsService.accuracyPrecisions, let i = index'
+        <div *ngFor='let accuracyPrecision of attributeOptionsService.accuracyPrecisions.value, let i = index'
              class='attribute-option-container'>
           <span>{{accuracyPrecision.name}}</span>
           <mat-radio-group

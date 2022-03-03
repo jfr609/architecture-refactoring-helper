@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { RefactoringApproach } from '../../../../../api/repository/models/refactoring-approach';
-import { lastValueFrom, Subscription } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, Subscription } from 'rxjs';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { RefactoringApproachService } from '../../../../../api/repository/services/refactoring-approach.service';
 import { UtilService } from '../../../services/util.service';
@@ -42,7 +42,7 @@ import { AttributeOptionsService } from '../../../services/attribute-options.ser
   templateUrl: './approach-form.component.html',
   styleUrls: ['./approach-form.component.scss']
 })
-export class ApproachFormComponent implements OnInit {
+export class ApproachFormComponent implements OnInit, OnDestroy {
   @ViewChild(MatAccordion)
   accordion!: MatAccordion;
 
@@ -94,6 +94,7 @@ export class ApproachFormComponent implements OnInit {
   isDataLoading = true;
 
   private routeSub!: Subscription;
+  private attributeSubscriptions: Subscription[] = [];
 
   constructor(
     private refactoringApproachService: RefactoringApproachService,
@@ -136,6 +137,76 @@ export class ApproachFormComponent implements OnInit {
         }
       }
     });
+
+    this.attributeSubscriptions.push(
+      this.attributeOptionsService.domainArtifacts.subscribe({
+        next: () => {
+          this.fillDomainArtifactDataLists();
+        }
+      })
+    );
+    this.attributeSubscriptions.push(
+      this.attributeOptionsService.runtimeArtifacts.subscribe({
+        next: () => {
+          this.fillRuntimeArtifactDataLists();
+        }
+      })
+    );
+    this.attributeSubscriptions.push(
+      this.attributeOptionsService.modelArtifacts.subscribe({
+        next: () => {
+          this.fillModelArtifactDataLists();
+        }
+      })
+    );
+    this.attributeSubscriptions.push(
+      this.attributeOptionsService.executables.subscribe({
+        next: () => {
+          this.fillExecutableDataLists();
+        }
+      })
+    );
+    this.attributeSubscriptions.push(
+      this.attributeOptionsService.qualities.subscribe({
+        next: () => {
+          this.fillQualityDataLists();
+        }
+      })
+    );
+    this.attributeSubscriptions.push(
+      this.attributeOptionsService.directions.subscribe({
+        next: () => {
+          this.fillDirectionDataLists();
+        }
+      })
+    );
+    this.attributeSubscriptions.push(
+      this.attributeOptionsService.automationLevels.subscribe({
+        next: () => {
+          this.fillAutomationLevelDataLists();
+        }
+      })
+    );
+    this.attributeSubscriptions.push(
+      this.attributeOptionsService.analysisTypes.subscribe({
+        next: () => {
+          this.fillAnalysisTypeDataLists();
+        }
+      })
+    );
+    this.attributeSubscriptions.push(
+      this.attributeOptionsService.techniques.subscribe({
+        next: () => {
+          this.fillTechniqueDataLists();
+        }
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    for (const subscription of this.attributeSubscriptions) {
+      subscription.unsubscribe();
+    }
   }
 
   requestRefactoringApproach(approachId: number): Promise<void> {
@@ -183,7 +254,7 @@ export class ApproachFormComponent implements OnInit {
   fillInUsabilityAttributes() {
     if (this.refactoringApproach.approachUsability?.resultsQuality != null) {
       const foundResultsQuality =
-        this.attributeOptionsService.resultsQualities.find(
+        this.attributeOptionsService.resultsQualities.value.find(
           (value: ResultsQuality) =>
             value.name ===
             this.refactoringApproach.approachUsability?.resultsQuality.name
@@ -194,11 +265,12 @@ export class ApproachFormComponent implements OnInit {
     }
 
     if (this.refactoringApproach.approachUsability?.toolSupport != null) {
-      const foundToolSupport = this.attributeOptionsService.toolSupports.find(
-        (value: ToolSupport) =>
-          value.name ===
-          this.refactoringApproach.approachUsability?.toolSupport.name
-      );
+      const foundToolSupport =
+        this.attributeOptionsService.toolSupports.value.find(
+          (value: ToolSupport) =>
+            value.name ===
+            this.refactoringApproach.approachUsability?.toolSupport.name
+        );
       if (foundToolSupport != null) {
         this.selectedToolSupport = foundToolSupport;
       }
@@ -206,7 +278,7 @@ export class ApproachFormComponent implements OnInit {
 
     if (this.refactoringApproach.approachUsability?.accuracyPrecision != null) {
       const foundAccuracyPrecision =
-        this.attributeOptionsService.accuracyPrecisions.find(
+        this.attributeOptionsService.accuracyPrecisions.value.find(
           (value: AccuracyPrecision) =>
             value.name ===
             this.refactoringApproach.approachUsability?.accuracyPrecision.name
@@ -218,7 +290,7 @@ export class ApproachFormComponent implements OnInit {
 
     if (this.refactoringApproach.approachUsability?.validationMethod != null) {
       const foundValidationMethod =
-        this.attributeOptionsService.validationMethods.find(
+        this.attributeOptionsService.validationMethods.value.find(
           (value: ValidationMethod) =>
             value.name ===
             this.refactoringApproach.approachUsability?.validationMethod.name
@@ -236,7 +308,7 @@ export class ApproachFormComponent implements OnInit {
     this.utilService.fillConnectedDataLists(
       this.isCreateView,
       this.refactoringApproach.domainArtifactInputs,
-      this.attributeOptionsService.domainArtifacts,
+      this.attributeOptionsService.domainArtifacts.value,
       this.domainArtifactSourceDataList,
       this.domainArtifactTargetDataList,
       (e: DomainArtifactInput) => e.name
@@ -250,7 +322,7 @@ export class ApproachFormComponent implements OnInit {
     this.utilService.fillConnectedDataLists(
       this.isCreateView,
       this.refactoringApproach.runtimeArtifactInputs,
-      this.attributeOptionsService.runtimeArtifacts,
+      this.attributeOptionsService.runtimeArtifacts.value,
       this.runtimeArtifactSourceDataList,
       this.runtimeArtifactTargetDataList,
       (e: RuntimeArtifactInput) => e.name
@@ -264,7 +336,7 @@ export class ApproachFormComponent implements OnInit {
     this.utilService.fillConnectedDataLists(
       this.isCreateView,
       this.refactoringApproach.modelArtifactInputs,
-      this.attributeOptionsService.modelArtifacts,
+      this.attributeOptionsService.modelArtifacts.value,
       this.modelArtifactSourceDataList,
       this.modelArtifactTargetDataList,
       (e: ModelArtifactInput) => e.name
@@ -278,7 +350,7 @@ export class ApproachFormComponent implements OnInit {
     this.utilService.fillConnectedDataLists(
       this.isCreateView,
       this.refactoringApproach.executableInputs,
-      this.attributeOptionsService.executables,
+      this.attributeOptionsService.executables.value,
       this.executableSourceDataList,
       this.executableTargetDataList,
       (e: ExecutableInput) => `${e.name}: ${e.language}`
@@ -292,7 +364,7 @@ export class ApproachFormComponent implements OnInit {
     this.utilService.fillConnectedDataLists(
       this.isCreateView,
       this.refactoringApproach.approachProcess?.qualities,
-      this.attributeOptionsService.qualities,
+      this.attributeOptionsService.qualities.value,
       this.qualitySourceDataList,
       this.qualityTargetDataList,
       (e: Quality) => `${e.category}: ${e.name}`
@@ -306,7 +378,7 @@ export class ApproachFormComponent implements OnInit {
     this.utilService.fillConnectedDataLists(
       this.isCreateView,
       this.refactoringApproach.approachProcess?.directions,
-      this.attributeOptionsService.directions,
+      this.attributeOptionsService.directions.value,
       this.directionSourceDataList,
       this.directionTargetDataList,
       (e: Direction) => e.name
@@ -320,7 +392,7 @@ export class ApproachFormComponent implements OnInit {
     this.utilService.fillConnectedDataLists(
       this.isCreateView,
       this.refactoringApproach.approachProcess?.automationLevels,
-      this.attributeOptionsService.automationLevels,
+      this.attributeOptionsService.automationLevels.value,
       this.automationLevelSourceDataList,
       this.automationLevelTargetDataList,
       (e: AutomationLevel) => e.name
@@ -334,7 +406,7 @@ export class ApproachFormComponent implements OnInit {
     this.utilService.fillConnectedDataLists(
       this.isCreateView,
       this.refactoringApproach.approachProcess?.analysisTypes,
-      this.attributeOptionsService.analysisTypes,
+      this.attributeOptionsService.analysisTypes.value,
       this.analysisTypeSourceDataList,
       this.analysisTypeTargetDataList,
       (e: AnalysisType) => e.name
@@ -348,7 +420,7 @@ export class ApproachFormComponent implements OnInit {
     this.utilService.fillConnectedDataLists(
       this.isCreateView,
       this.refactoringApproach.approachProcess?.techniques,
-      this.attributeOptionsService.techniques,
+      this.attributeOptionsService.techniques.value,
       this.techniqueSourceDataList,
       this.techniqueTargetDataList,
       (e: Technique) => e.name
@@ -356,49 +428,53 @@ export class ApproachFormComponent implements OnInit {
   }
 
   setSelectedResultsQualityToDefault(): void {
-    const defaultValue = this.attributeOptionsService.resultsQualities.find(
-      (value: ResultsQuality) => value.name === 'Not available'
-    );
+    const defaultValue =
+      this.attributeOptionsService.resultsQualities.value.find(
+        (value: ResultsQuality) => value.name === 'Not available'
+      );
     if (defaultValue !== undefined) {
       this.selectedResultsQuality = defaultValue;
     } else {
       this.selectedResultsQuality =
-        this.attributeOptionsService.resultsQualities[0];
+        this.attributeOptionsService.resultsQualities.value[0];
     }
   }
 
   setSelectedToolSupportToDefault(): void {
-    const defaultValue = this.attributeOptionsService.toolSupports.find(
+    const defaultValue = this.attributeOptionsService.toolSupports.value.find(
       (value: ToolSupport) => value.name === 'No tool support'
     );
     if (defaultValue !== undefined) {
       this.selectedToolSupport = defaultValue;
     } else {
-      this.selectedToolSupport = this.attributeOptionsService.toolSupports[0];
+      this.selectedToolSupport =
+        this.attributeOptionsService.toolSupports.value[0];
     }
   }
 
   setSelectedAccuracyPrecisionToDefault(): void {
-    const defaultValue = this.attributeOptionsService.accuracyPrecisions.find(
-      (value: AccuracyPrecision) => value.name === 'Not available'
-    );
+    const defaultValue =
+      this.attributeOptionsService.accuracyPrecisions.value.find(
+        (value: AccuracyPrecision) => value.name === 'Not available'
+      );
     if (defaultValue !== undefined) {
       this.selectedAccuracyPrecision = defaultValue;
     } else {
       this.selectedAccuracyPrecision =
-        this.attributeOptionsService.accuracyPrecisions[0];
+        this.attributeOptionsService.accuracyPrecisions.value[0];
     }
   }
 
   setSelectedValidationMethodToDefault(): void {
-    const defaultValue = this.attributeOptionsService.validationMethods.find(
-      (value: ValidationMethod) => value.name === 'No validation'
-    );
+    const defaultValue =
+      this.attributeOptionsService.validationMethods.value.find(
+        (value: ValidationMethod) => value.name === 'No validation'
+      );
     if (defaultValue !== undefined) {
       this.selectedValidationMethod = defaultValue;
     } else {
       this.selectedValidationMethod =
-        this.attributeOptionsService.validationMethods[0];
+        this.attributeOptionsService.validationMethods.value[0];
     }
   }
 

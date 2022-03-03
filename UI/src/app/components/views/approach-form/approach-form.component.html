@@ -233,7 +233,7 @@
             <mat-form-field fxFlex appearance='fill'>
               <mat-label>Select an output architecture</mat-label>
               <mat-select [(ngModel)]='selectedOutputArchitecture' name='food'>
-                <mat-option *ngFor='let architecture of attributeOptionsService.architectures' [value]='architecture'>
+                <mat-option *ngFor='let architecture of attributeOptionsService.architectures.value' [value]='architecture'>
                   {{architecture.name}}
                 </mat-option>
               </mat-select>
@@ -252,7 +252,7 @@
             <mat-form-field fxFlex appearance='fill'>
               <mat-label>Select an output service type</mat-label>
               <mat-select [(ngModel)]='selectedOutputServiceType' name='food'>
-                <mat-option *ngFor='let serviceType of attributeOptionsService.serviceTypes' [value]='serviceType'>
+                <mat-option *ngFor='let serviceType of attributeOptionsService.serviceTypes.value' [value]='serviceType'>
                   {{serviceType.name}}
                 </mat-option>
               </mat-select>
@@ -324,7 +324,7 @@
               fxLayout='column'
               fxLayoutGap='8px'
               [(ngModel)]='selectedValidationMethod'>
-              <mat-radio-button *ngFor='let validationMethod of attributeOptionsService.validationMethods'
+              <mat-radio-button *ngFor='let validationMethod of attributeOptionsService.validationMethods.value'
                                 [value]='validationMethod'>
                 {{validationMethod.name}}
               </mat-radio-button>
@@ -347,7 +347,7 @@
               fxLayout='column'
               fxLayoutGap='8px'
               [(ngModel)]='selectedToolSupport'>
-              <mat-radio-button *ngFor='let toolSupport of attributeOptionsService.toolSupports' [value]='toolSupport'>
+              <mat-radio-button *ngFor='let toolSupport of attributeOptionsService.toolSupports.value' [value]='toolSupport'>
                 {{toolSupport.name}}
               </mat-radio-button>
             </mat-radio-group>
@@ -370,7 +370,7 @@
               fxLayout='column'
               fxLayoutGap='8px'
               [(ngModel)]='selectedResultsQuality'>
-              <mat-radio-button *ngFor='let resultsQuality of attributeOptionsService.resultsQualities'
+              <mat-radio-button *ngFor='let resultsQuality of attributeOptionsService.resultsQualities.value'
                                 [value]='resultsQuality'>
                 {{resultsQuality.name}}
               </mat-radio-button>
@@ -393,7 +393,7 @@
               fxLayout='column'
               fxLayoutGap='8px'
               [(ngModel)]='selectedAccuracyPrecision'>
-              <mat-radio-button *ngFor='let accuracyPrecision of attributeOptionsService.accuracyPrecisions'
+              <mat-radio-button *ngFor='let accuracyPrecision of attributeOptionsService.accuracyPrecisions.value'
                                 [value]='accuracyPrecision'>
                 {{accuracyPrecision.name}}
               </mat-radio-button>

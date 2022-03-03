@@ -6,8 +6,8 @@ export function removeValueFromArray<T>(
   valueEquals: (a: T, b: T) => boolean = (a: T, b: T) => a === b
 ): void {
   let index = -1;
-  list.find((value: T, i: number) => {
-    if (valueEquals(value, value)) {
+  list.find((listValue: T, i: number) => {
+    if (valueEquals(listValue, value)) {
       index = i;
       return true;
     }
@@ -42,9 +42,10 @@ export function findArrayDifferenceWithCustomEquals<T>(
   }
 
   return list1.filter(
-    (list1Element) =>
-      list2.find((list2Element) => elementEqual(list1Element, list2Element)) ===
-      undefined
+    (list1Element: T) =>
+      list2.find((list2Element: T) =>
+        elementEqual(list1Element, list2Element)
+      ) === undefined
   );
 }
 

@@ -74,27 +74,29 @@ export class ApproachFinderComponent implements OnInit {
   }
 
   setRadioButtonDefaults(): void {
-    for (const domainArtifact of this.attributeOptionsService.domainArtifacts) {
+    for (const domainArtifact of this.attributeOptionsService.domainArtifacts
+      .value) {
       this.domainArtifactInformation.push({
         domainArtifactInput: domainArtifact,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
 
-    for (const runtimeArtifact of this.attributeOptionsService
-      .runtimeArtifacts) {
+    for (const runtimeArtifact of this.attributeOptionsService.runtimeArtifacts
+      .value) {
       this.runtimeArtifactInformation.push({
         runtimeArtifactInput: runtimeArtifact,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
-    for (const modelArtifact of this.attributeOptionsService.modelArtifacts) {
+    for (const modelArtifact of this.attributeOptionsService.modelArtifacts
+      .value) {
       this.modelArtifactInformation.push({
         modelArtifactInput: modelArtifact,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
-    for (const executable of this.attributeOptionsService.executables) {
+    for (const executable of this.attributeOptionsService.executables.value) {
       this.executableInformation.push({
         executableInput: executable,
         recommendationSuitability: RecommendationSuitability.Neutral
@@ -117,41 +119,43 @@ export class ApproachFinderComponent implements OnInit {
       });
     }
 
-    for (const direction of this.attributeOptionsService.directions) {
+    for (const direction of this.attributeOptionsService.directions.value) {
       this.directionInformation.push({
         direction: direction,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
 
-    for (const automationLevel of this.attributeOptionsService
-      .automationLevels) {
+    for (const automationLevel of this.attributeOptionsService.automationLevels
+      .value) {
       this.automationLevelInformation.push({
         automationLevel: automationLevel,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
-    for (const analysisType of this.attributeOptionsService.analysisTypes) {
+    for (const analysisType of this.attributeOptionsService.analysisTypes
+      .value) {
       this.analysisTypeInformation.push({
         analysisType: analysisType,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
-    for (const technique of this.attributeOptionsService.techniques) {
+    for (const technique of this.attributeOptionsService.techniques.value) {
       this.techniqueInformation.push({
         technique: technique,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
 
-    for (const architecture of this.attributeOptionsService.architectures) {
+    for (const architecture of this.attributeOptionsService.architectures
+      .value) {
       this.architectureInformation.push({
         architecture: architecture,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
 
-    for (const serviceType of this.attributeOptionsService.serviceTypes) {
+    for (const serviceType of this.attributeOptionsService.serviceTypes.value) {
       this.serviceTypeInformation.push({
         serviceType: serviceType,
         recommendationSuitability: RecommendationSuitability.Neutral
@@ -159,22 +163,22 @@ export class ApproachFinderComponent implements OnInit {
     }
 
     for (const validationMethod of this.attributeOptionsService
-      .validationMethods) {
+      .validationMethods.value) {
       this.validationMethodInformation.push({
         validationMethod: validationMethod,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
 
-    for (const toolSupport of this.attributeOptionsService.toolSupports) {
+    for (const toolSupport of this.attributeOptionsService.toolSupports.value) {
       this.toolSupportInformation.push({
         toolSupport: toolSupport,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
 
-    for (const resultsQuality of this.attributeOptionsService
-      .resultsQualities) {
+    for (const resultsQuality of this.attributeOptionsService.resultsQualities
+      .value) {
       this.resultsQualityInformation.push({
         resultsQuality: resultsQuality,
         recommendationSuitability: RecommendationSuitability.Neutral
@@ -182,7 +186,7 @@ export class ApproachFinderComponent implements OnInit {
     }
 
     for (const accuracyPrecision of this.attributeOptionsService
-      .accuracyPrecisions) {
+      .accuracyPrecisions.value) {
       this.accuracyPrecisionInformation.push({
         accuracyPrecision: accuracyPrecision,
         recommendationSuitability: RecommendationSuitability.Neutral
@@ -191,7 +195,7 @@ export class ApproachFinderComponent implements OnInit {
   }
 
   getQualitiesByCategory(category: QualityCategory): Quality[] {
-    return this.attributeOptionsService.qualities.filter(
+    return this.attributeOptionsService.qualities.value.filter(
       (value: Quality) => value.category === category
     );
   }
