@@ -325,45 +325,6 @@ export class AttributeOptionsService {
     });
   }
 
-  private static async createAttribute<T>(
-    attribute: T,
-    attributeList: BehaviorSubject<T[]>,
-    createFunction: (params?: { body?: T }) => Observable<T>
-  ): Promise<void> {
-    const value: T = await lastValueFrom(createFunction({ body: attribute }));
-    attributeList.value.push(value);
-  }
-
-  deleteAttributes<T>(
-    attributes: T[],
-    attributeList: BehaviorSubject<T[]>,
-    deleteFunction: (value: T) => Observable<void>
-  ): Promise<void> {
-    const deletePromises: Promise<void>[] = [];
-    for (const attribute of attributes) {
-      deletePromises.push(
-        AttributeOptionsService.deleteAttribute(
-          attribute,
-          attributeList,
-          (value: T) => deleteFunction(value)
-        )
-      );
-    }
-
-    return Promise.all(deletePromises).then(() => {
-      attributeList.next(attributeList.value);
-    });
-  }
-
-  private static async deleteAttribute<T>(
-    attribute: T,
-    attributeList: BehaviorSubject<T[]>,
-    deleteFunction: (value: T) => Observable<void>
-  ): Promise<void> {
-    await lastValueFrom(deleteFunction(attribute));
-    removeValueFromArray(attributeList.value, attribute);
-  }
-
   createDomainArtifactWithDialog(): void {
     const data: CreateAttributeDialogData<DomainArtifactInput> = {
       title: 'Create a new domain artifact input option',
@@ -1636,5 +1597,44 @@ export class AttributeOptionsService {
             });
         }
       });
+  }
+
+  private static async createAttribute<T>(
+    attribute: T,
+    attributeList: BehaviorSubject<T[]>,
+    createFunction: (params?: { body?: T }) => Observable<T>
+  ): Promise<void> {
+    const value: T = await lastValueFrom(createFunction({ body: attribute }));
+    attributeList.value.push(value);
+  }
+
+  deleteAttributes<T>(
+    attributes: T[],
+    attributeList: BehaviorSubject<T[]>,
+    deleteFunction: (value: T) => Observable<void>
+  ): Promise<void> {
+    const deletePromises: Promise<void>[] = [];
+    for (const attribute of attributes) {
+      deletePromises.push(
+        AttributeOptionsService.deleteAttribute(
+          attribute,
+          attributeList,
+          (value: T) => deleteFunction(value)
+        )
+      );
+    }
+
+    return Promise.all(deletePromises).then(() => {
+      attributeList.next(attributeList.value);
+    });
+  }
+
+  private static async deleteAttribute<T>(
+    attribute: T,
+    attributeList: BehaviorSubject<T[]>,
+    deleteFunction: (value: T) => Observable<void>
+  ): Promise<void> {
+    await lastValueFrom(deleteFunction(attribute));
+    removeValueFromArray(attributeList.value, attribute);
   }
 }

@@ -7,10 +7,14 @@ namespace Repository.Models.Recommendation;
 public class ApproachRecommendation
 {
     [Required]
-    [JsonPropertyName("refactoringApproach")]
-    public RefactoringApproach RefactoringApproach { get; set; }
+    [JsonPropertyName("approachSource")]
+    public ApproachSource ApproachSource { get; set; }
 
     [Required]
-    [JsonPropertyName("suitabilityScore")] 
+    [JsonPropertyName("attributeEvaluations")]
+    public IEnumerable<ApproachAttributeEvaluation> AttributeEvaluations { get; set; }
+
+    [Required]
+    [JsonPropertyName("suitabilityScore")]
     public int SuitabilityScore { get; set; }
 }

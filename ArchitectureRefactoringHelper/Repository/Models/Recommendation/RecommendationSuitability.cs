@@ -1,4 +1,4 @@
-namespace Repository.Models;
+namespace Repository.Models.Recommendation;
 
 public enum RecommendationSuitability
 {

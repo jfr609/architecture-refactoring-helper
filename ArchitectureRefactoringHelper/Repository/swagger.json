@@ -2600,6 +2600,20 @@
         },
         "additionalProperties": false
       },
+      "ApproachAttributeEvaluation": {
+        "required": [
+          "approachAttribute",
+          "attributeEvaluation"
+        ],
+        "type": "object",
+        "properties": {
+          "approachAttribute": { },
+          "attributeEvaluation": {
+            "$ref": "#/components/schemas/AttributeEvaluation"
+          }
+        },
+        "additionalProperties": false
+      },
       "ApproachOutput": {
         "required": [
           "architecture",
@@ -2667,13 +2681,20 @@
       },
       "ApproachRecommendation": {
         "required": [
-          "refactoringApproach",
+          "approachSource",
+          "attributeEvaluations",
           "suitabilityScore"
         ],
         "type": "object",
         "properties": {
-          "refactoringApproach": {
-            "$ref": "#/components/schemas/RefactoringApproach"
+          "approachSource": {
+            "$ref": "#/components/schemas/ApproachSource"
+          },
+          "attributeEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApproachAttributeEvaluation"
+            }
           },
           "suitabilityScore": {
             "type": "integer",
@@ -2794,6 +2815,14 @@
           }
         },
         "additionalProperties": false
+      },
+      "AttributeEvaluation": {
+        "enum": [
+          "Match",
+          "Neutral",
+          "Mismatch"
+        ],
+        "type": "string"
       },
       "AutomationLevel": {
         "required": [

@@ -1,7 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
-import { RefactoringApproach } from './refactoring-approach';
+import { ApproachAttributeEvaluation } from './approach-attribute-evaluation';
+import { ApproachSource } from './approach-source';
 export interface ApproachRecommendation {
-  refactoringApproach: RefactoringApproach;
+  approachSource: ApproachSource;
+  attributeEvaluations: Array<ApproachAttributeEvaluation>;
   suitabilityScore: number;
 }
