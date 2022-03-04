@@ -5,24 +5,24 @@ import { QualityCategory } from '../../../../../api/repository/models/quality-ca
 import { Quality } from '../../../../../api/repository/models/quality';
 import { ApproachRecommendationRequest } from '../../../../../api/repository/models/approach-recommendation-request';
 import { RecommendationSuitability } from '../../../../../api/repository/models/recommendation-suitability';
-import { DomainArtifactInformation } from '../../../../../api/repository/models/domain-artifact-information';
-import { RuntimeArtifactInformation } from '../../../../../api/repository/models/runtime-artifact-information';
-import { ModelArtifactInformation } from '../../../../../api/repository/models/model-artifact-information';
-import { ExecutableInformation } from '../../../../../api/repository/models/executable-information';
-import { QualityInformation } from '../../../../../api/repository/models/quality-information';
-import { DirectionInformation } from '../../../../../api/repository/models/direction-information';
-import { AnalysisTypeInformation } from '../../../../../api/repository/models/analysis-type-information';
-import { AutomationLevelInformation } from '../../../../../api/repository/models/automation-level-information';
-import { TechniqueInformation } from '../../../../../api/repository/models/technique-information';
-import { ArchitectureInformation } from '../../../../../api/repository/models/architecture-information';
-import { ServiceTypeInformation } from '../../../../../api/repository/models/service-type-information';
-import { ValidationMethodInformation } from '../../../../../api/repository/models/validation-method-information';
-import { ToolSupportInformation } from '../../../../../api/repository/models/tool-support-information';
-import { ResultsQualityInformation } from '../../../../../api/repository/models/results-quality-information';
-import { AccuracyPrecisionInformation } from '../../../../../api/repository/models/accuracy-precision-information';
 import { ThemePalette } from '@angular/material/core';
 import { RefactoringApproachService } from '../../../../../api/repository/services/refactoring-approach.service';
 import { ApproachRecommendation } from '../../../../../api/repository/models/approach-recommendation';
+import { DomainArtifactInputAttributeRecommendationInformation } from '../../../../../api/repository/models/domain-artifact-input-attribute-recommendation-information';
+import { RuntimeArtifactInputAttributeRecommendationInformation } from '../../../../../api/repository/models/runtime-artifact-input-attribute-recommendation-information';
+import { ModelArtifactInputAttributeRecommendationInformation } from '../../../../../api/repository/models/model-artifact-input-attribute-recommendation-information';
+import { ExecutableInputAttributeRecommendationInformation } from '../../../../../api/repository/models/executable-input-attribute-recommendation-information';
+import { QualityAttributeRecommendationInformation } from '../../../../../api/repository/models/quality-attribute-recommendation-information';
+import { ResultsQualityAttributeRecommendationInformation } from '../../../../../api/repository/models/results-quality-attribute-recommendation-information';
+import { AccuracyPrecisionAttributeRecommendationInformation } from '../../../../../api/repository/models/accuracy-precision-attribute-recommendation-information';
+import { ToolSupportAttributeRecommendationInformation } from '../../../../../api/repository/models/tool-support-attribute-recommendation-information';
+import { ValidationMethodAttributeRecommendationInformation } from '../../../../../api/repository/models/validation-method-attribute-recommendation-information';
+import { ServiceTypeAttributeRecommendationInformation } from '../../../../../api/repository/models/service-type-attribute-recommendation-information';
+import { ArchitectureAttributeRecommendationInformation } from '../../../../../api/repository/models/architecture-attribute-recommendation-information';
+import { TechniqueAttributeRecommendationInformation } from '../../../../../api/repository/models/technique-attribute-recommendation-information';
+import { AnalysisTypeAttributeRecommendationInformation } from '../../../../../api/repository/models/analysis-type-attribute-recommendation-information';
+import { AutomationLevelAttributeRecommendationInformation } from '../../../../../api/repository/models/automation-level-attribute-recommendation-information';
+import { DirectionAttributeRecommendationInformation } from '../../../../../api/repository/models/direction-attribute-recommendation-information';
 
 @Component({
   selector: 'app-approach-finder',
@@ -34,25 +34,36 @@ export class ApproachFinderComponent implements OnInit {
   qualityCategories = QualityCategory;
   recommendationSuitabilityOptions: RecommendationSuitability[] = [];
 
-  domainArtifactInformation: DomainArtifactInformation[] = [];
-  runtimeArtifactInformation: RuntimeArtifactInformation[] = [];
-  modelArtifactInformation: ModelArtifactInformation[] = [];
-  executableInformation: ExecutableInformation[] = [];
+  domainArtifactInformation: DomainArtifactInputAttributeRecommendationInformation[] =
+    [];
+  runtimeArtifactInformation: RuntimeArtifactInputAttributeRecommendationInformation[] =
+    [];
+  modelArtifactInformation: ModelArtifactInputAttributeRecommendationInformation[] =
+    [];
+  executableInformation: ExecutableInputAttributeRecommendationInformation[] =
+    [];
 
-  qualityMetricInformation: QualityInformation[] = [];
-  qualityRequirementInformation: QualityInformation[] = [];
-  directionInformation: DirectionInformation[] = [];
-  automationLevelInformation: AutomationLevelInformation[] = [];
-  analysisTypeInformation: AnalysisTypeInformation[] = [];
-  techniqueInformation: TechniqueInformation[] = [];
+  qualityMetricInformation: QualityAttributeRecommendationInformation[] = [];
+  qualityRequirementInformation: QualityAttributeRecommendationInformation[] =
+    [];
+  directionInformation: DirectionAttributeRecommendationInformation[] = [];
+  automationLevelInformation: AutomationLevelAttributeRecommendationInformation[] =
+    [];
+  analysisTypeInformation: AnalysisTypeAttributeRecommendationInformation[] =
+    [];
+  techniqueInformation: TechniqueAttributeRecommendationInformation[] = [];
 
-  architectureInformation: ArchitectureInformation[] = [];
-  serviceTypeInformation: ServiceTypeInformation[] = [];
+  architectureInformation: ArchitectureAttributeRecommendationInformation[] =
+    [];
+  serviceTypeInformation: ServiceTypeAttributeRecommendationInformation[] = [];
 
-  validationMethodInformation: ValidationMethodInformation[] = [];
-  toolSupportInformation: ToolSupportInformation[] = [];
-  resultsQualityInformation: ResultsQualityInformation[] = [];
-  accuracyPrecisionInformation: AccuracyPrecisionInformation[] = [];
+  validationMethodInformation: ValidationMethodAttributeRecommendationInformation[] =
+    [];
+  toolSupportInformation: ToolSupportAttributeRecommendationInformation[] = [];
+  resultsQualityInformation: ResultsQualityAttributeRecommendationInformation[] =
+    [];
+  accuracyPrecisionInformation: AccuracyPrecisionAttributeRecommendationInformation[] =
+    [];
 
   constructor(
     private refactoringApproachService: RefactoringApproachService,
@@ -77,7 +88,7 @@ export class ApproachFinderComponent implements OnInit {
     for (const domainArtifact of this.attributeOptionsService.domainArtifacts
       .value) {
       this.domainArtifactInformation.push({
-        domainArtifactInput: domainArtifact,
+        attribute: domainArtifact,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
@@ -85,27 +96,27 @@ export class ApproachFinderComponent implements OnInit {
     for (const runtimeArtifact of this.attributeOptionsService.runtimeArtifacts
       .value) {
       this.runtimeArtifactInformation.push({
-        runtimeArtifactInput: runtimeArtifact,
+        attribute: runtimeArtifact,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
     for (const modelArtifact of this.attributeOptionsService.modelArtifacts
       .value) {
       this.modelArtifactInformation.push({
-        modelArtifactInput: modelArtifact,
+        attribute: modelArtifact,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
     for (const executable of this.attributeOptionsService.executables.value) {
       this.executableInformation.push({
-        executableInput: executable,
+        attribute: executable,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
 
     for (const quality of this.getQualitiesByCategory(QualityCategory.Metric)) {
       this.qualityMetricInformation.push({
-        quality: quality,
+        attribute: quality,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
@@ -114,14 +125,14 @@ export class ApproachFinderComponent implements OnInit {
       QualityCategory.Requirement
     )) {
       this.qualityRequirementInformation.push({
-        quality: quality,
+        attribute: quality,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
 
     for (const direction of this.attributeOptionsService.directions.value) {
       this.directionInformation.push({
-        direction: direction,
+        attribute: direction,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
@@ -129,20 +140,20 @@ export class ApproachFinderComponent implements OnInit {
     for (const automationLevel of this.attributeOptionsService.automationLevels
       .value) {
       this.automationLevelInformation.push({
-        automationLevel: automationLevel,
+        attribute: automationLevel,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
     for (const analysisType of this.attributeOptionsService.analysisTypes
       .value) {
       this.analysisTypeInformation.push({
-        analysisType: analysisType,
+        attribute: analysisType,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
     for (const technique of this.attributeOptionsService.techniques.value) {
       this.techniqueInformation.push({
-        technique: technique,
+        attribute: technique,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
@@ -150,14 +161,14 @@ export class ApproachFinderComponent implements OnInit {
     for (const architecture of this.attributeOptionsService.architectures
       .value) {
       this.architectureInformation.push({
-        architecture: architecture,
+        attribute: architecture,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
 
     for (const serviceType of this.attributeOptionsService.serviceTypes.value) {
       this.serviceTypeInformation.push({
-        serviceType: serviceType,
+        attribute: serviceType,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
@@ -165,14 +176,14 @@ export class ApproachFinderComponent implements OnInit {
     for (const validationMethod of this.attributeOptionsService
       .validationMethods.value) {
       this.validationMethodInformation.push({
-        validationMethod: validationMethod,
+        attribute: validationMethod,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
 
     for (const toolSupport of this.attributeOptionsService.toolSupports.value) {
       this.toolSupportInformation.push({
-        toolSupport: toolSupport,
+        attribute: toolSupport,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
@@ -180,7 +191,7 @@ export class ApproachFinderComponent implements OnInit {
     for (const resultsQuality of this.attributeOptionsService.resultsQualities
       .value) {
       this.resultsQualityInformation.push({
-        resultsQuality: resultsQuality,
+        attribute: resultsQuality,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
@@ -188,7 +199,7 @@ export class ApproachFinderComponent implements OnInit {
     for (const accuracyPrecision of this.attributeOptionsService
       .accuracyPrecisions.value) {
       this.accuracyPrecisionInformation.push({
-        accuracyPrecision: accuracyPrecision,
+        attribute: accuracyPrecision,
         recommendationSuitability: RecommendationSuitability.Neutral
       });
     }
@@ -215,36 +226,31 @@ export class ApproachFinderComponent implements OnInit {
 
   onSearchRecommendation(): void {
     const approachRecommendationRequest: ApproachRecommendationRequest = {
-      inputRecommendationInformation: {
-        domainArtifactInformation: this.domainArtifactInformation,
-        runtimeArtifactInformation: this.runtimeArtifactInformation,
-        modelArtifactInformation: this.modelArtifactInformation,
-        executableInformation: this.executableInformation
-      },
-      processRecommendationInformation: {
-        qualityInformation: this.qualityRequirementInformation.concat(
-          this.qualityMetricInformation
-        ),
-        directionInformation: this.directionInformation,
-        automationLevelInformation: this.automationLevelInformation,
-        analysisTypeInformation: this.analysisTypeInformation,
-        techniqueInformation: this.techniqueInformation
-      },
-      outputRecommendationInformation: {
-        architectureInformation: this.architectureInformation,
-        serviceTypeInformation: this.serviceTypeInformation
-      },
-      usabilityRecommendationInformation: {
-        validationMethodInformation: this.validationMethodInformation,
-        toolSupportInformation: this.toolSupportInformation,
-        resultsQualityInformation: this.resultsQualityInformation,
-        accuracyPrecisionInformation: this.accuracyPrecisionInformation
-      }
+      domainArtifactInformation: this.domainArtifactInformation,
+      runtimeArtifactInformation: this.runtimeArtifactInformation,
+      modelArtifactInformation: this.modelArtifactInformation,
+      executableInformation: this.executableInformation,
+
+      qualityInformation: this.qualityRequirementInformation.concat(
+        this.qualityMetricInformation
+      ),
+      directionInformation: this.directionInformation,
+      automationLevelInformation: this.automationLevelInformation,
+      analysisTypeInformation: this.analysisTypeInformation,
+      techniqueInformation: this.techniqueInformation,
+
+      architectureInformation: this.architectureInformation,
+      serviceTypeInformation: this.serviceTypeInformation,
+
+      validationMethodInformation: this.validationMethodInformation,
+      toolSupportInformation: this.toolSupportInformation,
+      resultsQualityInformation: this.resultsQualityInformation,
+      accuracyPrecisionInformation: this.accuracyPrecisionInformation
     };
 
     console.log('Recommendation request: ', approachRecommendationRequest);
     this.refactoringApproachService
-      .generateRefactoringApproachRecommendation({
+      .recommendRefactoringApproaches({
         body: approachRecommendationRequest
       })
       .subscribe({
@@ -254,7 +260,7 @@ export class ApproachFinderComponent implements OnInit {
         error: (err) => {
           console.log(err);
           this.utilService.callSnackBar(
-            'Error! Receiving refactoring approach recommendations failed.'
+            'Error! Receiving recommended refactoring approaches failed.'
           );
         }
       });

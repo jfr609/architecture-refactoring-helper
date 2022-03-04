@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
-import { ModelArtifactInput } from './model-artifact-input';
+import { Architecture } from './architecture';
 import { RecommendationSuitability } from './recommendation-suitability';
-export interface ModelArtifactInformation {
-  modelArtifactInput: ModelArtifactInput;
+export interface ArchitectureAttributeRecommendationInformation {
+  attribute: Architecture;
   recommendationSuitability: RecommendationSuitability;
 }

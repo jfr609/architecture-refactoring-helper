@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
-import { Architecture } from './architecture';
 import { RecommendationSuitability } from './recommendation-suitability';
-export interface ArchitectureInformation {
-  architecture: Architecture;
+import { ToolSupport } from './tool-support';
+export interface ToolSupportAttributeRecommendationInformation {
+  attribute: ToolSupport;
   recommendationSuitability: RecommendationSuitability;
 }

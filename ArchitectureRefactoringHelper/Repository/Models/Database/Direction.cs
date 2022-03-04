@@ -16,4 +16,9 @@ public class Direction
     
     [JsonIgnore]
     public ICollection<ApproachProcess>? ApproachProcesses { get; set; }
+    
+    public bool KeyEquals(Direction obj)
+    {
+        return obj.Name == Name;
+    }
 }

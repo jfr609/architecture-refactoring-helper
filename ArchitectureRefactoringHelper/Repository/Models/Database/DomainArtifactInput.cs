@@ -16,4 +16,9 @@ public class DomainArtifactInput
     
     [JsonIgnore]
     public ICollection<RefactoringApproach>? RefactoringApproaches { get; set; }
+    
+    public bool KeyEquals(DomainArtifactInput obj)
+    {
+        return obj.Name == Name;
+    }
 }

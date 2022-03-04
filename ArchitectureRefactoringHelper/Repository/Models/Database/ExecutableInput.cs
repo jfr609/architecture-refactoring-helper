@@ -18,4 +18,9 @@ public class ExecutableInput
     
     [JsonIgnore]
     public ICollection<RefactoringApproach>? RefactoringApproaches { get; set; }
+    
+    public bool KeyEquals(ExecutableInput obj)
+    {
+        return obj.Name == Name && obj.Language == Language;
+    }
 }

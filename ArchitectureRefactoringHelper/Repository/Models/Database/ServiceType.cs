@@ -16,4 +16,9 @@ public class ServiceType
     
     [JsonIgnore]
     public ICollection<ApproachOutput>? ApproachOutputs { get; set; }
+    
+    public bool KeyEquals(ServiceType obj)
+    {
+        return obj.Name == Name;
+    }
 }

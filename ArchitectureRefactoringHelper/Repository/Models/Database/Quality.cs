@@ -20,6 +20,11 @@ public class Quality
 
     [JsonIgnore]
     public ICollection<ApproachProcess>? ApproachProcesses { get; set; }
+    
+    public bool KeyEquals(Quality obj)
+    {
+        return obj.Name == Name;
+    }
 }
 
 public enum QualityCategory

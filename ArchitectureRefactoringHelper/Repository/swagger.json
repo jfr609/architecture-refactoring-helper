@@ -1560,12 +1560,22 @@
         }
       }
     },
-    "/api/v1/approaches/recommendation": {
+    "/api/v1/approaches/recommendations": {
       "post": {
         "tags": [
           "RefactoringApproach"
         ],
-        "operationId": "GenerateRefactoringApproachRecommendation",
+        "operationId": "RecommendRefactoringApproaches",
+        "parameters": [
+          {
+            "name": "count",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -2552,14 +2562,30 @@
         },
         "additionalProperties": false
       },
-      "AccuracyPrecisionInformation": {
+      "AccuracyPrecisionApproachAttributeEvaluation": {
         "required": [
-          "accuracyPrecision",
+          "approachAttribute",
+          "attributeEvaluation"
+        ],
+        "type": "object",
+        "properties": {
+          "approachAttribute": {
+            "$ref": "#/components/schemas/AccuracyPrecision"
+          },
+          "attributeEvaluation": {
+            "$ref": "#/components/schemas/AttributeEvaluation"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AccuracyPrecisionAttributeRecommendationInformation": {
+        "required": [
+          "attribute",
           "recommendationSuitability"
         ],
         "type": "object",
         "properties": {
-          "accuracyPrecision": {
+          "attribute": {
             "$ref": "#/components/schemas/AccuracyPrecision"
           },
           "recommendationSuitability": {
@@ -2584,32 +2610,34 @@
         },
         "additionalProperties": false
       },
-      "AnalysisTypeInformation": {
-        "required": [
-          "analysisType",
-          "recommendationSuitability"
-        ],
-        "type": "object",
-        "properties": {
-          "analysisType": {
-            "$ref": "#/components/schemas/AnalysisType"
-          },
-          "recommendationSuitability": {
-            "$ref": "#/components/schemas/RecommendationSuitability"
-          }
-        },
-        "additionalProperties": false
-      },
-      "ApproachAttributeEvaluation": {
+      "AnalysisTypeApproachAttributeEvaluation": {
         "required": [
           "approachAttribute",
           "attributeEvaluation"
         ],
         "type": "object",
         "properties": {
-          "approachAttribute": { },
+          "approachAttribute": {
+            "$ref": "#/components/schemas/AnalysisType"
+          },
           "attributeEvaluation": {
             "$ref": "#/components/schemas/AttributeEvaluation"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AnalysisTypeAttributeRecommendationInformation": {
+        "required": [
+          "attribute",
+          "recommendationSuitability"
+        ],
+        "type": "object",
+        "properties": {
+          "attribute": {
+            "$ref": "#/components/schemas/AnalysisType"
+          },
+          "recommendationSuitability": {
+            "$ref": "#/components/schemas/RecommendationSuitability"
           }
         },
         "additionalProperties": false
@@ -2682,7 +2710,6 @@
       "ApproachRecommendation": {
         "required": [
           "approachSource",
-          "attributeEvaluations",
           "suitabilityScore"
         ],
         "type": "object",
@@ -2690,11 +2717,110 @@
           "approachSource": {
             "$ref": "#/components/schemas/ApproachSource"
           },
-          "attributeEvaluations": {
+          "domainArtifactInputEvaluations": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ApproachAttributeEvaluation"
-            }
+              "$ref": "#/components/schemas/DomainArtifactInputApproachAttributeEvaluation"
+            },
+            "nullable": true
+          },
+          "runtimeArtifactInputEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RuntimeArtifactInputApproachAttributeEvaluation"
+            },
+            "nullable": true
+          },
+          "modelArtifactInputEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ModelArtifactInputApproachAttributeEvaluation"
+            },
+            "nullable": true
+          },
+          "executableInputEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExecutableInputApproachAttributeEvaluation"
+            },
+            "nullable": true
+          },
+          "qualityEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QualityApproachAttributeEvaluation"
+            },
+            "nullable": true
+          },
+          "directionEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DirectionApproachAttributeEvaluation"
+            },
+            "nullable": true
+          },
+          "automationLevelEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AutomationLevelApproachAttributeEvaluation"
+            },
+            "nullable": true
+          },
+          "analysisTypeEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AnalysisTypeApproachAttributeEvaluation"
+            },
+            "nullable": true
+          },
+          "techniqueEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TechniqueApproachAttributeEvaluation"
+            },
+            "nullable": true
+          },
+          "architectureEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ArchitectureApproachAttributeEvaluation"
+            },
+            "nullable": true
+          },
+          "serviceTypeEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceTypeApproachAttributeEvaluation"
+            },
+            "nullable": true
+          },
+          "validationMethodEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationMethodApproachAttributeEvaluation"
+            },
+            "nullable": true
+          },
+          "toolSupportEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ToolSupportApproachAttributeEvaluation"
+            },
+            "nullable": true
+          },
+          "resultsQualityEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResultsQualityApproachAttributeEvaluation"
+            },
+            "nullable": true
+          },
+          "accuracyPrecisionEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccuracyPrecisionApproachAttributeEvaluation"
+            },
+            "nullable": true
           },
           "suitabilityScore": {
             "type": "integer",
@@ -2705,24 +2831,113 @@
       },
       "ApproachRecommendationRequest": {
         "required": [
-          "inputRecommendationInformation",
-          "outputRecommendationInformation",
-          "processRecommendationInformation",
-          "usabilityRecommendationInformation"
+          "accuracyPrecisionInformation",
+          "analysisTypeInformation",
+          "architectureInformation",
+          "automationLevelInformation",
+          "directionInformation",
+          "domainArtifactInformation",
+          "executableInformation",
+          "modelArtifactInformation",
+          "qualityInformation",
+          "resultsQualityInformation",
+          "runtimeArtifactInformation",
+          "serviceTypeInformation",
+          "techniqueInformation",
+          "toolSupportInformation",
+          "validationMethodInformation"
         ],
         "type": "object",
         "properties": {
-          "inputRecommendationInformation": {
-            "$ref": "#/components/schemas/InputRecommendationInformation"
+          "domainArtifactInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DomainArtifactInputAttributeRecommendationInformation"
+            }
           },
-          "processRecommendationInformation": {
-            "$ref": "#/components/schemas/ProcessRecommendationInformation"
+          "runtimeArtifactInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RuntimeArtifactInputAttributeRecommendationInformation"
+            }
           },
-          "outputRecommendationInformation": {
-            "$ref": "#/components/schemas/OutputRecommendationInformation"
+          "modelArtifactInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ModelArtifactInputAttributeRecommendationInformation"
+            }
           },
-          "usabilityRecommendationInformation": {
-            "$ref": "#/components/schemas/UsabilityRecommendationInformation"
+          "executableInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExecutableInputAttributeRecommendationInformation"
+            }
+          },
+          "qualityInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QualityAttributeRecommendationInformation"
+            }
+          },
+          "directionInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DirectionAttributeRecommendationInformation"
+            }
+          },
+          "automationLevelInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AutomationLevelAttributeRecommendationInformation"
+            }
+          },
+          "analysisTypeInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AnalysisTypeAttributeRecommendationInformation"
+            }
+          },
+          "techniqueInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TechniqueAttributeRecommendationInformation"
+            }
+          },
+          "architectureInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ArchitectureAttributeRecommendationInformation"
+            }
+          },
+          "serviceTypeInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceTypeAttributeRecommendationInformation"
+            }
+          },
+          "resultsQualityInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResultsQualityAttributeRecommendationInformation"
+            }
+          },
+          "toolSupportInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ToolSupportAttributeRecommendationInformation"
+            }
+          },
+          "accuracyPrecisionInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccuracyPrecisionAttributeRecommendationInformation"
+            }
+          },
+          "validationMethodInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationMethodAttributeRecommendationInformation"
+            }
           }
         },
         "additionalProperties": false
@@ -2800,14 +3015,30 @@
         },
         "additionalProperties": false
       },
-      "ArchitectureInformation": {
+      "ArchitectureApproachAttributeEvaluation": {
         "required": [
-          "architecture",
+          "approachAttribute",
+          "attributeEvaluation"
+        ],
+        "type": "object",
+        "properties": {
+          "approachAttribute": {
+            "$ref": "#/components/schemas/Architecture"
+          },
+          "attributeEvaluation": {
+            "$ref": "#/components/schemas/AttributeEvaluation"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ArchitectureAttributeRecommendationInformation": {
+        "required": [
+          "attribute",
           "recommendationSuitability"
         ],
         "type": "object",
         "properties": {
-          "architecture": {
+          "attribute": {
             "$ref": "#/components/schemas/Architecture"
           },
           "recommendationSuitability": {
@@ -2820,7 +3051,8 @@
         "enum": [
           "Match",
           "Neutral",
-          "Mismatch"
+          "Mismatch",
+          "Error"
         ],
         "type": "string"
       },
@@ -2840,14 +3072,30 @@
         },
         "additionalProperties": false
       },
-      "AutomationLevelInformation": {
+      "AutomationLevelApproachAttributeEvaluation": {
         "required": [
-          "automationLevel",
+          "approachAttribute",
+          "attributeEvaluation"
+        ],
+        "type": "object",
+        "properties": {
+          "approachAttribute": {
+            "$ref": "#/components/schemas/AutomationLevel"
+          },
+          "attributeEvaluation": {
+            "$ref": "#/components/schemas/AttributeEvaluation"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AutomationLevelAttributeRecommendationInformation": {
+        "required": [
+          "attribute",
           "recommendationSuitability"
         ],
         "type": "object",
         "properties": {
-          "automationLevel": {
+          "attribute": {
             "$ref": "#/components/schemas/AutomationLevel"
           },
           "recommendationSuitability": {
@@ -2872,31 +3120,31 @@
         },
         "additionalProperties": false
       },
-      "DirectionInformation": {
+      "DirectionApproachAttributeEvaluation": {
         "required": [
-          "direction",
-          "recommendationSuitability"
+          "approachAttribute",
+          "attributeEvaluation"
         ],
         "type": "object",
         "properties": {
-          "direction": {
+          "approachAttribute": {
             "$ref": "#/components/schemas/Direction"
           },
-          "recommendationSuitability": {
-            "$ref": "#/components/schemas/RecommendationSuitability"
+          "attributeEvaluation": {
+            "$ref": "#/components/schemas/AttributeEvaluation"
           }
         },
         "additionalProperties": false
       },
-      "DomainArtifactInformation": {
+      "DirectionAttributeRecommendationInformation": {
         "required": [
-          "domainArtifactInput",
+          "attribute",
           "recommendationSuitability"
         ],
         "type": "object",
         "properties": {
-          "domainArtifactInput": {
-            "$ref": "#/components/schemas/DomainArtifactInput"
+          "attribute": {
+            "$ref": "#/components/schemas/Direction"
           },
           "recommendationSuitability": {
             "$ref": "#/components/schemas/RecommendationSuitability"
@@ -2920,15 +3168,31 @@
         },
         "additionalProperties": false
       },
-      "ExecutableInformation": {
+      "DomainArtifactInputApproachAttributeEvaluation": {
         "required": [
-          "executableInput",
+          "approachAttribute",
+          "attributeEvaluation"
+        ],
+        "type": "object",
+        "properties": {
+          "approachAttribute": {
+            "$ref": "#/components/schemas/DomainArtifactInput"
+          },
+          "attributeEvaluation": {
+            "$ref": "#/components/schemas/AttributeEvaluation"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DomainArtifactInputAttributeRecommendationInformation": {
+        "required": [
+          "attribute",
           "recommendationSuitability"
         ],
         "type": "object",
         "properties": {
-          "executableInput": {
-            "$ref": "#/components/schemas/ExecutableInput"
+          "attribute": {
+            "$ref": "#/components/schemas/DomainArtifactInput"
           },
           "recommendationSuitability": {
             "$ref": "#/components/schemas/RecommendationSuitability"
@@ -2956,49 +3220,31 @@
         },
         "additionalProperties": false
       },
-      "InputRecommendationInformation": {
+      "ExecutableInputApproachAttributeEvaluation": {
+        "required": [
+          "approachAttribute",
+          "attributeEvaluation"
+        ],
         "type": "object",
         "properties": {
-          "domainArtifactInformation": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DomainArtifactInformation"
-            },
-            "nullable": true
+          "approachAttribute": {
+            "$ref": "#/components/schemas/ExecutableInput"
           },
-          "runtimeArtifactInformation": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RuntimeArtifactInformation"
-            },
-            "nullable": true
-          },
-          "modelArtifactInformation": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ModelArtifactInformation"
-            },
-            "nullable": true
-          },
-          "executableInformation": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ExecutableInformation"
-            },
-            "nullable": true
+          "attributeEvaluation": {
+            "$ref": "#/components/schemas/AttributeEvaluation"
           }
         },
         "additionalProperties": false
       },
-      "ModelArtifactInformation": {
+      "ExecutableInputAttributeRecommendationInformation": {
         "required": [
-          "modelArtifactInput",
+          "attribute",
           "recommendationSuitability"
         ],
         "type": "object",
         "properties": {
-          "modelArtifactInput": {
-            "$ref": "#/components/schemas/ModelArtifactInput"
+          "attribute": {
+            "$ref": "#/components/schemas/ExecutableInput"
           },
           "recommendationSuitability": {
             "$ref": "#/components/schemas/RecommendationSuitability"
@@ -3022,22 +3268,34 @@
         },
         "additionalProperties": false
       },
-      "OutputRecommendationInformation": {
+      "ModelArtifactInputApproachAttributeEvaluation": {
+        "required": [
+          "approachAttribute",
+          "attributeEvaluation"
+        ],
         "type": "object",
         "properties": {
-          "architectureInformation": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ArchitectureInformation"
-            },
-            "nullable": true
+          "approachAttribute": {
+            "$ref": "#/components/schemas/ModelArtifactInput"
           },
-          "serviceTypeInformation": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ServiceTypeInformation"
-            },
-            "nullable": true
+          "attributeEvaluation": {
+            "$ref": "#/components/schemas/AttributeEvaluation"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ModelArtifactInputAttributeRecommendationInformation": {
+        "required": [
+          "attribute",
+          "recommendationSuitability"
+        ],
+        "type": "object",
+        "properties": {
+          "attribute": {
+            "$ref": "#/components/schemas/ModelArtifactInput"
+          },
+          "recommendationSuitability": {
+            "$ref": "#/components/schemas/RecommendationSuitability"
           }
         },
         "additionalProperties": false
@@ -3069,47 +3327,6 @@
         },
         "additionalProperties": { }
       },
-      "ProcessRecommendationInformation": {
-        "type": "object",
-        "properties": {
-          "qualityInformation": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/QualityInformation"
-            },
-            "nullable": true
-          },
-          "directionInformation": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DirectionInformation"
-            },
-            "nullable": true
-          },
-          "automationLevelInformation": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AutomationLevelInformation"
-            },
-            "nullable": true
-          },
-          "analysisTypeInformation": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AnalysisTypeInformation"
-            },
-            "nullable": true
-          },
-          "techniqueInformation": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TechniqueInformation"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "Quality": {
         "required": [
           "category",
@@ -3130,21 +3347,30 @@
         },
         "additionalProperties": false
       },
-      "QualityCategory": {
-        "enum": [
-          "Requirement",
-          "Metric"
-        ],
-        "type": "string"
-      },
-      "QualityInformation": {
+      "QualityApproachAttributeEvaluation": {
         "required": [
-          "quality",
+          "approachAttribute",
+          "attributeEvaluation"
+        ],
+        "type": "object",
+        "properties": {
+          "approachAttribute": {
+            "$ref": "#/components/schemas/Quality"
+          },
+          "attributeEvaluation": {
+            "$ref": "#/components/schemas/AttributeEvaluation"
+          }
+        },
+        "additionalProperties": false
+      },
+      "QualityAttributeRecommendationInformation": {
+        "required": [
+          "attribute",
           "recommendationSuitability"
         ],
         "type": "object",
         "properties": {
-          "quality": {
+          "attribute": {
             "$ref": "#/components/schemas/Quality"
           },
           "recommendationSuitability": {
@@ -3152,6 +3378,13 @@
           }
         },
         "additionalProperties": false
+      },
+      "QualityCategory": {
+        "enum": [
+          "Requirement",
+          "Metric"
+        ],
+        "type": "string"
       },
       "RecommendationSuitability": {
         "enum": [
@@ -3231,31 +3464,31 @@
         },
         "additionalProperties": false
       },
-      "ResultsQualityInformation": {
+      "ResultsQualityApproachAttributeEvaluation": {
         "required": [
-          "recommendationSuitability",
-          "resultsQuality"
+          "approachAttribute",
+          "attributeEvaluation"
         ],
         "type": "object",
         "properties": {
-          "resultsQuality": {
+          "approachAttribute": {
             "$ref": "#/components/schemas/ResultsQuality"
           },
-          "recommendationSuitability": {
-            "$ref": "#/components/schemas/RecommendationSuitability"
+          "attributeEvaluation": {
+            "$ref": "#/components/schemas/AttributeEvaluation"
           }
         },
         "additionalProperties": false
       },
-      "RuntimeArtifactInformation": {
+      "ResultsQualityAttributeRecommendationInformation": {
         "required": [
-          "recommendationSuitability",
-          "runtimeArtifactInput"
+          "attribute",
+          "recommendationSuitability"
         ],
         "type": "object",
         "properties": {
-          "runtimeArtifactInput": {
-            "$ref": "#/components/schemas/RuntimeArtifactInput"
+          "attribute": {
+            "$ref": "#/components/schemas/ResultsQuality"
           },
           "recommendationSuitability": {
             "$ref": "#/components/schemas/RecommendationSuitability"
@@ -3279,6 +3512,38 @@
         },
         "additionalProperties": false
       },
+      "RuntimeArtifactInputApproachAttributeEvaluation": {
+        "required": [
+          "approachAttribute",
+          "attributeEvaluation"
+        ],
+        "type": "object",
+        "properties": {
+          "approachAttribute": {
+            "$ref": "#/components/schemas/RuntimeArtifactInput"
+          },
+          "attributeEvaluation": {
+            "$ref": "#/components/schemas/AttributeEvaluation"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RuntimeArtifactInputAttributeRecommendationInformation": {
+        "required": [
+          "attribute",
+          "recommendationSuitability"
+        ],
+        "type": "object",
+        "properties": {
+          "attribute": {
+            "$ref": "#/components/schemas/RuntimeArtifactInput"
+          },
+          "recommendationSuitability": {
+            "$ref": "#/components/schemas/RecommendationSuitability"
+          }
+        },
+        "additionalProperties": false
+      },
       "ServiceType": {
         "required": [
           "name"
@@ -3295,14 +3560,30 @@
         },
         "additionalProperties": false
       },
-      "ServiceTypeInformation": {
+      "ServiceTypeApproachAttributeEvaluation": {
         "required": [
-          "recommendationSuitability",
-          "serviceType"
+          "approachAttribute",
+          "attributeEvaluation"
         ],
         "type": "object",
         "properties": {
-          "serviceType": {
+          "approachAttribute": {
+            "$ref": "#/components/schemas/ServiceType"
+          },
+          "attributeEvaluation": {
+            "$ref": "#/components/schemas/AttributeEvaluation"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ServiceTypeAttributeRecommendationInformation": {
+        "required": [
+          "attribute",
+          "recommendationSuitability"
+        ],
+        "type": "object",
+        "properties": {
+          "attribute": {
             "$ref": "#/components/schemas/ServiceType"
           },
           "recommendationSuitability": {
@@ -3327,14 +3608,30 @@
         },
         "additionalProperties": false
       },
-      "TechniqueInformation": {
+      "TechniqueApproachAttributeEvaluation": {
         "required": [
-          "recommendationSuitability",
-          "technique"
+          "approachAttribute",
+          "attributeEvaluation"
         ],
         "type": "object",
         "properties": {
-          "technique": {
+          "approachAttribute": {
+            "$ref": "#/components/schemas/Technique"
+          },
+          "attributeEvaluation": {
+            "$ref": "#/components/schemas/AttributeEvaluation"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TechniqueAttributeRecommendationInformation": {
+        "required": [
+          "attribute",
+          "recommendationSuitability"
+        ],
+        "type": "object",
+        "properties": {
+          "attribute": {
             "$ref": "#/components/schemas/Technique"
           },
           "recommendationSuitability": {
@@ -3359,52 +3656,34 @@
         },
         "additionalProperties": false
       },
-      "ToolSupportInformation": {
+      "ToolSupportApproachAttributeEvaluation": {
         "required": [
-          "recommendationSuitability",
-          "toolSupport"
+          "approachAttribute",
+          "attributeEvaluation"
         ],
         "type": "object",
         "properties": {
-          "toolSupport": {
+          "approachAttribute": {
             "$ref": "#/components/schemas/ToolSupport"
           },
-          "recommendationSuitability": {
-            "$ref": "#/components/schemas/RecommendationSuitability"
+          "attributeEvaluation": {
+            "$ref": "#/components/schemas/AttributeEvaluation"
           }
         },
         "additionalProperties": false
       },
-      "UsabilityRecommendationInformation": {
+      "ToolSupportAttributeRecommendationInformation": {
+        "required": [
+          "attribute",
+          "recommendationSuitability"
+        ],
         "type": "object",
         "properties": {
-          "resultsQualityInformation": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ResultsQualityInformation"
-            },
-            "nullable": true
+          "attribute": {
+            "$ref": "#/components/schemas/ToolSupport"
           },
-          "toolSupportInformation": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ToolSupportInformation"
-            },
-            "nullable": true
-          },
-          "accuracyPrecisionInformation": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AccuracyPrecisionInformation"
-            },
-            "nullable": true
-          },
-          "validationMethodInformation": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ValidationMethodInformation"
-            },
-            "nullable": true
+          "recommendationSuitability": {
+            "$ref": "#/components/schemas/RecommendationSuitability"
           }
         },
         "additionalProperties": false
@@ -3425,14 +3704,30 @@
         },
         "additionalProperties": false
       },
-      "ValidationMethodInformation": {
+      "ValidationMethodApproachAttributeEvaluation": {
         "required": [
-          "recommendationSuitability",
-          "validationMethod"
+          "approachAttribute",
+          "attributeEvaluation"
         ],
         "type": "object",
         "properties": {
-          "validationMethod": {
+          "approachAttribute": {
+            "$ref": "#/components/schemas/ValidationMethod"
+          },
+          "attributeEvaluation": {
+            "$ref": "#/components/schemas/AttributeEvaluation"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ValidationMethodAttributeRecommendationInformation": {
+        "required": [
+          "attribute",
+          "recommendationSuitability"
+        ],
+        "type": "object",
+        "properties": {
+          "attribute": {
             "$ref": "#/components/schemas/ValidationMethod"
           },
           "recommendationSuitability": {

@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
-import { AutomationLevel } from './automation-level';
+import { Direction } from './direction';
 import { RecommendationSuitability } from './recommendation-suitability';
-export interface AutomationLevelInformation {
-  automationLevel: AutomationLevel;
+export interface DirectionAttributeRecommendationInformation {
+  attribute: Direction;
   recommendationSuitability: RecommendationSuitability;
 }

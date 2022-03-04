@@ -30,6 +30,32 @@ public class RefactoringApproachService
             .ToList();
     }
 
+    public IEnumerable<RefactoringApproach> ListRefactoringApproachesWithFullDetails()
+    {
+        var db = new RefactoringApproachContext();
+
+        return db.RefactoringApproaches
+            .Include(e => e.ApproachSource)
+            .Include(e => e.DomainArtifactInputs)
+            .Include(e => e.RuntimeArtifactInputs)
+            .Include(e => e.ModelArtifactInputs)
+            .Include(e => e.ExecutableInputs)
+            .Include(e => e.ApproachProcess.Qualities)
+            .Include(e => e.ApproachProcess.Directions)
+            .Include(e => e.ApproachProcess.AutomationLevels)
+            .Include(e => e.ApproachProcess.AnalysisTypes)
+            .Include(e => e.ApproachProcess.Techniques)
+            .Include(e => e.ApproachOutputs)!
+            .ThenInclude(e => e.Architecture)
+            .Include(e => e.ApproachOutputs)!
+            .ThenInclude(e => e.ServiceType)
+            .Include(e => e.ApproachUsability.ResultsQuality)
+            .Include(e => e.ApproachUsability.ToolSupport)
+            .Include(e => e.ApproachUsability.AccuracyPrecision)
+            .Include(e => e.ApproachUsability.ValidationMethod)
+            .ToList();
+    }
+
     public RefactoringApproach GetRefactoringApproach(int refactoringApproachId)
     {
         var db = new RefactoringApproachContext();

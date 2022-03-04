@@ -260,22 +260,24 @@ export class RefactoringApproachService extends BaseService {
   }
 
   /**
-   * Path part for operation generateRefactoringApproachRecommendation
+   * Path part for operation recommendRefactoringApproaches
    */
-  static readonly GenerateRefactoringApproachRecommendationPath = '/api/v1/approaches/recommendation';
+  static readonly RecommendRefactoringApproachesPath = '/api/v1/approaches/recommendations';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `generateRefactoringApproachRecommendation()` instead.
+   * To access only the response body, use `recommendRefactoringApproaches()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  generateRefactoringApproachRecommendation$Response(params?: {
+  recommendRefactoringApproaches$Response(params?: {
+    count?: number;
     body?: ApproachRecommendationRequest
   }): Observable<StrictHttpResponse<Array<ApproachRecommendation>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.GenerateRefactoringApproachRecommendationPath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.RecommendRefactoringApproachesPath, 'post');
     if (params) {
+      rb.query('count', params.count, {});
       rb.body(params.body, 'application/*+json');
     }
 
@@ -292,15 +294,16 @@ export class RefactoringApproachService extends BaseService {
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `generateRefactoringApproachRecommendation$Response()` instead.
+   * To access the full response (for headers, for example), `recommendRefactoringApproaches$Response()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  generateRefactoringApproachRecommendation(params?: {
+  recommendRefactoringApproaches(params?: {
+    count?: number;
     body?: ApproachRecommendationRequest
   }): Observable<Array<ApproachRecommendation>> {
 
-    return this.generateRefactoringApproachRecommendation$Response(params).pipe(
+    return this.recommendRefactoringApproaches$Response(params).pipe(
       map((r: StrictHttpResponse<Array<ApproachRecommendation>>) => r.body as Array<ApproachRecommendation>)
     );
   }

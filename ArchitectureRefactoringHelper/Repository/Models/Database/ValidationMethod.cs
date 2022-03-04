@@ -16,4 +16,9 @@ public class ValidationMethod
     
     [JsonIgnore]
     public ICollection<ApproachUsability>? ApproachUsabilities { get; set; }
+    
+    public bool KeyEquals(ValidationMethod obj)
+    {
+        return obj.Name == Name;
+    }
 }

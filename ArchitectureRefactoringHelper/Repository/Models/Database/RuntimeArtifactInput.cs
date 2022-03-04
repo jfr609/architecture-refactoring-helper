@@ -16,4 +16,9 @@ public class RuntimeArtifactInput
     
     [JsonIgnore]
     public ICollection<RefactoringApproach>? RefactoringApproaches { get; set; }
+    
+    public bool KeyEquals(RuntimeArtifactInput obj)
+    {
+        return obj.Name == Name;
+    }
 }

@@ -16,4 +16,9 @@ public class ModelArtifactInput
     
     [JsonIgnore]
     public ICollection<RefactoringApproach>? RefactoringApproaches { get; set; }
+    
+    public bool KeyEquals(ModelArtifactInput obj)
+    {
+        return obj.Name == Name;
+    }
 }

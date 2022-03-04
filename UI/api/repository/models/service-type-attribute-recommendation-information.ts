@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 import { RecommendationSuitability } from './recommendation-suitability';
-import { RuntimeArtifactInput } from './runtime-artifact-input';
-export interface RuntimeArtifactInformation {
+import { ServiceType } from './service-type';
+export interface ServiceTypeAttributeRecommendationInformation {
+  attribute: ServiceType;
   recommendationSuitability: RecommendationSuitability;
-  runtimeArtifactInput: RuntimeArtifactInput;
 }

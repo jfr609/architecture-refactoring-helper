@@ -11,9 +11,13 @@ public class AccuracyPrecision
     [Required]
     [JsonPropertyName("name")]
     public string Name { get; set; }
-    [JsonPropertyName("description")]
-    public string? Description { get; set; }
 
-    [JsonIgnore]
-    public ICollection<ApproachUsability>? ApproachUsabilities { get; set; }
+    [JsonPropertyName("description")] public string? Description { get; set; }
+
+    [JsonIgnore] public ICollection<ApproachUsability>? ApproachUsabilities { get; set; }
+
+    public bool KeyEquals(AccuracyPrecision obj)
+    {
+        return obj.Name == Name;
+    }
 }

@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
-import { Quality } from './quality';
+import { ModelArtifactInput } from './model-artifact-input';
 import { RecommendationSuitability } from './recommendation-suitability';
-export interface QualityInformation {
-  quality: Quality;
+export interface ModelArtifactInputAttributeRecommendationInformation {
+  attribute: ModelArtifactInput;
   recommendationSuitability: RecommendationSuitability;
 }

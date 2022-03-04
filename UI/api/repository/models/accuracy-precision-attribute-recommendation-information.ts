@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
+import { AccuracyPrecision } from './accuracy-precision';
 import { RecommendationSuitability } from './recommendation-suitability';
-import { ToolSupport } from './tool-support';
-export interface ToolSupportInformation {
+export interface AccuracyPrecisionAttributeRecommendationInformation {
+  attribute: AccuracyPrecision;
   recommendationSuitability: RecommendationSuitability;
-  toolSupport: ToolSupport;
 }

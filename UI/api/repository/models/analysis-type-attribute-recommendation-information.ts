@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
-import { DomainArtifactInput } from './domain-artifact-input';
+import { AnalysisType } from './analysis-type';
 import { RecommendationSuitability } from './recommendation-suitability';
-export interface DomainArtifactInformation {
-  domainArtifactInput: DomainArtifactInput;
+export interface AnalysisTypeAttributeRecommendationInformation {
+  attribute: AnalysisType;
   recommendationSuitability: RecommendationSuitability;
 }

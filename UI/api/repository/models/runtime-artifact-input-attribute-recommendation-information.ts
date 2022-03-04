@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 import { RecommendationSuitability } from './recommendation-suitability';
-import { ValidationMethod } from './validation-method';
-export interface ValidationMethodInformation {
+import { RuntimeArtifactInput } from './runtime-artifact-input';
+export interface RuntimeArtifactInputAttributeRecommendationInformation {
+  attribute: RuntimeArtifactInput;
   recommendationSuitability: RecommendationSuitability;
-  validationMethod: ValidationMethod;
 }

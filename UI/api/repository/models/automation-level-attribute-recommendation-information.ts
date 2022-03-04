@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
+import { AutomationLevel } from './automation-level';
 import { RecommendationSuitability } from './recommendation-suitability';
-import { ResultsQuality } from './results-quality';
-export interface ResultsQualityInformation {
+export interface AutomationLevelAttributeRecommendationInformation {
+  attribute: AutomationLevel;
   recommendationSuitability: RecommendationSuitability;
-  resultsQuality: ResultsQuality;
 }

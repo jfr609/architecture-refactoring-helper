@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { ExecutableInput } from './executable-input';
 import { RecommendationSuitability } from './recommendation-suitability';
-export interface ExecutableInformation {
-  executableInput: ExecutableInput;
+export interface ExecutableInputAttributeRecommendationInformation {
+  attribute: ExecutableInput;
   recommendationSuitability: RecommendationSuitability;
 }

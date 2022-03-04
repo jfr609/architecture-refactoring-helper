@@ -64,4 +64,7 @@ public static class Constants
     public const string AttributeDefaultNotAvailable = "Not available";
     public const string AttributeDefaultNoToolSupport = "No tool support";
     public const string AttributeDefaultNoValidation = "No validation";
+    
+    // RecommendationService
+    public const int DefaultNumberOfRecommendations = 10;
 }

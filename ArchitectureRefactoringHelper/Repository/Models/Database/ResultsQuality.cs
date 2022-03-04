@@ -16,4 +16,9 @@ public class ResultsQuality
     
     [JsonIgnore]
     public ICollection<ApproachUsability>? ApproachUsabilities { get; set; }
+    
+    public bool KeyEquals(ResultsQuality obj)
+    {
+        return obj.Name == Name;
+    }
 }

@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
-import { AccuracyPrecision } from './accuracy-precision';
 import { RecommendationSuitability } from './recommendation-suitability';
-export interface AccuracyPrecisionInformation {
-  accuracyPrecision: AccuracyPrecision;
+import { ResultsQuality } from './results-quality';
+export interface ResultsQualityAttributeRecommendationInformation {
+  attribute: ResultsQuality;
   recommendationSuitability: RecommendationSuitability;
 }

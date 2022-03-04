@@ -16,4 +16,9 @@ public class ToolSupport
     
     [JsonIgnore]
     public ICollection<ApproachUsability>? ApproachUsabilities { get; set; }
+    
+    public bool KeyEquals(ToolSupport obj)
+    {
+        return obj.Name == Name;
+    }
 }

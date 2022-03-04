@@ -16,4 +16,9 @@ public class Architecture
     
     [JsonIgnore]
     public ICollection<ApproachOutput>? ApproachOutputs { get; set; }
+    
+    public bool KeyEquals(Architecture obj)
+    {
+        return obj.Name == Name;
+    }
 }

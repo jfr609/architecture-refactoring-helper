@@ -16,4 +16,9 @@ public class AnalysisType
     
     [JsonIgnore]
     public ICollection<ApproachProcess>? ApproachProcesses { get; set; }
+    
+    public bool KeyEquals(AnalysisType obj)
+    {
+        return obj.Name == Name;
+    }
 }

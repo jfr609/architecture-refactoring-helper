@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { RecommendationSuitability } from './recommendation-suitability';
 import { Technique } from './technique';
-export interface TechniqueInformation {
+export interface TechniqueAttributeRecommendationInformation {
+  attribute: Technique;
   recommendationSuitability: RecommendationSuitability;
-  technique: Technique;
 }

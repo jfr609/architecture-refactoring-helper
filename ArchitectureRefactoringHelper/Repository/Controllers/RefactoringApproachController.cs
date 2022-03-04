@@ -13,10 +13,13 @@ namespace Repository.Controllers;
 public class RefactoringApproachController : ControllerBase
 {
     private readonly RefactoringApproachService _refactoringApproachService;
+    private readonly IRecommendationService _recommendationService;
 
-    public RefactoringApproachController(RefactoringApproachService refactoringApproachService)
+    public RefactoringApproachController(RefactoringApproachService refactoringApproachService,
+        IRecommendationService recommendationService)
     {
         _refactoringApproachService = refactoringApproachService;
+        _recommendationService = recommendationService;
     }
 
     /// <summary>
@@ -73,12 +76,15 @@ public class RefactoringApproachController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("recommendation", Name = "GenerateRefactoringApproachRecommendation")]
-    public ActionResult<IEnumerable<ApproachRecommendation>> GenerateRefactoringApproachRecommendation(
-        [FromBody] ApproachRecommendationRequest approachRecommendationRequest)
+    [HttpPost("recommendations", Name = "RecommendRefactoringApproaches")]
+    public ActionResult<IEnumerable<ApproachRecommendation>> RecommendRefactoringApproaches(
+        [FromBody] ApproachRecommendationRequest approachRecommendationRequest,
+        [FromQuery] int? count)
     {
-        
-        return Ok();
+        var numberOfRecommendations = count ?? Constants.DefaultNumberOfRecommendations;
+        var recommendations =
+            _recommendationService.GetApproachRecommendations(approachRecommendationRequest, numberOfRecommendations);
+        return Ok(recommendations);
     }
 
     [HttpPost("{id:int}/" + Constants.ApiSubPathInputs + "/" + Constants.ApiSubPathDomainArtifacts,

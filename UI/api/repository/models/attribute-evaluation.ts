@@ -3,5 +3,6 @@
 export enum AttributeEvaluation {
   Match = 'Match',
   Neutral = 'Neutral',
-  Mismatch = 'Mismatch'
+  Mismatch = 'Mismatch',
+  Error = 'Error'
 }
