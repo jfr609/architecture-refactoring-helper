@@ -7,6 +7,10 @@ namespace Repository.Models.Recommendation;
 public class ApproachRecommendation
 {
     [Required]
+    [JsonPropertyName("refactoringApproachId")]
+    public int RefactoringApproachId { get; set; }
+
+    [Required]
     [JsonPropertyName("approachSource")]
     public ApproachSource ApproachSource { get; set; }
 

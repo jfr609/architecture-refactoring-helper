@@ -7,6 +7,9 @@ import { ApproachExplorerComponent } from './components/views/approach-explorer/
 import { ApproachFinderComponent } from './components/views/approach-finder/approach-finder.component';
 import { NAV_PARAM_APPROACH_ID } from './app.constants';
 import { ApproachViewComponent } from './components/views/approach-view/approach-view.component';
+import {
+  ApproachRecommendationsComponent
+} from './components/views/approach-recommendations/approach-recommendations.component';
 
 const routes: Routes = [
   {
@@ -32,6 +35,10 @@ const routes: Routes = [
   {
     path: 'helper',
     component: ApproachFinderComponent
+  },
+  {
+    path: 'recommendations',
+    component: ApproachRecommendationsComponent
   },
   {
     path: '',

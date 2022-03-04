@@ -2710,10 +2710,15 @@
       "ApproachRecommendation": {
         "required": [
           "approachSource",
+          "refactoringApproachId",
           "suitabilityScore"
         ],
         "type": "object",
         "properties": {
+          "refactoringApproachId": {
+            "type": "integer",
+            "format": "int32"
+          },
           "approachSource": {
             "$ref": "#/components/schemas/ApproachSource"
           },

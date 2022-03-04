@@ -32,6 +32,7 @@ public class SimpleRecommendationService : IRecommendationService
         var matchCount = 0;
         var approachRecommendation = new ApproachRecommendation
         {
+            RefactoringApproachId = refactoringApproach.RefactoringApproachId,
             ApproachSource = refactoringApproach.ApproachSource,
             DomainArtifactInputEvaluations = new List<ApproachAttributeEvaluation<DomainArtifactInput>>(),
             RuntimeArtifactInputEvaluations = new List<ApproachAttributeEvaluation<RuntimeArtifactInput>>(),

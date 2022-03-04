@@ -40,6 +40,7 @@ import { CreateAttributeDialogComponent } from './components/dialogs/create-attr
 import { DeleteAttributeDialogComponent } from './components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { ApproachRecommendationsComponent } from './components/views/approach-recommendations/approach-recommendations.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     ConnectedDataListsComponent,
     ApproachViewComponent,
     CreateAttributeDialogComponent,
-    DeleteAttributeDialogComponent
+    DeleteAttributeDialogComponent,
+    ApproachRecommendationsComponent
   ],
   imports: [
     BrowserModule,

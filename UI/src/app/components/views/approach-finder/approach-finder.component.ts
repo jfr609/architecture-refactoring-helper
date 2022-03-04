@@ -23,6 +23,8 @@ import { TechniqueAttributeRecommendationInformation } from '../../../../../api/
 import { AnalysisTypeAttributeRecommendationInformation } from '../../../../../api/repository/models/analysis-type-attribute-recommendation-information';
 import { AutomationLevelAttributeRecommendationInformation } from '../../../../../api/repository/models/automation-level-attribute-recommendation-information';
 import { DirectionAttributeRecommendationInformation } from '../../../../../api/repository/models/direction-attribute-recommendation-information';
+import { ApproachRecommendationsService } from '../../../services/approach-recommendations.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-approach-finder',
@@ -68,7 +70,9 @@ export class ApproachFinderComponent implements OnInit {
   constructor(
     private refactoringApproachService: RefactoringApproachService,
     public attributeOptionsService: AttributeOptionsService,
-    private utilService: UtilService
+    private recommendationsService: ApproachRecommendationsService,
+    private utilService: UtilService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -225,6 +229,7 @@ export class ApproachFinderComponent implements OnInit {
   }
 
   onSearchRecommendation(): void {
+    this.isDataLoading = true;
     const approachRecommendationRequest: ApproachRecommendationRequest = {
       domainArtifactInformation: this.domainArtifactInformation,
       runtimeArtifactInformation: this.runtimeArtifactInformation,
@@ -248,14 +253,16 @@ export class ApproachFinderComponent implements OnInit {
       accuracyPrecisionInformation: this.accuracyPrecisionInformation
     };
 
-    console.log('Recommendation request: ', approachRecommendationRequest);
     this.refactoringApproachService
       .recommendRefactoringApproaches({
         body: approachRecommendationRequest
       })
       .subscribe({
         next: (value: ApproachRecommendation[]) => {
-          console.log('Recommendations: ', value);
+          this.recommendationsService.recommendations.next(value);
+          this.router
+            .navigate(['/recommendations'])
+            .then(() => (this.isDataLoading = false));
         },
         error: (err) => {
           console.log(err);
