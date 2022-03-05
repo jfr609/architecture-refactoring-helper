@@ -25,6 +25,7 @@ import { AutomationLevelAttributeRecommendationInformation } from '../../../../.
 import { DirectionAttributeRecommendationInformation } from '../../../../../api/repository/models/direction-attribute-recommendation-information';
 import { ApproachRecommendationsService } from '../../../services/approach-recommendations.service';
 import { Router } from '@angular/router';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-approach-finder',
@@ -229,7 +230,6 @@ export class ApproachFinderComponent implements OnInit {
   }
 
   onSearchRecommendation(): void {
-    this.isDataLoading = true;
     const approachRecommendationRequest: ApproachRecommendationRequest = {
       domainArtifactInformation: this.domainArtifactInformation,
       runtimeArtifactInformation: this.runtimeArtifactInformation,
@@ -253,23 +253,20 @@ export class ApproachFinderComponent implements OnInit {
       accuracyPrecisionInformation: this.accuracyPrecisionInformation
     };
 
-    this.refactoringApproachService
-      .recommendRefactoringApproaches({
+    lastValueFrom(
+      this.refactoringApproachService.recommendRefactoringApproaches({
         body: approachRecommendationRequest
       })
-      .subscribe({
-        next: (value: ApproachRecommendation[]) => {
-          this.recommendationsService.recommendations.next(value);
-          this.router
-            .navigate(['/recommendations'])
-            .then(() => (this.isDataLoading = false));
-        },
-        error: (err) => {
-          console.log(err);
-          this.utilService.callSnackBar(
-            'Error! Receiving recommended refactoring approaches failed.'
-          );
-        }
+    )
+      .then((value: ApproachRecommendation[]) => {
+        this.recommendationsService.recommendations.next(value);
+        this.router.navigate(['/recommendations']);
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Receiving recommended refactoring approaches failed.'
+        );
       });
   }
 }

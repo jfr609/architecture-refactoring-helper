@@ -9,7 +9,7 @@ import {
 @Component({
   selector: 'app-delete-attribute-dialog',
   templateUrl: './delete-attribute-dialog.component.html',
-  styleUrls: ['./delete-attribute-dialog.component.css']
+  styleUrls: ['./delete-attribute-dialog.component.scss']
 })
 export class DeleteAttributeDialogComponent implements OnInit {
   selectedAttributes: unknown[] = [];

@@ -18,7 +18,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-create-attribute-dialog',
   templateUrl: './create-attribute-dialog.component.html',
-  styleUrls: ['./create-attribute-dialog.component.css']
+  styleUrls: ['./create-attribute-dialog.component.scss']
 })
 export class CreateAttributeDialogComponent implements OnInit {
   createAttributeForm: FormGroup = new FormGroup({});
