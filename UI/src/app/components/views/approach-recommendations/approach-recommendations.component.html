@@ -3,20 +3,278 @@
 
   <table mat-table [dataSource]='dataSource' matSort multiTemplateDataRows class='mat-elevation-z8'>
 
-    <ng-container matColumnDef='{{column}}' *ngFor='let column of displayedColumns'>
-      <th mat-header-cell *matHeaderCellDef mat-sort-header='{{column}}'> {{getColumnHeader(column)}} </th>
+    <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of sortColumns'>
+      <th mat-header-cell *matHeaderCellDef
+          mat-sort-header='{{ columnData.columnDef }}'> {{ columnData.header}} </th>
       <td mat-cell class='approach-cell' *matCellDef='let recommendation'
-          [class]='getSuitabilityColor(recommendation, column)'>
-        {{ getColumnData(recommendation, column) }}
+          [class]='getSuitabilityColor(recommendation, columnData.columnDef)'>
+        {{ columnData.cell(recommendation) }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of nonSortColumns'>
+      <th mat-header-cell *matHeaderCellDef> {{ columnData.header}} </th>
+      <td mat-cell class='approach-cell' *matCellDef='let recommendation'
+          [class]='getSuitabilityColor(recommendation, columnData.columnDef)'>
+        {{ columnData.cell(recommendation) }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of actionColumns'>
+      <th mat-header-cell *matHeaderCellDef> {{ columnData.header}} </th>
+      <td mat-cell class='approach-cell' *matCellDef='let recommendation'>
+        <div *ngIf='columnData.columnDef === "expandState"; then expandedStateCell else actionCell'></div>
+        <ng-template #actionCell>
+          <button mat-icon-button color='accent'>
+            <mat-icon>visibility</mat-icon>
+          </button>
+        </ng-template>
+        <ng-template #expandedStateCell>
+          <mat-icon>{{ recommendation === expandedElement ? 'expand_more' : 'expand_less' }}</mat-icon>
+        </ng-template>
       </td>
     </ng-container>
 
     <ng-container matColumnDef='expandedDetail'>
-      <td mat-cell *matCellDef='let recommendation' [attr.colspan]='displayedColumns.length'>
+      <td mat-cell *matCellDef='let recommendation' [attr.colspan]='columnData.length'>
         <div class='approach-details-container'
              [@detailExpand]="recommendation === expandedElement ? 'expanded' : 'collapsed'">
-          <div class='approach-details'>
-            Test
+          <div fxLayout='column' class='approach-details'>
+            <h3>Input</h3>
+            <div fxLayout='row'>
+              <div fxFlex='50' fxLayout='column'>
+                <h4>Mismatches:</h4>
+                <div class='evaluation-content' fxLayout='row wrap'>
+                  <ng-container *ngFor='let evaluation of recommendation.domainArtifactInputEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                          class='evaluation-item mismatch-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.runtimeArtifactInputEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                          class='evaluation-item mismatch-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.modelArtifactInputEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                          class='evaluation-item mismatch-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.executableInputEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                          class='evaluation-item mismatch-item'>
+                      {{ evaluation.approachAttribute.name }}({{ evaluation.approachAttribute.language }})
+                    </span>
+                  </ng-container>
+                </div>
+              </div>
+              <div fxFlex='50' fxLayout='column'>
+                <h4>Matches:</h4>
+                <div class='evaluation-content' fxLayout='row wrap'>
+                  <ng-container *ngFor='let evaluation of recommendation.domainArtifactInputEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                          class='evaluation-item match-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.runtimeArtifactInputEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                          class='evaluation-item match-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.modelArtifactInputEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                          class='evaluation-item match-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.executableInputEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                          class='evaluation-item match-item'>
+                      {{ evaluation.approachAttribute.name }}({{ evaluation.approachAttribute.language }})
+                    </span>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+
+            <h3>Process</h3>
+            <div fxLayout='row'>
+              <div fxFlex='50' fxLayout='column'>
+                <h4>Mismatches:</h4>
+                <div class='evaluation-content' fxLayout='row wrap'>
+                  <ng-container *ngFor='let evaluation of recommendation.qualityEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                          class='evaluation-item mismatch-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.directionEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                          class='evaluation-item mismatch-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.automationLevelEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                          class='evaluation-item mismatch-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.analysisTypeEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                          class='evaluation-item mismatch-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.techniqueEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                          class='evaluation-item mismatch-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                </div>
+              </div>
+              <div fxFlex='50' fxLayout='column'>
+                <h4>Matches:</h4>
+                <div class='evaluation-content' fxLayout='row wrap'>
+                  <ng-container *ngFor='let evaluation of recommendation.qualityEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                          class='evaluation-item match-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.directionEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                          class='evaluation-item match-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.automationLevelEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                          class='evaluation-item match-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.analysisTypeEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                          class='evaluation-item match-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.techniqueEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                          class='evaluation-item match-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+
+            <h3>Output</h3>
+            <div fxLayout='row'>
+              <div fxFlex='50' fxLayout='column'>
+                <h4>Mismatches:</h4>
+                <div class='evaluation-content' fxLayout='row wrap'>
+                  <ng-container *ngFor='let evaluation of recommendation.architectureEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                          class='evaluation-item mismatch-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.serviceTypeEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                          class='evaluation-item mismatch-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                </div>
+              </div>
+              <div fxFlex='50' fxLayout='column'>
+                <h4>Matches:</h4>
+                <div class='evaluation-content' fxLayout='row wrap'>
+                  <ng-container *ngFor='let evaluation of recommendation.architectureEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                          class='evaluation-item match-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.serviceTypeEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                          class='evaluation-item match-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+
+            <h3>Usability</h3>
+            <div fxLayout='row'>
+              <div fxFlex='50' fxLayout='column'>
+                <h4>Mismatches:</h4>
+                <div class='evaluation-content' fxLayout='row wrap'>
+                  <ng-container *ngFor='let evaluation of recommendation.validationMethodEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                          class='evaluation-item mismatch-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.toolSupportEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                          class='evaluation-item mismatch-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.resultsQualityEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                          class='evaluation-item mismatch-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.accuracyPrecisionEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                          class='evaluation-item mismatch-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                </div>
+              </div>
+              <div fxFlex='50' fxLayout='column'>
+                <h4>Matches:</h4>
+                <div class='evaluation-content' fxLayout='row wrap'>
+                  <ng-container *ngFor='let evaluation of recommendation.validationMethodEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                          class='evaluation-item match-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.toolSupportEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                          class='evaluation-item match-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.resultsQualityEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                          class='evaluation-item match-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.accuracyPrecisionEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                          class='evaluation-item match-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </td>

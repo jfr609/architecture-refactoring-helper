@@ -1,5 +1,5 @@
 table {
-  margin-top: 20px;
+  margin: 20px 0;
 }
 
 .approach-cell {
@@ -13,7 +13,8 @@ table {
 
 .approach-details {
   margin: 24px 0;
-  min-height: 100px;
+  width: 100%;
+  min-height: 50px;
 }
 
 tr.approach-detail-row {
@@ -44,4 +45,26 @@ tr.approach-row:hover {
   color: #ad3d3d;
 }
 
+h3{
+  margin: 0 0 8px 0;
+}
 
+h4{
+  margin: 0 0 8px 0;
+}
+
+.evaluation-content{
+  margin-bottom: 16px;
+}
+
+.match-item{
+  color: #40ad3d;
+}
+
+.mismatch-item{
+  color: #ad3d3d;
+}
+
+.evaluation-item {
+  margin-right: 16px;
+}

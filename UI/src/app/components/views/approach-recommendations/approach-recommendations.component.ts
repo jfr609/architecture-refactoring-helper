@@ -10,6 +10,8 @@ import {
   transition,
   trigger
 } from '@angular/animations';
+import { AttributeEvaluation } from '../../../../../api/repository/models/attribute-evaluation';
+import { RecommendationSuitability } from '../../../../../api/repository/models/recommendation-suitability';
 
 @Component({
   selector: 'app-approach-recommendations',
@@ -29,7 +31,64 @@ import {
 export class ApproachRecommendationsComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
-  displayedColumns: string[] = ['suitability', 'id', 'title', 'authors'];
+  attributeEvaluation = AttributeEvaluation;
+
+  columnData: ColumnData[] = [
+    {
+      columnDef: 'suitability',
+      header: 'Suitability',
+      isSortColumn: true,
+      isActionColumn: false,
+      cell: (recommendation: ApproachRecommendation) =>
+        `${recommendation.suitabilityScore}%`
+    },
+    {
+      columnDef: 'id',
+      header: 'ID',
+      isSortColumn: true,
+      isActionColumn: false,
+      cell: (recommendation: ApproachRecommendation) =>
+        `${recommendation.refactoringApproachId}`
+    },
+    {
+      columnDef: 'title',
+      header: 'Title',
+      isSortColumn: true,
+      isActionColumn: false,
+      cell: (recommendation: ApproachRecommendation) =>
+        `${recommendation.approachSource.title}`
+    },
+    {
+      columnDef: 'authors',
+      header: 'Authors',
+      isSortColumn: false,
+      isActionColumn: false,
+      cell: (recommendation: ApproachRecommendation) =>
+        `${recommendation.approachSource.authors}`
+    },
+    {
+      columnDef: 'actions',
+      header: 'Actions',
+      isSortColumn: false,
+      isActionColumn: true,
+      cell: () => ''
+    },
+    {
+      columnDef: 'expandState',
+      header: '',
+      isSortColumn: false,
+      isActionColumn: true,
+      cell: () => ''
+    }
+  ];
+  displayedColumns = this.columnData.map((c: ColumnData) => c.columnDef);
+  sortColumns = this.columnData.filter(
+    (c: ColumnData) => c.isSortColumn && !c.isActionColumn
+  );
+  nonSortColumns = this.columnData.filter(
+    (c: ColumnData) => !c.isSortColumn && !c.isActionColumn
+  );
+  actionColumns = this.columnData.filter((c: ColumnData) => c.isActionColumn);
   dataSource!: MatTableDataSource<ApproachRecommendation>;
   expandedElement: ApproachRecommendation | undefined | null;
 
@@ -66,54 +125,19 @@ export class ApproachRecommendationsComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  getColumnData(
-    recommendation: ApproachRecommendation,
-    column: string
-  ): unknown {
-    switch (column) {
-      case 'suitability':
-        return recommendation.suitabilityScore + '%';
-      case 'id':
-        return recommendation.refactoringApproachId;
-      case 'title':
-        return recommendation.approachSource.title;
-      case 'authors':
-        return recommendation.approachSource.authors;
-      default:
-        return recommendation;
-    }
-  }
-
-  getColumnHeader(column: string) {
-    switch (column) {
-      case 'suitability':
-        return 'Suitability';
-      case 'id':
-        return 'ID';
-      case 'title':
-        return 'Title';
-      case 'authors':
-        return 'Authors';
-      default:
-        return 'Unknown';
-    }
-  }
-
   goToEdit(recommendation: ApproachRecommendation) {
     console.log('Maybe remove?', recommendation.refactoringApproachId);
-  }
-
-  goToLink(recommendation: ApproachRecommendation) {
-    if (recommendation.approachSource?.link == null) return;
-    window.open(recommendation.approachSource?.link, '_blank');
   }
 
   openRecommendationView(recommendation: ApproachRecommendation) {
     console.log('Maybe remove?', recommendation.refactoringApproachId);
   }
 
-  getSuitabilityColor(recommendation: ApproachRecommendation, column: string) {
-    if (column !== 'suitability') {
+  getSuitabilityColor(
+    recommendation: ApproachRecommendation,
+    columnDef: string
+  ) {
+    if (columnDef !== 'suitability') {
       return '';
     }
 
@@ -125,4 +149,12 @@ export class ApproachRecommendationsComponent implements OnInit {
       return 'suitability-high';
     }
   }
+}
+
+export interface ColumnData {
+  columnDef: string;
+  header: string;
+  isSortColumn: boolean;
+  isActionColumn: boolean;
+  cell: (recommendation: ApproachRecommendation) => string;
 }
