@@ -1,0 +1,47 @@
+table {
+  margin-top: 20px;
+}
+
+.approach-cell {
+  padding: 8px 24px 8px 0;
+}
+
+.approach-details-container {
+  display: flex;
+  overflow: hidden;
+}
+
+.approach-details {
+  margin: 24px 0;
+  min-height: 100px;
+}
+
+tr.approach-detail-row {
+  height: 0;
+}
+
+tr.approach-row{
+  cursor: pointer;
+}
+
+tr.approach-row:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.approach-row td {
+  border-bottom-width: 0;
+}
+
+.suitability-high {
+  color: #40ad3d;
+}
+
+.suitability-medium {
+  color: #baba30;
+}
+
+.suitability-low {
+  color: #ad3d3d;
+}
+
+
