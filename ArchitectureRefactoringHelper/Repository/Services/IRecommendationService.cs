@@ -5,6 +5,6 @@ namespace Repository.Services;
 public interface IRecommendationService
 {
     public IEnumerable<ApproachRecommendation> GetApproachRecommendations(
-        ApproachRecommendationRequest recommendationRequest, 
+        ApproachRecommendationRequest recommendationRequest,
         int numberOfRecommendations);
 }
