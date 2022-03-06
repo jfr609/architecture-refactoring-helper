@@ -68,6 +68,8 @@ export class ApproachFinderComponent implements OnInit {
   accuracyPrecisionInformation: AccuracyPrecisionAttributeRecommendationInformation[] =
     [];
 
+  RecommendationSuitability = RecommendationSuitability;
+
   constructor(
     private refactoringApproachService: RefactoringApproachService,
     public attributeOptionsService: AttributeOptionsService,
@@ -79,7 +81,7 @@ export class ApproachFinderComponent implements OnInit {
   ngOnInit(): void {
     this.isDataLoading = true;
     this.attributeOptionsService.requestAttributeOptions().then(() => {
-      this.setRadioButtonDefaults();
+      this.setRadioButtonDefaults(RecommendationSuitability.Neutral);
 
       this.isDataLoading = false;
     });
@@ -89,12 +91,14 @@ export class ApproachFinderComponent implements OnInit {
     ).filter((value) => isNaN(Number(value)));
   }
 
-  setRadioButtonDefaults(): void {
+  setRadioButtonDefaults(
+    recommendationSuitability: RecommendationSuitability
+  ): void {
     for (const domainArtifact of this.attributeOptionsService.domainArtifacts
       .value) {
       this.domainArtifactInformation.push({
         attribute: domainArtifact,
-        recommendationSuitability: RecommendationSuitability.Neutral
+        recommendationSuitability: recommendationSuitability
       });
     }
 
@@ -102,27 +106,27 @@ export class ApproachFinderComponent implements OnInit {
       .value) {
       this.runtimeArtifactInformation.push({
         attribute: runtimeArtifact,
-        recommendationSuitability: RecommendationSuitability.Neutral
+        recommendationSuitability: recommendationSuitability
       });
     }
     for (const modelArtifact of this.attributeOptionsService.modelArtifacts
       .value) {
       this.modelArtifactInformation.push({
         attribute: modelArtifact,
-        recommendationSuitability: RecommendationSuitability.Neutral
+        recommendationSuitability: recommendationSuitability
       });
     }
     for (const executable of this.attributeOptionsService.executables.value) {
       this.executableInformation.push({
         attribute: executable,
-        recommendationSuitability: RecommendationSuitability.Neutral
+        recommendationSuitability: recommendationSuitability
       });
     }
 
     for (const quality of this.getQualitiesByCategory(QualityCategory.Metric)) {
       this.qualityMetricInformation.push({
         attribute: quality,
-        recommendationSuitability: RecommendationSuitability.Neutral
+        recommendationSuitability: recommendationSuitability
       });
     }
 
@@ -131,14 +135,14 @@ export class ApproachFinderComponent implements OnInit {
     )) {
       this.qualityRequirementInformation.push({
         attribute: quality,
-        recommendationSuitability: RecommendationSuitability.Neutral
+        recommendationSuitability: recommendationSuitability
       });
     }
 
     for (const direction of this.attributeOptionsService.directions.value) {
       this.directionInformation.push({
         attribute: direction,
-        recommendationSuitability: RecommendationSuitability.Neutral
+        recommendationSuitability: recommendationSuitability
       });
     }
 
@@ -146,20 +150,20 @@ export class ApproachFinderComponent implements OnInit {
       .value) {
       this.automationLevelInformation.push({
         attribute: automationLevel,
-        recommendationSuitability: RecommendationSuitability.Neutral
+        recommendationSuitability: recommendationSuitability
       });
     }
     for (const analysisType of this.attributeOptionsService.analysisTypes
       .value) {
       this.analysisTypeInformation.push({
         attribute: analysisType,
-        recommendationSuitability: RecommendationSuitability.Neutral
+        recommendationSuitability: recommendationSuitability
       });
     }
     for (const technique of this.attributeOptionsService.techniques.value) {
       this.techniqueInformation.push({
         attribute: technique,
-        recommendationSuitability: RecommendationSuitability.Neutral
+        recommendationSuitability: recommendationSuitability
       });
     }
 
@@ -167,14 +171,14 @@ export class ApproachFinderComponent implements OnInit {
       .value) {
       this.architectureInformation.push({
         attribute: architecture,
-        recommendationSuitability: RecommendationSuitability.Neutral
+        recommendationSuitability: recommendationSuitability
       });
     }
 
     for (const serviceType of this.attributeOptionsService.serviceTypes.value) {
       this.serviceTypeInformation.push({
         attribute: serviceType,
-        recommendationSuitability: RecommendationSuitability.Neutral
+        recommendationSuitability: recommendationSuitability
       });
     }
 
@@ -182,14 +186,14 @@ export class ApproachFinderComponent implements OnInit {
       .validationMethods.value) {
       this.validationMethodInformation.push({
         attribute: validationMethod,
-        recommendationSuitability: RecommendationSuitability.Neutral
+        recommendationSuitability: recommendationSuitability
       });
     }
 
     for (const toolSupport of this.attributeOptionsService.toolSupports.value) {
       this.toolSupportInformation.push({
         attribute: toolSupport,
-        recommendationSuitability: RecommendationSuitability.Neutral
+        recommendationSuitability: recommendationSuitability
       });
     }
 
@@ -197,7 +201,7 @@ export class ApproachFinderComponent implements OnInit {
       .value) {
       this.resultsQualityInformation.push({
         attribute: resultsQuality,
-        recommendationSuitability: RecommendationSuitability.Neutral
+        recommendationSuitability: recommendationSuitability
       });
     }
 
@@ -205,7 +209,7 @@ export class ApproachFinderComponent implements OnInit {
       .accuracyPrecisions.value) {
       this.accuracyPrecisionInformation.push({
         attribute: accuracyPrecision,
-        recommendationSuitability: RecommendationSuitability.Neutral
+        recommendationSuitability: recommendationSuitability
       });
     }
   }
