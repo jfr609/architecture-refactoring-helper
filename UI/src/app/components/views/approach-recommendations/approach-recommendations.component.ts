@@ -11,7 +11,6 @@ import {
   trigger
 } from '@angular/animations';
 import { AttributeEvaluation } from '../../../../../api/repository/models/attribute-evaluation';
-import { RecommendationSuitability } from '../../../../../api/repository/models/recommendation-suitability';
 
 @Component({
   selector: 'app-approach-recommendations',
@@ -39,8 +38,12 @@ export class ApproachRecommendationsComponent implements OnInit {
       header: 'Suitability',
       isSortColumn: true,
       isActionColumn: false,
-      cell: (recommendation: ApproachRecommendation) =>
-        `${recommendation.suitabilityScore}%`
+      cell: (recommendation: ApproachRecommendation) => {
+        if (recommendation.suitabilityScore < 0) {
+          return 'Not enough information';
+        }
+        return `${recommendation.suitabilityScore}%`;
+      }
     },
     {
       columnDef: 'id',

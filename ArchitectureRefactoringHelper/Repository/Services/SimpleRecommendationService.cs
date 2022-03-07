@@ -20,6 +20,7 @@ public class SimpleRecommendationService : IRecommendationService
 
         var recommendations = refactoringApproaches
             .Select(refactoringApproach => EvaluateApproachSuitability(refactoringApproach, recommendationRequest))
+            .OrderByDescending(e => e.SuitabilityScore)
             .ToList();
 
         return recommendations;
@@ -30,6 +31,8 @@ public class SimpleRecommendationService : IRecommendationService
     {
         var attributeCount = 0;
         var matchCount = 0;
+        var neutralCount = 0;
+        var mismatchCount = 0;
         var approachRecommendation = new ApproachRecommendation
         {
             RefactoringApproachId = refactoringApproach.RefactoringApproachId,
@@ -58,8 +61,8 @@ public class SimpleRecommendationService : IRecommendationService
                 var information = recommendationRequest.DomainArtifactInformation.FirstOrDefault(information =>
                     information.Attribute.KeyEquals(domainArtifactInput));
 
-                var evaluation =
-                    EvaluateAttribute(domainArtifactInput, information, ref attributeCount, ref matchCount);
+                var evaluation = EvaluateAttribute(domainArtifactInput, information, ref attributeCount, ref matchCount,
+                    ref neutralCount, ref mismatchCount);
 
                 approachRecommendation.DomainArtifactInputEvaluations.Add(evaluation);
             }
@@ -72,8 +75,8 @@ public class SimpleRecommendationService : IRecommendationService
                 var information = recommendationRequest.RuntimeArtifactInformation.FirstOrDefault(information =>
                     information.Attribute.KeyEquals(runtimeArtifactInput));
 
-                var evaluation =
-                    EvaluateAttribute(runtimeArtifactInput, information, ref attributeCount, ref matchCount);
+                var evaluation = EvaluateAttribute(runtimeArtifactInput, information, ref attributeCount,
+                    ref matchCount, ref neutralCount, ref mismatchCount);
 
                 approachRecommendation.RuntimeArtifactInputEvaluations.Add(evaluation);
             }
@@ -86,7 +89,8 @@ public class SimpleRecommendationService : IRecommendationService
                 var information = recommendationRequest.ModelArtifactInformation.FirstOrDefault(information =>
                     information.Attribute.KeyEquals(modelArtifactInput));
 
-                var evaluation = EvaluateAttribute(modelArtifactInput, information, ref attributeCount, ref matchCount);
+                var evaluation = EvaluateAttribute(modelArtifactInput, information, ref attributeCount, ref matchCount,
+                    ref neutralCount, ref mismatchCount);
 
                 approachRecommendation.ModelArtifactInputEvaluations.Add(evaluation);
             }
@@ -99,7 +103,8 @@ public class SimpleRecommendationService : IRecommendationService
                 var information = recommendationRequest.ExecutableInformation.FirstOrDefault(information =>
                     information.Attribute.KeyEquals(executableInput));
 
-                var evaluation = EvaluateAttribute(executableInput, information, ref attributeCount, ref matchCount);
+                var evaluation = EvaluateAttribute(executableInput, information, ref attributeCount, ref matchCount,
+                    ref neutralCount, ref mismatchCount);
 
                 approachRecommendation.ExecutableInputEvaluations.Add(evaluation);
             }
@@ -112,7 +117,8 @@ public class SimpleRecommendationService : IRecommendationService
                 var information = recommendationRequest.QualityInformation.FirstOrDefault(information =>
                     information.Attribute.KeyEquals(quality));
 
-                var evaluation = EvaluateAttribute(quality, information, ref attributeCount, ref matchCount);
+                var evaluation = EvaluateAttribute(quality, information, ref attributeCount, ref matchCount,
+                    ref neutralCount, ref mismatchCount);
 
                 approachRecommendation.QualityEvaluations.Add(evaluation);
             }
@@ -125,7 +131,8 @@ public class SimpleRecommendationService : IRecommendationService
                 var information = recommendationRequest.DirectionInformation.FirstOrDefault(information =>
                     information.Attribute.KeyEquals(direction));
 
-                var evaluation = EvaluateAttribute(direction, information, ref attributeCount, ref matchCount);
+                var evaluation = EvaluateAttribute(direction, information, ref attributeCount, ref matchCount,
+                    ref neutralCount, ref mismatchCount);
 
                 approachRecommendation.DirectionEvaluations.Add(evaluation);
             }
@@ -138,7 +145,8 @@ public class SimpleRecommendationService : IRecommendationService
                 var information = recommendationRequest.AutomationLevelInformation.FirstOrDefault(information =>
                     information.Attribute.KeyEquals(automationLevel));
 
-                var evaluation = EvaluateAttribute(automationLevel, information, ref attributeCount, ref matchCount);
+                var evaluation = EvaluateAttribute(automationLevel, information, ref attributeCount, ref matchCount,
+                    ref neutralCount, ref mismatchCount);
 
                 approachRecommendation.AutomationLevelEvaluations.Add(evaluation);
             }
@@ -151,7 +159,8 @@ public class SimpleRecommendationService : IRecommendationService
                 var information = recommendationRequest.AnalysisTypeInformation.FirstOrDefault(information =>
                     information.Attribute.KeyEquals(analysisType));
 
-                var evaluation = EvaluateAttribute(analysisType, information, ref attributeCount, ref matchCount);
+                var evaluation = EvaluateAttribute(analysisType, information, ref attributeCount, ref matchCount,
+                    ref neutralCount, ref mismatchCount);
 
                 approachRecommendation.AnalysisTypeEvaluations.Add(evaluation);
             }
@@ -164,7 +173,8 @@ public class SimpleRecommendationService : IRecommendationService
                 var information = recommendationRequest.TechniqueInformation.FirstOrDefault(information =>
                     information.Attribute.KeyEquals(technique));
 
-                var evaluation = EvaluateAttribute(technique, information, ref attributeCount, ref matchCount);
+                var evaluation = EvaluateAttribute(technique, information, ref attributeCount, ref matchCount,
+                    ref neutralCount, ref mismatchCount);
 
                 approachRecommendation.TechniqueEvaluations.Add(evaluation);
             }
@@ -178,7 +188,8 @@ public class SimpleRecommendationService : IRecommendationService
                 var information = recommendationRequest.ArchitectureInformation.FirstOrDefault(information =>
                     information.Attribute.KeyEquals(architecture));
 
-                var evaluation = EvaluateAttribute(architecture, information, ref attributeCount, ref matchCount);
+                var evaluation = EvaluateAttribute(architecture, information, ref attributeCount, ref matchCount,
+                    ref neutralCount, ref mismatchCount);
 
                 approachRecommendation.ArchitectureEvaluations.Add(evaluation);
             }
@@ -189,7 +200,8 @@ public class SimpleRecommendationService : IRecommendationService
                 var information = recommendationRequest.ServiceTypeInformation.FirstOrDefault(information =>
                     information.Attribute.KeyEquals(serviceType));
 
-                var evaluation = EvaluateAttribute(serviceType, information, ref attributeCount, ref matchCount);
+                var evaluation = EvaluateAttribute(serviceType, information, ref attributeCount, ref matchCount,
+                    ref neutralCount, ref mismatchCount);
 
                 approachRecommendation.ServiceTypeEvaluations.Add(evaluation);
             }
@@ -199,33 +211,35 @@ public class SimpleRecommendationService : IRecommendationService
             information => information.Attribute.KeyEquals(refactoringApproach.ApproachUsability.ValidationMethod));
         approachRecommendation.ValidationMethodEvaluations.Add(EvaluateAttribute(
             refactoringApproach.ApproachUsability.ValidationMethod, validationMethodInformation, ref attributeCount,
-            ref matchCount));
+            ref matchCount, ref neutralCount, ref mismatchCount));
 
         var toolSupportInformation = recommendationRequest.ToolSupportInformation.FirstOrDefault(
             information => information.Attribute.KeyEquals(refactoringApproach.ApproachUsability.ToolSupport));
         approachRecommendation.ToolSupportEvaluations.Add(EvaluateAttribute(
             refactoringApproach.ApproachUsability.ToolSupport, toolSupportInformation, ref attributeCount,
-            ref matchCount));
+            ref matchCount, ref neutralCount, ref mismatchCount));
 
         var resultsQualityInformation = recommendationRequest.ResultsQualityInformation.FirstOrDefault(
             information => information.Attribute.KeyEquals(refactoringApproach.ApproachUsability.ResultsQuality));
         approachRecommendation.ResultsQualityEvaluations.Add(EvaluateAttribute(
             refactoringApproach.ApproachUsability.ResultsQuality, resultsQualityInformation, ref attributeCount,
-            ref matchCount));
+            ref matchCount, ref neutralCount, ref mismatchCount));
 
         var accuracyPrecisionInformation = recommendationRequest.AccuracyPrecisionInformation.FirstOrDefault(
             information => information.Attribute.KeyEquals(refactoringApproach.ApproachUsability.AccuracyPrecision));
         approachRecommendation.AccuracyPrecisionEvaluations.Add(EvaluateAttribute(
             refactoringApproach.ApproachUsability.AccuracyPrecision, accuracyPrecisionInformation, ref attributeCount,
-            ref matchCount));
+            ref matchCount, ref neutralCount, ref mismatchCount));
 
-        approachRecommendation.SuitabilityScore = CalculateSuitabilityScore(attributeCount, matchCount);
+        approachRecommendation.SuitabilityScore =
+            CalculateSuitabilityScore(attributeCount, matchCount, neutralCount, mismatchCount);
 
         return approachRecommendation;
     }
 
     private ApproachAttributeEvaluation<T> EvaluateAttribute<T>(T attribute,
-        AttributeRecommendationInformation<T>? information, ref int attributeCount, ref int matchCount)
+        AttributeRecommendationInformation<T>? information, ref int attributeCount, ref int matchCount,
+        ref int neutralCount, ref int mismatchCount)
     {
         var evaluation = new ApproachAttributeEvaluation<T>
         {
@@ -242,9 +256,11 @@ public class SimpleRecommendationService : IRecommendationService
                     break;
                 case RecommendationSuitability.Exclude:
                     evaluation.AttributeEvaluation = AttributeEvaluation.Mismatch;
+                    mismatchCount++;
                     break;
                 case RecommendationSuitability.Neutral:
                     evaluation.AttributeEvaluation = AttributeEvaluation.Neutral;
+                    neutralCount++;
                     break;
                 default:
                     evaluation.AttributeEvaluation = AttributeEvaluation.Error;
@@ -261,9 +277,11 @@ public class SimpleRecommendationService : IRecommendationService
         return evaluation;
     }
 
-    private static int CalculateSuitabilityScore(int attributeCount, int matchCount)
+    private static int CalculateSuitabilityScore(int attributeCount, int matchCount, int neutralCount,
+        int mismatchCount)
     {
-        if (attributeCount < 1)
+        var notEnoughInformation = attributeCount < 1 || (attributeCount - neutralCount) < 5;
+        if (notEnoughInformation)
         {
             return -1;
         }
