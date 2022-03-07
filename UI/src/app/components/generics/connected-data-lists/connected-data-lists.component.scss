@@ -16,12 +16,11 @@
 }
 
 .connected-data-list-item:hover {
-  background-color: var(--color-accent-lighter);
+  background-color: var(--color-primary-lighter);
 }
 
 .cdk-drag-preview {
-  background-color: var(--color-accent);
-  color: white;
+  background-color: var(--color-primary);
   border-radius: 4px;
   box-sizing: border-box;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
