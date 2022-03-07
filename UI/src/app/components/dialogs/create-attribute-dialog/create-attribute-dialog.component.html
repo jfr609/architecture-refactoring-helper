@@ -17,7 +17,7 @@
             <mat-option *ngFor='let option of this.filteredOptions[i] | async'
                         [value]='option'
                         (click)='onAutocompleteOptionSelected(option, i)'
-                        (keydown.enter)='onAutocompleteOptionSelected(option, i)'>
+                        (onSelectionChange)='onAutocompleteOptionSelected(option, i)'>
               {{option}}
             </mat-option>
           </mat-autocomplete>
