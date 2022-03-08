@@ -5,11 +5,11 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Repository/Repository.csproj", "Repository/"]
+COPY "Repository/Repository.csproj" "Repository/"
 RUN dotnet restore "Repository/Repository.csproj"
 COPY . .
 WORKDIR "/src/Repository"
-RUN dotnet build "Repository.csproj" -c Release -o /app/build
+RUN dotnet build "Repository.csproj" -c Release -o /app/build -p:GenerateSwagger=false
 
 FROM build AS publish
 RUN dotnet publish "Repository.csproj" -c Release -o /app/publish
