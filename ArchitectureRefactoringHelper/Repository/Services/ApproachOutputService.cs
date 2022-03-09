@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Repository.Exceptions;
 using Repository.Models;
 using Repository.Models.Database;
@@ -10,11 +11,13 @@ public class ApproachOutputService
     {
         var db = new RefactoringApproachContext();
 
-        return db.ApproachOutputs
-            .OrderBy(e => e.Architecture.Name)
-            .ThenBy(e => e.ServiceType.Name)
+        IQueryable<ApproachOutput> query = db.ApproachOutputs
             .IncludeAllApproachOutputData()
-            .ToList();
+            .OrderBy(e => e.Architecture.Name)
+            .ThenBy(e => e.ServiceType.Name);
+        var result = query.ToList();
+
+        return result;
     }
 
     public IEnumerable<Architecture> ListArchitectures()
@@ -43,11 +46,17 @@ public class ApproachOutputService
 
     public ApproachOutput GetApproachOutput(int outputId, ref RefactoringApproachContext db)
     {
-        return db.ApproachOutputs
-                   .Where(e => e.ApproachOutputId == outputId)
-                   .IncludeAllApproachOutputData()
-                   .FirstOrDefault() ??
-               throw new ElementNotFoundException($"Approach output with ID '{outputId}' does not exist.");
+        IQueryable<ApproachOutput> query = db.ApproachOutputs
+            .Where(e => e.ApproachOutputId == outputId)
+            .IncludeAllApproachOutputData();
+        var result = query.FirstOrDefault();
+
+        if (result == null)
+        {
+            throw new ElementNotFoundException($"Approach output with ID '{outputId}' does not exist.");
+        }
+
+        return result;
     }
 
     public Architecture GetOutputArchitecture(string architectureName)
@@ -55,7 +64,6 @@ public class ApproachOutputService
         var db = new RefactoringApproachContext();
         return GetOutputArchitecture(architectureName, ref db);
     }
-
 
     public Architecture GetOutputArchitecture(string architectureName, ref RefactoringApproachContext db)
     {

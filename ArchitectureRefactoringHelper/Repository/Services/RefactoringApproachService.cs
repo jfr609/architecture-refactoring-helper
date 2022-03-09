@@ -34,67 +34,12 @@ public class RefactoringApproachService
     {
         var db = new RefactoringApproachContext();
 
-        var query = db.RefactoringApproaches
-            .Include(e => e.ApproachSource)
-            .Include(e => e.ApproachProcess)
-            .Include(e => e.ApproachUsability);
+        IQueryable<RefactoringApproach> query = db.RefactoringApproaches
+            .Include(e => e.ApproachUsability)
+            .Include(e => e.ApproachSource);
         var result = query.ToList();
 
-        query.Include(e => e.DomainArtifactInputs!)
-            .Load();
-
-        query.Include(e => e.RuntimeArtifactInputs!)
-            .Load();
-
-        query.Include(e => e.ModelArtifactInputs!)
-            .Load();
-
-        query.Include(e => e.ExecutableInputs!)
-            .Load();
-
-        query.Include(e => e.ApproachProcess)
-            .ThenInclude(e => e.Qualities)
-            .Load();
-
-        query.Include(e => e.ApproachProcess)
-            .ThenInclude(e => e.Directions!)
-            .Load();
-
-        query.Include(e => e.ApproachProcess)
-            .ThenInclude(e => e.AutomationLevels!)
-            .Load();
-
-        query.Include(e => e.ApproachProcess)
-            .ThenInclude(e => e.AnalysisTypes!)
-            .Load();
-
-        query.Include(e => e.ApproachProcess)
-            .ThenInclude(e => e.Techniques!)
-            .Load();
-
-        query.Include(e => e.ApproachOutputs)!
-            .ThenInclude(e => e.Architecture)
-            .Load();
-
-        query.Include(e => e.ApproachOutputs)!
-            .ThenInclude(e => e.ServiceType)
-            .Load();
-
-        query.Select(e => e.ApproachUsability)
-            .Select(e => e.ValidationMethod)
-            .Load();
-
-        query.Select(e => e.ApproachUsability)
-            .Select(e => e.ToolSupport)
-            .Load();
-
-        query.Select(e => e.ApproachUsability)
-            .Select(e => e.ResultsQuality)
-            .Load();
-
-        query.Select(e => e.ApproachUsability)
-            .Select(e => e.AccuracyPrecision)
-            .Load();
+        LoadAllData(ref query);
 
         return result;
     }
@@ -107,69 +52,14 @@ public class RefactoringApproachService
 
     public RefactoringApproach GetRefactoringApproach(int refactoringApproachId, ref RefactoringApproachContext db)
     {
-        var query = db.RefactoringApproaches
+        IQueryable<RefactoringApproach> query = db.RefactoringApproaches
             .Where(e => e.RefactoringApproachId == refactoringApproachId)
-            .Include(e => e.ApproachSource)
-            .Include(e => e.ApproachProcess)
-            .Include(e => e.ApproachUsability);
+            .Include(e => e.ApproachUsability)
+            .Include(e => e.ApproachSource);
         var result = query.FirstOrDefault();
 
-        query.Include(e => e.DomainArtifactInputs!)
-            .Load();
+        LoadAllData(ref query);
 
-        query.Include(e => e.RuntimeArtifactInputs!)
-            .Load();
-
-        query.Include(e => e.ModelArtifactInputs!)
-            .Load();
-
-        query.Include(e => e.ExecutableInputs!)
-            .Load();
-
-        query.Include(e => e.ApproachProcess)
-            .ThenInclude(e => e.Qualities)
-            .Load();
-
-        query.Include(e => e.ApproachProcess)
-            .ThenInclude(e => e.Directions!)
-            .Load();
-
-        query.Include(e => e.ApproachProcess)
-            .ThenInclude(e => e.AutomationLevels!)
-            .Load();
-
-        query.Include(e => e.ApproachProcess)
-            .ThenInclude(e => e.AnalysisTypes!)
-            .Load();
-
-        query.Include(e => e.ApproachProcess)
-            .ThenInclude(e => e.Techniques!)
-            .Load();
-
-        query.Include(e => e.ApproachOutputs)!
-            .ThenInclude(e => e.Architecture)
-            .Load();
-
-        query.Include(e => e.ApproachOutputs)!
-            .ThenInclude(e => e.ServiceType)
-            .Load();
-
-        query.Select(e => e.ApproachUsability)
-            .Select(e => e.ValidationMethod)
-            .Load();
-
-        query.Select(e => e.ApproachUsability)
-            .Select(e => e.ToolSupport)
-            .Load();
-
-        query.Select(e => e.ApproachUsability)
-            .Select(e => e.ResultsQuality)
-            .Load();
-
-        query.Select(e => e.ApproachUsability)
-            .Select(e => e.AccuracyPrecision)
-            .Load();
-        
         if (result == null)
         {
             throw new ElementNotFoundException(
@@ -667,5 +557,64 @@ public class RefactoringApproachService
         approach.ApproachUsability.ValidationMethod =
             _usabilityService.GetValidationMethod(validationMethod.Name, ref db);
         db.SaveChanges();
+    }
+
+    private static void LoadAllData(ref IQueryable<RefactoringApproach> query)
+    {
+        query.Include(e => e.DomainArtifactInputs!)
+            .Load();
+
+        query.Include(e => e.RuntimeArtifactInputs!)
+            .Load();
+
+        query.Include(e => e.ModelArtifactInputs!)
+            .Load();
+
+        query.Include(e => e.ExecutableInputs!)
+            .Load();
+
+        query.Include(e => e.ApproachProcess)
+            .ThenInclude(e => e.Qualities)
+            .Load();
+
+        query.Include(e => e.ApproachProcess)
+            .ThenInclude(e => e.Directions!)
+            .Load();
+
+        query.Include(e => e.ApproachProcess)
+            .ThenInclude(e => e.AutomationLevels!)
+            .Load();
+
+        query.Include(e => e.ApproachProcess)
+            .ThenInclude(e => e.AnalysisTypes!)
+            .Load();
+
+        query.Include(e => e.ApproachProcess)
+            .ThenInclude(e => e.Techniques!)
+            .Load();
+
+        query.Include(e => e.ApproachOutputs)!
+            .ThenInclude(e => e.Architecture)
+            .Load();
+
+        query.Include(e => e.ApproachOutputs)!
+            .ThenInclude(e => e.ServiceType)
+            .Load();
+
+        query.Select(e => e.ApproachUsability)
+            .Select(e => e.ValidationMethod)
+            .Load();
+
+        query.Select(e => e.ApproachUsability)
+            .Select(e => e.ToolSupport)
+            .Load();
+
+        query.Select(e => e.ApproachUsability)
+            .Select(e => e.ResultsQuality)
+            .Load();
+
+        query.Select(e => e.ApproachUsability)
+            .Select(e => e.AccuracyPrecision)
+            .Load();
     }
 }

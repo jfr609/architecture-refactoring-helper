@@ -70,7 +70,7 @@
         <h2>Executables</h2>
         <div *ngFor='let executable of attributeOptionsService.executables.value, let i = index'
              class='attribute-option-container'>
-          <span>{{executable.name}}</span>
+          <span>{{executable.name}}: {{executable.language}}</span>
           <mat-radio-group
             fxLayout='row'
             fxLayoutGap='8px'

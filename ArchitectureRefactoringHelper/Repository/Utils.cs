@@ -61,7 +61,7 @@ public static class Utils
     {
         return db.Set<T>().Add(entity).Entity;
     }
-    
+
     public static T AddEntityAndSaveChanges<T>(T entity, ref RefactoringApproachContext db) where T : class
     {
         var savedEntity = AddEntity(entity, ref db);
@@ -99,27 +99,17 @@ public static class Utils
         return true;
     }
 
-    public static IQueryable<ApproachProcess> IncludeAllApproachProcessData(this IQueryable<ApproachProcess> source)
+    public static IQueryable<ApproachOutput> IncludeAllApproachOutputData(this IQueryable<ApproachOutput> query)
     {
-        return source
-            .Include(e => e.Qualities)
-            .Include(e => e.Directions)
-            .Include(e => e.AutomationLevels)
-            .Include(e => e.AnalysisTypes)
-            .Include(e => e.Techniques);
-    }
-
-    public static IQueryable<ApproachOutput> IncludeAllApproachOutputData(this IQueryable<ApproachOutput> source)
-    {
-        return source
+        return query
             .Include(e => e.Architecture)
             .Include(e => e.ServiceType);
     }
 
     public static IQueryable<ApproachUsability> IncludeAllApproachUsabilityData(
-        this IQueryable<ApproachUsability> source)
+        this IQueryable<ApproachUsability> query)
     {
-        return source
+        return query
             .Include(e => e.ResultsQuality)
             .Include(e => e.ToolSupport)
             .Include(e => e.AccuracyPrecision)

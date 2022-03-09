@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Repository.Exceptions;
 using Repository.Models;
 using Repository.Models.Database;
@@ -10,9 +11,12 @@ public class ApproachProcessService
     {
         var db = new RefactoringApproachContext();
 
-        return db.ApproachProcesses
-            .IncludeAllApproachProcessData()
-            .ToList();
+        IQueryable<ApproachProcess> query = db.ApproachProcesses;
+        var result = query.ToList();
+
+        LoadAllData(ref query);
+
+        return result;
     }
 
     public IEnumerable<Quality> ListQualities()
@@ -69,11 +73,18 @@ public class ApproachProcessService
 
     public ApproachProcess GetApproachProcess(int processId, ref RefactoringApproachContext db)
     {
-        return db.ApproachProcesses
-                   .Where(e => e.ApproachProcessId == processId)
-                   .IncludeAllApproachProcessData()
-                   .FirstOrDefault() ??
-               throw new ElementNotFoundException($"Approach process with ID '{processId}' does not exist.");
+        var query = db.ApproachProcesses
+            .Where(e => e.ApproachProcessId == processId);
+        var result = query.FirstOrDefault();
+
+        LoadAllData(ref query);
+
+        if (result == null)
+        {
+            throw new ElementNotFoundException($"Approach process with ID '{processId}' does not exist.");
+        }
+
+        return result;
     }
 
     public Quality GetProcessQuality(string qualityName)
@@ -300,5 +311,23 @@ public class ApproachProcessService
         if (!deleteSuccess)
             throw new ElementNotFoundException(
                 $"Process technique with name {name} could not be deleted because entity does not exist");
+    }
+
+    private static void LoadAllData(ref IQueryable<ApproachProcess> query)
+    {
+        query.Include(e => e.Qualities)
+            .Load();
+
+        query.Include(e => e.Directions)
+            .Load();
+
+        query.Include(e => e.AutomationLevels)
+            .Load();
+
+        query.Include(e => e.AnalysisTypes)
+            .Load();
+
+        query.Include(e => e.Techniques)
+            .Load();
     }
 }
