@@ -18,19 +18,18 @@ import { AttributeEvaluation } from '../../../../../api/repository/models/attrib
   styleUrls: ['./approach-recommendations.component.scss'],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({ height: '0', minHeight: '0' })),
+      state('collapsed, void', style({ height: '0' })),
       state('expanded', style({ height: '*' })),
-      transition(
-        'expanded <=> collapsed',
-        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
-      )
+      transition('* <=> *', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
     ])
   ]
 })
 export class ApproachRecommendationsComponent implements OnInit {
-  @ViewChild(MatSort) sort!: MatSort;
-
-  attributeEvaluation = AttributeEvaluation;
+  @ViewChild(MatSort) set sort(sort: MatSort) {
+    if (sort) {
+      this.dataSource.sort = sort;
+    }
+  }
 
   columnData: ColumnData[] = [
     {
@@ -92,8 +91,11 @@ export class ApproachRecommendationsComponent implements OnInit {
     (c: ColumnData) => !c.isSortColumn && !c.isActionColumn
   );
   actionColumns = this.columnData.filter((c: ColumnData) => c.isActionColumn);
+
   dataSource!: MatTableDataSource<ApproachRecommendation>;
-  expandedElement: ApproachRecommendation | undefined | null;
+  expandedRecommendation: ApproachRecommendation | undefined | null;
+
+  attributeEvaluation = AttributeEvaluation;
 
   constructor(private recommendationsService: ApproachRecommendationsService) {}
 
@@ -117,29 +119,22 @@ export class ApproachRecommendationsComponent implements OnInit {
           return data.refactoringApproachId;
         case 'title':
           return data.approachSource.title;
-        case 'authors':
-          return data.approachSource.authors;
         default:
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           return data[sortHeaderId];
       }
     };
-    this.dataSource.sort = this.sort;
-  }
-
-  goToEdit(recommendation: ApproachRecommendation) {
-    console.log('Maybe remove?', recommendation.refactoringApproachId);
   }
 
   openRecommendationView(recommendation: ApproachRecommendation) {
-    console.log('Maybe remove?', recommendation.refactoringApproachId);
+    console.log('go to ', recommendation.refactoringApproachId);
   }
 
   getSuitabilityColor(
     recommendation: ApproachRecommendation,
     columnDef: string
-  ) {
+  ): string {
     if (columnDef !== 'suitability') {
       return '';
     }
@@ -150,6 +145,14 @@ export class ApproachRecommendationsComponent implements OnInit {
       return 'suitability-medium';
     } else {
       return 'suitability-high';
+    }
+  }
+
+  setExpandedRecommendation(recommendation: ApproachRecommendation) {
+    if (recommendation === this.expandedRecommendation) {
+      this.expandedRecommendation = undefined;
+    } else {
+      this.expandedRecommendation = recommendation;
     }
   }
 }
