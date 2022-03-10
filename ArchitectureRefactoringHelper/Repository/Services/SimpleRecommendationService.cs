@@ -182,7 +182,9 @@ public class SimpleRecommendationService : IRecommendationService
 
         if (refactoringApproach.ApproachOutputs != null)
         {
-            var architectures = refactoringApproach.ApproachOutputs.Select(output => output.Architecture).ToHashSet();
+            var architectures = refactoringApproach.ApproachOutputs
+                .Select(output => output.Architecture)
+                .ToHashSet();
             foreach (var architecture in architectures)
             {
                 var information = recommendationRequest.ArchitectureInformation.FirstOrDefault(information =>
@@ -194,7 +196,9 @@ public class SimpleRecommendationService : IRecommendationService
                 approachRecommendation.ArchitectureEvaluations.Add(evaluation);
             }
 
-            var serviceTypes = refactoringApproach.ApproachOutputs.Select(output => output.ServiceType).ToHashSet();
+            var serviceTypes = refactoringApproach.ApproachOutputs
+                .Select(output => output.ServiceType)
+                .ToHashSet();
             foreach (var serviceType in serviceTypes)
             {
                 var information = recommendationRequest.ServiceTypeInformation.FirstOrDefault(information =>

@@ -130,15 +130,16 @@ public class ApproachOutputService
             if (duplicateOutput != null)
             {
                 savedOutputs.Add(duplicateOutput);
-                break;
             }
-
-            var newOutput = new ApproachOutput
+            else
             {
-                Architecture = GetOutputArchitecture(output.Architecture.Name, ref db),
-                ServiceType = GetOutputServiceType(output.ServiceType.Name, ref db)
-            };
-            savedOutputs.Add(db.ApproachOutputs.Add(newOutput).Entity);
+                var newOutput = new ApproachOutput
+                {
+                    Architecture = GetOutputArchitecture(output.Architecture.Name, ref db),
+                    ServiceType = GetOutputServiceType(output.ServiceType.Name, ref db)
+                };
+                savedOutputs.Add(db.ApproachOutputs.Add(newOutput).Entity);
+            }
         }
 
         return savedOutputs;
@@ -188,7 +189,7 @@ public class ApproachOutputService
     public void DeleteServiceType(string name)
     {
         var db = new RefactoringApproachContext();
-        
+
         var blockDelete = db.ServiceTypes
             .Where(e => e.Name == name)
             .Any(e => e.ApproachOutputs!.Count > 0);
@@ -196,7 +197,7 @@ public class ApproachOutputService
             throw new EntityReferenceException(
                 $"Output service type with name \"{name}\" could not be deleted " +
                 "because the entity is still in use by refactoring approaches");
-        
+
         var deleteSuccess = Utils.DeleteEntityAndSaveChanges<ServiceType>(ref db, name);
         if (!deleteSuccess)
             throw new EntityNotFoundException(
@@ -207,8 +208,8 @@ public class ApproachOutputService
     private ApproachOutput? FindDuplicateApproachOutput(ApproachOutput output, ref RefactoringApproachContext db)
     {
         return db.ApproachOutputs
-            .Where(e => e.Architecture.Name == output.Architecture.Name)
-            .Where(e => e.ServiceType.Name == output.ServiceType.Name)
+            .Where(e => e.Architecture.Name == output.Architecture.Name &&
+                        e.ServiceType.Name == output.ServiceType.Name)
             .IncludeAllApproachOutputData()
             .FirstOrDefault();
     }
