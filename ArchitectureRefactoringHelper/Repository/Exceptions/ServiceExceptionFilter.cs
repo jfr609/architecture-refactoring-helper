@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Exceptions;
 
@@ -18,6 +19,9 @@ public class ServiceExceptionFilter : IExceptionFilter
                 break;
             case EntityReferenceException:
                 context.Result = new BadRequestObjectResult(context.Exception.Message);
+                break;
+            case DbUpdateException:
+                context.Result = new BadRequestObjectResult(context.Exception.InnerException?.Message);
                 break;
         }
     }
