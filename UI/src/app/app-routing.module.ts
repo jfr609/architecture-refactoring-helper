@@ -4,12 +4,13 @@ import { PageNotFoundComponent } from './components/views/page-not-found/page-no
 import { HomePageComponent } from './components/views/home-page/home-page.component';
 import { ApproachFormComponent } from './components/views/approach-form/approach-form.component';
 import { ApproachExplorerComponent } from './components/views/approach-explorer/approach-explorer.component';
-import { ApproachFinderComponent } from './components/views/approach-finder/approach-finder.component';
+import { RecommendationConfiguratorComponent } from './components/views/recommendation-configurator/recommendation-configurator.component';
 import { NAV_PARAM_APPROACH_ID } from './app.constants';
 import { ApproachViewComponent } from './components/views/approach-view/approach-view.component';
 import {
-  RecommendationsComponent
-} from './components/views/recommendations/recommendations.component';
+  RecommendationResultComponent
+} from './components/views/recommendation-result/recommendation-result.component';
+import { RecommendationComponent } from './components/views/recommendation/recommendation.component';
 
 const routes: Routes = [
   {
@@ -33,12 +34,16 @@ const routes: Routes = [
     component: ApproachExplorerComponent
   },
   {
-    path: 'helper',
-    component: ApproachFinderComponent
+    path: 'recommendation',
+    component: RecommendationComponent
   },
   {
-    path: 'recommendations',
-    component: RecommendationsComponent
+    path: 'recommendation/configure',
+    component: RecommendationConfiguratorComponent
+  },
+  {
+    path: 'recommendation/result',
+    component: RecommendationResultComponent
   },
   {
     path: '',

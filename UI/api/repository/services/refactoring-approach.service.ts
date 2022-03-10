@@ -95,7 +95,8 @@ export class RefactoringApproachService extends BaseService {
   static readonly AddRefactoringApproachPath = '/api/v1/approaches';
 
   /**
-   * Creates a RefactoringApproach.
+   * Creates a new RefactoringApproach.
+   * Inputs, process attributes, outputs or usability attributes that don't exist will be created in the process.
    *
    *
    *
@@ -129,7 +130,8 @@ export class RefactoringApproachService extends BaseService {
   }
 
   /**
-   * Creates a RefactoringApproach.
+   * Creates a new RefactoringApproach.
+   * Inputs, process attributes, outputs or usability attributes that don't exist will be created in the process.
    *
    *
    *

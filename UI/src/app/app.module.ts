@@ -12,7 +12,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { ApproachFormComponent } from './components/views/approach-form/approach-form.component';
-import { ApproachFinderComponent } from './components/views/approach-finder/approach-finder.component';
+import { RecommendationConfiguratorComponent } from './components/views/recommendation-configurator/recommendation-configurator.component';
 import { ApproachExplorerComponent } from './components/views/approach-explorer/approach-explorer.component';
 import { ApiModule } from '../../api/repository/api.module';
 import { environment } from '../environments/environment';
@@ -40,7 +40,8 @@ import { CreateAttributeDialogComponent } from './components/dialogs/create-attr
 import { DeleteAttributeDialogComponent } from './components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { RecommendationsComponent } from './components/views/recommendations/recommendations.component';
+import { RecommendationResultComponent } from './components/views/recommendation-result/recommendation-result.component';
+import { RecommendationComponent } from './components/views/recommendation/recommendation.component';
 
 @NgModule({
   declarations: [
@@ -49,14 +50,15 @@ import { RecommendationsComponent } from './components/views/recommendations/rec
     PageNotFoundComponent,
     ArchitectureRefactoringHelperComponent,
     ApproachFormComponent,
-    ApproachFinderComponent,
+    RecommendationConfiguratorComponent,
     ApproachExplorerComponent,
     ConfirmDialogComponent,
     ConnectedDataListsComponent,
     ApproachViewComponent,
     CreateAttributeDialogComponent,
     DeleteAttributeDialogComponent,
-    RecommendationsComponent
+    RecommendationResultComponent,
+    RecommendationComponent
   ],
   imports: [
     BrowserModule,

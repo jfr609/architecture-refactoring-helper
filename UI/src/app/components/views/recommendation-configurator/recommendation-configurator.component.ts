@@ -28,11 +28,11 @@ import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 
 @Component({
-  selector: 'app-approach-finder',
-  templateUrl: './approach-finder.component.html',
-  styleUrls: ['./approach-finder.component.scss']
+  selector: 'app-recommendation-configurator',
+  templateUrl: './recommendation-configurator.component.html',
+  styleUrls: ['./recommendation-configurator.component.scss']
 })
-export class ApproachFinderComponent implements OnInit {
+export class RecommendationConfiguratorComponent implements OnInit {
   isDataLoading = true;
   qualityCategories = QualityCategory;
   recommendationSuitabilityOptions: RecommendationSuitability[] = [];
@@ -264,7 +264,7 @@ export class ApproachFinderComponent implements OnInit {
     )
       .then((value: ApproachRecommendation[]) => {
         this.recommendationsService.recommendations.next(value);
-        this.router.navigate(['/recommendations']);
+        this.router.navigate(['/recommendation/result']);
       })
       .catch((reason) => {
         console.log(reason);

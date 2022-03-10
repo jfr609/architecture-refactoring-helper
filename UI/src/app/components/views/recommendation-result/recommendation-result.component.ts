@@ -13,9 +13,9 @@ import {
 import { AttributeEvaluation } from '../../../../../api/repository/models/attribute-evaluation';
 
 @Component({
-  selector: 'app-recommendations',
-  templateUrl: './recommendations.component.html',
-  styleUrls: ['./recommendations.component.scss'],
+  selector: 'app-recommendation-result',
+  templateUrl: './recommendation-result.component.html',
+  styleUrls: ['./recommendation-result.component.scss'],
   animations: [
     trigger('detailExpand', [
       state('collapsed, void', style({ height: '0' })),
@@ -24,7 +24,7 @@ import { AttributeEvaluation } from '../../../../../api/repository/models/attrib
     ])
   ]
 })
-export class RecommendationsComponent implements OnInit {
+export class RecommendationResultComponent implements OnInit {
   @ViewChild(MatSort) set sort(sort: MatSort) {
     if (sort) {
       this.dataSource.sort = sort;
