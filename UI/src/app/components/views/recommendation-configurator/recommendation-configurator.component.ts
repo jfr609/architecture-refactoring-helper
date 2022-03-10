@@ -88,7 +88,7 @@ export class RecommendationConfiguratorComponent implements OnInit {
 
     this.recommendationSuitabilityOptions = Object.values(
       RecommendationSuitability
-    ).filter((value) => isNaN(Number(value)));
+    ).filter((value: string) => isNaN(Number(value)));
   }
 
   setRadioButtonDefaults(
