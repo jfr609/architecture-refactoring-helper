@@ -81,72 +81,72 @@ public class ApproachProcessService
 
         if (result == null)
         {
-            throw new ElementNotFoundException($"Approach process with ID '{processId}' does not exist.");
+            throw new EntityNotFoundException($"Approach process with ID \"{processId}\" does not exist.");
         }
 
         return result;
     }
 
-    public Quality GetProcessQuality(string qualityName)
+    public Quality GetProcessQuality(string name)
     {
         var db = new RefactoringApproachContext();
-        return GetProcessQuality(qualityName, ref db);
+        return GetProcessQuality(name, ref db);
     }
 
-    public Quality GetProcessQuality(string qualityName, ref RefactoringApproachContext db)
+    public Quality GetProcessQuality(string name, ref RefactoringApproachContext db)
     {
-        return db.Qualities.Find(qualityName) ??
-               throw new ElementNotFoundException($"Process quality with name '{qualityName}' does not exist.");
+        return db.Qualities.Find(name) ??
+               throw new EntityNotFoundException($"Process quality with name \"{name}\" does not exist.");
     }
 
-    public Direction GetProcessDirection(string directionName)
-    {
-        var db = new RefactoringApproachContext();
-        return GetProcessDirection(directionName, ref db);
-    }
-
-    public Direction GetProcessDirection(string directionName, ref RefactoringApproachContext db)
-    {
-        return db.Directions.Find(directionName) ??
-               throw new ElementNotFoundException($"Process direction with name '{directionName}' does not exist.");
-    }
-
-    public AutomationLevel GetProcessAutomationLevel(string automationLevelName)
+    public Direction GetProcessDirection(string name)
     {
         var db = new RefactoringApproachContext();
-        return GetProcessAutomationLevel(automationLevelName, ref db);
+        return GetProcessDirection(name, ref db);
     }
 
-    public AutomationLevel GetProcessAutomationLevel(string automationLevelName, ref RefactoringApproachContext db)
+    public Direction GetProcessDirection(string name, ref RefactoringApproachContext db)
     {
-        return db.AutomationLevels.Find(automationLevelName) ??
-               throw new ElementNotFoundException(
-                   $"Process automation level with name '{automationLevelName}' does not exist.");
+        return db.Directions.Find(name) ??
+               throw new EntityNotFoundException($"Process direction with name \"{name}\" does not exist.");
     }
 
-    public AnalysisType GetProcessAnalysisType(string analysisTypeName)
-    {
-        var db = new RefactoringApproachContext();
-        return GetProcessAnalysisType(analysisTypeName, ref db);
-    }
-
-    public AnalysisType GetProcessAnalysisType(string analysisTypeName, ref RefactoringApproachContext db)
-    {
-        return db.AnalysisTypes.Find(analysisTypeName) ??
-               throw new ElementNotFoundException(
-                   $"Process analysis type with name '{analysisTypeName}' does not exist.");
-    }
-
-    public Technique GetProcessTechnique(string techniqueName)
+    public AutomationLevel GetProcessAutomationLevel(string name)
     {
         var db = new RefactoringApproachContext();
-        return GetProcessTechnique(techniqueName, ref db);
+        return GetProcessAutomationLevel(name, ref db);
     }
 
-    public Technique GetProcessTechnique(string techniqueName, ref RefactoringApproachContext db)
+    public AutomationLevel GetProcessAutomationLevel(string name, ref RefactoringApproachContext db)
     {
-        return db.Techniques.Find(techniqueName) ??
-               throw new ElementNotFoundException($"Process technique with name '{techniqueName}' does not exist.");
+        return db.AutomationLevels.Find(name) ??
+               throw new EntityNotFoundException(
+                   $"Process automation level with name \"{name}\" does not exist.");
+    }
+
+    public AnalysisType GetProcessAnalysisType(string name)
+    {
+        var db = new RefactoringApproachContext();
+        return GetProcessAnalysisType(name, ref db);
+    }
+
+    public AnalysisType GetProcessAnalysisType(string name, ref RefactoringApproachContext db)
+    {
+        return db.AnalysisTypes.Find(name) ??
+               throw new EntityNotFoundException(
+                   $"Process analysis type with name \"{name}\" does not exist.");
+    }
+
+    public Technique GetProcessTechnique(string name)
+    {
+        var db = new RefactoringApproachContext();
+        return GetProcessTechnique(name, ref db);
+    }
+
+    public Technique GetProcessTechnique(string name, ref RefactoringApproachContext db)
+    {
+        return db.Techniques.Find(name) ??
+               throw new EntityNotFoundException($"Process technique with name \"{name}\" does not exist.");
     }
 
     public ApproachProcess AddApproachProcess(ApproachProcess process)
@@ -271,46 +271,96 @@ public class ApproachProcessService
     public void DeleteQuality(string name)
     {
         var db = new RefactoringApproachContext();
-        var deleteSuccess = Utils.DeleteEntity<Quality>(ref db, name);
+
+        var blockDelete = db.Qualities
+            .Where(e => e.Name == name)
+            .Any(e => e.ApproachProcesses!.Count > 0);
+        if (blockDelete)
+            throw new EntityReferenceException(
+                $"Process quality with name \"{name}\" could not be deleted " +
+                "because the entity is still in use by refactoring approaches");
+
+        var deleteSuccess = Utils.DeleteEntityAndSaveChanges<Quality>(ref db, name);
         if (!deleteSuccess)
-            throw new ElementNotFoundException(
-                $"Process quality with name {name} could not be deleted because entity does not exist");
+            throw new EntityNotFoundException(
+                $"Process quality with name \"{name}\" could not be deleted " +
+                $"because entity does not exist");
     }
 
     public void DeleteDirection(string name)
     {
         var db = new RefactoringApproachContext();
-        var deleteSuccess = Utils.DeleteEntity<Direction>(ref db, name);
+
+        var blockDelete = db.Directions
+            .Where(e => e.Name == name)
+            .Any(e => e.ApproachProcesses!.Count > 0);
+        if (blockDelete)
+            throw new EntityReferenceException(
+                $"Process direction with name \"{name}\" could not be deleted " +
+                "because the entity is still in use by refactoring approaches");
+
+        var deleteSuccess = Utils.DeleteEntityAndSaveChanges<Direction>(ref db, name);
         if (!deleteSuccess)
-            throw new ElementNotFoundException(
-                $"Process direction with name {name} could not be deleted because entity does not exist");
+            throw new EntityNotFoundException(
+                $"Process direction with name \"{name}\" could not be deleted " +
+                $"because entity does not exist");
     }
 
     public void DeleteAutomationLevel(string name)
     {
         var db = new RefactoringApproachContext();
-        var deleteSuccess = Utils.DeleteEntity<AutomationLevel>(ref db, name);
+
+        var blockDelete = db.AutomationLevels
+            .Where(e => e.Name == name)
+            .Any(e => e.ApproachProcesses!.Count > 0);
+        if (blockDelete)
+            throw new EntityReferenceException(
+                $"Process automation level with name \"{name}\" could not be deleted " +
+                "because the entity is still in use by refactoring approaches");
+
+        var deleteSuccess = Utils.DeleteEntityAndSaveChanges<AutomationLevel>(ref db, name);
         if (!deleteSuccess)
-            throw new ElementNotFoundException(
-                $"Process automation level with name {name} could not be deleted because entity does not exist");
+            throw new EntityNotFoundException(
+                $"Process automation level with name \"{name}\" could not be deleted " +
+                $"because entity does not exist");
     }
 
     public void DeleteAnalysisType(string name)
     {
         var db = new RefactoringApproachContext();
-        var deleteSuccess = Utils.DeleteEntity<AnalysisType>(ref db, name);
+
+        var blockDelete = db.AnalysisTypes
+            .Where(e => e.Name == name)
+            .Any(e => e.ApproachProcesses!.Count > 0);
+        if (blockDelete)
+            throw new EntityReferenceException(
+                $"Process analysis type with name \"{name}\" could not be deleted " +
+                "because the entity is still in use by refactoring approaches");
+
+        var deleteSuccess = Utils.DeleteEntityAndSaveChanges<AnalysisType>(ref db, name);
         if (!deleteSuccess)
-            throw new ElementNotFoundException(
-                $"Process analysis type with name {name} could not be deleted because entity does not exist");
+            throw new EntityNotFoundException(
+                $"Process analysis type with name \"{name}\" could not be deleted " +
+                $"because entity does not exist");
     }
 
     public void DeleteTechnique(string name)
     {
         var db = new RefactoringApproachContext();
-        var deleteSuccess = Utils.DeleteEntity<Technique>(ref db, name);
+
+        var blockDelete = db.Techniques
+            .Where(e => e.Name == name)
+            .Any(e => e.ApproachProcesses!.Count > 0);
+        if (blockDelete)
+            throw new EntityReferenceException(
+                $"Process technique with name \"{name}\" could not be deleted " +
+                "because the entity is still in use by refactoring approaches");
+
+        var deleteSuccess = Utils.DeleteEntityAndSaveChanges<Technique>(ref db, name);
         if (!deleteSuccess)
-            throw new ElementNotFoundException(
-                $"Process technique with name {name} could not be deleted because entity does not exist");
+            throw new EntityNotFoundException(
+                $"Process technique with name \"{name}\" could not be deleted " +
+                $"because entity does not exist");
     }
 
     private static void LoadAllData(ref IQueryable<ApproachProcess> query)

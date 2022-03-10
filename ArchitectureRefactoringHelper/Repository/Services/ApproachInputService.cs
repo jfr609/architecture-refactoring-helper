@@ -52,7 +52,7 @@ public class ApproachInputService
     public DomainArtifactInput GetDomainArtifactInput(string inputName, ref RefactoringApproachContext db)
     {
         return db.DomainArtifactInputs.Find(inputName) ??
-               throw new ElementNotFoundException($"Domain artifact with name {inputName} does not exist");
+               throw new EntityNotFoundException($"Domain artifact input with name \"{inputName}\" does not exist");
     }
 
     public RuntimeArtifactInput GetRuntimeArtifactInput(string inputName)
@@ -64,7 +64,7 @@ public class ApproachInputService
     public RuntimeArtifactInput GetRuntimeArtifactInput(string inputName, ref RefactoringApproachContext db)
     {
         return db.RuntimeArtifactInputs.Find(inputName) ??
-               throw new ElementNotFoundException($"Runtime artifact with name {inputName} does not exist");
+               throw new EntityNotFoundException($"Runtime artifact input with name \"{inputName}\" does not exist");
     }
 
     public ModelArtifactInput GetModelArtifactInput(string inputName)
@@ -76,7 +76,7 @@ public class ApproachInputService
     public ModelArtifactInput GetModelArtifactInput(string inputName, ref RefactoringApproachContext db)
     {
         return db.ModelArtifactInputs.Find(inputName) ??
-               throw new ElementNotFoundException($"Model artifact with name {inputName} does not exist");
+               throw new EntityNotFoundException($"Model artifact input with name \"{inputName}\" does not exist");
     }
 
     public ExecutableInput GetExecutableInput(string inputName, string language)
@@ -88,8 +88,8 @@ public class ApproachInputService
     public ExecutableInput GetExecutableInput(string inputName, string language, ref RefactoringApproachContext db)
     {
         return db.ExecutableInputs.Find(inputName, language) ??
-               throw new ElementNotFoundException(
-                   $"Executable with name {inputName} and language {language} does not exist");
+               throw new EntityNotFoundException(
+                   $"Executable input with name \"{inputName}\" and language \"{language}\" does not exist");
     }
 
     public DomainArtifactInput AddDomainArtifactInput(DomainArtifactInput input)
@@ -163,36 +163,76 @@ public class ApproachInputService
     public void DeleteDomainArtifactInput(string inputName)
     {
         var db = new RefactoringApproachContext();
-        var deleteSuccess = Utils.DeleteEntity<DomainArtifactInput>(ref db, inputName);
+
+        var blockDelete = db.DomainArtifactInputs
+            .Where(e => e.Name == inputName)
+            .Any(e => e.RefactoringApproaches!.Count > 0);
+        if (blockDelete)
+            throw new EntityReferenceException(
+                $"Domain artifact input with name \"{inputName}\" could not be deleted " +
+                "because the entity is still in use by refactoring approaches");
+
+        var deleteSuccess = Utils.DeleteEntityAndSaveChanges<DomainArtifactInput>(ref db, inputName);
         if (!deleteSuccess)
-            throw new ElementNotFoundException(
-                $"Domain artifact with name {inputName} could not be deleted because entity does not exist");
+            throw new EntityNotFoundException(
+                $"Domain artifact input with name \"{inputName}\" could not be deleted " +
+                "because entity does not exist");
     }
 
     public void DeleteRuntimeArtifactInput(string inputName)
     {
         var db = new RefactoringApproachContext();
-        var deleteSuccess = Utils.DeleteEntity<RuntimeArtifactInput>(ref db, inputName);
+
+        var blockDelete = db.RuntimeArtifactInputs
+            .Where(e => e.Name == inputName)
+            .Any(e => e.RefactoringApproaches!.Count > 0);
+        if (blockDelete)
+            throw new EntityReferenceException(
+                $"Runtime artifact input with name \"{inputName}\" could not be deleted " +
+                "because the entity is still in use by refactoring approaches");
+
+        var deleteSuccess = Utils.DeleteEntityAndSaveChanges<RuntimeArtifactInput>(ref db, inputName);
         if (!deleteSuccess)
-            throw new ElementNotFoundException(
-                $"Runtime artifact with name {inputName} could not be deleted because entity does not exist");
+            throw new EntityNotFoundException(
+                $"Runtime artifact input with name \"{inputName}\" could not be deleted " +
+                "because entity does not exist");
     }
 
     public void DeleteModelArtifactInput(string inputName)
     {
         var db = new RefactoringApproachContext();
-        var deleteSuccess = Utils.DeleteEntity<ModelArtifactInput>(ref db, inputName);
+
+        var blockDelete = db.ModelArtifactInputs
+            .Where(e => e.Name == inputName)
+            .Any(e => e.RefactoringApproaches!.Count > 0);
+        if (blockDelete)
+            throw new EntityReferenceException(
+                $"Model artifact input with name \"{inputName}\" could not be deleted " +
+                "because the entity is still in use by refactoring approaches");
+
+        var deleteSuccess = Utils.DeleteEntityAndSaveChanges<ModelArtifactInput>(ref db, inputName);
         if (!deleteSuccess)
-            throw new ElementNotFoundException(
-                $"Model artifact with name {inputName} could not be deleted because entity does not exist");
+            throw new EntityNotFoundException(
+                $"Model artifact input with name \"{inputName}\" could not be deleted " +
+                "because entity does not exist");
     }
 
     public void DeleteExecutableInput(string inputName, string language)
     {
         var db = new RefactoringApproachContext();
-        var deleteSuccess = Utils.DeleteEntity<ExecutableInput>(ref db, inputName, language);
+
+        var blockDelete = db.ExecutableInputs
+            .Where(e => e.Name == inputName && e.Language == language)
+            .Any(e => e.RefactoringApproaches!.Count > 0);
+        if (blockDelete)
+            throw new EntityReferenceException(
+                $"Executable input with name \"{inputName}\" and language \"{language}\" could not be deleted " +
+                "because the entity is still in use by refactoring approaches");
+
+        var deleteSuccess = Utils.DeleteEntityAndSaveChanges<ExecutableInput>(ref db, inputName, language);
         if (!deleteSuccess)
-            throw new ElementNotFoundException(
-                $"Executable with name {inputName} and language {language} could not be deleted because entity does not exist");
+            throw new EntityNotFoundException(
+                $"Executable input with name \"{inputName} \"and language \"{language}\" could not be deleted " +
+                "because entity does not exist");
     }
 }

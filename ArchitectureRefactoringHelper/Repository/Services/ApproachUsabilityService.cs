@@ -69,59 +69,59 @@ public class ApproachUsabilityService
                    .Where(e => e.ApproachUsabilityId == usabilityId)
                    .IncludeAllApproachUsabilityData()
                    .FirstOrDefault() ??
-               throw new ElementNotFoundException($"Usability definition with ID '{usabilityId}' does not exist");
+               throw new EntityNotFoundException($"Usability definition with ID \"{usabilityId}\" does not exist");
     }
 
-    public ResultsQuality GetResultsQuality(string resultsQualityName)
+    public ResultsQuality GetResultsQuality(string name)
     {
         var db = new RefactoringApproachContext();
-        return GetResultsQuality(resultsQualityName, ref db);
+        return GetResultsQuality(name, ref db);
     }
 
-    public ResultsQuality GetResultsQuality(string resultsQualityName, ref RefactoringApproachContext db)
+    public ResultsQuality GetResultsQuality(string name, ref RefactoringApproachContext db)
     {
-        return db.ResultsQualities.Find(resultsQualityName) ??
-               throw new ElementNotFoundException(
-                   $"Results quality with name '{resultsQualityName}' does not exist.");
+        return db.ResultsQualities.Find(name) ??
+               throw new EntityNotFoundException(
+                   $"Results quality option with name \"{name}\" does not exist.");
     }
 
-    public ToolSupport GetToolSupport(string toolSupportName)
-    {
-        var db = new RefactoringApproachContext();
-        return GetToolSupport(toolSupportName, ref db);
-    }
-
-    public ToolSupport GetToolSupport(string toolSupportName, ref RefactoringApproachContext db)
-    {
-        return db.ToolSupports.Find(toolSupportName) ??
-               throw new ElementNotFoundException(
-                   $"Tool support with name '{toolSupportName}' does not exist.");
-    }
-
-    public AccuracyPrecision GetAccuracyPrecision(string accuracyPrecisionName)
+    public ToolSupport GetToolSupport(string name)
     {
         var db = new RefactoringApproachContext();
-        return GetAccuracyPrecision(accuracyPrecisionName, ref db);
+        return GetToolSupport(name, ref db);
     }
 
-    public AccuracyPrecision GetAccuracyPrecision(string accuracyPrecisionName, ref RefactoringApproachContext db)
+    public ToolSupport GetToolSupport(string name, ref RefactoringApproachContext db)
     {
-        return db.AccuracyPrecisions.Find(accuracyPrecisionName) ??
-               throw new ElementNotFoundException(
-                   $"Accuracy precision with name '{accuracyPrecisionName}' does not exist.");
+        return db.ToolSupports.Find(name) ??
+               throw new EntityNotFoundException(
+                   $"Tool support option with name \"{name}\" does not exist.");
     }
 
-    public ValidationMethod GetValidationMethod(string validationMethodName)
+    public AccuracyPrecision GetAccuracyPrecision(string name)
     {
         var db = new RefactoringApproachContext();
-        return GetValidationMethod(validationMethodName, ref db);
+        return GetAccuracyPrecision(name, ref db);
     }
 
-    public ValidationMethod GetValidationMethod(string validationMethodName, ref RefactoringApproachContext db)
+    public AccuracyPrecision GetAccuracyPrecision(string name, ref RefactoringApproachContext db)
     {
-        return db.ValidationMethods.Find(validationMethodName) ??
-               throw new ElementNotFoundException(
-                   $"Validation method with name '{validationMethodName}' does not exist.");
+        return db.AccuracyPrecisions.Find(name) ??
+               throw new EntityNotFoundException(
+                   $"Accuracy precision option with name \"{name}\" does not exist.");
+    }
+
+    public ValidationMethod GetValidationMethod(string name)
+    {
+        var db = new RefactoringApproachContext();
+        return GetValidationMethod(name, ref db);
+    }
+
+    public ValidationMethod GetValidationMethod(string name, ref RefactoringApproachContext db)
+    {
+        return db.ValidationMethods.Find(name) ??
+               throw new EntityNotFoundException(
+                   $"Validation method option with name \"{name}\" does not exist.");
     }
 
     public ApproachUsability AddApproachUsability(ApproachUsability usability)
@@ -193,36 +193,76 @@ public class ApproachUsabilityService
     public void DeleteResultsQuality(string name)
     {
         var db = new RefactoringApproachContext();
-        var deleteSuccess = Utils.DeleteEntity<ResultsQuality>(ref db, name);
+
+        var blockDelete = db.ResultsQualities
+            .Where(e => e.Name == name)
+            .Any(e => e.ApproachUsabilities!.Count > 0);
+        if (blockDelete)
+            throw new EntityReferenceException(
+                $"Results quality option with name \"{name}\" could not be deleted " +
+                "because the entity is still in use by refactoring approaches");
+
+        var deleteSuccess = Utils.DeleteEntityAndSaveChanges<ResultsQuality>(ref db, name);
         if (!deleteSuccess)
-            throw new ElementNotFoundException(
-                $"Results quality with name {name} could not be deleted because entity does not exist");
+            throw new EntityNotFoundException(
+                $"Results quality option with name \"{name}\" could not be deleted " +
+                $"because entity does not exist");
     }
 
     public void DeleteToolSupport(string name)
     {
         var db = new RefactoringApproachContext();
-        var deleteSuccess = Utils.DeleteEntity<ToolSupport>(ref db, name);
+
+        var blockDelete = db.ToolSupports
+            .Where(e => e.Name == name)
+            .Any(e => e.ApproachUsabilities!.Count > 0);
+        if (blockDelete)
+            throw new EntityReferenceException(
+                $"Tool support option with name \"{name}\" could not be deleted " +
+                "because the entity is still in use by refactoring approaches");
+
+        var deleteSuccess = Utils.DeleteEntityAndSaveChanges<ToolSupport>(ref db, name);
         if (!deleteSuccess)
-            throw new ElementNotFoundException(
-                $"Tool support with name {name} could not be deleted because entity does not exist");
+            throw new EntityNotFoundException(
+                $"Tool support option with name \"{name}\" could not be deleted " +
+                $"because entity does not exist");
     }
 
     public void DeleteAccuracyPrecision(string name)
     {
         var db = new RefactoringApproachContext();
-        var deleteSuccess = Utils.DeleteEntity<AccuracyPrecision>(ref db, name);
+
+        var blockDelete = db.AccuracyPrecisions
+            .Where(e => e.Name == name)
+            .Any(e => e.ApproachUsabilities!.Count > 0);
+        if (blockDelete)
+            throw new EntityReferenceException(
+                $"Accuracy/precision option with name \"{name}\" could not be deleted " +
+                "because the entity is still in use by refactoring approaches");
+
+        var deleteSuccess = Utils.DeleteEntityAndSaveChanges<AccuracyPrecision>(ref db, name);
         if (!deleteSuccess)
-            throw new ElementNotFoundException(
-                $"Accuracy precision with name {name} could not be deleted because entity does not exist");
+            throw new EntityNotFoundException(
+                $"Accuracy/precision option with name \"{name}\" could not be deleted " +
+                $"because entity does not exist");
     }
 
     public void DeleteValidationMethod(string name)
     {
         var db = new RefactoringApproachContext();
-        var deleteSuccess = Utils.DeleteEntity<ValidationMethod>(ref db, name);
+
+        var blockDelete = db.ValidationMethods
+            .Where(e => e.Name == name)
+            .Any(e => e.ApproachUsabilities!.Count > 0);
+        if (blockDelete)
+            throw new EntityReferenceException(
+                $"Validation method option with name \"{name}\" could not be deleted " +
+                "because the entity is still in use by refactoring approaches");
+
+        var deleteSuccess = Utils.DeleteEntityAndSaveChanges<ValidationMethod>(ref db, name);
         if (!deleteSuccess)
-            throw new ElementNotFoundException(
-                $"Executable with name {name} could not be deleted because entity does not exist");
+            throw new EntityNotFoundException(
+                $"Validation method option with name \"{name}\" could not be deleted " +
+                $"because entity does not exist");
     }
 }

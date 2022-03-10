@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using Repository.Exceptions;
 using Repository.Models;
 using Repository.Models.Database;
@@ -53,36 +52,36 @@ public class ApproachOutputService
 
         if (result == null)
         {
-            throw new ElementNotFoundException($"Approach output with ID '{outputId}' does not exist.");
+            throw new EntityNotFoundException($"Approach output with ID \"{outputId}\" does not exist.");
         }
 
         return result;
     }
 
-    public Architecture GetOutputArchitecture(string architectureName)
+    public Architecture GetOutputArchitecture(string name)
     {
         var db = new RefactoringApproachContext();
-        return GetOutputArchitecture(architectureName, ref db);
+        return GetOutputArchitecture(name, ref db);
     }
 
-    public Architecture GetOutputArchitecture(string architectureName, ref RefactoringApproachContext db)
+    public Architecture GetOutputArchitecture(string name, ref RefactoringApproachContext db)
     {
-        return db.Architectures.Find(architectureName) ??
-               throw new ElementNotFoundException(
-                   $"Output architecture with name '{architectureName}' does not exist.");
+        return db.Architectures.Find(name) ??
+               throw new EntityNotFoundException(
+                   $"Output architecture with name \"{name}\" does not exist.");
     }
 
-    public ServiceType GetOutputServiceType(string serviceTypeName)
+    public ServiceType GetOutputServiceType(string name)
     {
         var db = new RefactoringApproachContext();
-        return GetOutputServiceType(serviceTypeName, ref db);
+        return GetOutputServiceType(name, ref db);
     }
 
-    public ServiceType GetOutputServiceType(string serviceTypeName, ref RefactoringApproachContext db)
+    public ServiceType GetOutputServiceType(string name, ref RefactoringApproachContext db)
     {
-        return db.ServiceTypes.Find(serviceTypeName) ??
-               throw new ElementNotFoundException(
-                   $"Output service type with name '{serviceTypeName}' does not exist.");
+        return db.ServiceTypes.Find(name) ??
+               throw new EntityNotFoundException(
+                   $"Output service type with name \"{name}\" does not exist.");
     }
 
     public ApproachOutput AddApproachOutputIfNotExists(ApproachOutput output)
@@ -170,19 +169,39 @@ public class ApproachOutputService
     public void DeleteArchitecture(string name)
     {
         var db = new RefactoringApproachContext();
-        var deleteSuccess = Utils.DeleteEntity<Architecture>(ref db, name);
+
+        var blockDelete = db.Architectures
+            .Where(e => e.Name == name)
+            .Any(e => e.ApproachOutputs!.Count > 0);
+        if (blockDelete)
+            throw new EntityReferenceException(
+                $"Output architecture with name \"{name}\" could not be deleted " +
+                "because the entity is still in use by refactoring approaches");
+
+        var deleteSuccess = Utils.DeleteEntityAndSaveChanges<Architecture>(ref db, name);
         if (!deleteSuccess)
-            throw new ElementNotFoundException(
-                $"Output architecture with name {name} could not be deleted because entity does not exist");
+            throw new EntityNotFoundException(
+                $"Output architecture with name \"{name}\" could not be deleted " +
+                "because entity does not exist");
     }
 
     public void DeleteServiceType(string name)
     {
         var db = new RefactoringApproachContext();
-        var deleteSuccess = Utils.DeleteEntity<ServiceType>(ref db, name);
+        
+        var blockDelete = db.ServiceTypes
+            .Where(e => e.Name == name)
+            .Any(e => e.ApproachOutputs!.Count > 0);
+        if (blockDelete)
+            throw new EntityReferenceException(
+                $"Output service type with name \"{name}\" could not be deleted " +
+                "because the entity is still in use by refactoring approaches");
+        
+        var deleteSuccess = Utils.DeleteEntityAndSaveChanges<ServiceType>(ref db, name);
         if (!deleteSuccess)
-            throw new ElementNotFoundException(
-                $"Output service type with name {name} could not be deleted because entity does not exist");
+            throw new EntityNotFoundException(
+                $"Output service type with name \"{name}\" could not be deleted " +
+                "because entity does not exist");
     }
 
     private ApproachOutput? FindDuplicateApproachOutput(ApproachOutput output, ref RefactoringApproachContext db)

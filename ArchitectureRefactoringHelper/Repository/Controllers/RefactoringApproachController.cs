@@ -44,7 +44,8 @@ public class RefactoringApproachController : ControllerBase
     }
 
     /// <summary>
-    /// Creates a RefactoringApproach
+    /// Creates a new RefactoringApproach.
+    /// Inputs, process attributes, outputs or usability attributes that don't exist will be created in the process.
     /// </summary>
     /// <param name="approach">The RefactoringApproach we want to add</param>
     /// <returns>The created RefactoringApproach</returns>

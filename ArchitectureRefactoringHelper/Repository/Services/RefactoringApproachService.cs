@@ -62,8 +62,8 @@ public class RefactoringApproachService
 
         if (result == null)
         {
-            throw new ElementNotFoundException(
-                $"Refactoring approach with ID '{refactoringApproachId}' does not exist.");
+            throw new EntityNotFoundException(
+                $"Refactoring approach with ID \"{refactoringApproachId}\" does not exist.");
         }
 
         return result;
@@ -74,7 +74,8 @@ public class RefactoringApproachService
         if (ExistsDuplicateRefactoringApproach(refactoringApproach.ApproachSource))
         {
             throw new DuplicateElementException(
-                $"A refactoring approach with the title '{refactoringApproach.ApproachSource.Title}' already exists. If you want to change information regarding this approach try updating the existing refactoring approach");
+                $"A refactoring approach with the title \"{refactoringApproach.ApproachSource.Title}\" already exists. " +
+                "If you want to change information regarding this approach try updating the existing refactoring approach");
         }
 
         return AddRefactoringApproach(refactoringApproach);
@@ -104,14 +105,12 @@ public class RefactoringApproachService
 
     public void DeleteRefactoringApproach(int refactoringApproachId)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            var approach = db.RefactoringApproaches.Find(refactoringApproachId);
-            if (approach == null)
-                return;
-            db.RefactoringApproaches.Remove(approach);
-            db.SaveChanges();
-        }
+        var db = new RefactoringApproachContext();
+
+        var deleteSuccess = Utils.DeleteEntityAndSaveChanges<Architecture>(ref db, refactoringApproachId);
+        if (!deleteSuccess)
+            throw new EntityNotFoundException(
+                $"Refactoring approach with ID \"{refactoringApproachId}\" could not be deleted because entity does not exist");
     }
 
     private bool ExistsDuplicateRefactoringApproach(ApproachSource source)
@@ -133,7 +132,7 @@ public class RefactoringApproachService
         if (approach.DomainArtifactInputs.Any(e => e.Name == domainArtifact.Name))
         {
             throw new DuplicateElementException(
-                $"Domain artifact input with name '{domainArtifact.Name}' is already an input of the given refactoring approach(ID: {approachId}).");
+                $"Domain artifact input with name \"{domainArtifact.Name}\" is already an input of the given refactoring approach(ID: {approachId}).");
         }
 
         var input = _inputService.GetDomainArtifactInput(domainArtifact.Name, ref db);
@@ -153,8 +152,8 @@ public class RefactoringApproachService
         var input = approach.DomainArtifactInputs!.FirstOrDefault(e => e.Name == inputName);
         if (input == null)
         {
-            throw new ElementNotFoundException(
-                $"Domain artifact input with name '{inputName}' is not an input of the given refactoring approach(ID: {approachId}).");
+            throw new EntityNotFoundException(
+                $"Domain artifact input with name \"{inputName}\" is not an input of the given refactoring approach(ID: {approachId}).");
         }
 
         approach.DomainArtifactInputs!.Remove(input);
@@ -171,7 +170,7 @@ public class RefactoringApproachService
         if (approach.RuntimeArtifactInputs.Any(e => e.Name == runtimeArtifact.Name))
         {
             throw new DuplicateElementException(
-                $"Runtime artifact input with name '{runtimeArtifact.Name}' is already an input of the given refactoring approach(ID: {approachId}).");
+                $"Runtime artifact input with name \"{runtimeArtifact.Name}\" is already an input of the given refactoring approach(ID: {approachId}).");
         }
 
         var input = _inputService.GetRuntimeArtifactInput(runtimeArtifact.Name, ref db);
@@ -191,8 +190,8 @@ public class RefactoringApproachService
         var input = approach.RuntimeArtifactInputs!.FirstOrDefault(e => e.Name == inputName);
         if (input == null)
         {
-            throw new ElementNotFoundException(
-                $"Runtime artifact input with name '{inputName}' is not an input of the given refactoring approach(ID: {approachId}).");
+            throw new EntityNotFoundException(
+                $"Runtime artifact input with name \"{inputName}\" is not an input of the given refactoring approach(ID: {approachId}).");
         }
 
         approach.RuntimeArtifactInputs!.Remove(input);
@@ -209,7 +208,7 @@ public class RefactoringApproachService
         if (approach.ModelArtifactInputs.Any(e => e.Name == modelArtifact.Name))
         {
             throw new DuplicateElementException(
-                $"Model artifact input with name '{modelArtifact.Name}' is already an input of the given refactoring approach(ID: {approachId}).");
+                $"Model artifact input with name \"{modelArtifact.Name}\" is already an input of the given refactoring approach(ID: {approachId}).");
         }
 
         var input = _inputService.GetModelArtifactInput(modelArtifact.Name, ref db);
@@ -229,8 +228,8 @@ public class RefactoringApproachService
         var input = approach.ModelArtifactInputs!.FirstOrDefault(e => e.Name == inputName);
         if (input == null)
         {
-            throw new ElementNotFoundException(
-                $"Model artifact input with name '{inputName}' is not an input of the given refactoring approach(ID: {approachId}).");
+            throw new EntityNotFoundException(
+                $"Model artifact input with name \"{inputName}\" is not an input of the given refactoring approach(ID: {approachId}).");
         }
 
         approach.ModelArtifactInputs!.Remove(input);
@@ -247,7 +246,8 @@ public class RefactoringApproachService
         if (approach.ExecutableInputs.Any(e => e.Name == executable.Name && e.Language == executable.Language))
         {
             throw new DuplicateElementException(
-                $"Executable input with name '{executable.Name}' and language '{executable.Language}' is already an input of the given refactoring approach(ID: {approachId}).");
+                $"Executable input with name \"{executable.Name}\" and language \"{executable.Language}\" " +
+                $"is already an input of the given refactoring approach(ID: {approachId}).");
         }
 
         var input = _inputService.GetExecutableInput(executable.Name, executable.Language, ref db);
@@ -267,8 +267,9 @@ public class RefactoringApproachService
         var input = approach.ExecutableInputs!.FirstOrDefault(e => e.Name == inputName && e.Language == language);
         if (input == null)
         {
-            throw new ElementNotFoundException(
-                $"Domain artifact input with name '{inputName}' and language '{language}' is not an input of the given refactoring approach(ID: {approachId}).");
+            throw new EntityNotFoundException(
+                $"Domain artifact input with name \"{inputName}\" and language \"{language}\" " +
+                $"is not an input of the given refactoring approach(ID: {approachId}).");
         }
 
         approach.ExecutableInputs!.Remove(input);
@@ -285,7 +286,7 @@ public class RefactoringApproachService
         if (approach.ApproachProcess.Qualities.Any(e => e.Name == quality.Name))
         {
             throw new DuplicateElementException(
-                $"Quality with name '{quality.Name}' is already a process attribute of the given refactoring approach(ID: {approachId}).");
+                $"Quality with name \"{quality.Name}\" is already a process attribute of the given refactoring approach(ID: {approachId}).");
         }
 
         var savedQuality = _processService.GetProcessQuality(quality.Name, ref db);
@@ -305,8 +306,8 @@ public class RefactoringApproachService
         var quality = approach.ApproachProcess.Qualities!.FirstOrDefault(e => e.Name == qualityName);
         if (quality == null)
         {
-            throw new ElementNotFoundException(
-                $"Quality with name '{qualityName}' is not a process attribute of the given refactoring approach(ID: {approachId}).");
+            throw new EntityNotFoundException(
+                $"Quality with name \"{qualityName}\" is not a process attribute of the given refactoring approach(ID: {approachId}).");
         }
 
         approach.ApproachProcess.Qualities!.Remove(quality);
@@ -323,7 +324,7 @@ public class RefactoringApproachService
         if (approach.ApproachProcess.Directions.Any(e => e.Name == direction.Name))
         {
             throw new DuplicateElementException(
-                $"Direction with name '{direction.Name}' is already a process attribute of the given refactoring approach(ID: {approachId}).");
+                $"Direction with name \"{direction.Name}\" is already a process attribute of the given refactoring approach(ID: {approachId}).");
         }
 
         var savedDirection = _processService.GetProcessDirection(direction.Name, ref db);
@@ -343,8 +344,8 @@ public class RefactoringApproachService
         var direction = approach.ApproachProcess.Directions!.FirstOrDefault(e => e.Name == directionName);
         if (direction == null)
         {
-            throw new ElementNotFoundException(
-                $"Direction with name '{directionName}' is not a process attribute of the given refactoring approach(ID: {approachId}).");
+            throw new EntityNotFoundException(
+                $"Direction with name \"{directionName}\" is not a process attribute of the given refactoring approach(ID: {approachId}).");
         }
 
         approach.ApproachProcess.Directions!.Remove(direction);
@@ -361,7 +362,7 @@ public class RefactoringApproachService
         if (approach.ApproachProcess.AutomationLevels.Any(e => e.Name == automationLevel.Name))
         {
             throw new DuplicateElementException(
-                $"Automation level with name '{automationLevel.Name}' is already a process attribute of the given refactoring approach(ID: {approachId}).");
+                $"Automation level with name \"{automationLevel.Name}\" is already a process attribute of the given refactoring approach(ID: {approachId}).");
         }
 
         var savedAutomationLevel = _processService.GetProcessAutomationLevel(automationLevel.Name, ref db);
@@ -382,8 +383,8 @@ public class RefactoringApproachService
             approach.ApproachProcess.AutomationLevels!.FirstOrDefault(e => e.Name == automationLevelName);
         if (automationLevel == null)
         {
-            throw new ElementNotFoundException(
-                $"Automation level with name '{automationLevelName}' is not a process attribute of the given refactoring approach(ID: {approachId}).");
+            throw new EntityNotFoundException(
+                $"Automation level with name \"{automationLevelName}\" is not a process attribute of the given refactoring approach(ID: {approachId}).");
         }
 
         approach.ApproachProcess.AutomationLevels!.Remove(automationLevel);
@@ -400,7 +401,7 @@ public class RefactoringApproachService
         if (approach.ApproachProcess.AnalysisTypes.Any(e => e.Name == analysisType.Name))
         {
             throw new DuplicateElementException(
-                $"Analysis type with name '{analysisType.Name}' is already a process attribute of the given refactoring approach(ID: {approachId}).");
+                $"Analysis type with name \"{analysisType.Name}\" is already a process attribute of the given refactoring approach(ID: {approachId}).");
         }
 
         var savedAnalysisType = _processService.GetProcessAnalysisType(analysisType.Name, ref db);
@@ -420,8 +421,8 @@ public class RefactoringApproachService
         var analysisType = approach.ApproachProcess.AnalysisTypes!.FirstOrDefault(e => e.Name == analysisTypeName);
         if (analysisType == null)
         {
-            throw new ElementNotFoundException(
-                $"Analysis type with name '{analysisTypeName}' is not a process attribute of the given refactoring approach(ID: {approachId}).");
+            throw new EntityNotFoundException(
+                $"Analysis type with name \"{analysisTypeName}\" is not a process attribute of the given refactoring approach(ID: {approachId}).");
         }
 
         approach.ApproachProcess.AnalysisTypes!.Remove(analysisType);
@@ -438,7 +439,7 @@ public class RefactoringApproachService
         if (approach.ApproachProcess.Techniques.Any(e => e.Name == technique.Name))
         {
             throw new DuplicateElementException(
-                $"Technique with name '{technique.Name}' is already a process attribute of the given refactoring approach(ID: {approachId}).");
+                $"Technique with name \"{technique.Name}\" is already a process attribute of the given refactoring approach(ID: {approachId}).");
         }
 
         var savedTechnique = _processService.GetProcessTechnique(technique.Name, ref db);
@@ -458,8 +459,8 @@ public class RefactoringApproachService
         var technique = approach.ApproachProcess.Techniques!.FirstOrDefault(e => e.Name == techniqueName);
         if (technique == null)
         {
-            throw new ElementNotFoundException(
-                $"Technique with name '{techniqueName}' is not a process attribute of the given refactoring approach(ID: {approachId}).");
+            throw new EntityNotFoundException(
+                $"Technique with name \"{techniqueName}\" is not a process attribute of the given refactoring approach(ID: {approachId}).");
         }
 
         approach.ApproachProcess.Techniques!.Remove(technique);
@@ -477,7 +478,8 @@ public class RefactoringApproachService
                 e.Architecture.Name == output.Architecture.Name && e.ServiceType.Name == output.ServiceType.Name))
         {
             throw new DuplicateElementException(
-                $"Output with architecture name '{output.Architecture.Name}' and service type name {output.ServiceType.Name} is already an output of the given refactoring approach(ID: {approachId}).");
+                $"Output with architecture name \"{output.Architecture.Name}\" and " +
+                $"service type name \"{output.ServiceType.Name}\" is already an output of the given refactoring approach(ID: {approachId}).");
         }
 
         var savedOutput = _outputService.AddApproachOutputIfNotExists(output, ref db);
@@ -497,8 +499,8 @@ public class RefactoringApproachService
         var output = approach.ApproachOutputs!.FirstOrDefault(e => e.ApproachOutputId == outputId);
         if (output == null)
         {
-            throw new ElementNotFoundException(
-                $"Output(ID '{outputId}') is not an output of the given refactoring approach(ID: {approachId}).");
+            throw new EntityNotFoundException(
+                $"Output(ID \"{outputId}\") is not an output of the given refactoring approach(ID: {approachId}).");
         }
 
         approach.ApproachOutputs!.Remove(output);

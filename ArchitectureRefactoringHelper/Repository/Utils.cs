@@ -66,6 +66,8 @@ public static class Utils
     {
         var savedEntity = AddEntity(entity, ref db);
         db.SaveChanges();
+        db.Dispose();
+
         return savedEntity;
     }
 
@@ -87,16 +89,20 @@ public static class Utils
         return savedEntities;
     }
 
-    public static bool DeleteEntity<T>(ref RefactoringApproachContext db, params object?[]? keyValues) where T : class
+    public static bool DeleteEntityAndSaveChanges<T>(ref RefactoringApproachContext db, params object?[]? keyValues)
+        where T : class
     {
         var entity = db.Set<T>().Find(keyValues);
-        if (entity == null)
-            return false;
+        var deleteSuccess = entity != null;
+        if (deleteSuccess)
+        {
+            db.Set<T>().Remove(entity!);
+            db.SaveChanges();
+        }
 
-        db.Set<T>().Remove(entity);
-        db.SaveChanges();
+        db.Dispose();
 
-        return true;
+        return deleteSuccess;
     }
 
     public static IQueryable<ApproachOutput> IncludeAllApproachOutputData(this IQueryable<ApproachOutput> query)

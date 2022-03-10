@@ -1447,7 +1447,7 @@
         "tags": [
           "RefactoringApproach"
         ],
-        "summary": "Creates a RefactoringApproach",
+        "summary": "Creates a new RefactoringApproach.\r\nInputs, process attributes, outputs or usability attributes that don't exist will be created in the process.",
         "operationId": "AddRefactoringApproach",
         "requestBody": {
           "description": "The RefactoringApproach we want to add",
