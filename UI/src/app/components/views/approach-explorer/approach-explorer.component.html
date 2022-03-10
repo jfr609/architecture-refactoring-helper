@@ -1,14 +1,12 @@
 <div fxLayout='column' fxLayoutAlign='start center'>
   <h1>Explore all currently available refactoring approaches</h1>
 
-  <table mat-table [dataSource]='dataSource' matSort
-         class='mat-elevation-z8'>
-
+  <table mat-table [dataSource]='dataSource' matSort class='mat-elevation-z8'>
     <ng-container matColumnDef='id'>
       <th mat-header-cell *matHeaderCellDef mat-sort-header='id'>
         ID
       </th>
-      <td mat-cell *matCellDef='let approach'>
+      <td mat-cell class='approach-cell' *matCellDef='let approach'>
         {{approach.refactoringApproachId}}
       </td>
     </ng-container>
@@ -17,7 +15,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header='title'>
         Title
       </th>
-      <td mat-cell *matCellDef='let approach'>
+      <td mat-cell class='approach-cell' *matCellDef='let approach'>
         {{approach.approachSource.title}}
       </td>
     </ng-container>
@@ -26,7 +24,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header='year'>
         Year
       </th>
-      <td mat-cell *matCellDef='let approach'>
+      <td mat-cell class='approach-cell' *matCellDef='let approach'>
         {{approach.approachSource.year}}
       </td>
     </ng-container>
@@ -35,7 +33,7 @@
       <th mat-header-cell *matHeaderCellDef>
         Authors
       </th>
-      <td mat-cell *matCellDef='let approach'>
+      <td mat-cell class='approach-cell' *matCellDef='let approach'>
         {{approach.approachSource.authors}}
       </td>
     </ng-container>
@@ -44,7 +42,7 @@
       <th mat-header-cell *matHeaderCellDef>
         Actions
       </th>
-      <td mat-cell *matCellDef='let approach'>
+      <td mat-cell class='approach-cell' *matCellDef='let approach'>
         <button mat-icon-button color='accent' (click)='goToEdit(approach)'>
           <mat-icon>edit</mat-icon>
         </button>
@@ -55,6 +53,8 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef='displayedColumns'></tr>
-    <tr mat-row *matRowDef='let row; columns: displayedColumns;' (click)='openApproachView(row)'></tr>
+    <tr mat-row *matRowDef='let row; columns: displayedColumns;'
+        class='approach-row'
+        (click)='openApproachView(row)'></tr>
   </table>
 </div>

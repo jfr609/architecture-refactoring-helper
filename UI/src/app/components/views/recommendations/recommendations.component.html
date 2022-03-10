@@ -2,10 +2,10 @@
   <h1>Recommendations</h1>
 
   <table mat-table [dataSource]='dataSource' multiTemplateDataRows matSort class='mat-elevation-z8'>
-
     <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of sortColumns'>
-      <th mat-header-cell *matHeaderCellDef
-          mat-sort-header='{{ columnData.columnDef }}'> {{ columnData.header}} </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header='{{ columnData.columnDef }}'>
+        {{ columnData.header}}
+      </th>
       <td mat-cell class='approach-cell' *matCellDef='let recommendation'
           [class]='getSuitabilityColor(recommendation, columnData.columnDef)'>
         {{ columnData.cell(recommendation) }}
@@ -13,7 +13,9 @@
     </ng-container>
 
     <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of nonSortColumns'>
-      <th mat-header-cell *matHeaderCellDef> {{ columnData.header}} </th>
+      <th mat-header-cell *matHeaderCellDef>
+        {{ columnData.header}}
+      </th>
       <td mat-cell class='approach-cell' *matCellDef='let recommendation'
           [class]='getSuitabilityColor(recommendation, columnData.columnDef)'>
         {{ columnData.cell(recommendation) }}
@@ -21,7 +23,9 @@
     </ng-container>
 
     <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of actionColumns'>
-      <th mat-header-cell *matHeaderCellDef> {{ columnData.header}} </th>
+      <th mat-header-cell *matHeaderCellDef>
+        {{ columnData.header}}
+      </th>
       <td mat-cell class='approach-cell' *matCellDef='let recommendation'>
         <div *ngIf='columnData.columnDef === "expandState"; then expandedStateCell else actionCell'></div>
         <ng-template #actionCell>
@@ -284,8 +288,7 @@
     <tr mat-row *matRowDef='let recommendation; columns: displayedColumns;'
         class='approach-row'
         [class.expanded-row]='expandedRecommendation === recommendation'
-        (click)='setExpandedRecommendation(recommendation)'>
-    </tr>
+        (click)='setExpandedRecommendation(recommendation)'></tr>
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class='approach-detail-row'></tr>
   </table>
 </div>

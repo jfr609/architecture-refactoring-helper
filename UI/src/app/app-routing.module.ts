@@ -8,8 +8,8 @@ import { ApproachFinderComponent } from './components/views/approach-finder/appr
 import { NAV_PARAM_APPROACH_ID } from './app.constants';
 import { ApproachViewComponent } from './components/views/approach-view/approach-view.component';
 import {
-  ApproachRecommendationsComponent
-} from './components/views/approach-recommendations/approach-recommendations.component';
+  RecommendationsComponent
+} from './components/views/recommendations/recommendations.component';
 
 const routes: Routes = [
   {
@@ -38,7 +38,7 @@ const routes: Routes = [
   },
   {
     path: 'recommendations',
-    component: ApproachRecommendationsComponent
+    component: RecommendationsComponent
   },
   {
     path: '',

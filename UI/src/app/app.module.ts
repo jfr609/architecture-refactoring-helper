@@ -40,7 +40,7 @@ import { CreateAttributeDialogComponent } from './components/dialogs/create-attr
 import { DeleteAttributeDialogComponent } from './components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { ApproachRecommendationsComponent } from './components/views/approach-recommendations/approach-recommendations.component';
+import { RecommendationsComponent } from './components/views/recommendations/recommendations.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +56,7 @@ import { ApproachRecommendationsComponent } from './components/views/approach-re
     ApproachViewComponent,
     CreateAttributeDialogComponent,
     DeleteAttributeDialogComponent,
-    ApproachRecommendationsComponent
+    RecommendationsComponent
   ],
   imports: [
     BrowserModule,

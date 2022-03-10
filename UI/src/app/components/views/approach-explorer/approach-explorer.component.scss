@@ -2,19 +2,18 @@ table {
   margin-top: 20px;
 }
 
-.mat-row {
-  height: auto;
-}
-
-.mat-row:hover .mat-cell {
-  background-color: rgba(0, 0, 0, 0.1);
+tr.approach-row {
   cursor: pointer;
 }
 
-.mat-cell {
+tr.approach-row:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.approach-cell {
   padding: 8px 24px 8px 0;
 }
 
-.mat-cell:last-child {
+.approach-cell:last-child {
   padding: 8px 8px 8px 0;
 }

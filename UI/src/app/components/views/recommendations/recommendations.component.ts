@@ -13,9 +13,9 @@ import {
 import { AttributeEvaluation } from '../../../../../api/repository/models/attribute-evaluation';
 
 @Component({
-  selector: 'app-approach-recommendations',
-  templateUrl: './approach-recommendations.component.html',
-  styleUrls: ['./approach-recommendations.component.scss'],
+  selector: 'app-recommendations',
+  templateUrl: './recommendations.component.html',
+  styleUrls: ['./recommendations.component.scss'],
   animations: [
     trigger('detailExpand', [
       state('collapsed, void', style({ height: '0' })),
@@ -24,7 +24,7 @@ import { AttributeEvaluation } from '../../../../../api/repository/models/attrib
     ])
   ]
 })
-export class ApproachRecommendationsComponent implements OnInit {
+export class RecommendationsComponent implements OnInit {
   @ViewChild(MatSort) set sort(sort: MatSort) {
     if (sort) {
       this.dataSource.sort = sort;
