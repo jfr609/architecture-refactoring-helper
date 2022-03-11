@@ -8,10 +8,8 @@ import { Component, Input } from '@angular/core';
 export class CardButtonComponent {
   @Input() title = '';
 
-  @Input() icon: string = '';
+  @Input() icon = '';
   @Input() color: 'primary' | 'accent' | 'warn' | 'brown' = 'accent';
-
-  // @Output() click: EventEmitter<void> = new EventEmitter<void>();
 
   getBackgroundColor(): string {
     return `var(--color-${this.color}-lighter)`;

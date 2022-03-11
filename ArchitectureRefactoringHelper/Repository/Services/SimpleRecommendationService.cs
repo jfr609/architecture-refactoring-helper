@@ -284,12 +284,13 @@ public class SimpleRecommendationService : IRecommendationService
     private static int CalculateSuitabilityScore(int attributeCount, int matchCount, int neutralCount,
         int mismatchCount)
     {
-        var notEnoughInformation = attributeCount < 1 || (attributeCount - neutralCount) < 5;
+        int hitCount = attributeCount - neutralCount;
+        bool notEnoughInformation = attributeCount < 1 || hitCount < 1;
         if (notEnoughInformation)
         {
             return -1;
         }
 
-        return (int)Math.Round((double)matchCount * 100 / attributeCount);
+        return (int)Math.Round((double)matchCount * 100 / hitCount);
     }
 }

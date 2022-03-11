@@ -24,7 +24,7 @@ export class RecommendationConfiguratorComponent implements OnInit {
   constructor(
     private refactoringApproachService: RefactoringApproachService,
     public attributeOptionsService: AttributeOptionsService,
-    public recommendationsService: ApproachRecommendationService,
+    public recommendationService: ApproachRecommendationService,
     private utilService: UtilService,
     private router: Router
   ) {}
@@ -32,7 +32,7 @@ export class RecommendationConfiguratorComponent implements OnInit {
   ngOnInit(): void {
     this.isDataLoading = true;
     this.attributeOptionsService.requestAttributeOptions().then(() => {
-      this.recommendationsService.setRecommendationInformationSuitability(
+      this.recommendationService.setRecommendationInformationSuitability(
         RecommendationSuitability.Neutral
       );
 
@@ -59,7 +59,7 @@ export class RecommendationConfiguratorComponent implements OnInit {
 
   onSearchRecommendation(): void {
     const approachRecommendationRequest: ApproachRecommendationRequest =
-      this.recommendationsService.createRecommendationRequest();
+      this.recommendationService.createRecommendationRequest();
 
     lastValueFrom(
       this.refactoringApproachService.recommendRefactoringApproaches({
@@ -67,7 +67,7 @@ export class RecommendationConfiguratorComponent implements OnInit {
       })
     )
       .then((value: ApproachRecommendation[]) => {
-        this.recommendationsService.recommendations.next(value);
+        this.recommendationService.recommendations.next(value);
         this.router.navigate(['/recommendation/result']);
       })
       .catch((reason) => {

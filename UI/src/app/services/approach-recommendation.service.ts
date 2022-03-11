@@ -20,43 +20,46 @@ import { RecommendationSuitability } from '../../../api/repository/models/recomm
 import { QualityCategory } from '../../../api/repository/models/quality-category';
 import { AttributeOptionsService } from './attribute-options.service';
 import { ApproachRecommendationRequest } from '../../../api/repository/models/approach-recommendation-request';
+import { RecommendationPreset } from '../utils/models/recommendation-preset';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApproachRecommendationService {
-  recommendations: BehaviorSubject<ApproachRecommendation[]> =
+  public recommendations: BehaviorSubject<ApproachRecommendation[]> =
     new BehaviorSubject<ApproachRecommendation[]>([]);
 
-  domainArtifactInformation: DomainArtifactInputAttributeRecommendationInformation[] =
+  public domainArtifactInformation: DomainArtifactInputAttributeRecommendationInformation[] =
     [];
-  runtimeArtifactInformation: RuntimeArtifactInputAttributeRecommendationInformation[] =
+  public runtimeArtifactInformation: RuntimeArtifactInputAttributeRecommendationInformation[] =
     [];
-  modelArtifactInformation: ModelArtifactInputAttributeRecommendationInformation[] =
+  public modelArtifactInformation: ModelArtifactInputAttributeRecommendationInformation[] =
     [];
-  executableInformation: ExecutableInputAttributeRecommendationInformation[] =
+  public executableInformation: ExecutableInputAttributeRecommendationInformation[] =
     [];
-
-  qualityMetricInformation: QualityAttributeRecommendationInformation[] = [];
-  qualityRequirementInformation: QualityAttributeRecommendationInformation[] =
+  public qualityMetricInformation: QualityAttributeRecommendationInformation[] =
     [];
-  directionInformation: DirectionAttributeRecommendationInformation[] = [];
-  automationLevelInformation: AutomationLevelAttributeRecommendationInformation[] =
+  public qualityRequirementInformation: QualityAttributeRecommendationInformation[] =
     [];
-  analysisTypeInformation: AnalysisTypeAttributeRecommendationInformation[] =
+  public directionInformation: DirectionAttributeRecommendationInformation[] =
     [];
-  techniqueInformation: TechniqueAttributeRecommendationInformation[] = [];
-
-  architectureInformation: ArchitectureAttributeRecommendationInformation[] =
+  public automationLevelInformation: AutomationLevelAttributeRecommendationInformation[] =
     [];
-  serviceTypeInformation: ServiceTypeAttributeRecommendationInformation[] = [];
-
-  validationMethodInformation: ValidationMethodAttributeRecommendationInformation[] =
+  public analysisTypeInformation: AnalysisTypeAttributeRecommendationInformation[] =
     [];
-  toolSupportInformation: ToolSupportAttributeRecommendationInformation[] = [];
-  resultsQualityInformation: ResultsQualityAttributeRecommendationInformation[] =
+  public techniqueInformation: TechniqueAttributeRecommendationInformation[] =
     [];
-  accuracyPrecisionInformation: AccuracyPrecisionAttributeRecommendationInformation[] =
+  public architectureInformation: ArchitectureAttributeRecommendationInformation[] =
+    [];
+  public serviceTypeInformation: ServiceTypeAttributeRecommendationInformation[] =
+    [];
+  public validationMethodInformation: ValidationMethodAttributeRecommendationInformation[] =
+    [];
+  public toolSupportInformation: ToolSupportAttributeRecommendationInformation[] =
+    [];
+  public resultsQualityInformation: ResultsQualityAttributeRecommendationInformation[] =
+    [];
+  public accuracyPrecisionInformation: AccuracyPrecisionAttributeRecommendationInformation[] =
     [];
 
   constructor(private attributeOptionsService: AttributeOptionsService) {}
@@ -80,131 +83,111 @@ export class ApproachRecommendationService {
     this.accuracyPrecisionInformation = [];
   }
 
+  setAttributeInformation<T>(
+    informationArray: {
+      attribute: T;
+      recommendationSuitability: RecommendationSuitability;
+    }[],
+    options: T[],
+    recommendationSuitability: RecommendationSuitability
+  ): void {
+    for (const option of options) {
+      informationArray.push({
+        attribute: option,
+        recommendationSuitability: recommendationSuitability
+      });
+    }
+  }
+
   setRecommendationInformationSuitability(
     recommendationSuitability: RecommendationSuitability
   ): void {
     this.clearRecommendationInformation();
 
-    for (const domainArtifact of this.attributeOptionsService.domainArtifacts
-      .value) {
-      this.domainArtifactInformation.push({
-        attribute: domainArtifact,
-        recommendationSuitability: recommendationSuitability
-      });
-    }
-
-    for (const runtimeArtifact of this.attributeOptionsService.runtimeArtifacts
-      .value) {
-      this.runtimeArtifactInformation.push({
-        attribute: runtimeArtifact,
-        recommendationSuitability: recommendationSuitability
-      });
-    }
-    for (const modelArtifact of this.attributeOptionsService.modelArtifacts
-      .value) {
-      this.modelArtifactInformation.push({
-        attribute: modelArtifact,
-        recommendationSuitability: recommendationSuitability
-      });
-    }
-    for (const executable of this.attributeOptionsService.executables.value) {
-      this.executableInformation.push({
-        attribute: executable,
-        recommendationSuitability: recommendationSuitability
-      });
-    }
-
-    for (const quality of this.attributeOptionsService.getQualitiesByCategory(
-      QualityCategory.Metric
-    )) {
-      this.qualityMetricInformation.push({
-        attribute: quality,
-        recommendationSuitability: recommendationSuitability
-      });
-    }
-
-    for (const quality of this.attributeOptionsService.getQualitiesByCategory(
-      QualityCategory.Requirement
-    )) {
-      this.qualityRequirementInformation.push({
-        attribute: quality,
-        recommendationSuitability: recommendationSuitability
-      });
-    }
-
-    for (const direction of this.attributeOptionsService.directions.value) {
-      this.directionInformation.push({
-        attribute: direction,
-        recommendationSuitability: recommendationSuitability
-      });
-    }
-
-    for (const automationLevel of this.attributeOptionsService.automationLevels
-      .value) {
-      this.automationLevelInformation.push({
-        attribute: automationLevel,
-        recommendationSuitability: recommendationSuitability
-      });
-    }
-    for (const analysisType of this.attributeOptionsService.analysisTypes
-      .value) {
-      this.analysisTypeInformation.push({
-        attribute: analysisType,
-        recommendationSuitability: recommendationSuitability
-      });
-    }
-    for (const technique of this.attributeOptionsService.techniques.value) {
-      this.techniqueInformation.push({
-        attribute: technique,
-        recommendationSuitability: recommendationSuitability
-      });
-    }
-
-    for (const architecture of this.attributeOptionsService.architectures
-      .value) {
-      this.architectureInformation.push({
-        attribute: architecture,
-        recommendationSuitability: recommendationSuitability
-      });
-    }
-
-    for (const serviceType of this.attributeOptionsService.serviceTypes.value) {
-      this.serviceTypeInformation.push({
-        attribute: serviceType,
-        recommendationSuitability: recommendationSuitability
-      });
-    }
-
-    for (const validationMethod of this.attributeOptionsService
-      .validationMethods.value) {
-      this.validationMethodInformation.push({
-        attribute: validationMethod,
-        recommendationSuitability: recommendationSuitability
-      });
-    }
-
-    for (const toolSupport of this.attributeOptionsService.toolSupports.value) {
-      this.toolSupportInformation.push({
-        attribute: toolSupport,
-        recommendationSuitability: recommendationSuitability
-      });
-    }
-
-    for (const resultsQuality of this.attributeOptionsService.resultsQualities
-      .value) {
-      this.resultsQualityInformation.push({
-        attribute: resultsQuality,
-        recommendationSuitability: recommendationSuitability
-      });
-    }
-
-    for (const accuracyPrecision of this.attributeOptionsService
-      .accuracyPrecisions.value) {
-      this.accuracyPrecisionInformation.push({
-        attribute: accuracyPrecision,
-        recommendationSuitability: recommendationSuitability
-      });
-    }
+    this.setAttributeInformation(
+      this.domainArtifactInformation,
+      this.attributeOptionsService.domainArtifacts.value,
+      recommendationSuitability
+    );
+    this.setAttributeInformation(
+      this.runtimeArtifactInformation,
+      this.attributeOptionsService.runtimeArtifacts.value,
+      recommendationSuitability
+    );
+    this.setAttributeInformation(
+      this.modelArtifactInformation,
+      this.attributeOptionsService.modelArtifacts.value,
+      recommendationSuitability
+    );
+    this.setAttributeInformation(
+      this.executableInformation,
+      this.attributeOptionsService.executables.value,
+      recommendationSuitability
+    );
+    this.setAttributeInformation(
+      this.qualityMetricInformation,
+      this.attributeOptionsService.getQualitiesByCategory(
+        QualityCategory.Metric
+      ),
+      recommendationSuitability
+    );
+    this.setAttributeInformation(
+      this.qualityRequirementInformation,
+      this.attributeOptionsService.getQualitiesByCategory(
+        QualityCategory.Requirement
+      ),
+      recommendationSuitability
+    );
+    this.setAttributeInformation(
+      this.directionInformation,
+      this.attributeOptionsService.directions.value,
+      recommendationSuitability
+    );
+    this.setAttributeInformation(
+      this.automationLevelInformation,
+      this.attributeOptionsService.automationLevels.value,
+      recommendationSuitability
+    );
+    this.setAttributeInformation(
+      this.analysisTypeInformation,
+      this.attributeOptionsService.analysisTypes.value,
+      recommendationSuitability
+    );
+    this.setAttributeInformation(
+      this.techniqueInformation,
+      this.attributeOptionsService.techniques.value,
+      recommendationSuitability
+    );
+    this.setAttributeInformation(
+      this.architectureInformation,
+      this.attributeOptionsService.architectures.value,
+      recommendationSuitability
+    );
+    this.setAttributeInformation(
+      this.serviceTypeInformation,
+      this.attributeOptionsService.serviceTypes.value,
+      recommendationSuitability
+    );
+    this.setAttributeInformation(
+      this.validationMethodInformation,
+      this.attributeOptionsService.validationMethods.value,
+      recommendationSuitability
+    );
+    this.setAttributeInformation(
+      this.toolSupportInformation,
+      this.attributeOptionsService.toolSupports.value,
+      recommendationSuitability
+    );
+    this.setAttributeInformation(
+      this.resultsQualityInformation,
+      this.attributeOptionsService.resultsQualities.value,
+      recommendationSuitability
+    );
+    this.setAttributeInformation(
+      this.accuracyPrecisionInformation,
+      this.attributeOptionsService.accuracyPrecisions.value,
+      recommendationSuitability
+    );
   }
 
   createRecommendationRequest(): ApproachRecommendationRequest {
@@ -230,5 +213,190 @@ export class ApproachRecommendationService {
       resultsQualityInformation: this.resultsQualityInformation,
       accuracyPrecisionInformation: this.accuracyPrecisionInformation
     };
+  }
+
+  async createPresetRecommendationRequest(
+    preset: RecommendationPreset
+  ): Promise<ApproachRecommendationRequest> {
+    await this.attributeOptionsService.requestAttributeOptions();
+    this.clearRecommendationInformation();
+
+    this.applyPreset(preset);
+
+    return this.createRecommendationRequest();
+  }
+
+  private applyPreset(preset?: RecommendationPreset) {
+    switch (preset) {
+      case RecommendationPreset.NewApplication:
+        this.applyNewApplicationPreset();
+        break;
+      case RecommendationPreset.ReBuild:
+        this.applyReBuildPreset();
+        break;
+      case RecommendationPreset.ReFactor:
+        this.applyReFactorPreset();
+        break;
+      default:
+        this.applyNoPreset();
+        break;
+    }
+
+    this.setAttributeInformation(
+      this.qualityMetricInformation,
+      this.attributeOptionsService.getQualitiesByCategory(
+        QualityCategory.Metric
+      ),
+      RecommendationSuitability.Neutral
+    );
+    this.setAttributeInformation(
+      this.qualityRequirementInformation,
+      this.attributeOptionsService.getQualitiesByCategory(
+        QualityCategory.Requirement
+      ),
+      RecommendationSuitability.Neutral
+    );
+    this.setAttributeInformation(
+      this.directionInformation,
+      this.attributeOptionsService.directions.value,
+      RecommendationSuitability.Neutral
+    );
+    this.setAttributeInformation(
+      this.automationLevelInformation,
+      this.attributeOptionsService.automationLevels.value,
+      RecommendationSuitability.Neutral
+    );
+    this.setAttributeInformation(
+      this.analysisTypeInformation,
+      this.attributeOptionsService.analysisTypes.value,
+      RecommendationSuitability.Neutral
+    );
+    this.setAttributeInformation(
+      this.techniqueInformation,
+      this.attributeOptionsService.techniques.value,
+      RecommendationSuitability.Neutral
+    );
+    this.setAttributeInformation(
+      this.architectureInformation,
+      this.attributeOptionsService.architectures.value,
+      RecommendationSuitability.Neutral
+    );
+    this.setAttributeInformation(
+      this.serviceTypeInformation,
+      this.attributeOptionsService.serviceTypes.value,
+      RecommendationSuitability.Neutral
+    );
+    this.setAttributeInformation(
+      this.validationMethodInformation,
+      this.attributeOptionsService.validationMethods.value,
+      RecommendationSuitability.Neutral
+    );
+    this.setAttributeInformation(
+      this.toolSupportInformation,
+      this.attributeOptionsService.toolSupports.value,
+      RecommendationSuitability.Neutral
+    );
+    this.setAttributeInformation(
+      this.resultsQualityInformation,
+      this.attributeOptionsService.resultsQualities.value,
+      RecommendationSuitability.Neutral
+    );
+    this.setAttributeInformation(
+      this.accuracyPrecisionInformation,
+      this.attributeOptionsService.accuracyPrecisions.value,
+      RecommendationSuitability.Neutral
+    );
+  }
+
+  private applyNoPreset() {
+    this.setAttributeInformation(
+      this.domainArtifactInformation,
+      this.attributeOptionsService.domainArtifacts.value,
+      RecommendationSuitability.Neutral
+    );
+    this.setAttributeInformation(
+      this.runtimeArtifactInformation,
+      this.attributeOptionsService.runtimeArtifacts.value,
+      RecommendationSuitability.Neutral
+    );
+    this.setAttributeInformation(
+      this.modelArtifactInformation,
+      this.attributeOptionsService.modelArtifacts.value,
+      RecommendationSuitability.Neutral
+    );
+    this.setAttributeInformation(
+      this.executableInformation,
+      this.attributeOptionsService.executables.value,
+      RecommendationSuitability.Neutral
+    );
+  }
+
+  private applyNewApplicationPreset() {
+    this.setAttributeInformation(
+      this.domainArtifactInformation,
+      this.attributeOptionsService.domainArtifacts.value,
+      RecommendationSuitability.Include
+    );
+    this.setAttributeInformation(
+      this.runtimeArtifactInformation,
+      this.attributeOptionsService.runtimeArtifacts.value,
+      RecommendationSuitability.Exclude
+    );
+    this.setAttributeInformation(
+      this.modelArtifactInformation,
+      this.attributeOptionsService.modelArtifacts.value,
+      RecommendationSuitability.Include
+    );
+    this.setAttributeInformation(
+      this.executableInformation,
+      this.attributeOptionsService.executables.value,
+      RecommendationSuitability.Exclude
+    );
+  }
+
+  applyReBuildPreset(): void {
+    this.setAttributeInformation(
+      this.domainArtifactInformation,
+      this.attributeOptionsService.domainArtifacts.value,
+      RecommendationSuitability.Include
+    );
+    this.setAttributeInformation(
+      this.runtimeArtifactInformation,
+      this.attributeOptionsService.runtimeArtifacts.value,
+      RecommendationSuitability.Exclude
+    );
+    this.setAttributeInformation(
+      this.modelArtifactInformation,
+      this.attributeOptionsService.modelArtifacts.value,
+      RecommendationSuitability.Include
+    );
+    this.setAttributeInformation(
+      this.executableInformation,
+      this.attributeOptionsService.executables.value,
+      RecommendationSuitability.Exclude
+    );
+  }
+
+  applyReFactorPreset(): void {
+    this.setAttributeInformation(
+      this.domainArtifactInformation,
+      this.attributeOptionsService.domainArtifacts.value,
+      RecommendationSuitability.Exclude
+    );
+    this.setAttributeInformation(
+      this.runtimeArtifactInformation,
+      this.attributeOptionsService.runtimeArtifacts.value,
+      RecommendationSuitability.Include
+    );
+    this.setAttributeInformation(
+      this.modelArtifactInformation,
+      this.attributeOptionsService.modelArtifacts.value,
+      RecommendationSuitability.Exclude
+    );
+    this.setAttributeInformation(
+      this.executableInformation,
+      this.attributeOptionsService.executables.value,
+      RecommendationSuitability.Include
+    );
   }
 }
