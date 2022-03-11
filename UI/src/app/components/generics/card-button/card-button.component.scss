@@ -1,0 +1,13 @@
+.card-button {
+  height: calc(100% - 32px);
+  max-width: 320px;
+  cursor: pointer;
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+.mat-icon {
+  margin-left: 8px;
+  padding: 3px;
+  font-size: 28px;
+}

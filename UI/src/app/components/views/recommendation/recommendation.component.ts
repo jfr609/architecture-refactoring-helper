@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./recommendation.component.css']
 })
 export class RecommendationComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
+  searchNewApplicationRecommendations() {}
 
+  searchReBuildRecommendations() {}
+
+  searchReFactorRecommendations() {}
 }

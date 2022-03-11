@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ApproachRecommendationsService } from '../../../services/approach-recommendations.service';
+import { ApproachRecommendationService } from '../../../services/approach-recommendation.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { ApproachRecommendation } from '../../../../../api/repository/models/approach-recommendation';
@@ -97,7 +97,7 @@ export class RecommendationResultComponent implements OnInit {
 
   attributeEvaluation = AttributeEvaluation;
 
-  constructor(private recommendationsService: ApproachRecommendationsService) {}
+  constructor(private recommendationsService: ApproachRecommendationService) {}
 
   ngOnInit(): void {
     this.setDataSource();

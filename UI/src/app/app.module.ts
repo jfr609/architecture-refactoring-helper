@@ -42,6 +42,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { RecommendationResultComponent } from './components/views/recommendation-result/recommendation-result.component';
 import { RecommendationComponent } from './components/views/recommendation/recommendation.component';
+import { CardButtonComponent } from './components/generics/card-button/card-button.component';
+import { HoverBackgroundColorDirective } from './directives/hover-background-color.directive';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { RecommendationComponent } from './components/views/recommendation/recom
     CreateAttributeDialogComponent,
     DeleteAttributeDialogComponent,
     RecommendationResultComponent,
-    RecommendationComponent
+    RecommendationComponent,
+    CardButtonComponent,
+    HoverBackgroundColorDirective
   ],
   imports: [
     BrowserModule,

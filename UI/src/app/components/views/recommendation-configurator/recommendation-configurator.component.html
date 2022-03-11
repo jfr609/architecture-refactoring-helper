@@ -20,7 +20,7 @@
           <mat-radio-group
             fxLayout='row'
             fxLayoutGap='8px'
-            [(ngModel)]='domainArtifactInformation[i].recommendationSuitability'>
+            [(ngModel)]='recommendationsService.domainArtifactInformation[i].recommendationSuitability'>
             <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
                               [value]='recommendationSuitability'
                               [color]='getRadioButtonColor(recommendationSuitability)'>
@@ -38,7 +38,7 @@
           <mat-radio-group
             fxLayout='row'
             fxLayoutGap='8px'
-            [(ngModel)]='runtimeArtifactInformation[i].recommendationSuitability'>
+            [(ngModel)]='recommendationsService.runtimeArtifactInformation[i].recommendationSuitability'>
             <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
                               [value]='recommendationSuitability'
                               [color]='getRadioButtonColor(recommendationSuitability)'>
@@ -56,7 +56,7 @@
           <mat-radio-group
             fxLayout='row'
             fxLayoutGap='8px'
-            [(ngModel)]='modelArtifactInformation[i].recommendationSuitability'>
+            [(ngModel)]='recommendationsService.modelArtifactInformation[i].recommendationSuitability'>
             <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
                               [value]='recommendationSuitability'
                               [color]='getRadioButtonColor(recommendationSuitability)'>
@@ -74,7 +74,7 @@
           <mat-radio-group
             fxLayout='row'
             fxLayoutGap='8px'
-            [(ngModel)]='executableInformation[i].recommendationSuitability'>
+            [(ngModel)]='recommendationsService.executableInformation[i].recommendationSuitability'>
             <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
                               [value]='recommendationSuitability'
                               [color]='getRadioButtonColor(recommendationSuitability)'>
@@ -109,7 +109,7 @@
             <mat-radio-group
               fxLayout='row'
               fxLayoutGap='8px'
-              [(ngModel)]='directionInformation[i].recommendationSuitability'>
+              [(ngModel)]='recommendationsService.directionInformation[i].recommendationSuitability'>
               <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
                                 [value]='recommendationSuitability'
                                 [color]='getRadioButtonColor(recommendationSuitability)'>
@@ -127,7 +127,7 @@
             <mat-radio-group
               fxLayout='row'
               fxLayoutGap='8px'
-              [(ngModel)]='automationLevelInformation[i].recommendationSuitability'>
+              [(ngModel)]='recommendationsService.automationLevelInformation[i].recommendationSuitability'>
               <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
                                 [value]='recommendationSuitability'
                                 [color]='getRadioButtonColor(recommendationSuitability)'>
@@ -145,7 +145,7 @@
             <mat-radio-group
               fxLayout='row'
               fxLayoutGap='8px'
-              [(ngModel)]='analysisTypeInformation[i].recommendationSuitability'>
+              [(ngModel)]='recommendationsService.analysisTypeInformation[i].recommendationSuitability'>
               <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
                                 [value]='recommendationSuitability'
                                 [color]='getRadioButtonColor(recommendationSuitability)'>
@@ -163,7 +163,7 @@
             <mat-radio-group
               fxLayout='row'
               fxLayoutGap='8px'
-              [(ngModel)]='techniqueInformation[i].recommendationSuitability'>
+              [(ngModel)]='recommendationsService.techniqueInformation[i].recommendationSuitability'>
               <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
                                 [value]='recommendationSuitability'
                                 [color]='getRadioButtonColor(recommendationSuitability)'>
@@ -176,13 +176,14 @@
       <div fxLayout='row'>
         <div fxFlex='25' fxLayout='column'>
           <h2>Requirement quality attributes</h2>
-          <div *ngFor='let quality of getQualitiesByCategory(qualityCategories.Requirement), let i = index'
-               class='attribute-option-container'>
+          <div
+            *ngFor='let quality of attributeOptionsService.getQualitiesByCategory(qualityCategories.Requirement), let i = index'
+            class='attribute-option-container'>
             <span>{{quality.name}}</span>
             <mat-radio-group
               fxLayout='row'
               fxLayoutGap='8px'
-              [(ngModel)]='qualityRequirementInformation[i].recommendationSuitability'>
+              [(ngModel)]='recommendationsService.qualityRequirementInformation[i].recommendationSuitability'>
               <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
                                 [value]='recommendationSuitability'
                                 [color]='getRadioButtonColor(recommendationSuitability)'>
@@ -194,13 +195,14 @@
 
         <div fxFlex='25' fxLayout='column'>
           <h2>Metric quality attributes</h2>
-          <div *ngFor='let quality of getQualitiesByCategory(qualityCategories.Metric), let i = index'
-               class='attribute-option-container'>
+          <div
+            *ngFor='let quality of attributeOptionsService.getQualitiesByCategory(qualityCategories.Metric), let i = index'
+            class='attribute-option-container'>
             <span>{{quality.name}}</span>
             <mat-radio-group
               fxLayout='row'
               fxLayoutGap='8px'
-              [(ngModel)]='qualityMetricInformation[i].recommendationSuitability'>
+              [(ngModel)]='recommendationsService.qualityMetricInformation[i].recommendationSuitability'>
               <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
                                 [value]='recommendationSuitability'
                                 [color]='getRadioButtonColor(recommendationSuitability)'>
@@ -235,7 +237,7 @@
           <mat-radio-group
             fxLayout='row'
             fxLayoutGap='8px'
-            [(ngModel)]='architectureInformation[i].recommendationSuitability'>
+            [(ngModel)]='recommendationsService.architectureInformation[i].recommendationSuitability'>
             <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
                               [value]='recommendationSuitability'
                               [color]='getRadioButtonColor(recommendationSuitability)'>
@@ -253,7 +255,7 @@
           <mat-radio-group
             fxLayout='row'
             fxLayoutGap='8px'
-            [(ngModel)]='serviceTypeInformation[i].recommendationSuitability'>
+            [(ngModel)]='recommendationsService.serviceTypeInformation[i].recommendationSuitability'>
             <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
                               [value]='recommendationSuitability'
                               [color]='getRadioButtonColor(recommendationSuitability)'>
@@ -287,7 +289,7 @@
           <mat-radio-group
             fxLayout='row'
             fxLayoutGap='8px'
-            [(ngModel)]='validationMethodInformation[i].recommendationSuitability'>
+            [(ngModel)]='recommendationsService.validationMethodInformation[i].recommendationSuitability'>
             <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
                               [value]='recommendationSuitability'
                               [color]='getRadioButtonColor(recommendationSuitability)'>
@@ -305,7 +307,7 @@
           <mat-radio-group
             fxLayout='row'
             fxLayoutGap='8px'
-            [(ngModel)]='toolSupportInformation[i].recommendationSuitability'>
+            [(ngModel)]='recommendationsService.toolSupportInformation[i].recommendationSuitability'>
             <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
                               [value]='recommendationSuitability'
                               [color]='getRadioButtonColor(recommendationSuitability)'>
@@ -323,7 +325,7 @@
           <mat-radio-group
             fxLayout='row'
             fxLayoutGap='8px'
-            [(ngModel)]='resultsQualityInformation[i].recommendationSuitability'>
+            [(ngModel)]='recommendationsService.resultsQualityInformation[i].recommendationSuitability'>
             <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
                               [value]='recommendationSuitability'
                               [color]='getRadioButtonColor(recommendationSuitability)'>
@@ -341,7 +343,7 @@
           <mat-radio-group
             fxLayout='row'
             fxLayoutGap='8px'
-            [(ngModel)]='accuracyPrecisionInformation[i].recommendationSuitability'>
+            [(ngModel)]='recommendationsService.accuracyPrecisionInformation[i].recommendationSuitability'>
             <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
                               [value]='recommendationSuitability'
                               [color]='getRadioButtonColor(recommendationSuitability)'>

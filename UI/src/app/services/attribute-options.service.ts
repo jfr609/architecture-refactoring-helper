@@ -31,6 +31,7 @@ import {
 } from '../components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
 import { Validators } from '@angular/forms';
 import { removeValueFromArray } from '../utils/utils';
+import { QualityCategory } from '../../../api/repository/models/quality-category';
 
 @Injectable({
   providedIn: 'root'
@@ -86,6 +87,12 @@ export class AttributeOptionsService {
     private usabilityService: ApproachUsabilityService,
     private utilService: UtilService
   ) {}
+
+  getQualitiesByCategory(category: QualityCategory): Quality[] {
+    return this.qualities.value.filter(
+      (value: Quality) => value.category === category
+    );
+  }
 
   requestAttributeOptions(): Promise<Awaited<void>[]> {
     const dataLoadingPromises: Promise<void>[] = [];

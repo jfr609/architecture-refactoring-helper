@@ -1,6 +1,9 @@
 @import "../node_modules/@angular/material/theming";
 @import "styles";
+
 @include mat-core();
+
+$theme-brown: mat-palette($mat-brown, 500);
 
 $light-theme-primary: mat-palette($mat-green, 400);
 $light-theme-accent: mat-palette($mat-blue, A400);
@@ -14,14 +17,20 @@ $light-theme: mat-light-theme($light-theme-primary, $light-theme-accent, $light-
   --color-primary: #{mat-color($light-theme-primary)};
   --color-primary-lighter: #{mat-color($light-theme-primary, lighter)};
   --color-primary-darker: #{mat-color($light-theme-primary, darker)};
-  --color-primary-15: #{mat-color($light-theme-primary, 0.15)};
-  --color-primary-30: #{mat-color($light-theme-primary, 0.3)};
+  --color-primary-50: #{mat-color($light-theme-primary, 0.5)};
+
   --color-accent: #{mat-color($light-theme-accent)};
   --color-accent-lighter: #{mat-color($light-theme-accent, lighter)};
   --color-accent-darker: #{mat-color($light-theme-accent, darker)};
-  --color-accent-15: #{mat-color($light-theme-accent, 0.15)};
-  --color-accent-30: #{mat-color($light-theme-accent, 0.3)};
+  --color-accent-50: #{mat-color($light-theme-accent, 0.5)};
+
   --color-warn: #{mat-color($light-theme-warn)};
-  --color-warn-15: #{mat-color($light-theme-warn, 0.15)};
-  --color-warn-30: #{mat-color($light-theme-warn, 0.3)};
+  --color-warn-lighter: #{mat-color($light-theme-warn, lighter)};
+  --color-warn-darker: #{mat-color($light-theme-warn, darker)};
+  --color-warn-50: #{mat-color($light-theme-warn, 0.5)};
+
+  --color-brown: #{mat-color($theme-brown)};
+  --color-brown-lighter: #{mat-color($theme-brown, lighter)};
+  --color-brown-darker: #{mat-color($theme-brown, darker)};
+  --color-brown-50: #{mat-color($theme-brown, 0.5)};
 }

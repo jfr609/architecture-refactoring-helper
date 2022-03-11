@@ -1,0 +1,14 @@
+<mat-card class='card-button'
+          [style.background-color]='getBackgroundColor()'
+          [appHoverBackgroundColor]='getHoverBackgroundColor()'>
+  <mat-card-title>
+    <div fxLayout='row' fxLayoutAlign='start center'>
+      <ng-content select='[title]'></ng-content>
+      <mat-icon *ngIf='icon'>{{ icon }}</mat-icon>
+    </div>
+
+  </mat-card-title>
+  <mat-card-content>
+    <ng-content select='[content]'></ng-content>
+  </mat-card-content>
+</mat-card>

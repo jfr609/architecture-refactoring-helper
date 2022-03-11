@@ -1,5 +1,25 @@
 <div fxLayout='column' fxLayoutAlign='start center' fxLayoutGap='20px'>
-  <h1>Recommendation</h1>
+  <h1>Check for Recommendations</h1>
   <img src='assets/recommendation-diagram.png'>
-  <button mat-raised-button color='accent' routerLink='/recommendation/configure'>Configure</button>
+  <div fxLayout='row' fxLayoutGap='20px'>
+    <app-card-button color='primary'
+                     icon='add_to_queue'
+                     (click)='searchNewApplicationRecommendations()'>
+      <ng-container title>New application</ng-container>
+    </app-card-button>
+    <app-card-button color='brown'
+                     icon='build'
+                     (click)='searchReBuildRecommendations()'>
+      <ng-container title>Re-Build</ng-container>
+    </app-card-button>
+    <app-card-button color='brown'
+                     icon='loop'
+                     (click)='searchReFactorRecommendations()'>
+      <ng-container title>Re-Factor</ng-container>
+    </app-card-button>
+    <app-card-button icon='settings'
+                     routerLink='/recommendation/configure'>
+      <ng-container title>Configure</ng-container>
+    </app-card-button>
+  </div>
 </div>
