@@ -206,11 +206,13 @@
            fxLayout='row'>
         <div fxFlex='25'>
           <p [class]='getArchitectureColor(output.architecture)'>
-            <strong>Architecture:</strong> {{output.architecture.name}}</p>
+            <strong>Architecture:</strong> {{output.architecture.name}}
+          </p>
         </div>
         <div fxFlex='25'>
-          <p [class]='getServiceTypeColor(output.serviceType)'><strong>Service
-            type:</strong> {{output.serviceType.name}}</p>
+          <p [class]='getServiceTypeColor(output.serviceType)'>
+            <strong>Service type:</strong> {{output.serviceType.name}}
+          </p>
         </div>
       </div>
     </mat-card-content>

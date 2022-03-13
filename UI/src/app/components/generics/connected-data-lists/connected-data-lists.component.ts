@@ -7,7 +7,7 @@ import {
 
 export class ConnectedDataListElement {
   displayName!: string;
-  dataElement?: unknown;
+  dataElement?: any;
 }
 
 @Component({
@@ -53,5 +53,15 @@ export class ConnectedDataListsComponent implements OnInit {
 
   onDeleteAttributeClicked() {
     this.deleteAttribute.emit();
+  }
+
+  getTooltip(item: ConnectedDataListElement): string {
+    if (
+      item.dataElement.description != null &&
+      item.dataElement.description.trim() != ''
+    ) {
+      return item.dataElement.descption;
+    }
+    return 'No description';
   }
 }

@@ -15,7 +15,13 @@
          [cdkDropListData]='sourceDataList'
          (cdkDropListDropped)='drop($event)'
          class='connected-data-list mat-elevation-z8'>
-      <div *ngFor='let item1 of sourceDataList' class='connected-data-list-item' cdkDrag>
+      <div *ngFor='let item1 of sourceDataList'
+           class='connected-data-list-item'
+           #tooltip='matTooltip'
+           [matTooltip]='getTooltip(item1)'
+           matTooltipShowDelay='1000'
+           matTooltipHideDelay='1000'
+           cdkDrag>
         {{item1.displayName}}
       </div>
     </div>
@@ -26,7 +32,13 @@
          [cdkDropListData]='targetDataList'
          (cdkDropListDropped)='drop($event)'
          class='connected-data-list mat-elevation-z8'>
-      <div *ngFor='let item2 of targetDataList' class='connected-data-list-item' cdkDrag>
+      <div *ngFor='let item2 of targetDataList'
+           class='connected-data-list-item'
+           #tooltip='matTooltip'
+           [matTooltip]='getTooltip(item2)'
+           matTooltipShowDelay='1000'
+           matTooltipHideDelay='1000'
+           cdkDrag>
         {{item2.displayName}}
       </div>
     </div>

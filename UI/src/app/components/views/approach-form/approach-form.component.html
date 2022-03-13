@@ -233,7 +233,12 @@
             <mat-form-field fxFlex appearance='fill'>
               <mat-label>Select an output architecture</mat-label>
               <mat-select [(ngModel)]='selectedOutputArchitecture' name='food'>
-                <mat-option *ngFor='let architecture of attributeOptionsService.architectures.value' [value]='architecture'>
+                <mat-option *ngFor='let architecture of attributeOptionsService.architectures.value'
+                            [value]='architecture'
+                            #tooltip='matTooltip'
+                            [matTooltip]='getTooltip(architecture)'
+                            matTooltipShowDelay='1000'
+                            matTooltipHideDelay='1000'>
                   {{architecture.name}}
                 </mat-option>
               </mat-select>
@@ -252,7 +257,12 @@
             <mat-form-field fxFlex appearance='fill'>
               <mat-label>Select an output service type</mat-label>
               <mat-select [(ngModel)]='selectedOutputServiceType' name='food'>
-                <mat-option *ngFor='let serviceType of attributeOptionsService.serviceTypes.value' [value]='serviceType'>
+                <mat-option *ngFor='let serviceType of attributeOptionsService.serviceTypes.value'
+                            [value]='serviceType'
+                            #tooltip='matTooltip'
+                            [matTooltip]='getTooltip(serviceType)'
+                            matTooltipShowDelay='1000'
+                            matTooltipHideDelay='1000'>
                   {{serviceType.name}}
                 </mat-option>
               </mat-select>
@@ -280,7 +290,18 @@
           <mat-list *ngIf='currentOutputList.length >= 1' class='output-list mat-elevation-z8'>
             <mat-list-item *ngFor='let output of currentOutputList'>
               <p *ngIf='output.architecture && output.serviceType'>
-                {{output.architecture.name}}: {{output.serviceType.name}}
+                <span #tooltip='matTooltip'
+                      [matTooltip]='getTooltip(output.architecture)'
+                      matTooltipShowDelay='1000'
+                      matTooltipHideDelay='1000'>
+                  {{output.architecture.name}}:
+                </span>
+                <span #tooltip='matTooltip'
+                      [matTooltip]='getTooltip(output.serviceType)'
+                      matTooltipShowDelay='1000'
+                      matTooltipHideDelay='1000'>
+                  {{output.serviceType.name}}
+                </span>
               </p>
               <p *ngIf='!output.architecture || !output.serviceType'>Undefined output!</p>
               <button mat-icon-button color='warn' (click)='removeOutput(output)'>
@@ -325,7 +346,11 @@
               fxLayoutGap='8px'
               [(ngModel)]='selectedValidationMethod'>
               <mat-radio-button *ngFor='let validationMethod of attributeOptionsService.validationMethods.value'
-                                [value]='validationMethod'>
+                                [value]='validationMethod'
+                                #tooltip='matTooltip'
+                                [matTooltip]='getTooltip(validationMethod)'
+                                matTooltipShowDelay='1000'
+                                matTooltipHideDelay='1000'>
                 {{validationMethod.name}}
               </mat-radio-button>
             </mat-radio-group>
@@ -347,7 +372,12 @@
               fxLayout='column'
               fxLayoutGap='8px'
               [(ngModel)]='selectedToolSupport'>
-              <mat-radio-button *ngFor='let toolSupport of attributeOptionsService.toolSupports.value' [value]='toolSupport'>
+              <mat-radio-button *ngFor='let toolSupport of attributeOptionsService.toolSupports.value'
+                                [value]='toolSupport'
+                                #tooltip='matTooltip'
+                                [matTooltip]='getTooltip(toolSupport)'
+                                matTooltipShowDelay='1000'
+                                matTooltipHideDelay='1000'>
                 {{toolSupport.name}}
               </mat-radio-button>
             </mat-radio-group>
@@ -371,7 +401,11 @@
               fxLayoutGap='8px'
               [(ngModel)]='selectedResultsQuality'>
               <mat-radio-button *ngFor='let resultsQuality of attributeOptionsService.resultsQualities.value'
-                                [value]='resultsQuality'>
+                                [value]='resultsQuality'
+                                #tooltip='matTooltip'
+                                [matTooltip]='getTooltip(resultsQuality)'
+                                matTooltipShowDelay='1000'
+                                matTooltipHideDelay='1000'>
                 {{resultsQuality.name}}
               </mat-radio-button>
             </mat-radio-group>
@@ -394,7 +428,11 @@
               fxLayoutGap='8px'
               [(ngModel)]='selectedAccuracyPrecision'>
               <mat-radio-button *ngFor='let accuracyPrecision of attributeOptionsService.accuracyPrecisions.value'
-                                [value]='accuracyPrecision'>
+                                [value]='accuracyPrecision'
+                                #tooltip='matTooltip'
+                                [matTooltip]='getTooltip(accuracyPrecision)'
+                                matTooltipShowDelay='1000'
+                                matTooltipHideDelay='1000'>
                 {{accuracyPrecision.name}}
               </mat-radio-button>
             </mat-radio-group>

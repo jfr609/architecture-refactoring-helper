@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { RefactoringApproach } from '../../../../../api/repository/models/refactoring-approach';
-import { BehaviorSubject, lastValueFrom, Subscription } from 'rxjs';
+import { lastValueFrom, Subscription } from 'rxjs';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { RefactoringApproachService } from '../../../../../api/repository/services/refactoring-approach.service';
 import { UtilService } from '../../../services/util.service';
@@ -530,6 +530,13 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
           );
         }
       });
+  }
+
+  getTooltip(attribute: any): string {
+    if (attribute.description != null && attribute.description.trim() != '') {
+      return attribute.descption;
+    }
+    return 'No description';
   }
 
   createRefactoringApproach(): void {
