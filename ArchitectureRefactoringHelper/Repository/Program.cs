@@ -62,7 +62,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 // Seed database with initial data
-var dataSeeder = new DataSeeder();
-dataSeeder.GenerateSeedDataAsync(app).Wait();
+DataSeeder.GenerateSeedDataAsync(app).Wait();
 
 app.Run();

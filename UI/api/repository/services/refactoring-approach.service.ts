@@ -20,6 +20,7 @@ import { DomainArtifactInput } from '../models/domain-artifact-input';
 import { ExecutableInput } from '../models/executable-input';
 import { ModelArtifactInput } from '../models/model-artifact-input';
 import { Quality } from '../models/quality';
+import { RecommendationPreset } from '../models/recommendation-preset';
 import { RefactoringApproach } from '../models/refactoring-approach';
 import { ResultsQuality } from '../models/results-quality';
 import { RuntimeArtifactInput } from '../models/runtime-artifact-input';
@@ -274,12 +275,14 @@ export class RefactoringApproachService extends BaseService {
    */
   recommendRefactoringApproaches$Response(params?: {
     count?: number;
+    preset?: RecommendationPreset;
     body?: ApproachRecommendationRequest
   }): Observable<StrictHttpResponse<Array<ApproachRecommendation>>> {
 
     const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.RecommendRefactoringApproachesPath, 'post');
     if (params) {
       rb.query('count', params.count, {});
+      rb.query('preset', params.preset, {});
       rb.body(params.body, 'application/*+json');
     }
 
@@ -302,6 +305,7 @@ export class RefactoringApproachService extends BaseService {
    */
   recommendRefactoringApproaches(params?: {
     count?: number;
+    preset?: RecommendationPreset;
     body?: ApproachRecommendationRequest
   }): Observable<Array<ApproachRecommendation>> {
 

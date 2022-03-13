@@ -1574,6 +1574,13 @@
               "type": "integer",
               "format": "int32"
             }
+          },
+          {
+            "name": "preset",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/RecommendationPreset"
+            }
           }
         ],
         "requestBody": {
@@ -3388,6 +3395,14 @@
         "enum": [
           "Requirement",
           "Metric"
+        ],
+        "type": "string"
+      },
+      "RecommendationPreset": {
+        "enum": [
+          "NewApplication",
+          "ReBuild",
+          "ReFactor"
         ],
         "type": "string"
       },

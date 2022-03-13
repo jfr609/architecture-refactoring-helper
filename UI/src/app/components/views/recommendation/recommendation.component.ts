@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ApproachRecommendationService } from '../../../services/approach-recommendation.service';
-import { RecommendationPreset } from '../../../utils/models/recommendation-preset';
 import { ApproachRecommendationRequest } from '../../../../../api/repository/models/approach-recommendation-request';
 import { lastValueFrom } from 'rxjs';
 import { ApproachRecommendation } from '../../../../../api/repository/models/approach-recommendation';
 import { RefactoringApproachService } from '../../../../../api/repository/services/refactoring-approach.service';
 import { UtilService } from '../../../services/util.service';
 import { Router } from '@angular/router';
+import { RecommendationPreset } from '../../../../../api/repository/models/recommendation-preset';
 
 @Component({
   selector: 'app-recommendation',
@@ -24,35 +24,45 @@ export class RecommendationComponent implements OnInit {
   ngOnInit(): void {}
 
   searchNewApplicationRecommendations() {
-    this.recommendationService
-      .createPresetRecommendationRequest(RecommendationPreset.NewApplication)
-      .then((value: ApproachRecommendationRequest) => {
-        this.requestRecommendationAndNavigate(value);
+    lastValueFrom(
+      this.refactoringApproachService.recommendRefactoringApproaches({
+        preset: RecommendationPreset.NewApplication
+      })
+    )
+      .then((value: ApproachRecommendation[]) => {
+        this.recommendationService.recommendations.next(value);
+        this.router.navigate(['/recommendation/result']);
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Receiving recommended refactoring approaches failed.'
+        );
       });
   }
 
   searchReBuildRecommendations() {
-    this.recommendationService
-      .createPresetRecommendationRequest(RecommendationPreset.ReBuild)
-      .then((value: ApproachRecommendationRequest) => {
-        this.requestRecommendationAndNavigate(value);
+    lastValueFrom(
+      this.refactoringApproachService.recommendRefactoringApproaches({
+        preset: RecommendationPreset.ReBuild
+      })
+    )
+      .then((value: ApproachRecommendation[]) => {
+        this.recommendationService.recommendations.next(value);
+        this.router.navigate(['/recommendation/result']);
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Receiving recommended refactoring approaches failed.'
+        );
       });
   }
 
   searchReFactorRecommendations() {
-    this.recommendationService
-      .createPresetRecommendationRequest(RecommendationPreset.ReFactor)
-      .then((value: ApproachRecommendationRequest) => {
-        this.requestRecommendationAndNavigate(value);
-      });
-  }
-
-  requestRecommendationAndNavigate(
-    approachRecommendationRequest: ApproachRecommendationRequest
-  ): void {
     lastValueFrom(
       this.refactoringApproachService.recommendRefactoringApproaches({
-        body: approachRecommendationRequest
+        preset: RecommendationPreset.ReFactor
       })
     )
       .then((value: ApproachRecommendation[]) => {

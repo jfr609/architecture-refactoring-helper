@@ -1,0 +1,91 @@
+{
+  "domainArtifactInformation": [
+    {
+      "attribute": {
+        "name": "Documentation"
+      },
+      "recommendationSuitability": 2
+    },
+    {
+      "attribute": {
+        "name": "Human expertise"
+      },
+      "recommendationSuitability": 2
+    },
+    {
+      "attribute": {
+        "name": "Ontology"
+      },
+      "recommendationSuitability": 2
+    }
+  ],
+  "runtimeArtifactInformation": [
+    {
+      "attribute": {
+        "name": "Log traces"
+      },
+      "recommendationSuitability": 0
+    },
+    {
+      "attribute": {
+        "name": "User-Application interactions"
+      },
+      "recommendationSuitability": 0
+    }
+  ],
+  "modelArtifactInformation": [
+    {
+      "attribute": {
+        "name": "Activity diagram"
+      },
+      "recommendationSuitability": 2
+    },
+    {
+      "attribute": {
+        "name": "Business process model"
+      },
+      "recommendationSuitability": 2
+    },
+    {
+      "attribute": {
+        "name": "Data flow diagram"
+      },
+      "recommendationSuitability": 2
+    },
+    {
+      "attribute": {
+        "name": "State machine diagram"
+      },
+      "recommendationSuitability": 2
+    },
+    {
+      "attribute": {
+        "name": "Use case model"
+      },
+      "recommendationSuitability": 2
+    }
+  ],
+  "executableInformation": [
+    {
+      "attribute": {
+        "name": "Database file",
+        "language": "No specification"
+      },
+      "recommendationSuitability": 0
+    },
+    {
+      "attribute": {
+        "name": "Source code",
+        "language": "No specification"
+      },
+      "recommendationSuitability": 0
+    },
+    {
+      "attribute": {
+        "name": "Test cases",
+        "language": "No specification"
+      },
+      "recommendationSuitability": 0
+    }
+  ]
+}

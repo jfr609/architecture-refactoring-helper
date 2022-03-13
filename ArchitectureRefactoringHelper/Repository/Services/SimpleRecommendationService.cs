@@ -1,5 +1,6 @@
 using Repository.Models.Database;
 using Repository.Models.Recommendation;
+using Repository.RecommendationPresets;
 
 namespace Repository.Services;
 
@@ -21,9 +22,18 @@ public class SimpleRecommendationService : IRecommendationService
         var recommendations = refactoringApproaches
             .Select(refactoringApproach => EvaluateApproachSuitability(refactoringApproach, recommendationRequest))
             .OrderByDescending(e => e.SuitabilityScore)
+            .Take(numberOfRecommendations)
             .ToList();
 
         return recommendations;
+    }
+
+    public IEnumerable<ApproachRecommendation> GetApproachRecommendations(RecommendationPreset recommendationPreset,
+        int numberOfRecommendations)
+    {
+        var recommendationRequest = RecommendationPresetBuilder.GetRequest(recommendationPreset);
+
+        return GetApproachRecommendations(recommendationRequest, numberOfRecommendations);
     }
 
     private ApproachRecommendation EvaluateApproachSuitability(RefactoringApproach refactoringApproach,
@@ -284,8 +294,8 @@ public class SimpleRecommendationService : IRecommendationService
     private static int CalculateSuitabilityScore(int attributeCount, int matchCount, int neutralCount,
         int mismatchCount)
     {
-        int hitCount = attributeCount - neutralCount;
-        bool notEnoughInformation = attributeCount < 1 || hitCount < 1;
+        var hitCount = attributeCount - neutralCount;
+        var notEnoughInformation = attributeCount < 1 || hitCount < Constants.NumberOfSuitabilityHits;
         if (notEnoughInformation)
         {
             return -1;

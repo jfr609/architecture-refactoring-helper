@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Repository.Exceptions;
 using Repository.Models.Database;
 using Repository.Models.Recommendation;
@@ -79,12 +80,30 @@ public class RefactoringApproachController : ControllerBase
 
     [HttpPost("recommendations", Name = "RecommendRefactoringApproaches")]
     public ActionResult<IEnumerable<ApproachRecommendation>> RecommendRefactoringApproaches(
-        [FromBody] ApproachRecommendationRequest approachRecommendationRequest,
-        [FromQuery] int? count)
+        [FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Allow)] ApproachRecommendationRequest? approachRecommendationRequest,
+        [FromQuery] int? count,
+        [FromQuery] RecommendationPreset? preset)
     {
+        // Console.WriteLine(approachRecommendationRequest.ToJsonString());
         var numberOfRecommendations = count ?? Constants.DefaultNumberOfRecommendations;
-        var recommendations =
-            _recommendationService.GetApproachRecommendations(approachRecommendationRequest, numberOfRecommendations);
+
+        IEnumerable<ApproachRecommendation> recommendations;
+        if (preset == null)
+        {
+            if (approachRecommendationRequest == null)
+                return BadRequest("Either a request body or a preset is required");
+
+            recommendations =
+                _recommendationService.GetApproachRecommendations(approachRecommendationRequest,
+                    numberOfRecommendations);
+        }
+        else
+        {
+            recommendations =
+                _recommendationService.GetApproachRecommendations((RecommendationPreset)preset,
+                    numberOfRecommendations);
+        }
+
         return Ok(recommendations);
     }
 

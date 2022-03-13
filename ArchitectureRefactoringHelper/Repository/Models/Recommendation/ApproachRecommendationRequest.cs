@@ -6,63 +6,82 @@ namespace Repository.Models.Recommendation;
 
 public class ApproachRecommendationRequest
 {
+    public ApproachRecommendationRequest()
+    {
+        DomainArtifactInformation = new List<AttributeRecommendationInformation<DomainArtifactInput>>();
+        RuntimeArtifactInformation = new List<AttributeRecommendationInformation<RuntimeArtifactInput>>();
+        ModelArtifactInformation = new List<AttributeRecommendationInformation<ModelArtifactInput>>();
+        ExecutableInformation = new List<AttributeRecommendationInformation<ExecutableInput>>();
+        QualityInformation = new List<AttributeRecommendationInformation<Quality>>();
+        DirectionInformation = new List<AttributeRecommendationInformation<Direction>>();
+        AutomationLevelInformation = new List<AttributeRecommendationInformation<AutomationLevel>>();
+        AnalysisTypeInformation = new List<AttributeRecommendationInformation<AnalysisType>>();
+        TechniqueInformation = new List<AttributeRecommendationInformation<Technique>>();
+        ArchitectureInformation = new List<AttributeRecommendationInformation<Architecture>>();
+        ServiceTypeInformation = new List<AttributeRecommendationInformation<ServiceType>>();
+        ResultsQualityInformation = new List<AttributeRecommendationInformation<ResultsQuality>>();
+        ToolSupportInformation = new List<AttributeRecommendationInformation<ToolSupport>>();
+        AccuracyPrecisionInformation = new List<AttributeRecommendationInformation<AccuracyPrecision>>();
+        ValidationMethodInformation = new List<AttributeRecommendationInformation<ValidationMethod>>();
+    }
+
     [Required]
     [JsonPropertyName("domainArtifactInformation")]
-    public IList<AttributeRecommendationInformation<DomainArtifactInput>> DomainArtifactInformation { get; set; }
+    public List<AttributeRecommendationInformation<DomainArtifactInput>> DomainArtifactInformation { get; set; }
 
     [Required]
     [JsonPropertyName("runtimeArtifactInformation")]
-    public IList<AttributeRecommendationInformation<RuntimeArtifactInput>> RuntimeArtifactInformation { get; set; }
+    public List<AttributeRecommendationInformation<RuntimeArtifactInput>> RuntimeArtifactInformation { get; set; }
 
     [Required]
     [JsonPropertyName("modelArtifactInformation")]
-    public IList<AttributeRecommendationInformation<ModelArtifactInput>> ModelArtifactInformation { get; set; }
+    public List<AttributeRecommendationInformation<ModelArtifactInput>> ModelArtifactInformation { get; set; }
 
     [Required]
     [JsonPropertyName("executableInformation")]
-    public IList<AttributeRecommendationInformation<ExecutableInput>> ExecutableInformation { get; set; }
+    public List<AttributeRecommendationInformation<ExecutableInput>> ExecutableInformation { get; set; }
 
     [Required]
     [JsonPropertyName("qualityInformation")]
-    public IList<AttributeRecommendationInformation<Quality>> QualityInformation { get; set; }
+    public List<AttributeRecommendationInformation<Quality>> QualityInformation { get; set; }
 
     [Required]
     [JsonPropertyName("directionInformation")]
-    public IList<AttributeRecommendationInformation<Direction>> DirectionInformation { get; set; }
+    public List<AttributeRecommendationInformation<Direction>> DirectionInformation { get; set; }
 
     [Required]
     [JsonPropertyName("automationLevelInformation")]
-    public IList<AttributeRecommendationInformation<AutomationLevel>> AutomationLevelInformation { get; set; }
+    public List<AttributeRecommendationInformation<AutomationLevel>> AutomationLevelInformation { get; set; }
 
     [Required]
     [JsonPropertyName("analysisTypeInformation")]
-    public IList<AttributeRecommendationInformation<AnalysisType>> AnalysisTypeInformation { get; set; }
+    public List<AttributeRecommendationInformation<AnalysisType>> AnalysisTypeInformation { get; set; }
 
     [Required]
     [JsonPropertyName("techniqueInformation")]
-    public IList<AttributeRecommendationInformation<Technique>> TechniqueInformation { get; set; }
+    public List<AttributeRecommendationInformation<Technique>> TechniqueInformation { get; set; }
 
     [Required]
     [JsonPropertyName("architectureInformation")]
-    public IList<AttributeRecommendationInformation<Architecture>> ArchitectureInformation { get; set; }
+    public List<AttributeRecommendationInformation<Architecture>> ArchitectureInformation { get; set; }
 
     [Required]
     [JsonPropertyName("serviceTypeInformation")]
-    public IList<AttributeRecommendationInformation<ServiceType>> ServiceTypeInformation { get; set; }
+    public List<AttributeRecommendationInformation<ServiceType>> ServiceTypeInformation { get; set; }
 
     [Required]
     [JsonPropertyName("resultsQualityInformation")]
-    public IList<AttributeRecommendationInformation<ResultsQuality>> ResultsQualityInformation { get; set; }
+    public List<AttributeRecommendationInformation<ResultsQuality>> ResultsQualityInformation { get; set; }
 
     [Required]
     [JsonPropertyName("toolSupportInformation")]
-    public IList<AttributeRecommendationInformation<ToolSupport>> ToolSupportInformation { get; set; }
+    public List<AttributeRecommendationInformation<ToolSupport>> ToolSupportInformation { get; set; }
 
     [Required]
     [JsonPropertyName("accuracyPrecisionInformation")]
-    public IList<AttributeRecommendationInformation<AccuracyPrecision>> AccuracyPrecisionInformation { get; set; }
+    public List<AttributeRecommendationInformation<AccuracyPrecision>> AccuracyPrecisionInformation { get; set; }
 
     [Required]
     [JsonPropertyName("validationMethodInformation")]
-    public IList<AttributeRecommendationInformation<ValidationMethod>> ValidationMethodInformation { get; set; }
+    public List<AttributeRecommendationInformation<ValidationMethod>> ValidationMethodInformation { get; set; }
 }

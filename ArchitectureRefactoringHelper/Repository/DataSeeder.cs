@@ -5,9 +5,9 @@ using Repository.Services;
 
 namespace Repository;
 
-public class DataSeeder
+public static class DataSeeder
 {
-    public async Task GenerateSeedDataAsync(IHost host)
+    public static async Task GenerateSeedDataAsync(IHost host)
     {
         await using (var db = new RefactoringApproachContext())
         {
@@ -25,10 +25,9 @@ public class DataSeeder
 
         var seedData = GetSeedDataFromJson<RefactoringApproach>("refactoringApproaches.json");
         await AddRefactoringApproachesAsync(seedData, inputService, processService, outputService, usabilityService);
-        // Console.WriteLine(GetSeedDataFromJson<DomainArtifactInput>("domainArtifacts.json").ToJsonString());
     }
 
-    private async Task AddRefactoringApproachesAsync(IEnumerable<RefactoringApproach> refactoringApproaches,
+    private static async Task AddRefactoringApproachesAsync(IEnumerable<RefactoringApproach> refactoringApproaches,
         ApproachInputService inputService, 
         ApproachProcessService processService, 
         ApproachOutputService outputService,

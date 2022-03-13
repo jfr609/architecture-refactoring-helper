@@ -34,6 +34,7 @@ export { Quality } from './models/quality';
 export { QualityApproachAttributeEvaluation } from './models/quality-approach-attribute-evaluation';
 export { QualityAttributeRecommendationInformation } from './models/quality-attribute-recommendation-information';
 export { QualityCategory } from './models/quality-category';
+export { RecommendationPreset } from './models/recommendation-preset';
 export { RecommendationSuitability } from './models/recommendation-suitability';
 export { RefactoringApproach } from './models/refactoring-approach';
 export { ResultsQuality } from './models/results-quality';
