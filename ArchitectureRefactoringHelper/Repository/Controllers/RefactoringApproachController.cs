@@ -84,7 +84,6 @@ public class RefactoringApproachController : ControllerBase
         [FromQuery] int? count,
         [FromQuery] RecommendationPreset? preset)
     {
-        // Console.WriteLine(approachRecommendationRequest.ToJsonString());
         var numberOfRecommendations = count ?? Constants.DefaultNumberOfRecommendations;
 
         IEnumerable<ApproachRecommendation> recommendations;

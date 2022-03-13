@@ -4,10 +4,16 @@
 <div *ngIf='!isDataLoading' style='margin-bottom: 32px' fxLayout='column' fxLayoutAlign='start center'>
   <h1 fxLayout='row'>
     {{refactoringApproach.approachSource?.title}}
-    <button mat-mini-fab style='margin-left: 8px' (click)='goToEdit()'>
+    <button *ngIf='!selectedRecommendation' mat-mini-fab style='margin-left: 8px' (click)='goToEdit()'>
       <mat-icon>edit</mat-icon>
     </button>
+    <button mat-mini-fab color='warn' style='margin-left: 8px' (click)='goBack()'>
+      <mat-icon>arrow_back</mat-icon>
+    </button>
   </h1>
+  <h2 *ngIf='selectedRecommendation' [class]='getSuitabilityColor()'>
+    {{selectedRecommendation?.suitabilityScore}}%
+  </h2>
 
   <mat-card>
     <mat-card-title>Source</mat-card-title>
@@ -52,7 +58,7 @@
         </div>
         <div fxFlex fxLayout='column'>
           <div *ngFor='let domainArtifact of refactoringApproach.domainArtifactInputs'>
-            <p><strong>{{domainArtifact.name}}</strong></p>
+            <p [class]='getDomainArtifactColor(domainArtifact)'><strong>{{domainArtifact.name}}</strong></p>
             <p *ngIf='domainArtifact.description'>
               {{domainArtifact.description}}
             </p>
@@ -67,7 +73,7 @@
         </div>
         <div fxFlex fxLayout='column'>
           <div *ngFor='let runtimeArtifact of refactoringApproach.runtimeArtifactInputs'>
-            <p><strong>{{runtimeArtifact.name}}</strong></p>
+            <p [class]='getRuntimeArtifactColor(runtimeArtifact)'><strong>{{runtimeArtifact.name}}</strong></p>
             <p *ngIf='runtimeArtifact.description'>
               {{runtimeArtifact.description}}
             </p>
@@ -82,7 +88,7 @@
         </div>
         <div fxFlex fxLayout='column'>
           <div *ngFor='let modelArtifact of refactoringApproach.modelArtifactInputs'>
-            <p><strong>{{modelArtifact.name}}</strong></p>
+            <p [class]='getModelArtifactColor(modelArtifact)'><strong>{{modelArtifact.name}}</strong></p>
             <p *ngIf='modelArtifact.description'>
               {{modelArtifact.description}}
             </p>
@@ -97,7 +103,8 @@
         </div>
         <div fxFlex fxLayout='column'>
           <div *ngFor='let executable of refactoringApproach.executableInputs'>
-            <p><strong>{{executable.name}}, Language: {{executable.language}}</strong></p>
+            <p [class]='getExecutableColor(executable)'><strong>{{executable.name}},
+              Language: {{executable.language}}</strong></p>
             <p *ngIf='executable.description'>
               {{executable.description}}
             </p>
@@ -118,7 +125,7 @@
         </div>
         <div fxFlex fxLayout='column'>
           <div *ngFor='let quality of refactoringApproach.approachProcess.qualities'>
-            <p><strong>{{quality.name}}</strong></p>
+            <p [class]='getQualityColor(quality)'><strong>{{quality.name}}</strong></p>
             <p *ngIf='quality.description'>
               {{quality.description}}
             </p>
@@ -134,7 +141,7 @@
         </div>
         <div fxFlex fxLayout='column'>
           <div *ngFor='let direction of refactoringApproach.approachProcess.directions'>
-            <p><strong>{{direction.name}}</strong></p>
+            <p [class]='getDirectionColor(direction)'><strong>{{direction.name}}</strong></p>
             <p *ngIf='direction.description'>
               {{direction.description}}
             </p>
@@ -150,7 +157,7 @@
         </div>
         <div fxFlex fxLayout='column'>
           <div *ngFor='let automationLevel of refactoringApproach.approachProcess.automationLevels'>
-            <p><strong>{{automationLevel.name}}</strong></p>
+            <p [class]='getAutomationLevelColor(automationLevel)'><strong>{{automationLevel.name}}</strong></p>
             <p *ngIf='automationLevel.description'>
               {{automationLevel.description}}
             </p>
@@ -166,7 +173,7 @@
         </div>
         <div fxFlex fxLayout='column'>
           <div *ngFor='let analysisType of refactoringApproach.approachProcess.analysisTypes'>
-            <p><strong>{{analysisType.name}}</strong></p>
+            <p [class]='getAnalysisTypeColor(analysisType)'><strong>{{analysisType.name}}</strong></p>
             <p *ngIf='analysisType.description'>
               {{analysisType.description}}
             </p>
@@ -182,7 +189,7 @@
         </div>
         <div fxFlex fxLayout='column'>
           <div *ngFor='let technique of refactoringApproach.approachProcess.techniques'>
-            <p><strong>{{technique.name}}</strong></p>
+            <p [class]='getTechniqueColor(technique)'><strong>{{technique.name}}</strong></p>
             <p *ngIf='technique.description'>
               {{technique.description}}
             </p>
@@ -198,10 +205,12 @@
       <div *ngFor='let output of refactoringApproach.approachOutputs'
            fxLayout='row'>
         <div fxFlex='25'>
-          <p><strong>Architecture:</strong> {{output.architecture.name}}</p>
+          <p [class]='getArchitectureColor(output.architecture)'>
+            <strong>Architecture:</strong> {{output.architecture.name}}</p>
         </div>
         <div fxFlex='25'>
-          <p><strong>Service type:</strong> {{output.serviceType.name}}</p>
+          <p [class]='getServiceTypeColor(output.serviceType)'><strong>Service
+            type:</strong> {{output.serviceType.name}}</p>
         </div>
       </div>
     </mat-card-content>
@@ -215,7 +224,7 @@
           <h3>Validation method</h3>
         </div>
         <div fxFlex>
-          <p>
+          <p [class]='getValidationMethodColor(refactoringApproach.approachUsability.validationMethod)'>
             <strong>{{refactoringApproach.approachUsability.validationMethod.name}}</strong>
           </p>
           <p *ngIf='refactoringApproach.approachUsability.validationMethod.description'>
@@ -229,7 +238,7 @@
           <h3>Tool support</h3>
         </div>
         <div fxFlex>
-          <p>
+          <p [class]='getToolSupportColor(refactoringApproach.approachUsability.toolSupport)'>
             <strong>{{refactoringApproach.approachUsability.toolSupport.name}}</strong>
           </p>
           <p *ngIf='refactoringApproach.approachUsability.toolSupport.description'>
@@ -243,7 +252,7 @@
           <h3>Results quality</h3>
         </div>
         <div fxFlex>
-          <p>
+          <p [class]='getResultsQualityColor(refactoringApproach.approachUsability.resultsQuality)'>
             <strong>{{refactoringApproach.approachUsability.resultsQuality.name}}</strong>
           </p>
           <p *ngIf='refactoringApproach.approachUsability.resultsQuality.description'>
@@ -257,7 +266,7 @@
           <h3>Accuracy/Precision</h3>
         </div>
         <div fxFlex>
-          <p>
+          <p [class]='getAccuracyPrecisionColor(refactoringApproach.approachUsability.accuracyPrecision)'>
             <strong>{{refactoringApproach.approachUsability.accuracyPrecision.name}}</strong>
           </p>
           <p *ngIf='refactoringApproach.approachUsability.accuracyPrecision.description'>

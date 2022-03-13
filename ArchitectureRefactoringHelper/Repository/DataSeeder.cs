@@ -23,7 +23,7 @@ public static class DataSeeder
         var outputService = serviceProvider.GetRequiredService<ApproachOutputService>();
         var usabilityService = serviceProvider.GetRequiredService<ApproachUsabilityService>();
 
-        var seedData = GetSeedDataFromJson<RefactoringApproach>("refactoringApproaches.json");
+        var seedData = GetSeedDataFromJson<RefactoringApproach>("RefactoringApproaches.json");
         await AddRefactoringApproachesAsync(seedData, inputService, processService, outputService, usabilityService);
     }
 

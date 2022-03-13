@@ -11,6 +11,7 @@ import {
   trigger
 } from '@angular/animations';
 import { AttributeEvaluation } from '../../../../../api/repository/models/attribute-evaluation';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recommendation-result',
@@ -35,7 +36,7 @@ export class RecommendationResultComponent implements OnInit {
     {
       columnDef: 'suitability',
       header: 'Suitability',
-      isSortColumn: true,
+      isSortColumn: false,
       isActionColumn: false,
       cell: (recommendation: ApproachRecommendation) => {
         if (recommendation.suitabilityScore < 0) {
@@ -47,7 +48,7 @@ export class RecommendationResultComponent implements OnInit {
     {
       columnDef: 'id',
       header: 'ID',
-      isSortColumn: true,
+      isSortColumn: false,
       isActionColumn: false,
       cell: (recommendation: ApproachRecommendation) =>
         `${recommendation.refactoringApproachId}`
@@ -55,7 +56,7 @@ export class RecommendationResultComponent implements OnInit {
     {
       columnDef: 'title',
       header: 'Title',
-      isSortColumn: true,
+      isSortColumn: false,
       isActionColumn: false,
       cell: (recommendation: ApproachRecommendation) =>
         `${recommendation.approachSource.title}`
@@ -97,7 +98,10 @@ export class RecommendationResultComponent implements OnInit {
 
   attributeEvaluation = AttributeEvaluation;
 
-  constructor(private recommendationsService: ApproachRecommendationService) {}
+  constructor(
+    private recommendationsService: ApproachRecommendationService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.setDataSource();
@@ -128,7 +132,9 @@ export class RecommendationResultComponent implements OnInit {
   }
 
   openRecommendationView(recommendation: ApproachRecommendation) {
-    console.log('go to ', recommendation.refactoringApproachId);
+    this.router.navigate(['/approach', recommendation.refactoringApproachId], {
+      queryParams: { from: 'recommendation' }
+    });
   }
 
   getSuitabilityColor(

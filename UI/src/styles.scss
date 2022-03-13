@@ -28,3 +28,23 @@ body {
   line-height: 24px;
   margin: 0 0 0 8px;
 }
+
+.suitability-high {
+  color: #40ad3d;
+}
+
+.suitability-medium {
+  color: #baba30;
+}
+
+.suitability-low {
+  color: #ad3d3d;
+}
+
+.match-item {
+  color: #40ad3d;
+}
+
+.mismatch-item {
+  color: #ad3d3d;
+}

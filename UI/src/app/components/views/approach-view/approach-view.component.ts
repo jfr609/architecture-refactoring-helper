@@ -1,27 +1,49 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { RefactoringApproach } from '../../../../../api/repository/models/refactoring-approach';
 import { NAV_PARAM_APPROACH_ID } from '../../../app.constants';
 import { UtilService } from '../../../services/util.service';
 import { RefactoringApproachService } from '../../../../../api/repository/services/refactoring-approach.service';
+import { ApproachRecommendation } from '../../../../../api/repository/models/approach-recommendation';
+import { ApproachRecommendationService } from '../../../services/approach-recommendation.service';
+import { DomainArtifactInput } from '../../../../../api/repository/models/domain-artifact-input';
+import { AttributeEvaluation } from '../../../../../api/repository/models/attribute-evaluation';
+import { RuntimeArtifactInput } from '../../../../../api/repository/models/runtime-artifact-input';
+import { ModelArtifactInput } from '../../../../../api/repository/models/model-artifact-input';
+import { ExecutableInput } from '../../../../../api/repository/models/executable-input';
+import { Quality } from '../../../../../api/repository/models/quality';
+import { Direction } from '../../../../../api/repository/models/direction';
+import { AutomationLevel } from '../../../../../api/repository/models/automation-level';
+import { AnalysisType } from '../../../../../api/repository/models/analysis-type';
+import { Technique } from '../../../../../api/repository/models/technique';
+import { ServiceType } from '../../../../../api/repository/models/service-type';
+import { Architecture } from '../../../../../api/repository/models/architecture';
+import { ResultsQuality } from '../../../../../api/repository/models/results-quality';
+import { AccuracyPrecision } from '../../../../../api/repository/models/accuracy-precision';
+import { ToolSupport } from '../../../../../api/repository/models/tool-support';
+import { ValidationMethod } from '../../../../../api/repository/models/validation-method';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-approach-form',
   templateUrl: './approach-view.component.html',
   styleUrls: ['./approach-view.component.scss']
 })
-export class ApproachViewComponent implements OnInit {
+export class ApproachViewComponent implements OnInit, OnDestroy {
   refactoringApproach: RefactoringApproach = {};
+  selectedRecommendation: ApproachRecommendation | undefined;
 
   routeSub!: Subscription;
   isDataLoading = true;
 
   constructor(
     private refactoringApproachService: RefactoringApproachService,
+    private recommendationService: ApproachRecommendationService,
     private utilService: UtilService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +59,10 @@ export class ApproachViewComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.routeSub.unsubscribe();
+  }
+
   requestRefactoringApproach(approachId: number): void {
     this.refactoringApproachService
       .getRefactoringApproach({
@@ -46,6 +72,7 @@ export class ApproachViewComponent implements OnInit {
         next: (value) => {
           this.refactoringApproach = value;
           this.temperWithApproachDescriptions();
+          this.getRecommendationData();
           this.isDataLoading = false;
         },
         error: (err) => {
@@ -55,6 +82,21 @@ export class ApproachViewComponent implements OnInit {
           );
         }
       });
+  }
+
+  getRecommendationData(): void {
+    const queryParamMap: ParamMap = this.route.snapshot.queryParamMap;
+    if (
+      queryParamMap.has('from') &&
+      queryParamMap.get('from') === 'recommendation'
+    ) {
+      this.selectedRecommendation =
+        this.recommendationService.recommendations.value.find(
+          (value: ApproachRecommendation) =>
+            value.refactoringApproachId ===
+            this.refactoringApproach.refactoringApproachId
+        );
+    }
   }
 
   temperWithApproachDescriptions(): void {
@@ -85,5 +127,194 @@ export class ApproachViewComponent implements OnInit {
 
   goToEdit() {
     this.router.navigate(['edit'], { relativeTo: this.route });
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
+
+  getSuitabilityColor(): string {
+    if (this.selectedRecommendation == null) {
+      return '';
+    }
+
+    if (this.selectedRecommendation.suitabilityScore < 50) {
+      return 'suitability-low';
+    } else if (this.selectedRecommendation.suitabilityScore < 75) {
+      return 'suitability-medium';
+    } else {
+      return 'suitability-high';
+    }
+  }
+
+  getDomainArtifactColor(attribute: DomainArtifactInput): string {
+    if (this.selectedRecommendation == null) return '';
+
+    const evaluation =
+      this.selectedRecommendation.domainArtifactInputEvaluations?.find(
+        (value) => value.approachAttribute.name === attribute.name
+      );
+
+    return this.getAttributeColor(evaluation);
+  }
+
+  getRuntimeArtifactColor(attribute: RuntimeArtifactInput): string {
+    if (this.selectedRecommendation == null) return '';
+
+    const evaluation =
+      this.selectedRecommendation.runtimeArtifactInputEvaluations?.find(
+        (value) => value.approachAttribute.name === attribute.name
+      );
+
+    return this.getAttributeColor(evaluation);
+  }
+
+  getModelArtifactColor(attribute: ModelArtifactInput): string {
+    if (this.selectedRecommendation == null) return '';
+
+    const evaluation =
+      this.selectedRecommendation.modelArtifactInputEvaluations?.find(
+        (value) => value.approachAttribute.name === attribute.name
+      );
+
+    return this.getAttributeColor(evaluation);
+  }
+
+  getExecutableColor(attribute: ExecutableInput): string {
+    if (this.selectedRecommendation == null) return '';
+
+    const evaluation =
+      this.selectedRecommendation.executableInputEvaluations?.find(
+        (value) => value.approachAttribute.name === attribute.name
+      );
+
+    return this.getAttributeColor(evaluation);
+  }
+
+  getQualityColor(attribute: Quality): string {
+    if (this.selectedRecommendation == null) return '';
+
+    const evaluation = this.selectedRecommendation.qualityEvaluations?.find(
+      (value) => value.approachAttribute.name === attribute.name
+    );
+
+    return this.getAttributeColor(evaluation);
+  }
+
+  getDirectionColor(attribute: Direction): string {
+    if (this.selectedRecommendation == null) return '';
+
+    const evaluation = this.selectedRecommendation.directionEvaluations?.find(
+      (value) => value.approachAttribute.name === attribute.name
+    );
+
+    return this.getAttributeColor(evaluation);
+  }
+
+  getAutomationLevelColor(attribute: AutomationLevel): string {
+    if (this.selectedRecommendation == null) return '';
+
+    const evaluation =
+      this.selectedRecommendation.automationLevelEvaluations?.find(
+        (value) => value.approachAttribute.name === attribute.name
+      );
+
+    return this.getAttributeColor(evaluation);
+  }
+
+  getAnalysisTypeColor(attribute: AnalysisType): string {
+    if (this.selectedRecommendation == null) return '';
+
+    const evaluation =
+      this.selectedRecommendation.analysisTypeEvaluations?.find(
+        (value) => value.approachAttribute.name === attribute.name
+      );
+
+    return this.getAttributeColor(evaluation);
+  }
+
+  getTechniqueColor(attribute: Technique): string {
+    if (this.selectedRecommendation == null) return '';
+
+    const evaluation = this.selectedRecommendation.techniqueEvaluations?.find(
+      (value) => value.approachAttribute.name === attribute.name
+    );
+
+    return this.getAttributeColor(evaluation);
+  }
+
+  getArchitectureColor(attribute: Architecture): string {
+    if (this.selectedRecommendation == null) return '';
+
+    const evaluation =
+      this.selectedRecommendation.architectureEvaluations?.find(
+        (value) => value.approachAttribute.name === attribute.name
+      );
+
+    return this.getAttributeColor(evaluation);
+  }
+
+  getServiceTypeColor(attribute: ServiceType): string {
+    if (this.selectedRecommendation == null) return '';
+
+    const evaluation = this.selectedRecommendation.serviceTypeEvaluations?.find(
+      (value) => value.approachAttribute.name === attribute.name
+    );
+
+    return this.getAttributeColor(evaluation);
+  }
+
+  getValidationMethodColor(attribute: ValidationMethod): string {
+    if (this.selectedRecommendation == null) return '';
+
+    const evaluation =
+      this.selectedRecommendation.validationMethodEvaluations?.find(
+        (value) => value.approachAttribute.name === attribute.name
+      );
+
+    return this.getAttributeColor(evaluation);
+  }
+
+  getToolSupportColor(attribute: ToolSupport): string {
+    if (this.selectedRecommendation == null) return '';
+
+    const evaluation = this.selectedRecommendation.toolSupportEvaluations?.find(
+      (value) => value.approachAttribute.name === attribute.name
+    );
+
+    return this.getAttributeColor(evaluation);
+  }
+
+  getResultsQualityColor(attribute: ResultsQuality): string {
+    if (this.selectedRecommendation == null) return '';
+
+    const evaluation =
+      this.selectedRecommendation.resultsQualityEvaluations?.find(
+        (value) => value.approachAttribute.name === attribute.name
+      );
+
+    return this.getAttributeColor(evaluation);
+  }
+
+  getAccuracyPrecisionColor(attribute: AccuracyPrecision): string {
+    if (this.selectedRecommendation == null) return '';
+
+    const evaluation =
+      this.selectedRecommendation.accuracyPrecisionEvaluations?.find(
+        (value) => value.approachAttribute.name === attribute.name
+      );
+
+    return this.getAttributeColor(evaluation);
+  }
+
+  getAttributeColor(evaluation: any): string {
+    switch (evaluation.attributeEvaluation) {
+      case AttributeEvaluation.Match:
+        return 'match-item';
+      case AttributeEvaluation.Mismatch:
+        return 'mismatch-item';
+      default:
+        return '';
+    }
   }
 }

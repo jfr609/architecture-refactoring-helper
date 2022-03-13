@@ -311,27 +311,6 @@ export class AttributeOptionsService {
     }
   }
 
-  createAttributes<T>(
-    attributes: T[],
-    attributeList: BehaviorSubject<T[]>,
-    createFunction: (params?: { body?: T }) => Observable<T>
-  ): Promise<void> {
-    const createPromises: Promise<void>[] = [];
-    for (const attribute of attributes) {
-      createPromises.push(
-        AttributeOptionsService.createAttribute(
-          attribute,
-          attributeList,
-          createFunction
-        )
-      );
-    }
-
-    return Promise.all(createPromises).then(() => {
-      attributeList.next(attributeList.value);
-    });
-  }
-
   createDomainArtifactWithDialog(): void {
     const data: CreateAttributeDialogData<DomainArtifactInput> = {
       title: 'Create a new domain artifact input option',
@@ -1604,6 +1583,27 @@ export class AttributeOptionsService {
             });
         }
       });
+  }
+
+  createAttributes<T>(
+    attributes: T[],
+    attributeList: BehaviorSubject<T[]>,
+    createFunction: (params?: { body?: T }) => Observable<T>
+  ): Promise<void> {
+    const createPromises: Promise<void>[] = [];
+    for (const attribute of attributes) {
+      createPromises.push(
+        AttributeOptionsService.createAttribute(
+          attribute,
+          attributeList,
+          createFunction
+        )
+      );
+    }
+
+    return Promise.all(createPromises).then(() => {
+      attributeList.next(attributeList.value);
+    });
   }
 
   private static async createAttribute<T>(
