@@ -89,7 +89,7 @@ public static class Utils
         return savedEntities;
     }
 
-    public static bool DeleteEntityAndSaveChanges<T>(ref RefactoringApproachContext db, params object?[]? keyValues)
+    public static bool DeleteEntity<T>(ref RefactoringApproachContext db, params object?[]? keyValues)
         where T : class
     {
         var entity = db.Set<T>().Find(keyValues);
@@ -97,6 +97,17 @@ public static class Utils
         if (deleteSuccess)
         {
             db.Set<T>().Remove(entity!);
+        }
+
+        return deleteSuccess;
+    }
+
+    public static bool DeleteEntityAndSaveChanges<T>(ref RefactoringApproachContext db, params object?[]? keyValues)
+        where T : class
+    {
+        var deleteSuccess = DeleteEntity<T>(ref db, keyValues);
+        if (deleteSuccess)
+        {
             db.SaveChanges();
         }
 

@@ -115,6 +115,7 @@ public class RefactoringApproachContext : DbContext
             .UsingEntity(join => join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachProcessTechnique));
 
         // Apply Configurations
+        modelBuilder.ApplyConfiguration(new ApproachUsabilityConfiguration());
         modelBuilder.ApplyConfiguration(new DomainArtifactInputEntityTypeConfiguration());
         modelBuilder.ApplyConfiguration(new RuntimeArtifactInputEntityTypeConfiguration());
         modelBuilder.ApplyConfiguration(new ModelArtifactInputEntityTypeConfiguration());

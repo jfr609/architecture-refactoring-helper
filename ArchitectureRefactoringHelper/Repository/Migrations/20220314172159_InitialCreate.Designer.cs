@@ -10,7 +10,7 @@ using Repository.Models;
 namespace Repository.Migrations
 {
     [DbContext(typeof(RefactoringApproachContext))]
-    [Migration("20220226133426_InitialCreate")]
+    [Migration("20220314172159_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -171,7 +171,7 @@ namespace Repository.Migrations
                     b.ToTable("JoinTable.Approach.Input.RuntimeArtifact", (string)null);
                 });
 
-            modelBuilder.Entity("Repository.Models.AccuracyPrecision", b =>
+            modelBuilder.Entity("Repository.Models.Database.AccuracyPrecision", b =>
                 {
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
@@ -206,7 +206,7 @@ namespace Repository.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Repository.Models.AnalysisType", b =>
+            modelBuilder.Entity("Repository.Models.Database.AnalysisType", b =>
                 {
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
@@ -241,7 +241,7 @@ namespace Repository.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Repository.Models.ApproachOutput", b =>
+            modelBuilder.Entity("Repository.Models.Database.ApproachOutput", b =>
                 {
                     b.Property<int>("ApproachOutputId")
                         .ValueGeneratedOnAdd()
@@ -264,7 +264,7 @@ namespace Repository.Migrations
                     b.ToTable("Approach.Output");
                 });
 
-            modelBuilder.Entity("Repository.Models.ApproachProcess", b =>
+            modelBuilder.Entity("Repository.Models.Database.ApproachProcess", b =>
                 {
                     b.Property<int>("ApproachProcessId")
                         .ValueGeneratedOnAdd()
@@ -275,7 +275,7 @@ namespace Repository.Migrations
                     b.ToTable("Approach.Process");
                 });
 
-            modelBuilder.Entity("Repository.Models.ApproachSource", b =>
+            modelBuilder.Entity("Repository.Models.Database.ApproachSource", b =>
                 {
                     b.Property<int>("ApproachSourceId")
                         .ValueGeneratedOnAdd()
@@ -286,7 +286,6 @@ namespace Repository.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Link")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
@@ -301,13 +300,14 @@ namespace Repository.Migrations
                     b.ToTable("Approach.Source");
                 });
 
-            modelBuilder.Entity("Repository.Models.ApproachUsability", b =>
+            modelBuilder.Entity("Repository.Models.Database.ApproachUsability", b =>
                 {
                     b.Property<int>("ApproachUsabilityId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("AccuracyPrecisionName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ResultsQualityName")
@@ -335,7 +335,7 @@ namespace Repository.Migrations
                     b.ToTable("Approach.Usability");
                 });
 
-            modelBuilder.Entity("Repository.Models.Architecture", b =>
+            modelBuilder.Entity("Repository.Models.Database.Architecture", b =>
                 {
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
@@ -360,7 +360,7 @@ namespace Repository.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Repository.Models.AutomationLevel", b =>
+            modelBuilder.Entity("Repository.Models.Database.AutomationLevel", b =>
                 {
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
@@ -390,7 +390,7 @@ namespace Repository.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Repository.Models.Direction", b =>
+            modelBuilder.Entity("Repository.Models.Database.Direction", b =>
                 {
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
@@ -420,7 +420,7 @@ namespace Repository.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Repository.Models.DomainArtifactInput", b =>
+            modelBuilder.Entity("Repository.Models.Database.DomainArtifactInput", b =>
                 {
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
@@ -450,7 +450,7 @@ namespace Repository.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Repository.Models.ExecutableInput", b =>
+            modelBuilder.Entity("Repository.Models.Database.ExecutableInput", b =>
                 {
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
@@ -486,7 +486,7 @@ namespace Repository.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Repository.Models.ModelArtifactInput", b =>
+            modelBuilder.Entity("Repository.Models.Database.ModelArtifactInput", b =>
                 {
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
@@ -526,7 +526,7 @@ namespace Repository.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Repository.Models.Quality", b =>
+            modelBuilder.Entity("Repository.Models.Database.Quality", b =>
                 {
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
@@ -599,7 +599,7 @@ namespace Repository.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Repository.Models.RefactoringApproach", b =>
+            modelBuilder.Entity("Repository.Models.Database.RefactoringApproach", b =>
                 {
                     b.Property<int>("RefactoringApproachId")
                         .ValueGeneratedOnAdd()
@@ -628,7 +628,7 @@ namespace Repository.Migrations
                     b.ToTable("Approaches");
                 });
 
-            modelBuilder.Entity("Repository.Models.ResultsQuality", b =>
+            modelBuilder.Entity("Repository.Models.Database.ResultsQuality", b =>
                 {
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
@@ -663,7 +663,7 @@ namespace Repository.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Repository.Models.RuntimeArtifactInput", b =>
+            modelBuilder.Entity("Repository.Models.Database.RuntimeArtifactInput", b =>
                 {
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
@@ -688,7 +688,7 @@ namespace Repository.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Repository.Models.ServiceType", b =>
+            modelBuilder.Entity("Repository.Models.Database.ServiceType", b =>
                 {
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
@@ -738,7 +738,7 @@ namespace Repository.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Repository.Models.Technique", b =>
+            modelBuilder.Entity("Repository.Models.Database.Technique", b =>
                 {
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
@@ -783,7 +783,7 @@ namespace Repository.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Repository.Models.ToolSupport", b =>
+            modelBuilder.Entity("Repository.Models.Database.ToolSupport", b =>
                 {
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
@@ -818,7 +818,7 @@ namespace Repository.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Repository.Models.ValidationMethod", b =>
+            modelBuilder.Entity("Repository.Models.Database.ValidationMethod", b =>
                 {
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
@@ -855,13 +855,13 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("AnalysisTypeApproachProcess", b =>
                 {
-                    b.HasOne("Repository.Models.AnalysisType", null)
+                    b.HasOne("Repository.Models.Database.AnalysisType", null)
                         .WithMany()
                         .HasForeignKey("AnalysisTypesName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Repository.Models.ApproachProcess", null)
+                    b.HasOne("Repository.Models.Database.ApproachProcess", null)
                         .WithMany()
                         .HasForeignKey("ApproachProcessesApproachProcessId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -870,13 +870,13 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("ApproachOutputRefactoringApproach", b =>
                 {
-                    b.HasOne("Repository.Models.ApproachOutput", null)
+                    b.HasOne("Repository.Models.Database.ApproachOutput", null)
                         .WithMany()
                         .HasForeignKey("ApproachOutputsApproachOutputId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Repository.Models.RefactoringApproach", null)
+                    b.HasOne("Repository.Models.Database.RefactoringApproach", null)
                         .WithMany()
                         .HasForeignKey("RefactoringApproachesRefactoringApproachId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -885,13 +885,13 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("ApproachProcessAutomationLevel", b =>
                 {
-                    b.HasOne("Repository.Models.ApproachProcess", null)
+                    b.HasOne("Repository.Models.Database.ApproachProcess", null)
                         .WithMany()
                         .HasForeignKey("ApproachProcessesApproachProcessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Repository.Models.AutomationLevel", null)
+                    b.HasOne("Repository.Models.Database.AutomationLevel", null)
                         .WithMany()
                         .HasForeignKey("AutomationLevelsName")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -900,13 +900,13 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("ApproachProcessDirection", b =>
                 {
-                    b.HasOne("Repository.Models.ApproachProcess", null)
+                    b.HasOne("Repository.Models.Database.ApproachProcess", null)
                         .WithMany()
                         .HasForeignKey("ApproachProcessesApproachProcessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Repository.Models.Direction", null)
+                    b.HasOne("Repository.Models.Database.Direction", null)
                         .WithMany()
                         .HasForeignKey("DirectionsName")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -915,13 +915,13 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("ApproachProcessQuality", b =>
                 {
-                    b.HasOne("Repository.Models.ApproachProcess", null)
+                    b.HasOne("Repository.Models.Database.ApproachProcess", null)
                         .WithMany()
                         .HasForeignKey("ApproachProcessesApproachProcessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Repository.Models.Quality", null)
+                    b.HasOne("Repository.Models.Database.Quality", null)
                         .WithMany()
                         .HasForeignKey("QualitiesName")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -930,13 +930,13 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("ApproachProcessTechnique", b =>
                 {
-                    b.HasOne("Repository.Models.ApproachProcess", null)
+                    b.HasOne("Repository.Models.Database.ApproachProcess", null)
                         .WithMany()
                         .HasForeignKey("ApproachProcessesApproachProcessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Repository.Models.Technique", null)
+                    b.HasOne("Repository.Models.Database.Technique", null)
                         .WithMany()
                         .HasForeignKey("TechniquesName")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -945,13 +945,13 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("DomainArtifactInputRefactoringApproach", b =>
                 {
-                    b.HasOne("Repository.Models.DomainArtifactInput", null)
+                    b.HasOne("Repository.Models.Database.DomainArtifactInput", null)
                         .WithMany()
                         .HasForeignKey("DomainArtifactInputsName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Repository.Models.RefactoringApproach", null)
+                    b.HasOne("Repository.Models.Database.RefactoringApproach", null)
                         .WithMany()
                         .HasForeignKey("RefactoringApproachesRefactoringApproachId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -960,13 +960,13 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("ExecutableInputRefactoringApproach", b =>
                 {
-                    b.HasOne("Repository.Models.RefactoringApproach", null)
+                    b.HasOne("Repository.Models.Database.RefactoringApproach", null)
                         .WithMany()
                         .HasForeignKey("RefactoringApproachesRefactoringApproachId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Repository.Models.ExecutableInput", null)
+                    b.HasOne("Repository.Models.Database.ExecutableInput", null)
                         .WithMany()
                         .HasForeignKey("ExecutableInputsName", "ExecutableInputsLanguage")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -975,13 +975,13 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("ModelArtifactInputRefactoringApproach", b =>
                 {
-                    b.HasOne("Repository.Models.ModelArtifactInput", null)
+                    b.HasOne("Repository.Models.Database.ModelArtifactInput", null)
                         .WithMany()
                         .HasForeignKey("ModelArtifactInputsName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Repository.Models.RefactoringApproach", null)
+                    b.HasOne("Repository.Models.Database.RefactoringApproach", null)
                         .WithMany()
                         .HasForeignKey("RefactoringApproachesRefactoringApproachId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -990,28 +990,28 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("RefactoringApproachRuntimeArtifactInput", b =>
                 {
-                    b.HasOne("Repository.Models.RefactoringApproach", null)
+                    b.HasOne("Repository.Models.Database.RefactoringApproach", null)
                         .WithMany()
                         .HasForeignKey("RefactoringApproachesRefactoringApproachId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Repository.Models.RuntimeArtifactInput", null)
+                    b.HasOne("Repository.Models.Database.RuntimeArtifactInput", null)
                         .WithMany()
                         .HasForeignKey("RuntimeArtifactInputsName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Repository.Models.ApproachOutput", b =>
+            modelBuilder.Entity("Repository.Models.Database.ApproachOutput", b =>
                 {
-                    b.HasOne("Repository.Models.Architecture", "Architecture")
+                    b.HasOne("Repository.Models.Database.Architecture", "Architecture")
                         .WithMany("ApproachOutputs")
                         .HasForeignKey("ArchitectureName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Repository.Models.ServiceType", "ServiceType")
+                    b.HasOne("Repository.Models.Database.ServiceType", "ServiceType")
                         .WithMany("ApproachOutputs")
                         .HasForeignKey("ServiceTypeName")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1022,28 +1022,30 @@ namespace Repository.Migrations
                     b.Navigation("ServiceType");
                 });
 
-            modelBuilder.Entity("Repository.Models.ApproachUsability", b =>
+            modelBuilder.Entity("Repository.Models.Database.ApproachUsability", b =>
                 {
-                    b.HasOne("Repository.Models.AccuracyPrecision", "AccuracyPrecision")
+                    b.HasOne("Repository.Models.Database.AccuracyPrecision", "AccuracyPrecision")
                         .WithMany("ApproachUsabilities")
-                        .HasForeignKey("AccuracyPrecisionName");
+                        .HasForeignKey("AccuracyPrecisionName")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
 
-                    b.HasOne("Repository.Models.ResultsQuality", "ResultsQuality")
+                    b.HasOne("Repository.Models.Database.ResultsQuality", "ResultsQuality")
                         .WithMany("ApproachUsabilities")
                         .HasForeignKey("ResultsQualityName")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
-                    b.HasOne("Repository.Models.ToolSupport", "ToolSupport")
+                    b.HasOne("Repository.Models.Database.ToolSupport", "ToolSupport")
                         .WithMany("ApproachUsabilities")
                         .HasForeignKey("ToolSupportName")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
-                    b.HasOne("Repository.Models.ValidationMethod", "ValidationMethod")
+                    b.HasOne("Repository.Models.Database.ValidationMethod", "ValidationMethod")
                         .WithMany("ApproachUsabilities")
                         .HasForeignKey("ValidationMethodName")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
                     b.Navigation("AccuracyPrecision");
@@ -1055,23 +1057,23 @@ namespace Repository.Migrations
                     b.Navigation("ValidationMethod");
                 });
 
-            modelBuilder.Entity("Repository.Models.RefactoringApproach", b =>
+            modelBuilder.Entity("Repository.Models.Database.RefactoringApproach", b =>
                 {
-                    b.HasOne("Repository.Models.ApproachProcess", "ApproachProcess")
+                    b.HasOne("Repository.Models.Database.ApproachProcess", "ApproachProcess")
                         .WithOne("RefactoringApproach")
-                        .HasForeignKey("Repository.Models.RefactoringApproach", "ApproachProcessId")
+                        .HasForeignKey("Repository.Models.Database.RefactoringApproach", "ApproachProcessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Repository.Models.ApproachSource", "ApproachSource")
+                    b.HasOne("Repository.Models.Database.ApproachSource", "ApproachSource")
                         .WithOne("RefactoringApproach")
-                        .HasForeignKey("Repository.Models.RefactoringApproach", "ApproachSourceId")
+                        .HasForeignKey("Repository.Models.Database.RefactoringApproach", "ApproachSourceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Repository.Models.ApproachUsability", "ApproachUsability")
+                    b.HasOne("Repository.Models.Database.ApproachUsability", "ApproachUsability")
                         .WithOne("RefactoringApproach")
-                        .HasForeignKey("Repository.Models.RefactoringApproach", "ApproachUsabilityId")
+                        .HasForeignKey("Repository.Models.Database.RefactoringApproach", "ApproachUsabilityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1082,47 +1084,47 @@ namespace Repository.Migrations
                     b.Navigation("ApproachUsability");
                 });
 
-            modelBuilder.Entity("Repository.Models.AccuracyPrecision", b =>
+            modelBuilder.Entity("Repository.Models.Database.AccuracyPrecision", b =>
                 {
                     b.Navigation("ApproachUsabilities");
                 });
 
-            modelBuilder.Entity("Repository.Models.ApproachProcess", b =>
+            modelBuilder.Entity("Repository.Models.Database.ApproachProcess", b =>
                 {
                     b.Navigation("RefactoringApproach");
                 });
 
-            modelBuilder.Entity("Repository.Models.ApproachSource", b =>
+            modelBuilder.Entity("Repository.Models.Database.ApproachSource", b =>
                 {
                     b.Navigation("RefactoringApproach");
                 });
 
-            modelBuilder.Entity("Repository.Models.ApproachUsability", b =>
+            modelBuilder.Entity("Repository.Models.Database.ApproachUsability", b =>
                 {
                     b.Navigation("RefactoringApproach");
                 });
 
-            modelBuilder.Entity("Repository.Models.Architecture", b =>
+            modelBuilder.Entity("Repository.Models.Database.Architecture", b =>
                 {
                     b.Navigation("ApproachOutputs");
                 });
 
-            modelBuilder.Entity("Repository.Models.ResultsQuality", b =>
+            modelBuilder.Entity("Repository.Models.Database.ResultsQuality", b =>
                 {
                     b.Navigation("ApproachUsabilities");
                 });
 
-            modelBuilder.Entity("Repository.Models.ServiceType", b =>
+            modelBuilder.Entity("Repository.Models.Database.ServiceType", b =>
                 {
                     b.Navigation("ApproachOutputs");
                 });
 
-            modelBuilder.Entity("Repository.Models.ToolSupport", b =>
+            modelBuilder.Entity("Repository.Models.Database.ToolSupport", b =>
                 {
                     b.Navigation("ApproachUsabilities");
                 });
 
-            modelBuilder.Entity("Repository.Models.ValidationMethod", b =>
+            modelBuilder.Entity("Repository.Models.Database.ValidationMethod", b =>
                 {
                     b.Navigation("ApproachUsabilities");
                 });

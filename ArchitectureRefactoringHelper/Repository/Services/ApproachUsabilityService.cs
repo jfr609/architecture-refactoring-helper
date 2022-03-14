@@ -189,6 +189,15 @@ public class ApproachUsabilityService
     {
         return Utils.AddEntity(validationMethod, ref db);
     }
+    
+    public void DeleteApproachUsability(int usabilityId, ref RefactoringApproachContext db)
+    {
+        var deleteSuccess = Utils.DeleteEntity<ApproachUsability>(ref db, usabilityId);
+        if (!deleteSuccess)
+            throw new EntityNotFoundException(
+                $"Approach usability description with ID \"{usabilityId}\" could not be deleted " +
+                "because entity does not exist");
+    }
 
     public void DeleteResultsQuality(string name)
     {

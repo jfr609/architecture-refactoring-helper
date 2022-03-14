@@ -162,7 +162,7 @@ namespace Repository.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
                     Year = table.Column<int>(type: "INTEGER", nullable: false),
-                    Link = table.Column<string>(type: "TEXT", nullable: false),
+                    Link = table.Column<string>(type: "TEXT", nullable: true),
                     Authors = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -372,7 +372,7 @@ namespace Repository.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     ResultsQualityName = table.Column<string>(type: "TEXT", nullable: false),
                     ToolSupportName = table.Column<string>(type: "TEXT", nullable: false),
-                    AccuracyPrecisionName = table.Column<string>(type: "TEXT", nullable: true),
+                    AccuracyPrecisionName = table.Column<string>(type: "TEXT", nullable: false),
                     ValidationMethodName = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -382,25 +382,26 @@ namespace Repository.Migrations
                         name: "FK_Approach.Usability_Approach.Usability.AccuracyPrecision_AccuracyPrecisionName",
                         column: x => x.AccuracyPrecisionName,
                         principalTable: "Approach.Usability.AccuracyPrecision",
-                        principalColumn: "Name");
+                        principalColumn: "Name",
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Approach.Usability_Approach.Usability.ResultsQuality_ResultsQualityName",
                         column: x => x.ResultsQualityName,
                         principalTable: "Approach.Usability.ResultsQuality",
                         principalColumn: "Name",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Approach.Usability_Approach.Usability.ToolSupport_ToolSupportName",
                         column: x => x.ToolSupportName,
                         principalTable: "Approach.Usability.ToolSupport",
                         principalColumn: "Name",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Approach.Usability_Approach.Usability.ValidationMethod_ValidationMethodName",
                         column: x => x.ValidationMethodName,
                         principalTable: "Approach.Usability.ValidationMethod",
                         principalColumn: "Name",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(

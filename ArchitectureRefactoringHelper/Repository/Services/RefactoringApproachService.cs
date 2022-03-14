@@ -107,10 +107,16 @@ public class RefactoringApproachService
     {
         var db = new RefactoringApproachContext();
 
-        var deleteSuccess = Utils.DeleteEntityAndSaveChanges<Architecture>(ref db, refactoringApproachId);
-        if (!deleteSuccess)
-            throw new EntityNotFoundException(
-                $"Refactoring approach with ID \"{refactoringApproachId}\" could not be deleted because entity does not exist");
+        var approach = db.RefactoringApproaches.Find(refactoringApproachId) ?? throw new EntityNotFoundException(
+            $"Refactoring approach with ID \"{refactoringApproachId}\" could not be deleted because entity does not exist");
+
+        Utils.DeleteEntity<RefactoringApproach>(ref db, refactoringApproachId);
+        Utils.DeleteEntity<ApproachSource>(ref db, approach.ApproachSourceId);
+        _processService.DeleteApproachProcess(approach.ApproachProcessId, ref db);
+        _usabilityService.DeleteApproachUsability(approach.ApproachUsabilityId, ref db);
+
+        db.SaveChanges();
+        db.Dispose();
     }
 
     private bool ExistsDuplicateRefactoringApproach(ApproachSource source)

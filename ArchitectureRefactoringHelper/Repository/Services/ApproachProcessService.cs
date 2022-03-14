@@ -256,16 +256,13 @@ public class ApproachProcessService
         return Utils.AddEntitiesIfNotExist(techniques, e => new object[] { e.Name }, ref db);
     }
 
-    public void DeleteApproachProcess(int processId)
+    public void DeleteApproachProcess(int processId, ref RefactoringApproachContext db)
     {
-        using (var db = new RefactoringApproachContext())
-        {
-            var process = db.ApproachProcesses.Find(processId);
-            if (process == null)
-                return;
-            db.ApproachProcesses.Remove(process);
-            db.SaveChanges();
-        }
+        var deleteSuccess = Utils.DeleteEntity<ApproachProcess>(ref db, processId);
+        if (!deleteSuccess)
+            throw new EntityNotFoundException(
+                $"Approach process with ID \"{processId}\" could not be deleted " +
+                "because entity does not exist");
     }
 
     public void DeleteQuality(string name)
