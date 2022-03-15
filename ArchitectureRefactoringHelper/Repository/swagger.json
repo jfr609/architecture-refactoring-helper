@@ -1427,6 +1427,16 @@
         ],
         "summary": "Receives a complete list of all RefactoringApproach items",
         "operationId": "ListRefactoringApproaches",
+        "parameters": [
+          {
+            "name": "withDetails",
+            "in": "query",
+            "description": "Decides whether the approaches are returned with all details or not",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",

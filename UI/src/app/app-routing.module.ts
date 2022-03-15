@@ -7,10 +7,9 @@ import { ApproachExplorerComponent } from './components/views/approach-explorer/
 import { RecommendationConfiguratorComponent } from './components/views/recommendation-configurator/recommendation-configurator.component';
 import { NAV_PARAM_APPROACH_ID } from './app.constants';
 import { ApproachViewComponent } from './components/views/approach-view/approach-view.component';
-import {
-  RecommendationResultComponent
-} from './components/views/recommendation-result/recommendation-result.component';
+import { RecommendationResultComponent } from './components/views/recommendation-result/recommendation-result.component';
 import { RecommendationComponent } from './components/views/recommendation/recommendation.component';
+import { ApplicationSettingsDialogComponent } from './components/dialogs/application-settings-dialog/application-settings-dialog.component';
 
 const routes: Routes = [
   {
@@ -44,6 +43,10 @@ const routes: Routes = [
   {
     path: 'recommendation/result',
     component: RecommendationResultComponent
+  },
+  {
+    path: 'settings',
+    component: ApplicationSettingsDialogComponent
   },
   {
     path: '',

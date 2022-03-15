@@ -21,18 +21,14 @@ public class RefactoringApproachService
         _usabilityService = usabilityService;
     }
 
-    public IEnumerable<RefactoringApproach> ListRefactoringApproaches()
+    public IEnumerable<RefactoringApproach> ListRefactoringApproaches(bool? withDetails)
     {
         var db = new RefactoringApproachContext();
 
-        return db.RefactoringApproaches
-            .Include(e => e.ApproachSource)
-            .ToList();
-    }
-
-    public IEnumerable<RefactoringApproach> ListRefactoringApproachesWithFullDetails()
-    {
-        var db = new RefactoringApproachContext();
+        if (!withDetails.HasValue || !withDetails.Value)
+            return db.RefactoringApproaches
+                .Include(e => e.ApproachSource)
+                .ToList();
 
         IQueryable<RefactoringApproach> query = db.RefactoringApproaches
             .Include(e => e.ApproachUsability)

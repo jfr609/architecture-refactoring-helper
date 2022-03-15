@@ -17,7 +17,7 @@ public class SimpleRecommendationService : IRecommendationService
         ApproachRecommendationRequest recommendationRequest,
         int numberOfRecommendations)
     {
-        var refactoringApproaches = _refactoringApproachService.ListRefactoringApproachesWithFullDetails();
+        var refactoringApproaches = _refactoringApproachService.ListRefactoringApproaches(true);
 
         var recommendations = refactoringApproaches
             .Select(refactoringApproach => EvaluateApproachSuitability(refactoringApproach, recommendationRequest))

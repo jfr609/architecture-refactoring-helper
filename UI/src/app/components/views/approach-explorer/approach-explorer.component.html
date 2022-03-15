@@ -43,12 +43,14 @@
         Actions
       </th>
       <td mat-cell class='approach-cell' *matCellDef='let approach'>
-        <button mat-icon-button color='accent' (click)='goToEdit(approach)'>
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button color='accent' (click)='goToLink(approach)'>
-          <mat-icon>open_in_new</mat-icon>
-        </button>
+        <div fxLayout='row'>
+          <button mat-icon-button color='accent' (click)='goToEdit(approach)'>
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color='accent' (click)='goToLink(approach)'>
+            <mat-icon>open_in_new</mat-icon>
+          </button>
+        </div>
       </td>
     </ng-container>
 

@@ -1,5 +1,15 @@
 <mat-toolbar color='primary'>
-  <span class='toolbar-title' routerLink='/'>{{applicationTitle}}</span>
+  <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxLayoutAlign='start center' fxLayoutGap='8px'>
+      <span>{{applicationTitle}}</span>
+      <button mat-icon-button routerLink='/'>
+        <mat-icon>home</mat-icon>
+      </button>
+    </div>
+    <button mat-icon-button (click)='openSettingsDialog()'>
+      <mat-icon>settings</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>
 <div class='main-container'>
   <router-outlet></router-outlet>

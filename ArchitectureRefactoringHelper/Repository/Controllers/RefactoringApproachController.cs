@@ -24,13 +24,14 @@ public class RefactoringApproachController : ControllerBase
     }
 
     /// <summary>
-    /// Receives a complete list of all RefactoringApproach items  
+    /// Receives a complete list of all RefactoringApproach items
     /// </summary>
+    /// <param name="withDetails">Decides whether the approaches are returned with all details or not</param>
     /// <returns>List of Refactoring approach items</returns>
     [HttpGet(Name = "ListRefactoringApproaches")]
-    public ActionResult<IEnumerable<RefactoringApproach>> ListRefactoringApproaches()
+    public ActionResult<IEnumerable<RefactoringApproach>> ListRefactoringApproaches([FromQuery] bool? withDetails)
     {
-        return Ok(_refactoringApproachService.ListRefactoringApproaches());
+        return Ok(_refactoringApproachService.ListRefactoringApproaches(withDetails));
     }
 
     /// <summary>
@@ -80,7 +81,8 @@ public class RefactoringApproachController : ControllerBase
 
     [HttpPost("recommendations", Name = "RecommendRefactoringApproaches")]
     public ActionResult<IEnumerable<ApproachRecommendation>> RecommendRefactoringApproaches(
-        [FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Allow)] ApproachRecommendationRequest? approachRecommendationRequest,
+        [FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Allow)]
+        ApproachRecommendationRequest? approachRecommendationRequest,
         [FromQuery] int? count,
         [FromQuery] RecommendationPreset? preset)
     {

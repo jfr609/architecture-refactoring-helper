@@ -55,10 +55,16 @@ export class RefactoringApproachService extends BaseService {
    * This method doesn't expect any request body.
    */
   listRefactoringApproaches$Response(params?: {
+
+    /**
+     * Decides whether the approaches are returned with all details or not
+     */
+    withDetails?: boolean;
   }): Observable<StrictHttpResponse<Array<RefactoringApproach>>> {
 
     const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.ListRefactoringApproachesPath, 'get');
     if (params) {
+      rb.query('withDetails', params.withDetails, {});
     }
 
     return this.http.request(rb.build({
@@ -83,6 +89,11 @@ export class RefactoringApproachService extends BaseService {
    * This method doesn't expect any request body.
    */
   listRefactoringApproaches(params?: {
+
+    /**
+     * Decides whether the approaches are returned with all details or not
+     */
+    withDetails?: boolean;
   }): Observable<Array<RefactoringApproach>> {
 
     return this.listRefactoringApproaches$Response(params).pipe(

@@ -1,0 +1,22 @@
+<div mat-dialog-title>
+  <h3>{{data.title}}</h3>
+</div>
+<div mat-dialog-content >
+  <mat-slide-toggle class='margin-bottom' [(ngModel)]='this.permissionService.isAdmin'>
+    Show admin functions: {{this.permissionService.isAdmin}}
+  </mat-slide-toggle>
+  <button mat-raised-button color='accent' class='margin-bottom' (click)='exportApproaches()'>
+    Export approaches to JSON
+  </button>
+  <button mat-raised-button color='accent' class='margin-bottom' (click)='importApproaches()'>
+    Import approaches from JSON
+    <input #importInput type='file' style='display: none' accept='.json' (change)='handleImport($event)'>
+  </button>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color='primary'
+          (click)='onConfirmClicked()'>{{data.confirmButtonText}}</button>
+  <button mat-raised-button color='warn'
+          (click)='onCancelClicked()'>{{data.cancelButtonText}}</button>
+</div>
+
