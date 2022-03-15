@@ -77,7 +77,6 @@ export class ApproachViewComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (value) => {
           this.refactoringApproach = value;
-          this.temperWithApproachDescriptions();
           this.getRecommendationData();
           this.isDataLoading = false;
         },
@@ -102,32 +101,6 @@ export class ApproachViewComponent implements OnInit, OnDestroy {
             value.refactoringApproachId ===
             this.refactoringApproach.refactoringApproachId
         );
-    }
-  }
-
-  temperWithApproachDescriptions(): void {
-    if (this.refactoringApproach.domainArtifactInputs != null) {
-      for (const item of this.refactoringApproach.domainArtifactInputs) {
-        item.description = 'Test domain artifact description';
-      }
-    }
-
-    if (this.refactoringApproach.runtimeArtifactInputs != null) {
-      for (const item of this.refactoringApproach.runtimeArtifactInputs) {
-        item.description = 'Test runtime artifact description';
-      }
-    }
-
-    if (this.refactoringApproach.modelArtifactInputs != null) {
-      for (const item of this.refactoringApproach.modelArtifactInputs) {
-        item.description = 'Test model artifact description';
-      }
-    }
-
-    if (this.refactoringApproach.executableInputs != null) {
-      for (const item of this.refactoringApproach.executableInputs) {
-        item.description = 'test executable description';
-      }
     }
   }
 

@@ -8,7 +8,7 @@
       <button *ngIf='!selectedRecommendation && permissionService.isAdmin' mat-mini-fab style='margin-left: 8px' (click)='goToEdit()'>
         <mat-icon>edit</mat-icon>
       </button>
-      <button *ngIf='permissionService.isAdmin' mat-mini-fab color='warn' (click)='deleteRefactoringApproach()'>
+      <button *ngIf='!selectedRecommendation && permissionService.isAdmin' mat-mini-fab color='warn' (click)='deleteRefactoringApproach()'>
         <mat-icon>delete</mat-icon>
       </button>
       <button mat-mini-fab color='warn' (click)='goBack()'>
