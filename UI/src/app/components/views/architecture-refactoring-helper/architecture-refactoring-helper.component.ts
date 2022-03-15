@@ -23,8 +23,8 @@ export class ArchitectureRefactoringHelperComponent implements OnInit {
   openSettingsDialog() {
     const data: DialogData = {
       title: 'Application settings',
-      confirmButtonText: 'Save',
-      cancelButtonText: 'Cancel'
+      confirmButtonText: '',
+      cancelButtonText: 'Close'
     };
     this.utilService
       .createDialog(ApplicationSettingsDialogComponent, data)

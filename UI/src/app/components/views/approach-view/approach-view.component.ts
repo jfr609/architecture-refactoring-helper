@@ -24,6 +24,7 @@ import { AccuracyPrecision } from '../../../../../api/repository/models/accuracy
 import { ToolSupport } from '../../../../../api/repository/models/tool-support';
 import { ValidationMethod } from '../../../../../api/repository/models/validation-method';
 import { Location } from '@angular/common';
+import { PermissionService } from '../../../services/permission.service';
 
 @Component({
   selector: 'app-approach-form',
@@ -38,6 +39,7 @@ export class ApproachViewComponent implements OnInit, OnDestroy {
   isDataLoading = true;
 
   constructor(
+    public permissionService: PermissionService,
     private refactoringApproachService: RefactoringApproachService,
     private recommendationService: ApproachRecommendationService,
     private utilService: UtilService,

@@ -5,6 +5,7 @@ import { UtilService } from '../../../services/util.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
+import { PermissionService } from '../../../services/permission.service';
 
 @Component({
   selector: 'app-approach-explorer',
@@ -20,6 +21,7 @@ export class ApproachExplorerComponent implements OnInit {
   refactoringApproaches: RefactoringApproach[] = [];
 
   constructor(
+    public permissionService: PermissionService,
     private refactoringApproachService: RefactoringApproachService,
     private utilService: UtilService,
     private router: Router

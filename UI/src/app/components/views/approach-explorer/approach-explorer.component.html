@@ -44,7 +44,7 @@
       </th>
       <td mat-cell class='approach-cell' *matCellDef='let approach'>
         <div fxLayout='row'>
-          <button mat-icon-button color='accent' (click)='goToEdit(approach)'>
+          <button *ngIf='permissionService.isAdmin' mat-icon-button color='accent' (click)='goToEdit(approach)'>
             <mat-icon>edit</mat-icon>
           </button>
           <button mat-icon-button color='accent' (click)='goToLink(approach)'>

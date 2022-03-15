@@ -4,7 +4,7 @@
 <div *ngIf='!isDataLoading' style='margin-bottom: 32px' fxLayout='column' fxLayoutAlign='start center'>
   <h1 fxLayout='row'>
     {{refactoringApproach.approachSource?.title}}
-    <button *ngIf='!selectedRecommendation' mat-mini-fab style='margin-left: 8px' (click)='goToEdit()'>
+    <button *ngIf='!selectedRecommendation && permissionService.isAdmin' mat-mini-fab style='margin-left: 8px' (click)='goToEdit()'>
       <mat-icon>edit</mat-icon>
     </button>
     <button mat-mini-fab color='warn' style='margin-left: 8px' (click)='goBack()'>

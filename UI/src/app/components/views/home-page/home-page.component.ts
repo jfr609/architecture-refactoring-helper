@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PermissionService } from '../../../services/permission.service';
 
 @Component({
   selector: 'app-home-page',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
-  constructor() {}
+  constructor(public permissionService: PermissionService) {}
 
   ngOnInit(): void {}
 }

@@ -36,10 +36,6 @@ export class ApplicationSettingsDialogComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onConfirmClicked() {
-    this.dialogRef.close(this.data);
-  }
-
   onCancelClicked() {
     this.dialogRef.close();
   }
