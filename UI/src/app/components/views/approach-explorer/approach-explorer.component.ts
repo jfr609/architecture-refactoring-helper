@@ -6,6 +6,12 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
 import { PermissionService } from '../../../services/permission.service';
+import {
+  ConfirmDialogComponent,
+  ConfirmDialogData
+} from '../../dialogs/confirm-dialog/confirm-dialog.component';
+import { lastValueFrom } from 'rxjs';
+import { removeValueFromArray } from '../../../utils/utils';
 
 @Component({
   selector: 'app-approach-explorer',
@@ -46,7 +52,7 @@ export class ApproachExplorerComponent implements OnInit {
   }
 
   setDataSource(): void {
-    this.dataSource = new MatTableDataSource(this.refactoringApproaches);
+    this.refreshDataSource();
     this.dataSource.sortingDataAccessor = (
       data: RefactoringApproach,
       sortHeaderId: string
@@ -69,12 +75,23 @@ export class ApproachExplorerComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  goToLink(refactoringApproach: RefactoringApproach): void {
+  refreshDataSource(): void {
+    this.dataSource = new MatTableDataSource(this.refactoringApproaches);
+  }
+
+  goToLink(
+    refactoringApproach: RefactoringApproach,
+    mouseEvent: MouseEvent
+  ): void {
+    mouseEvent.preventDefault();
+    mouseEvent.stopPropagation();
     if (refactoringApproach.approachSource?.link == null) return;
     window.open(refactoringApproach.approachSource?.link, '_blank');
   }
 
-  goToEdit(refactoringApproach: RefactoringApproach) {
+  goToEdit(refactoringApproach: RefactoringApproach, mouseEvent: MouseEvent) {
+    mouseEvent.preventDefault();
+    mouseEvent.stopPropagation();
     this.router.navigate([
       '/approach',
       refactoringApproach.refactoringApproachId,
@@ -87,5 +104,52 @@ export class ApproachExplorerComponent implements OnInit {
       '/approach',
       refactoringApproach.refactoringApproachId
     ]);
+  }
+
+  deleteRefactoringApproach(
+    refactoringApproach: RefactoringApproach,
+    mouseEvent: MouseEvent
+  ) {
+    mouseEvent.preventDefault();
+    mouseEvent.stopPropagation();
+    const data: ConfirmDialogData = {
+      title: 'Delete Refactoring Approach?',
+      message: `Do you really want to delete the refactoring approach "${refactoringApproach.approachSource?.title}"?`,
+      confirmButtonText: 'Confirm',
+      cancelButtonText: 'Cancel'
+    };
+    this.utilService
+      .createDialog(ConfirmDialogComponent, data)
+      .afterClosed()
+      .subscribe({
+        next: (data: ConfirmDialogData) => {
+          if (data == null || refactoringApproach.refactoringApproachId == null)
+            return;
+
+          lastValueFrom(
+            this.refactoringApproachService.deleteRefactoringApproach({
+              id: refactoringApproach.refactoringApproachId
+            })
+          )
+            .then(() => {
+              removeValueFromArray(
+                this.refactoringApproaches,
+                refactoringApproach,
+                (a: RefactoringApproach, b: RefactoringApproach) =>
+                  a.refactoringApproachId === b.refactoringApproachId
+              );
+              this.refreshDataSource();
+              this.utilService.callSnackBar(
+                'Refactoring approach deleted successfully'
+              );
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Refactoring approach could not be deleted'
+              );
+            });
+        }
+      });
   }
 }

@@ -1159,6 +1159,44 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
     };
   }
 
+  deleteRefactoringApproach() {
+    const data: ConfirmDialogData = {
+      title: 'Delete Refactoring Approach?',
+      message: `Do you really want to delete the refactoring approach "${this.refactoringApproach.approachSource?.title}"?`,
+      confirmButtonText: 'Confirm',
+      cancelButtonText: 'Cancel'
+    };
+    this.utilService
+      .createDialog(ConfirmDialogComponent, data)
+      .afterClosed()
+      .subscribe({
+        next: (data: ConfirmDialogData) => {
+          if (
+            data == null ||
+            this.refactoringApproach.refactoringApproachId == null
+          )
+            return;
+
+          lastValueFrom(
+            this.refactoringApproachService.deleteRefactoringApproach({
+              id: this.refactoringApproach.refactoringApproachId
+            })
+          )
+            .then(() => {
+              this.utilService.callSnackBar(
+                'Refactoring approach deleted successfully'
+              );
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Refactoring approach could not be deleted'
+              );
+            });
+        }
+      });
+  }
+
   cancel(): void {
     let data: ConfirmDialogData;
     if (this.isCreateView) {

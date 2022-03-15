@@ -44,10 +44,13 @@
       </th>
       <td mat-cell class='approach-cell' *matCellDef='let approach'>
         <div fxLayout='row'>
-          <button *ngIf='permissionService.isAdmin' mat-icon-button color='accent' (click)='goToEdit(approach)'>
+          <button *ngIf='permissionService.isAdmin' mat-icon-button color='accent' (click)='goToEdit(approach, $event)'>
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color='accent' (click)='goToLink(approach)'>
+          <button *ngIf='permissionService.isAdmin' mat-icon-button color='warn' (click)='deleteRefactoringApproach(approach, $event)'>
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button color='accent' (click)='goToLink(approach, $event)'>
             <mat-icon>open_in_new</mat-icon>
           </button>
         </div>

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { lastValueFrom, Subscription } from 'rxjs';
 import { RefactoringApproach } from '../../../../../api/repository/models/refactoring-approach';
 import { NAV_PARAM_APPROACH_ID } from '../../../app.constants';
 import { UtilService } from '../../../services/util.service';
@@ -25,6 +25,10 @@ import { ToolSupport } from '../../../../../api/repository/models/tool-support';
 import { ValidationMethod } from '../../../../../api/repository/models/validation-method';
 import { Location } from '@angular/common';
 import { PermissionService } from '../../../services/permission.service';
+import {
+  ConfirmDialogComponent,
+  ConfirmDialogData
+} from '../../dialogs/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-approach-form',
@@ -318,5 +322,43 @@ export class ApproachViewComponent implements OnInit, OnDestroy {
       default:
         return '';
     }
+  }
+
+  deleteRefactoringApproach() {
+    const data: ConfirmDialogData = {
+      title: 'Delete Refactoring Approach?',
+      message: `Do you really want to delete the refactoring approach "${this.refactoringApproach.approachSource?.title}"?`,
+      confirmButtonText: 'Confirm',
+      cancelButtonText: 'Cancel'
+    };
+    this.utilService
+      .createDialog(ConfirmDialogComponent, data)
+      .afterClosed()
+      .subscribe({
+        next: (data: ConfirmDialogData) => {
+          if (
+            data == null ||
+            this.refactoringApproach.refactoringApproachId == null
+          )
+            return;
+
+          lastValueFrom(
+            this.refactoringApproachService.deleteRefactoringApproach({
+              id: this.refactoringApproach.refactoringApproachId
+            })
+          )
+            .then(() => {
+              this.utilService.callSnackBar(
+                'Refactoring approach deleted successfully'
+              );
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Refactoring approach could not be deleted'
+              );
+            });
+        }
+      });
   }
 }
