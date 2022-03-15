@@ -32,6 +32,8 @@ export class RecommendationResultComponent implements OnInit {
     }
   }
 
+  recommendations: ApproachRecommendation[] = [];
+
   columnData: ColumnData[] = [
     {
       columnDef: 'suitability',
@@ -98,20 +100,37 @@ export class RecommendationResultComponent implements OnInit {
 
   attributeEvaluation = AttributeEvaluation;
 
+  showAllActive = false;
+
   constructor(
     private recommendationsService: ApproachRecommendationService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.loadRecommendations(10);
     this.setDataSource();
   }
 
-  setDataSource(): void {
-    this.dataSource = new MatTableDataSource(
-      this.recommendationsService.recommendations.value
-    );
+  loadRecommendations(numberOfRecommendations: number): void {
+    this.showAllActive =
+      numberOfRecommendations < 0 ||
+      numberOfRecommendations >=
+        this.recommendationsService.recommendations.value.length;
+    if (this.showAllActive) {
+      this.recommendations = this.recommendationsService.recommendations.value;
+    } else {
+      this.recommendations =
+        this.recommendationsService.recommendations.value.slice(
+          0,
+          numberOfRecommendations
+        );
+    }
+    this.dataSource = new MatTableDataSource(this.recommendations);
+  }
 
+  setDataSource(): void {
+    this.dataSource = new MatTableDataSource(this.recommendations);
     this.dataSource.sortingDataAccessor = (
       data: ApproachRecommendation,
       sortHeaderId: string

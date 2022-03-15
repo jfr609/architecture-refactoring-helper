@@ -1,4 +1,4 @@
-<div fxLayout='column' fxLayoutAlign='start center'>
+<div fxLayout='column' fxLayoutAlign='start center' fxLayoutGap='20px'>
   <h1>Recommendations</h1>
 
   <table mat-table [dataSource]='dataSource' multiTemplateDataRows matSort class='mat-elevation-z8'>
@@ -291,4 +291,13 @@
         (click)='setExpandedRecommendation(recommendation)'></tr>
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class='approach-detail-row'></tr>
   </table>
+  <button *ngIf='!showAllActive' mat-flat-button color='accent' (click)='loadRecommendations(-1)'>
+    <mat-icon>expand_more</mat-icon>
+    <span>Show all</span>
+  </button>
+  <button *ngIf='showAllActive' mat-flat-button color='accent' (click)='loadRecommendations(10)'>
+    <mat-icon>expand_less</mat-icon>
+    <span>Show less</span>
+  </button>
 </div>
+<div style='margin-bottom: 40px'></div>

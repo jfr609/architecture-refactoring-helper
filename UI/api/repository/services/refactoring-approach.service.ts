@@ -279,21 +279,39 @@ export class RefactoringApproachService extends BaseService {
   static readonly RecommendRefactoringApproachesPath = '/api/v1/approaches/recommendations';
 
   /**
+   * Returns a list of recommendation with their suitability evaluation based on either the request body or a selected
+   * recommendation preset.
+   * If a preset is given it will always be prioritised over the recommendation request body.
+   *
+   *
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `recommendRefactoringApproaches()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
   recommendRefactoringApproaches$Response(params?: {
-    count?: number;
+
+    /**
+     * The recommendation preset the recommendation algorithm is running against
+     */
     preset?: RecommendationPreset;
+
+    /**
+     * The number of recommendations returned. If the number is negative all elements are returned
+     */
+    count?: number;
+
+    /**
+     * The recommendation information the recommendation algorithm is running against
+     */
     body?: ApproachRecommendationRequest
   }): Observable<StrictHttpResponse<Array<ApproachRecommendation>>> {
 
     const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.RecommendRefactoringApproachesPath, 'post');
     if (params) {
-      rb.query('count', params.count, {});
       rb.query('preset', params.preset, {});
+      rb.query('count', params.count, {});
       rb.body(params.body, 'application/*+json');
     }
 
@@ -309,14 +327,32 @@ export class RefactoringApproachService extends BaseService {
   }
 
   /**
+   * Returns a list of recommendation with their suitability evaluation based on either the request body or a selected
+   * recommendation preset.
+   * If a preset is given it will always be prioritised over the recommendation request body.
+   *
+   *
+   *
    * This method provides access to only to the response body.
    * To access the full response (for headers, for example), `recommendRefactoringApproaches$Response()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
   recommendRefactoringApproaches(params?: {
-    count?: number;
+
+    /**
+     * The recommendation preset the recommendation algorithm is running against
+     */
     preset?: RecommendationPreset;
+
+    /**
+     * The number of recommendations returned. If the number is negative all elements are returned
+     */
+    count?: number;
+
+    /**
+     * The recommendation information the recommendation algorithm is running against
+     */
     body?: ApproachRecommendationRequest
   }): Observable<Array<ApproachRecommendation>> {
 

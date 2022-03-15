@@ -66,6 +66,6 @@ public static class Constants
     public const string AttributeDefaultNoValidation = "No validation";
 
     // RecommendationService
-    public const int DefaultNumberOfRecommendations = 10;
+    public const int DefaultNumberOfRecommendations = -1;
     public const int NumberOfSuitabilityHits = 1;
 }

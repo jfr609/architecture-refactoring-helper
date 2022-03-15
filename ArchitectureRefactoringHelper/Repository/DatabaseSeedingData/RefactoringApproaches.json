@@ -1,11 +1,18 @@
 [
   {
+    "refactoringApproachId": 1,
     "approachSource": {
+      "approachSourceId": 1,
       "title": "Functionality-oriented Microservice Extraction Based on Execution Trace Clustering",
-      "link": "https://ieeexplore.ieee.org/abstract/document/8456351",
       "year": 2018,
+      "link": "https://ieeexplore.ieee.org/abstract/document/8456351",
       "authors": "W. Jin, T. Liu, Q. Zheng, D. Cui and Y. Cai"
     },
+    "domainArtifactInputs": [
+      {
+        "name": "Human expertise"
+      }
+    ],
     "runtimeArtifactInputs": [
       {
         "name": "Log traces"
@@ -14,9 +21,210 @@
         "name": "User-Application interactions"
       }
     ],
+    "modelArtifactInputs": [],
+    "executableInputs": [
+      {
+        "name": "Source code",
+        "language": "No specification"
+      },
+      {
+        "name": "Test cases",
+        "language": "No specification"
+      }
+    ],
+    "approachProcess": {
+      "approachProcessId": 1,
+      "qualities": [
+        {
+          "name": "Cohesion",
+          "category": "Metric"
+        },
+        {
+          "name": "Coupling",
+          "category": "Metric"
+        }
+      ],
+      "directions": [
+        {
+          "name": "Bottom-up"
+        }
+      ],
+      "automationLevels": [
+        {
+          "name": "Semi-automatic"
+        }
+      ],
+      "analysisTypes": [
+        {
+          "name": "Dynamic"
+        }
+      ],
+      "techniques": [
+        {
+          "name": "Clustering"
+        },
+        {
+          "name": "Custom heuristics"
+        }
+      ]
+    },
+    "approachOutputs": [
+      {
+        "approachOutputId": 1,
+        "architecture": {
+          "name": "Microservices"
+        },
+        "serviceType": {
+          "name": "No specification"
+        }
+      }
+    ],
+    "approachUsability": {
+      "approachUsabilityId": 1,
+      "resultsQuality": {
+        "name": "Low"
+      },
+      "toolSupport": {
+        "name": "No tool support"
+      },
+      "accuracyPrecision": {
+        "name": "Not available"
+      },
+      "validationMethod": {
+        "name": "Experiment"
+      }
+    }
+  },
+  {
+    "refactoringApproachId": 2,
+    "approachSource": {
+      "approachSourceId": 2,
+      "title": "A Service Identification Framework for Legacy System Migration into SOA",
+      "year": 2010,
+      "link": "http://ieeexplore.ieee.org/document/5557285/",
+      "authors": "Alahmari, Saad Zaluska, Ed De Roure, David"
+    },
+    "domainArtifactInputs": [],
+    "runtimeArtifactInputs": [],
+    "modelArtifactInputs": [
+      {
+        "name": "Activity diagram"
+      },
+      {
+        "name": "Business process model"
+      }
+    ],
+    "executableInputs": [
+      {
+        "name": "Source code",
+        "language": "No specification"
+      }
+    ],
+    "approachProcess": {
+      "approachProcessId": 2,
+      "qualities": [
+        {
+          "name": "Cohesion",
+          "category": "Metric"
+        },
+        {
+          "name": "Coupling",
+          "category": "Metric"
+        }
+      ],
+      "directions": [
+        {
+          "name": "Mixed"
+        }
+      ],
+      "automationLevels": [
+        {
+          "name": "Semi-automatic"
+        }
+      ],
+      "analysisTypes": [
+        {
+          "name": "Dynamic"
+        }
+      ],
+      "techniques": [
+        {
+          "name": "General guidelines"
+        }
+      ]
+    },
+    "approachOutputs": [
+      {
+        "approachOutputId": 2,
+        "architecture": {
+          "name": "Services"
+        },
+        "serviceType": {
+          "name": "Business services"
+        }
+      },
+      {
+        "approachOutputId": 3,
+        "architecture": {
+          "name": "Services"
+        },
+        "serviceType": {
+          "name": "Application services"
+        }
+      },
+      {
+        "approachOutputId": 4,
+        "architecture": {
+          "name": "Services"
+        },
+        "serviceType": {
+          "name": "Entity services"
+        }
+      },
+      {
+        "approachOutputId": 5,
+        "architecture": {
+          "name": "Services"
+        },
+        "serviceType": {
+          "name": "Infrastructure services"
+        }
+      }
+    ],
+    "approachUsability": {
+      "approachUsabilityId": 2,
+      "resultsQuality": {
+        "name": "Low"
+      },
+      "toolSupport": {
+        "name": "Prototype"
+      },
+      "accuracyPrecision": {
+        "name": "Not available"
+      },
+      "validationMethod": {
+        "name": "Experiment"
+      }
+    }
+  },
+  {
+    "refactoringApproachId": 3,
+    "approachSource": {
+      "approachSourceId": 3,
+      "title": "From objects to services: toward a stepwise migration approach for Java applications",
+      "year": 2009,
+      "link": "http://link.springer.com/10.1007/s10009-009-0123-4",
+      "authors": "Marchetto, Alessandro; Ricca, Filippo"
+    },
     "domainArtifactInputs": [
       {
-        "name": "Human expertise"
+        "name": "Documentation"
+      }
+    ],
+    "runtimeArtifactInputs": [],
+    "modelArtifactInputs": [
+      {
+        "name": "Business process model"
       }
     ],
     "executableInputs": [
@@ -30,27 +238,29 @@
       }
     ],
     "approachProcess": {
-      "directions": [
-        {
-          "name": "Bottom-up"
-        }
-      ],
+      "approachProcessId": 3,
       "qualities": [
         {
-          "name": "Coupling",
-          "category": 1
+          "name": "Granularity",
+          "category": "Metric"
         },
         {
-          "name": "Cohesion",
-          "category": 1
+          "name": "Number of services",
+          "category": "Metric"
+        },
+        {
+          "name": "Reuse",
+          "category": "Requirement"
         }
       ],
-      "techniques": [
+      "directions": [
         {
-          "name": "Clustering"
-        },
+          "name": "Mixed"
+        }
+      ],
+      "automationLevels": [
         {
-          "name": "Custom heuristics"
+          "name": "Manual"
         }
       ],
       "analysisTypes": [
@@ -58,14 +268,526 @@
           "name": "Dynamic"
         }
       ],
-      "automationLevels": [
+      "techniques": [
         {
-          "name": "Semi-automatic"
+          "name": "Custom heuristics"
         }
       ]
     },
     "approachOutputs": [
       {
+        "approachOutputId": 3,
+        "architecture": {
+          "name": "Services"
+        },
+        "serviceType": {
+          "name": "Application services"
+        }
+      }
+    ],
+    "approachUsability": {
+      "approachUsabilityId": 3,
+      "resultsQuality": {
+        "name": "Low"
+      },
+      "toolSupport": {
+        "name": "No tool support"
+      },
+      "accuracyPrecision": {
+        "name": "Not available"
+      },
+      "validationMethod": {
+        "name": "Experiment"
+      }
+    }
+  },
+  {
+    "refactoringApproachId": 4,
+    "approachSource": {
+      "approachSourceId": 4,
+      "title": "MDCSIM: A method and a tool to identify services",
+      "year": 2014,
+      "link": "https://www.researchgate.net/publication/271826853_MDCSIM_A_method_and_a_tool_to_identify_services",
+      "authors": "Huergo, Rosane S; Pires, Paulo F; Delicato, Flávia C"
+    },
+    "domainArtifactInputs": [
+      {
+        "name": "Human expertise"
+      }
+    ],
+    "runtimeArtifactInputs": [],
+    "modelArtifactInputs": [
+      {
+        "name": "Business process model"
+      },
+      {
+        "name": "State machine diagram"
+      }
+    ],
+    "executableInputs": [
+      {
+        "name": "Source code",
+        "language": "No specification"
+      }
+    ],
+    "approachProcess": {
+      "approachProcessId": 4,
+      "qualities": [
+        {
+          "name": "Cohesion",
+          "category": "Metric"
+        },
+        {
+          "name": "Coupling",
+          "category": "Metric"
+        },
+        {
+          "name": "Granularity",
+          "category": "Metric"
+        }
+      ],
+      "directions": [
+        {
+          "name": "Mixed"
+        }
+      ],
+      "automationLevels": [
+        {
+          "name": "Semi-automatic"
+        }
+      ],
+      "analysisTypes": [
+        {
+          "name": "Dynamic"
+        },
+        {
+          "name": "Static"
+        }
+      ],
+      "techniques": [
+        {
+          "name": "Custom heuristics"
+        }
+      ]
+    },
+    "approachOutputs": [
+      {
+        "approachOutputId": 2,
+        "architecture": {
+          "name": "Services"
+        },
+        "serviceType": {
+          "name": "Business services"
+        }
+      },
+      {
+        "approachOutputId": 4,
+        "architecture": {
+          "name": "Services"
+        },
+        "serviceType": {
+          "name": "Entity services"
+        }
+      },
+      {
+        "approachOutputId": 6,
+        "architecture": {
+          "name": "Services"
+        },
+        "serviceType": {
+          "name": "Utility services"
+        }
+      }
+    ],
+    "approachUsability": {
+      "approachUsabilityId": 4,
+      "resultsQuality": {
+        "name": "High"
+      },
+      "toolSupport": {
+        "name": "Prototype"
+      },
+      "accuracyPrecision": {
+        "name": "Not available"
+      },
+      "validationMethod": {
+        "name": "Industry"
+      }
+    }
+  },
+  {
+    "refactoringApproachId": 5,
+    "approachSource": {
+      "approachSourceId": 5,
+      "title": "Reverse engineering relational databases to identify and specify basic Web services with respect to service oriented computing",
+      "year": 2006,
+      "link": "http://link.springer.com/10.1007/s10796-006-9007-2",
+      "authors": "Baghdadi, Youcef"
+    },
+    "domainArtifactInputs": [],
+    "runtimeArtifactInputs": [],
+    "modelArtifactInputs": [],
+    "executableInputs": [
+      {
+        "name": "Database file",
+        "language": "No specification"
+      }
+    ],
+    "approachProcess": {
+      "approachProcessId": 5,
+      "qualities": [],
+      "directions": [
+        {
+          "name": "Bottom-up"
+        }
+      ],
+      "automationLevels": [
+        {
+          "name": "Automatic"
+        }
+      ],
+      "analysisTypes": [
+        {
+          "name": "Static"
+        }
+      ],
+      "techniques": []
+    },
+    "approachOutputs": [
+      {
+        "approachOutputId": 3,
+        "architecture": {
+          "name": "Services"
+        },
+        "serviceType": {
+          "name": "Application services"
+        }
+      }
+    ],
+    "approachUsability": {
+      "approachUsabilityId": 5,
+      "resultsQuality": {
+        "name": "Medium"
+      },
+      "toolSupport": {
+        "name": "Prototype"
+      },
+      "accuracyPrecision": {
+        "name": "Not available"
+      },
+      "validationMethod": {
+        "name": "Experiment"
+      }
+    }
+  },
+  {
+    "refactoringApproachId": 6,
+    "approachSource": {
+      "approachSourceId": 6,
+      "title": "Identifying Services in Procedural Programs for Migrating Legacy System to Service Oriented Architecture",
+      "year": 2012,
+      "link": "http://services.igi-global.com/resolvedoi/resolve.aspx?doi=10.4018/jisss.2011100104",
+      "authors": "Nakamur, Masahide; Igaki, Hiroshi; Kimura, Takahiro; Matsumoto, Kenichi"
+    },
+    "domainArtifactInputs": [
+      {
+        "name": "Documentation"
+      },
+      {
+        "name": "Human expertise"
+      }
+    ],
+    "runtimeArtifactInputs": [],
+    "modelArtifactInputs": [
+      {
+        "name": "Data flow diagram"
+      }
+    ],
+    "executableInputs": [
+      {
+        "name": "Source code",
+        "language": "No specification"
+      }
+    ],
+    "approachProcess": {
+      "approachProcessId": 6,
+      "qualities": [
+        {
+          "name": "Cohesion",
+          "category": "Metric"
+        },
+        {
+          "name": "Coupling",
+          "category": "Metric"
+        },
+        {
+          "name": "Granularity",
+          "category": "Metric"
+        }
+      ],
+      "directions": [
+        {
+          "name": "Bottom-up"
+        }
+      ],
+      "automationLevels": [
+        {
+          "name": "Semi-automatic"
+        }
+      ],
+      "analysisTypes": [
+        {
+          "name": "Dynamic"
+        }
+      ],
+      "techniques": [
+        {
+          "name": "Custom heuristics"
+        }
+      ]
+    },
+    "approachOutputs": [
+      {
+        "approachOutputId": 7,
+        "architecture": {
+          "name": "Services"
+        },
+        "serviceType": {
+          "name": "No specification"
+        }
+      }
+    ],
+    "approachUsability": {
+      "approachUsabilityId": 6,
+      "resultsQuality": {
+        "name": "Low"
+      },
+      "toolSupport": {
+        "name": "No tool support"
+      },
+      "accuracyPrecision": {
+        "name": "Not available"
+      },
+      "validationMethod": {
+        "name": "Experiment"
+      }
+    }
+  },
+  {
+    "refactoringApproachId": 7,
+    "approachSource": {
+      "approachSourceId": 7,
+      "title": "A method to identify services using master data and artifact-centric modeling approach",
+      "year": 2014,
+      "link": "https://dl.acm.org/doi/10.1145/2554850.2554973",
+      "authors": "Huergo, Rosane S.; Pires, Paulo F.; Delicato, Flavia C."
+    },
+    "domainArtifactInputs": [
+      {
+        "name": "Human expertise"
+      }
+    ],
+    "runtimeArtifactInputs": [],
+    "modelArtifactInputs": [
+      {
+        "name": "Business process model"
+      }
+    ],
+    "executableInputs": [
+      {
+        "name": "Database file",
+        "language": "No specification"
+      },
+      {
+        "name": "Source code",
+        "language": "No specification"
+      }
+    ],
+    "approachProcess": {
+      "approachProcessId": 7,
+      "qualities": [
+        {
+          "name": "Cohesion",
+          "category": "Metric"
+        },
+        {
+          "name": "Coupling",
+          "category": "Metric"
+        },
+        {
+          "name": "Granularity",
+          "category": "Metric"
+        }
+      ],
+      "directions": [],
+      "automationLevels": [],
+      "analysisTypes": [],
+      "techniques": []
+    },
+    "approachOutputs": [],
+    "approachUsability": {
+      "approachUsabilityId": 7,
+      "resultsQuality": {
+        "name": "Low"
+      },
+      "toolSupport": {
+        "name": "No tool support"
+      },
+      "accuracyPrecision": {
+        "name": "Not available"
+      },
+      "validationMethod": {
+        "name": "Experiment"
+      }
+    }
+  },
+  {
+    "refactoringApproachId": 8,
+    "approachSource": {
+      "approachSourceId": 8,
+      "title": "Multifaceted service identification: Process, requirement and data",
+      "year": 2016,
+      "link": "http://www.doiserbia.nb.rs/Article.aspx?ID=1820-02141600011A",
+      "authors": "Amiri, Mohammad; Parsa, Saeed; Lajevardi Mohammadzade, Amir"
+    },
+    "domainArtifactInputs": [
+      {
+        "name": "Human expertise"
+      },
+      {
+        "name": "Ontology"
+      }
+    ],
+    "runtimeArtifactInputs": [],
+    "modelArtifactInputs": [
+      {
+        "name": "Business process model"
+      }
+    ],
+    "executableInputs": [
+      {
+        "name": "Database file",
+        "language": "No specification"
+      }
+    ],
+    "approachProcess": {
+      "approachProcessId": 8,
+      "qualities": [
+        {
+          "name": "Cohesion",
+          "category": "Metric"
+        },
+        {
+          "name": "Reuse",
+          "category": "Requirement"
+        }
+      ],
+      "directions": [
+        {
+          "name": "Mixed"
+        }
+      ],
+      "automationLevels": [
+        {
+          "name": "Semi-automatic"
+        }
+      ],
+      "analysisTypes": [
+        {
+          "name": "Static"
+        }
+      ],
+      "techniques": [
+        {
+          "name": "Clustering"
+        },
+        {
+          "name": "Genetic algorithm"
+        }
+      ]
+    },
+    "approachOutputs": [],
+    "approachUsability": {
+      "approachUsabilityId": 8,
+      "resultsQuality": {
+        "name": "Low"
+      },
+      "toolSupport": {
+        "name": "Prototype"
+      },
+      "accuracyPrecision": {
+        "name": "High"
+      },
+      "validationMethod": {
+        "name": "Experiment"
+      }
+    }
+  },
+  {
+    "refactoringApproachId": 9,
+    "approachSource": {
+      "approachSourceId": 9,
+      "title": "Microservices Identification Through Interface Analysis",
+      "year": 2017,
+      "link": "http://link.springer.com/10.1007/978-3-662-44879-3",
+      "authors": "Baresi, Luciano; Garriga, Martin; Renzis, Alan"
+    },
+    "domainArtifactInputs": [],
+    "runtimeArtifactInputs": [
+      {
+        "name": "User-Application interactions"
+      }
+    ],
+    "modelArtifactInputs": [],
+    "executableInputs": [
+      {
+        "name": "Source code",
+        "language": "No specification"
+      }
+    ],
+    "approachProcess": {
+      "approachProcessId": 9,
+      "qualities": [
+        {
+          "name": "Cohesion",
+          "category": "Metric"
+        },
+        {
+          "name": "Coupling",
+          "category": "Metric"
+        },
+        {
+          "name": "Granularity",
+          "category": "Metric"
+        }
+      ],
+      "directions": [
+        {
+          "name": "Bottom-up"
+        }
+      ],
+      "automationLevels": [
+        {
+          "name": "Semi-automatic"
+        }
+      ],
+      "analysisTypes": [
+        {
+          "name": "Lexical"
+        },
+        {
+          "name": "Static"
+        }
+      ],
+      "techniques": [
+        {
+          "name": "Clustering"
+        }
+      ]
+    },
+    "approachOutputs": [
+      {
+        "approachOutputId": 1,
         "architecture": {
           "name": "Microservices"
         },
@@ -75,14 +797,745 @@
       }
     ],
     "approachUsability": {
-      "accuracyPrecision": {
-        "name": "Not available"
-      },
+      "approachUsabilityId": 9,
       "resultsQuality": {
         "name": "Low"
       },
       "toolSupport": {
         "name": "No tool support"
+      },
+      "accuracyPrecision": {
+        "name": "Not available"
+      },
+      "validationMethod": {
+        "name": "Case study"
+      }
+    }
+  },
+  {
+    "refactoringApproachId": 10,
+    "approachSource": {
+      "approachSourceId": 10,
+      "title": "Bottom-up and top-down COBOL system migration to Web Services: An experience report",
+      "year": 2013,
+      "link": "http://ieeexplore.ieee.org/document/6109214/",
+      "authors": "Rodriguez, Juan; Crasso, Marco; Mateos, Cristian; Zunino, Alejandro; Campo, Marcelo"
+    },
+    "domainArtifactInputs": [
+      {
+        "name": "Documentation"
+      },
+      {
+        "name": "Human expertise"
+      }
+    ],
+    "runtimeArtifactInputs": [],
+    "modelArtifactInputs": [],
+    "executableInputs": [
+      {
+        "name": "Source code",
+        "language": "No specification"
+      }
+    ],
+    "approachProcess": {
+      "approachProcessId": 10,
+      "qualities": [
+        {
+          "name": "Cohesion",
+          "category": "Metric"
+        },
+        {
+          "name": "Granularity",
+          "category": "Metric"
+        },
+        {
+          "name": "Reuse",
+          "category": "Requirement"
+        }
+      ],
+      "directions": [
+        {
+          "name": "Bottom-up"
+        }
+      ],
+      "automationLevels": [
+        {
+          "name": "Semi-automatic"
+        }
+      ],
+      "analysisTypes": [
+        {
+          "name": "Static"
+        }
+      ],
+      "techniques": [
+        {
+          "name": "Wrapping"
+        }
+      ]
+    },
+    "approachOutputs": [],
+    "approachUsability": {
+      "approachUsabilityId": 10,
+      "resultsQuality": {
+        "name": "High"
+      },
+      "toolSupport": {
+        "name": "Industry ready"
+      },
+      "accuracyPrecision": {
+        "name": "Not available"
+      },
+      "validationMethod": {
+        "name": "Industry"
+      }
+    }
+  },
+  {
+    "refactoringApproachId": 11,
+    "approachSource": {
+      "approachSourceId": 11,
+      "title": "Service Cutter: A Systematic Approach to Service Decomposition",
+      "year": 2016,
+      "link": "http://link.springer.com/10.1007/978-3-319-44482-6_12",
+      "authors": "Gysel, Michael; Kölbener, Lukas; Giersche, Wolfgang; Zimmermann, Olaf"
+    },
+    "domainArtifactInputs": [],
+    "runtimeArtifactInputs": [],
+    "modelArtifactInputs": [
+      {
+        "name": "Use case model"
+      }
+    ],
+    "executableInputs": [
+      {
+        "name": "Source code",
+        "language": "No specification"
+      }
+    ],
+    "approachProcess": {
+      "approachProcessId": 11,
+      "qualities": [
+        {
+          "name": "Number of services",
+          "category": "Metric"
+        }
+      ],
+      "directions": [
+        {
+          "name": "Bottom-up"
+        }
+      ],
+      "automationLevels": [
+        {
+          "name": "Automatic"
+        }
+      ],
+      "analysisTypes": [
+        {
+          "name": "Static"
+        }
+      ],
+      "techniques": [
+        {
+          "name": "Clustering"
+        },
+        {
+          "name": "Custom heuristics"
+        }
+      ]
+    },
+    "approachOutputs": [
+      {
+        "approachOutputId": 1,
+        "architecture": {
+          "name": "Microservices"
+        },
+        "serviceType": {
+          "name": "No specification"
+        }
+      }
+    ],
+    "approachUsability": {
+      "approachUsabilityId": 11,
+      "resultsQuality": {
+        "name": "High"
+      },
+      "toolSupport": {
+        "name": "Open source"
+      },
+      "accuracyPrecision": {
+        "name": "Not available"
+      },
+      "validationMethod": {
+        "name": "Experiment"
+      }
+    }
+  },
+  {
+    "refactoringApproachId": 12,
+    "approachSource": {
+      "approachSourceId": 12,
+      "title": "An approach to align business and IT perspectives during the SOA services identification",
+      "year": 2017,
+      "link": "http://ieeexplore.ieee.org/document/8000015/",
+      "authors": "Souza, Eric; Moreira, Ana; De Faveri, Cristiano"
+    },
+    "domainArtifactInputs": [
+      {
+        "name": "Human expertise"
+      }
+    ],
+    "runtimeArtifactInputs": [],
+    "modelArtifactInputs": [
+      {
+        "name": "Business process model"
+      }
+    ],
+    "executableInputs": [
+      {
+        "name": "Source code",
+        "language": "No specification"
+      }
+    ],
+    "approachProcess": {
+      "approachProcessId": 12,
+      "qualities": [],
+      "directions": [
+        {
+          "name": "Mixed"
+        }
+      ],
+      "automationLevels": [
+        {
+          "name": "Automatic"
+        }
+      ],
+      "analysisTypes": [
+        {
+          "name": "Static"
+        }
+      ],
+      "techniques": [
+        {
+          "name": "Custom heuristics"
+        }
+      ]
+    },
+    "approachOutputs": [],
+    "approachUsability": {
+      "approachUsabilityId": 12,
+      "resultsQuality": {
+        "name": "Low"
+      },
+      "toolSupport": {
+        "name": "Prototype"
+      },
+      "accuracyPrecision": {
+        "name": "Not available"
+      },
+      "validationMethod": {
+        "name": "Experiment"
+      }
+    }
+  },
+  {
+    "refactoringApproachId": 13,
+    "approachSource": {
+      "approachSourceId": 13,
+      "title": "Discovering Microservices in Enterprise Systems Using a Business Object Containment Heuristic",
+      "year": 2018,
+      "link": "http://link.springer.com/10.1007/978-3-030-02671-4_4",
+      "authors": "De Alwis, Adambarage Anuruddha Chathuranga; Barros, Alistair; Fidge, Colin; Polyvyanyy, Artem"
+    },
+    "domainArtifactInputs": [
+      {
+        "name": "Human expertise"
+      }
+    ],
+    "runtimeArtifactInputs": [
+      {
+        "name": "Log traces"
+      }
+    ],
+    "modelArtifactInputs": [],
+    "executableInputs": [
+      {
+        "name": "Database file",
+        "language": "No specification"
+      },
+      {
+        "name": "Source code",
+        "language": "No specification"
+      }
+    ],
+    "approachProcess": {
+      "approachProcessId": 13,
+      "qualities": [],
+      "directions": [
+        {
+          "name": "Bottom-up"
+        }
+      ],
+      "automationLevels": [
+        {
+          "name": "Semi-automatic"
+        }
+      ],
+      "analysisTypes": [
+        {
+          "name": "Dynamic"
+        },
+        {
+          "name": "Static"
+        }
+      ],
+      "techniques": [
+        {
+          "name": "Clustering"
+        },
+        {
+          "name": "Custom heuristics"
+        }
+      ]
+    },
+    "approachOutputs": [],
+    "approachUsability": {
+      "approachUsabilityId": 13,
+      "resultsQuality": {
+        "name": "Medium"
+      },
+      "toolSupport": {
+        "name": "Prototype"
+      },
+      "accuracyPrecision": {
+        "name": "Not available"
+      },
+      "validationMethod": {
+        "name": "Industry"
+      }
+    }
+  },
+  {
+    "refactoringApproachId": 14,
+    "approachSource": {
+      "approachSourceId": 14,
+      "title": "Identifying Microservices Using Functional Decomposition",
+      "year": 2018,
+      "link": "https://www.researchgate.net/profile/Robert_Heinrich3/contributions",
+      "authors": "Tyszberowicz, Shmuel; Heinrich, Robert; Liu, Bo; Liu, Zhiming"
+    },
+    "domainArtifactInputs": [],
+    "runtimeArtifactInputs": [],
+    "modelArtifactInputs": [
+      {
+        "name": "Use case model"
+      }
+    ],
+    "executableInputs": [
+      {
+        "name": "Source code",
+        "language": "No specification"
+      }
+    ],
+    "approachProcess": {
+      "approachProcessId": 14,
+      "qualities": [
+        {
+          "name": "Cohesion",
+          "category": "Metric"
+        },
+        {
+          "name": "Coupling",
+          "category": "Metric"
+        },
+        {
+          "name": "Granularity",
+          "category": "Metric"
+        }
+      ],
+      "directions": [
+        {
+          "name": "Mixed"
+        }
+      ],
+      "automationLevels": [
+        {
+          "name": "Manual"
+        }
+      ],
+      "analysisTypes": [
+        {
+          "name": "Static"
+        }
+      ],
+      "techniques": [
+        {
+          "name": "Clustering"
+        }
+      ]
+    },
+    "approachOutputs": [
+      {
+        "approachOutputId": 1,
+        "architecture": {
+          "name": "Microservices"
+        },
+        "serviceType": {
+          "name": "No specification"
+        }
+      }
+    ],
+    "approachUsability": {
+      "approachUsabilityId": 14,
+      "resultsQuality": {
+        "name": "Low"
+      },
+      "toolSupport": {
+        "name": "Prototype"
+      },
+      "accuracyPrecision": {
+        "name": "Not available"
+      },
+      "validationMethod": {
+        "name": "Experiment"
+      }
+    }
+  },
+  {
+    "refactoringApproachId": 15,
+    "approachSource": {
+      "approachSourceId": 15,
+      "title": "Towards the understanding and evolution of monolithic applications as microservices",
+      "year": 2016,
+      "link": "http://ieeexplore.ieee.org/document/7833410/",
+      "authors": "Escobar, Daniel; Cardenas, Diana; Amarillo, Rolando; Castro, Eddie; Garces, Kelly; Parra, Carlos; Casallas, Rubby"
+    },
+    "domainArtifactInputs": [],
+    "runtimeArtifactInputs": [],
+    "modelArtifactInputs": [],
+    "executableInputs": [
+      {
+        "name": "Source code",
+        "language": "Java"
+      }
+    ],
+    "approachProcess": {
+      "approachProcessId": 15,
+      "qualities": [
+        {
+          "name": "Cohesion",
+          "category": "Metric"
+        },
+        {
+          "name": "Coupling",
+          "category": "Metric"
+        },
+        {
+          "name": "Granularity",
+          "category": "Metric"
+        }
+      ],
+      "directions": [
+        {
+          "name": "Bottom-up"
+        }
+      ],
+      "automationLevels": [
+        {
+          "name": "Semi-automatic"
+        }
+      ],
+      "analysisTypes": [
+        {
+          "name": "Static"
+        }
+      ],
+      "techniques": [
+        {
+          "name": "Clustering"
+        },
+        {
+          "name": "Custom heuristics"
+        }
+      ]
+    },
+    "approachOutputs": [
+      {
+        "approachOutputId": 1,
+        "architecture": {
+          "name": "Microservices"
+        },
+        "serviceType": {
+          "name": "No specification"
+        }
+      }
+    ],
+    "approachUsability": {
+      "approachUsabilityId": 15,
+      "resultsQuality": {
+        "name": "High"
+      },
+      "toolSupport": {
+        "name": "Prototype"
+      },
+      "accuracyPrecision": {
+        "name": "Not available"
+      },
+      "validationMethod": {
+        "name": "Industry"
+      }
+    }
+  },
+  {
+    "refactoringApproachId": 16,
+    "approachSource": {
+      "approachSourceId": 16,
+      "title": "From Monolithic Systems to Microservices: A Decomposition Framework based on Process Mining",
+      "year": 2019,
+      "link": "http://www.scitepress.org/DigitalLibrary/Link.aspx?doi=10.5220/0007755901530164",
+      "authors": "Taibi, Davide; Systä, Kari"
+    },
+    "domainArtifactInputs": [],
+    "runtimeArtifactInputs": [
+      {
+        "name": "Log traces"
+      }
+    ],
+    "modelArtifactInputs": [
+      {
+        "name": "Business process model"
+      }
+    ],
+    "executableInputs": [
+      {
+        "name": "Source code",
+        "language": "No specification"
+      }
+    ],
+    "approachProcess": {
+      "approachProcessId": 16,
+      "qualities": [
+        {
+          "name": "Coupling",
+          "category": "Metric"
+        }
+      ],
+      "directions": [
+        {
+          "name": "Mixed"
+        }
+      ],
+      "automationLevels": [
+        {
+          "name": "Semi-automatic"
+        }
+      ],
+      "analysisTypes": [
+        {
+          "name": "Dynamic"
+        }
+      ],
+      "techniques": [
+        {
+          "name": "Custom heuristics"
+        }
+      ]
+    },
+    "approachOutputs": [
+      {
+        "approachOutputId": 1,
+        "architecture": {
+          "name": "Microservices"
+        },
+        "serviceType": {
+          "name": "No specification"
+        }
+      }
+    ],
+    "approachUsability": {
+      "approachUsabilityId": 16,
+      "resultsQuality": {
+        "name": "High"
+      },
+      "toolSupport": {
+        "name": "Prototype"
+      },
+      "accuracyPrecision": {
+        "name": "Not available"
+      },
+      "validationMethod": {
+        "name": "Industry"
+      }
+    }
+  },
+  {
+    "refactoringApproachId": 17,
+    "approachSource": {
+      "approachSourceId": 17,
+      "title": "Function-Splitting Heuristics for Discovery of Microservices in Enterprise Systems",
+      "year": 2018,
+      "link": "http://link.springer.com/10.1007/978-3-030-03596-9_3",
+      "authors": "De Alwis, Adambarage Anuruddha Chathuranga; Barros, Alistair; Polyvyanyy, Artem; Fidge, Colin"
+    },
+    "domainArtifactInputs": [],
+    "runtimeArtifactInputs": [
+      {
+        "name": "Log traces"
+      }
+    ],
+    "modelArtifactInputs": [
+      {
+        "name": "Business process model"
+      },
+      {
+        "name": "Use case model"
+      }
+    ],
+    "executableInputs": [
+      {
+        "name": "Database file",
+        "language": "No specification"
+      }
+    ],
+    "approachProcess": {
+      "approachProcessId": 17,
+      "qualities": [
+        {
+          "name": "Cohesion",
+          "category": "Metric"
+        },
+        {
+          "name": "Coupling",
+          "category": "Metric"
+        }
+      ],
+      "directions": [
+        {
+          "name": "Mixed"
+        }
+      ],
+      "automationLevels": [
+        {
+          "name": "Semi-automatic"
+        }
+      ],
+      "analysisTypes": [
+        {
+          "name": "Dynamic"
+        }
+      ],
+      "techniques": [
+        {
+          "name": "Clustering"
+        },
+        {
+          "name": "Custom heuristics"
+        }
+      ]
+    },
+    "approachOutputs": [
+      {
+        "approachOutputId": 1,
+        "architecture": {
+          "name": "Microservices"
+        },
+        "serviceType": {
+          "name": "No specification"
+        }
+      }
+    ],
+    "approachUsability": {
+      "approachUsabilityId": 17,
+      "resultsQuality": {
+        "name": "Medium"
+      },
+      "toolSupport": {
+        "name": "Prototype"
+      },
+      "accuracyPrecision": {
+        "name": "Not available"
+      },
+      "validationMethod": {
+        "name": "Industry"
+      }
+    }
+  },
+  {
+    "refactoringApproachId": 18,
+    "approachSource": {
+      "approachSourceId": 18,
+      "title": "From a Monolith to a Microservices Architecture: An Approach Based on Transactional Contexts",
+      "year": 2019,
+      "link": "http://link.springer.com/10.1007/978-3-030-29983-5_3",
+      "authors": "Nunes, Luís; Santos, Nuno; Rito Silva, António"
+    },
+    "domainArtifactInputs": [],
+    "runtimeArtifactInputs": [],
+    "modelArtifactInputs": [],
+    "executableInputs": [
+      {
+        "name": "Source code",
+        "language": "No specification"
+      }
+    ],
+    "approachProcess": {
+      "approachProcessId": 18,
+      "qualities": [
+        {
+          "name": "Coupling",
+          "category": "Metric"
+        },
+        {
+          "name": "Granularity",
+          "category": "Metric"
+        }
+      ],
+      "directions": [
+        {
+          "name": "Mixed"
+        }
+      ],
+      "automationLevels": [
+        {
+          "name": "Semi-automatic"
+        }
+      ],
+      "analysisTypes": [
+        {
+          "name": "Static"
+        }
+      ],
+      "techniques": [
+        {
+          "name": "Clustering"
+        },
+        {
+          "name": "Custom heuristics"
+        }
+      ]
+    },
+    "approachOutputs": [
+      {
+        "approachOutputId": 1,
+        "architecture": {
+          "name": "Microservices"
+        },
+        "serviceType": {
+          "name": "No specification"
+        }
+      }
+    ],
+    "approachUsability": {
+      "approachUsabilityId": 18,
+      "resultsQuality": {
+        "name": "Medium"
+      },
+      "toolSupport": {
+        "name": "Prototype"
+      },
+      "accuracyPrecision": {
+        "name": "Medium"
       },
       "validationMethod": {
         "name": "Experiment"

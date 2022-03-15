@@ -79,12 +79,21 @@ public class RefactoringApproachController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>
+    /// Returns a list of recommendation with their suitability evaluation based on either the request body or a selected
+    /// recommendation preset.
+    /// If a preset is given it will always be prioritised over the recommendation request body.
+    /// </summary>
+    /// <param name="approachRecommendationRequest">The recommendation information the recommendation algorithm is running against</param>
+    /// <param name="preset">The recommendation preset the recommendation algorithm is running against</param>
+    /// <param name="count">The number of recommendations returned. If the number is negative all elements are returned</param>
+    /// <returns></returns>
     [HttpPost("recommendations", Name = "RecommendRefactoringApproaches")]
     public ActionResult<IEnumerable<ApproachRecommendation>> RecommendRefactoringApproaches(
         [FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Allow)]
         ApproachRecommendationRequest? approachRecommendationRequest,
-        [FromQuery] int? count,
-        [FromQuery] RecommendationPreset? preset)
+        [FromQuery] RecommendationPreset? preset,
+        [FromQuery] int? count)
     {
         var numberOfRecommendations = count ?? Constants.DefaultNumberOfRecommendations;
 

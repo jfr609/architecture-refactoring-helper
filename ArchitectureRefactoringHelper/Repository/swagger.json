@@ -1575,25 +1575,29 @@
         "tags": [
           "RefactoringApproach"
         ],
+        "summary": "Returns a list of recommendation with their suitability evaluation based on either the request body or a selected\r\nrecommendation preset.\r\nIf a preset is given it will always be prioritised over the recommendation request body.",
         "operationId": "RecommendRefactoringApproaches",
         "parameters": [
           {
+            "name": "preset",
+            "in": "query",
+            "description": "The recommendation preset the recommendation algorithm is running against",
+            "schema": {
+              "$ref": "#/components/schemas/RecommendationPreset"
+            }
+          },
+          {
             "name": "count",
             "in": "query",
+            "description": "The number of recommendations returned. If the number is negative all elements are returned",
             "schema": {
               "type": "integer",
               "format": "int32"
             }
-          },
-          {
-            "name": "preset",
-            "in": "query",
-            "schema": {
-              "$ref": "#/components/schemas/RecommendationPreset"
-            }
           }
         ],
         "requestBody": {
+          "description": "The recommendation information the recommendation algorithm is running against",
           "content": {
             "application/json": {
               "schema": {

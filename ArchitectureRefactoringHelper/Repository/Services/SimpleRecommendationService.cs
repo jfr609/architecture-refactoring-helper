@@ -19,6 +19,9 @@ public class SimpleRecommendationService : IRecommendationService
     {
         var refactoringApproaches = _refactoringApproachService.ListRefactoringApproaches(true);
 
+        if (numberOfRecommendations < 0)
+            numberOfRecommendations = int.MaxValue;
+
         var recommendations = refactoringApproaches
             .Select(refactoringApproach => EvaluateApproachSuitability(refactoringApproach, recommendationRequest))
             .OrderByDescending(e => e.SuitabilityScore)
