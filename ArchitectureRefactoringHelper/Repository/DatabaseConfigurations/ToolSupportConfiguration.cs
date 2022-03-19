@@ -4,7 +4,7 @@ using Repository.Models.Database;
 
 namespace Repository.DatabaseConfigurations;
 
-public class ToolSupportEntityTypeConfiguration : IEntityTypeConfiguration<ToolSupport>
+public class ToolSupportConfiguration : IEntityTypeConfiguration<ToolSupport>
 {
     public void Configure(EntityTypeBuilder<ToolSupport> builder)
     {

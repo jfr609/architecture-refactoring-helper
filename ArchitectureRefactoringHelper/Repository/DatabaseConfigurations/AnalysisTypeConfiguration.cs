@@ -4,7 +4,7 @@ using Repository.Models.Database;
 
 namespace Repository.DatabaseConfigurations;
 
-public class AnalysisTypeEntityTypeConfiguration : IEntityTypeConfiguration<AnalysisType>
+public class AnalysisTypeConfiguration : IEntityTypeConfiguration<AnalysisType>
 {
     public void Configure(EntityTypeBuilder<AnalysisType> builder)
     {

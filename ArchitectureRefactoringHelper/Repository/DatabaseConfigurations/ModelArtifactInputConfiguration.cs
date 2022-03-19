@@ -4,7 +4,7 @@ using Repository.Models.Database;
 
 namespace Repository.DatabaseConfigurations;
 
-public class ModelArtifactInputEntityTypeConfiguration : IEntityTypeConfiguration<ModelArtifactInput>
+public class ModelArtifactInputConfiguration : IEntityTypeConfiguration<ModelArtifactInput>
 {
     public void Configure(EntityTypeBuilder<ModelArtifactInput> builder)
     {

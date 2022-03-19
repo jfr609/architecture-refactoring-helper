@@ -4,7 +4,7 @@ using Repository.Models.Database;
 
 namespace Repository.DatabaseConfigurations;
 
-public class DirectionEntityTypeConfiguration : IEntityTypeConfiguration<Direction>
+public class DirectionConfiguration : IEntityTypeConfiguration<Direction>
 {
     public void Configure(EntityTypeBuilder<Direction> builder)
     {

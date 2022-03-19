@@ -4,7 +4,7 @@ using Repository.Models.Database;
 
 namespace Repository.DatabaseConfigurations;
 
-public class ResultsQualityEntityTypeConfiguration : IEntityTypeConfiguration<ResultsQuality>
+public class ResultsQualityConfiguration : IEntityTypeConfiguration<ResultsQuality>
 {
     public void Configure(EntityTypeBuilder<ResultsQuality> builder)
     {

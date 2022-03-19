@@ -1,6 +1,7 @@
 [
   {
     "refactoringApproachId": 1,
+    "identifier": "1",
     "approachSource": {
       "approachSourceId": 1,
       "title": "Functionality-oriented Microservice Extraction Based on Execution Trace Clustering",
@@ -97,6 +98,7 @@
   },
   {
     "refactoringApproachId": 2,
+    "identifier": "2",
     "approachSource": {
       "approachSourceId": 2,
       "title": "A Service Identification Framework for Legacy System Migration into SOA",
@@ -209,6 +211,7 @@
   },
   {
     "refactoringApproachId": 3,
+    "identifier": "3",
     "approachSource": {
       "approachSourceId": 3,
       "title": "From objects to services: toward a stepwise migration approach for Java applications",
@@ -303,6 +306,7 @@
   },
   {
     "refactoringApproachId": 4,
+    "identifier": "4",
     "approachSource": {
       "approachSourceId": 4,
       "title": "MDCSIM: A method and a tool to identify services",
@@ -417,6 +421,7 @@
   },
   {
     "refactoringApproachId": 5,
+    "identifier": "5",
     "approachSource": {
       "approachSourceId": 5,
       "title": "Reverse engineering relational databases to identify and specify basic Web services with respect to service oriented computing",
@@ -482,6 +487,7 @@
   },
   {
     "refactoringApproachId": 6,
+    "identifier": "6",
     "approachSource": {
       "approachSourceId": 6,
       "title": "Identifying Services in Procedural Programs for Migrating Legacy System to Service Oriented Architecture",
@@ -575,6 +581,7 @@
   },
   {
     "refactoringApproachId": 7,
+    "identifier": "7",
     "approachSource": {
       "approachSourceId": 7,
       "title": "A method to identify services using master data and artifact-centric modeling approach",
@@ -643,6 +650,7 @@
   },
   {
     "refactoringApproachId": 8,
+    "identifier": "8",
     "approachSource": {
       "approachSourceId": 8,
       "title": "Multifaceted service identification: Process, requirement and data",
@@ -725,6 +733,7 @@
   },
   {
     "refactoringApproachId": 9,
+    "identifier": "9",
     "approachSource": {
       "approachSourceId": 9,
       "title": "Microservices Identification Through Interface Analysis",
@@ -814,6 +823,7 @@
   },
   {
     "refactoringApproachId": 10,
+    "identifier": "10",
     "approachSource": {
       "approachSourceId": 10,
       "title": "Bottom-up and top-down COBOL system migration to Web Services: An experience report",
@@ -893,6 +903,7 @@
   },
   {
     "refactoringApproachId": 11,
+    "identifier": "11",
     "approachSource": {
       "approachSourceId": 11,
       "title": "Service Cutter: A Systematic Approach to Service Decomposition",
@@ -974,6 +985,7 @@
   },
   {
     "refactoringApproachId": 12,
+    "identifier": "12",
     "approachSource": {
       "approachSourceId": 12,
       "title": "An approach to align business and IT perspectives during the SOA services identification",
@@ -1041,6 +1053,7 @@
   },
   {
     "refactoringApproachId": 13,
+    "identifier": "13",
     "approachSource": {
       "approachSourceId": 13,
       "title": "Discovering Microservices in Enterprise Systems Using a Business Object Containment Heuristic",
@@ -1118,6 +1131,7 @@
   },
   {
     "refactoringApproachId": 14,
+    "identifier": "14",
     "approachSource": {
       "approachSourceId": 14,
       "title": "Identifying Microservices Using Functional Decomposition",
@@ -1204,6 +1218,7 @@
   },
   {
     "refactoringApproachId": 15,
+    "identifier": "15",
     "approachSource": {
       "approachSourceId": 15,
       "title": "Towards the understanding and evolution of monolithic applications as microservices",
@@ -1289,6 +1304,7 @@
   },
   {
     "refactoringApproachId": 16,
+    "identifier": "16",
     "approachSource": {
       "approachSourceId": 16,
       "title": "From Monolithic Systems to Microservices: A Decomposition Framework based on Process Mining",
@@ -1371,6 +1387,7 @@
   },
   {
     "refactoringApproachId": 17,
+    "identifier": "17",
     "approachSource": {
       "approachSourceId": 17,
       "title": "Function-Splitting Heuristics for Discovery of Microservices in Enterprise Systems",
@@ -1463,6 +1480,7 @@
   },
   {
     "refactoringApproachId": 18,
+    "identifier": "18",
     "approachSource": {
       "approachSourceId": 18,
       "title": "From a Monolith to a Microservices Architecture: An Approach Based on Transactional Contexts",

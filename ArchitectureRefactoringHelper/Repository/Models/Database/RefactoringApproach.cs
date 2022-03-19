@@ -10,6 +10,10 @@ public class RefactoringApproach
     [Key]
     [JsonPropertyName("refactoringApproachId")]
     public int RefactoringApproachId { get; set; }
+    [Required]
+    [JsonPropertyName("identifier")]
+    public string Identifier { get; set; }
+
     [JsonIgnore]
     public int ApproachSourceId { get; set; }
     [JsonPropertyName("approachSource")]

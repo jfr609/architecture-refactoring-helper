@@ -4,7 +4,7 @@ using Repository.Models.Database;
 
 namespace Repository.DatabaseConfigurations;
 
-public class ServiceTypeEntityTypeConfiguration : IEntityTypeConfiguration<ServiceType>
+public class ServiceTypeConfiguration : IEntityTypeConfiguration<ServiceType>
 {
     public void Configure(EntityTypeBuilder<ServiceType> builder)
     {

@@ -4,7 +4,7 @@ using Repository.Models.Database;
 
 namespace Repository.DatabaseConfigurations;
 
-public class AutomationLevelEntityTypeConfiguration : IEntityTypeConfiguration<AutomationLevel>
+public class AutomationLevelConfiguration : IEntityTypeConfiguration<AutomationLevel>
 {
     public void Configure(EntityTypeBuilder<AutomationLevel> builder)
     {

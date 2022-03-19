@@ -4,7 +4,7 @@ using Repository.Models.Database;
 
 namespace Repository.DatabaseConfigurations;
 
-public class ArchitectureEntityTypeConfiguration : IEntityTypeConfiguration<Architecture>
+public class ArchitectureConfiguration : IEntityTypeConfiguration<Architecture>
 {
     public void Configure(EntityTypeBuilder<Architecture> builder)
     {

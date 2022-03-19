@@ -49,87 +49,28 @@ public class RefactoringApproachContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Define Join Table for RefactoringApproach and ApproachOutput
-        modelBuilder.Entity<RefactoringApproach>()
-            .HasMany(left => left.ApproachOutputs)
-            .WithMany(right => right.RefactoringApproaches)
-            .UsingEntity(join => join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachOutput));
-
-        // Define Join Table for RefactoringApproach and DomainArtifactInput
-        modelBuilder.Entity<RefactoringApproach>()
-            .HasMany(left => left.DomainArtifactInputs)
-            .WithMany(right => right.RefactoringApproaches)
-            .UsingEntity(join =>
-                join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachInputDomainArtifact));
-
-        // Define Join Table for RefactoringApproach and RuntimeArtifactInput
-        modelBuilder.Entity<RefactoringApproach>()
-            .HasMany(left => left.RuntimeArtifactInputs)
-            .WithMany(right => right.RefactoringApproaches)
-            .UsingEntity(join =>
-                join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachInputRuntimeArtifact));
-
-        // Define Join Table for RefactoringApproach and ModelArtifactInput
-        modelBuilder.Entity<RefactoringApproach>()
-            .HasMany(left => left.ModelArtifactInputs)
-            .WithMany(right => right.RefactoringApproaches)
-            .UsingEntity(
-                join => join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachInputModelArtifact));
-
-        // Define Join Table for RefactoringApproach and ExecutableInput
-        modelBuilder.Entity<RefactoringApproach>()
-            .HasMany(left => left.ExecutableInputs)
-            .WithMany(right => right.RefactoringApproaches)
-            .UsingEntity(join => join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachInputExecutable));
-
-        // Define Join Table for ApproachProcess and Quality
-        modelBuilder.Entity<ApproachProcess>()
-            .HasMany(left => left.Qualities)
-            .WithMany(right => right.ApproachProcesses)
-            .UsingEntity(join => join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachProcessQuality));
-
-        // Define Join Table for ApproachProcess and Direction
-        modelBuilder.Entity<ApproachProcess>()
-            .HasMany(left => left.Directions)
-            .WithMany(right => right.ApproachProcesses)
-            .UsingEntity(join => join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachProcessDirection));
-
-        // Define Join Table for ApproachProcess and AutomationLevel
-        modelBuilder.Entity<ApproachProcess>()
-            .HasMany(left => left.AutomationLevels)
-            .WithMany(right => right.ApproachProcesses)
-            .UsingEntity(join =>
-                join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachProcessAutomationLevel));
-
-        // Define Join Table for ApproachProcess and AnalysisType
-        modelBuilder.Entity<ApproachProcess>()
-            .HasMany(left => left.AnalysisTypes)
-            .WithMany(right => right.ApproachProcesses)
-            .UsingEntity(join =>
-                join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachProcessAnalysisType));
-
-        // Define Join Table for ApproachProcess and Technique
-        modelBuilder.Entity<ApproachProcess>()
-            .HasMany(left => left.Techniques)
-            .WithMany(right => right.ApproachProcesses)
-            .UsingEntity(join => join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachProcessTechnique));
-
         // Apply Configurations
+        modelBuilder.ApplyConfiguration(new RefactoringApproachConfiguration());
+        modelBuilder.ApplyConfiguration(new ApproachProcessConfiguration());
         modelBuilder.ApplyConfiguration(new ApproachUsabilityConfiguration());
-        modelBuilder.ApplyConfiguration(new DomainArtifactInputEntityTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new RuntimeArtifactInputEntityTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new ModelArtifactInputEntityTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new ExecutableInputInputEntityTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new QualityEntityTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new DirectionEntityTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new AutomationLevelEntityTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new AnalysisTypeEntityTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new TechniqueEntityTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new ArchitectureEntityTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new ServiceTypeEntityTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new ValidationMethodEntityTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new AccuracyPrecisionEntityTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new ToolSupportEntityTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new ResultsQualityEntityTypeConfiguration());
+
+        modelBuilder.ApplyConfiguration(new DomainArtifactInputConfiguration());
+        modelBuilder.ApplyConfiguration(new RuntimeArtifactInputConfiguration());
+        modelBuilder.ApplyConfiguration(new ModelArtifactInputConfiguration());
+        modelBuilder.ApplyConfiguration(new ExecutableInputInputConfiguration());
+
+        modelBuilder.ApplyConfiguration(new QualityConfiguration());
+        modelBuilder.ApplyConfiguration(new DirectionConfiguration());
+        modelBuilder.ApplyConfiguration(new AutomationLevelConfiguration());
+        modelBuilder.ApplyConfiguration(new AnalysisTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new TechniqueConfiguration());
+
+        modelBuilder.ApplyConfiguration(new ArchitectureConfiguration());
+        modelBuilder.ApplyConfiguration(new ServiceTypeConfiguration());
+
+        modelBuilder.ApplyConfiguration(new ValidationMethodConfiguration());
+        modelBuilder.ApplyConfiguration(new AccuracyPrecisionConfiguration());
+        modelBuilder.ApplyConfiguration(new ToolSupportConfiguration());
+        modelBuilder.ApplyConfiguration(new ResultsQualityConfiguration());
     }
 }

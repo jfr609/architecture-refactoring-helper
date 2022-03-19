@@ -4,7 +4,7 @@ using Repository.Models.Database;
 
 namespace Repository.DatabaseConfigurations;
 
-public class ExecutableInputInputEntityTypeConfiguration : IEntityTypeConfiguration<ExecutableInput>
+public class ExecutableInputInputConfiguration : IEntityTypeConfiguration<ExecutableInput>
 {
     public void Configure(EntityTypeBuilder<ExecutableInput> builder)
     {

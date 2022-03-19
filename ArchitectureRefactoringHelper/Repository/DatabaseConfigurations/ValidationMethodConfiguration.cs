@@ -4,7 +4,7 @@ using Repository.Models.Database;
 
 namespace Repository.DatabaseConfigurations;
 
-public class ValidationMethodEntityTypeConfiguration : IEntityTypeConfiguration<ValidationMethod>
+public class ValidationMethodConfiguration : IEntityTypeConfiguration<ValidationMethod>
 {
     public void Configure(EntityTypeBuilder<ValidationMethod> builder)
     {

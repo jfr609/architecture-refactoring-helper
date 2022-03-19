@@ -4,7 +4,7 @@ using Repository.Models.Database;
 
 namespace Repository.DatabaseConfigurations;
 
-public class TechniqueEntityTypeConfiguration : IEntityTypeConfiguration<Technique>
+public class TechniqueConfiguration : IEntityTypeConfiguration<Technique>
 {
     public void Configure(EntityTypeBuilder<Technique> builder)
     {

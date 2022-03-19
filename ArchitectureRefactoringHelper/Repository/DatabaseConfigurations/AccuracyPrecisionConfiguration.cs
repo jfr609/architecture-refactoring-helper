@@ -4,7 +4,7 @@ using Repository.Models.Database;
 
 namespace Repository.DatabaseConfigurations;
 
-public class AccuracyPrecisionEntityTypeConfiguration : IEntityTypeConfiguration<AccuracyPrecision>
+public class AccuracyPrecisionConfiguration : IEntityTypeConfiguration<AccuracyPrecision>
 {
     public void Configure(EntityTypeBuilder<AccuracyPrecision> builder)
     {
