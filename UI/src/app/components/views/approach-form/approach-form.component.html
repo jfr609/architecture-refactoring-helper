@@ -49,8 +49,8 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
 
-      <div style='margin-bottom: 24px;' fxLayout='row'>
-        <mat-form-field fxFlex style='margin-right: 24px' appearance='fill'>
+      <div style='margin-bottom: 20px;' fxLayout='row' fxLayoutGap='30px'>
+        <mat-form-field fxFlex appearance='fill'>
           <mat-label>Title</mat-label>
           <input matInput type='text' (input)='onChangeTitle($event)' [value]='titleInputValue'
                  [formControl]='titleFormControl'>
@@ -76,8 +76,20 @@
         </mat-form-field>
       </div>
 
-      <div fxLayout='row'>
-        <mat-form-field fxFlex='50' style='margin-right: 24px' appearance='fill'>
+      <div fxLayout='row' fxLayoutGap='30px'>
+        <mat-form-field fxFlex='25' appearance='fill'>
+          <mat-label>Identifier (ID)</mat-label>
+          <input matInput type='text' (input)='onChangeIdentifier($event)' [value]='identifierInputValue'>
+          <button *ngIf='identifierInputValue' matSuffix mat-icon-button aria-label='Clear'
+                  (click)="identifierInputValue=''">
+            <mat-icon>close</mat-icon>
+          </button>
+          <mat-hint>
+            If left empty a number will be chosen by the application
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field fxFlex appearance='fill'>
           <mat-label>Authors</mat-label>
           <input matInput type='text' (input)='onChangeAuthors($event)' [value]='authorsInputValue'
                  [formControl]='authorsFormControl'>
@@ -89,7 +101,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field fxFlex='50' appearance='fill'>
+        <mat-form-field fxFlex appearance='fill'>
           <mat-label>Link</mat-label>
           <input matInput type='text' (input)='onChangeLink($event)' [value]='linkInputValue'
                  [formControl]='linkFormControl'>
@@ -239,8 +251,7 @@
               <mat-select [(ngModel)]='selectedOutputArchitecture' name='food'>
                 <mat-option *ngFor='let architecture of attributeOptionsService.architectures.value'
                             [value]='architecture'
-                            #tooltip='matTooltip'
-                            [matTooltip]='getTooltip(architecture)'
+                            [matTooltip]='architecture.description ? architecture.description : noDescriptionText'
                             matTooltipShowDelay='1000'
                             matTooltipHideDelay='1000'>
                   {{architecture.name}}
@@ -263,8 +274,7 @@
               <mat-select [(ngModel)]='selectedOutputServiceType' name='food'>
                 <mat-option *ngFor='let serviceType of attributeOptionsService.serviceTypes.value'
                             [value]='serviceType'
-                            #tooltip='matTooltip'
-                            [matTooltip]='getTooltip(serviceType)'
+                            [matTooltip]='serviceType.description ? serviceType.description : noDescriptionText'
                             matTooltipShowDelay='1000'
                             matTooltipHideDelay='1000'>
                   {{serviceType.name}}
@@ -294,14 +304,13 @@
           <mat-list *ngIf='currentOutputList.length >= 1' class='output-list mat-elevation-z8'>
             <mat-list-item *ngFor='let output of currentOutputList'>
               <p *ngIf='output.architecture && output.serviceType'>
-                <span #tooltip='matTooltip'
-                      [matTooltip]='getTooltip(output.architecture)'
-                      matTooltipShowDelay='1000'
-                      matTooltipHideDelay='1000'>
+                <span
+                  [matTooltip]='output.architecture.description ? output.architecture.description : noDescriptionText'
+                  matTooltipShowDelay='1000'
+                  matTooltipHideDelay='1000'>
                   {{output.architecture.name}}:
                 </span>
-                <span #tooltip='matTooltip'
-                      [matTooltip]='getTooltip(output.serviceType)'
+                <span [matTooltip]='output.serviceType.description ? output.serviceType.description : noDescriptionText'
                       matTooltipShowDelay='1000'
                       matTooltipHideDelay='1000'>
                   {{output.serviceType.name}}
@@ -350,12 +359,12 @@
               fxLayoutGap='8px'
               [(ngModel)]='selectedValidationMethod'>
               <mat-radio-button *ngFor='let validationMethod of attributeOptionsService.validationMethods.value'
-                                [value]='validationMethod'
-                                #tooltip='matTooltip'
-                                [matTooltip]='getTooltip(validationMethod)'
-                                matTooltipShowDelay='1000'
-                                matTooltipHideDelay='1000'>
-                {{validationMethod.name}}
+                                [value]='validationMethod'>
+                <span [matTooltip]='validationMethod.description ? validationMethod.description : noDescriptionText'
+                      matTooltipShowDelay='1000'
+                      matTooltipHideDelay='1000'>
+                  {{validationMethod.name}}
+                </span>
               </mat-radio-button>
             </mat-radio-group>
           </div>
@@ -377,12 +386,12 @@
               fxLayoutGap='8px'
               [(ngModel)]='selectedToolSupport'>
               <mat-radio-button *ngFor='let toolSupport of attributeOptionsService.toolSupports.value'
-                                [value]='toolSupport'
-                                #tooltip='matTooltip'
-                                [matTooltip]='getTooltip(toolSupport)'
-                                matTooltipShowDelay='1000'
-                                matTooltipHideDelay='1000'>
-                {{toolSupport.name}}
+                                [value]='toolSupport'>
+                <span [matTooltip]='toolSupport.description ? toolSupport.description : noDescriptionText'
+                      matTooltipShowDelay='1000'
+                      matTooltipHideDelay='1000'>
+                  {{toolSupport.name}}
+                </span>
               </mat-radio-button>
             </mat-radio-group>
           </div>
@@ -405,12 +414,12 @@
               fxLayoutGap='8px'
               [(ngModel)]='selectedResultsQuality'>
               <mat-radio-button *ngFor='let resultsQuality of attributeOptionsService.resultsQualities.value'
-                                [value]='resultsQuality'
-                                #tooltip='matTooltip'
-                                [matTooltip]='getTooltip(resultsQuality)'
-                                matTooltipShowDelay='1000'
-                                matTooltipHideDelay='1000'>
-                {{resultsQuality.name}}
+                                [value]='resultsQuality'>
+                <span [matTooltip]='resultsQuality.description ? resultsQuality.description : noDescriptionText'
+                      matTooltipShowDelay='1000'
+                      matTooltipHideDelay='1000'>
+                  {{resultsQuality.name}}
+                </span>
               </mat-radio-button>
             </mat-radio-group>
           </div>
@@ -432,12 +441,12 @@
               fxLayoutGap='8px'
               [(ngModel)]='selectedAccuracyPrecision'>
               <mat-radio-button *ngFor='let accuracyPrecision of attributeOptionsService.accuracyPrecisions.value'
-                                [value]='accuracyPrecision'
-                                #tooltip='matTooltip'
-                                [matTooltip]='getTooltip(accuracyPrecision)'
-                                matTooltipShowDelay='1000'
-                                matTooltipHideDelay='1000'>
-                {{accuracyPrecision.name}}
+                                [value]='accuracyPrecision'>
+                <span [matTooltip]='accuracyPrecision.description ? accuracyPrecision.description : noDescriptionText'
+                      matTooltipShowDelay='1000'
+                      matTooltipHideDelay='1000'>
+                  {{accuracyPrecision.name}}
+                </span>
               </mat-radio-button>
             </mat-radio-group>
           </div>

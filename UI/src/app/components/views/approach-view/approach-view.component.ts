@@ -36,7 +36,7 @@ import {
   styleUrls: ['./approach-view.component.scss']
 })
 export class ApproachViewComponent implements OnInit, OnDestroy {
-  refactoringApproach: RefactoringApproach = {};
+  refactoringApproach: RefactoringApproach = { identifier: '' };
   selectedRecommendation: ApproachRecommendation | undefined;
 
   routeSub!: Subscription;

@@ -55,9 +55,10 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
   linkFormControl = new FormControl('', [CustomValidators.url]);
   authorsFormControl = new FormControl('', [Validators.required]);
 
-  refactoringApproach: RefactoringApproach = {};
+  refactoringApproach: RefactoringApproach = { identifier: '' };
 
   titleInputValue = '';
+  identifierInputValue = '';
   yearInputValue = '';
   authorsInputValue = '';
   linkInputValue = '';
@@ -95,6 +96,10 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
 
   private routeSub!: Subscription;
   private attributeSubscriptions: Subscription[] = [];
+
+  get noDescriptionText(): string {
+    return 'No description';
+  }
 
   constructor(
     private refactoringApproachService: RefactoringApproachService,
@@ -500,7 +505,6 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // TODO maybe dialog
     this.currentOutputList.push({
       architecture: this.selectedOutputArchitecture,
       serviceType: this.selectedOutputServiceType
@@ -530,13 +534,6 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
           );
         }
       });
-  }
-
-  getTooltip(attribute: any): string {
-    if (attribute.description != null && attribute.description.trim() != '') {
-      return attribute.descption;
-    }
-    return 'No description';
   }
 
   createRefactoringApproach(): void {
@@ -1132,6 +1129,7 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
     }
 
     return {
+      identifier: this.identifierInputValue,
       approachSource: {
         title: this.titleInputValue,
         year: parseInt(this.yearInputValue),
@@ -1240,6 +1238,10 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
 
   onChangeTitle(event: Event) {
     this.titleInputValue = (event.target as HTMLInputElement).value;
+  }
+
+  onChangeIdentifier(event: Event) {
+    this.identifierInputValue = (event.target as HTMLInputElement).value;
   }
 
   onChangeYear(event: Event) {

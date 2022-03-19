@@ -1,14 +1,16 @@
-<div *ngIf='this.isDataLoading' class='loading-container' fxLayout='column' fxLayoutAlign='center center'>
+<div *ngIf='isDataLoading' class='loading-container' fxLayout='column' fxLayoutAlign='center center'>
   <mat-spinner color='accent'></mat-spinner>
 </div>
 <div *ngIf='!isDataLoading' style='margin-bottom: 32px' fxLayout='column' fxLayoutAlign='start center'>
   <h1 fxLayout='row'>
-    {{refactoringApproach.approachSource?.title}}
+    {{refactoringApproach.approachSource?.title}} ({{refactoringApproach.identifier}})
     <div style='margin-left: 8px' fxLayout='row' fxLayoutGap='8px'>
-      <button *ngIf='!selectedRecommendation && permissionService.isAdmin' mat-mini-fab style='margin-left: 8px' (click)='goToEdit()'>
+      <button *ngIf='!selectedRecommendation && permissionService.isAdmin' mat-mini-fab style='margin-left: 8px'
+              (click)='goToEdit()'>
         <mat-icon>edit</mat-icon>
       </button>
-      <button *ngIf='!selectedRecommendation && permissionService.isAdmin' mat-mini-fab color='warn' (click)='deleteRefactoringApproach()'>
+      <button *ngIf='!selectedRecommendation && permissionService.isAdmin' mat-mini-fab color='warn'
+              (click)='deleteRefactoringApproach()'>
         <mat-icon>delete</mat-icon>
       </button>
       <button mat-mini-fab color='warn' (click)='goBack()'>
@@ -16,8 +18,9 @@
       </button>
     </div>
   </h1>
-  <h2 *ngIf='selectedRecommendation' [class]='getSuitabilityColor()'>
-    {{selectedRecommendation?.suitabilityScore}}%
+  <h2 *ngIf='selectedRecommendation'>
+    <span>Suitability: </span>
+    <span [class]='getSuitabilityColor()'>{{selectedRecommendation?.suitabilityScore}}%</span>
   </h2>
 
   <mat-card>

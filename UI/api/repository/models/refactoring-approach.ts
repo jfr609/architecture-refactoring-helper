@@ -15,6 +15,7 @@ export interface RefactoringApproach {
   approachUsability?: ApproachUsability;
   domainArtifactInputs?: null | Array<DomainArtifactInput>;
   executableInputs?: null | Array<ExecutableInput>;
+  identifier: string;
   modelArtifactInputs?: null | Array<ModelArtifactInput>;
   refactoringApproachId?: number;
   runtimeArtifactInputs?: null | Array<RuntimeArtifactInput>;

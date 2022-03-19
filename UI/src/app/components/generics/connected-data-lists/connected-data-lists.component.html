@@ -17,8 +17,7 @@
          class='connected-data-list mat-elevation-z8'>
       <div *ngFor='let item1 of sourceDataList'
            class='connected-data-list-item'
-           #tooltip='matTooltip'
-           [matTooltip]='getTooltip(item1)'
+           [matTooltip]='item1.dataElement.description ? item1.dataElement.description : noDescriptionText'
            matTooltipShowDelay='1000'
            matTooltipHideDelay='1000'
            cdkDrag>
@@ -34,8 +33,7 @@
          class='connected-data-list mat-elevation-z8'>
       <div *ngFor='let item2 of targetDataList'
            class='connected-data-list-item'
-           #tooltip='matTooltip'
-           [matTooltip]='getTooltip(item2)'
+           [matTooltip]='item2.dataElement.description ? item2.dataElement.description : noDescriptionText'
            matTooltipShowDelay='1000'
            matTooltipHideDelay='1000'
            cdkDrag>

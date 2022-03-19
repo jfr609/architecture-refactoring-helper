@@ -26,6 +26,10 @@ export class ConnectedDataListsComponent implements OnInit {
   @Output() createAttribute: EventEmitter<void> = new EventEmitter<void>();
   @Output() deleteAttribute: EventEmitter<void> = new EventEmitter<void>();
 
+  get noDescriptionText(): string {
+    return 'No description';
+  }
+
   constructor() {}
 
   ngOnInit(): void {}
@@ -53,15 +57,5 @@ export class ConnectedDataListsComponent implements OnInit {
 
   onDeleteAttributeClicked() {
     this.deleteAttribute.emit();
-  }
-
-  getTooltip(item: ConnectedDataListElement): string {
-    if (
-      item.dataElement.description != null &&
-      item.dataElement.description.trim() != ''
-    ) {
-      return item.dataElement.descption;
-    }
-    return 'No description';
   }
 }
