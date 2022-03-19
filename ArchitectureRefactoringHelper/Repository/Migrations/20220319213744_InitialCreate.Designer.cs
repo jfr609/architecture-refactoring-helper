@@ -10,7 +10,7 @@ using Repository.Models;
 namespace Repository.Migrations
 {
     [DbContext(typeof(RefactoringApproachContext))]
-    [Migration("20220314172159_InitialCreate")]
+    [Migration("20220319213744_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -187,17 +187,17 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "High",
-                            Description = ""
+                            Description = "Estimates the accuracy/precision of the service identification approach as high."
                         },
                         new
                         {
                             Name = "Medium",
-                            Description = ""
+                            Description = "Estimates the accuracy/precision of the service identification approach as medium."
                         },
                         new
                         {
                             Name = "Low",
-                            Description = ""
+                            Description = "Estimates the accuracy/precision of the service identification approach as low."
                         },
                         new
                         {
@@ -222,17 +222,17 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Static",
-                            Description = ""
+                            Description = "Static analysis is performed without executing a software system. Dependencies between classes are potential relationships, like method calls and access attributes. These dependencies are analyzed to identify strongly connected classes, for example, to identify services."
                         },
                         new
                         {
                             Name = "Dynamic",
-                            Description = ""
+                            Description = "Dynamic analysis is performed by examining the software system at run time. Dependencies between software elements (e.g., class instantiations and accesses, function calls, relationships between database tables, etc.) are collected during the program execution. The execution is performed based on a set of cases that covers the system functionalities, called execution scenarios"
                         },
                         new
                         {
                             Name = "Lexical",
-                            Description = ""
+                            Description = "Lexical analysis techniques suppose that the similarity between the classes should be taken into account during service identification process. This analysis plays the main role in approaches that used features location and textual similarity techniques."
                         },
                         new
                         {
@@ -376,17 +376,17 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Automatic",
-                            Description = ""
+                            Description = "Automatic approaches do not need any human intervention during the identification process."
                         },
                         new
                         {
                             Name = "Semi-automatic",
-                            Description = ""
+                            Description = "Semi-automatic approaches need human experts to perform some of the tasks."
                         },
                         new
                         {
                             Name = "Manual",
-                            Description = ""
+                            Description = "Manual approaches depend entirely on human experts."
                         });
                 });
 
@@ -406,17 +406,17 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Bottom-up",
-                            Description = ""
+                            Description = "A bottom-up process starts with low-level artifacts to maximize code reuse and minimize changes."
                         },
                         new
                         {
                             Name = "Top-down",
-                            Description = ""
+                            Description = "A top-down process starts with high-level artifacts, e.g., domain analysis or requirement characterization of systems to define their functionalities."
                         },
                         new
                         {
                             Name = "Mixed",
-                            Description = ""
+                            Description = "A mixed hybrid process combines a top-down and a bottom-up process. It uses both requirements and implementation artifacts to identify the candidate services."
                         });
                 });
 
@@ -436,7 +436,7 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Ontology",
-                            Description = ""
+                            Description = "An ontology is a structured set of terms representing the semantics of a domain, whether through metadata or elements of a knowledge domain"
                         },
                         new
                         {
@@ -446,7 +446,7 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Documentation",
-                            Description = ""
+                            Description = "Software documentation describes and documents systems at different levels of abstraction. It includes textual descriptions as well as diagrams and models"
                         });
                 });
 
@@ -502,27 +502,27 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Business process model",
-                            Description = ""
+                            Description = "Business Process Models (BPMs) describe sets of activities and tasks that accomplish an organizational goal"
                         },
                         new
                         {
                             Name = "Use case model",
-                            Description = ""
+                            Description = "Use case diagrams are behavioral diagrams and visualize the externally visible interaction of actors with the system under development. The diagram consists of the system, associated use cases and actors and relates them to each other."
                         },
                         new
                         {
                             Name = "Activity diagram",
-                            Description = ""
+                            Description = "Activity diagrams visually presents a series of actions or flow of control in a system."
                         },
                         new
                         {
                             Name = "Data flow diagram",
-                            Description = ""
+                            Description = "Data Flow Diagrams (DFDs) are graphical representations of functional dependencies, based on the analysis of data flows, between business functions or processes"
                         },
                         new
                         {
                             Name = "State machine diagram",
-                            Description = ""
+                            Description = "State Machine Diagrams (SMDs) shows a dynamic view of a system and describe the different states that entities can have during their lifetimes"
                         });
                 });
 
@@ -547,55 +547,55 @@ namespace Repository.Migrations
                         {
                             Name = "Reuse",
                             Category = "Requirement",
-                            Description = ""
+                            Description = "The ability of a service to participate in multiple service assemblies (compositions). Better reusability should provide better return of investment (ROI) and shorter development time."
                         },
                         new
                         {
                             Name = "Maintainability",
                             Category = "Requirement",
-                            Description = ""
+                            Description = "Services should ease the effort to modify their implementation, to identify root causes of failures, to verify changes, etc."
                         },
                         new
                         {
                             Name = "Interoperability",
                             Category = "Requirement",
-                            Description = ""
+                            Description = "The ability of a service to communicate and be invoked by other systems/services implemented in different programming languages."
                         },
                         new
                         {
                             Name = "Self-containment",
                             Category = "Requirement",
-                            Description = ""
+                            Description = " A service should be completely self-contained to be deployed as a single unit, without depending on other services."
                         },
                         new
                         {
                             Name = "Composability",
                             Category = "Requirement",
-                            Description = ""
+                            Description = "Services should be composable with one another to be reused and integrated as services that control other services or that provide functionalities to other services."
                         },
                         new
                         {
                             Name = "Coupling",
                             Category = "Metric",
-                            Description = ""
+                            Description = "The dependencies among services should be minimized and the functionalities should be encapsulated to limit the impact of changes in one service to other service."
                         },
                         new
                         {
                             Name = "Cohesion",
                             Category = "Metric",
-                            Description = ""
+                            Description = "Cohesion is a measure of the strength of the relationships among programming entities (e.g., classes, functions, etc.) implementing a service and the functionality provided by the service."
                         },
                         new
                         {
                             Name = "Granularity",
                             Category = "Metric",
-                            Description = ""
+                            Description = "An adequate granularity is a primary concern of service identification approaches. It can be adjusted to the scope of the functionality offered by the service."
                         },
                         new
                         {
                             Name = "Number of services",
                             Category = "Metric",
-                            Description = ""
+                            Description = "Service identification approaches must not have too many small services or not enough services"
                         });
                 });
 
@@ -614,6 +614,10 @@ namespace Repository.Migrations
                     b.Property<int>("ApproachUsabilityId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Identifier")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.HasKey("RefactoringApproachId");
 
                     b.HasIndex("ApproachProcessId")
@@ -623,6 +627,9 @@ namespace Repository.Migrations
                         .IsUnique();
 
                     b.HasIndex("ApproachUsabilityId")
+                        .IsUnique();
+
+                    b.HasIndex("Identifier")
                         .IsUnique();
 
                     b.ToTable("Approaches");
@@ -644,17 +651,17 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "High",
-                            Description = ""
+                            Description = "Estimates the quality of the identified candidate service(s) as high."
                         },
                         new
                         {
                             Name = "Medium",
-                            Description = ""
+                            Description = "Estimates the quality of the identified candidate service(s) as medium."
                         },
                         new
                         {
                             Name = "Low",
-                            Description = ""
+                            Description = "Estimates the quality of the identified candidate service(s) as low."
                         },
                         new
                         {
@@ -679,12 +686,12 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Log traces",
-                            Description = ""
+                            Description = "Execution traces of legacy software systems depicting the dynamic behavior of the systems"
                         },
                         new
                         {
                             Name = "User-Application interactions",
-                            Description = ""
+                            Description = "User-interface inputs capturing the relationship between users and the system’s functionalities."
                         });
                 });
 
@@ -704,32 +711,32 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Business services",
-                            Description = ""
+                            Description = "Business services correspond to business processes or use cases and are services used by users. Examples of business services include flight booking services."
                         },
                         new
                         {
                             Name = "Enterprise services",
-                            Description = ""
+                            Description = "Enterprise services are of finer granularity than business services. They implement generic business functionalities that can be reused across different applications. Examples of enterprise services include \"online payment\" and \"tax calculation\"."
                         },
                         new
                         {
                             Name = "Application services",
-                            Description = ""
+                            Description = "Application services provide functionalities specific to one application. They exist to support reuse within one application. Examples of application-task services include quoting requests."
                         },
                         new
                         {
                             Name = "Entity services",
-                            Description = ""
+                            Description = "Entity services provide access to and the management of the persistent data of legacy software systems. They support actions on data (CRUD) and may have side-effects like modification of shared data. Examples of entity services include management services for clients, and bank accounts."
                         },
                         new
                         {
                             Name = "Utility services",
-                            Description = ""
+                            Description = "Utility services do not directly support business services but provide some cross-cutting functionalities required by domain-specific services. Examples of typical utility services include notification, logging, and authentication."
                         },
                         new
                         {
                             Name = "Infrastructure services",
-                            Description = ""
+                            Description = "Infrastructure services allow users to deploy and run service oriented architecture systems. They include services for communication routing, protocol conversion, message processing and transformation. Examples of infrastructure services include publish–subscribe, message queues, and enterprise service buses (ESBs)."
                         },
                         new
                         {
@@ -754,32 +761,32 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Wrapping",
-                            Description = ""
+                            Description = "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
                         },
                         new
                         {
                             Name = "Genetic algorithm",
-                            Description = ""
+                            Description = "A meta-heuristic for solving optimization problems that is based on \"natural selection\". It relies on the calculation of a fitness function to reach an optimal (or near-optimal) solution. By definition, an optimal solution is a feasible solution where the fitness function reaches its maximum (or minimum) value."
                         },
                         new
                         {
                             Name = "Formal concept analysis",
-                            Description = ""
+                            Description = "A method for data analysis where we derive implicit relationships between objects in a formal way. It is also considered as a principled way of grouping objects that have common properties."
                         },
                         new
                         {
                             Name = "Clustering",
-                            Description = ""
+                            Description = "Clustering consists of classifying and partitioning data into clusters that share common properties. These clusters are built based on the internal homogeneity of their elements and the external separation between them."
                         },
                         new
                         {
                             Name = "Custom heuristics",
-                            Description = ""
+                            Description = "Custom heuristic algorithms to decompose legacy software into Service Oriented Architecture differing from predefined algorithms."
                         },
                         new
                         {
                             Name = "General guidelines",
-                            Description = ""
+                            Description = "Proposes best practices, lessons learned, or recommendations for service identification."
                         });
                 });
 
@@ -799,17 +806,17 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Industry ready",
-                            Description = ""
+                            Description = "The approach has a tool implementation which is industry ready."
                         },
                         new
                         {
                             Name = "Open source",
-                            Description = ""
+                            Description = "The approach has a tool implementation which is open source."
                         },
                         new
                         {
                             Name = "Prototype",
-                            Description = ""
+                            Description = "The approach has a prototype tool which was implementation."
                         },
                         new
                         {
@@ -834,12 +841,12 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Experiment",
-                            Description = ""
+                            Description = "The approach was applied to and tested on a (small) experimental system."
                         },
                         new
                         {
                             Name = "Industry",
-                            Description = ""
+                            Description = "The approach was applied to and tested on a real industrial system."
                         },
                         new
                         {

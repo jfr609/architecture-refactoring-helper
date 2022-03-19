@@ -39,6 +39,7 @@ public static class DataSeeder
         {
             var newApproach = new RefactoringApproach
             {
+                Identifier = refactoringApproach.Identifier,
                 ApproachSource = refactoringApproach.ApproachSource,
                 DomainArtifactInputs =
                     inputService.AddDomainArtifactsIfNotExist(refactoringApproach.DomainArtifactInputs, ref db),

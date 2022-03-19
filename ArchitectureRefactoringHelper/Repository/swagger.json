@@ -3429,11 +3429,17 @@
         "type": "string"
       },
       "RefactoringApproach": {
+        "required": [
+          "identifier"
+        ],
         "type": "object",
         "properties": {
           "refactoringApproachId": {
             "type": "integer",
             "format": "int32"
+          },
+          "identifier": {
+            "type": "string"
           },
           "approachSource": {
             "$ref": "#/components/schemas/ApproachSource"

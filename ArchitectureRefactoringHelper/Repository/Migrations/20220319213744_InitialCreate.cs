@@ -410,6 +410,7 @@ namespace Repository.Migrations
                 {
                     RefactoringApproachId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    Identifier = table.Column<string>(type: "TEXT", nullable: false),
                     ApproachSourceId = table.Column<int>(type: "INTEGER", nullable: false),
                     ApproachProcessId = table.Column<int>(type: "INTEGER", nullable: false),
                     ApproachUsabilityId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -561,7 +562,7 @@ namespace Repository.Migrations
             migrationBuilder.InsertData(
                 table: "Approach.Input.DomainArtifact",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Documentation", "" });
+                values: new object[] { "Documentation", "Software documentation describes and documents systems at different levels of abstraction. It includes textual descriptions as well as diagrams and models" });
 
             migrationBuilder.InsertData(
                 table: "Approach.Input.DomainArtifact",
@@ -571,7 +572,7 @@ namespace Repository.Migrations
             migrationBuilder.InsertData(
                 table: "Approach.Input.DomainArtifact",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Ontology", "" });
+                values: new object[] { "Ontology", "An ontology is a structured set of terms representing the semantics of a domain, whether through metadata or elements of a knowledge domain" });
 
             migrationBuilder.InsertData(
                 table: "Approach.Input.Executable",
@@ -591,37 +592,37 @@ namespace Repository.Migrations
             migrationBuilder.InsertData(
                 table: "Approach.Input.ModelArtifact",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Activity diagram", "" });
+                values: new object[] { "Activity diagram", "Activity diagrams visually presents a series of actions or flow of control in a system." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Input.ModelArtifact",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Business process model", "" });
+                values: new object[] { "Business process model", "Business Process Models (BPMs) describe sets of activities and tasks that accomplish an organizational goal" });
 
             migrationBuilder.InsertData(
                 table: "Approach.Input.ModelArtifact",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Data flow diagram", "" });
+                values: new object[] { "Data flow diagram", "Data Flow Diagrams (DFDs) are graphical representations of functional dependencies, based on the analysis of data flows, between business functions or processes" });
 
             migrationBuilder.InsertData(
                 table: "Approach.Input.ModelArtifact",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "State machine diagram", "" });
+                values: new object[] { "State machine diagram", "State Machine Diagrams (SMDs) shows a dynamic view of a system and describe the different states that entities can have during their lifetimes" });
 
             migrationBuilder.InsertData(
                 table: "Approach.Input.ModelArtifact",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Use case model", "" });
+                values: new object[] { "Use case model", "Use case diagrams are behavioral diagrams and visualize the externally visible interaction of actors with the system under development. The diagram consists of the system, associated use cases and actors and relates them to each other." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Input.RuntimeArtifact",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Log traces", "" });
+                values: new object[] { "Log traces", "Execution traces of legacy software systems depicting the dynamic behavior of the systems" });
 
             migrationBuilder.InsertData(
                 table: "Approach.Input.RuntimeArtifact",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "User-Application interactions", "" });
+                values: new object[] { "User-Application interactions", "User-interface inputs capturing the relationship between users and the system’s functionalities." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Output.Architecture",
@@ -636,27 +637,27 @@ namespace Repository.Migrations
             migrationBuilder.InsertData(
                 table: "Approach.Output.ServiceType",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Application services", "" });
+                values: new object[] { "Application services", "Application services provide functionalities specific to one application. They exist to support reuse within one application. Examples of application-task services include quoting requests." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Output.ServiceType",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Business services", "" });
+                values: new object[] { "Business services", "Business services correspond to business processes or use cases and are services used by users. Examples of business services include flight booking services." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Output.ServiceType",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Enterprise services", "" });
+                values: new object[] { "Enterprise services", "Enterprise services are of finer granularity than business services. They implement generic business functionalities that can be reused across different applications. Examples of enterprise services include \"online payment\" and \"tax calculation\"." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Output.ServiceType",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Entity services", "" });
+                values: new object[] { "Entity services", "Entity services provide access to and the management of the persistent data of legacy software systems. They support actions on data (CRUD) and may have side-effects like modification of shared data. Examples of entity services include management services for clients, and bank accounts." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Output.ServiceType",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Infrastructure services", "" });
+                values: new object[] { "Infrastructure services", "Infrastructure services allow users to deploy and run service oriented architecture systems. They include services for communication routing, protocol conversion, message processing and transformation. Examples of infrastructure services include publish–subscribe, message queues, and enterprise service buses (ESBs)." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Output.ServiceType",
@@ -666,12 +667,12 @@ namespace Repository.Migrations
             migrationBuilder.InsertData(
                 table: "Approach.Output.ServiceType",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Utility services", "" });
+                values: new object[] { "Utility services", "Utility services do not directly support business services but provide some cross-cutting functionalities required by domain-specific services. Examples of typical utility services include notification, logging, and authentication." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.AnalysisType",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Dynamic", "" });
+                values: new object[] { "Dynamic", "Dynamic analysis is performed by examining the software system at run time. Dependencies between software elements (e.g., class instantiations and accesses, function calls, relationships between database tables, etc.) are collected during the program execution. The execution is performed based on a set of cases that covers the system functionalities, called execution scenarios" });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.AnalysisType",
@@ -681,132 +682,132 @@ namespace Repository.Migrations
             migrationBuilder.InsertData(
                 table: "Approach.Process.AnalysisType",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Lexical", "" });
+                values: new object[] { "Lexical", "Lexical analysis techniques suppose that the similarity between the classes should be taken into account during service identification process. This analysis plays the main role in approaches that used features location and textual similarity techniques." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.AnalysisType",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Static", "" });
+                values: new object[] { "Static", "Static analysis is performed without executing a software system. Dependencies between classes are potential relationships, like method calls and access attributes. These dependencies are analyzed to identify strongly connected classes, for example, to identify services." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.AutomationLevel",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Automatic", "" });
+                values: new object[] { "Automatic", "Automatic approaches do not need any human intervention during the identification process." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.AutomationLevel",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Manual", "" });
+                values: new object[] { "Manual", "Manual approaches depend entirely on human experts." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.AutomationLevel",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Semi-automatic", "" });
+                values: new object[] { "Semi-automatic", "Semi-automatic approaches need human experts to perform some of the tasks." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.Direction",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Bottom-up", "" });
+                values: new object[] { "Bottom-up", "A bottom-up process starts with low-level artifacts to maximize code reuse and minimize changes." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.Direction",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Mixed", "" });
+                values: new object[] { "Mixed", "A mixed hybrid process combines a top-down and a bottom-up process. It uses both requirements and implementation artifacts to identify the candidate services." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.Direction",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Top-down", "" });
+                values: new object[] { "Top-down", "A top-down process starts with high-level artifacts, e.g., domain analysis or requirement characterization of systems to define their functionalities." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.Quality",
                 columns: new[] { "Name", "Category", "Description" },
-                values: new object[] { "Cohesion", "Metric", "" });
+                values: new object[] { "Cohesion", "Metric", "Cohesion is a measure of the strength of the relationships among programming entities (e.g., classes, functions, etc.) implementing a service and the functionality provided by the service." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.Quality",
                 columns: new[] { "Name", "Category", "Description" },
-                values: new object[] { "Composability", "Requirement", "" });
+                values: new object[] { "Composability", "Requirement", "Services should be composable with one another to be reused and integrated as services that control other services or that provide functionalities to other services." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.Quality",
                 columns: new[] { "Name", "Category", "Description" },
-                values: new object[] { "Coupling", "Metric", "" });
+                values: new object[] { "Coupling", "Metric", "The dependencies among services should be minimized and the functionalities should be encapsulated to limit the impact of changes in one service to other service." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.Quality",
                 columns: new[] { "Name", "Category", "Description" },
-                values: new object[] { "Granularity", "Metric", "" });
+                values: new object[] { "Granularity", "Metric", "An adequate granularity is a primary concern of service identification approaches. It can be adjusted to the scope of the functionality offered by the service." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.Quality",
                 columns: new[] { "Name", "Category", "Description" },
-                values: new object[] { "Interoperability", "Requirement", "" });
+                values: new object[] { "Interoperability", "Requirement", "The ability of a service to communicate and be invoked by other systems/services implemented in different programming languages." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.Quality",
                 columns: new[] { "Name", "Category", "Description" },
-                values: new object[] { "Maintainability", "Requirement", "" });
+                values: new object[] { "Maintainability", "Requirement", "Services should ease the effort to modify their implementation, to identify root causes of failures, to verify changes, etc." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.Quality",
                 columns: new[] { "Name", "Category", "Description" },
-                values: new object[] { "Number of services", "Metric", "" });
+                values: new object[] { "Number of services", "Metric", "Service identification approaches must not have too many small services or not enough services" });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.Quality",
                 columns: new[] { "Name", "Category", "Description" },
-                values: new object[] { "Reuse", "Requirement", "" });
+                values: new object[] { "Reuse", "Requirement", "The ability of a service to participate in multiple service assemblies (compositions). Better reusability should provide better return of investment (ROI) and shorter development time." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.Quality",
                 columns: new[] { "Name", "Category", "Description" },
-                values: new object[] { "Self-containment", "Requirement", "" });
+                values: new object[] { "Self-containment", "Requirement", " A service should be completely self-contained to be deployed as a single unit, without depending on other services." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.Technique",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Clustering", "" });
+                values: new object[] { "Clustering", "Clustering consists of classifying and partitioning data into clusters that share common properties. These clusters are built based on the internal homogeneity of their elements and the external separation between them." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.Technique",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Custom heuristics", "" });
+                values: new object[] { "Custom heuristics", "Custom heuristic algorithms to decompose legacy software into Service Oriented Architecture differing from predefined algorithms." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.Technique",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Formal concept analysis", "" });
+                values: new object[] { "Formal concept analysis", "A method for data analysis where we derive implicit relationships between objects in a formal way. It is also considered as a principled way of grouping objects that have common properties." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.Technique",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "General guidelines", "" });
+                values: new object[] { "General guidelines", "Proposes best practices, lessons learned, or recommendations for service identification." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.Technique",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Genetic algorithm", "" });
+                values: new object[] { "Genetic algorithm", "A meta-heuristic for solving optimization problems that is based on \"natural selection\". It relies on the calculation of a fitness function to reach an optimal (or near-optimal) solution. By definition, an optimal solution is a feasible solution where the fitness function reaches its maximum (or minimum) value." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Process.Technique",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Wrapping", "" });
+                values: new object[] { "Wrapping", "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Usability.AccuracyPrecision",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "High", "" });
+                values: new object[] { "High", "Estimates the accuracy/precision of the service identification approach as high." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Usability.AccuracyPrecision",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Low", "" });
+                values: new object[] { "Low", "Estimates the accuracy/precision of the service identification approach as low." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Usability.AccuracyPrecision",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Medium", "" });
+                values: new object[] { "Medium", "Estimates the accuracy/precision of the service identification approach as medium." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Usability.AccuracyPrecision",
@@ -816,17 +817,17 @@ namespace Repository.Migrations
             migrationBuilder.InsertData(
                 table: "Approach.Usability.ResultsQuality",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "High", "" });
+                values: new object[] { "High", "Estimates the quality of the identified candidate service(s) as high." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Usability.ResultsQuality",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Low", "" });
+                values: new object[] { "Low", "Estimates the quality of the identified candidate service(s) as low." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Usability.ResultsQuality",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Medium", "" });
+                values: new object[] { "Medium", "Estimates the quality of the identified candidate service(s) as medium." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Usability.ResultsQuality",
@@ -836,7 +837,7 @@ namespace Repository.Migrations
             migrationBuilder.InsertData(
                 table: "Approach.Usability.ToolSupport",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Industry ready", "" });
+                values: new object[] { "Industry ready", "The approach has a tool implementation which is industry ready." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Usability.ToolSupport",
@@ -846,12 +847,12 @@ namespace Repository.Migrations
             migrationBuilder.InsertData(
                 table: "Approach.Usability.ToolSupport",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Open source", "" });
+                values: new object[] { "Open source", "The approach has a tool implementation which is open source." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Usability.ToolSupport",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Prototype", "" });
+                values: new object[] { "Prototype", "The approach has a prototype tool which was implementation." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Usability.ValidationMethod",
@@ -861,12 +862,12 @@ namespace Repository.Migrations
             migrationBuilder.InsertData(
                 table: "Approach.Usability.ValidationMethod",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Experiment", "" });
+                values: new object[] { "Experiment", "The approach was applied to and tested on a (small) experimental system." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Usability.ValidationMethod",
                 columns: new[] { "Name", "Description" },
-                values: new object[] { "Industry", "" });
+                values: new object[] { "Industry", "The approach was applied to and tested on a real industrial system." });
 
             migrationBuilder.InsertData(
                 table: "Approach.Usability.ValidationMethod",
@@ -919,6 +920,12 @@ namespace Repository.Migrations
                 name: "IX_Approaches_ApproachUsabilityId",
                 table: "Approaches",
                 column: "ApproachUsabilityId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Approaches_Identifier",
+                table: "Approaches",
+                column: "Identifier",
                 unique: true);
 
             migrationBuilder.CreateIndex(

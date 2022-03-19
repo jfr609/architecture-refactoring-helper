@@ -83,6 +83,7 @@ public class RefactoringApproachService
 
         var newApproach = new RefactoringApproach
         {
+            Identifier = refactoringApproach.Identifier,
             ApproachSource = refactoringApproach.ApproachSource,
             DomainArtifactInputs =
                 _inputService.AddDomainArtifactsIfNotExist(refactoringApproach.DomainArtifactInputs, ref db),
