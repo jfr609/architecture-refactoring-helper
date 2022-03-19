@@ -9,12 +9,13 @@ public class DomainArtifactInputEntityTypeConfiguration : IEntityTypeConfigurati
     public void Configure(EntityTypeBuilder<DomainArtifactInput> builder)
     {
         builder.ToTable(Constants.TableNameApproachInputDomainArtifact);
-        
+
         builder.HasData(
             new DomainArtifactInput
             {
                 Name = "Ontology",
-                Description = ""
+                Description =
+                    "An ontology is a structured set of terms representing the semantics of a domain, whether through metadata or elements of a knowledge domain"
             },
             new DomainArtifactInput
             {
@@ -24,7 +25,8 @@ public class DomainArtifactInputEntityTypeConfiguration : IEntityTypeConfigurati
             new DomainArtifactInput
             {
                 Name = "Documentation",
-                Description = ""
+                Description =
+                    "Software documentation describes and documents systems at different levels of abstraction. It includes textual descriptions as well as diagrams and models"
             });
     }
 }

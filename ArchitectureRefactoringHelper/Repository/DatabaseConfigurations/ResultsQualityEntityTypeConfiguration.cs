@@ -14,17 +14,17 @@ public class ResultsQualityEntityTypeConfiguration : IEntityTypeConfiguration<Re
             new ResultsQuality
             {
                 Name = Constants.AttributeDefaultHigh,
-                Description = ""
+                Description = "Estimates the quality of the identified candidate service(s) as high."
             },
             new ResultsQuality
             {
                 Name = Constants.AttributeDefaultMedium,
-                Description = ""
+                Description = "Estimates the quality of the identified candidate service(s) as medium."
             },
             new ResultsQuality
             {
                 Name = Constants.AttributeDefaultLow,
-                Description = ""
+                Description = "Estimates the quality of the identified candidate service(s) as low."
             },
             new ResultsQuality
             {

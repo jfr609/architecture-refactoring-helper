@@ -9,22 +9,23 @@ public class AutomationLevelEntityTypeConfiguration : IEntityTypeConfiguration<A
     public void Configure(EntityTypeBuilder<AutomationLevel> builder)
     {
         builder.ToTable(Constants.TableNameApproachProcessAutomationLevel);
-        
+
         builder.HasData(
             new AutomationLevel
             {
                 Name = "Automatic",
-                Description = ""
+                Description =
+                    "Automatic approaches do not need any human intervention during the identification process."
             },
             new AutomationLevel
             {
                 Name = "Semi-automatic",
-                Description = ""
+                Description = "Semi-automatic approaches need human experts to perform some of the tasks."
             },
             new AutomationLevel
             {
                 Name = "Manual",
-                Description = ""
+                Description = "Manual approaches depend entirely on human experts."
             });
     }
 }

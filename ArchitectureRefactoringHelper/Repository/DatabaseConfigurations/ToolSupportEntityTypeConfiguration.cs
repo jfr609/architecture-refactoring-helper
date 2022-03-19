@@ -14,17 +14,17 @@ public class ToolSupportEntityTypeConfiguration : IEntityTypeConfiguration<ToolS
             new ToolSupport
             {
                 Name = "Industry ready",
-                Description = ""
+                Description = "The approach has a tool implementation which is industry ready."
             },
             new ToolSupport
             {
                 Name = "Open source",
-                Description = ""
+                Description = "The approach has a tool implementation which is open source."
             },
             new ToolSupport
             {
                 Name = "Prototype",
-                Description = ""
+                Description = "The approach has a prototype tool which was implementation."
             },
             new ToolSupport
             {

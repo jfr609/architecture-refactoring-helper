@@ -14,12 +14,12 @@ public class ValidationMethodEntityTypeConfiguration : IEntityTypeConfiguration<
             new ValidationMethod
             {
                 Name = "Experiment",
-                Description = ""
+                Description = "The approach was applied to and tested on a (small) experimental system."
             },
             new ValidationMethod
             {
                 Name = "Industry",
-                Description = ""
+                Description = "The approach was applied to and tested on a real industrial system."
             },
             new ValidationMethod
             {
