@@ -25,6 +25,7 @@ export interface ApproachRecommendation {
   directionEvaluations?: null | Array<DirectionApproachAttributeEvaluation>;
   domainArtifactInputEvaluations?: null | Array<DomainArtifactInputApproachAttributeEvaluation>;
   executableInputEvaluations?: null | Array<ExecutableInputApproachAttributeEvaluation>;
+  identifier: string;
   modelArtifactInputEvaluations?: null | Array<ModelArtifactInputApproachAttributeEvaluation>;
   qualityEvaluations?: null | Array<QualityApproachAttributeEvaluation>;
   refactoringApproachId: number;

@@ -9,6 +9,9 @@ public class ApproachRecommendation
     [Required]
     [JsonPropertyName("refactoringApproachId")]
     public int RefactoringApproachId { get; set; }
+    [Required]
+    [JsonPropertyName("identifier")]
+    public string Identifier { get; set; }
 
     [Required]
     [JsonPropertyName("approachSource")]

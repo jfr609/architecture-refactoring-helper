@@ -4,7 +4,9 @@
   <table mat-table [dataSource]='dataSource' multiTemplateDataRows matSort class='mat-elevation-z8'>
     <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of sortColumns'>
       <th mat-header-cell *matHeaderCellDef mat-sort-header='{{ columnData.columnDef }}'>
-        {{ columnData.header}}
+        <span class='approach-header'>
+          {{ columnData.header }}
+        </span>
       </th>
       <td mat-cell class='approach-cell' *matCellDef='let recommendation'
           [class]='getSuitabilityColor(recommendation, columnData.columnDef)'>
@@ -14,7 +16,9 @@
 
     <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of nonSortColumns'>
       <th mat-header-cell *matHeaderCellDef>
-        {{ columnData.header}}
+        <span class='approach-header'>
+          {{ columnData.header }}
+        </span>
       </th>
       <td mat-cell class='approach-cell' *matCellDef='let recommendation'
           [class]='getSuitabilityColor(recommendation, columnData.columnDef)'>
@@ -24,7 +28,9 @@
 
     <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of actionColumns'>
       <th mat-header-cell *matHeaderCellDef>
-        {{ columnData.header}}
+        <span class='approach-header'>
+          {{ columnData.header }}
+        </span>
       </th>
       <td mat-cell class='approach-cell' *matCellDef='let recommendation'>
         <div *ngIf='columnData.columnDef === "expandState"; then expandedStateCell else actionCell'></div>

@@ -53,7 +53,7 @@ export class RecommendationResultComponent implements OnInit {
       isSortColumn: false,
       isActionColumn: false,
       cell: (recommendation: ApproachRecommendation) =>
-        `${recommendation.refactoringApproachId}`
+        `${recommendation.identifier}`
     },
     {
       columnDef: 'title',
@@ -126,11 +126,11 @@ export class RecommendationResultComponent implements OnInit {
           numberOfRecommendations
         );
     }
-    this.dataSource = new MatTableDataSource(this.recommendations);
+    this.refreshDataSource();
   }
 
   setDataSource(): void {
-    this.dataSource = new MatTableDataSource(this.recommendations);
+    this.refreshDataSource();
     this.dataSource.sortingDataAccessor = (
       data: ApproachRecommendation,
       sortHeaderId: string
@@ -139,7 +139,7 @@ export class RecommendationResultComponent implements OnInit {
         case 'suitability':
           return data.suitabilityScore;
         case 'id':
-          return data.refactoringApproachId;
+          return data.identifier;
         case 'title':
           return data.approachSource.title;
         default:
@@ -148,6 +148,10 @@ export class RecommendationResultComponent implements OnInit {
           return data[sortHeaderId];
       }
     };
+  }
+
+  refreshDataSource(): void {
+    this.dataSource = new MatTableDataSource(this.recommendations);
   }
 
   openRecommendationView(recommendation: ApproachRecommendation) {

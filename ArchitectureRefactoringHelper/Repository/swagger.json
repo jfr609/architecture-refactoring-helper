@@ -2731,6 +2731,7 @@
       "ApproachRecommendation": {
         "required": [
           "approachSource",
+          "identifier",
           "refactoringApproachId",
           "suitabilityScore"
         ],
@@ -2739,6 +2740,9 @@
           "refactoringApproachId": {
             "type": "integer",
             "format": "int32"
+          },
+          "identifier": {
+            "type": "string"
           },
           "approachSource": {
             "$ref": "#/components/schemas/ApproachSource"

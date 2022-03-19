@@ -59,7 +59,7 @@ export class ApproachExplorerComponent implements OnInit {
     ) => {
       switch (sortHeaderId) {
         case 'id':
-          return data.refactoringApproachId;
+          return data.identifier;
         case 'title':
           return data.approachSource?.title;
         case 'year':
