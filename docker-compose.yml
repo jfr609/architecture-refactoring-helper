@@ -13,9 +13,11 @@ services:
             dockerfile: Dockerfile
         ports: 
             - "9000:80"
+        restart: always
     api:
         build: 
             context: ./ArchitectureRefactoringHelper
             dockerfile: Dockerfile
         ports: 
             - "5000:80"
+        restart: always
