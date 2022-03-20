@@ -29,6 +29,12 @@ import {
   ConfirmDialogComponent,
   ConfirmDialogData
 } from '../../dialogs/confirm-dialog/confirm-dialog.component';
+import { ApproachOutput } from '../../../../../api/repository/models/approach-output';
+
+interface OutputInfo {
+  architecture: Architecture;
+  serviceTypes: ServiceType[];
+}
 
 @Component({
   selector: 'app-approach-form',
@@ -37,6 +43,7 @@ import {
 })
 export class ApproachViewComponent implements OnInit, OnDestroy {
   refactoringApproach: RefactoringApproach = { identifier: '' };
+  outputMap: Map<string, OutputInfo> = new Map<string, OutputInfo>();
   selectedRecommendation: ApproachRecommendation | undefined;
 
   routeSub!: Subscription;
@@ -77,6 +84,7 @@ export class ApproachViewComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (value) => {
           this.refactoringApproach = value;
+          this.mapOutputs();
           this.getRecommendationData();
           this.isDataLoading = false;
         },
@@ -87,6 +95,25 @@ export class ApproachViewComponent implements OnInit, OnDestroy {
           );
         }
       });
+  }
+
+  mapOutputs(): void {
+    this.refactoringApproach.approachOutputs?.forEach(
+      (output: ApproachOutput) => {
+        let outputInfo: OutputInfo | undefined = this.outputMap.get(
+          output.architecture.name
+        );
+        if (outputInfo === undefined) {
+          outputInfo = {
+            architecture: output.architecture,
+            serviceTypes: []
+          };
+        }
+        outputInfo.serviceTypes.push(output.serviceType);
+
+        this.outputMap.set(output.architecture.name, outputInfo);
+      }
+    );
   }
 
   getRecommendationData(): void {

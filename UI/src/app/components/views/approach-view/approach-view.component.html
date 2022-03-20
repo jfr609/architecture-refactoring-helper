@@ -210,17 +210,27 @@
   <mat-card>
     <mat-card-title>Outputs</mat-card-title>
     <mat-card-content *ngIf='refactoringApproach.approachOutputs'>
-      <div *ngFor='let output of refactoringApproach.approachOutputs'
-           fxLayout='row'>
+      <div fxLayout='row'>
         <div fxFlex='25'>
-          <p [class]='getArchitectureColor(output.architecture)'>
-            <strong>Architecture:</strong> {{output.architecture.name}}
-          </p>
+          <h3>Architecture</h3>
         </div>
         <div fxFlex='25'>
-          <p [class]='getServiceTypeColor(output.serviceType)'>
-            <strong>Service type:</strong> {{output.serviceType.name}}
+          <h3>Service type</h3>
+        </div>
+      </div>
+      <div *ngFor='let output of outputMap | keyvalue' fxLayout='row'>
+        <div fxFlex='25'>
+          <p [class]='getArchitectureColor(output.value.architecture)'>
+            <strong>{{output.value.architecture.name}}</strong>
           </p>
+        </div>
+        <div fxFlex fxLayout='column'>
+          <div *ngFor='let serviceType of output.value.serviceTypes'>
+            <p [class]='getServiceTypeColor(serviceType)'><strong>{{serviceType.name}}</strong></p>
+            <p *ngIf='serviceType.description'>
+              {{serviceType.description}}
+            </p>
+          </div>
         </div>
       </div>
     </mat-card-content>
