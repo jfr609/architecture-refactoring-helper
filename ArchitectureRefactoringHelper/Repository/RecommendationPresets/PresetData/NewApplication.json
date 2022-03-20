@@ -4,7 +4,7 @@
       "attribute": {
         "name": "Documentation"
       },
-      "recommendationSuitability": 0
+      "recommendationSuitability": 2
     },
     {
       "attribute": {
@@ -38,7 +38,7 @@
       "attribute": {
         "name": "Activity diagram"
       },
-      "recommendationSuitability": 0
+      "recommendationSuitability": 2
     },
     {
       "attribute": {
@@ -50,13 +50,13 @@
       "attribute": {
         "name": "Data flow diagram"
       },
-      "recommendationSuitability": 0
+      "recommendationSuitability": 2
     },
     {
       "attribute": {
         "name": "State machine diagram"
       },
-      "recommendationSuitability": 0
+      "recommendationSuitability": 2
     },
     {
       "attribute": {
