@@ -16,12 +16,14 @@ public class ApproachOutputService
             .ThenBy(e => e.ServiceType.Name);
         var result = query.ToList();
 
+        db.Dispose();
+
         return result;
     }
 
     public IEnumerable<Architecture> ListArchitectures()
     {
-        var db = new RefactoringApproachContext();
+        using var db = new RefactoringApproachContext();
 
         return db.Architectures
             .OrderBy(e => e.Name)
@@ -30,7 +32,7 @@ public class ApproachOutputService
 
     public IEnumerable<ServiceType> ListServiceTypes()
     {
-        var db = new RefactoringApproachContext();
+        using var db = new RefactoringApproachContext();
 
         return db.ServiceTypes
             .OrderBy(e => e.Name)
