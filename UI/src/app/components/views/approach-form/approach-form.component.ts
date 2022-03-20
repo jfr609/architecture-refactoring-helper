@@ -47,6 +47,7 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
   accordion!: MatAccordion;
 
   titleFormControl = new FormControl('', [Validators.required]);
+  identifierFormControl = new FormControl('', [Validators.required]);
   yearFormControl = new FormControl('', [
     Validators.required,
     Validators.min(1900),

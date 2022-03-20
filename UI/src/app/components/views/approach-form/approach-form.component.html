@@ -79,14 +79,15 @@
       <div fxLayout='row' fxLayoutGap='30px'>
         <mat-form-field fxFlex='25' appearance='fill'>
           <mat-label>Identifier (ID)</mat-label>
-          <input matInput type='text' (input)='onChangeIdentifier($event)' [value]='identifierInputValue'>
+          <input matInput type='text' (input)='onChangeIdentifier($event)' [value]='identifierInputValue'
+                 [formControl]='identifierFormControl'>
           <button *ngIf='identifierInputValue' matSuffix mat-icon-button aria-label='Clear'
                   (click)="identifierInputValue=''">
             <mat-icon>close</mat-icon>
           </button>
-          <mat-hint>
-            If left empty a number will be chosen by the application
-          </mat-hint>
+          <mat-error *ngIf="identifierFormControl.hasError('required')">
+            Identifier is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field fxFlex appearance='fill'>
