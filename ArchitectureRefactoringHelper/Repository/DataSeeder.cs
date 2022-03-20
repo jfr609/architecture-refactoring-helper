@@ -20,13 +20,12 @@ public static class DataSeeder
         var serviceProvider = host.Services.CreateScope().ServiceProvider;
         var refactoringApproachService = serviceProvider.GetRequiredService<RefactoringApproachService>();
 
-        var seedData = GetSeedDataFromJson<RefactoringApproach>("RefactoringApproaches.json");
-        AddRefactoringApproachesAsync(seedData, refactoringApproachService);
+        SeedRefactoringApproachData(refactoringApproachService);
     }
 
-    private static void AddRefactoringApproachesAsync(IEnumerable<RefactoringApproach> refactoringApproaches,
-        RefactoringApproachService refactoringApproachService)
+    private static void SeedRefactoringApproachData(RefactoringApproachService refactoringApproachService)
     {
+        var refactoringApproaches = GetSeedDataFromJson<RefactoringApproach>("RefactoringApproaches.json");
         foreach (var refactoringApproach in refactoringApproaches)
         {
             refactoringApproachService.AddRefactoringApproachIfNotExists(refactoringApproach);

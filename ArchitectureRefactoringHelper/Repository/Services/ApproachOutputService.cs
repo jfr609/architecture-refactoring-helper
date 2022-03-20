@@ -120,10 +120,10 @@ public class ApproachOutputService
     public ICollection<ApproachOutput> AddApproachOutputsIfNotExist(ICollection<ApproachOutput>? outputs,
         ref RefactoringApproachContext db)
     {
-        if (outputs == null || !outputs.Any())
+        if (outputs.IsNullOrEmpty())
             return new List<ApproachOutput>();
 
-        var distinctOutputs = outputs.Distinct().ToList();
+        var distinctOutputs = outputs!.Distinct().ToList();
 
         var savedOutputs = new List<ApproachOutput>();
         foreach (var output in distinctOutputs)
