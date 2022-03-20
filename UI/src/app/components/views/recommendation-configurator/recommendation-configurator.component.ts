@@ -21,6 +21,10 @@ export class RecommendationConfiguratorComponent implements OnInit {
   qualityCategories = QualityCategory;
   recommendationSuitabilityOptions: RecommendationSuitability[] = [];
 
+  get noDescriptionText(): string {
+    return 'No description';
+  }
+
   constructor(
     private refactoringApproachService: RefactoringApproachService,
     public attributeOptionsService: AttributeOptionsService,

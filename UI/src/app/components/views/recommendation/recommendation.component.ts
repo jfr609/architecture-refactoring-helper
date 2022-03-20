@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ApproachRecommendationService } from '../../../services/approach-recommendation.service';
-import { ApproachRecommendationRequest } from '../../../../../api/repository/models/approach-recommendation-request';
 import { lastValueFrom } from 'rxjs';
 import { ApproachRecommendation } from '../../../../../api/repository/models/approach-recommendation';
 import { RefactoringApproachService } from '../../../../../api/repository/services/refactoring-approach.service';
