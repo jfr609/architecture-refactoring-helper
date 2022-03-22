@@ -6,6 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./framework-phase-one.component.scss']
 })
 export class FrameworkPhaseOneComponent implements OnInit {
+  imageList = [
+    'assets/Phase1-UI1.jpg',
+    'assets/Phase1-UI2.jpg',
+    'assets/Phase1-UI3.jpg',
+    'assets/Phase1-UI4.jpg',
+    'assets/Phase1-UI5.jpg'
+  ];
+
   constructor() {}
 
   ngOnInit(): void {}

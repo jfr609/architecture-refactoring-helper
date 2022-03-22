@@ -1,0 +1,17 @@
+<div fxLayout='column'>
+  <div style='margin-bottom: 8px' fxLayout='row' fxLayoutAlign='center center' fxLayoutGap='8px'>
+    <button mat-icon-button color='accent' (click)='onClickLeft()'>
+      <mat-icon>arrow_back_ios_new</mat-icon>
+    </button>
+    <span>{{carouselIndex + 1}} / {{images.length}}</span>
+    <button mat-icon-button color='accent' (click)='onClickRight()'>
+      <mat-icon>arrow_forward_ios</mat-icon>
+    </button>
+  </div>
+  <mat-progress-bar mode="determinate" [value]="progressbarValue" color='accent' style='margin-bottom: 8px'></mat-progress-bar>
+  <div [style.width]='width' class='image-container'>
+    <ng-container *ngFor='let image of images, let i = index'>
+      <img *ngIf='carouselIndex === i' [@scrollAnimations] [src]='images[i]' [style.width]='width'>
+    </ng-container>
+  </div>
+</div>

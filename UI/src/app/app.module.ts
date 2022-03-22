@@ -50,6 +50,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FrameworkPhaseOneComponent } from './components/views/framework-phase-one/framework-phase-one.component';
 import { FrameworkPhaseTwoComponent } from './components/views/framework-phase-two/framework-phase-two.component';
 import { FrameworkPhaseThreeComponent } from './components/views/framework-phase-three/framework-phase-three.component';
+import { ImageCarouselComponent } from './components/generics/image-carousel/image-carousel.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -68,11 +70,12 @@ import { FrameworkPhaseThreeComponent } from './components/views/framework-phase
     RecommendationResultComponent,
     RecommendationComponent,
     CardButtonComponent,
-    HoverBackgroundColorDirective,
     ApplicationSettingsDialogComponent,
     FrameworkPhaseOneComponent,
     FrameworkPhaseTwoComponent,
-    FrameworkPhaseThreeComponent
+    FrameworkPhaseThreeComponent,
+    ImageCarouselComponent,
+    HoverBackgroundColorDirective
   ],
   imports: [
     BrowserModule,
@@ -104,7 +107,8 @@ import { FrameworkPhaseThreeComponent } from './components/views/framework-phase
     MatAutocompleteModule,
     MatButtonToggleModule,
     MatTooltipModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
