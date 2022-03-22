@@ -39,5 +39,15 @@ $light-theme: mat-light-theme($light-theme-primary, $light-theme-accent, $light-
   --color-grey-lighter: #{mat-color($theme-grey, lighter)};
   --color-grey-darker: #{mat-color($theme-grey, darker)};
 
+  --color-phase-1: #dae9ff;
+  --color-phase-1-border: #8da1c2;
+
   --color-phase-2: #e0d5e6;
+  --color-phase-2-border: #9f86ae;
+
+  --color-phase-3a: #d7e9d3;
+  --color-phase-3a-border: #a6b999;
+
+  --color-phase-3b: #b7d89f;
+  --color-phase-3b-border: #848285;
 }

@@ -4,14 +4,12 @@
 }
 
 img {
-  width: 600px;
+  height: 600px;
 }
 
 .image-area {
   background: var(--color-grey-darker);
   display: block;
-  width: 492px;
-  margin-left: 7px;
   opacity: 0;
   position: absolute;
   cursor: pointer;
@@ -22,11 +20,22 @@ img {
 }
 
 #phase-1-area {
+  margin-left: 129px;
   margin-top: 7px;
-  height: 121px;
+  height: 160px;
+  width: 582px;
 }
 
 #phase-2-area {
-  margin-top: 146px;
-  height: 81px;
+  margin-left: 180px;
+  margin-top: 195px;
+  height: 117px;
+  width: 478px;
+}
+
+#phase-3-area {
+  margin-left: 129px;
+  margin-top: 340px;
+  height: 251px;
+  width: 582px;
 }
