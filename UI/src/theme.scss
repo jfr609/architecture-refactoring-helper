@@ -4,6 +4,7 @@
 @include mat-core();
 
 $theme-brown: mat-palette($mat-brown, 500);
+$theme-grey: mat-palette($mat-grey, 500);
 
 $light-theme-primary: mat-palette($mat-green, 400);
 $light-theme-accent: mat-palette($mat-blue, A400);
@@ -33,4 +34,10 @@ $light-theme: mat-light-theme($light-theme-primary, $light-theme-accent, $light-
   --color-brown-lighter: #{mat-color($theme-brown, lighter)};
   --color-brown-darker: #{mat-color($theme-brown, darker)};
   --color-brown-50: #{mat-color($theme-brown, 0.5)};
+
+  --color-grey: #{mat-color($theme-grey)};
+  --color-grey-lighter: #{mat-color($theme-grey, lighter)};
+  --color-grey-darker: #{mat-color($theme-grey, darker)};
+
+  --color-phase-2: #e0d5e6;
 }

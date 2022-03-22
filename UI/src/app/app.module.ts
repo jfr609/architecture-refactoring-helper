@@ -47,6 +47,9 @@ import { HoverBackgroundColorDirective } from './directives/hover-background-col
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ApplicationSettingsDialogComponent } from './components/dialogs/application-settings-dialog/application-settings-dialog.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { FrameworkPhaseOneComponent } from './components/views/framework-phase-one/framework-phase-one.component';
+import { FrameworkPhaseTwoComponent } from './components/views/framework-phase-two/framework-phase-two.component';
+import { FrameworkPhaseThreeComponent } from './components/views/framework-phase-three/framework-phase-three.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +69,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     RecommendationComponent,
     CardButtonComponent,
     HoverBackgroundColorDirective,
-    ApplicationSettingsDialogComponent
+    ApplicationSettingsDialogComponent,
+    FrameworkPhaseOneComponent,
+    FrameworkPhaseTwoComponent,
+    FrameworkPhaseThreeComponent
   ],
   imports: [
     BrowserModule,

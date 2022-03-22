@@ -9,7 +9,9 @@ import { NAV_PARAM_APPROACH_ID } from './app.constants';
 import { ApproachViewComponent } from './components/views/approach-view/approach-view.component';
 import { RecommendationResultComponent } from './components/views/recommendation-result/recommendation-result.component';
 import { RecommendationComponent } from './components/views/recommendation/recommendation.component';
-import { ApplicationSettingsDialogComponent } from './components/dialogs/application-settings-dialog/application-settings-dialog.component';
+import { FrameworkPhaseOneComponent } from './components/views/framework-phase-one/framework-phase-one.component';
+import { FrameworkPhaseTwoComponent } from './components/views/framework-phase-two/framework-phase-two.component';
+import { FrameworkPhaseThreeComponent } from './components/views/framework-phase-three/framework-phase-three.component';
 
 const routes: Routes = [
   {
@@ -17,36 +19,44 @@ const routes: Routes = [
     component: HomePageComponent
   },
   {
-    path: 'approach',
+    path: 'stage/1',
+    component: FrameworkPhaseOneComponent
+  },
+  {
+    path: 'stage/2',
+    component: FrameworkPhaseTwoComponent
+  },
+  {
+    path: 'stage/3',
+    component: FrameworkPhaseThreeComponent
+  },
+  {
+    path: 'stage/2/approach',
     component: ApproachFormComponent
   },
   {
-    path: `approach/:${NAV_PARAM_APPROACH_ID}`,
+    path: `stage/2/approach/:${NAV_PARAM_APPROACH_ID}`,
     component: ApproachViewComponent
   },
   {
-    path: `approach/:${NAV_PARAM_APPROACH_ID}/edit`,
+    path: `stage/2/approach/:${NAV_PARAM_APPROACH_ID}/edit`,
     component: ApproachFormComponent
   },
   {
-    path: 'approaches',
+    path: 'stage/2/approaches',
     component: ApproachExplorerComponent
   },
   {
-    path: 'recommendation',
+    path: 'stage/2/recommendation',
     component: RecommendationComponent
   },
   {
-    path: 'recommendation/configure',
+    path: 'stage/2/recommendation/configure',
     component: RecommendationConfiguratorComponent
   },
   {
-    path: 'recommendation/result',
+    path: 'stage/2/recommendation/result',
     component: RecommendationResultComponent
-  },
-  {
-    path: 'settings',
-    component: ApplicationSettingsDialogComponent
   },
   {
     path: '',

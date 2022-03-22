@@ -6,6 +6,10 @@
   box-shadow: none;
 }
 
+.card-button:hover{
+  filter: brightness(0.9);
+}
+
 .mat-icon {
   margin-left: 10px;
   padding: 0 6px 6px 0;

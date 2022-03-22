@@ -1,12 +1,32 @@
-.card-group{
+.card-group {
   max-width: 100%;
   margin-top: 20px;
 }
 
-.max-width-500{
-  max-width: 500px;
-}
-
 img {
   width: 600px;
+}
+
+.image-area {
+  background: var(--color-grey-darker);
+  display: block;
+  width: 492px;
+  margin-left: 7px;
+  opacity: 0;
+  position: absolute;
+  cursor: pointer;
+}
+
+.image-area:hover{
+  opacity: 0.33;
+}
+
+#phase-1-area {
+  margin-top: 7px;
+  height: 121px;
+}
+
+#phase-2-area {
+  margin-top: 146px;
+  height: 81px;
 }

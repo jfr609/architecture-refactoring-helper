@@ -5,35 +5,9 @@
     migration approaches to microservices architecture.
   </p>
 
-  <img src='assets/MigrationFramework0.3.jpg'>
-
-  <div class='card-group' fxLayout='row' fxLayoutGap='50px'>
-    <app-card-button *ngIf='permissionService.isAdmin' routerLink='/approach'>
-      <div title>
-        <strong>Add</strong> a new refactoring approach!
-      </div>
-      <ng-container content>
-        Add a new refactoring approach that is not yet represented in the repository.
-      </ng-container>
-    </app-card-button>
-
-    <app-card-button routerLink='/recommendation'>
-      <div title>
-        <strong>Find recommendations</strong> for your application!
-      </div>
-      <ng-container content>
-        Find recommended refactoring approach recommendations based on preferred inputs, outputs,
-        processes and usability aspects of the approach.
-      </ng-container>
-    </app-card-button>
-
-    <app-card-button routerLink='/approaches'>
-      <div title>
-        <strong>Explore</strong> existing refactoring approaches!
-      </div>
-      <ng-container content>
-        Freely explore all refactoring approaches that exist in the repository.
-      </ng-container>
-    </app-card-button>
+  <div>
+    <a id='phase-1-area' class='image-area' routerLink='/stage/1'></a>
+    <a id='phase-2-area' class='image-area' routerLink='/stage/2'></a>
+    <img src='assets/MigrationFramework0.3.jpg' alt='migration framework image'>
   </div>
 </div>

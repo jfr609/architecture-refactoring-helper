@@ -94,3 +94,66 @@ export function keyEquals(
 export function copy<T>(value: T): T {
   return JSON.parse(JSON.stringify(value));
 }
+
+// Slightly modified version of: https://gist.github.com/oriadam/396a4beaaad465ca921618f2f2444d49
+// return array of [r,g,b,a] from any valid color. if failed returns undefined
+export function convertColorToRGBA(color: string): number[] | undefined {
+  if (color === '') return undefined;
+  if (color.toLowerCase() === 'transparent') return [0, 0, 0, 0];
+  if (color[0] === '#') {
+    if (color.length < 7) {
+      // convert #RGB and #RGBA to #RRGGBB and #RRGGBBAA
+      color =
+        '#' +
+        color[1] +
+        color[1] +
+        color[2] +
+        color[2] +
+        color[3] +
+        color[3] +
+        (color.length > 4 ? color[4] + color[4] : '');
+    }
+    return [
+      parseInt(color.slice(1, 3), 16),
+      parseInt(color.slice(3, 5), 16),
+      parseInt(color.slice(5, 7), 16),
+      color.length > 7 ? parseInt(color.slice(7, 9), 16) / 255 : 1
+    ];
+  }
+  // Converts named colors such as "white", "black", etc.
+  if (color.indexOf('rgb') === -1) {
+    // intentionally use unknown tag to lower chances of css rule override with !important
+    const temp_elem: HTMLElement = document.body.appendChild(
+      document.createElement('fictum')
+    );
+    // this flag tested on chrome 59, ff 53, ie9, ie10, ie11, edge 14
+    const flag = 'rgb(1, 2, 3)';
+    temp_elem.style.color = flag;
+    if (temp_elem.style.color !== flag)
+      // color set failed - some monstrous css rule is probably taking over the color of our object
+      return undefined;
+    temp_elem.style.color = color;
+    if (temp_elem.style.color === flag || temp_elem.style.color === '')
+      // color parse failed
+      return undefined;
+    color = getComputedStyle(temp_elem).color;
+    document.body.removeChild(temp_elem);
+  }
+  // Converts rgb or rgba colors
+  if (color.indexOf('rgb') === 0) {
+    if (color.indexOf('rgba') === -1)
+      // convert 'rgb(R,G,B)' to 'rgb(R,G,B)A' which looks awful but will pass the regxep below
+      color += ',1';
+    const match = color.match(/[.\d]+/g);
+    return match
+      ? match.map(function (colorValue: string) {
+          return parseInt(colorValue);
+        })
+      : undefined;
+  }
+  return undefined;
+}
+
+export function evaluateBrightnessBasedOnRGBA(rgba: number[]): number {
+  return Math.round((rgba[0] * 299 + rgba[1] * 587 + rgba[2] * 114) / 1000);
+}
