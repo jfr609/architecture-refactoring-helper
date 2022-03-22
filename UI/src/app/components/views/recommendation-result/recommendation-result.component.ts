@@ -155,9 +155,12 @@ export class RecommendationResultComponent implements OnInit {
   }
 
   openRecommendationView(recommendation: ApproachRecommendation) {
-    this.router.navigate(['/approach', recommendation.refactoringApproachId], {
-      queryParams: { from: 'recommendation' }
-    });
+    this.router.navigate(
+      ['/stage/2/approach', recommendation.refactoringApproachId],
+      {
+        queryParams: { from: 'recommendation' }
+      }
+    );
   }
 
   getSuitabilityColor(

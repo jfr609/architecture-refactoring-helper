@@ -30,7 +30,7 @@ export class RecommendationComponent implements OnInit {
     )
       .then((value: ApproachRecommendation[]) => {
         this.recommendationService.recommendations.next(value);
-        this.router.navigate(['/recommendation/result']);
+        this.router.navigate(['/stage/2/recommendation/result']);
       })
       .catch((reason) => {
         console.log(reason);
@@ -48,7 +48,7 @@ export class RecommendationComponent implements OnInit {
     )
       .then((value: ApproachRecommendation[]) => {
         this.recommendationService.recommendations.next(value);
-        this.router.navigate(['/recommendation/result']);
+        this.router.navigate(['/stage/2/recommendation/result']);
       })
       .catch((reason) => {
         console.log(reason);
@@ -66,7 +66,7 @@ export class RecommendationComponent implements OnInit {
     )
       .then((value: ApproachRecommendation[]) => {
         this.recommendationService.recommendations.next(value);
-        this.router.navigate(['/recommendation/result']);
+        this.router.navigate(['/stage/2/recommendation/result']);
       })
       .catch((reason) => {
         console.log(reason);
