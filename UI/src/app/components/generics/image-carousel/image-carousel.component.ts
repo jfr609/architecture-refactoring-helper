@@ -1,20 +1,19 @@
+import { AfterViewInit, Component, Input } from '@angular/core';
 import {
-  Component,
-  ElementRef,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewChild
-} from '@angular/core';
-import { animate, style, transition, trigger } from '@angular/animations';
-import { interval, Observable, Subscription } from 'rxjs';
+  animate,
+  state,
+  style,
+  transition,
+  trigger
+} from '@angular/animations';
+import { wait } from '../../../utils/utils';
 
 @Component({
   selector: 'app-image-carousel',
   templateUrl: './image-carousel.component.html',
   styleUrls: ['./image-carousel.component.scss'],
   animations: [
-    trigger('scrollAnimations', [
+    trigger('changeImage', [
       transition(':enter', [
         style({ opacity: '0' }),
         animate('300ms ease-out', style({ opacity: '1' }))
@@ -23,36 +22,50 @@ import { interval, Observable, Subscription } from 'rxjs';
         style({ opacity: '1' }),
         animate('300ms ease-out', style({ opacity: '0' }))
       ])
+    ]),
+    trigger('loading', [
+      state(
+        'start',
+        style({
+          width: '0%'
+        })
+      ),
+      state(
+        'end',
+        style({
+          width: '100%'
+        })
+      ),
+      transition('start => end', [animate(5000)]),
+      transition('end => start', [animate(250)])
     ])
   ]
 })
-export class ImageCarouselComponent implements OnInit, OnDestroy {
+export class ImageCarouselComponent implements AfterViewInit {
   @Input() images: string[] = [];
   @Input() width = '600px';
 
   private imageChangeInterval = 5000;
-  private nextImageSub: Subscription = new Subscription();
-  private progressBarSub: Subscription = new Subscription();
-  progressbarValue = 0;
-
+  private updateInterval = 100;
+  progress = 0;
   carouselIndex = 0;
 
-  ngOnInit(): void {
-    this.nextImageSub = interval(this.imageChangeInterval).subscribe(() => {
-      this.onClickRight();
-      this.progressbarValue = 0;
-    });
-
-    this.progressBarSub = interval(this.imageChangeInterval / 10).subscribe(
-      () => {
-        this.progressbarValue += 10;
-      }
-    );
+  ngAfterViewInit(): void {
+    this.startTimer();
   }
 
-  ngOnDestroy() {
-    this.nextImageSub.unsubscribe();
-    this.progressBarSub.unsubscribe();
+  startTimer(): void {
+    const interval = setInterval(async () => {
+      if (this.progress < this.imageChangeInterval) {
+        this.progress += this.updateInterval;
+      } else {
+        this.onClickRight();
+        clearInterval(interval);
+        this.progress = 0;
+        await wait(250);
+        this.startTimer();
+      }
+    }, this.updateInterval);
   }
 
   onClickLeft() {

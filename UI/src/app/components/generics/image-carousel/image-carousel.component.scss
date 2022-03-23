@@ -5,3 +5,15 @@
 img {
   position: absolute;
 }
+
+.progress-bar {
+  background-color: var(--color-accent);
+  height: 4px;
+}
+
+.progress-bar-background {
+  background-color: var(--color-accent-lighter);
+  height: 4px;
+  width: 100%;
+  margin: 8px 0;
+}
