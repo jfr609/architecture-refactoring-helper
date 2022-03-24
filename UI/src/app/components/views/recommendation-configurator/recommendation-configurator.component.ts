@@ -10,6 +10,7 @@ import { ApproachRecommendation } from '../../../../../api/repository/models/app
 import { ApproachRecommendationService } from '../../../services/approach-recommendation.service';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
+import { TOOLTIP_HIDE_DELAY, TOOLTIP_SHOW_DELAY } from '../../../app.constants';
 
 @Component({
   selector: 'app-recommendation-configurator',
@@ -17,8 +18,11 @@ import { lastValueFrom } from 'rxjs';
   styleUrls: ['./recommendation-configurator.component.scss']
 })
 export class RecommendationConfiguratorComponent implements OnInit {
+  readonly TOOLTIP_SHOW_DELAY = TOOLTIP_SHOW_DELAY;
+  readonly TOOLTIP_HIDE_DELAY = TOOLTIP_HIDE_DELAY;
+  readonly QualityCategories = QualityCategory;
+
   isDataLoading = true;
-  qualityCategories = QualityCategory;
   recommendationSuitabilityOptions: RecommendationSuitability[] = [];
 
   get noDescriptionText(): string {

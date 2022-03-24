@@ -18,8 +18,8 @@
       <div *ngFor='let item1 of sourceDataList'
            class='connected-data-list-item'
            [matTooltip]='item1.dataElement.description ? item1.dataElement.description : noDescriptionText'
-           matTooltipShowDelay='1000'
-           matTooltipHideDelay='1000'
+           [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
+           [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'
            cdkDrag>
         {{item1.displayName}}
       </div>
@@ -34,8 +34,8 @@
       <div *ngFor='let item2 of targetDataList'
            class='connected-data-list-item'
            [matTooltip]='item2.dataElement.description ? item2.dataElement.description : noDescriptionText'
-           matTooltipShowDelay='1000'
-           matTooltipHideDelay='1000'
+           [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
+           [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'
            cdkDrag>
         {{item2.displayName}}
       </div>

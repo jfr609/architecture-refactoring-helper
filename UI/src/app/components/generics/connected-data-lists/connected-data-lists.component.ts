@@ -4,6 +4,7 @@ import {
   moveItemInArray,
   transferArrayItem
 } from '@angular/cdk/drag-drop';
+import { TOOLTIP_HIDE_DELAY, TOOLTIP_SHOW_DELAY } from '../../../app.constants';
 
 export class ConnectedDataListElement {
   displayName!: string;
@@ -25,6 +26,9 @@ export class ConnectedDataListsComponent implements OnInit {
 
   @Output() createAttribute: EventEmitter<void> = new EventEmitter<void>();
   @Output() deleteAttribute: EventEmitter<void> = new EventEmitter<void>();
+
+  readonly TOOLTIP_SHOW_DELAY = TOOLTIP_SHOW_DELAY;
+  readonly TOOLTIP_HIDE_DELAY = TOOLTIP_HIDE_DELAY;
 
   get noDescriptionText(): string {
     return 'No description';

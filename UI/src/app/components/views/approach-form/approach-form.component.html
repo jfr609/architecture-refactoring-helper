@@ -253,8 +253,8 @@
                 <mat-option *ngFor='let architecture of attributeOptionsService.architectures.value'
                             [value]='architecture'
                             [matTooltip]='architecture.description ? architecture.description : noDescriptionText'
-                            matTooltipShowDelay='1000'
-                            matTooltipHideDelay='1000'>
+                            [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
+                            [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>
                   {{architecture.name}}
                 </mat-option>
               </mat-select>
@@ -276,8 +276,8 @@
                 <mat-option *ngFor='let serviceType of attributeOptionsService.serviceTypes.value'
                             [value]='serviceType'
                             [matTooltip]='serviceType.description ? serviceType.description : noDescriptionText'
-                            matTooltipShowDelay='1000'
-                            matTooltipHideDelay='1000'>
+                            [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
+                            [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>
                   {{serviceType.name}}
                 </mat-option>
               </mat-select>
@@ -307,13 +307,13 @@
               <p *ngIf='output.architecture && output.serviceType'>
                 <span
                   [matTooltip]='output.architecture.description ? output.architecture.description : noDescriptionText'
-                  matTooltipShowDelay='1000'
-                  matTooltipHideDelay='1000'>
+                  [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
+                  [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>
                   {{output.architecture.name}}:
                 </span>
                 <span [matTooltip]='output.serviceType.description ? output.serviceType.description : noDescriptionText'
-                      matTooltipShowDelay='1000'
-                      matTooltipHideDelay='1000'>
+                      [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
+                      [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>
                   {{output.serviceType.name}}
                 </span>
               </p>
@@ -362,8 +362,8 @@
               <mat-radio-button *ngFor='let validationMethod of attributeOptionsService.validationMethods.value'
                                 [value]='validationMethod'>
                 <span [matTooltip]='validationMethod.description ? validationMethod.description : noDescriptionText'
-                      matTooltipShowDelay='1000'
-                      matTooltipHideDelay='1000'>
+                      [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
+                      [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>
                   {{validationMethod.name}}
                 </span>
               </mat-radio-button>
@@ -389,8 +389,8 @@
               <mat-radio-button *ngFor='let toolSupport of attributeOptionsService.toolSupports.value'
                                 [value]='toolSupport'>
                 <span [matTooltip]='toolSupport.description ? toolSupport.description : noDescriptionText'
-                      matTooltipShowDelay='1000'
-                      matTooltipHideDelay='1000'>
+                      [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
+                      [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>
                   {{toolSupport.name}}
                 </span>
               </mat-radio-button>
@@ -417,8 +417,8 @@
               <mat-radio-button *ngFor='let resultsQuality of attributeOptionsService.resultsQualities.value'
                                 [value]='resultsQuality'>
                 <span [matTooltip]='resultsQuality.description ? resultsQuality.description : noDescriptionText'
-                      matTooltipShowDelay='1000'
-                      matTooltipHideDelay='1000'>
+                      [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
+                      [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>
                   {{resultsQuality.name}}
                 </span>
               </mat-radio-button>
@@ -444,8 +444,8 @@
               <mat-radio-button *ngFor='let accuracyPrecision of attributeOptionsService.accuracyPrecisions.value'
                                 [value]='accuracyPrecision'>
                 <span [matTooltip]='accuracyPrecision.description ? accuracyPrecision.description : noDescriptionText'
-                      matTooltipShowDelay='1000'
-                      matTooltipHideDelay='1000'>
+                      [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
+                      [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>
                   {{accuracyPrecision.name}}
                 </span>
               </mat-radio-button>
