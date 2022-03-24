@@ -47,6 +47,8 @@ export class ImageCarouselComponent implements AfterViewInit {
 
   private readonly imageChangeInterval = 5000;
   private readonly updateInterval = 100;
+  private timerInterval!: number;
+  timerPaused = false;
   progress = 0;
   carouselIndex = 0;
 
@@ -55,12 +57,12 @@ export class ImageCarouselComponent implements AfterViewInit {
   }
 
   startTimer(): void {
-    const interval = setInterval(async () => {
+    this.timerInterval = setInterval(async () => {
       if (this.progress < this.imageChangeInterval) {
         this.progress += this.updateInterval;
       } else {
-        this.onClickRight();
-        clearInterval(interval);
+        this.showNextImage();
+        clearInterval(this.timerInterval);
         this.progress = 0;
         await wait(250);
         this.startTimer();
@@ -68,7 +70,7 @@ export class ImageCarouselComponent implements AfterViewInit {
     }, this.updateInterval);
   }
 
-  onClickLeft() {
+  showPreciousImage(): void {
     if (this.carouselIndex > 0) {
       this.carouselIndex--;
     } else {
@@ -76,11 +78,22 @@ export class ImageCarouselComponent implements AfterViewInit {
     }
   }
 
-  onClickRight() {
+  showNextImage(): void {
     if (this.carouselIndex < this.images.length - 1) {
       this.carouselIndex++;
     } else {
       this.carouselIndex = 0;
     }
+  }
+
+  pauseCarousel(): void {
+    this.timerPaused = true;
+    clearInterval(this.timerInterval);
+    this.progress = 0;
+  }
+
+  resumeCarousel(): void {
+    this.timerPaused = false;
+    this.startTimer();
   }
 }
