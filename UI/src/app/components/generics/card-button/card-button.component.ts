@@ -10,7 +10,8 @@ import {
   styleUrls: ['./card-button.component.scss']
 })
 export class CardButtonComponent implements OnInit {
-  @Input() title = '';
+  @Input() showContent = true;
+  @Input() smallCard = false;
 
   @Input() icon = '';
   @Input() color:
@@ -44,7 +45,7 @@ export class CardButtonComponent implements OnInit {
     if (
       this.acceptedThemeColors.some((color: string) => color === this.color)
     ) {
-      this.backgroundColor = `var(--color-${this.color}-lighter)`;
+      this.backgroundColor = `var(--color-${this.color})`;
       this.borderColor = `var(--color-${this.color})`;
     } else if (
       this.acceptedPresetColors.some((color: string) => color === this.color)

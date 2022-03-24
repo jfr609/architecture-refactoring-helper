@@ -161,3 +161,14 @@ export function evaluateBrightnessBasedOnRGBA(rgba: number[]): number {
 export function wait(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+export function getCoordinates(
+  el: HTMLElement,
+  isInMainContainer = true
+): { x: number; y: number } {
+  const boundingRect = el.getBoundingClientRect();
+  const x = boundingRect.x + boundingRect.width / 2 + window.scrollX;
+  let y = boundingRect.y + boundingRect.height / 2 + window.scrollY;
+  if (isInMainContainer) y -= 96;
+  return { x: x, y: y };
+}

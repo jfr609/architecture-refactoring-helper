@@ -1,15 +1,18 @@
-<mat-card class='card-button'
+<mat-card style='min-height: 19px' class='card-button'
+          [class]='smallCard ? "small-card" : ""'
           [style.background-color]='backgroundColor'
           [style.border-color]='borderColor'
           [style.color]='textColor'>
-  <mat-card-title>
-    <div fxLayout='row' fxLayoutAlign='start center'>
-      <ng-content select='[title]'></ng-content>
-      <mat-icon *ngIf='icon'>{{ icon }}</mat-icon>
+  <mat-card-title [class]='smallCard ? "small-card-title" : ""'
+                  [style]='!showContent ? "margin: 0" : ""'>
+    <div fxLayout='row' fxLayoutAlign='center center'>
+        <span>
+          <ng-content select='[title]'></ng-content>
+        </span>
+      <mat-icon *ngIf='icon' [class]='smallCard ? "small-icon" : ""'>{{ icon }}</mat-icon>
     </div>
-
   </mat-card-title>
-  <mat-card-content>
+  <mat-card-content *ngIf='showContent'>
     <ng-content select='[content]'></ng-content>
   </mat-card-content>
 </mat-card>

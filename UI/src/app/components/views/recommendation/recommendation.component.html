@@ -1,25 +1,162 @@
-<div fxLayout='column' fxLayoutAlign='start center' fxLayoutGap='30px'>
+<div fxLayout='column' fxLayoutAlign='start center' fxLayoutGap='32px'>
   <h1>Check for Recommendations</h1>
-  <img src='assets/recommendation-diagram.png'>
-  <div fxLayout='row' fxLayoutGap='20px'>
-    <app-card-button color='primary'
-                     icon='add_to_queue'
-                     (click)='searchNewApplicationRecommendations()'>
-      <ng-container title>New application</ng-container>
-    </app-card-button>
-    <app-card-button color='brown'
-                     icon='build'
-                     (click)='searchReBuildRecommendations()'>
-      <ng-container title>Re-Build</ng-container>
-    </app-card-button>
-    <app-card-button color='brown'
-                     icon='loop'
-                     (click)='searchReFactorRecommendations()'>
-      <ng-container title>Re-Factor</ng-container>
-    </app-card-button>
-    <app-card-button icon='settings'
-                     routerLink='/recommendation/configure'>
-      <ng-container title>Configure</ng-container>
-    </app-card-button>
+  <!--  <img src='assets/recommendation-diagram.png'>-->
+  <svg class='main-container connection-container'>
+    <line class='connection-line'
+          [attr.x1]='parentCoordinates.x'
+          [attr.y1]='parentCoordinates.y'
+          [attr.x2]='greenFieldCoordinates.x'
+          [attr.y2]='greenFieldCoordinates.y' />
+    <line class='connection-line'
+          [attr.x1]='parentCoordinates.x'
+          [attr.y1]='parentCoordinates.y'
+          [attr.x2]='brownFieldCoordinates.x'
+          [attr.y2]='brownFieldCoordinates.y' />
+    <line class='connection-line greenfield-connection-line'
+          [attr.x1]='greenFieldCoordinates.x'
+          [attr.y1]='greenFieldCoordinates.y'
+          [attr.x2]='newApplicationCoordinates.x'
+          [attr.y2]='newApplicationCoordinates.y' />
+    <line class='connection-line brownfield-connection-line'
+          [attr.x1]='brownFieldCoordinates.x'
+          [attr.y1]='brownFieldCoordinates.y'
+          [attr.x2]='reBuildCoordinates.x'
+          [attr.y2]='reBuildCoordinates.y' />
+    <line class='connection-line brownfield-connection-line'
+          [attr.x1]='brownFieldCoordinates.x'
+          [attr.y1]='brownFieldCoordinates.y'
+          [attr.x2]='reFactorCoordinates.x'
+          [attr.y2]='reFactorCoordinates.y' />
+
+    <line class='connection-line greenfield-connection-line'
+          [attr.x1]='newApplicationCoordinates.x'
+          [attr.y1]='newApplicationCoordinates.y'
+          [attr.x2]='requirementDocumentsCoordinates.x'
+          [attr.y2]='requirementDocumentsCoordinates.y' />
+    <line class='connection-line greenfield-connection-line'
+          [attr.x1]='newApplicationCoordinates.x'
+          [attr.y1]='newApplicationCoordinates.y'
+          [attr.x2]='requirementModelsCoordinates.x'
+          [attr.y2]='requirementModelsCoordinates.y' />
+
+    <line class='connection-line brownfield-connection-line'
+          [attr.x1]='reBuildCoordinates.x'
+          [attr.y1]='reBuildCoordinates.y'
+          [attr.x2]='requirementDocumentsCoordinates.x'
+          [attr.y2]='requirementDocumentsCoordinates.y' />
+    <line class='connection-line brownfield-connection-line'
+          [attr.x1]='reBuildCoordinates.x'
+          [attr.y1]='reBuildCoordinates.y'
+          [attr.x2]='requirementModelsCoordinates.x'
+          [attr.y2]='requirementModelsCoordinates.y' />
+    <line class='connection-line brownfield-connection-line'
+          [attr.x1]='reBuildCoordinates.x'
+          [attr.y1]='reBuildCoordinates.y'
+          [attr.x2]='designDocumentsCoordinates.x'
+          [attr.y2]='designDocumentsCoordinates.y' />
+
+    <line class='connection-line brownfield-connection-line'
+          [attr.x1]='reFactorCoordinates.x'
+          [attr.y1]='reFactorCoordinates.y'
+          [attr.x2]='codebaseCoordinates.x'
+          [attr.y2]='codebaseCoordinates.y' />
+    <line class='connection-line brownfield-connection-line'
+          [attr.x1]='reFactorCoordinates.x'
+          [attr.y1]='reFactorCoordinates.y'
+          [attr.x2]='logDataCoordinates.x'
+          [attr.y2]='logDataCoordinates.y' />
+  </svg>
+  <div fxLayout='column' fxLayoutAlign='start center' fxLayoutGap='50px'>
+    <mat-card #ParentNode class='diagram-node parent-diagram-node'>
+      <div fxFlex fxLayoutAlign='center center' style='text-align: center'>
+        <mat-card-title>Microservices Identification Process</mat-card-title>
+      </div>
+    </mat-card>
+
+    <div fxLayout='row' fxLayoutGap='20px'>
+      <mat-card #GreenfieldNode class='diagram-node greenfield-diagram-node'>
+        <div fxFlex fxLayoutAlign='center center' style='text-align: center'>
+          <mat-card-title>New Application Development</mat-card-title>
+        </div>
+      </mat-card>
+      <mat-card #BrownfieldNode class='diagram-node brownfield-diagram-node'>
+        <div fxFlex fxLayoutAlign='center center' style='text-align: center'>
+          <mat-card-title>Legacy Application Development</mat-card-title>
+        </div>
+      </mat-card>
+    </div>
+
+    <div fxLayout='row' fxLayoutGap='40px'>
+      <app-card-button #NewApplicationNode
+                       color='primary'
+                       icon='add_to_queue'
+                       [showContent]='false'
+                       [smallCard]='true'
+                       (click)='searchNewApplicationRecommendations()'>
+        <ng-container title>New application</ng-container>
+      </app-card-button>
+      <app-card-button #ReBuildNode
+                       color='brown'
+                       icon='build'
+                       [showContent]='false'
+                       [smallCard]='true'
+                       (click)='searchReBuildRecommendations()'>
+        <ng-container title>Re-Build</ng-container>
+      </app-card-button>
+      <app-card-button #ReFactorNode
+                       color='brown'
+                       icon='loop'
+                       [showContent]='false'
+                       [smallCard]='true'
+                       (click)='searchReFactorRecommendations()'>
+        <ng-container title>Re-Factor</ng-container>
+      </app-card-button>
+    </div>
+
+    <div fxLayout='row'>
+      <div fxLayoutAlign='center center'>
+        Input
+        <br>
+        Artifacts
+      </div>
+      <div style='margin: 0 4px; font-size: 45px'>
+        {{ '{' }}
+      </div>
+      <div fxLayout='row' fxLayoutGap='20px'>
+        <mat-card #RequirementDocumentsNode class='diagram-node'>
+          <div fxFlex fxLayoutAlign='center center' style='text-align: center'>
+            <mat-card-title>Requirement Documents</mat-card-title>
+          </div>
+        </mat-card>
+        <mat-card #RequirementModelNode class='diagram-node'>
+          <div fxFlex fxLayoutAlign='center center' style='text-align: center'>
+            <mat-card-title>Requirement Models</mat-card-title>
+          </div>
+        </mat-card>
+        <mat-card #DesignDocumentsNode class='diagram-node'>
+          <div fxFlex fxLayoutAlign='center center' style='text-align: center'>
+            <mat-card-title>Design Documents</mat-card-title>
+          </div>
+        </mat-card>
+        <mat-card #CodebaseNode class='diagram-node'>
+          <div fxFlex fxLayoutAlign='center center' style='text-align: center'>
+            <mat-card-title>Codebase</mat-card-title>
+          </div>
+        </mat-card>
+        <mat-card #LogDataNode class='diagram-node'>
+          <div fxFlex fxLayoutAlign='center center' style='text-align: center'>
+            <mat-card-title>Log Data</mat-card-title>
+          </div>
+        </mat-card>
+      </div>
+
+    </div>
   </div>
+
+  <p>Placeholder</p>
+  <app-card-button routerLink='configure'
+                   icon='settings'
+                   [showContent]='false'>
+    <ng-container title>Configure</ng-container>
+  </app-card-button>
 </div>

@@ -9,6 +9,11 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.main-container {
+  height: calc(100% - 128px);
+  margin: 32px;
+}
+
 .icon-2x {
   transform: scale(2);
   margin: 12px;
@@ -51,4 +56,13 @@ body {
 
 .mismatch-item {
   color: #ad3d3d;
+}
+
+.small-card {
+  border-radius: 8px !important;
+  padding: 8px !important;
+}
+
+.small-card-title {
+  font-size: 16px !important;
 }

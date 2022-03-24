@@ -1,4 +1,55 @@
-img {
-  padding: 5px;
-  width: 700px;
+.connection-container {
+  position: absolute;
+  width: 100%;
+  margin: 0;
+  z-index: -1;
+}
+
+.connection-line {
+  stroke-width: 4px;
+  stroke: var(--color-accent);
+}
+
+.greenfield-connection-line {
+  stroke: var(--color-primary);
+}
+
+.brownfield-connection-line {
+  stroke: var(--color-brown);
+}
+
+.diagram-node {
+  max-width: 150px;
+  border: 2px solid;
+  border-radius: 12px;
+  box-shadow: none;
+
+  background-color: var(--color-accent-lighter);
+  border-color: var(--color-accent);
+  color: black;
+}
+
+.parent-diagram-node {
+  max-width: 320px;
+}
+
+.greenfield-diagram-node {
+  max-width: 320px;
+  background-color: var(--color-primary-lighter);
+  border-color: var(--color-primary);
+}
+
+.brownfield-diagram-node {
+  max-width: 320px;
+  background-color: var(--color-brown-lighter);
+  border-color: var(--color-brown);
+}
+
+mat-card {
+  padding: 8px;
+}
+
+mat-card-title {
+  font-size: 16px;
+  margin: 0;
 }
