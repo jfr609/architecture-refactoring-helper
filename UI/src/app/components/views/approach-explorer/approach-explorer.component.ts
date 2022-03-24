@@ -21,7 +21,13 @@ import { removeValueFromArray } from '../../../utils/utils';
 export class ApproachExplorerComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
-  displayedColumns: string[] = ['id', 'title', 'year', 'authors', 'actions'];
+  readonly displayedColumns: string[] = [
+    'id',
+    'title',
+    'year',
+    'authors',
+    'actions'
+  ];
   dataSource!: MatTableDataSource<RefactoringApproach>;
 
   refactoringApproaches: RefactoringApproach[] = [];

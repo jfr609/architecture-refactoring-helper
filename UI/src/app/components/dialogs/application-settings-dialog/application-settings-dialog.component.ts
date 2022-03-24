@@ -1,10 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  Inject,
-  OnInit,
-  ViewChild
-} from '@angular/core';
+import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
@@ -22,7 +16,7 @@ import { UtilService } from '../../../services/util.service';
   templateUrl: './application-settings-dialog.component.html',
   styleUrls: ['./application-settings-dialog.component.scss']
 })
-export class ApplicationSettingsDialogComponent implements OnInit {
+export class ApplicationSettingsDialogComponent {
   @ViewChild('importInput') importInput!: ElementRef;
 
   constructor(
@@ -33,8 +27,6 @@ export class ApplicationSettingsDialogComponent implements OnInit {
     private refactoringApproachService: RefactoringApproachService,
     private utilService: UtilService
   ) {}
-
-  ngOnInit(): void {}
 
   onCancelClicked() {
     this.dialogRef.close();

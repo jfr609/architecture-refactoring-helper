@@ -56,25 +56,25 @@
                 <h4>Mismatches:</h4>
                 <div class='evaluation-content' fxLayout='row wrap'>
                   <ng-container *ngFor='let evaluation of recommendation.domainArtifactInputEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
                           class='evaluation-item mismatch-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
                   </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.runtimeArtifactInputEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
                           class='evaluation-item mismatch-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
                   </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.modelArtifactInputEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
                           class='evaluation-item mismatch-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
                   </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.executableInputEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
                           class='evaluation-item mismatch-item'>
                       {{ evaluation.approachAttribute.name }}({{ evaluation.approachAttribute.language }})
                     </span>
@@ -85,25 +85,25 @@
                 <h4>Matches:</h4>
                 <div class='evaluation-content' fxLayout='row wrap'>
                   <ng-container *ngFor='let evaluation of recommendation.domainArtifactInputEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
                           class='evaluation-item match-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
                   </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.runtimeArtifactInputEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
                           class='evaluation-item match-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
                   </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.modelArtifactInputEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
                           class='evaluation-item match-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
                   </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.executableInputEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
                           class='evaluation-item match-item'>
                       {{ evaluation.approachAttribute.name }}({{ evaluation.approachAttribute.language }})
                     </span>
@@ -118,31 +118,31 @@
                 <h4>Mismatches:</h4>
                 <div class='evaluation-content' fxLayout='row wrap'>
                   <ng-container *ngFor='let evaluation of recommendation.qualityEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
                           class='evaluation-item mismatch-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
                   </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.directionEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
                           class='evaluation-item mismatch-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
                   </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.automationLevelEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
                           class='evaluation-item mismatch-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
                   </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.analysisTypeEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
                           class='evaluation-item mismatch-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
                   </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.techniqueEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
                           class='evaluation-item mismatch-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
@@ -153,31 +153,31 @@
                 <h4>Matches:</h4>
                 <div class='evaluation-content' fxLayout='row wrap'>
                   <ng-container *ngFor='let evaluation of recommendation.qualityEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
                           class='evaluation-item match-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
                   </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.directionEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
                           class='evaluation-item match-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
                   </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.automationLevelEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
                           class='evaluation-item match-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
                   </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.analysisTypeEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
                           class='evaluation-item match-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
                   </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.techniqueEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
                           class='evaluation-item match-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
@@ -192,13 +192,13 @@
                 <h4>Mismatches:</h4>
                 <div class='evaluation-content' fxLayout='row wrap'>
                   <ng-container *ngFor='let evaluation of recommendation.architectureEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
                           class='evaluation-item mismatch-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
                   </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.serviceTypeEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
                           class='evaluation-item mismatch-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
@@ -209,13 +209,13 @@
                 <h4>Matches:</h4>
                 <div class='evaluation-content' fxLayout='row wrap'>
                   <ng-container *ngFor='let evaluation of recommendation.architectureEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
                           class='evaluation-item match-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
                   </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.serviceTypeEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
                           class='evaluation-item match-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
@@ -230,25 +230,25 @@
                 <h4>Mismatches:</h4>
                 <div class='evaluation-content' fxLayout='row wrap'>
                   <ng-container *ngFor='let evaluation of recommendation.validationMethodEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
                           class='evaluation-item mismatch-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
                   </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.toolSupportEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
                           class='evaluation-item mismatch-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
                   </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.resultsQualityEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
                           class='evaluation-item mismatch-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
                   </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.accuracyPrecisionEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Mismatch'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
                           class='evaluation-item mismatch-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
@@ -259,25 +259,25 @@
                 <h4>Matches:</h4>
                 <div class='evaluation-content' fxLayout='row wrap'>
                   <ng-container *ngFor='let evaluation of recommendation.validationMethodEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
                           class='evaluation-item match-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
                   </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.toolSupportEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
                           class='evaluation-item match-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
                   </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.resultsQualityEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
                           class='evaluation-item match-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>
                   </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.accuracyPrecisionEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === attributeEvaluation.Match'
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
                           class='evaluation-item match-item'>
                       {{ evaluation.approachAttribute.name }}
                     </span>

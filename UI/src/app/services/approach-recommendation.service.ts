@@ -26,15 +26,15 @@ import { RecommendationPreset } from '../../../api/repository/models/recommendat
   providedIn: 'root'
 })
 export class ApproachRecommendationService {
-  private _recommendations: BehaviorSubject<ApproachRecommendation[]> =
+  private _recommendationsSubject: BehaviorSubject<ApproachRecommendation[]> =
     new BehaviorSubject<ApproachRecommendation[]>([]);
 
   public get recommendations(): ApproachRecommendation[] {
-    return this._recommendations.value;
+    return this._recommendationsSubject.value;
   }
 
   public set recommendations(value: ApproachRecommendation[]) {
-    this._recommendations.next(value);
+    this._recommendationsSubject.next(value);
   }
 
   public selectedPreset: RecommendationPreset | undefined = undefined;

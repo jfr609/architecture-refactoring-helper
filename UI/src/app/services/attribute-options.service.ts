@@ -37,47 +37,44 @@ import { QualityCategory } from '../../../api/repository/models/quality-category
   providedIn: 'root'
 })
 export class AttributeOptionsService {
-  domainArtifacts: BehaviorSubject<DomainArtifactInput[]> = new BehaviorSubject<
-    DomainArtifactInput[]
-  >([]);
-  runtimeArtifacts: BehaviorSubject<RuntimeArtifactInput[]> =
+  public domainArtifacts: BehaviorSubject<DomainArtifactInput[]> =
+    new BehaviorSubject<DomainArtifactInput[]>([]);
+  public runtimeArtifacts: BehaviorSubject<RuntimeArtifactInput[]> =
     new BehaviorSubject<RuntimeArtifactInput[]>([]);
-  modelArtifacts: BehaviorSubject<ModelArtifactInput[]> = new BehaviorSubject<
-    ModelArtifactInput[]
-  >([]);
-  executables: BehaviorSubject<ExecutableInput[]> = new BehaviorSubject<
+  public modelArtifacts: BehaviorSubject<ModelArtifactInput[]> =
+    new BehaviorSubject<ModelArtifactInput[]>([]);
+  public executables: BehaviorSubject<ExecutableInput[]> = new BehaviorSubject<
     ExecutableInput[]
   >([]);
-  qualities: BehaviorSubject<Quality[]> = new BehaviorSubject<Quality[]>([]);
-  directions: BehaviorSubject<Direction[]> = new BehaviorSubject<Direction[]>(
+  public qualities: BehaviorSubject<Quality[]> = new BehaviorSubject<Quality[]>(
     []
   );
-  automationLevels: BehaviorSubject<AutomationLevel[]> = new BehaviorSubject<
-    AutomationLevel[]
+  public directions: BehaviorSubject<Direction[]> = new BehaviorSubject<
+    Direction[]
   >([]);
-  analysisTypes: BehaviorSubject<AnalysisType[]> = new BehaviorSubject<
+  public automationLevels: BehaviorSubject<AutomationLevel[]> =
+    new BehaviorSubject<AutomationLevel[]>([]);
+  public analysisTypes: BehaviorSubject<AnalysisType[]> = new BehaviorSubject<
     AnalysisType[]
   >([]);
-  techniques: BehaviorSubject<Technique[]> = new BehaviorSubject<Technique[]>(
-    []
-  );
-  architectures: BehaviorSubject<Architecture[]> = new BehaviorSubject<
+  public techniques: BehaviorSubject<Technique[]> = new BehaviorSubject<
+    Technique[]
+  >([]);
+  public architectures: BehaviorSubject<Architecture[]> = new BehaviorSubject<
     Architecture[]
   >([]);
-  serviceTypes: BehaviorSubject<ServiceType[]> = new BehaviorSubject<
+  public serviceTypes: BehaviorSubject<ServiceType[]> = new BehaviorSubject<
     ServiceType[]
   >([]);
-  resultsQualities: BehaviorSubject<ResultsQuality[]> = new BehaviorSubject<
-    ResultsQuality[]
-  >([]);
-  toolSupports: BehaviorSubject<ToolSupport[]> = new BehaviorSubject<
+  public resultsQualities: BehaviorSubject<ResultsQuality[]> =
+    new BehaviorSubject<ResultsQuality[]>([]);
+  public toolSupports: BehaviorSubject<ToolSupport[]> = new BehaviorSubject<
     ToolSupport[]
   >([]);
-  accuracyPrecisions: BehaviorSubject<AccuracyPrecision[]> =
+  public accuracyPrecisions: BehaviorSubject<AccuracyPrecision[]> =
     new BehaviorSubject<AccuracyPrecision[]>([]);
-  validationMethods: BehaviorSubject<ValidationMethod[]> = new BehaviorSubject<
-    ValidationMethod[]
-  >([]);
+  public validationMethods: BehaviorSubject<ValidationMethod[]> =
+    new BehaviorSubject<ValidationMethod[]>([]);
 
   constructor(
     private refactoringApproachService: RefactoringApproachService,

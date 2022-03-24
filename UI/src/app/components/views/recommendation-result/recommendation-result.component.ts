@@ -33,8 +33,7 @@ export class RecommendationResultComponent implements OnInit {
     }
   }
 
-  recommendations: ApproachRecommendation[] = [];
-
+  readonly AttributeEvaluation = AttributeEvaluation;
   columnData: ColumnData[] = [
     {
       columnDef: 'suitability',
@@ -96,10 +95,9 @@ export class RecommendationResultComponent implements OnInit {
   );
   actionColumns = this.columnData.filter((c: ColumnData) => c.isActionColumn);
 
+  recommendations: ApproachRecommendation[] = [];
   dataSource!: MatTableDataSource<ApproachRecommendation>;
   expandedRecommendation: ApproachRecommendation | undefined | null;
-
-  attributeEvaluation = AttributeEvaluation;
 
   showAllActive = false;
 

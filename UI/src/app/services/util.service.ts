@@ -10,7 +10,7 @@ import { copy, findArrayDifference } from '../utils/utils';
   providedIn: 'root'
 })
 export class UtilService {
-  timeOut = 3000;
+  private snackbarTimeOut = 3000;
 
   constructor(private snackBar: MatSnackBar, private dialog: MatDialog) {}
 
@@ -29,7 +29,7 @@ export class UtilService {
 
   public callSnackBar(text: string): void {
     this.snackBar.open(text, 'OK', {
-      duration: this.timeOut
+      duration: this.snackbarTimeOut
     });
   }
 

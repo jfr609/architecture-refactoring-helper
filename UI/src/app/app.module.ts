@@ -43,7 +43,6 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { RecommendationResultComponent } from './components/views/recommendation-result/recommendation-result.component';
 import { RecommendationComponent } from './components/views/recommendation/recommendation.component';
 import { CardButtonComponent } from './components/generics/card-button/card-button.component';
-import { HoverBackgroundColorDirective } from './directives/hover-background-color.directive';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ApplicationSettingsDialogComponent } from './components/dialogs/application-settings-dialog/application-settings-dialog.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -74,8 +73,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     FrameworkPhaseOneComponent,
     FrameworkPhaseTwoComponent,
     FrameworkPhaseThreeComponent,
-    ImageCarouselComponent,
-    HoverBackgroundColorDirective
+    ImageCarouselComponent
   ],
   imports: [
     BrowserModule,

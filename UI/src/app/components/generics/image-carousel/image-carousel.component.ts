@@ -45,8 +45,8 @@ export class ImageCarouselComponent implements AfterViewInit {
   @Input() images: string[] = [];
   @Input() width = '600px';
 
-  private imageChangeInterval = 5000;
-  private updateInterval = 100;
+  private readonly imageChangeInterval = 5000;
+  private readonly updateInterval = 100;
   progress = 0;
   carouselIndex = 0;
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -16,7 +16,7 @@ export class ConnectedDataListElement {
   templateUrl: './connected-data-lists.component.html',
   styleUrls: ['./connected-data-lists.component.scss']
 })
-export class ConnectedDataListsComponent implements OnInit {
+export class ConnectedDataListsComponent {
   @Input() sourceDataListTitle = 'Source List';
   @Input() targetDataListTitle = 'Target List';
   @Input() sourceDataList: ConnectedDataListElement[] = [];
@@ -29,14 +29,7 @@ export class ConnectedDataListsComponent implements OnInit {
 
   readonly TOOLTIP_SHOW_DELAY = TOOLTIP_SHOW_DELAY;
   readonly TOOLTIP_HIDE_DELAY = TOOLTIP_HIDE_DELAY;
-
-  get noDescriptionText(): string {
-    return 'No description';
-  }
-
-  constructor() {}
-
-  ngOnInit(): void {}
+  readonly noDescriptionText = 'No description';
 
   drop(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {

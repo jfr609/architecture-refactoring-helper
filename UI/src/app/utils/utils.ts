@@ -158,7 +158,7 @@ export function evaluateBrightnessBasedOnRGBA(rgba: number[]): number {
   return Math.round((rgba[0] * 299 + rgba[1] * 587 + rgba[2] * 114) / 1000);
 }
 
-export function wait(ms: number) {
+export function wait(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 

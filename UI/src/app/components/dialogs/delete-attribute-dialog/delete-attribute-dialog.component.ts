@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { DialogData } from '../../../utils/models/dialog-data';
 import {
   MAT_DIALOG_DATA,
@@ -11,7 +11,7 @@ import {
   templateUrl: './delete-attribute-dialog.component.html',
   styleUrls: ['./delete-attribute-dialog.component.scss']
 })
-export class DeleteAttributeDialogComponent implements OnInit {
+export class DeleteAttributeDialogComponent {
   selectedAttributes: unknown[] = [];
 
   constructor(
@@ -19,8 +19,6 @@ export class DeleteAttributeDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<DeleteAttributeDialogComponent>,
     public dialog: MatDialog
   ) {}
-
-  ngOnInit(): void {}
 
   onCancelClicked() {
     this.dialogRef.close();

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { APP_TITLE } from '../../../app.constants';
 import { UtilService } from '../../../services/util.service';
 import { ApplicationSettingsDialogComponent } from '../../dialogs/application-settings-dialog/application-settings-dialog.component';
@@ -10,15 +10,13 @@ import { PermissionService } from '../../../services/permission.service';
   templateUrl: './architecture-refactoring-helper.component.html',
   styleUrls: ['./architecture-refactoring-helper.component.scss']
 })
-export class ArchitectureRefactoringHelperComponent implements OnInit {
+export class ArchitectureRefactoringHelperComponent {
   applicationTitle = APP_TITLE;
 
   constructor(
     private permissionService: PermissionService,
     private utilService: UtilService
   ) {}
-
-  ngOnInit(): void {}
 
   openSettingsDialog() {
     const data: DialogData = {

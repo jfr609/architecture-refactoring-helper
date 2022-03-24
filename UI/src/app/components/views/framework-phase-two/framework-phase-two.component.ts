@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PermissionService } from '../../../services/permission.service';
 
 @Component({
@@ -6,8 +6,6 @@ import { PermissionService } from '../../../services/permission.service';
   templateUrl: './framework-phase-two.component.html',
   styleUrls: ['./framework-phase-two.component.scss']
 })
-export class FrameworkPhaseTwoComponent implements OnInit {
+export class FrameworkPhaseTwoComponent {
   constructor(public permissionService: PermissionService) {}
-
-  ngOnInit(): void {}
 }

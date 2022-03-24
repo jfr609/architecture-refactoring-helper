@@ -25,17 +25,23 @@ export class CardButtonComponent implements OnInit {
     | 'phase-3b'
     | string = 'accent';
 
-  backgroundColor = '';
-  borderColor = '';
-  textColor = '';
-  backgroundColorBrightness = 0;
-  acceptedThemeColors: string[] = ['primary', 'accent', 'warn', 'brown'];
-  acceptedPresetColors: string[] = [
+  private readonly acceptedThemeColors: string[] = [
+    'primary',
+    'accent',
+    'warn',
+    'brown'
+  ];
+  private readonly acceptedPresetColors: string[] = [
     'phase-1',
     'phase-2',
     'phase-3a',
     'phase-3b'
   ];
+
+  backgroundColor = '';
+  borderColor = '';
+  textColor = '';
+  backgroundColorBrightness = 0;
 
   ngOnInit(): void {
     this.setColors();

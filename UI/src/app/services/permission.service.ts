@@ -5,15 +5,14 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class PermissionService {
-  isAdminSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  private _isAdminSubject: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(true);
 
   get isAdmin(): boolean {
-    return this.isAdminSubject.value;
+    return this._isAdminSubject.value;
   }
 
   set isAdmin(value: boolean) {
-    this.isAdminSubject.next(value);
+    this._isAdminSubject.next(value);
   }
-
-  constructor() {}
 }
