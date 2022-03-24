@@ -1,5 +1,5 @@
 <div fxLayout='column' fxLayoutAlign='start center' fxLayoutGap='20px'>
-  <h1>Refactoring approach recommendations</h1>
+  <h1>Refactoring approach recommendations for {{getTitle()}}</h1>
 
   <table mat-table [dataSource]='dataSource' multiTemplateDataRows matSort class='mat-elevation-z8'>
     <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of sortColumns'>

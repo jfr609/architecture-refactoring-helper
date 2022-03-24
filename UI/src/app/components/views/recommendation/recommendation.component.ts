@@ -134,8 +134,10 @@ export class RecommendationComponent implements AfterViewChecked {
       })
     )
       .then((value: ApproachRecommendation[]) => {
-        this.recommendationService.recommendations.next(value);
-        this.router.navigate(['/stage/2/recommendation/result']);
+        this.recommendationService.recommendations = value;
+        this.recommendationService.selectedPreset =
+          RecommendationPreset.NewApplication;
+        this.router.navigate(['/phase/2/recommendation/result']);
       })
       .catch((reason) => {
         console.log(reason);
@@ -152,8 +154,10 @@ export class RecommendationComponent implements AfterViewChecked {
       })
     )
       .then((value: ApproachRecommendation[]) => {
-        this.recommendationService.recommendations.next(value);
-        this.router.navigate(['/stage/2/recommendation/result']);
+        this.recommendationService.recommendations = value;
+        this.recommendationService.selectedPreset =
+          RecommendationPreset.ReBuild;
+        this.router.navigate(['/phase/2/recommendation/result']);
       })
       .catch((reason) => {
         console.log(reason);
@@ -170,8 +174,10 @@ export class RecommendationComponent implements AfterViewChecked {
       })
     )
       .then((value: ApproachRecommendation[]) => {
-        this.recommendationService.recommendations.next(value);
-        this.router.navigate(['/stage/2/recommendation/result']);
+        this.recommendationService.recommendations = value;
+        this.recommendationService.selectedPreset =
+          RecommendationPreset.ReFactor;
+        this.router.navigate(['/phase/2/recommendation/result']);
       })
       .catch((reason) => {
         console.log(reason);

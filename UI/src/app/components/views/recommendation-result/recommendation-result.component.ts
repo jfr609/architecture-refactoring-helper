@@ -12,6 +12,7 @@ import {
 } from '@angular/animations';
 import { AttributeEvaluation } from '../../../../../api/repository/models/attribute-evaluation';
 import { Router } from '@angular/router';
+import { RecommendationPreset } from '../../../../../api/repository/models/recommendation-preset';
 
 @Component({
   selector: 'app-recommendation-result',
@@ -116,15 +117,14 @@ export class RecommendationResultComponent implements OnInit {
     this.showAllActive =
       numberOfRecommendations < 0 ||
       numberOfRecommendations >=
-        this.recommendationsService.recommendations.value.length;
+        this.recommendationsService.recommendations.length;
     if (this.showAllActive) {
-      this.recommendations = this.recommendationsService.recommendations.value;
+      this.recommendations = this.recommendationsService.recommendations;
     } else {
-      this.recommendations =
-        this.recommendationsService.recommendations.value.slice(
-          0,
-          numberOfRecommendations
-        );
+      this.recommendations = this.recommendationsService.recommendations.slice(
+        0,
+        numberOfRecommendations
+      );
     }
     this.refreshDataSource();
   }
@@ -156,11 +156,24 @@ export class RecommendationResultComponent implements OnInit {
 
   openRecommendationView(recommendation: ApproachRecommendation) {
     this.router.navigate(
-      ['/stage/2/approach', recommendation.refactoringApproachId],
+      ['/phase/2/approach', recommendation.refactoringApproachId],
       {
         queryParams: { from: 'recommendation' }
       }
     );
+  }
+
+  getTitle(): string {
+    switch (this.recommendationsService.selectedPreset) {
+      case RecommendationPreset.NewApplication:
+        return 'new applications';
+      case RecommendationPreset.ReBuild:
+        return 'rebuilding applications';
+      case RecommendationPreset.ReFactor:
+        return 'refactoring applications';
+      default:
+        return 'your configuration';
+    }
   }
 
   getSuitabilityColor(

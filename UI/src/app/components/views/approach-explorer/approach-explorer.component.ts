@@ -93,7 +93,7 @@ export class ApproachExplorerComponent implements OnInit {
     mouseEvent.preventDefault();
     mouseEvent.stopPropagation();
     this.router.navigate([
-      '/stage/2/approach',
+      '/phase/2/approach',
       refactoringApproach.refactoringApproachId,
       'edit'
     ]);
@@ -101,7 +101,7 @@ export class ApproachExplorerComponent implements OnInit {
 
   openApproachView(refactoringApproach: RefactoringApproach) {
     this.router.navigate([
-      '/stage/2/approach',
+      '/phase/2/approach',
       refactoringApproach.refactoringApproachId
     ]);
   }

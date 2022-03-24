@@ -19,43 +19,43 @@ const routes: Routes = [
     component: HomePageComponent
   },
   {
-    path: 'stage/1',
+    path: 'phase/1',
     component: FrameworkPhaseOneComponent
   },
   {
-    path: 'stage/2',
+    path: 'phase/2',
     component: FrameworkPhaseTwoComponent
   },
   {
-    path: 'stage/3',
+    path: 'phase/3',
     component: FrameworkPhaseThreeComponent
   },
   {
-    path: 'stage/2/approach',
+    path: 'phase/2/approach',
     component: ApproachFormComponent
   },
   {
-    path: `stage/2/approach/:${NAV_PARAM_APPROACH_ID}`,
+    path: `phase/2/approach/:${NAV_PARAM_APPROACH_ID}`,
     component: ApproachViewComponent
   },
   {
-    path: `stage/2/approach/:${NAV_PARAM_APPROACH_ID}/edit`,
+    path: `phase/2/approach/:${NAV_PARAM_APPROACH_ID}/edit`,
     component: ApproachFormComponent
   },
   {
-    path: 'stage/2/approaches',
+    path: 'phase/2/approaches',
     component: ApproachExplorerComponent
   },
   {
-    path: 'stage/2/recommendation',
+    path: 'phase/2/recommendation',
     component: RecommendationComponent
   },
   {
-    path: 'stage/2/recommendation/configure',
+    path: 'phase/2/recommendation/configure',
     component: RecommendationConfiguratorComponent
   },
   {
-    path: 'stage/2/recommendation/result',
+    path: 'phase/2/recommendation/result',
     component: RecommendationResultComponent
   },
   {

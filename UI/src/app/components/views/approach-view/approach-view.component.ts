@@ -123,7 +123,7 @@ export class ApproachViewComponent implements OnInit, OnDestroy {
       queryParamMap.get('from') === 'recommendation'
     ) {
       this.selectedRecommendation =
-        this.recommendationService.recommendations.value.find(
+        this.recommendationService.recommendations.find(
           (value: ApproachRecommendation) =>
             value.refactoringApproachId ===
             this.refactoringApproach.refactoringApproachId

@@ -20,13 +20,24 @@ import { RecommendationSuitability } from '../../../api/repository/models/recomm
 import { QualityCategory } from '../../../api/repository/models/quality-category';
 import { AttributeOptionsService } from './attribute-options.service';
 import { ApproachRecommendationRequest } from '../../../api/repository/models/approach-recommendation-request';
+import { RecommendationPreset } from '../../../api/repository/models/recommendation-preset';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApproachRecommendationService {
-  public recommendations: BehaviorSubject<ApproachRecommendation[]> =
+  private _recommendations: BehaviorSubject<ApproachRecommendation[]> =
     new BehaviorSubject<ApproachRecommendation[]>([]);
+
+  public get recommendations(): ApproachRecommendation[] {
+    return this._recommendations.value;
+  }
+
+  public set recommendations(value: ApproachRecommendation[]) {
+    this._recommendations.next(value);
+  }
+
+  public selectedPreset: RecommendationPreset | undefined = undefined;
 
   public domainArtifactInformation: DomainArtifactInputAttributeRecommendationInformation[] =
     [];
