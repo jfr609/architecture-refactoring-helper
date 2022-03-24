@@ -1,6 +1,12 @@
-<div fxLayout='column' fxLayoutAlign='start center' fxLayoutGap='32px'>
+<div fxLayout='column' fxLayoutAlign='start center' fxLayoutGap='32px' style='margin-bottom: 32px'>
   <h1>Check for Recommendations</h1>
-  <!--  <img src='assets/recommendation-diagram.png'>-->
+  <p class='max-width-800'>
+    To narrow down the choice of a suitable service identification approach, you can (according to the diagram) select
+    either "New application development", "Re-Build" or "Re-factor". The diagram also shows input artifacts that are
+    typically needed for approaches in these categories. Now you will be presented a subset of the approach according to
+    their suitability for the chosen strategy.
+  </p>
+
   <svg class='main-container connection-container'>
     <line class='connection-line'
           [attr.x1]='parentCoordinates.x'
@@ -115,6 +121,8 @@
 
     <div fxLayout='row'>
       <div fxLayoutAlign='center center'>
+        Typical
+        <br>
         Input
         <br>
         Artifacts
@@ -153,7 +161,21 @@
     </div>
   </div>
 
-  <p>Placeholder</p>
+  <p class='max-width-800'>
+    If these presets are too unspecific, you can click on "Configure". This brings up a UI mask that allows you to
+    specifically filter the available approaches according to your needs. Here you have three possibilities:
+  </p>
+  <p class='max-width-800'>
+    "Include" - the approach must have this property
+    <br>
+    "Neutral" - the approach can have this property
+    <br>
+    "Exclude" - the approach does not have this property
+  </p>
+  <p class='max-width-800'>
+    The results page will now show a list of service identification approaches ordered by a percentage value that
+    expresses the overlap of the approach properties with your filter settings.
+  </p>
   <app-card-button routerLink='configure'
                    icon='settings'
                    [showContent]='false'>

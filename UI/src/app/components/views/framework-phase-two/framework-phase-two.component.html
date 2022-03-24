@@ -1,15 +1,24 @@
 <div fxLayout='column' fxLayoutAlign='start center'>
   <h1 class='max-width-800'>Phase 2: Strategy Definition</h1>
   <p class='max-width-800'>
-    Placeholder
+    In the second phase of a migration, the architect chooses the migration strategy and subsequently selects a suitable
+    service identification approach. The diagram on the following page shows the different development strategies that
+    can be chosen for a system modernization or migration.
   </p>
-
-  <img src='assets/Migration%20Framework%20Phase2%20V4.png' alt='migration framework phase 2 image'>
+  <p class='max-width-800'>
+    As a first step, you may want to explore the entire list of approaches by clicking on "Explore all approaches". This
+    will give you a list (currently there's only a subset of 18 approaches are in the database) of approaches which can
+    be explored in detail by clicking on them. Each approach represents a peer-reviewed scientific publication.
+  </p>
+  <p class='max-width-800'>
+    Otherwise you can look for recommended refactoring approaches based on inputs, outputs, processes and usability
+    aspects of existing refactoring approaches by clicking on "Find recommended approaches".
+  </p>
 
   <div class='card-group' fxLayout='row' fxLayoutGap='50px'>
     <app-card-button *ngIf='permissionService.isAdmin' color='phase-2' routerLink='approach'>
       <div title>
-        <strong>Add</strong> a new refactoring approach!
+        <strong>Add</strong> a new approach!
       </div>
       <ng-container content>
         Add a new refactoring approach that is not yet represented in the repository.
@@ -18,7 +27,7 @@
 
     <app-card-button color='phase-2' routerLink='approaches'>
       <div title>
-        <strong>Explore</strong> existing refactoring approaches!
+        <strong>Explore</strong> all approaches!
       </div>
       <ng-container content>
         Freely explore all refactoring approaches that exist in the repository.
@@ -27,7 +36,7 @@
 
     <app-card-button color='phase-2' routerLink='recommendation'>
       <div title>
-        <strong>Find recommendations</strong> for your application!
+        <strong>Find</strong> recommended approaches!
       </div>
       <ng-container content>
         Find recommended refactoring approach recommendations based on preferred inputs, outputs,
