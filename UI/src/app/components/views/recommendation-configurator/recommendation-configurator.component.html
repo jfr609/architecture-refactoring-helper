@@ -1,7 +1,7 @@
 <div *ngIf='this.isDataLoading' class='loading-container' fxLayout='column' fxLayoutAlign='center center'>
   <mat-spinner color='accent'></mat-spinner>
 </div>
-<div fxLayout='column' fxLayoutAlign='start center'>
+<div *ngIf='!this.isDataLoading' fxLayout='column' fxLayoutAlign='start center'>
   <h1>Configure a filter for available refactoring approaches</h1>
   <p>
   Here you have three possibilities:
@@ -14,7 +14,7 @@
     "Exclude" - the approach does not have this property
   </p>
 
-  <mat-stepper style='width: 100%' *ngIf='!this.isDataLoading'>
+  <mat-stepper style='width: 100%'>
     <mat-step>
       <ng-template matStepLabel>Select input preferences</ng-template>
       <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px'>
