@@ -1,5 +1,10 @@
-<div fxLayout='column' fxLayoutAlign='start center' fxLayoutGap='20px'>
+<div fxLayout='column' fxLayoutAlign='start center' fxLayoutGap='20px' style='margin-bottom: 32px'>
   <h1>Refactoring approach recommendations for {{getTitle()}}</h1>
+
+  <p class='max-width-800'>
+    This results page will show a list of service identification approaches ordered by a percentage value that
+    expresses the overlap of the approach properties with your filter settings.
+  </p>
 
   <table mat-table [dataSource]='dataSource' multiTemplateDataRows matSort class='mat-elevation-z8'>
     <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of sortColumns'>
@@ -306,4 +311,3 @@
     <span>Show less</span>
   </button>
 </div>
-<div style='margin-bottom: 40px'></div>
