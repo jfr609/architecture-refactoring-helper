@@ -19,7 +19,10 @@
   </div>
   <div [style.width]='width' class='image-container'>
     <ng-container *ngFor='let image of images, let i = index'>
-      <img *ngIf='carouselIndex === i' [@changeImage]='true' [src]='images[i]' [style.width]='width'>
+      <img *ngIf='carouselIndex === i'
+           [@changeImage]='true'
+           [src]='images[i]'
+           [style.width]='width'>
     </ng-container>
   </div>
 </div>

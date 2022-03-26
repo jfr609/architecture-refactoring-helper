@@ -1,7 +1,7 @@
 <div *ngIf='isDataLoading' class='loading-container' fxLayout='column' fxLayoutAlign='center center'>
   <mat-spinner color='accent'></mat-spinner>
 </div>
-<div *ngIf='!isDataLoading' style='margin-bottom: 32px' fxLayout='column' fxLayoutAlign='start center'>
+<div *ngIf='!isDataLoading' fxLayout='column' fxLayoutAlign='start center' class='page-container'>
   <h1 fxLayout='row'>
     {{refactoringApproach.approachSource?.title}} ({{refactoringApproach.identifier}})
     <div style='margin-left: 8px' fxLayout='row' fxLayoutGap='8px'>
