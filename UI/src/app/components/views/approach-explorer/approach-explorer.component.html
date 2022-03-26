@@ -1,5 +1,10 @@
-<div fxLayout='column' fxLayoutAlign='start center' class='page-container'>
-  <h1>Explore all currently available refactoring approaches</h1>
+<div fxLayout='column' fxLayoutAlign='start center' class='page-container' fxLayoutGap='32px'>
+  <h1 fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='12px'>
+    <button mat-mini-fab color='warn' routerLink='/phase/2'>
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>Explore all currently available refactoring approaches</span>
+  </h1>
 
   <table mat-table [dataSource]='dataSource' matSort class='mat-elevation-z8'>
     <ng-container matColumnDef='id'>

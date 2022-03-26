@@ -1,5 +1,10 @@
 <div fxLayout='column' fxLayoutAlign='start center' fxLayoutGap='32px' class='page-container'>
-  <h1>Refactoring approach recommendations for {{getTitle()}}</h1>
+  <h1 fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='12px'>
+    <button mat-mini-fab color='warn' routerLink='/phase/2/recommendation'>
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>Refactoring approach recommendations for {{getTitle()}}</span>
+  </h1>
 
   <p class='max-width-800'>
     This results page will show a list of service identification approaches ordered by a percentage value that

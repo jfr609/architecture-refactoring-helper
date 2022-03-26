@@ -2,9 +2,15 @@
   <mat-spinner color='accent'></mat-spinner>
 </div>
 <div *ngIf='!this.isDataLoading' fxLayout='column' fxLayoutAlign='start center'>
-  <h1>Configure a filter for available refactoring approaches</h1>
-  <p>
-  Here you have three possibilities:
+  <h1 fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='12px'>
+    <button mat-mini-fab color='warn' routerLink='/phase/2/recommendation'>
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>Configure a filter for available refactoring approaches</span>
+  </h1>
+
+  <p class='max-width-800'>
+    Here you have three possibilities:
   </p>
   <p class='max-width-800'>
     "Include" - the approach must have this property

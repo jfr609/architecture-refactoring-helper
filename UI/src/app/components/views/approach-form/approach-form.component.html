@@ -7,7 +7,10 @@
     <h1>Create a new refactoring approach</h1>
   </ng-template>
   <ng-template #editApproachTitle>
-    <h1>{{refactoringApproach.approachSource?.title}}</h1>
+    <h1>
+      {{refactoringApproach.approachSource?.title}}
+      <span *ngIf='!isCreateView'> ({{refactoringApproach.identifier}})</span>
+    </h1>
   </ng-template>
 
   <div class='button-bar' fxLayout='row' fxLayoutGap='12px'>
