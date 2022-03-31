@@ -10,6 +10,11 @@
     This results page will show a list of service identification approaches ordered by a percentage value that
     expresses the overlap of the approach properties with your filter settings.
   </p>
+  <p class='max-width-800' fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='8px'>
+    <mat-icon color='accent'>info</mat-icon>
+    <strong>Caution:</strong>
+    <span>The below presented result list does represent a work-in-progress state and may be inaccurate.</span>
+  </p>
 
   <table mat-table [dataSource]='dataSource' multiTemplateDataRows matSort class='mat-elevation-z8'>
     <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of sortColumns'>
