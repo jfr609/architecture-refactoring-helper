@@ -22,6 +22,18 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
+const string corsPolicy = "corsPolicy";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(corsPolicy, policyBuilder =>
+    {
+        policyBuilder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 builder.Services.AddScoped<RefactoringApproachService>();
 builder.Services.AddScoped<ApproachInputService>();
 builder.Services.AddScoped<ApproachProcessService>();
@@ -50,18 +62,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors(policyBuilder =>
-{
-    policyBuilder.AllowAnyHeader()
-        .AllowAnyMethod()
-        .AllowAnyOrigin();
-});
+app.UseCors(corsPolicy);
 
 app.UseAuthorization();
 
 app.MapControllers();
 
 // Seed database with initial data
-DataSeeder.GenerateSeedDataAsync(app);
+DataSeeder.GenerateSeedData(app);
 
 app.Run();

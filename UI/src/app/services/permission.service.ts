@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observer, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,5 +14,11 @@ export class PermissionService {
 
   set isAdmin(value: boolean) {
     this._isAdminSubject.next(value);
+  }
+
+  subscribeToIsAdmin(
+    observer: Partial<Observer<boolean>> | undefined
+  ): Subscription {
+    return this._isAdminSubject.subscribe(observer);
   }
 }

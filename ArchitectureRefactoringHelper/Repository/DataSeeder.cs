@@ -7,7 +7,7 @@ namespace Repository;
 
 public static class DataSeeder
 {
-    public static void GenerateSeedDataAsync(IHost host)
+    public static void GenerateSeedData(IHost host)
     {
         using (var db = new RefactoringApproachContext())
         {
