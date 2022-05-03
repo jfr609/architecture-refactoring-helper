@@ -224,4 +224,11 @@ export class ApproachRecommendationService {
       accuracyPrecisionInformation: this.accuracyPrecisionInformation
     };
   }
+
+  getSuitabilityDisplayString(suitabilityScore: number) {
+    if (suitabilityScore < 0) {
+      return 'Not enough information';
+    }
+    return `${suitabilityScore}%`;
+  }
 }

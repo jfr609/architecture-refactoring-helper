@@ -21,7 +21,9 @@
   </h1>
   <h2 *ngIf='selectedRecommendation'>
     <span>Suitability: </span>
-    <span [class]='getSuitabilityColor()'>{{selectedRecommendation?.suitabilityScore}}%</span>
+    <span [class]='getSuitabilityColor()'>
+      {{recommendationService.getSuitabilityDisplayString(selectedRecommendation.suitabilityScore)}}
+    </span>
   </h2>
 
   <mat-card>

@@ -52,7 +52,7 @@ export class ApproachViewComponent implements OnInit, OnDestroy {
   constructor(
     public permissionService: PermissionService,
     private refactoringApproachService: RefactoringApproachService,
-    private recommendationService: ApproachRecommendationService,
+    public recommendationService: ApproachRecommendationService,
     private utilService: UtilService,
     private router: Router,
     private route: ActivatedRoute,

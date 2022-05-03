@@ -40,12 +40,10 @@ export class RecommendationResultComponent implements OnInit {
       header: 'Suitability',
       isSortColumn: false,
       isActionColumn: false,
-      cell: (recommendation: ApproachRecommendation) => {
-        if (recommendation.suitabilityScore < 0) {
-          return 'Not enough information';
-        }
-        return `${recommendation.suitabilityScore}%`;
-      }
+      cell: (recommendation: ApproachRecommendation) =>
+        this.recommendationsService.getSuitabilityDisplayString(
+          recommendation.suitabilityScore
+        )
     },
     {
       columnDef: 'id',
