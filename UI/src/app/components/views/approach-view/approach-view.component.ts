@@ -351,6 +351,7 @@ export class ApproachViewComponent implements OnInit, OnDestroy {
               this.utilService.callSnackBar(
                 'Refactoring approach deleted successfully'
               );
+              this.router.navigate(['home']);
             })
             .catch((reason) => {
               console.log(reason);
