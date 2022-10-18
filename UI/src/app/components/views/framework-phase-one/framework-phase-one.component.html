@@ -21,6 +21,22 @@
   <p class='max-width-800'>
     The following UI sketches show how the tool will guide through this phase and present the results.
   </p>
-
-  <app-image-carousel width='800px' [images]='imageList'></app-image-carousel>
 </div>
+
+<mat-stepper #stepper>
+  <mat-step label="Project Description">
+    <app-project-description></app-project-description>
+  </mat-step>
+  <mat-step label="Strategic Goals">
+    <app-strategic-goals></app-strategic-goals>
+  </mat-step>
+  <mat-step  label="Quality Attributes">
+    <app-quality-attributes></app-quality-attributes>
+  </mat-step>
+  <mat-step  label="Assessment">
+    <app-assessment></app-assessment>
+  </mat-step>
+  <mat-step  label="Summary">
+    <app-summary></app-summary>
+  </mat-step>
+</mat-stepper>
