@@ -702,29 +702,6 @@
         }
       }
     },
-    "/api/v1/processes/quality-subs": {
-      "get": {
-        "tags": [
-          "ApproachProcess"
-        ],
-        "operationId": "ListQualitySubs",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/QualitySub"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/v1/processes/directions": {
       "get": {
         "tags": [
@@ -3438,26 +3415,6 @@
           "Metric"
         ],
         "type": "string"
-      },
-      "QualitySub": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "parentName": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
       },
       "RecommendationPreset": {
         "enum": [

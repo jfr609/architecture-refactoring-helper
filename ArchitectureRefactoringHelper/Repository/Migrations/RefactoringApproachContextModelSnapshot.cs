@@ -543,253 +543,57 @@ namespace Repository.Migrations
                     b.HasData(
                         new
                         {
-                            Name = "Reliability",
+                            Name = "Reuse",
                             Category = "Requirement",
-                            Description = ""
-                        },
-                        new
-                        {
-                            Name = "Compatibility",
-                            Category = "Requirement",
-                            Description = ""
-                        },
-                        new
-                        {
-                            Name = "Security",
-                            Category = "Requirement",
-                            Description = ""
-                        },
-                        new
-                        {
-                            Name = "Performance",
-                            Category = "Requirement",
-                            Description = ""
-                        },
-                        new
-                        {
-                            Name = "Scalability",
-                            Category = "Requirement",
-                            Description = ""
-                        },
-                        new
-                        {
-                            Name = "Portability",
-                            Category = "Requirement",
-                            Description = ""
-                        },
-                        new
-                        {
-                            Name = "Independence",
-                            Category = "Requirement",
-                            Description = ""
+                            Description = "The ability of a service to participate in multiple service assemblies (compositions). Better reusability should provide better return of investment (ROI) and shorter development time."
                         },
                         new
                         {
                             Name = "Maintainability",
                             Category = "Requirement",
-                            Description = ""
+                            Description = "Services should ease the effort to modify their implementation, to identify root causes of failures, to verify changes, etc."
                         },
                         new
                         {
-                            Name = "Business",
+                            Name = "Interoperability",
                             Category = "Requirement",
-                            Description = ""
+                            Description = "The ability of a service to communicate and be invoked by other systems/services implemented in different programming languages."
                         },
                         new
                         {
-                            Name = "Cohesion",
-                            Category = "Metric",
-                            Description = ""
+                            Name = "Self-containment",
+                            Category = "Requirement",
+                            Description = " A service should be completely self-contained to be deployed as a single unit, without depending on other services."
+                        },
+                        new
+                        {
+                            Name = "Composability",
+                            Category = "Requirement",
+                            Description = "Services should be composable with one another to be reused and integrated as services that control other services or that provide functionalities to other services."
                         },
                         new
                         {
                             Name = "Coupling",
                             Category = "Metric",
-                            Description = ""
+                            Description = "The dependencies among services should be minimized and the functionalities should be encapsulated to limit the impact of changes in one service to other service."
+                        },
+                        new
+                        {
+                            Name = "Cohesion",
+                            Category = "Metric",
+                            Description = "Cohesion is a measure of the strength of the relationships among programming entities (e.g., classes, functions, etc.) implementing a service and the functionality provided by the service."
                         },
                         new
                         {
                             Name = "Granularity",
                             Category = "Metric",
-                            Description = ""
+                            Description = "An adequate granularity is a primary concern of service identification approaches. It can be adjusted to the scope of the functionality offered by the service."
                         },
                         new
                         {
-                            Name = "Isolation",
+                            Name = "Number of services",
                             Category = "Metric",
-                            Description = ""
-                        },
-                        new
-                        {
-                            Name = "Autonomy",
-                            Category = "Metric",
-                            Description = ""
-                        },
-                        new
-                        {
-                            Name = "Technology Heterogeneity",
-                            Category = "Metric",
-                            Description = ""
-                        },
-                        new
-                        {
-                            Name = "Complexity",
-                            Category = "Metric",
-                            Description = ""
-                        });
-                });
-
-            modelBuilder.Entity("Repository.Models.Database.QualitySub", b =>
-                {
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ParentName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Name");
-
-                    b.ToTable("Approach.Process.QualitySub", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Name = "Availability",
-                            ParentName = "Reliability"
-                        },
-                        new
-                        {
-                            Name = "Fault Tolerance",
-                            ParentName = "Reliability"
-                        },
-                        new
-                        {
-                            Name = "Recoverability",
-                            ParentName = "Reliability"
-                        },
-                        new
-                        {
-                            Name = "Interoperability",
-                            ParentName = "Compatibility"
-                        },
-                        new
-                        {
-                            Name = "Co-Existencce",
-                            ParentName = "Compatibility"
-                        },
-                        new
-                        {
-                            Name = "Confidentiality",
-                            ParentName = "Security"
-                        },
-                        new
-                        {
-                            Name = "Accountability",
-                            ParentName = "Security"
-                        },
-                        new
-                        {
-                            Name = "Authenticity",
-                            ParentName = "Security"
-                        },
-                        new
-                        {
-                            Name = "Integrity",
-                            ParentName = "Security"
-                        },
-                        new
-                        {
-                            Name = "Time Behavior",
-                            ParentName = "Performance"
-                        },
-                        new
-                        {
-                            Name = "Resource Utilization",
-                            ParentName = "Performance"
-                        },
-                        new
-                        {
-                            Name = "Capability",
-                            ParentName = "Performance"
-                        },
-                        new
-                        {
-                            Name = "Installability",
-                            ParentName = "Portability"
-                        },
-                        new
-                        {
-                            Name = "Adaptability",
-                            ParentName = "Portability"
-                        },
-                        new
-                        {
-                            Name = "Replaceability",
-                            ParentName = "Portability"
-                        },
-                        new
-                        {
-                            Name = "Deployability",
-                            ParentName = "Portability"
-                        },
-                        new
-                        {
-                            Name = "Agility",
-                            ParentName = "Portability"
-                        },
-                        new
-                        {
-                            Name = "Modifiability",
-                            ParentName = "Maintainability"
-                        },
-                        new
-                        {
-                            Name = "Modularity",
-                            ParentName = "Maintainability"
-                        },
-                        new
-                        {
-                            Name = "Reusability",
-                            ParentName = "Maintainability"
-                        },
-                        new
-                        {
-                            Name = "Testability",
-                            ParentName = "Maintainability"
-                        },
-                        new
-                        {
-                            Name = "Analysability",
-                            ParentName = "Maintainability"
-                        },
-                        new
-                        {
-                            Name = "Monitorability",
-                            ParentName = "Maintainability"
-                        },
-                        new
-                        {
-                            Name = "Manageability",
-                            ParentName = "Maintainability"
-                        },
-                        new
-                        {
-                            Name = "Understandability",
-                            ParentName = "Maintainability"
-                        },
-                        new
-                        {
-                            Name = "Execution Cost",
-                            ParentName = "Business"
-                        },
-                        new
-                        {
-                            Name = "Organizational Alignment",
-                            ParentName = "Business"
+                            Description = "Service identification approaches must not have too many small services or not enough services"
                         });
                 });
 
