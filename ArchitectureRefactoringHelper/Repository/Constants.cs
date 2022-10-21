@@ -15,6 +15,7 @@ public static class Constants
 
     public const string TableNameApproachProcess = TableNameApproach + ".Process";
     public const string TableNameApproachProcessQuality = TableNameApproachProcess + ".Quality";
+    public const string TableNameApproachProcessQualitySub = TableNameApproachProcess + ".QualitySub";
     public const string TableNameApproachProcessDirection = TableNameApproachProcess + ".Direction";
     public const string TableNameApproachProcessAutomationLevel = TableNameApproachProcess + ".AutomationLevel";
     public const string TableNameApproachProcessAnalysisType = TableNameApproachProcess + ".AnalysisType";
@@ -42,6 +43,7 @@ public static class Constants
 
     public const string ApiSubPathProcesses = "processes";
     public const string ApiSubPathQualities = "qualities";
+    public const string ApiSubPathQualitySubs = "quality-subs";
     public const string ApiSubPathDirections = "directions";
     public const string ApiSubPathAutomationLevels = "automation-levels";
     public const string ApiSubPathAnalysisTypes = "analysis-types";

@@ -64,6 +64,12 @@ public class ApproachProcessController : ControllerBase
         return NoContent();
     }
 
+    [HttpGet(Constants.ApiSubPathQualitySubs, Name = "ListQualitySubs")]
+    public ActionResult<IEnumerable<QualitySub>> ListQualitySub()
+    {
+        return Ok(_processService.ListQualitySubs());
+    }
+
     [HttpGet(Constants.ApiSubPathDirections, Name = "ListDirections")]
     public ActionResult<IEnumerable<Direction>> ListDirections()
     {

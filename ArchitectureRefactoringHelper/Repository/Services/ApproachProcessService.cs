@@ -29,6 +29,16 @@ public class ApproachProcessService
             .ToList();
     }
 
+    public IEnumerable<QualitySub> ListQualitySubs()
+    {
+        var db = new RefactoringApproachContext();
+
+        return db.QualitySubs
+            .OrderBy(e => e.Name)
+            .ThenBy(e => e.Name)
+            .ToList();
+    }
+
     public IEnumerable<Direction> ListDirections()
     {
         var db = new RefactoringApproachContext();

@@ -20,6 +20,7 @@ public class RefactoringApproachContext : DbContext
     public DbSet<ExecutableInput> ExecutableInputs { get; set; }
 
     public DbSet<Quality> Qualities { get; set; }
+    public DbSet<QualitySub> QualitySubs { get; set; }
     public DbSet<Direction> Directions { get; set; }
     public DbSet<AutomationLevel> AutomationLevels { get; set; }
     public DbSet<AnalysisType> AnalysisTypes { get; set; }
@@ -72,5 +73,7 @@ public class RefactoringApproachContext : DbContext
         modelBuilder.ApplyConfiguration(new AccuracyPrecisionConfiguration());
         modelBuilder.ApplyConfiguration(new ToolSupportConfiguration());
         modelBuilder.ApplyConfiguration(new ResultsQualityConfiguration());
+
+        modelBuilder.ApplyConfiguration(new QualitySubConfiguration());
     }
 }
