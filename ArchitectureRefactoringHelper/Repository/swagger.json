@@ -3373,6 +3373,13 @@
           },
           "category": {
             "$ref": "#/components/schemas/QualityCategory"
+          },
+          "qualitySubLevels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QualitySublevel"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -3415,6 +3422,29 @@
           "Metric"
         ],
         "type": "string"
+      },
+      "QualitySublevel": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "qualityName": {
+            "type": "string",
+            "nullable": true
+          },
+          "quality": {
+            "$ref": "#/components/schemas/Quality"
+          }
+        },
+        "additionalProperties": false
       },
       "RecommendationPreset": {
         "enum": [

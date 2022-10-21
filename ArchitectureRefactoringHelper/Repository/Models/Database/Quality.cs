@@ -17,7 +17,8 @@ public class Quality
     [JsonPropertyName("category")]
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public QualityCategory Category { get; set; }
-
+    [JsonPropertyName("qualitySubLevels")]
+    public ICollection<QualitySublevel>? QualitySublevels { get; set; }
     [JsonIgnore]
     public ICollection<ApproachProcess>? ApproachProcesses { get; set; }
     

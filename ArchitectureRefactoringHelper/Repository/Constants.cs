@@ -15,6 +15,7 @@ public static class Constants
 
     public const string TableNameApproachProcess = TableNameApproach + ".Process";
     public const string TableNameApproachProcessQuality = TableNameApproachProcess + ".Quality";
+    public const string TableNameApproachProcessQualitySublevel = TableNameApproachProcess + ".QualitySublevel";
     public const string TableNameApproachProcessDirection = TableNameApproachProcess + ".Direction";
     public const string TableNameApproachProcessAutomationLevel = TableNameApproachProcess + ".AutomationLevel";
     public const string TableNameApproachProcessAnalysisType = TableNameApproachProcess + ".AnalysisType";

@@ -20,6 +20,7 @@ public class RefactoringApproachContext : DbContext
     public DbSet<ExecutableInput> ExecutableInputs { get; set; }
 
     public DbSet<Quality> Qualities { get; set; }
+    public DbSet<QualitySublevel> QualitySublevels { get; set; }
     public DbSet<Direction> Directions { get; set; }
     public DbSet<AutomationLevel> AutomationLevels { get; set; }
     public DbSet<AnalysisType> AnalysisTypes { get; set; }
@@ -60,6 +61,7 @@ public class RefactoringApproachContext : DbContext
         modelBuilder.ApplyConfiguration(new ExecutableInputInputConfiguration());
 
         modelBuilder.ApplyConfiguration(new QualityConfiguration());
+        modelBuilder.ApplyConfiguration(new QualitySublevelConfiguration());
         modelBuilder.ApplyConfiguration(new DirectionConfiguration());
         modelBuilder.ApplyConfiguration(new AutomationLevelConfiguration());
         modelBuilder.ApplyConfiguration(new AnalysisTypeConfiguration());
