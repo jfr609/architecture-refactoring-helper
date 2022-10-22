@@ -14,6 +14,7 @@ public class QualitySublevel
     [JsonPropertyName("description")]
     public string? Description { get; set; }
     public string? QualityName { get; set; }
+    [JsonIgnore]
     public Quality? Quality { get; set; }
 
     public bool KeyEquals(QualitySublevel obj)

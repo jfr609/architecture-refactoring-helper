@@ -3439,9 +3439,6 @@
           "qualityName": {
             "type": "string",
             "nullable": true
-          },
-          "quality": {
-            "$ref": "#/components/schemas/Quality"
           }
         },
         "additionalProperties": false

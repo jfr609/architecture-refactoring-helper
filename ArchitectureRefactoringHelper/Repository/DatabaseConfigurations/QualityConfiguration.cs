@@ -111,10 +111,12 @@ public class QualityConfiguration : IEntityTypeConfiguration<Quality>
                 Category = QualityCategory.Metric
             }
         );
-
-
-
-
+        
+        builder
+        .HasMany(q => q.QualitySublevels)
+        .WithOne(qu => qu.Quality)
+        .HasForeignKey(q => q.QualityName);
+        
         // OLD Quality Configuration
         /**
                 builder.HasData(

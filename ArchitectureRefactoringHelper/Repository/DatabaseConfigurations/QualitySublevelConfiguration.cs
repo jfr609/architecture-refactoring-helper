@@ -150,10 +150,5 @@ public class QualitySublevelConfiguration : IEntityTypeConfiguration<QualitySubl
                 QualityName = "Business"
             }
         );
-
-
-        builder.HasOne(qs => qs.Quality)
-        .WithMany(quality => quality.QualitySublevels);
-
     }
 }

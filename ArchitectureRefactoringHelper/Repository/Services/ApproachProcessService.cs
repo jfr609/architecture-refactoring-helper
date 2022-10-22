@@ -26,6 +26,7 @@ public class ApproachProcessService
         return db.Qualities
             .OrderBy(e => e.Category)
             .ThenBy(e => e.Name)
+            .Include(e => e.QualitySublevels)
             .ToList();
     }
 
