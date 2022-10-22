@@ -3134,6 +3134,22 @@
         },
         "additionalProperties": false
       },
+      "CalculationMetric": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Direction": {
         "required": [
           "name"
@@ -3380,6 +3396,20 @@
               "$ref": "#/components/schemas/QualitySublevel"
             },
             "nullable": true
+          },
+          "qualityTradeOffs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Quality"
+            },
+            "nullable": true
+          },
+          "calculationMetrics": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CalculationMetric"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -3438,6 +3468,20 @@
           },
           "qualityName": {
             "type": "string",
+            "nullable": true
+          },
+          "qualityTradeOffs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Quality"
+            },
+            "nullable": true
+          },
+          "calculationMetrics": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CalculationMetric"
+            },
             "nullable": true
           }
         },

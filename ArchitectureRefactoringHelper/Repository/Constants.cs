@@ -20,6 +20,7 @@ public static class Constants
     public const string TableNameApproachProcessAutomationLevel = TableNameApproachProcess + ".AutomationLevel";
     public const string TableNameApproachProcessAnalysisType = TableNameApproachProcess + ".AnalysisType";
     public const string TableNameApproachProcessTechnique = TableNameApproachProcess + ".Technique";
+    public const string TableNameApproachProcessCalculationMetric = TableNameApproachProcess + ".CalculationMetric";
 
     public const string TableNameApproachOutput = TableNameApproach + ".Output";
     public const string TableNameApproachOutputArchitecture = TableNameApproachOutput + ".Architecture";

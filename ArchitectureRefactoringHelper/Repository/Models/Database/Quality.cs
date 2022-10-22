@@ -19,6 +19,10 @@ public class Quality
     public QualityCategory Category { get; set; }
     [JsonPropertyName("qualitySubLevels")]
     public ICollection<QualitySublevel>? QualitySublevels { get; set; }
+    [JsonPropertyName("qualityTradeOffs")]
+    public ICollection<Quality>? QualityTradeOffs { get; set; }
+    [JsonPropertyName("calculationMetrics")]
+    public ICollection<CalculationMetric>? CalculationMetrics { get; set; }
     [JsonIgnore]
     public ICollection<ApproachProcess>? ApproachProcesses { get; set; }
     
