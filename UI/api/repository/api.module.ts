@@ -9,6 +9,7 @@ import { ApproachOutputService } from './services/approach-output.service';
 import { ApproachProcessService } from './services/approach-process.service';
 import { ApproachUsabilityService } from './services/approach-usability.service';
 import { RefactoringApproachService } from './services/refactoring-approach.service';
+import { ScenarioService } from './services/scenario.service';
 
 /**
  * Module that provides all services and configuration.
@@ -23,6 +24,7 @@ import { RefactoringApproachService } from './services/refactoring-approach.serv
     ApproachProcessService,
     ApproachUsabilityService,
     RefactoringApproachService,
+    ScenarioService,
     ApiConfiguration
   ],
 })

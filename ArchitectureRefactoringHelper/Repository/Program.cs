@@ -41,6 +41,7 @@ builder.Services.AddScoped<ApproachOutputService>();
 builder.Services.AddScoped<ApproachUsabilityService>();
 builder.Services.AddScoped<RefactoringApproachContext>();
 builder.Services.AddScoped<IRecommendationService, SimpleRecommendationService>();
+builder.Services.AddScoped<ScenarioService>();
 
 var app = builder.Build();
 

@@ -4,6 +4,8 @@ public static class Constants
 {
     // Table name constants
     public const string JoinTablePrefix = "JoinTable.";
+    public const string TableNameProject = "Project";
+    public const string TableNameProjectScenario = ".Scenario";
     public const string TableNameApproach = "Approach";
     public const string TableNameApproachSource = TableNameApproach + ".Source";
 
@@ -35,6 +37,8 @@ public static class Constants
     // Controller api path constants
     public const string ApiVersion = "1";
     public const string ApiSubPathApproaches = "approaches";
+    public const string ApiSubPathProjects = "projects";
+    public const string ApiSubPathScenarios = "scenarios";
 
     public const string ApiSubPathInputs = "inputs";
     public const string ApiSubPathDomainArtifacts = "domain-artifacts";

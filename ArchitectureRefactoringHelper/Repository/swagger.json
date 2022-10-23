@@ -2563,6 +2563,112 @@
           }
         }
       }
+    },
+    "/api/v1/projects/scenarios": {
+      "get": {
+        "tags": [
+          "Scenario"
+        ],
+        "operationId": "ListScenario",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Scenario"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Scenario"
+        ],
+        "operationId": "AddScenario",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Scenario"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Scenario"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Scenario"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/projects/scenarios/{id}": {
+      "get": {
+        "tags": [
+          "Scenario"
+        ],
+        "operationId": "GetScenario",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Scenario"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Scenario"
+        ],
+        "operationId": "DeleteScenario",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -3487,6 +3593,14 @@
         },
         "additionalProperties": false
       },
+      "RatingLevel": {
+        "enum": [
+          "A",
+          "B",
+          "C"
+        ],
+        "type": "string"
+      },
       "RecommendationPreset": {
         "enum": [
           "NewApplication",
@@ -3655,6 +3769,39 @@
           },
           "recommendationSuitability": {
             "$ref": "#/components/schemas/RecommendationSuitability"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Scenario": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "scenarioId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "difficutly": {
+            "$ref": "#/components/schemas/RatingLevel"
+          },
+          "importance": {
+            "$ref": "#/components/schemas/RatingLevel"
+          },
+          "qualities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Quality"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
