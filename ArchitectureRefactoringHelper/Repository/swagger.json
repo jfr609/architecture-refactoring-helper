@@ -619,6 +619,89 @@
         }
       }
     },
+    "/api/v1/processes/scenarios": {
+      "get": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "ListScenarios",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Scenario"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "AddScenario",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Scenario"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Scenario"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Scenario"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Scenario"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/processes/scenarios/{name}": {
+      "delete": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "DeleteScenario",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/v1/processes/qualities": {
       "get": {
         "tags": [
@@ -2690,6 +2773,13 @@
             "type": "integer",
             "format": "int32"
           },
+          "scenarios": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Scenario"
+            },
+            "nullable": true
+          },
           "qualities": {
             "type": "array",
             "items": {
@@ -3487,6 +3577,14 @@
         },
         "additionalProperties": false
       },
+      "RatingLevel": {
+        "enum": [
+          "A",
+          "B",
+          "C"
+        ],
+        "type": "string"
+      },
       "RecommendationPreset": {
         "enum": [
           "NewApplication",
@@ -3655,6 +3753,35 @@
           },
           "recommendationSuitability": {
             "$ref": "#/components/schemas/RecommendationSuitability"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Scenario": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "difficutly": {
+            "$ref": "#/components/schemas/RatingLevel"
+          },
+          "importance": {
+            "$ref": "#/components/schemas/RatingLevel"
+          },
+          "qualities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Quality"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false

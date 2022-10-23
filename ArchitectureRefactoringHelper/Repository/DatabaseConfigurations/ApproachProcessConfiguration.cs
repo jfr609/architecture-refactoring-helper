@@ -8,6 +8,11 @@ public class ApproachProcessConfiguration : IEntityTypeConfiguration<ApproachPro
 {
     public void Configure(EntityTypeBuilder<ApproachProcess> builder)
     {
+        // Define Join Table for ApproachProcess and Scenarios
+        builder.HasMany(left => left.Scenarios)
+            .WithMany(right => right.ApproachProcesses)
+            .UsingEntity(join => join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachProcessScenario));
+
         // Define Join Table for ApproachProcess and Quality
         builder.HasMany(left => left.Qualities)
             .WithMany(right => right.ApproachProcesses)

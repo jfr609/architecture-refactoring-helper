@@ -14,6 +14,7 @@ public static class Constants
     public const string TableNameApproachInputExecutable = TableNameApproachInput + ".Executable";
 
     public const string TableNameApproachProcess = TableNameApproach + ".Process";
+    public const string TableNameApproachProcessScenario = TableNameApproach + ".Scenario";
     public const string TableNameApproachProcessQuality = TableNameApproachProcess + ".Quality";
     public const string TableNameApproachProcessQualitySublevel = TableNameApproachProcess + ".QualitySublevel";
     public const string TableNameApproachProcessDirection = TableNameApproachProcess + ".Direction";
@@ -43,6 +44,7 @@ public static class Constants
     public const string ApiSubPathExecutables = "executables";
 
     public const string ApiSubPathProcesses = "processes";
+    public const string ApiSubPathScenarios = "scenarios";
     public const string ApiSubPathQualities = "qualities";
     public const string ApiSubPathDirections = "directions";
     public const string ApiSubPathAutomationLevels = "automation-levels";
