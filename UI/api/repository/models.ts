@@ -36,7 +36,6 @@ export { QualityApproachAttributeEvaluation } from './models/quality-approach-at
 export { QualityAttributeRecommendationInformation } from './models/quality-attribute-recommendation-information';
 export { QualityCategory } from './models/quality-category';
 export { QualitySublevel } from './models/quality-sublevel';
-export { RatingLevel } from './models/rating-level';
 export { RecommendationPreset } from './models/recommendation-preset';
 export { RecommendationSuitability } from './models/recommendation-suitability';
 export { RefactoringApproach } from './models/refactoring-approach';
@@ -46,7 +45,6 @@ export { ResultsQualityAttributeRecommendationInformation } from './models/resul
 export { RuntimeArtifactInput } from './models/runtime-artifact-input';
 export { RuntimeArtifactInputApproachAttributeEvaluation } from './models/runtime-artifact-input-approach-attribute-evaluation';
 export { RuntimeArtifactInputAttributeRecommendationInformation } from './models/runtime-artifact-input-attribute-recommendation-information';
-export { Scenario } from './models/scenario';
 export { ServiceType } from './models/service-type';
 export { ServiceTypeApproachAttributeEvaluation } from './models/service-type-approach-attribute-evaluation';
 export { ServiceTypeAttributeRecommendationInformation } from './models/service-type-attribute-recommendation-information';

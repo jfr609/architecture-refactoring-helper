@@ -19,7 +19,6 @@ public class RefactoringApproachContext : DbContext
     public DbSet<ModelArtifactInput> ModelArtifactInputs { get; set; }
     public DbSet<ExecutableInput> ExecutableInputs { get; set; }
 
-    public DbSet<Scenario> Scenarios { get; set; }
     public DbSet<Quality> Qualities { get; set; }
     public DbSet<QualitySublevel> QualitySublevels { get; set; }
     public DbSet<Direction> Directions { get; set; }

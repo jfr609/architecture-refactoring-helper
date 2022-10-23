@@ -91,21 +91,6 @@ namespace Repository.Migrations
                     b.ToTable("JoinTable.Approach.Process.Quality", (string)null);
                 });
 
-            modelBuilder.Entity("ApproachProcessScenario", b =>
-                {
-                    b.Property<int>("ApproachProcessesApproachProcessId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ScenariosName")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("ApproachProcessesApproachProcessId", "ScenariosName");
-
-                    b.HasIndex("ScenariosName");
-
-                    b.ToTable("JoinTable.Approach.Scenario", (string)null);
-                });
-
             modelBuilder.Entity("ApproachProcessTechnique", b =>
                 {
                     b.Property<int>("ApproachProcessesApproachProcessId")
@@ -580,16 +565,11 @@ namespace Repository.Migrations
                     b.Property<string>("QualitySublevelName")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ScenarioName")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Name");
 
                     b.HasIndex("QualityName");
 
                     b.HasIndex("QualitySublevelName");
-
-                    b.HasIndex("ScenarioName");
 
                     b.ToTable("Approach.Process.Quality", (string)null);
 
@@ -943,25 +923,6 @@ namespace Repository.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Repository.Models.Database.Scenario", b =>
-                {
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("Difficulty")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("Importance")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Name");
-
-                    b.ToTable("Approach.Scenario");
-                });
-
             modelBuilder.Entity("Repository.Models.Database.ServiceType", b =>
                 {
                     b.Property<string>("Name")
@@ -1202,21 +1163,6 @@ namespace Repository.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ApproachProcessScenario", b =>
-                {
-                    b.HasOne("Repository.Models.Database.ApproachProcess", null)
-                        .WithMany()
-                        .HasForeignKey("ApproachProcessesApproachProcessId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Repository.Models.Database.Scenario", null)
-                        .WithMany()
-                        .HasForeignKey("ScenariosName")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ApproachProcessTechnique", b =>
                 {
                     b.HasOne("Repository.Models.Database.ApproachProcess", null)
@@ -1366,10 +1312,6 @@ namespace Repository.Migrations
                     b.HasOne("Repository.Models.Database.QualitySublevel", null)
                         .WithMany("QualityTradeOffs")
                         .HasForeignKey("QualitySublevelName");
-
-                    b.HasOne("Repository.Models.Database.Scenario", null)
-                        .WithMany("Qualities")
-                        .HasForeignKey("ScenarioName");
                 });
 
             modelBuilder.Entity("Repository.Models.Database.QualitySublevel", b =>
@@ -1452,11 +1394,6 @@ namespace Repository.Migrations
             modelBuilder.Entity("Repository.Models.Database.ResultsQuality", b =>
                 {
                     b.Navigation("ApproachUsabilities");
-                });
-
-            modelBuilder.Entity("Repository.Models.Database.Scenario", b =>
-                {
-                    b.Navigation("Qualities");
                 });
 
             modelBuilder.Entity("Repository.Models.Database.ServiceType", b =>

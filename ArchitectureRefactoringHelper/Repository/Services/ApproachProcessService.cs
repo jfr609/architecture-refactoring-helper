@@ -19,16 +19,6 @@ public class ApproachProcessService
         return result;
     }
 
-    public IEnumerable<Scenario> ListScenarios()
-    {
-        var db = new RefactoringApproachContext();
-
-        return db.Scenarios
-            .OrderBy(e => e.Name)
-
-            .ToList();
-    }
-
     public IEnumerable<Quality> ListQualities()
     {
         var db = new RefactoringApproachContext();
@@ -182,12 +172,6 @@ public class ApproachProcessService
         return db.ApproachProcesses.Add(preparedProcess).Entity;
     }
 
-    public Scenario AddScenario(Scenario scenario)
-    {
-        var db = new RefactoringApproachContext();
-        return Utils.AddEntityAndSaveChanges(scenario, ref db);
-    }
-
     public Quality AddQuality(Quality quality)
     {
         var db = new RefactoringApproachContext();
@@ -280,25 +264,6 @@ public class ApproachProcessService
             throw new EntityNotFoundException(
                 $"Approach process with ID \"{processId}\" could not be deleted " +
                 "because entity does not exist");
-    }
-
-    public void DeleteScenario(string name)
-    {
-        var db = new RefactoringApproachContext();
-
-        var blockDelete = db.Scenarios
-            .Where(e => e.Name == name)
-            .Any(e => e.ApproachProcesses!.Count > 0);
-        if (blockDelete)
-            throw new EntityReferenceException(
-                $"Scenario with name \"{name}\" could not be deleted " +
-                "because the entity is still in use by refactoring approaches");
-
-        var deleteSuccess = Utils.DeleteEntityAndSaveChanges<Scenario>(ref db, name);
-        if (!deleteSuccess)
-            throw new EntityNotFoundException(
-                $"Scenario with name \"{name}\" could not be deleted " +
-                $"because entity does not exist");
     }
 
     public void DeleteQuality(string name)

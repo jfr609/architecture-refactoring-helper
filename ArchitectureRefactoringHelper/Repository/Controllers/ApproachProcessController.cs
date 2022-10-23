@@ -44,26 +44,6 @@ public class ApproachProcessController : ControllerBase
         return Ok();
     }*/
 
-    [HttpGet(Constants.ApiSubPathScenarios, Name = "ListScenarios")]
-    public ActionResult<IEnumerable<Scenario>> ListScenarios()
-    {
-        return Ok(_processService.ListScenarios());
-    }
-
-    [HttpPost(Constants.ApiSubPathScenarios, Name = "AddScenario")]
-    public ActionResult<Scenario> AddScenario([FromBody] Scenario scenario)
-    {
-        var savedScenario = _processService.AddScenario(scenario);
-        return Created("", savedScenario);
-    }
-
-    [HttpDelete(Constants.ApiSubPathScenarios + "/{name}", Name = "DeleteScenario")]
-    public IActionResult DeleteScenario(string name)
-    {
-        _processService.DeleteScenario(name);
-        return NoContent();
-    }
-
     [HttpGet(Constants.ApiSubPathQualities, Name = "ListQualities")]
     public ActionResult<IEnumerable<Quality>> ListQualities()
     {
