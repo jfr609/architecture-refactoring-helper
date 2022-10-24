@@ -1,5 +1,16 @@
-<img  class="images" src="assets/Phase1-UI3.jpg"/>
 <div>
   <button mat-button matStepperPrevious>Back</button>
   <button mat-button matStepperNext>Next</button>
+</div>
+
+
+<div
+  cdkDropList
+  class="example-list"
+  (cdkDropListDropped)="drop($event)">
+  <div
+    class="example-box"
+    *ngFor="let scenario of projectService.scenarios.value"
+    [cdkDragData]="scenario"
+    cdkDrag> {{scenario.name}}, {{scenario.description}} </div>
 </div>
