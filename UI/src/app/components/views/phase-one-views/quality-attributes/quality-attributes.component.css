@@ -5,7 +5,7 @@
     border-radius: 4px;
     overflow: hidden;
     display: block;
-    width: 400px;
+    width: 100%;
     max-width: 100%;
   }
   
@@ -45,4 +45,13 @@
   
   .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .scenarioCard {
+    max-width: 50%;
+  }
+
+  .centerButton {
+    text-align: center;
+    margin-top: 10px;
   }
