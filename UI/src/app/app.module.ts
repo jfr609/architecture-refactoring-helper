@@ -56,6 +56,7 @@ import { StrategicGoalsComponent } from './components/views/phase-one-views/stra
 import { QualityAttributesComponent } from './components/views/phase-one-views/quality-attributes/quality-attributes.component';
 import { AssessmentComponent } from './components/views/phase-one-views/assessment/assessment.component';
 import { SummaryComponent } from './components/views/phase-one-views/summary/summary.component';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -116,7 +117,8 @@ import { SummaryComponent } from './components/views/phase-one-views/summary/sum
     MatButtonToggleModule,
     MatTooltipModule,
     MatSlideToggleModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

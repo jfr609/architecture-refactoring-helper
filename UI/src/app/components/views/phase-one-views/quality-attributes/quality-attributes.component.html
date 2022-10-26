@@ -2,43 +2,66 @@
   <button mat-button matStepperPrevious>Back</button>
   <button mat-button matStepperNext>Next</button>
 </div>
-<mat-card-title>Scenarios</mat-card-title>
-<mat-card class="scenarioCard">
-  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-    <div
-      class="example-box"
-      *ngFor="let scenario of projectService.scenarios.value"
-      [cdkDragData]="scenario"
-      cdkDrag
+<div fxLayout="row" fxLayoutGap="15px">
+  <mat-card class="scenario-card">
+    <mat-card-title
+      >Scenarios
+      <button
+        style="margin-left: 10px; margin-bottom: 10px"
+        mat-mini-fab
+        class="attribute-button"
+        color="primary"
+        (click)="addEmptyScenario()"
+      >
+        <mat-icon>add</mat-icon>
+      </button></mat-card-title
     >
-      <mat-form-field appearance="fill">
-        <input matInput value="{{ scenario.name }}" />
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Description</mat-label>
-        <input matInput value="{{ scenario.description }}" />
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Difficulty</mat-label>
-        <mat-select>
-          <mat-option value="A">A</mat-option>
-          <mat-option value="B">B</mat-option>
-          <mat-option value="B">C</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Importance</mat-label>
-        <mat-select>
-          <mat-option value="A">A</mat-option>
-          <mat-option value="B">B</mat-option>
-          <mat-option value="B">C</mat-option>
-        </mat-select>
-      </mat-form-field>
+
+    <div
+      cdkDropList
+      class="drop-list"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListData]="scenarioList"
+    >
+      <div
+        class="drop-box"
+        *ngFor="let scenario of scenarioList"
+        [cdkDragData]="scenario"
+        cdkDragLockAxis="y"
+        cdkDragBoundary=".drop-list"
+        cdkDrag
+      >
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input matInput value="{{ scenario.name }}" />
+        </mat-form-field>
+        <mat-form-field class="description-field" appearance="fill">
+          <mat-label>Description</mat-label>
+          <input matInput value="{{ scenario.description }}" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Importance</mat-label>
+          <mat-select [(value)]="scenario.importance">
+            <mat-option *ngFor="let rating of enumKeys" [value]="rating">{{
+              rating
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Difficulty</mat-label>
+          <mat-select [(value)]="scenario.difficulty">
+            <mat-option *ngFor="let rating of enumKeys" [value]="rating">{{
+              rating
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="drop-handle" cdkDragHandle>
+          <mat-icon mat-list-icon>drag_indicator</mat-icon>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="centerButton">
-    <button mat-mini-fab class="attribute-button" color="primary">
-      <mat-icon>add</mat-icon>
-    </button>
-  </div>
-</mat-card>
+  </mat-card>
+  <mat-card>
+  </mat-card>
+</div>

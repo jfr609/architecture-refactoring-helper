@@ -3790,7 +3790,7 @@
             "type": "string",
             "nullable": true
           },
-          "difficutly": {
+          "difficulty": {
             "$ref": "#/components/schemas/RatingLevel"
           },
           "importance": {

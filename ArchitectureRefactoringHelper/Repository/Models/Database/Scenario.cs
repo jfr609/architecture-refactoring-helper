@@ -15,7 +15,7 @@ public class Scenario
     public string Name { get; set; }
     [JsonPropertyName("description")]
     public string? Description { get; set; }
-    [JsonPropertyName("difficutly")]
+    [JsonPropertyName("difficulty")]
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public RatingLevel? Difficulty { get; set; }
     [JsonPropertyName("importance")]
