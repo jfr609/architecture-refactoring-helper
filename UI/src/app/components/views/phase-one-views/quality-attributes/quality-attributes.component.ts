@@ -4,11 +4,9 @@ import {
   transferArrayItem
 } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
-import { RatingLevel, Scenario } from 'api/repository/models';
+import { QualityCategory, RatingLevel, Scenario } from 'api/repository/models';
 import { AttributeOptionsService } from 'src/app/services/attribute-options.service';
 import { ProjectService } from 'src/app/services/project.service'
-import { FlatTreeControl } from '@angular/cdk/tree';
-import { NestedTreeControl } from '@angular/cdk/tree';
 
 @Component({
   selector: 'app-quality-attributes',
@@ -19,16 +17,28 @@ export class QualityAttributesComponent implements OnInit {
   isDataLoading = true;
   ratingLevel = RatingLevel;
   enumKeys: any;
-  scenarioList: any = [];
 
-  constructor(public projectService: ProjectService, public attributesService: AttributeOptionsService) {
+  scenarioList: any = [];
+  selectedScenario?: Scenario;
+  
+  qualityList: any = [];
+  readonly QualityCategories = QualityCategory;
+
+  constructor(
+    public projectService: ProjectService,
+    public attributesService: AttributeOptionsService
+  ) {
     this.enumKeys = Object.keys(this.ratingLevel);
   }
 
   ngOnInit(): void {
     this.isDataLoading = true;
-    this.projectService.requestProjectAttributes().then(() => {
+    Promise.all([
+      this.projectService.requestProjectAttributes(),
+      this.attributesService.requestQualities()
+    ]).then(() => {
       this.scenarioList = this.projectService.scenarios.value;
+      this.qualityList = this.attributesService.getQualitiesByCategory(this.QualityCategories.Requirement);
       this.isDataLoading = false;
     });
   }
@@ -52,6 +62,21 @@ export class QualityAttributesComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
+    }
+  }
+
+  scenarioSelected(scenario: Scenario) : void{
+    this.selectedScenario = scenario;
+    console.log(scenario);
+    console.log(this.selectedScenario);
+
+  }
+
+  checkCurrentScenario(currentScenario?: Scenario) : boolean{
+    if (currentScenario === this.selectedScenario) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

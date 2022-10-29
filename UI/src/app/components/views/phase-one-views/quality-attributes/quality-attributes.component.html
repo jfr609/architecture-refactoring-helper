@@ -24,12 +24,16 @@
       [cdkDropListData]="scenarioList"
     >
       <div
-        class="drop-box"
         *ngFor="let scenario of scenarioList"
         [cdkDragData]="scenario"
         cdkDragLockAxis="y"
         cdkDragBoundary=".drop-list"
         cdkDrag
+        (click)="scenarioSelected(scenario)"
+        [ngClass]="{
+          'selected-drop-box': checkCurrentScenario(scenario),
+          'drop-box': !checkCurrentScenario(scenario)
+        }"
       >
         <mat-form-field appearance="fill">
           <mat-label>Name</mat-label>
@@ -63,5 +67,72 @@
     </div>
   </mat-card>
   <mat-card>
+    <mat-card-title>Quality Attributes</mat-card-title>
+    <mat-accordion>
+      <ng-container *ngFor="let qa of qualityList">
+        <ng-container
+          *ngIf="qa.qualitySubLevels.length > 0; else singleAttribute"
+        >
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <section>
+                  <mat-checkbox
+                    class="example-margin"
+                    (click)="$event.stopPropagation()"
+                    (keydown)="$event.stopPropagation()"
+                  >
+                    {{ qa.name }}</mat-checkbox
+                  >
+                </section></mat-panel-title
+              >
+              <mat-panel-description> </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <section *ngFor="let sqa of qa.qualitySubLevels">
+              <mat-checkbox
+                class="example-margin"
+                (click)="$event.stopPropagation()"
+                (keydown)="$event.stopPropagation()"
+              >
+                {{ sqa.name }}</mat-checkbox
+              >
+            </section>
+          </mat-expansion-panel>
+        </ng-container>
+
+        <ng-template #singleAttribute>
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header
+              #panelHeader
+              (click)="panelHeader._toggle()"
+            >
+              <mat-panel-title>
+                <section>
+                  <mat-checkbox
+                    class="example-margin"
+                    (click)="$event.stopPropagation()"
+                    (keydown)="$event.stopPropagation()"
+                  >
+                    {{ qa.name }}</mat-checkbox
+                  >
+                </section></mat-panel-title
+              >
+              <mat-panel-description> </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <section *ngFor="let sqa of qa.qualitySubLevels">
+              <mat-checkbox
+                class="example-margin"
+                (click)="$event.stopPropagation()"
+                (keydown)="$event.stopPropagation()"
+              >
+                {{ sqa.name }}</mat-checkbox
+              >
+            </section>
+          </mat-expansion-panel>
+        </ng-template>
+      </ng-container>
+    </mat-accordion>
   </mat-card>
 </div>

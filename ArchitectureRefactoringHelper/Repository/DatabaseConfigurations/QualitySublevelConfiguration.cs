@@ -71,11 +71,6 @@ public class QualitySublevelConfiguration : IEntityTypeConfiguration<QualitySubl
             },
             new QualitySublevel
             {
-                Name = "Capability",
-                QualityName = "Performance"
-            },
-            new QualitySublevel
-            {
                 Name = "Installability",
                 QualityName = "Portability"
             },

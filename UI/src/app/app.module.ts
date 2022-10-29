@@ -57,6 +57,7 @@ import { QualityAttributesComponent } from './components/views/phase-one-views/q
 import { AssessmentComponent } from './components/views/phase-one-views/assessment/assessment.component';
 import { SummaryComponent } from './components/views/phase-one-views/summary/summary.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCheckboxModule } from '@angular/material/checkbox'; 
 
 @NgModule({
   declarations: [
@@ -118,7 +119,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatTooltipModule,
     MatSlideToggleModule,
     MatProgressBarModule,
-    MatGridListModule
+    MatGridListModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]
