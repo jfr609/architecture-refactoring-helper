@@ -25,7 +25,9 @@ public class Quality
     public ICollection<CalculationMetric>? CalculationMetrics { get; set; }
     [JsonIgnore]
     public ICollection<ApproachProcess>? ApproachProcesses { get; set; }
-    
+    [JsonIgnore]
+    public ICollection<Scenario>? Scenarios { get; set; }
+
     public bool KeyEquals(Quality obj)
     {
         return obj.Name == Name;

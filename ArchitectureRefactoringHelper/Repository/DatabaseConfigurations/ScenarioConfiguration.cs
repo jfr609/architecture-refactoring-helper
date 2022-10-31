@@ -14,6 +14,16 @@ public class ScenarioConfiguration : IEntityTypeConfiguration<Scenario>
             .HasConversion<string>();
         builder.Property(q => q.Importance)
             .HasConversion<string>();
+        
+        // To each Scenario multiple Qualities can be assigned
+        builder
+        .HasMany(sc => sc.Qualities)
+        .WithMany(qu => qu.Scenarios);
+
+        // To each Scenario multiple QualitySublevels can be assigned
+        builder
+        .HasMany(sc => sc.QualitySublevels)
+        .WithMany(qu => qu.Scenarios);
 
 
     }

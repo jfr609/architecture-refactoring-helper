@@ -49,8 +49,32 @@ public class ScenarioService
         {
             ScenarioId = scenario.ScenarioId,
             Name = scenario.Name,
-            Description = scenario.Description
+            Description = scenario.Description,
+            Difficulty = scenario.Difficulty,
+            Importance = scenario.Importance
         };
+
+        if (scenario.Qualities != null)
+
+        {
+            var subList = new List<QualitySublevel>();
+            foreach (var quality in scenario.Qualities)
+            {
+                db.Qualities.Attach(quality);
+
+                if (quality.QualitySublevels != null)
+                {
+                    foreach (var subQuality in quality.QualitySublevels)
+                    {
+                        subList.Add(subQuality);
+                    }
+                }
+            }
+
+            newScenario.Qualities = scenario.Qualities;
+            newScenario.QualitySublevels = subList;
+        }
+
 
         return Utils.AddEntityAndSaveChanges(newScenario, ref db);
     }
@@ -70,8 +94,11 @@ public class ScenarioService
 
     private static void LoadAllData(ref IQueryable<Scenario> query)
     {
-        query.Include(e => e.Qualities)
-            .Load();
+        query
+        .Include(s => s.Qualities!)
+        .ThenInclude(qu => qu.QualitySublevels)
+        .Include(s => s.QualitySublevels)
+        .Load();
 
     }
 }

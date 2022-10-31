@@ -23,6 +23,8 @@ public class Scenario
     public RatingLevel? Importance { get; set; }
     [JsonPropertyName("qualities")]
     public ICollection<Quality>? Qualities { get; set; }
+    [JsonPropertyName("qualitySublevels")]
+    public ICollection<QualitySublevel>? QualitySublevels { get; set; }
 
 
     public bool KeyEquals(Scenario obj)

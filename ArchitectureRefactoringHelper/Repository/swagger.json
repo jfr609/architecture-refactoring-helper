@@ -3802,6 +3802,13 @@
               "$ref": "#/components/schemas/Quality"
             },
             "nullable": true
+          },
+          "qualitySublevels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QualitySublevel"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false

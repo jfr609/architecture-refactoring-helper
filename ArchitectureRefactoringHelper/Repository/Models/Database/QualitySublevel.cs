@@ -20,6 +20,8 @@ public class QualitySublevel
     public ICollection<Quality>? QualityTradeOffs { get; set; }
     [JsonPropertyName("calculationMetrics")]
     public ICollection<CalculationMetric>? CalculationMetrics { get; set; }
+    [JsonIgnore]
+    public ICollection<Scenario>? Scenarios { get; set; }
 
     public bool KeyEquals(QualitySublevel obj)
     {
