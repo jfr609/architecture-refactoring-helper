@@ -112,6 +112,98 @@ export class ScenarioService extends BaseService {
   }
 
   /**
+   * Path part for operation getQualities
+   */
+  static readonly GetQualitiesPath = '/api/v1/projects/scenarios/{id}/qualities';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getQualities()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getQualities$Response(params: {
+    id: number;
+  }): Observable<StrictHttpResponse<Array<Scenario>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ScenarioService.GetQualitiesPath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<Scenario>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getQualities$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getQualities(params: {
+    id: number;
+  }): Observable<Array<Scenario>> {
+
+    return this.getQualities$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<Scenario>>) => r.body as Array<Scenario>)
+    );
+  }
+
+  /**
+   * Path part for operation getQualitySublevels
+   */
+  static readonly GetQualitySublevelsPath = '/api/v1/projects/scenarios/{id}/qualitysublevels';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getQualitySublevels()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getQualitySublevels$Response(params: {
+    id: number;
+  }): Observable<StrictHttpResponse<Array<Scenario>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ScenarioService.GetQualitySublevelsPath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<Scenario>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getQualitySublevels$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getQualitySublevels(params: {
+    id: number;
+  }): Observable<Array<Scenario>> {
+
+    return this.getQualitySublevels$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<Scenario>>) => r.body as Array<Scenario>)
+    );
+  }
+
+  /**
    * Path part for operation getScenario
    */
   static readonly GetScenarioPath = '/api/v1/projects/scenarios/{id}';

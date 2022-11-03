@@ -19,6 +19,39 @@ public class ScenarioService
         return result;
     }
 
+    public IEnumerable<Quality> GetQualities(int scenarioId)
+    {
+        var db = new RefactoringApproachContext();
+        var query = db.Scenarios
+            .Where(e => e.ScenarioId == scenarioId).Select(e => e.Qualities).ToList();
+        var result = query.FirstOrDefault();
+
+     
+        if (result == null)
+        {
+            throw new EntityNotFoundException($"Scenario with ID \"{scenarioId}\" does not exist.");
+        }
+
+        return result;
+    }
+
+    public IEnumerable<QualitySublevel> GetQualitySublevels(int scenarioId)
+    {
+        var db = new RefactoringApproachContext();
+        var query = db.Scenarios
+            .Where(e => e.ScenarioId == scenarioId).Select(e => e.QualitySublevels).ToList();
+        var result = query.FirstOrDefault();
+
+
+        if (result == null)
+        {
+            throw new EntityNotFoundException($"Scenario with ID \"{scenarioId}\" does not exist.");
+        }
+
+        return result;
+    }
+
+
     public Scenario GetScenario(int scenarioId)
     {
         var db = new RefactoringApproachContext();

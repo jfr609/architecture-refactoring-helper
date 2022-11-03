@@ -24,6 +24,20 @@ public class ScenarioController : ControllerBase
         return Ok(_scenarioService.ListScenarios());
     }
 
+
+    [HttpGet("{id:int}/qualities", Name = "GetQualities")]
+    public ActionResult<IEnumerable<Scenario>> GetQualities(int id)
+    {
+        return Ok(_scenarioService.GetQualities(id));
+    }
+
+    [HttpGet("{id:int}/qualitysublevels", Name = "GetQualitySublevels")]
+    public ActionResult<IEnumerable<Scenario>> GetQualitySublevels(int id)
+    {
+        return Ok(_scenarioService.GetQualitySublevels(id));
+    }
+
+
     [HttpGet("{id:int}", Name = "GetScenario")]
     public ActionResult<Scenario> GetScenario(int id)
     {
