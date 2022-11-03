@@ -72,6 +72,12 @@
   max-width: 100%;
 }
 
+.outside {
+  overflow: auto;
+  max-height: 500px;
+  overflow-x: hidden; 
+}
+
 .radio-group {
   display: flex;
   flex-direction: column;

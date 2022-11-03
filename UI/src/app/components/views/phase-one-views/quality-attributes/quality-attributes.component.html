@@ -1,10 +1,11 @@
+
 <div>
   <button mat-button matStepperPrevious>Back</button>
   <button mat-button matStepperNext>Next</button>
   <button mat-button (click)="fireAll()">Fire all</button>
 </div>
-<div fxLayout="row" fxLayoutGap="15px">
-  <mat-card class="scenario-card">
+<div fxLayout="row" fxLayoutGap="30px">
+  <mat-card class="scenario-card" class="mat-elevation-z8">
     <mat-card-title
       >Scenarios
       <button
@@ -18,13 +19,14 @@
       </button></mat-card-title
     >
 
-    <div
+    <div class="outside" cdkScrollable>
+    <div  class="mat-elevation-z8"
       cdkDropList
       class="drop-list"
       (cdkDropListDropped)="drop($event)"
       [cdkDropListData]="scenarioList"
     >
-      <div
+      <div fxLayout="row" fxLayoutGap="5px"
         *ngFor="let scenario of scenarioList"
         [cdkDragData]="scenario"
         cdkDragLockAxis="y"
@@ -65,11 +67,11 @@
           </mat-select>
         </mat-form-field>
         <button mat-button (click)="deleteScenario(scenario)"><mat-icon mat-list-icon>close</mat-icon></button>
-        
       </div>
     </div>
+    </div>
   </mat-card>
-  <mat-card *ngIf="selectedScenario !== undefined">
+  <mat-card *ngIf="selectedScenario !== undefined" class="mat-elevation-z8">
     <mat-card-title>Quality Attributes</mat-card-title>
     <mat-accordion >
       <ng-container *ngFor="let qa of qualityList">

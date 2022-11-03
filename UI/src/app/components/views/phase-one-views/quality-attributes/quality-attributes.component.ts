@@ -12,6 +12,10 @@ import {
   Scenario
 } from 'api/repository/models';
 import { ScenarioService } from 'api/repository/services';
+import {
+  ConfirmDialogComponent,
+  ConfirmDialogData
+} from 'src/app/components/dialogs/confirm-dialog/confirm-dialog.component';
 import { AttributeOptionsService } from 'src/app/services/attribute-options.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { UtilService } from 'src/app/services/util.service';
@@ -71,14 +75,29 @@ export class QualityAttributesComponent implements OnInit {
   }
 
   deleteScenario(scenario: Scenario): void {
-    if (!this.newScenariosList.includes(scenario)) {
-      this.deletingScenariosList.push(scenario);
-    }
+    const data: ConfirmDialogData = {
+      title: 'Delete Scenario?',
+      message: `Do you really want to delete the scenario "${scenario.name}"?`,
+      confirmButtonText: 'Confirm',
+      cancelButtonText: 'Cancel'
+    };
+    this.utilService
+      .createDialog(ConfirmDialogComponent, data)
+      .afterClosed()
+      .subscribe({
+        next: (data: ConfirmDialogData) => {
+          if (data == null) return;
 
-    let index = this.scenarioList.indexOf(scenario) ?? -1;
-    if (index !== -1) {
-      this.scenarioList.splice(index, 1);
-    }
+          if (!this.newScenariosList.includes(scenario)) {
+            this.deletingScenariosList.push(scenario);
+          }
+
+          let index = this.scenarioList.indexOf(scenario) ?? -1;
+          if (index !== -1) {
+            this.scenarioList.splice(index, 1);
+          }
+        }
+      });
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -212,7 +231,7 @@ export class QualityAttributesComponent implements OnInit {
     });
   }
 
-  fireAll(){
+  fireAll() {
     this.createAll();
     this.deleteAll();
   }
