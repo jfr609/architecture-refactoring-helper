@@ -50,7 +50,16 @@ public class ScenarioController : ControllerBase
         _scenarioService.AddScenario(scenario);
         return Ok();
     }
-        
+
+
+    [HttpPut("{id:int}", Name = "UpdateScenario")]
+    public IActionResult UpdateScenario(int id, [FromBody] Scenario scenario)
+    {
+        _scenarioService.UpdateScenario(id, scenario);
+        return Ok();
+    }
+
+
     [HttpDelete("{id:int}", Name = "DeleteScenario")]
     public IActionResult DeleteScenario(int id)
     {

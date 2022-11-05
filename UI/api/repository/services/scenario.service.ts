@@ -250,6 +250,55 @@ export class ScenarioService extends BaseService {
   }
 
   /**
+   * Path part for operation updateScenario
+   */
+  static readonly UpdateScenarioPath = '/api/v1/projects/scenarios/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `updateScenario()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  updateScenario$Response(params: {
+    id: number;
+    body?: Scenario
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ScenarioService.UpdateScenarioPath, 'put');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `updateScenario$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  updateScenario(params: {
+    id: number;
+    body?: Scenario
+  }): Observable<void> {
+
+    return this.updateScenario$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
    * Path part for operation deleteScenario
    */
   static readonly DeleteScenarioPath = '/api/v1/projects/scenarios/{id}';

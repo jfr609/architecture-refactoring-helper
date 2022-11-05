@@ -87,8 +87,10 @@
                     (click)="$event.stopPropagation()"
                     (keydown)="$event.stopPropagation()"
                     (change)="addOrRemoveQuality($event.checked, qa); checkOrUncheckAll($event.checked, qa)"
-                    [checked]="checkIfQualityExist(qa.name)"
+                    [checked]="allChecked(qa)"
                     [indeterminate]="someChecked(qa.name) && !allChecked(qa)"
+                    (indeterminateChange)="addOrRemoveQuality($event, qa)"
+
                   >
                     {{ qa.name }}</mat-checkbox
                   >

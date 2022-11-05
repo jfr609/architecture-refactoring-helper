@@ -16,6 +16,9 @@ public class ScenarioService
 
         LoadAllData(ref query);
 
+        db.Dispose();
+
+
         return result;
     }
 
@@ -26,7 +29,7 @@ public class ScenarioService
             .Where(e => e.ScenarioId == scenarioId).Select(e => e.Qualities).ToList();
         var result = query.FirstOrDefault();
 
-     
+
         if (result == null)
         {
             throw new EntityNotFoundException($"Scenario with ID \"{scenarioId}\" does not exist.");
@@ -99,7 +102,10 @@ public class ScenarioService
                 {
                     foreach (var subQuality in quality.QualitySublevels)
                     {
-                        subList.Add(subQuality);
+                        if (scenario.QualitySublevels!.Any(q => q.Name == subQuality.Name))
+                        {
+                            subList.Add(subQuality);
+                        }
                     }
                 }
             }
@@ -110,6 +116,71 @@ public class ScenarioService
 
 
         return Utils.AddEntityAndSaveChanges(newScenario, ref db);
+    }
+
+    public void UpdateScenario(int id, Scenario scenario)
+    {
+        var db = new RefactoringApproachContext();
+
+        var existingScenario = db.Scenarios.Where(s => s.ScenarioId == id).Include(s => s.Qualities!).ThenInclude(q => q.QualitySublevels).Include(s => s.QualitySublevels).Single();
+
+        db.Scenarios.Attach(existingScenario);
+
+        foreach (var q in existingScenario.Qualities ?? Enumerable.Empty<Quality>())
+        {
+            existingScenario.Qualities?.Remove(q);
+            q.Scenarios?.Remove(existingScenario);
+            db.Entry(q).State = EntityState.Detached;
+        }
+
+        foreach (var q in existingScenario.QualitySublevels ?? Enumerable.Empty<QualitySublevel>())
+        {
+            existingScenario.QualitySublevels?.Remove(q);
+            q.Scenarios?.Remove(existingScenario);
+            db.Entry(q).State = EntityState.Detached;
+        }
+
+        existingScenario.Qualities?.Clear();
+        existingScenario.QualitySublevels?.Clear();
+
+        db.SaveChanges();
+
+        var newScenario = new Scenario
+        {
+            ScenarioId = scenario.ScenarioId,
+            Name = scenario.Name,
+            Description = scenario.Description,
+            Difficulty = scenario.Difficulty,
+            Importance = scenario.Importance
+        };
+
+        db.Entry(existingScenario).CurrentValues.SetValues(newScenario);
+
+        if (scenario.Qualities != null)
+
+        {
+            var subList = new List<QualitySublevel>();
+            foreach (var quality in scenario.Qualities)
+            {
+                db.Qualities.Attach(quality);
+                existingScenario.Qualities?.Add(quality);
+
+                if (quality.QualitySublevels != null)
+                {
+                    foreach (var subQuality in quality.QualitySublevels)
+                    {
+                        if (scenario.QualitySublevels!.Any(q => q.Name == subQuality.Name))
+                        {
+                            db.QualitySublevels.Attach(subQuality);
+                            existingScenario.QualitySublevels?.Add(subQuality);
+                        }
+                    }
+                }
+            }
+
+        }
+
+        Utils.UpdateEntityAndSaveChanges(ref db);
     }
 
     public void DeleteScenario(int scenarioId)

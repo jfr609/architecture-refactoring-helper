@@ -35,6 +35,7 @@ export class QualityAttributesComponent implements OnInit {
 
   qualityList: any = [];
   readonly QualityCategories = QualityCategory;
+  indeterminateList = new Array<Quality>();
 
   deletingScenariosList = new Array<Scenario>();
   newScenariosList = new Array<Scenario>();
@@ -119,6 +120,7 @@ export class QualityAttributesComponent implements OnInit {
 
   scenarioSelected(scenario: Scenario): void {
     this.selectedScenario = scenario;
+    console.log(this.selectedScenario);
   }
 
   checkCurrentScenario(currentScenario?: Scenario): boolean {
@@ -141,9 +143,8 @@ export class QualityAttributesComponent implements OnInit {
         this.selectedScenario?.qualities?.splice(index, 1);
       }
     }
-
-    console.log(this.selectedScenario);
   }
+
 
   addOrRemoveQualitySub(selected: boolean, qa: QualitySublevel) {
     if (selected) {
@@ -157,8 +158,6 @@ export class QualityAttributesComponent implements OnInit {
         this.selectedScenario?.qualitySublevels?.splice(index, 1);
       }
     }
-
-    console.log(this.selectedScenario);
   }
 
   checkIfQualityExist(name: string): boolean {
@@ -198,21 +197,23 @@ export class QualityAttributesComponent implements OnInit {
       }
     }
   }
-
   createAll() {
     this.newScenariosList.forEach((e) => {
+
+      console.log(e);
       this.scenarioService
         .addScenario({
           body: e
         })
         .subscribe({
-          next: (value) => {},
+          next: (value) => { },
           error: (err) => {
             console.log(err);
             this.utilService.callSnackBar('Scenario could not be created.');
           }
         });
     });
+    this.newScenariosList.splice(0);
   }
 
   deleteAll() {
@@ -222,17 +223,44 @@ export class QualityAttributesComponent implements OnInit {
           id: e.scenarioId!
         })
         .subscribe({
-          next: (value) => {},
+          next: (value) => { },
           error: (err) => {
             console.log(err);
             this.utilService.callSnackBar('Scenario could not be deleted.');
           }
         });
     });
+    this.deletingScenariosList.splice(0);
   }
+
+  updateAll() {
+    this.scenarioList.forEach((s: any) => {
+      if (!this.deletingScenariosList.some(d => d.name = s.name) || !this.newScenariosList.some(d => d.name = s.name)) {
+        this.updatingScenariosList.push(s);
+      }
+
+    });
+    this.updatingScenariosList.forEach((e) => {
+      this.scenarioService
+        .updateScenario({
+          id: e.scenarioId!,
+          body: e
+        })
+        .subscribe({
+          next: (value) => {},
+          error: (err) => {
+            console.log(err);
+            this.utilService.callSnackBar('Scenario could not be updated.');
+          }
+        });
+    });
+    this.updatingScenariosList.splice(0);
+  }
+
 
   fireAll() {
     this.createAll();
     this.deleteAll();
+    this.updateAll();
   }
 }
