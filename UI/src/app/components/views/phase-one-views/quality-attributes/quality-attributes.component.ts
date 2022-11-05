@@ -133,7 +133,9 @@ export class QualityAttributesComponent implements OnInit {
 
   addOrRemoveQuality(selected: boolean, qa: Quality) {
     if (selected) {
-      this.selectedScenario?.qualities?.push(qa);
+      if (!this.selectedScenario?.qualities?.includes(qa)) {
+        this.selectedScenario?.qualities?.push(qa);
+      }
     } else {
       let index =
         this.selectedScenario?.qualities?.findIndex(
