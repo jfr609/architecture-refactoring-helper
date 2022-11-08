@@ -133,7 +133,7 @@ export class QualityAttributesComponent implements OnInit {
 
   addOrRemoveQuality(selected: boolean, qa: Quality) {
     if (selected) {
-      if (!this.selectedScenario?.qualities?.includes(qa)) {
+      if (!this.selectedScenario?.qualities?.find(e => e.name === qa.name)) {
         this.selectedScenario?.qualities?.push(qa);
       }
     } else {
@@ -151,6 +151,7 @@ export class QualityAttributesComponent implements OnInit {
   addOrRemoveQualitySub(selected: boolean, qa: QualitySublevel) {
     if (selected) {
       this.selectedScenario?.qualitySublevels?.push(qa);
+      console.log(qa.name);
     } else {
       let index =
         this.selectedScenario?.qualitySublevels?.findIndex(
@@ -194,15 +195,12 @@ export class QualityAttributesComponent implements OnInit {
   checkOrUncheckAll(selected: boolean, qa: Quality) {
     if (qa.qualitySubLevels) {
       for (let sqa of qa.qualitySubLevels) {
-        console.log(sqa.name);
         this.addOrRemoveQualitySub(selected, sqa);
       }
     }
   }
   createAll() {
     this.newScenariosList.forEach((e) => {
-
-      console.log(e);
       this.scenarioService
         .addScenario({
           body: e
