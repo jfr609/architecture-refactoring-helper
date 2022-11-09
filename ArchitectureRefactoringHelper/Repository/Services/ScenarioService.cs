@@ -162,13 +162,13 @@ public class ScenarioService
             var subList = new List<QualitySublevel>();
             foreach (var quality in scenario.Qualities)
             {
-                quality.QualitySublevels.Clear();
+                quality.QualitySublevels?.Clear();
                 db.Qualities.Attach(quality);
                 existingScenario.Qualities?.Add(quality);
 
             }
 
-            foreach (var subQuality in scenario.QualitySublevels)
+            foreach (var subQuality in scenario.QualitySublevels ?? Enumerable.Empty<QualitySublevel>())
             {
                 db.QualitySublevels.Attach(subQuality);
                 existingScenario.QualitySublevels?.Add(subQuality);

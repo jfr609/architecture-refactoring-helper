@@ -3,10 +3,12 @@
   min-height: 60px;
   background: white;
   border-radius: 4px;
-  overflow: hidden;
   display: block;
   width: 100%;
   max-width: 100%;
+  max-height: 700px;
+  overflow: auto;
+  overflow-x: hidden;
 }
 
 .drop-box {
@@ -33,7 +35,7 @@
   box-sizing: border-box;
   background: white;
   font-size: 14px;
-  border: ridge 1px;
+  border: ridge 2px;
   border-color: green;
 }
 
@@ -72,11 +74,6 @@
   max-width: 100%;
 }
 
-.outside {
-  overflow: auto;
-  max-height: 500px;
-  overflow-x: hidden; 
-}
 
 .radio-group {
   display: flex;
@@ -91,4 +88,8 @@
 
 .description-field {
   width: 100%;
+}
+
+.stepper-button-row {
+  margin: 25px 0;
 }

@@ -1,10 +1,19 @@
 
-<div>
-  <button mat-button matStepperPrevious>Back</button>
-  <button mat-button matStepperNext>Next</button>
-  <button mat-button (click)="fireAll()">Fire all</button>
+<div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px' fxLayoutAlign='center'>
+  <button mat-flat-button matStepperPrevious color='accent'>
+    <mat-icon>arrow_back</mat-icon>
+    <span>Back</span>
+  </button>
+  <button mat-flat-button matStepperNext color='accent'>
+    <span>Next</span>
+    <mat-icon>arrow_forward</mat-icon>
+  </button>
+  <button mat-raised-button color="primary" (click)="saveChanges()"><span>Save Changes</span></button>
 </div>
-<div fxLayout="row" fxLayoutGap="30px">
+  
+
+
+<div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center">
   <mat-card class="scenario-card" class="mat-elevation-z8">
     <mat-card-title
       >Scenarios
@@ -19,7 +28,7 @@
       </button></mat-card-title
     >
 
-    <div class="outside" cdkScrollable>
+  
     <div  class="mat-elevation-z8"
       cdkDropList
       class="drop-list"
@@ -43,7 +52,7 @@
         </div>
         <mat-form-field appearance="fill">
           <mat-label>Name</mat-label>
-          <input matInput [(ngModel)]="scenario.name" />
+          <input matInput [(ngModel)]="scenario.name" required/>
         </mat-form-field>
         <mat-form-field class="description-field" appearance="fill">
           <mat-label>Description</mat-label>
@@ -66,23 +75,24 @@
             }}</mat-option>
           </mat-select>
         </mat-form-field>
-        <button mat-button (click)="deleteScenario(scenario)"><mat-icon mat-list-icon>close</mat-icon></button>
+        <button mat-button (click)="deleteScenario(scenario)"><mat-icon mat-list-icon color="warn">delete</mat-icon></button>
       </div>
     </div>
-    </div>
+  
   </mat-card>
-  <mat-card *ngIf="selectedScenario !== undefined" class="mat-elevation-z8">
+  <mat-card class="mat-elevation-z8">
     <mat-card-title>Quality Attributes</mat-card-title>
-    <mat-accordion >
+    <mat-accordion>
       <ng-container *ngFor="let qa of qualityList">
         <ng-container
           *ngIf="qa.qualitySubLevels.length > 0; else singleAttribute"
         >
-          <mat-expansion-panel>
+          <mat-expansion-panel [disabled]="selectedScenario === undefined">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 <section>
                   <mat-checkbox
+                    #checkboxName
                     class="example-margin"
                     (click)="$event.stopPropagation()"
                     (keydown)="$event.stopPropagation()"
@@ -90,7 +100,7 @@
                     [checked]="allChecked(qa)"
                     [indeterminate]="someChecked(qa.name) && !allChecked(qa)"
                     (indeterminateChange)="addOrRemoveQuality($event, qa)"
-
+                    [disabled]="selectedScenario === undefined"
                   >
                     {{ qa.name }}</mat-checkbox
                   >
@@ -106,6 +116,7 @@
                 (keydown)="$event.stopPropagation()"
                 (change)="addOrRemoveQualitySub($event.checked, sqa)"
                 [checked]="checkIfQualitySubExist(sqa.name)"
+                [disabled]="selectedScenario === undefined"
               >
                 {{ sqa.name }}</mat-checkbox
               >
@@ -114,7 +125,7 @@
         </ng-container>
 
         <ng-template #singleAttribute>
-          <mat-expansion-panel hideToggle>
+          <mat-expansion-panel hideToggle [disabled]="selectedScenario === undefined">
             <mat-expansion-panel-header
               #panelHeader
               (click)="panelHeader._toggle()"
@@ -127,6 +138,7 @@
                     (keydown)="$event.stopPropagation()"
                     (change)="addOrRemoveQuality($event.checked, qa)"
                     [checked]="checkIfQualityExist(qa.name)"
+                    [disabled]="selectedScenario === undefined"
                   >
                     {{ qa.name }}</mat-checkbox
                   >
@@ -139,4 +151,4 @@
       </ng-container>
     </mat-accordion>
   </mat-card>
-</div>
+  </div>

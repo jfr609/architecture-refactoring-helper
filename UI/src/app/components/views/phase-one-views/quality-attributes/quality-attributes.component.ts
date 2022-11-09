@@ -57,6 +57,7 @@ export class QualityAttributesComponent implements OnInit {
       this.attributesService.requestQualities()
     ]).then(() => {
       this.scenarioList = this.projectService.scenarios.value;
+      this.updatingScenariosList = Object.assign([], this.scenarioList);
       this.qualityList = this.attributesService.getQualitiesByCategory(
         this.QualityCategories.Requirement
       );
@@ -97,6 +98,7 @@ export class QualityAttributesComponent implements OnInit {
           if (index !== -1) {
             this.scenarioList.splice(index, 1);
           }
+          this.selectedScenario = undefined;
         }
       });
   }
@@ -150,9 +152,11 @@ export class QualityAttributesComponent implements OnInit {
 
   addOrRemoveQualitySub(selected: boolean, qa: QualitySublevel) {
     if (selected) {
+      if (!this.selectedScenario?.qualitySublevels?.find(e => e.name === qa.name)){
       this.selectedScenario?.qualitySublevels?.push(qa);
-      console.log(qa.name);
+      }
     } else {
+      console.log(qa.name + " will be removed")
       let index =
         this.selectedScenario?.qualitySublevels?.findIndex(
           (q) => q.name === qa.name
@@ -199,6 +203,7 @@ export class QualityAttributesComponent implements OnInit {
       }
     }
   }
+  
   createAll() {
     this.newScenariosList.forEach((e) => {
       this.scenarioService
@@ -234,12 +239,7 @@ export class QualityAttributesComponent implements OnInit {
   }
 
   updateAll() {
-    this.scenarioList.forEach((s: any) => {
-      if (!this.deletingScenariosList.some(d => d.name = s.name) || !this.newScenariosList.some(d => d.name = s.name)) {
-        this.updatingScenariosList.push(s);
-      }
 
-    });
     this.updatingScenariosList.forEach((e) => {
       this.scenarioService
         .updateScenario({
@@ -247,7 +247,7 @@ export class QualityAttributesComponent implements OnInit {
           body: e
         })
         .subscribe({
-          next: (value) => {},
+          next: (value) => { },
           error: (err) => {
             console.log(err);
             this.utilService.callSnackBar('Scenario could not be updated.');
@@ -257,6 +257,24 @@ export class QualityAttributesComponent implements OnInit {
     this.updatingScenariosList.splice(0);
   }
 
+
+  saveChanges() {
+    const data: ConfirmDialogData = {
+      title: 'Save Changes?',
+      message: `Do you really want to save all changes?`,
+      confirmButtonText: 'Confirm',
+      cancelButtonText: 'Cancel'
+    };
+    this.utilService
+      .createDialog(ConfirmDialogComponent, data)
+      .afterClosed()
+      .subscribe({
+        next: (data: ConfirmDialogData) => {
+          if (data == null) return;
+          this.fireAll();
+        }
+      });
+  }
 
   fireAll() {
     this.createAll();
