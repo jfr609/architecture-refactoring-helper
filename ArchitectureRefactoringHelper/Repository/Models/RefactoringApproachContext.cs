@@ -8,6 +8,8 @@ public class RefactoringApproachContext : DbContext
 {
     public DbSet<RefactoringApproach> RefactoringApproaches { get; set; }
 
+    public DbSet<Scenario> Scenarios { get; set; }
+
     public DbSet<ApproachSource> ApproachSources { get; set; }
 
     public DbSet<ApproachProcess> ApproachProcesses { get; set; }
@@ -20,6 +22,7 @@ public class RefactoringApproachContext : DbContext
     public DbSet<ExecutableInput> ExecutableInputs { get; set; }
 
     public DbSet<Quality> Qualities { get; set; }
+    public DbSet<QualitySublevel> QualitySublevels { get; set; }
     public DbSet<Direction> Directions { get; set; }
     public DbSet<AutomationLevel> AutomationLevels { get; set; }
     public DbSet<AnalysisType> AnalysisTypes { get; set; }
@@ -50,6 +53,8 @@ public class RefactoringApproachContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Apply Configurations
+        modelBuilder.ApplyConfiguration(new ScenarioConfiguration());
+
         modelBuilder.ApplyConfiguration(new RefactoringApproachConfiguration());
         modelBuilder.ApplyConfiguration(new ApproachProcessConfiguration());
         modelBuilder.ApplyConfiguration(new ApproachUsabilityConfiguration());
@@ -60,6 +65,7 @@ public class RefactoringApproachContext : DbContext
         modelBuilder.ApplyConfiguration(new ExecutableInputInputConfiguration());
 
         modelBuilder.ApplyConfiguration(new QualityConfiguration());
+        modelBuilder.ApplyConfiguration(new QualitySublevelConfiguration());
         modelBuilder.ApplyConfiguration(new DirectionConfiguration());
         modelBuilder.ApplyConfiguration(new AutomationLevelConfiguration());
         modelBuilder.ApplyConfiguration(new AnalysisTypeConfiguration());

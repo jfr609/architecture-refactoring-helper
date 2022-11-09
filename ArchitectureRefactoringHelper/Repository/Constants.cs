@@ -4,6 +4,8 @@ public static class Constants
 {
     // Table name constants
     public const string JoinTablePrefix = "JoinTable.";
+    public const string TableNameProject = "Project";
+    public const string TableNameProjectScenario = ".Scenario";
     public const string TableNameApproach = "Approach";
     public const string TableNameApproachSource = TableNameApproach + ".Source";
 
@@ -15,10 +17,12 @@ public static class Constants
 
     public const string TableNameApproachProcess = TableNameApproach + ".Process";
     public const string TableNameApproachProcessQuality = TableNameApproachProcess + ".Quality";
+    public const string TableNameApproachProcessQualitySublevel = TableNameApproachProcess + ".QualitySublevel";
     public const string TableNameApproachProcessDirection = TableNameApproachProcess + ".Direction";
     public const string TableNameApproachProcessAutomationLevel = TableNameApproachProcess + ".AutomationLevel";
     public const string TableNameApproachProcessAnalysisType = TableNameApproachProcess + ".AnalysisType";
     public const string TableNameApproachProcessTechnique = TableNameApproachProcess + ".Technique";
+    public const string TableNameApproachProcessCalculationMetric = TableNameApproachProcess + ".CalculationMetric";
 
     public const string TableNameApproachOutput = TableNameApproach + ".Output";
     public const string TableNameApproachOutputArchitecture = TableNameApproachOutput + ".Architecture";
@@ -33,6 +37,8 @@ public static class Constants
     // Controller api path constants
     public const string ApiVersion = "1";
     public const string ApiSubPathApproaches = "approaches";
+    public const string ApiSubPathProjects = "projects";
+    public const string ApiSubPathScenarios = "scenarios";
 
     public const string ApiSubPathInputs = "inputs";
     public const string ApiSubPathDomainArtifacts = "domain-artifacts";

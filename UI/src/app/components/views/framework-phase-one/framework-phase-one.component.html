@@ -4,8 +4,12 @@
       <mat-icon>arrow_back</mat-icon>
     </button>
     <span>Phase 1: System Comprehension</span>
+    <button mat-icon-button color="basic" (click)="showInfo()">
+      <mat-icon>info</mat-icon>
+    </button>
   </h1>
 
+  <ng-container *ngIf="showInfoBool">
   <p class='max-width-800'>
     In the first phase of a migration, this tool supports architects in setting strategic goals, identifying driving
     forces for the migration and subsequently identifying measurable quality attributes. To do so, the tool collects
@@ -18,9 +22,23 @@
     styles based on the sum of their ratings. The architect can now make a grounded decision pro/contra a migration to
     microservices and has the metrics at hand that help to measure the migration's success.
   </p>
-  <p class='max-width-800'>
-    The following UI sketches show how the tool will guide through this phase and present the results.
-  </p>
-
-  <app-image-carousel width='800px' [images]='imageList'></app-image-carousel>
+  </ng-container>
 </div>
+
+<mat-stepper #stepper>
+  <mat-step label="Project Description">
+    <app-project-description></app-project-description>
+  </mat-step>
+  <mat-step label="Strategic Goals">
+    <app-strategic-goals></app-strategic-goals>
+  </mat-step>
+  <mat-step  label="Quality Attributes">
+    <app-quality-attributes></app-quality-attributes>
+  </mat-step>
+  <mat-step  label="Assessment">
+    <app-assessment></app-assessment>
+  </mat-step>
+  <mat-step  label="Summary">
+    <app-summary></app-summary>
+  </mat-step>
+</mat-stepper>

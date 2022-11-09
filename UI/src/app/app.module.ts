@@ -51,6 +51,13 @@ import { FrameworkPhaseTwoComponent } from './components/views/framework-phase-t
 import { FrameworkPhaseThreeComponent } from './components/views/framework-phase-three/framework-phase-three.component';
 import { ImageCarouselComponent } from './components/generics/image-carousel/image-carousel.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ProjectDescriptionComponent } from './components/views/phase-one-views/project-description/project-description.component';
+import { StrategicGoalsComponent } from './components/views/phase-one-views/strategic-goals/strategic-goals.component';
+import { QualityAttributesComponent } from './components/views/phase-one-views/quality-attributes/quality-attributes.component';
+import { AssessmentComponent } from './components/views/phase-one-views/assessment/assessment.component';
+import { SummaryComponent } from './components/views/phase-one-views/summary/summary.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCheckboxModule } from '@angular/material/checkbox'; 
 
 @NgModule({
   declarations: [
@@ -73,7 +80,12 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     FrameworkPhaseOneComponent,
     FrameworkPhaseTwoComponent,
     FrameworkPhaseThreeComponent,
-    ImageCarouselComponent
+    ImageCarouselComponent,
+    ProjectDescriptionComponent,
+    StrategicGoalsComponent,
+    QualityAttributesComponent,
+    AssessmentComponent,
+    SummaryComponent
   ],
   imports: [
     BrowserModule,
@@ -106,7 +118,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatButtonToggleModule,
     MatTooltipModule,
     MatSlideToggleModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatGridListModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

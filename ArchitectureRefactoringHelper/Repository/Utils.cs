@@ -71,6 +71,13 @@ public static class Utils
         return savedEntity;
     }
 
+        public static void UpdateEntityAndSaveChanges(ref RefactoringApproachContext db)
+    {
+        db.SaveChanges();
+        db.Dispose();
+
+    }
+
     public static ICollection<T> AddEntitiesIfNotExist<T>(ICollection<T>? entities, Func<T, object?[]?> keyFunction,
         ref RefactoringApproachContext db)
         where T : class
@@ -88,6 +95,7 @@ public static class Utils
 
         return savedEntities;
     }
+    
 
     public static bool DeleteEntity<T>(ref RefactoringApproachContext db, params object?[]? keyValues)
         where T : class
@@ -132,4 +140,6 @@ public static class Utils
             .Include(e => e.AccuracyPrecision)
             .Include(e => e.ValidationMethod);
     }
+
+    
 }

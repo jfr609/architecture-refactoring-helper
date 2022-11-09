@@ -4,8 +4,8 @@ using System.Text.Json.Serialization;
 
 namespace Repository.Models.Database;
 
-[Table(Constants.TableNameApproachProcessQuality)]
-public class Quality
+[Table(Constants.TableNameApproachProcessQualitySublevel)]
+public class QualitySublevel
 {
     [Key]
     [Required]
@@ -13,29 +13,18 @@ public class Quality
     public string Name { get; set; }
     [JsonPropertyName("description")]
     public string? Description { get; set; }
-    [Required]
-    [JsonPropertyName("category")]
-    [JsonConverter(typeof(JsonStringEnumConverter))]
-    public QualityCategory Category { get; set; }
-    [JsonPropertyName("qualitySubLevels")]
-    public ICollection<QualitySublevel>? QualitySublevels { get; set; }
+    public string? QualityName { get; set; }
+    [JsonIgnore]
+    public Quality? Quality { get; set; }
     [JsonPropertyName("qualityTradeOffs")]
     public ICollection<Quality>? QualityTradeOffs { get; set; }
     [JsonPropertyName("calculationMetrics")]
     public ICollection<CalculationMetric>? CalculationMetrics { get; set; }
     [JsonIgnore]
-    public ICollection<ApproachProcess>? ApproachProcesses { get; set; }
-    [JsonIgnore]
     public ICollection<Scenario>? Scenarios { get; set; }
 
-    public bool KeyEquals(Quality obj)
+    public bool KeyEquals(QualitySublevel obj)
     {
         return obj.Name == Name;
     }
-}
-
-public enum QualityCategory
-{
-    Requirement,
-    Metric
 }

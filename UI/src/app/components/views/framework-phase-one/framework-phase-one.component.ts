@@ -13,4 +13,10 @@ export class FrameworkPhaseOneComponent {
     'assets/Phase1-UI4.jpg',
     'assets/Phase1-UI5.jpg'
   ];
+
+  showInfoBool: boolean = false;
+
+  showInfo() {
+    this.showInfoBool = !this.showInfoBool;
+  }
 }
