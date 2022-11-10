@@ -8,6 +8,6 @@ export interface Quality {
   category: QualityCategory;
   description?: null | string;
   name: string;
-  qualitySubLevels?: null | Array<QualitySublevel>;
+  qualitySublevels?: null | Array<QualitySublevel>;
   qualityTradeOffs?: null | Array<Quality>;
 }

@@ -13,6 +13,11 @@ public class ApproachProcessConfiguration : IEntityTypeConfiguration<ApproachPro
             .WithMany(right => right.ApproachProcesses)
             .UsingEntity(join => join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachProcessQuality));
 
+        // Define Join Table for ApproachProcess and QualitySublevel
+        builder.HasMany(left => left.QualitySublevels)
+            .WithMany(right => right.ApproachProcesses)
+            .UsingEntity(join => join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachProcessQualitySublevel));
+
         // Define Join Table for ApproachProcess and Direction
         builder.HasMany(left => left.Directions)
             .WithMany(right => right.ApproachProcesses)

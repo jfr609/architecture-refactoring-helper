@@ -20,6 +20,7 @@ import { DomainArtifactInput } from '../models/domain-artifact-input';
 import { ExecutableInput } from '../models/executable-input';
 import { ModelArtifactInput } from '../models/model-artifact-input';
 import { Quality } from '../models/quality';
+import { QualitySublevel } from '../models/quality-sublevel';
 import { RecommendationPreset } from '../models/recommendation-preset';
 import { RefactoringApproach } from '../models/refactoring-approach';
 import { ResultsQuality } from '../models/results-quality';
@@ -850,6 +851,107 @@ export class RefactoringApproachService extends BaseService {
   }): Observable<void> {
 
     return this.removeQualityFromProcess$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation addQualitySublevelToProcess
+   */
+  static readonly AddQualitySublevelToProcessPath = '/api/v1/approaches/{id}/processes/quality-sublevels';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addQualitySublevelToProcess()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addQualitySublevelToProcess$Response(params: {
+    id: number;
+    body?: QualitySublevel
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.AddQualitySublevelToProcessPath, 'post');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `addQualitySublevelToProcess$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addQualitySublevelToProcess(params: {
+    id: number;
+    body?: QualitySublevel
+  }): Observable<void> {
+
+    return this.addQualitySublevelToProcess$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation removeQualitySublevelFromProcess
+   */
+  static readonly RemoveQualitySublevelFromProcessPath = '/api/v1/approaches/{id}/processes/quality-sublevels/{qualityName}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `removeQualitySublevelFromProcess()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeQualitySublevelFromProcess$Response(params: {
+    id: number;
+    qualitySublevelName?: string;
+    qualityName: string;
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RefactoringApproachService.RemoveQualitySublevelFromProcessPath, 'delete');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.query('qualitySublevelName', params.qualitySublevelName, {});
+      rb.path('qualityName', params.qualityName, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `removeQualitySublevelFromProcess$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  removeQualitySublevelFromProcess(params: {
+    id: number;
+    qualitySublevelName?: string;
+    qualityName: string;
+  }): Observable<void> {
+
+    return this.removeQualitySublevelFromProcess$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }

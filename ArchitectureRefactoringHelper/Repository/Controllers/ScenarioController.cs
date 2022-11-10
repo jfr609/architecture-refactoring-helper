@@ -25,13 +25,13 @@ public class ScenarioController : ControllerBase
     }
 
 
-    [HttpGet("{id:int}/qualities", Name = "GetQualities")]
+    [HttpGet("{id:int}/" + Constants.ApiSubPathQualities, Name = "GetQualities")]
     public ActionResult<IEnumerable<Scenario>> GetQualities(int id)
     {
         return Ok(_scenarioService.GetQualities(id));
     }
 
-    [HttpGet("{id:int}/qualitysublevels", Name = "GetQualitySublevels")]
+    [HttpGet("{id:int}/" + Constants.ApiSubPathQualitySublevels, Name = "GetQualitySublevels")]
     public ActionResult<IEnumerable<Scenario>> GetQualitySublevels(int id)
     {
         return Ok(_scenarioService.GetQualitySublevels(id));

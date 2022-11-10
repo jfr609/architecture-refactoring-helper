@@ -160,7 +160,7 @@ export class ScenarioService extends BaseService {
   /**
    * Path part for operation getQualitySublevels
    */
-  static readonly GetQualitySublevelsPath = '/api/v1/projects/scenarios/{id}/qualitysublevels';
+  static readonly GetQualitySublevelsPath = '/api/v1/projects/scenarios/{id}/quality-sublevels';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.

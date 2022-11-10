@@ -30,6 +30,15 @@ public class ApproachProcessService
             .ToList();
     }
 
+    public IEnumerable<QualitySublevel> ListQualitySublevels()
+    {
+        var db = new RefactoringApproachContext();
+
+        return db.QualitySublevels
+            .OrderBy(e => e.Name)
+            .ToList();
+    }
+
     public IEnumerable<Direction> ListDirections()
     {
         var db = new RefactoringApproachContext();
@@ -100,6 +109,18 @@ public class ApproachProcessService
                throw new EntityNotFoundException($"Process quality with name \"{name}\" does not exist.");
     }
 
+    public QualitySublevel GetProcessQualitySublevel(string name)
+    {
+        var db = new RefactoringApproachContext();
+        return GetProcessQualitySublevel(name, ref db);
+    }
+
+    public QualitySublevel GetProcessQualitySublevel(string name, ref RefactoringApproachContext db)
+    {
+        return db.QualitySublevels.Find(name) ??
+               throw new EntityNotFoundException($"Process quality sublevel with name \"{name}\" does not exist.");
+    }
+
     public Direction GetProcessDirection(string name)
     {
         var db = new RefactoringApproachContext();
@@ -163,6 +184,7 @@ public class ApproachProcessService
         var preparedProcess = new ApproachProcess
         {
             Qualities = AddQualitiesIfNotExist(process.Qualities, ref db),
+            QualitySublevels = AddQualitySublevelsIfNotExist(process.QualitySublevels, ref db),
             Directions = AddDirectionsIfNotExist(process.Directions, ref db),
             AutomationLevels = AddAutomationLevelsIfNotExist(process.AutomationLevels, ref db),
             AnalysisTypes = AddAnalysisTypesIfNotExist(process.AnalysisTypes, ref db),
@@ -187,6 +209,23 @@ public class ApproachProcessService
         ref RefactoringApproachContext db)
     {
         return Utils.AddEntitiesIfNotExist(qualities, e => new object[] { e.Name }, ref db);
+    }
+
+    public QualitySublevel AddQualitySublevel(QualitySublevel qualitySublevel)
+    {
+        var db = new RefactoringApproachContext();
+        return Utils.AddEntityAndSaveChanges(qualitySublevel, ref db);
+    }
+
+    public QualitySublevel AddQualitySublevel(QualitySublevel qualitySublevel, ref RefactoringApproachContext db)
+    {
+        return Utils.AddEntity(qualitySublevel, ref db);
+    }
+
+    public ICollection<QualitySublevel> AddQualitySublevelsIfNotExist(ICollection<QualitySublevel>? qualitySublevels,
+        ref RefactoringApproachContext db)
+    {
+        return Utils.AddEntitiesIfNotExist(qualitySublevels, e => new object[] { e.Name }, ref db);
     }
 
     public Direction AddDirection(Direction direction)
@@ -285,6 +324,25 @@ public class ApproachProcessService
                 $"because entity does not exist");
     }
 
+    public void DeleteQualitySublevel(string name)
+    {
+        var db = new RefactoringApproachContext();
+
+        var blockDelete = db.QualitySublevels
+            .Where(e => e.Name == name)
+            .Any(e => e.ApproachProcesses!.Count > 0);
+        if (blockDelete)
+            throw new EntityReferenceException(
+                $"Process quality sublevel with name \"{name}\" could not be deleted " +
+                "because the entity is still in use by refactoring approaches");
+
+        var deleteSuccess = Utils.DeleteEntityAndSaveChanges<QualitySublevel>(ref db, name);
+        if (!deleteSuccess)
+            throw new EntityNotFoundException(
+                $"Process quality sublevel with name \"{name}\" could not be deleted " +
+                $"because entity does not exist");
+    }
+
     public void DeleteDirection(string name)
     {
         var db = new RefactoringApproachContext();
@@ -364,6 +422,9 @@ public class ApproachProcessService
     private static void LoadAllData(ref IQueryable<ApproachProcess> query)
     {
         query.Include(e => e.Qualities)
+            .Load();
+
+        query.Include(e => e.QualitySublevels)
             .Load();
 
         query.Include(e => e.Directions)

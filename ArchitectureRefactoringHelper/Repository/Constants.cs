@@ -48,6 +48,7 @@ public static class Constants
 
     public const string ApiSubPathProcesses = "processes";
     public const string ApiSubPathQualities = "qualities";
+    public const string ApiSubPathQualitySublevels = "quality-sublevels";
     public const string ApiSubPathDirections = "directions";
     public const string ApiSubPathAutomationLevels = "automation-levels";
     public const string ApiSubPathAnalysisTypes = "analysis-types";

@@ -213,6 +213,25 @@ public class RefactoringApproachController : ControllerBase
         return NoContent();
     }
 
+    [HttpPost("{id:int}/" + Constants.ApiSubPathProcesses + "/" + Constants.ApiSubPathQualitySublevels,
+    Name = "AddQualitySublevelToProcess")]
+    public IActionResult AddQualitySublevelToProcess(int id, [FromBody] QualitySublevel qualitySublevel)
+    {
+        _refactoringApproachService.AddQualitySublevelToProcess(id, qualitySublevel);
+
+        return NoContent();
+    }
+
+    [HttpDelete(
+        "{id:int}/" + Constants.ApiSubPathProcesses + "/" + Constants.ApiSubPathQualitySublevels + "/{qualityName}",
+        Name = "RemoveQualitySublevelFromProcess")]
+    public IActionResult RemoveQualitySublevelFromProcess(int id, string qualitySublevelName)
+    {
+        _refactoringApproachService.RemoveQualitySublevelFromProcess(id, qualitySublevelName);
+
+        return NoContent();
+    }
+
     [HttpPost("{id:int}/" + Constants.ApiSubPathProcesses + "/" + Constants.ApiSubPathDirections,
         Name = "AddDirectionToProcess")]
     public IActionResult AddDirectionToProcess(int id, [FromBody] Direction direction)

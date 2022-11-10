@@ -37,12 +37,14 @@
       "approachProcessId": 1,
       "qualities": [
         {
-          "name": "Cohesion",
-          "category": "Metric"
-        },
+          "name": "Independence",
+          "category": "Requirement"
+        }
+      ],
+      "qualitySublevels": [
         {
-          "name": "Coupling",
-          "category": "Metric"
+          "name": "Modularity",
+          "qualityName": "Maintainability"
         }
       ],
       "directions": [
@@ -762,10 +764,6 @@
           "category": "Metric"
         },
         {
-          "name": "Coupling",
-          "category": "Metric"
-        },
-        {
           "name": "Granularity",
           "category": "Metric"
         }
@@ -928,7 +926,19 @@
       "approachProcessId": 11,
       "qualities": [
         {
-          "name": "Number of services",
+          "name": "Compatibility",
+          "category": "Requirement"
+        },
+        {
+          "name": "Coupling",
+          "category": "Metric"
+        },
+        {
+          "name": "Cohesion",
+          "category": "Metric"
+        },
+        {
+          "name": "Granularity",
           "category": "Metric"
         }
       ],
@@ -1084,7 +1094,30 @@
     ],
     "approachProcess": {
       "approachProcessId": 13,
-      "qualities": [],
+      "qualities": [
+        {
+          "name": "Scalability",
+          "category": "Requirement"
+        },
+        {
+          "name": "Performance",
+          "category": "Requirement"
+        },
+        {
+          "name": "Coupling",
+          "category": "Metric"
+        },
+        {
+          "name": "Cohesion",
+          "category": "Metric"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Availability",
+          "category": "Reliability"
+        }
+      ],
       "directions": [
         {
           "name": "Bottom-up"

@@ -85,7 +85,7 @@
     <mat-accordion>
       <ng-container *ngFor="let qa of qualityList">
         <ng-container
-          *ngIf="qa.qualitySubLevels.length > 0; else singleAttribute"
+          *ngIf="qa.qualitySublevels.length > 0; else singleAttribute"
         >
           <mat-expansion-panel [disabled]="selectedScenario === undefined">
             <mat-expansion-panel-header>
@@ -109,7 +109,7 @@
               <mat-panel-description> </mat-panel-description>
             </mat-expansion-panel-header>
 
-            <section *ngFor="let sqa of qa.qualitySubLevels">
+            <section *ngFor="let sqa of qa.qualitySublevels">
               <mat-checkbox
                 class="example-margin"
                 (click)="$event.stopPropagation()"

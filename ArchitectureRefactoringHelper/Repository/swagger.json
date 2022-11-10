@@ -702,6 +702,89 @@
         }
       }
     },
+    "/api/v1/processes/quality-sublevels": {
+      "get": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "ListQualitySublevels",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QualitySublevel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "AddQualitySublevel",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QualitySublevel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QualitySublevel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/QualitySublevel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QualitySublevel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/processes/quality-sublevels/{name}": {
+      "delete": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "DeleteQualitySublevel",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/v1/processes/directions": {
       "get": {
         "tags": [
@@ -2016,6 +2099,88 @@
         }
       }
     },
+    "/api/v1/approaches/{id}/processes/quality-sublevels": {
+      "post": {
+        "tags": [
+          "RefactoringApproach"
+        ],
+        "operationId": "AddQualitySublevelToProcess",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QualitySublevel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QualitySublevel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/QualitySublevel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/approaches/{id}/processes/quality-sublevels/{qualityName}": {
+      "delete": {
+        "tags": [
+          "RefactoringApproach"
+        ],
+        "operationId": "RemoveQualitySublevelFromProcess",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "qualitySublevelName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "qualityName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/v1/approaches/{id}/processes/directions": {
       "post": {
         "tags": [
@@ -2651,7 +2816,7 @@
         }
       }
     },
-    "/api/v1/projects/scenarios/{id}/qualitysublevels": {
+    "/api/v1/projects/scenarios/{id}/quality-sublevels": {
       "get": {
         "tags": [
           "Scenario"
@@ -2909,6 +3074,13 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Quality"
+            },
+            "nullable": true
+          },
+          "qualitySublevels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QualitySublevel"
             },
             "nullable": true
           },
@@ -3605,7 +3777,7 @@
           "category": {
             "$ref": "#/components/schemas/QualityCategory"
           },
-          "qualitySubLevels": {
+          "qualitySublevels": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/QualitySublevel"

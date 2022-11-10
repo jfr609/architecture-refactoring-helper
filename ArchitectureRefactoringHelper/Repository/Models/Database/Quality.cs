@@ -17,7 +17,7 @@ public class Quality
     [JsonPropertyName("category")]
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public QualityCategory Category { get; set; }
-    [JsonPropertyName("qualitySubLevels")]
+    [JsonPropertyName("qualitySublevels")]
     public ICollection<QualitySublevel>? QualitySublevels { get; set; }
     [JsonPropertyName("qualityTradeOffs")]
     public ICollection<Quality>? QualityTradeOffs { get; set; }

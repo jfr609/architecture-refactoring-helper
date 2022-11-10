@@ -177,6 +177,21 @@
         </div>
 
         <div fxFlex='25' fxLayout='column'>
+          <h2>Requirement Quality Subattributes</h2>
+          <div
+            *ngFor='let qualitySublevel of attributeOptionsService.qualitySublevels.value, let i = index'
+            class='attribute-option-container'>
+          <span fxLayoutAlign='start center'>
+            {{qualitySublevel.qualityName}}: {{qualitySublevel.name}}
+            <mat-icon class='help-icon'
+                      [matTooltip]='qualitySublevel.description ? qualitySublevel.description : noDescriptionText'
+                      [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
+                      [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
+          </span>
+          </div>
+        </div>
+
+        <div fxFlex='25' fxLayout='column'>
           <h2>Metric quality attributes</h2>
           <div
             *ngFor='let quality of attributeOptionsService.getQualitiesByCategory(QualityCategories.Metric), let i = index'
