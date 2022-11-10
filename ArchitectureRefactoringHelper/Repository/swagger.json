@@ -3169,6 +3169,13 @@
             },
             "nullable": true
           },
+          "qualitySublevelEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QualitySublevelApproachAttributeEvaluation"
+            },
+            "nullable": true
+          },
           "directionEvaluations": {
             "type": "array",
             "items": {
@@ -3257,6 +3264,7 @@
           "executableInformation",
           "modelArtifactInformation",
           "qualityInformation",
+          "qualitySublevelInformation",
           "resultsQualityInformation",
           "runtimeArtifactInformation",
           "serviceTypeInformation",
@@ -3294,6 +3302,12 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/QualityAttributeRecommendationInformation"
+            }
+          },
+          "qualitySublevelInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QualitySublevelAttributeRecommendationInformation"
             }
           },
           "directionInformation": {
@@ -3870,6 +3884,38 @@
               "$ref": "#/components/schemas/CalculationMetric"
             },
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "QualitySublevelApproachAttributeEvaluation": {
+        "required": [
+          "approachAttribute",
+          "attributeEvaluation"
+        ],
+        "type": "object",
+        "properties": {
+          "approachAttribute": {
+            "$ref": "#/components/schemas/QualitySublevel"
+          },
+          "attributeEvaluation": {
+            "$ref": "#/components/schemas/AttributeEvaluation"
+          }
+        },
+        "additionalProperties": false
+      },
+      "QualitySublevelAttributeRecommendationInformation": {
+        "required": [
+          "attribute",
+          "recommendationSuitability"
+        ],
+        "type": "object",
+        "properties": {
+          "attribute": {
+            "$ref": "#/components/schemas/QualitySublevel"
+          },
+          "recommendationSuitability": {
+            "$ref": "#/components/schemas/RecommendationSuitability"
           }
         },
         "additionalProperties": false

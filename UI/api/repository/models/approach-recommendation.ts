@@ -10,6 +10,8 @@ import { DomainArtifactInputApproachAttributeEvaluation } from './domain-artifac
 import { ExecutableInputApproachAttributeEvaluation } from './executable-input-approach-attribute-evaluation';
 import { ModelArtifactInputApproachAttributeEvaluation } from './model-artifact-input-approach-attribute-evaluation';
 import { QualityApproachAttributeEvaluation } from './quality-approach-attribute-evaluation';
+import { QualitySublevel } from './quality-sublevel';
+import { QualitySublevelApproachAttributeEvaluation } from './quality-sublevel-approach-attribute-evaluation';
 import { ResultsQualityApproachAttributeEvaluation } from './results-quality-approach-attribute-evaluation';
 import { RuntimeArtifactInputApproachAttributeEvaluation } from './runtime-artifact-input-approach-attribute-evaluation';
 import { ServiceTypeApproachAttributeEvaluation } from './service-type-approach-attribute-evaluation';
@@ -28,6 +30,7 @@ export interface ApproachRecommendation {
   identifier: string;
   modelArtifactInputEvaluations?: null | Array<ModelArtifactInputApproachAttributeEvaluation>;
   qualityEvaluations?: null | Array<QualityApproachAttributeEvaluation>;
+  qualitySublevelEvaluations?: null | Array<QualitySublevelApproachAttributeEvaluation>;
   refactoringApproachId: number;
   resultsQualityEvaluations?: null | Array<ResultsQualityApproachAttributeEvaluation>;
   runtimeArtifactInputEvaluations?: null | Array<RuntimeArtifactInputApproachAttributeEvaluation>;

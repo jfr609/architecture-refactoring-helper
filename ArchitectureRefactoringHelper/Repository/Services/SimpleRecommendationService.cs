@@ -56,6 +56,7 @@ public class SimpleRecommendationService : IRecommendationService
             ModelArtifactInputEvaluations = new List<ApproachAttributeEvaluation<ModelArtifactInput>>(),
             ExecutableInputEvaluations = new List<ApproachAttributeEvaluation<ExecutableInput>>(),
             QualityEvaluations = new List<ApproachAttributeEvaluation<Quality>>(),
+            QualitySublevelEvaluations = new List<ApproachAttributeEvaluation<QualitySublevel>>(),
             DirectionEvaluations = new List<ApproachAttributeEvaluation<Direction>>(),
             AutomationLevelEvaluations = new List<ApproachAttributeEvaluation<AutomationLevel>>(),
             AnalysisTypeEvaluations = new List<ApproachAttributeEvaluation<AnalysisType>>(),
@@ -137,6 +138,21 @@ public class SimpleRecommendationService : IRecommendationService
                 approachRecommendation.QualityEvaluations.Add(evaluation);
             }
         }
+
+        if (refactoringApproach.ApproachProcess.QualitySublevels != null)
+        {
+            foreach (var qualitySublevel in refactoringApproach.ApproachProcess.QualitySublevels)
+            {
+                var information = recommendationRequest.QualitySublevelInformation.FirstOrDefault(information =>
+                    information.Attribute.KeyEquals(qualitySublevel));
+
+                var evaluation = EvaluateAttribute(qualitySublevel, information, ref attributeCount, ref matchCount,
+                    ref neutralCount, ref mismatchCount);
+
+                approachRecommendation.QualitySublevelEvaluations.Add(evaluation);
+            }
+        }
+
 
         if (refactoringApproach.ApproachProcess.Directions != null)
         {

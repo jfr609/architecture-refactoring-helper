@@ -9,6 +9,7 @@ import { DomainArtifactInputAttributeRecommendationInformation } from './domain-
 import { ExecutableInputAttributeRecommendationInformation } from './executable-input-attribute-recommendation-information';
 import { ModelArtifactInputAttributeRecommendationInformation } from './model-artifact-input-attribute-recommendation-information';
 import { QualityAttributeRecommendationInformation } from './quality-attribute-recommendation-information';
+import { QualitySublevelAttributeRecommendationInformation } from './quality-sublevel-attribute-recommendation-information';
 import { ResultsQualityAttributeRecommendationInformation } from './results-quality-attribute-recommendation-information';
 import { RuntimeArtifactInputAttributeRecommendationInformation } from './runtime-artifact-input-attribute-recommendation-information';
 import { ServiceTypeAttributeRecommendationInformation } from './service-type-attribute-recommendation-information';
@@ -25,6 +26,7 @@ export interface ApproachRecommendationRequest {
   executableInformation: Array<ExecutableInputAttributeRecommendationInformation>;
   modelArtifactInformation: Array<ModelArtifactInputAttributeRecommendationInformation>;
   qualityInformation: Array<QualityAttributeRecommendationInformation>;
+  qualitySublevelInformation: Array<QualitySublevelAttributeRecommendationInformation>;
   resultsQualityInformation: Array<ResultsQualityAttributeRecommendationInformation>;
   runtimeArtifactInformation: Array<RuntimeArtifactInputAttributeRecommendationInformation>;
   serviceTypeInformation: Array<ServiceTypeAttributeRecommendationInformation>;

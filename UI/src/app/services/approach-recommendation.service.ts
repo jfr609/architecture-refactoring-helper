@@ -21,6 +21,7 @@ import { QualityCategory } from '../../../api/repository/models/quality-category
 import { AttributeOptionsService } from './attribute-options.service';
 import { ApproachRecommendationRequest } from '../../../api/repository/models/approach-recommendation-request';
 import { RecommendationPreset } from '../../../api/repository/models/recommendation-preset';
+import { QualitySublevelAttributeRecommendationInformation } from 'api/repository/models/quality-sublevel-attribute-recommendation-information';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,8 @@ export class ApproachRecommendationService {
   public qualityMetricInformation: QualityAttributeRecommendationInformation[] =
     [];
   public qualityRequirementInformation: QualityAttributeRecommendationInformation[] =
+    [];
+  public qualitySublevelInformation: QualitySublevelAttributeRecommendationInformation[]=
     [];
   public directionInformation: DirectionAttributeRecommendationInformation[] =
     [];
@@ -81,6 +84,7 @@ export class ApproachRecommendationService {
     this.executableInformation = [];
     this.qualityMetricInformation = [];
     this.qualityRequirementInformation = [];
+    this.qualitySublevelInformation = [];
     this.directionInformation = [];
     this.automationLevelInformation = [];
     this.analysisTypeInformation = [];
@@ -148,6 +152,13 @@ export class ApproachRecommendationService {
       ),
       recommendationSuitability
     );
+
+    this.setAttributeInformation(
+      this.qualitySublevelInformation,
+      this.attributeOptionsService.qualitySublevels.value,
+      recommendationSuitability
+    );
+
     this.setAttributeInformation(
       this.directionInformation,
       this.attributeOptionsService.directions.value,
@@ -210,6 +221,8 @@ export class ApproachRecommendationService {
       qualityInformation: this.qualityRequirementInformation.concat(
         this.qualityMetricInformation
       ),
+
+      qualitySublevelInformation: this.qualitySublevelInformation,
       directionInformation: this.directionInformation,
       automationLevelInformation: this.automationLevelInformation,
       analysisTypeInformation: this.analysisTypeInformation,

@@ -31,6 +31,8 @@ public class ApproachRecommendation
 
     [JsonPropertyName("qualityEvaluations")]
     public IList<ApproachAttributeEvaluation<Quality>> QualityEvaluations { get; set; }
+    [JsonPropertyName("qualitySublevelEvaluations")]
+    public IList<ApproachAttributeEvaluation<QualitySublevel>> QualitySublevelEvaluations { get; set; }
 
     [JsonPropertyName("directionEvaluations")]
     public IList<ApproachAttributeEvaluation<Direction>> DirectionEvaluations { get; set; }
@@ -65,4 +67,5 @@ public class ApproachRecommendation
     [Required]
     [JsonPropertyName("suitabilityScore")]
     public int SuitabilityScore { get; set; }
+
 }

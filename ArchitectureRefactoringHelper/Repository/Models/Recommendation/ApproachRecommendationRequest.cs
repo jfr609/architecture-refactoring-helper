@@ -13,6 +13,7 @@ public class ApproachRecommendationRequest
         ModelArtifactInformation = new List<AttributeRecommendationInformation<ModelArtifactInput>>();
         ExecutableInformation = new List<AttributeRecommendationInformation<ExecutableInput>>();
         QualityInformation = new List<AttributeRecommendationInformation<Quality>>();
+        QualitySublevelInformation = new List<AttributeRecommendationInformation<QualitySublevel>>();
         DirectionInformation = new List<AttributeRecommendationInformation<Direction>>();
         AutomationLevelInformation = new List<AttributeRecommendationInformation<AutomationLevel>>();
         AnalysisTypeInformation = new List<AttributeRecommendationInformation<AnalysisType>>();
@@ -44,6 +45,11 @@ public class ApproachRecommendationRequest
     [Required]
     [JsonPropertyName("qualityInformation")]
     public List<AttributeRecommendationInformation<Quality>> QualityInformation { get; set; }
+
+        [Required]
+    [JsonPropertyName("qualitySublevelInformation")]
+    public List<AttributeRecommendationInformation<QualitySublevel>> QualitySublevelInformation { get; set; }
+
 
     [Required]
     [JsonPropertyName("directionInformation")]
