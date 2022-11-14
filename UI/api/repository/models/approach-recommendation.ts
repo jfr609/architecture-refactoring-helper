@@ -10,7 +10,6 @@ import { DomainArtifactInputApproachAttributeEvaluation } from './domain-artifac
 import { ExecutableInputApproachAttributeEvaluation } from './executable-input-approach-attribute-evaluation';
 import { ModelArtifactInputApproachAttributeEvaluation } from './model-artifact-input-approach-attribute-evaluation';
 import { QualityApproachAttributeEvaluation } from './quality-approach-attribute-evaluation';
-import { QualitySublevel } from './quality-sublevel';
 import { QualitySublevelApproachAttributeEvaluation } from './quality-sublevel-approach-attribute-evaluation';
 import { ResultsQualityApproachAttributeEvaluation } from './results-quality-approach-attribute-evaluation';
 import { RuntimeArtifactInputApproachAttributeEvaluation } from './runtime-artifact-input-approach-attribute-evaluation';

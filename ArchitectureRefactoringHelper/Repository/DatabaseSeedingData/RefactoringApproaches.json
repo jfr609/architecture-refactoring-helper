@@ -38,7 +38,7 @@
       "qualities": [
         {
           "name": "Independence",
-          "category": "Requirement"
+          "category": "Attribute"
         }
       ],
       "qualitySublevels": [
@@ -129,11 +129,11 @@
       "qualities": [
         {
           "name": "Cohesion",
-          "category": "Metric"
+          "category": "SystemProperty"
         },
         {
           "name": "Coupling",
-          "category": "Metric"
+          "category": "SystemProperty"
         }
       ],
       "directions": [
@@ -247,15 +247,15 @@
       "qualities": [
         {
           "name": "Granularity",
-          "category": "Metric"
+          "category": "SystemProperty"
         },
         {
           "name": "Number of services",
-          "category": "Metric"
+          "category": "SystemProperty"
         },
         {
           "name": "Reuse",
-          "category": "Requirement"
+          "category": "Attribute"
         }
       ],
       "directions": [
@@ -341,15 +341,15 @@
       "qualities": [
         {
           "name": "Cohesion",
-          "category": "Metric"
+          "category": "SystemProperty"
         },
         {
           "name": "Coupling",
-          "category": "Metric"
+          "category": "SystemProperty"
         },
         {
           "name": "Granularity",
-          "category": "Metric"
+          "category": "SystemProperty"
         }
       ],
       "directions": [
@@ -522,15 +522,15 @@
       "qualities": [
         {
           "name": "Cohesion",
-          "category": "Metric"
+          "category": "SystemProperty"
         },
         {
           "name": "Coupling",
-          "category": "Metric"
+          "category": "SystemProperty"
         },
         {
           "name": "Granularity",
-          "category": "Metric"
+          "category": "SystemProperty"
         }
       ],
       "directions": [
@@ -617,15 +617,15 @@
       "qualities": [
         {
           "name": "Cohesion",
-          "category": "Metric"
+          "category": "SystemProperty"
         },
         {
           "name": "Coupling",
-          "category": "Metric"
+          "category": "SystemProperty"
         },
         {
           "name": "Granularity",
-          "category": "Metric"
+          "category": "SystemProperty"
         }
       ],
       "directions": [],
@@ -655,7 +655,7 @@
     "identifier": "8",
     "approachSource": {
       "approachSourceId": 8,
-      "title": "Multifaceted service identification: Process, requirement and data",
+      "title": "Multifaceted service identification: Process, Attribute and data",
       "year": 2016,
       "link": "http://www.doiserbia.nb.rs/Article.aspx?ID=1820-02141600011A",
       "authors": "Amiri, Mohammad; Parsa, Saeed; Lajevardi Mohammadzade, Amir"
@@ -685,11 +685,11 @@
       "qualities": [
         {
           "name": "Cohesion",
-          "category": "Metric"
+          "category": "SystemProperty"
         },
         {
           "name": "Reuse",
-          "category": "Requirement"
+          "category": "Attribute"
         }
       ],
       "directions": [
@@ -761,11 +761,11 @@
       "qualities": [
         {
           "name": "Cohesion",
-          "category": "Metric"
+          "category": "SystemProperty"
         },
         {
           "name": "Granularity",
-          "category": "Metric"
+          "category": "SystemProperty"
         }
       ],
       "directions": [
@@ -850,15 +850,15 @@
       "qualities": [
         {
           "name": "Cohesion",
-          "category": "Metric"
+          "category": "SystemProperty"
         },
         {
           "name": "Granularity",
-          "category": "Metric"
+          "category": "SystemProperty"
         },
         {
           "name": "Reuse",
-          "category": "Requirement"
+          "category": "Attribute"
         }
       ],
       "directions": [
@@ -927,19 +927,19 @@
       "qualities": [
         {
           "name": "Compatibility",
-          "category": "Requirement"
+          "category": "Attribute"
         },
         {
           "name": "Coupling",
-          "category": "Metric"
+          "category": "SystemProperty"
         },
         {
           "name": "Cohesion",
-          "category": "Metric"
+          "category": "SystemProperty"
         },
         {
           "name": "Granularity",
-          "category": "Metric"
+          "category": "SystemProperty"
         }
       ],
       "directions": [
@@ -1097,19 +1097,19 @@
       "qualities": [
         {
           "name": "Scalability",
-          "category": "Requirement"
+          "category": "Attribute"
         },
         {
           "name": "Performance",
-          "category": "Requirement"
+          "category": "Attribute"
         },
         {
           "name": "Coupling",
-          "category": "Metric"
+          "category": "SystemProperty"
         },
         {
           "name": "Cohesion",
-          "category": "Metric"
+          "category": "SystemProperty"
         }
       ],
       "qualitySublevels": [
@@ -1190,15 +1190,15 @@
       "qualities": [
         {
           "name": "Cohesion",
-          "category": "Metric"
+          "category": "SystemProperty"
         },
         {
           "name": "Coupling",
-          "category": "Metric"
+          "category": "SystemProperty"
         },
         {
           "name": "Granularity",
-          "category": "Metric"
+          "category": "SystemProperty"
         }
       ],
       "directions": [
@@ -1273,15 +1273,15 @@
       "qualities": [
         {
           "name": "Cohesion",
-          "category": "Metric"
+          "category": "SystemProperty"
         },
         {
           "name": "Coupling",
-          "category": "Metric"
+          "category": "SystemProperty"
         },
         {
           "name": "Granularity",
-          "category": "Metric"
+          "category": "SystemProperty"
         }
       ],
       "directions": [
@@ -1367,7 +1367,7 @@
       "qualities": [
         {
           "name": "Coupling",
-          "category": "Metric"
+          "category": "SystemProperty"
         }
       ],
       "directions": [
@@ -1453,11 +1453,11 @@
       "qualities": [
         {
           "name": "Cohesion",
-          "category": "Metric"
+          "category": "SystemProperty"
         },
         {
           "name": "Coupling",
-          "category": "Metric"
+          "category": "SystemProperty"
         }
       ],
       "directions": [
@@ -1535,11 +1535,11 @@
       "qualities": [
         {
           "name": "Coupling",
-          "category": "Metric"
+          "category": "SystemProperty"
         },
         {
           "name": "Granularity",
-          "category": "Metric"
+          "category": "SystemProperty"
         }
       ],
       "directions": [

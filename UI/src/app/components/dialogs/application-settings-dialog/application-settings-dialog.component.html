@@ -5,6 +5,17 @@
   <mat-slide-toggle class='margin-bottom' [(ngModel)]='this.permissionService.isAdmin'>
     Show admin functions
   </mat-slide-toggle>
+  
+  <button
+    mat-raised-button
+    color="accent"
+    class="margin-bottom"
+    *ngIf="permissionService.isAdmin"
+    routerLink="phase/2/approach"
+    (click)="onCancelClicked()"
+  >
+    <span> <strong>Add</strong> a new approach to database! </span>
+  </button>
   <button mat-raised-button color='accent' class='margin-bottom' (click)='exportApproaches()'>
     <mat-icon style='margin-right: 8px'>file_download</mat-icon>
     <span>Export approaches</span>

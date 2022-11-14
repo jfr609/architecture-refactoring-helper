@@ -59,7 +59,7 @@ export class QualityAttributesComponent implements OnInit {
       this.scenarioList = this.projectService.scenarios.value;
       this.updatingScenariosList = Object.assign([], this.scenarioList);
       this.qualityList = this.attributesService.getQualitiesByCategory(
-        this.QualityCategories.Requirement
+        this.QualityCategories.Attribute
       );
       this.isDataLoading = false;
     });

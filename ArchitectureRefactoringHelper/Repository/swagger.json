@@ -3849,8 +3849,8 @@
       },
       "QualityCategory": {
         "enum": [
-          "Requirement",
-          "Metric"
+          "Attribute",
+          "SystemProperty"
         ],
         "type": "string"
       },

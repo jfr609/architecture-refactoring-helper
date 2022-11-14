@@ -36,6 +36,6 @@ public class Quality
 
 public enum QualityCategory
 {
-    Requirement,
-    Metric
+    Attribute,
+    SystemProperty
 }

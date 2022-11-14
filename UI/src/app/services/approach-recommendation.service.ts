@@ -48,9 +48,9 @@ export class ApproachRecommendationService {
     [];
   public executableInformation: ExecutableInputAttributeRecommendationInformation[] =
     [];
-  public qualityMetricInformation: QualityAttributeRecommendationInformation[] =
+  public qualitySystemPropertyInformation: QualityAttributeRecommendationInformation[] =
     [];
-  public qualityRequirementInformation: QualityAttributeRecommendationInformation[] =
+  public qualityAttributeInformation: QualityAttributeRecommendationInformation[] =
     [];
   public qualitySublevelInformation: QualitySublevelAttributeRecommendationInformation[]=
     [];
@@ -82,8 +82,8 @@ export class ApproachRecommendationService {
     this.runtimeArtifactInformation = [];
     this.modelArtifactInformation = [];
     this.executableInformation = [];
-    this.qualityMetricInformation = [];
-    this.qualityRequirementInformation = [];
+    this.qualitySystemPropertyInformation = [];
+    this.qualityAttributeInformation = [];
     this.qualitySublevelInformation = [];
     this.directionInformation = [];
     this.automationLevelInformation = [];
@@ -139,16 +139,16 @@ export class ApproachRecommendationService {
       recommendationSuitability
     );
     this.setAttributeInformation(
-      this.qualityMetricInformation,
+      this.qualitySystemPropertyInformation,
       this.attributeOptionsService.getQualitiesByCategory(
-        QualityCategory.Metric
+        QualityCategory.SystemProperty
       ),
       recommendationSuitability
     );
     this.setAttributeInformation(
-      this.qualityRequirementInformation,
+      this.qualityAttributeInformation,
       this.attributeOptionsService.getQualitiesByCategory(
-        QualityCategory.Requirement
+        QualityCategory.Attribute
       ),
       recommendationSuitability
     );
@@ -218,8 +218,8 @@ export class ApproachRecommendationService {
       modelArtifactInformation: this.modelArtifactInformation,
       executableInformation: this.executableInformation,
 
-      qualityInformation: this.qualityRequirementInformation.concat(
-        this.qualityMetricInformation
+      qualityInformation: this.qualityAttributeInformation.concat(
+        this.qualitySystemPropertyInformation
       ),
 
       qualitySublevelInformation: this.qualitySublevelInformation,

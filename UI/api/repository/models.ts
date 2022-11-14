@@ -36,6 +36,8 @@ export { QualityApproachAttributeEvaluation } from './models/quality-approach-at
 export { QualityAttributeRecommendationInformation } from './models/quality-attribute-recommendation-information';
 export { QualityCategory } from './models/quality-category';
 export { QualitySublevel } from './models/quality-sublevel';
+export { QualitySublevelApproachAttributeEvaluation } from './models/quality-sublevel-approach-attribute-evaluation';
+export { QualitySublevelAttributeRecommendationInformation } from './models/quality-sublevel-attribute-recommendation-information';
 export { RatingLevel } from './models/rating-level';
 export { RecommendationPreset } from './models/recommendation-preset';
 export { RecommendationSuitability } from './models/recommendation-suitability';
