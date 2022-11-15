@@ -3119,8 +3119,11 @@
         "required": [
           "approachSource",
           "identifier",
+          "qualityScore",
           "refactoringApproachId",
-          "suitabilityScore"
+          "suitabilityScore",
+          "systemPropertiesScore",
+          "totalScore"
         ],
         "type": "object",
         "properties": {
@@ -3247,6 +3250,16 @@
             "nullable": true
           },
           "suitabilityScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "qualityScore": {
+            "$ref": "#/components/schemas/QualityScore"
+          },
+          "systemPropertiesScore": {
+            "$ref": "#/components/schemas/SystemPropertiesScore"
+          },
+          "totalScore": {
             "type": "integer",
             "format": "int32"
           }
@@ -3854,6 +3867,24 @@
         ],
         "type": "string"
       },
+      "QualityScore": {
+        "type": "object",
+        "properties": {
+          "selectedAttributes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalAttributes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tendency": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "QualitySublevel": {
         "required": [
           "name"
@@ -4184,6 +4215,24 @@
           },
           "recommendationSuitability": {
             "$ref": "#/components/schemas/RecommendationSuitability"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SystemPropertiesScore": {
+        "type": "object",
+        "properties": {
+          "selectedAttributes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalAttributes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tendency": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

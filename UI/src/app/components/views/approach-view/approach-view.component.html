@@ -152,7 +152,7 @@
         </div>
         <div fxFlex fxLayout='column'>
           <div *ngFor='let qualitySub of refactoringApproach.approachProcess.qualitySublevels'>
-            <p><strong>{{qualitySub.name}} ({{qualitySub.qualityName}})</strong></p>
+            <p [class]='getQualitySubColor(qualitySub)'><strong>{{qualitySub.name}} ({{qualitySub.qualityName}})</strong></p>
             <p *ngIf='qualitySub.description'>
               {{qualitySub.description}}
             </p>

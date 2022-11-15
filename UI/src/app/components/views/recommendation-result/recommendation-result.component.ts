@@ -70,6 +70,22 @@ export class RecommendationResultComponent implements OnInit {
         `${recommendation.approachSource.authors}`
     },
     {
+      columnDef: 'qualityScore',
+      header: 'Quality Score',
+      isSortColumn: false,
+      isActionColumn: false,
+      cell: (recommendation: ApproachRecommendation) =>
+        `${recommendation.qualityScore.selectedAttributes} / ${recommendation.qualityScore.totalAttributes}`
+    },
+    {
+      columnDef: 'systemPropertiesScore',
+      header: 'System Property Score',
+      isSortColumn: false,
+      isActionColumn: false,
+      cell: (recommendation: ApproachRecommendation) =>
+      `${recommendation.systemPropertiesScore.selectedAttributes} / ${recommendation.systemPropertiesScore.totalAttributes}`
+    },
+    {
       columnDef: 'actions',
       header: 'Actions',
       isSortColumn: false,

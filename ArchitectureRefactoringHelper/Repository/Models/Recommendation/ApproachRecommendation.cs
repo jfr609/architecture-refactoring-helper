@@ -68,4 +68,16 @@ public class ApproachRecommendation
     [JsonPropertyName("suitabilityScore")]
     public int SuitabilityScore { get; set; }
 
+    [Required]
+    [JsonPropertyName("qualityScore")]
+    public QualityScore? QualityScore { get; set; }
+
+    [Required]
+    [JsonPropertyName("systemPropertiesScore")]
+    public SystemPropertiesScore? SystemPropertiesScore { get; set; }
+
+    [Required]
+    [JsonPropertyName("totalScore")]
+    public int TotalScore { get; set; }
+
 }
