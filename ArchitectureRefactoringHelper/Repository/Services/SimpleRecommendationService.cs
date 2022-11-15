@@ -47,9 +47,9 @@ public class SimpleRecommendationService : IRecommendationService
         var neutralCount = 0;
         var mismatchCount = 0;
         var qualityAttributeCount = 0;
-        var qualityAttributeTotalCount = recommendationRequest.QualityInformation.Where(q => q.Attribute.Category == QualityCategory.Attribute).ToList().Count + recommendationRequest.QualitySublevelInformation.Count;
+        var qualityAttributeTotalCount = recommendationRequest.QualityInformation.Where(q => q.Attribute.Category == QualityCategory.Attribute && q.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count +recommendationRequest.QualitySublevelInformation.Where(q => q.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count;
         var systemPropertyCount = 0;
-        var systemPropertyTotalCount = recommendationRequest.QualityInformation.Where(q => q.Attribute.Category == QualityCategory.SystemProperty).ToList().Count;
+        var systemPropertyTotalCount = recommendationRequest.QualityInformation.Where(q => q.Attribute.Category == QualityCategory.SystemProperty && q.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count;
 
         var approachRecommendation = new ApproachRecommendation
         {
@@ -150,7 +150,6 @@ public class SimpleRecommendationService : IRecommendationService
         {
             foreach (var qualitySublevel in refactoringApproach.ApproachProcess.QualitySublevels)
             {
-                qualityAttributeTotalCount++;
                 var information = recommendationRequest.QualitySublevelInformation.FirstOrDefault(information =>
                     information.Attribute.KeyEquals(qualitySublevel));
 
@@ -286,7 +285,7 @@ public class SimpleRecommendationService : IRecommendationService
             CaluclateSystemPropertiesScore(ref systemPropertyCount,
         ref systemPropertyTotalCount);
 
-        approachRecommendation.TotalScore = 100;
+        approachRecommendation.TotalScore = CalculateTotalScore(approachRecommendation);
 
         return approachRecommendation;
     }
@@ -377,7 +376,7 @@ public class SimpleRecommendationService : IRecommendationService
         return new QualityScore{
             SelectedAttributes = qualityAttributeCount,
             TotalAttributes = qualityAttributeTotalCount,
-            Tendency = 0
+            Tendency = (qualityAttributeCount > 0) ? (int)Math.Round((double)qualityAttributeCount / (double)qualityAttributeTotalCount ) : 0
         };
     }
 
@@ -385,11 +384,19 @@ public class SimpleRecommendationService : IRecommendationService
          return new SystemPropertiesScore{
             SelectedAttributes = systemPropertyCount,
             TotalAttributes = systemPropertyTotalCount,
-            Tendency = 0
+            Tendency = (systemPropertyCount > 0) ? (int)Math.Round((double)systemPropertyCount / (double)systemPropertyTotalCount ) : 0
         };
     }
 
-    private static int CaluclateTotalScore(){
-         return 100;
+    private static int CalculateTotalScore(ApproachRecommendation approachRecommendation)
+    {
+        var totalScore = 0;
+        if(approachRecommendation.QualityScore != null && approachRecommendation.SystemPropertiesScore != null){
+        totalScore = (int)Math.Round(((double)approachRecommendation.QualityScore.SelectedAttributes + (double)approachRecommendation.SystemPropertiesScore.SelectedAttributes)/
+        ((double)approachRecommendation.QualityScore.TotalAttributes + (double)approachRecommendation.SystemPropertiesScore.TotalAttributes) * 100);
+        
+        }
+    
+        return totalScore;
     }
 }

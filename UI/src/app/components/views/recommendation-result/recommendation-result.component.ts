@@ -38,7 +38,7 @@ export class RecommendationResultComponent implements OnInit {
     {
       columnDef: 'suitability',
       header: 'Suitability',
-      isSortColumn: false,
+      isSortColumn: true,
       isActionColumn: false,
       cell: (recommendation: ApproachRecommendation) =>
         this.recommendationsService.getSuitabilityDisplayString(
@@ -83,7 +83,17 @@ export class RecommendationResultComponent implements OnInit {
       isSortColumn: false,
       isActionColumn: false,
       cell: (recommendation: ApproachRecommendation) =>
-      `${recommendation.systemPropertiesScore.selectedAttributes} / ${recommendation.systemPropertiesScore.totalAttributes}`
+        `${recommendation.systemPropertiesScore.selectedAttributes} / ${recommendation.systemPropertiesScore.totalAttributes}`
+    },
+    {
+      columnDef: 'totalScore',
+      header: 'Total Score',
+      isSortColumn: false,
+      isActionColumn: false,
+      cell: (recommendation: ApproachRecommendation) =>
+        this.recommendationsService.getQualityAndPropertiesTotalScoreDisplay(
+          recommendation.totalScore
+        )
     },
     {
       columnDef: 'actions',

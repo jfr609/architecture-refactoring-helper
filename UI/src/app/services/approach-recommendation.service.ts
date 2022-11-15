@@ -52,7 +52,7 @@ export class ApproachRecommendationService {
     [];
   public qualityAttributeInformation: QualityAttributeRecommendationInformation[] =
     [];
-  public qualitySublevelInformation: QualitySublevelAttributeRecommendationInformation[]=
+  public qualitySublevelInformation: QualitySublevelAttributeRecommendationInformation[] =
     [];
   public directionInformation: DirectionAttributeRecommendationInformation[] =
     [];
@@ -243,5 +243,12 @@ export class ApproachRecommendationService {
       return 'Not enough information';
     }
     return `${suitabilityScore}%`;
+  }
+
+  getQualityAndPropertiesTotalScoreDisplay(totalScore: number) {
+    if (totalScore < 0) {
+      return 'Not enough information';
+    }
+    return `${totalScore}%`;
   }
 }

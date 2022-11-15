@@ -46,10 +46,9 @@ public class ApproachRecommendationRequest
     [JsonPropertyName("qualityInformation")]
     public List<AttributeRecommendationInformation<Quality>> QualityInformation { get; set; }
 
-        [Required]
+    [Required]
     [JsonPropertyName("qualitySublevelInformation")]
     public List<AttributeRecommendationInformation<QualitySublevel>> QualitySublevelInformation { get; set; }
-
 
     [Required]
     [JsonPropertyName("directionInformation")]
