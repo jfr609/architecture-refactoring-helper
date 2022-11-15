@@ -211,7 +211,7 @@ export class ApproachViewComponent implements OnInit, OnDestroy {
   getQualitySubColor(attribute: QualitySublevel): string {
     if (this.selectedRecommendation == null) return '';
 
-    const evaluation = this.selectedRecommendation.qualitySubEvaluations?.find(
+    const evaluation = this.selectedRecommendation.qualitySublevelEvaluations?.find(
       (value) => value.approachAttribute.name === attribute.name
     );
 
