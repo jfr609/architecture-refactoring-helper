@@ -9,8 +9,10 @@ import { RefactoringApproachService } from '../../../../../api/repository/servic
 import { ApproachRecommendation } from '../../../../../api/repository/models/approach-recommendation';
 import { ApproachRecommendationService } from '../../../services/approach-recommendation.service';
 import { Router } from '@angular/router';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, Subscription } from 'rxjs';
 import { TOOLTIP_HIDE_DELAY, TOOLTIP_SHOW_DELAY } from '../../../app.constants';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-recommendation-configurator',
@@ -22,8 +24,12 @@ export class RecommendationConfiguratorComponent implements OnInit {
   readonly TOOLTIP_HIDE_DELAY = TOOLTIP_HIDE_DELAY;
   readonly QualityCategories = QualityCategory;
 
+  scenarioBased : boolean = false;
+
   isDataLoading = true;
   recommendationSuitabilityOptions: RecommendationSuitability[] = [];
+
+  sub! : Subscription;
 
   get noDescriptionText(): string {
     return 'No description';
@@ -34,10 +40,15 @@ export class RecommendationConfiguratorComponent implements OnInit {
     public attributeOptionsService: AttributeOptionsService,
     public recommendationService: ApproachRecommendationService,
     private utilService: UtilService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+     this.sub = this.route.params.subscribe(params => {
+        this.scenarioBased = params['mode'] == 'scenarioBased';
+      });
+      
     this.isDataLoading = true;
     this.attributeOptionsService.requestAttributeOptions().then(() => {
       this.recommendationService.setRecommendationInformationSuitability(
@@ -50,6 +61,10 @@ export class RecommendationConfiguratorComponent implements OnInit {
     this.recommendationSuitabilityOptions = Object.values(
       RecommendationSuitability
     ).filter((value: string) => isNaN(Number(value)));
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
   getRadioButtonColor(

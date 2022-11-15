@@ -171,7 +171,7 @@
     If these presets are too unspecific, you can click on "Configure". This brings up a UI mask that allows you to
     specifically filter the available approaches according to your needs.
   </p>
-  <app-card-button routerLink='configure'
+  <app-card-button [routerLink]="['configure', 'manual']"
                    icon='settings'
                    [showContent]='false'>
     <ng-container title>Configure</ng-container>
