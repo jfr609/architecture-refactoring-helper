@@ -40,6 +40,7 @@ export class RecommendationResultComponent implements OnInit {
       header: 'Suitability',
       isSortColumn: true,
       isActionColumn: false,
+      isScoreColumn: false,
       cell: (recommendation: ApproachRecommendation) =>
         this.recommendationsService.getSuitabilityDisplayString(
           recommendation.suitabilityScore
@@ -50,6 +51,7 @@ export class RecommendationResultComponent implements OnInit {
       header: 'ID',
       isSortColumn: false,
       isActionColumn: false,
+      isScoreColumn: false,
       cell: (recommendation: ApproachRecommendation) =>
         `${recommendation.identifier}`
     },
@@ -58,6 +60,7 @@ export class RecommendationResultComponent implements OnInit {
       header: 'Title',
       isSortColumn: false,
       isActionColumn: false,
+      isScoreColumn: false,
       cell: (recommendation: ApproachRecommendation) =>
         `${recommendation.approachSource.title}`
     },
@@ -66,30 +69,34 @@ export class RecommendationResultComponent implements OnInit {
       header: 'Authors',
       isSortColumn: false,
       isActionColumn: false,
+      isScoreColumn: false,
       cell: (recommendation: ApproachRecommendation) =>
         `${recommendation.approachSource.authors}`
     },
     {
       columnDef: 'qualityScore',
-      header: 'Quality Score',
+      header: 'Qualities',
       isSortColumn: false,
       isActionColumn: false,
+      isScoreColumn: false,
       cell: (recommendation: ApproachRecommendation) =>
         `${recommendation.qualityScore.selectedAttributes} / ${recommendation.qualityScore.totalAttributes}`
     },
     {
       columnDef: 'systemPropertiesScore',
-      header: 'System Property Score',
+      header: 'System Properties',
       isSortColumn: false,
       isActionColumn: false,
+      isScoreColumn: false,
       cell: (recommendation: ApproachRecommendation) =>
         `${recommendation.systemPropertiesScore.selectedAttributes} / ${recommendation.systemPropertiesScore.totalAttributes}`
     },
     {
       columnDef: 'totalScore',
-      header: 'Total Score',
+      header: 'Tendency',
       isSortColumn: false,
       isActionColumn: false,
+      isScoreColumn: true,
       cell: (recommendation: ApproachRecommendation) =>
         this.recommendationsService.getQualityAndPropertiesTotalScoreDisplay(
           recommendation.totalScore
@@ -100,6 +107,7 @@ export class RecommendationResultComponent implements OnInit {
       header: 'Actions',
       isSortColumn: false,
       isActionColumn: true,
+      isScoreColumn: false,
       cell: () => ''
     },
     {
@@ -107,6 +115,7 @@ export class RecommendationResultComponent implements OnInit {
       header: '',
       isSortColumn: false,
       isActionColumn: true,
+      isScoreColumn: false,
       cell: () => ''
     }
   ];
@@ -115,9 +124,11 @@ export class RecommendationResultComponent implements OnInit {
     (c: ColumnData) => c.isSortColumn && !c.isActionColumn
   );
   nonSortColumns = this.columnData.filter(
-    (c: ColumnData) => !c.isSortColumn && !c.isActionColumn
+    (c: ColumnData) => !c.isSortColumn && !c.isActionColumn && !c.isScoreColumn
   );
   actionColumns = this.columnData.filter((c: ColumnData) => c.isActionColumn);
+
+  scoreColumns = this.columnData.filter((c: ColumnData) => c.isScoreColumn);
 
   recommendations: ApproachRecommendation[] = [];
   dataSource!: MatTableDataSource<ApproachRecommendation>;
@@ -126,7 +137,7 @@ export class RecommendationResultComponent implements OnInit {
   showAllActive = false;
 
   constructor(
-    private recommendationsService: ApproachRecommendationService,
+    public recommendationsService: ApproachRecommendationService,
     private router: Router
   ) {}
 
@@ -215,6 +226,27 @@ export class RecommendationResultComponent implements OnInit {
     }
   }
 
+  getScoreIconStyle(score: number,
+    columnDef: string
+  ): string {
+    if (columnDef !== 'totalScore') {
+      return '';
+    }
+    if (score < 15) {
+      return 'score-very-low';
+    } else if (score < 30) {
+      return 'score-low';
+    } else if (score < 50) {
+      return 'score-medium';
+    } else if (score < 75){
+      return 'score-high';
+    } else if (score <= 100){
+      return 'score-very-high';
+    } else {
+      return '';
+    }
+  }
+
   setExpandedRecommendation(recommendation: ApproachRecommendation) {
     if (recommendation === this.expandedRecommendation) {
       this.expandedRecommendation = undefined;
@@ -229,5 +261,6 @@ export interface ColumnData {
   header: string;
   isSortColumn: boolean;
   isActionColumn: boolean;
+  isScoreColumn: boolean;
   cell: (recommendation: ApproachRecommendation) => string;
 }

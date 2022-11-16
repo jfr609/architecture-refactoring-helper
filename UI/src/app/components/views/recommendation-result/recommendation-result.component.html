@@ -41,6 +41,17 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of scoreColumns'>
+      <th mat-header-cell *matHeaderCellDef>
+        <span class='approach-header'>
+          {{ columnData.header }}
+        </span>
+      </th>
+      <td mat-cell class='approach-cell' *matCellDef='let recommendation'>
+          <mat-icon [class]='getScoreIconStyle(recommendation.totalScore, columnData.columnDef)'>arrow_circle_up</mat-icon>
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of actionColumns'>
       <th mat-header-cell *matHeaderCellDef>
         <span class='approach-header'>

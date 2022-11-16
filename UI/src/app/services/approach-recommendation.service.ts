@@ -248,7 +248,22 @@ export class ApproachRecommendationService {
   getQualityAndPropertiesTotalScoreDisplay(totalScore: number) {
     if (totalScore < 0) {
       return 'Not enough information';
+    }else if(totalScore < 20){
+      return "<mat-icon>arrow_circle_up</mat-icon>"
+
+    }else if(totalScore < 40){
+      return "<mat-icon>arrow_circle_up</mat-icon>"
+      
+    }else if(totalScore < 60){
+      return "<mat-icon>arrow_circle_up</mat-icon>"
+      
+    }else if(totalScore < 80){
+       return "<mat-icon>arrow_circle_up</mat-icon>"
+
+    }else if(totalScore < 100){
+      return "<mat-icon>arrow_circle_up</mat-icon>"
+
     }
-    return `${totalScore}%`;
+    return "<mat-icon>arrow_circle_up</mat-icon>";
   }
 }
