@@ -98,9 +98,7 @@ export class RecommendationResultComponent implements OnInit {
       isActionColumn: false,
       isScoreColumn: true,
       cell: (recommendation: ApproachRecommendation) =>
-        this.recommendationsService.getQualityAndPropertiesTotalScoreDisplay(
-          recommendation.totalScore
-        )
+      `${recommendation.totalScore}`
     },
     {
       columnDef: 'actions',

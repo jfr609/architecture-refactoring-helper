@@ -3,7 +3,7 @@
 </div>
 <div *ngIf='!this.isDataLoading' fxLayout='column' fxLayoutAlign='start center'>
   <h1 fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='12px'>
-    <button mat-mini-fab color='warn' routerLink='/phase/2/recommendation'>
+    <button mat-mini-fab color='warn' [routerLink]="!scenarioBased ? ['/phase/2/recommendation'] : ['/phase/2']">
       <mat-icon>arrow_back</mat-icon>
     </button>
     <span>Configure a filter for available refactoring approaches</span>
@@ -21,7 +21,7 @@
   </p>
 
   <mat-stepper style='width: 100%'>
-    <mat-step *ngIf="!scenarioBased">
+    <mat-step>
       <ng-template matStepLabel>Select quality preferences</ng-template>
       <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px'>
         <button mat-flat-button matStepperNext color='accent'>
@@ -35,7 +35,7 @@
       </div>
 
       <div fxLayout='row'>
-        <div fxFlex='25' fxLayout='column'>
+        <div fxFlex='25' fxLayout='column' *ngIf="!scenarioBased">
           <h2>Quality attributes</h2>
           <div
             *ngFor='let quality of attributeOptionsService.getQualitiesByCategory(QualityCategories.Attribute), let i = index'
@@ -60,7 +60,7 @@
           </div>
         </div>
 
-        <div fxFlex='25' fxLayout='column'>
+        <div fxFlex='25' fxLayout='column' *ngIf="!scenarioBased">
           <h2>Quality Subattributes</h2>
           <div
             *ngFor='let qualitySublevel of attributeOptionsService.qualitySublevels.value, let i = index'

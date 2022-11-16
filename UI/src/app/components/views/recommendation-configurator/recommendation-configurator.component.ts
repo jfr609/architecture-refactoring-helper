@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { TOOLTIP_HIDE_DELAY, TOOLTIP_SHOW_DELAY } from '../../../app.constants';
 import { ActivatedRoute } from '@angular/router';
+import { ScenarioService } from 'api/repository/services';
+import { ProjectService } from 'src/app/services/project.service';
 
 
 @Component({
@@ -24,12 +26,12 @@ export class RecommendationConfiguratorComponent implements OnInit {
   readonly TOOLTIP_HIDE_DELAY = TOOLTIP_HIDE_DELAY;
   readonly QualityCategories = QualityCategory;
 
-  scenarioBased : boolean = false;
+  scenarioBased: boolean = false;
 
   isDataLoading = true;
   recommendationSuitabilityOptions: RecommendationSuitability[] = [];
 
-  sub! : Subscription;
+  sub!: Subscription;
 
   get noDescriptionText(): string {
     return 'No description';
@@ -41,19 +43,27 @@ export class RecommendationConfiguratorComponent implements OnInit {
     public recommendationService: ApproachRecommendationService,
     private utilService: UtilService,
     private router: Router,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private scenarioService: ScenarioService,
+    private projectService: ProjectService
+  ) { }
 
   ngOnInit(): void {
-     this.sub = this.route.params.subscribe(params => {
-        this.scenarioBased = params['mode'] == 'scenarioBased';
-      });
-      
     this.isDataLoading = true;
-    this.attributeOptionsService.requestAttributeOptions().then(() => {
+
+    Promise.all([
+      this.attributeOptionsService.requestAttributeOptions(),
+      this.sub = this.route.params.subscribe(params => {
+        this.scenarioBased = params['mode'] == 'scenarioBased';
+      }),
+    this.projectService.requestProjectAttributes(),
+    ]).then(() => {
       this.recommendationService.setRecommendationInformationSuitability(
         RecommendationSuitability.Neutral
       );
+      if (this.scenarioBased) {
+        this.setQualitiesFromScenarios();
+      }
 
       this.isDataLoading = false;
     });
@@ -61,6 +71,7 @@ export class RecommendationConfiguratorComponent implements OnInit {
     this.recommendationSuitabilityOptions = Object.values(
       RecommendationSuitability
     ).filter((value: string) => isNaN(Number(value)));
+
   }
 
   ngOnDestroy(): void {
@@ -81,6 +92,7 @@ export class RecommendationConfiguratorComponent implements OnInit {
   }
 
   onSearchRecommendation(): void {
+    console.log(this.recommendationService.qualityAttributeInformation);
     const approachRecommendationRequest: ApproachRecommendationRequest =
       this.recommendationService.createRecommendationRequest();
 
@@ -100,5 +112,25 @@ export class RecommendationConfiguratorComponent implements OnInit {
           'Error! Receiving recommended refactoring approaches failed.'
         );
       });
+  }
+
+  setQualitiesFromScenarios(): void {
+    this.projectService.scenarios.value.forEach((s) => {
+      s.qualities?.forEach(q => {
+        const quality = this.recommendationService.qualityAttributeInformation.find(qai => qai.attribute.name == q.name);
+        if(quality){
+        quality.recommendationSuitability = RecommendationSuitability.Include;
+        }
+      });
+    });
+
+    this.projectService.scenarios.value.forEach((s) => {
+      s.qualitySublevels?.forEach(q => {
+        const qualitySub = this.recommendationService.qualitySublevelInformation.find(qai => qai.attribute.name == q.name);
+        if(qualitySub){
+        qualitySub.recommendationSuitability = RecommendationSuitability.Include;
+        }
+      });
+    });
   }
 }
