@@ -44,8 +44,7 @@ export class RecommendationConfiguratorComponent implements OnInit {
     private utilService: UtilService,
     private router: Router,
     private route: ActivatedRoute,
-    private scenarioService: ScenarioService,
-    private projectService: ProjectService
+    public projectService: ProjectService
   ) { }
 
   ngOnInit(): void {
@@ -104,7 +103,7 @@ export class RecommendationConfiguratorComponent implements OnInit {
       .then((value: ApproachRecommendation[]) => {
         this.recommendationService.recommendations = value;
         this.recommendationService.selectedPreset = undefined;
-        this.router.navigate(['phase/2/recommendation/result']);
+        this.router.navigate(['phase/2/recommendation/result', this.scenarioBased]);
       })
       .catch((reason) => {
         console.log(reason);

@@ -43,4 +43,5 @@ export interface ApproachRecommendation {
   toolSupportEvaluations?: null | Array<ToolSupportApproachAttributeEvaluation>;
   totalScore: number;
   validationMethodEvaluations?: null | Array<ValidationMethodApproachAttributeEvaluation>;
+  weightedScore: number;
 }

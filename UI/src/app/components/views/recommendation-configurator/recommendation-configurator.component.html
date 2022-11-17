@@ -33,77 +33,81 @@
           <span>Search</span>
         </button>
       </div>
-
       <div fxLayout='row'>
-        <div fxFlex='25' fxLayout='column' *ngIf="!scenarioBased">
-          <h2>Quality attributes</h2>
-          <div
-            *ngFor='let quality of attributeOptionsService.getQualitiesByCategory(QualityCategories.Attribute), let i = index'
-            class='attribute-option-container'>
-          <span fxLayoutAlign='start center'>
-            {{quality.name}}
-            <mat-icon class='help-icon'
-                      [matTooltip]='quality.description ? quality.description : noDescriptionText'
-                      [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
-                      [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
-          </span>
-            <mat-radio-group
-              fxLayout='row'
-              fxLayoutGap='8px'
-              [(ngModel)]='recommendationService.qualityAttributeInformation[i].recommendationSuitability'>
-              <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
-                                [value]='recommendationSuitability'
-                                [color]='getRadioButtonColor(recommendationSuitability)'>
-                {{recommendationSuitability}}
-              </mat-radio-button>
-            </mat-radio-group>
+        <ng-container *ngIf="!scenarioBased;else scenarioQualities">
+          <div fxFlex='25' fxLayout='column'>
+            <h2>Quality attributes</h2>
+            <div
+              *ngFor='let quality of attributeOptionsService.getQualitiesByCategory(QualityCategories.Attribute), let i = index'
+              class='attribute-option-container'>
+              <span fxLayoutAlign='start center'>
+                {{quality.name}}
+                <mat-icon class='help-icon' [matTooltip]='quality.description ? quality.description : noDescriptionText'
+                  [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY' [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
+              </span>
+              <mat-radio-group fxLayout='row' fxLayoutGap='8px'
+                [(ngModel)]='recommendationService.qualityAttributeInformation[i].recommendationSuitability'>
+                <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
+                  [value]='recommendationSuitability' [color]='getRadioButtonColor(recommendationSuitability)'>
+                  {{recommendationSuitability}}
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
           </div>
-        </div>
 
-        <div fxFlex='25' fxLayout='column' *ngIf="!scenarioBased">
-          <h2>Quality Subattributes</h2>
-          <div
-            *ngFor='let qualitySublevel of attributeOptionsService.qualitySublevels.value, let i = index'
-            class='attribute-option-container'>
-          <span fxLayoutAlign='start center'>
-            {{qualitySublevel.name}} ({{qualitySublevel.qualityName}})
-            <mat-icon class='help-icon'
-                      [matTooltip]='qualitySublevel.description ? qualitySublevel.description : noDescriptionText'
-                      [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
-                      [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
-          </span>
-          <mat-radio-group
-          fxLayout='row'
-          fxLayoutGap='8px'
-          [(ngModel)]='recommendationService.qualitySublevelInformation[i].recommendationSuitability'>
-          <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
-                            [value]='recommendationSuitability'
-                            [color]='getRadioButtonColor(recommendationSuitability)'>
-            {{recommendationSuitability}}
-          </mat-radio-button>
-        </mat-radio-group>
+          <div fxFlex='25' fxLayout='column'>
+            <h2>Quality Subattributes</h2>
+            <div *ngFor='let qualitySublevel of attributeOptionsService.qualitySublevels.value, let i = index'
+              class='attribute-option-container'>
+              <span fxLayoutAlign='start center'>
+                {{qualitySublevel.name}} ({{qualitySublevel.qualityName}})
+                <mat-icon class='help-icon'
+                  [matTooltip]='qualitySublevel.description ? qualitySublevel.description : noDescriptionText'
+                  [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY' [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
+              </span>
+              <mat-radio-group fxLayout='row' fxLayoutGap='8px'
+                [(ngModel)]='recommendationService.qualitySublevelInformation[i].recommendationSuitability'>
+                <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
+                  [value]='recommendationSuitability' [color]='getRadioButtonColor(recommendationSuitability)'>
+                  {{recommendationSuitability}}
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
           </div>
-        </div>
+        </ng-container>
+        <ng-template #scenarioQualities>
+          <div fxFlex='25' fxLayout='column'>
+            <h2> Qualities from Scenarios</h2>
+            <ng-container *ngFor="let scenario of projectService.scenarios.value" class='attribute-option-container'>
+              <ng-container *ngFor="let quality of scenario.qualities">
+                <dl>
+                  <dt>
+                    <strong>{{quality.name}}</strong> ({{scenario.importance}})</dt>
+                  <ng-container *ngFor="let qualitySub of quality.qualitySublevels">
+                    <dd>
+                      <strong>{{qualitySub.name}}</strong> ({{scenario.importance}})</dd>
+                  </ng-container>
+                </dl>
+              </ng-container>
+
+            </ng-container>
+          </div>
+        </ng-template>
 
         <div fxFlex='25' fxLayout='column'>
           <h2>System Properties</h2>
           <div
             *ngFor='let quality of attributeOptionsService.getQualitiesByCategory(QualityCategories.SystemProperty), let i = index'
             class='attribute-option-container'>
-          <span fxLayoutAlign='start center'>
-            {{quality.name}}
-            <mat-icon class='help-icon'
-                      [matTooltip]='quality.description ? quality.description : noDescriptionText'
-                      [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
-                      [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
-          </span>
-            <mat-radio-group
-              fxLayout='row'
-              fxLayoutGap='8px'
+            <span fxLayoutAlign='start center'>
+              {{quality.name}}
+              <mat-icon class='help-icon' [matTooltip]='quality.description ? quality.description : noDescriptionText'
+                [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY' [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
+            </span>
+            <mat-radio-group fxLayout='row' fxLayoutGap='8px'
               [(ngModel)]='recommendationService.qualitySystemPropertyInformation[i].recommendationSuitability'>
               <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
-                                [value]='recommendationSuitability'
-                                [color]='getRadioButtonColor(recommendationSuitability)'>
+                [value]='recommendationSuitability' [color]='getRadioButtonColor(recommendationSuitability)'>
                 {{recommendationSuitability}}
               </mat-radio-button>
             </mat-radio-group>
@@ -111,11 +115,11 @@
         </div>
       </div>
     </mat-step>
-    
+
     <mat-step>
       <ng-template matStepLabel>Select input preferences</ng-template>
       <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px'>
-        <button *ngIf="!scenarioBased" mat-flat-button matStepperPrevious color='accent'>
+        <button *ngIf="scenarioBased" mat-flat-button matStepperPrevious color='accent'>
           <mat-icon>arrow_back</mat-icon>
           <span>Back</span>
         </button>
@@ -133,21 +137,17 @@
         <div fxFlex='25' fxLayout='column'>
           <h2>Domain artifacts</h2>
           <div *ngFor='let domainArtifact of attributeOptionsService.domainArtifacts.value, let i = index'
-               class='attribute-option-container'>
-          <span fxLayoutAlign='start center'>
-            {{domainArtifact.name}}
-            <mat-icon class='help-icon'
-                      [matTooltip]='domainArtifact.description ? domainArtifact.description : noDescriptionText'
-                      [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
-                      [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
-          </span>
-            <mat-radio-group
-              fxLayout='row'
-              fxLayoutGap='8px'
+            class='attribute-option-container'>
+            <span fxLayoutAlign='start center'>
+              {{domainArtifact.name}}
+              <mat-icon class='help-icon'
+                [matTooltip]='domainArtifact.description ? domainArtifact.description : noDescriptionText'
+                [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY' [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
+            </span>
+            <mat-radio-group fxLayout='row' fxLayoutGap='8px'
               [(ngModel)]='recommendationService.domainArtifactInformation[i].recommendationSuitability'>
               <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
-                                [value]='recommendationSuitability'
-                                [color]='getRadioButtonColor(recommendationSuitability)'>
+                [value]='recommendationSuitability' [color]='getRadioButtonColor(recommendationSuitability)'>
                 {{recommendationSuitability}}
               </mat-radio-button>
             </mat-radio-group>
@@ -157,21 +157,17 @@
         <div fxFlex='25' fxLayout='column'>
           <h2>Runtime artifacts</h2>
           <div *ngFor='let runtimeArtifact of attributeOptionsService.runtimeArtifacts.value, let i = index'
-               class='attribute-option-container'>
-          <span fxLayoutAlign='start center'>
-            {{runtimeArtifact.name}}
-            <mat-icon class='help-icon'
-                      [matTooltip]='runtimeArtifact.description ? runtimeArtifact.description : noDescriptionText'
-                      [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
-                      [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
-          </span>
-            <mat-radio-group
-              fxLayout='row'
-              fxLayoutGap='8px'
+            class='attribute-option-container'>
+            <span fxLayoutAlign='start center'>
+              {{runtimeArtifact.name}}
+              <mat-icon class='help-icon'
+                [matTooltip]='runtimeArtifact.description ? runtimeArtifact.description : noDescriptionText'
+                [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY' [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
+            </span>
+            <mat-radio-group fxLayout='row' fxLayoutGap='8px'
               [(ngModel)]='recommendationService.runtimeArtifactInformation[i].recommendationSuitability'>
               <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
-                                [value]='recommendationSuitability'
-                                [color]='getRadioButtonColor(recommendationSuitability)'>
+                [value]='recommendationSuitability' [color]='getRadioButtonColor(recommendationSuitability)'>
                 {{recommendationSuitability}}
               </mat-radio-button>
             </mat-radio-group>
@@ -181,21 +177,17 @@
         <div fxFlex='25' fxLayout='column'>
           <h2>Model artifacts</h2>
           <div *ngFor='let modelArtifact of attributeOptionsService.modelArtifacts.value, let i = index'
-               class='attribute-option-container'>
-          <span fxLayoutAlign='start center'>
-            {{modelArtifact.name}}
-            <mat-icon class='help-icon'
-                      [matTooltip]='modelArtifact.description ? modelArtifact.description : noDescriptionText'
-                      [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
-                      [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
-          </span>
-            <mat-radio-group
-              fxLayout='row'
-              fxLayoutGap='8px'
+            class='attribute-option-container'>
+            <span fxLayoutAlign='start center'>
+              {{modelArtifact.name}}
+              <mat-icon class='help-icon'
+                [matTooltip]='modelArtifact.description ? modelArtifact.description : noDescriptionText'
+                [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY' [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
+            </span>
+            <mat-radio-group fxLayout='row' fxLayoutGap='8px'
               [(ngModel)]='recommendationService.modelArtifactInformation[i].recommendationSuitability'>
               <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
-                                [value]='recommendationSuitability'
-                                [color]='getRadioButtonColor(recommendationSuitability)'>
+                [value]='recommendationSuitability' [color]='getRadioButtonColor(recommendationSuitability)'>
                 {{recommendationSuitability}}
               </mat-radio-button>
             </mat-radio-group>
@@ -205,21 +197,17 @@
         <div fxFlex='25' fxLayout='column'>
           <h2>Executables</h2>
           <div *ngFor='let executable of attributeOptionsService.executables.value, let i = index'
-               class='attribute-option-container'>
-          <span fxLayoutAlign='start center'>
-            {{executable.name}} ({{executable.language}})
-            <mat-icon class='help-icon'
-                      [matTooltip]='executable.description ? executable.description : noDescriptionText'
-                      [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
-                      [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
-          </span>
-            <mat-radio-group
-              fxLayout='row'
-              fxLayoutGap='8px'
+            class='attribute-option-container'>
+            <span fxLayoutAlign='start center'>
+              {{executable.name}} ({{executable.language}})
+              <mat-icon class='help-icon'
+                [matTooltip]='executable.description ? executable.description : noDescriptionText'
+                [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY' [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
+            </span>
+            <mat-radio-group fxLayout='row' fxLayoutGap='8px'
               [(ngModel)]='recommendationService.executableInformation[i].recommendationSuitability'>
               <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
-                                [value]='recommendationSuitability'
-                                [color]='getRadioButtonColor(recommendationSuitability)'>
+                [value]='recommendationSuitability' [color]='getRadioButtonColor(recommendationSuitability)'>
                 {{recommendationSuitability}}
               </mat-radio-button>
             </mat-radio-group>
@@ -249,21 +237,17 @@
         <div fxFlex='25' fxLayout='column'>
           <h2>Directions</h2>
           <div *ngFor='let direction of attributeOptionsService.directions.value, let i = index'
-               class='attribute-option-container'>
-          <span fxLayoutAlign='start center'>
-            {{direction.name}}
-            <mat-icon class='help-icon'
-                      [matTooltip]='direction.description ? direction.description : noDescriptionText'
-                      [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
-                      [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
-          </span>
-            <mat-radio-group
-              fxLayout='row'
-              fxLayoutGap='8px'
+            class='attribute-option-container'>
+            <span fxLayoutAlign='start center'>
+              {{direction.name}}
+              <mat-icon class='help-icon'
+                [matTooltip]='direction.description ? direction.description : noDescriptionText'
+                [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY' [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
+            </span>
+            <mat-radio-group fxLayout='row' fxLayoutGap='8px'
               [(ngModel)]='recommendationService.directionInformation[i].recommendationSuitability'>
               <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
-                                [value]='recommendationSuitability'
-                                [color]='getRadioButtonColor(recommendationSuitability)'>
+                [value]='recommendationSuitability' [color]='getRadioButtonColor(recommendationSuitability)'>
                 {{recommendationSuitability}}
               </mat-radio-button>
             </mat-radio-group>
@@ -273,21 +257,17 @@
         <div fxFlex='25' fxLayout='column'>
           <h2>Levels of automation</h2>
           <div *ngFor='let automationLevel of attributeOptionsService.automationLevels.value, let i = index'
-               class='attribute-option-container'>
-          <span fxLayoutAlign='start center'>
-            {{automationLevel.name}}
-            <mat-icon class='help-icon'
-                      [matTooltip]='automationLevel.description ? automationLevel.description : noDescriptionText'
-                      [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
-                      [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
-          </span>
-            <mat-radio-group
-              fxLayout='row'
-              fxLayoutGap='8px'
+            class='attribute-option-container'>
+            <span fxLayoutAlign='start center'>
+              {{automationLevel.name}}
+              <mat-icon class='help-icon'
+                [matTooltip]='automationLevel.description ? automationLevel.description : noDescriptionText'
+                [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY' [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
+            </span>
+            <mat-radio-group fxLayout='row' fxLayoutGap='8px'
               [(ngModel)]='recommendationService.automationLevelInformation[i].recommendationSuitability'>
               <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
-                                [value]='recommendationSuitability'
-                                [color]='getRadioButtonColor(recommendationSuitability)'>
+                [value]='recommendationSuitability' [color]='getRadioButtonColor(recommendationSuitability)'>
                 {{recommendationSuitability}}
               </mat-radio-button>
             </mat-radio-group>
@@ -297,21 +277,17 @@
         <div fxFlex='25' fxLayout='column'>
           <h2>Analysis types</h2>
           <div *ngFor='let analysisType of attributeOptionsService.analysisTypes.value, let i = index'
-               class='attribute-option-container'>
-          <span fxLayoutAlign='start center'>
-            {{analysisType.name}}
-            <mat-icon class='help-icon'
-                      [matTooltip]='analysisType.description ? analysisType.description : noDescriptionText'
-                      [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
-                      [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
-          </span>
-            <mat-radio-group
-              fxLayout='row'
-              fxLayoutGap='8px'
+            class='attribute-option-container'>
+            <span fxLayoutAlign='start center'>
+              {{analysisType.name}}
+              <mat-icon class='help-icon'
+                [matTooltip]='analysisType.description ? analysisType.description : noDescriptionText'
+                [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY' [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
+            </span>
+            <mat-radio-group fxLayout='row' fxLayoutGap='8px'
               [(ngModel)]='recommendationService.analysisTypeInformation[i].recommendationSuitability'>
               <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
-                                [value]='recommendationSuitability'
-                                [color]='getRadioButtonColor(recommendationSuitability)'>
+                [value]='recommendationSuitability' [color]='getRadioButtonColor(recommendationSuitability)'>
                 {{recommendationSuitability}}
               </mat-radio-button>
             </mat-radio-group>
@@ -321,21 +297,17 @@
         <div fxFlex='25' fxLayout='column'>
           <h2>Techniques</h2>
           <div *ngFor='let technique of attributeOptionsService.techniques.value, let i = index'
-               class='attribute-option-container'>
-          <span fxLayoutAlign='start center'>
-            {{technique.name}}
-            <mat-icon class='help-icon'
-                      [matTooltip]='technique.description ? technique.description : noDescriptionText'
-                      [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
-                      [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
-          </span>
-            <mat-radio-group
-              fxLayout='row'
-              fxLayoutGap='8px'
+            class='attribute-option-container'>
+            <span fxLayoutAlign='start center'>
+              {{technique.name}}
+              <mat-icon class='help-icon'
+                [matTooltip]='technique.description ? technique.description : noDescriptionText'
+                [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY' [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
+            </span>
+            <mat-radio-group fxLayout='row' fxLayoutGap='8px'
               [(ngModel)]='recommendationService.techniqueInformation[i].recommendationSuitability'>
               <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
-                                [value]='recommendationSuitability'
-                                [color]='getRadioButtonColor(recommendationSuitability)'>
+                [value]='recommendationSuitability' [color]='getRadioButtonColor(recommendationSuitability)'>
                 {{recommendationSuitability}}
               </mat-radio-button>
             </mat-radio-group>
@@ -365,21 +337,17 @@
         <div fxFlex='25' fxLayout='column'>
           <h2>Architectures</h2>
           <div *ngFor='let architecture of attributeOptionsService.architectures.value, let i = index'
-               class='attribute-option-container'>
-          <span fxLayoutAlign='start center'>
-            {{architecture.name}}
-            <mat-icon class='help-icon'
-                      [matTooltip]='architecture.description ? architecture.description : noDescriptionText'
-                      [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
-                      [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
-          </span>
-            <mat-radio-group
-              fxLayout='row'
-              fxLayoutGap='8px'
+            class='attribute-option-container'>
+            <span fxLayoutAlign='start center'>
+              {{architecture.name}}
+              <mat-icon class='help-icon'
+                [matTooltip]='architecture.description ? architecture.description : noDescriptionText'
+                [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY' [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
+            </span>
+            <mat-radio-group fxLayout='row' fxLayoutGap='8px'
               [(ngModel)]='recommendationService.architectureInformation[i].recommendationSuitability'>
               <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
-                                [value]='recommendationSuitability'
-                                [color]='getRadioButtonColor(recommendationSuitability)'>
+                [value]='recommendationSuitability' [color]='getRadioButtonColor(recommendationSuitability)'>
                 {{recommendationSuitability}}
               </mat-radio-button>
             </mat-radio-group>
@@ -389,21 +357,17 @@
         <div fxFlex='25' fxLayout='column'>
           <h2>Service types</h2>
           <div *ngFor='let serviceType of attributeOptionsService.serviceTypes.value, let i = index'
-               class='attribute-option-container'>
-          <span fxLayoutAlign='start center'>
-            {{serviceType.name}}
-            <mat-icon class='help-icon'
-                      [matTooltip]='serviceType.description ? serviceType.description : noDescriptionText'
-                      [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
-                      [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
-          </span>
-            <mat-radio-group
-              fxLayout='row'
-              fxLayoutGap='8px'
+            class='attribute-option-container'>
+            <span fxLayoutAlign='start center'>
+              {{serviceType.name}}
+              <mat-icon class='help-icon'
+                [matTooltip]='serviceType.description ? serviceType.description : noDescriptionText'
+                [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY' [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
+            </span>
+            <mat-radio-group fxLayout='row' fxLayoutGap='8px'
               [(ngModel)]='recommendationService.serviceTypeInformation[i].recommendationSuitability'>
               <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
-                                [value]='recommendationSuitability'
-                                [color]='getRadioButtonColor(recommendationSuitability)'>
+                [value]='recommendationSuitability' [color]='getRadioButtonColor(recommendationSuitability)'>
                 {{recommendationSuitability}}
               </mat-radio-button>
             </mat-radio-group>
@@ -429,21 +393,17 @@
         <div fxFlex='25' fxLayout='column'>
           <h2>Validation methods</h2>
           <div *ngFor='let validationMethod of attributeOptionsService.validationMethods.value, let i = index'
-               class='attribute-option-container'>
-          <span fxLayoutAlign='start center'>
-            {{validationMethod.name}}
-            <mat-icon class='help-icon'
-                      [matTooltip]='validationMethod.description ? validationMethod.description : noDescriptionText'
-                      [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
-                      [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
-          </span>
-            <mat-radio-group
-              fxLayout='row'
-              fxLayoutGap='8px'
+            class='attribute-option-container'>
+            <span fxLayoutAlign='start center'>
+              {{validationMethod.name}}
+              <mat-icon class='help-icon'
+                [matTooltip]='validationMethod.description ? validationMethod.description : noDescriptionText'
+                [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY' [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
+            </span>
+            <mat-radio-group fxLayout='row' fxLayoutGap='8px'
               [(ngModel)]='recommendationService.validationMethodInformation[i].recommendationSuitability'>
               <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
-                                [value]='recommendationSuitability'
-                                [color]='getRadioButtonColor(recommendationSuitability)'>
+                [value]='recommendationSuitability' [color]='getRadioButtonColor(recommendationSuitability)'>
                 {{recommendationSuitability}}
               </mat-radio-button>
             </mat-radio-group>
@@ -453,21 +413,17 @@
         <div fxFlex='25' fxLayout='column'>
           <h2>Tool supports</h2>
           <div *ngFor='let toolSupport of attributeOptionsService.toolSupports.value, let i = index'
-               class='attribute-option-container'>
-          <span fxLayoutAlign='start center'>
-            {{toolSupport.name}}
-            <mat-icon class='help-icon'
-                      [matTooltip]='toolSupport.description ? toolSupport.description : noDescriptionText'
-                      [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
-                      [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
-          </span>
-            <mat-radio-group
-              fxLayout='row'
-              fxLayoutGap='8px'
+            class='attribute-option-container'>
+            <span fxLayoutAlign='start center'>
+              {{toolSupport.name}}
+              <mat-icon class='help-icon'
+                [matTooltip]='toolSupport.description ? toolSupport.description : noDescriptionText'
+                [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY' [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
+            </span>
+            <mat-radio-group fxLayout='row' fxLayoutGap='8px'
               [(ngModel)]='recommendationService.toolSupportInformation[i].recommendationSuitability'>
               <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
-                                [value]='recommendationSuitability'
-                                [color]='getRadioButtonColor(recommendationSuitability)'>
+                [value]='recommendationSuitability' [color]='getRadioButtonColor(recommendationSuitability)'>
                 {{recommendationSuitability}}
               </mat-radio-button>
             </mat-radio-group>
@@ -477,21 +433,17 @@
         <div fxFlex='25' fxLayout='column'>
           <h2>Quality of results</h2>
           <div *ngFor='let resultsQuality of attributeOptionsService.resultsQualities.value, let i = index'
-               class='attribute-option-container'>
-          <span fxLayoutAlign='start center'>
-            {{resultsQuality.name}}
-            <mat-icon class='help-icon'
-                      [matTooltip]='resultsQuality.description ? resultsQuality.description : noDescriptionText'
-                      [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
-                      [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
-          </span>
-            <mat-radio-group
-              fxLayout='row'
-              fxLayoutGap='8px'
+            class='attribute-option-container'>
+            <span fxLayoutAlign='start center'>
+              {{resultsQuality.name}}
+              <mat-icon class='help-icon'
+                [matTooltip]='resultsQuality.description ? resultsQuality.description : noDescriptionText'
+                [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY' [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
+            </span>
+            <mat-radio-group fxLayout='row' fxLayoutGap='8px'
               [(ngModel)]='recommendationService.resultsQualityInformation[i].recommendationSuitability'>
               <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
-                                [value]='recommendationSuitability'
-                                [color]='getRadioButtonColor(recommendationSuitability)'>
+                [value]='recommendationSuitability' [color]='getRadioButtonColor(recommendationSuitability)'>
                 {{recommendationSuitability}}
               </mat-radio-button>
             </mat-radio-group>
@@ -501,21 +453,17 @@
         <div fxFlex='25' fxLayout='column'>
           <h2>Accuracy/Precision of service identification approaches</h2>
           <div *ngFor='let accuracyPrecision of attributeOptionsService.accuracyPrecisions.value, let i = index'
-               class='attribute-option-container'>
-          <span fxLayoutAlign='start center'>
-            {{accuracyPrecision.name}}
-            <mat-icon class='help-icon'
-                      [matTooltip]='accuracyPrecision.description ? accuracyPrecision.description : noDescriptionText'
-                      [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY'
-                      [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
-          </span>
-            <mat-radio-group
-              fxLayout='row'
-              fxLayoutGap='8px'
+            class='attribute-option-container'>
+            <span fxLayoutAlign='start center'>
+              {{accuracyPrecision.name}}
+              <mat-icon class='help-icon'
+                [matTooltip]='accuracyPrecision.description ? accuracyPrecision.description : noDescriptionText'
+                [matTooltipShowDelay]='TOOLTIP_SHOW_DELAY' [matTooltipHideDelay]='TOOLTIP_HIDE_DELAY'>help</mat-icon>
+            </span>
+            <mat-radio-group fxLayout='row' fxLayoutGap='8px'
               [(ngModel)]='recommendationService.accuracyPrecisionInformation[i].recommendationSuitability'>
               <mat-radio-button *ngFor='let recommendationSuitability of recommendationSuitabilityOptions'
-                                [value]='recommendationSuitability'
-                                [color]='getRadioButtonColor(recommendationSuitability)'>
+                [value]='recommendationSuitability' [color]='getRadioButtonColor(recommendationSuitability)'>
                 {{recommendationSuitability}}
               </mat-radio-button>
             </mat-radio-group>
@@ -525,4 +473,3 @@
     </mat-step>
   </mat-stepper>
 </div>
-

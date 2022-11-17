@@ -80,4 +80,8 @@ public class ApproachRecommendation
     [JsonPropertyName("totalScore")]
     public int TotalScore { get; set; }
 
+    [Required]
+    [JsonPropertyName("weightedScore")]
+    public int WeightedScore { get; set; }
+
 }

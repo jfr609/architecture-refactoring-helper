@@ -11,8 +11,9 @@ import {
   trigger
 } from '@angular/animations';
 import { AttributeEvaluation } from '../../../../../api/repository/models/attribute-evaluation';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RecommendationPreset } from '../../../../../api/repository/models/recommendation-preset';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-recommendation-result',
@@ -133,15 +134,24 @@ export class RecommendationResultComponent implements OnInit {
   expandedRecommendation: ApproachRecommendation | undefined | null;
 
   showAllActive = false;
+  
+  sub!: Subscription;
+
+  scenarioBased = false;
 
   constructor(
     public recommendationsService: ApproachRecommendationService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.loadRecommendations(10);
-    this.setDataSource();
+    Promise.all([this.sub = this.route.params.subscribe(params => {
+        this.scenarioBased = params['mode'] == 'scenarioBased';
+      })]).then(() => {
+        this.loadRecommendations(10);
+        this.setDataSource();
+      });
   }
 
   loadRecommendations(numberOfRecommendations: number): void {

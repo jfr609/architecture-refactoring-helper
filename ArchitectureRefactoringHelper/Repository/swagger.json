@@ -3123,7 +3123,8 @@
           "refactoringApproachId",
           "suitabilityScore",
           "systemPropertiesScore",
-          "totalScore"
+          "totalScore",
+          "weightedScore"
         ],
         "type": "object",
         "properties": {
@@ -3260,6 +3261,10 @@
             "$ref": "#/components/schemas/SystemPropertiesScore"
           },
           "totalScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "weightedScore": {
             "type": "integer",
             "format": "int32"
           }

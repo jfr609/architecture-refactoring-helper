@@ -55,7 +55,7 @@ const routes: Routes = [
     component: RecommendationConfiguratorComponent
   },
   {
-    path: 'phase/2/recommendation/result',
+    path: 'phase/2/recommendation/result/:mode',
     component: RecommendationResultComponent
   },
   {
