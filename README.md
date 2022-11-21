@@ -113,7 +113,7 @@ For more info see: https://github.com/cyclosproject/ng-openapi-gen
 
 - Open console of choice
 - Navigate to "{RepositoryFolder}/UI"
-- Run "npm run ng-openapi-gen"
+- Run "npm run openapi-gen"
 
 #### Re-generating the swagger.json file for the API
 
