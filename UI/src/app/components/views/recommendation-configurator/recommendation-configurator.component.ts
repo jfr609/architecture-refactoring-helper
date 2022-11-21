@@ -103,7 +103,14 @@ export class RecommendationConfiguratorComponent implements OnInit {
       .then((value: ApproachRecommendation[]) => {
         this.recommendationService.recommendations = value;
         this.recommendationService.selectedPreset = undefined;
-        this.router.navigate(['phase/2/recommendation/result', this.scenarioBased]);
+        if(this.scenarioBased){
+          this.router.navigate(['phase/2/recommendation/result', 'scenarioBased']);
+        }else{
+                  this.router.navigate([
+                    'phase/2/recommendation/result',
+                    'manual'
+                  ]);
+        }
       })
       .catch((reason) => {
         console.log(reason);
