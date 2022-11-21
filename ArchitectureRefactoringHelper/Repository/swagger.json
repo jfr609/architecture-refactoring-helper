@@ -3119,10 +3119,12 @@
         "required": [
           "approachSource",
           "identifier",
+          "matchesCount",
           "qualityScore",
           "refactoringApproachId",
           "suitabilityScore",
           "systemPropertiesScore",
+          "totalIncludeCount",
           "totalScore",
           "weightedScore"
         ],
@@ -3251,6 +3253,14 @@
             "nullable": true
           },
           "suitabilityScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "matchesCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalIncludeCount": {
             "type": "integer",
             "format": "int32"
           },

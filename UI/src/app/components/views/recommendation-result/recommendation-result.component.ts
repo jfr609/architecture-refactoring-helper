@@ -37,15 +37,13 @@ export class RecommendationResultComponent implements OnInit {
   readonly AttributeEvaluation = AttributeEvaluation;
   columnData: ColumnData[] = [
     {
-      columnDef: 'suitability',
-      header: 'Suitability',
+      columnDef: 'matches',
+      header: 'Matches',
       isSortColumn: true,
       isActionColumn: false,
       isScoreColumn: false,
       cell: (recommendation: ApproachRecommendation) =>
-        this.recommendationsService.getSuitabilityDisplayString(
-          recommendation.suitabilityScore
-        )
+        `${recommendation.matchesCount} / ${recommendation.totalIncludeCount}`
     },
     {
       columnDef: 'id',
@@ -76,7 +74,7 @@ export class RecommendationResultComponent implements OnInit {
     },
     {
       columnDef: 'qualityScore',
-      header: 'Qualities',
+      header: 'Quality Matches',
       isSortColumn: false,
       isActionColumn: false,
       isScoreColumn: false,
@@ -85,7 +83,7 @@ export class RecommendationResultComponent implements OnInit {
     },
     {
       columnDef: 'systemPropertiesScore',
-      header: 'System Properties',
+      header: 'System Property Matches',
       isSortColumn: false,
       isActionColumn: false,
       isScoreColumn: false,
@@ -94,7 +92,7 @@ export class RecommendationResultComponent implements OnInit {
     },
     {
       columnDef: 'totalScore',
-      header: 'Tendency',
+      header: 'Quality Tendency',
       isSortColumn: false,
       isActionColumn: false,
       isScoreColumn: true,
@@ -168,6 +166,7 @@ export class RecommendationResultComponent implements OnInit {
       );
     }
     this.refreshDataSource();
+    this.setDataSource();
   }
 
   setDataSource(): void {
@@ -177,12 +176,18 @@ export class RecommendationResultComponent implements OnInit {
       sortHeaderId: string
     ) => {
       switch (sortHeaderId) {
-        case 'suitability':
-          return data.suitabilityScore;
+        case 'matches':
+          return data.matchesCount;
         case 'id':
           return data.identifier;
         case 'title':
           return data.approachSource.title;
+        case 'authors':
+          return data.approachSource.authors;
+        case 'qualityScore':
+          return data.qualityScore.selectedAttributes;
+        case 'systemPropertiesScore':
+          return data.systemPropertiesScore.selectedAttributes;
         default:
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
@@ -221,7 +226,7 @@ export class RecommendationResultComponent implements OnInit {
     recommendation: ApproachRecommendation,
     columnDef: string
   ): string {
-    if (columnDef !== 'suitability') {
+    if (columnDef !== 'matches') {
       return '';
     }
 

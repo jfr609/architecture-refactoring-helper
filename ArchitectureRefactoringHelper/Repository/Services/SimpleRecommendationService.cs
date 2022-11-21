@@ -53,6 +53,7 @@ public class SimpleRecommendationService : IRecommendationService
         var systemPropertyCount = 0;
         var systemPropertyTotalCount = recommendationRequest.QualityInformation.Where(q => q.Attribute.Category == QualityCategory.SystemProperty && q.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count;
         var weightedQualityCount = 0;
+        var totalIncludeCount = calculateTotalIncludeCount(recommendationRequest);
 
         var approachRecommendation = new ApproachRecommendation
         {
@@ -280,6 +281,9 @@ public class SimpleRecommendationService : IRecommendationService
 
         approachRecommendation.SuitabilityScore =
             CalculateSuitabilityScore(attributeCount, matchCount, neutralCount, mismatchCount);
+        
+        approachRecommendation.TotalIncludeCount = totalIncludeCount;
+        approachRecommendation.MatchesCount = matchCount;
 
         approachRecommendation.QualityScore =
             CalculateQualityScore(ref qualityAttributeCount,
@@ -291,7 +295,7 @@ public class SimpleRecommendationService : IRecommendationService
 
         approachRecommendation.WeightedScore = CalculateTotalWeightedScore(approachRecommendation, recommendationRequest, ref weightedQualityCount);
 
-        approachRecommendation.TotalScore = CalculateTotalScore(approachRecommendation);
+        approachRecommendation.TotalScore = CalculateTotalQualityScore(approachRecommendation);
 
         return approachRecommendation;
     }
@@ -405,7 +409,7 @@ public class SimpleRecommendationService : IRecommendationService
         };
     }
 
-    private int CalculateTotalScore(ApproachRecommendation approachRecommendation)
+    private int CalculateTotalQualityScore(ApproachRecommendation approachRecommendation)
     {
         var totalScore = 0;
         if (approachRecommendation.QualityScore != null && approachRecommendation.SystemPropertiesScore != null)
@@ -447,5 +451,28 @@ public class SimpleRecommendationService : IRecommendationService
                 100);
         }
         return totalWeightedScore;
+    }
+
+    private int calculateTotalIncludeCount(ApproachRecommendationRequest recommendationRequest){
+        var count = 0;
+        count = recommendationRequest.DomainArtifactInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+        + recommendationRequest.RuntimeArtifactInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.ModelArtifactInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.ExecutableInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.QualityInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.QualitySublevelInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.DirectionInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.AutomationLevelInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.AnalysisTypeInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.TechniqueInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.ArchitectureInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.ServiceTypeInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.ResultsQualityInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.ToolSupportInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.AccuracyPrecisionInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.ValidationMethodInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count;
+
+        return count;
+
     }
 }

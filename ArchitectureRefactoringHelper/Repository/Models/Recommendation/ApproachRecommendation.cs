@@ -69,6 +69,14 @@ public class ApproachRecommendation
     public int SuitabilityScore { get; set; }
 
     [Required]
+    [JsonPropertyName("matchesCount")]
+    public int MatchesCount { get; set; }
+
+    [Required]
+    [JsonPropertyName("totalIncludeCount")]
+    public int TotalIncludeCount { get; set; }
+
+    [Required]
     [JsonPropertyName("qualityScore")]
     public QualityScore? QualityScore { get; set; }
 

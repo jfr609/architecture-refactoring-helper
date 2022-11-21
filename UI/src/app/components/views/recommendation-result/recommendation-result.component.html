@@ -16,7 +16,7 @@
     <span>The below presented result list does represent a work-in-progress state and may be inaccurate.</span>
   </p>
 
-  <table mat-table [dataSource]='dataSource' multiTemplateDataRows matSort class='mat-elevation-z8'>
+  <table mat-table [dataSource]='dataSource' multiTemplateDataRows matSort matSortActive="matches" matSortDirection="desc" class='mat-elevation-z8'>
     <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of sortColumns'>
       <th mat-header-cell *matHeaderCellDef mat-sort-header='{{ columnData.columnDef }}'>
         <span class='approach-header'>
@@ -30,7 +30,7 @@
     </ng-container>
 
     <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of nonSortColumns'>
-      <th mat-header-cell *matHeaderCellDef>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header='{{ columnData.columnDef }}'>
         <span class='approach-header'>
           {{ columnData.header }}
         </span>
@@ -42,7 +42,7 @@
     </ng-container>
 
     <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of scoreColumns'>
-      <th mat-header-cell *matHeaderCellDef>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header='{{ columnData.columnDef }}'>
         <span class='approach-header'>
           {{ columnData.header }}
         </span>

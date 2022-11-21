@@ -29,6 +29,7 @@ export interface ApproachRecommendation {
   domainArtifactInputEvaluations?: null | Array<DomainArtifactInputApproachAttributeEvaluation>;
   executableInputEvaluations?: null | Array<ExecutableInputApproachAttributeEvaluation>;
   identifier: string;
+  matchesCount: number;
   modelArtifactInputEvaluations?: null | Array<ModelArtifactInputApproachAttributeEvaluation>;
   qualityEvaluations?: null | Array<QualityApproachAttributeEvaluation>;
   qualityScore: QualityScore;
@@ -41,6 +42,7 @@ export interface ApproachRecommendation {
   systemPropertiesScore: SystemPropertiesScore;
   techniqueEvaluations?: null | Array<TechniqueApproachAttributeEvaluation>;
   toolSupportEvaluations?: null | Array<ToolSupportApproachAttributeEvaluation>;
+  totalIncludeCount: number;
   totalScore: number;
   validationMethodEvaluations?: null | Array<ValidationMethodApproachAttributeEvaluation>;
   weightedScore: number;
