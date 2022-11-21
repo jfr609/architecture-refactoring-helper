@@ -4,6 +4,7 @@ import { UtilService } from '../../../services/util.service';
 import { ApplicationSettingsDialogComponent } from '../../dialogs/application-settings-dialog/application-settings-dialog.component';
 import { DialogData } from '../../../utils/models/dialog-data';
 import { PermissionService } from '../../../services/permission.service';
+import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
   selector: 'app-architecture-refactoring-helper',
@@ -15,8 +16,10 @@ export class ArchitectureRefactoringHelperComponent {
 
   constructor(
     private permissionService: PermissionService,
-    private utilService: UtilService
+    private utilService: UtilService,
+    public projectService: ProjectService
   ) {}
+  
 
   openSettingsDialog() {
     const data: DialogData = {

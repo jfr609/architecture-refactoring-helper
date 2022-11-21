@@ -11,6 +11,29 @@
     </button>
   </div>
 </mat-toolbar>
-<div class='main-container'>
-  <router-outlet></router-outlet>
-</div>
+<mat-drawer-container class="side-bar">
+  <mat-drawer #sideNav mode="side" opened="true" position="end">
+      <div fxFlex='25' fxLayout='column'>
+        <h2> Qualities from Scenarios</h2>
+        <ng-container *ngFor="let scenario of projectService.scenarios.value" class='attribute-option-container'>
+          <ng-container *ngFor="let quality of scenario.qualities">
+            <dl>
+              <dt>
+                <strong>{{quality.name}}</strong> ({{scenario.importance}})</dt>
+              <ng-container *ngFor="let qualitySub of quality.qualitySublevels">
+                <dd>
+                  <strong>{{qualitySub.name}}</strong> ({{scenario.importance}})</dd>
+              </ng-container>
+            </dl>
+          </ng-container>
+
+        </ng-container>
+      </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class='main-container'>
+      <router-outlet></router-outlet>
+    </div>
+    <button (click)="sideNav.toggle()" mat-button>Toggle SideNav</button>
+  </mat-drawer-content>
+</mat-drawer-container>

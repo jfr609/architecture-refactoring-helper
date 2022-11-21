@@ -28,6 +28,9 @@
           <span>Next</span>
           <mat-icon>arrow_forward</mat-icon>
         </button>
+        <button *ngIf="scenarioBased" mat-flat-button color='accent' [routerLink]="['/phase/1']">
+          <span>Edit Scenarios</span>
+        </button>
         <button mat-flat-button color='primary' (click)='onSearchRecommendation()'>
           <mat-icon>search</mat-icon>
           <span>Search</span>
