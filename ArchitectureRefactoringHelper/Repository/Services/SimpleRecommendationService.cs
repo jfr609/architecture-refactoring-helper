@@ -144,6 +144,18 @@ public class SimpleRecommendationService : IRecommendationService
                 var evaluation = EvaluateAttribute(quality, information, ref attributeCount, ref matchCount,
                     ref neutralCount, ref mismatchCount);
 
+                //Add all selected subqualities as match if quality is matched from approach
+                if (evaluation.AttributeEvaluation == AttributeEvaluation.Match)
+                {
+                    if (information != null && information.Attribute.QualitySublevels != null)
+                    {
+                        foreach (var subq in information.Attribute.QualitySublevels)
+                        {
+                            refactoringApproach.ApproachProcess.QualitySublevels?.Add(subq);
+                        }
+                    }
+                }
+
                 approachRecommendation.QualityEvaluations.Add(evaluation);
 
                 CountQualityMatches(quality.Category, information, ref qualityAttributeCount, ref systemPropertyCount, ref weightedQualityCount, quality.Name);
@@ -281,7 +293,7 @@ public class SimpleRecommendationService : IRecommendationService
 
         approachRecommendation.SuitabilityScore =
             CalculateSuitabilityScore(attributeCount, matchCount, neutralCount, mismatchCount);
-        
+
         approachRecommendation.TotalIncludeCount = totalIncludeCount;
         approachRecommendation.MatchesCount = matchCount;
 
@@ -447,13 +459,14 @@ public class SimpleRecommendationService : IRecommendationService
             totalWeightedScore = (int)Math.Round(
                 ((double)weightedQualityCount +
                 (double)approachRecommendation.SystemPropertiesScore.SelectedAttributes) /
-                ((double)totalWeight + (double)approachRecommendation.SystemPropertiesScore.TotalAttributes) * 
+                ((double)totalWeight + (double)approachRecommendation.SystemPropertiesScore.TotalAttributes) *
                 100);
         }
         return totalWeightedScore;
     }
 
-    private int calculateTotalIncludeCount(ApproachRecommendationRequest recommendationRequest){
+    private int calculateTotalIncludeCount(ApproachRecommendationRequest recommendationRequest)
+    {
         var count = 0;
         count = recommendationRequest.DomainArtifactInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
         + recommendationRequest.RuntimeArtifactInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
