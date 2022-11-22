@@ -1,5 +1,25 @@
-.side-bar {
-    margin: 10px;
-    background-color: white;
-  }
-  
+mat-drawer {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 20%;
+  border-left: 5px;
+  border-color: black;
+  padding-top: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.drawer-container {
+  background-color: white;
+}
+
+.drawer {
+  margin-left: 10px;
+}
+
+.match-item {
+  color: #40ad3d;
+}
+
+.mismatch-item {
+  color: #ad3d3d;
+}

@@ -14,6 +14,7 @@ import { AttributeEvaluation } from '../../../../../api/repository/models/attrib
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecommendationPreset } from '../../../../../api/repository/models/recommendation-preset';
 import { Subscription } from 'rxjs';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-recommendation-result',
@@ -140,7 +141,8 @@ export class RecommendationResultComponent implements OnInit {
   constructor(
     public recommendationsService: ApproachRecommendationService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private utilService: UtilService
   ) {}
 
   ngOnInit(): void {
@@ -149,7 +151,12 @@ export class RecommendationResultComponent implements OnInit {
       })]).then(() => {
         this.loadRecommendations(10);
         this.setDataSource();
+        this.utilService.openSideNav();
       });
+  }
+
+  ngOnDestroy(): void {
+    this.utilService.closeSideNav();
   }
 
   loadRecommendations(numberOfRecommendations: number): void {

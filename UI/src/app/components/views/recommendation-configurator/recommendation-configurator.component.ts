@@ -27,6 +27,7 @@ export class RecommendationConfiguratorComponent implements OnInit {
   readonly QualityCategories = QualityCategory;
 
   scenarioBased: boolean = false;
+  configurationEnabled: boolean = true;
 
   isDataLoading = true;
   recommendationSuitabilityOptions: RecommendationSuitability[] = [];
@@ -41,21 +42,22 @@ export class RecommendationConfiguratorComponent implements OnInit {
     private refactoringApproachService: RefactoringApproachService,
     public attributeOptionsService: AttributeOptionsService,
     public recommendationService: ApproachRecommendationService,
-    private utilService: UtilService,
+    public utilService: UtilService,
     private router: Router,
     private route: ActivatedRoute,
     public projectService: ProjectService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.isDataLoading = true;
 
     Promise.all([
       this.attributeOptionsService.requestAttributeOptions(),
-      this.sub = this.route.params.subscribe(params => {
+      (this.sub = this.route.params.subscribe((params) => {
         this.scenarioBased = params['mode'] == 'scenarioBased';
-      }),
-    this.projectService.requestProjectAttributes(),
+        this.configurationEnabled = !this.scenarioBased;
+      })),
+      this.projectService.requestProjectAttributes()
     ]).then(() => {
       this.recommendationService.setRecommendationInformationSuitability(
         RecommendationSuitability.Neutral
@@ -71,10 +73,13 @@ export class RecommendationConfiguratorComponent implements OnInit {
       RecommendationSuitability
     ).filter((value: string) => isNaN(Number(value)));
 
+    this.utilService.setSideNavScenarioBased(this.scenarioBased);
+    this.utilService.openSideNav();
   }
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+    this.utilService.closeSideNav();
   }
 
   getRadioButtonColor(
@@ -103,13 +108,13 @@ export class RecommendationConfiguratorComponent implements OnInit {
       .then((value: ApproachRecommendation[]) => {
         this.recommendationService.recommendations = value;
         this.recommendationService.selectedPreset = undefined;
-        if(this.scenarioBased){
-          this.router.navigate(['phase/2/recommendation/result', 'scenarioBased']);
-        }else{
-                  this.router.navigate([
-                    'phase/2/recommendation/result',
-                    'manual'
-                  ]);
+        if (this.scenarioBased) {
+          this.router.navigate([
+            'phase/2/recommendation/result',
+            'scenarioBased'
+          ]);
+        } else {
+          this.router.navigate(['phase/2/recommendation/result', 'manual']);
         }
       })
       .catch((reason) => {
@@ -122,19 +127,26 @@ export class RecommendationConfiguratorComponent implements OnInit {
 
   setQualitiesFromScenarios(): void {
     this.projectService.scenarios.value.forEach((s) => {
-      s.qualities?.forEach(q => {
-        const quality = this.recommendationService.qualityAttributeInformation.find(qai => qai.attribute.name == q.name);
-        if(quality){
-        quality.recommendationSuitability = RecommendationSuitability.Include;
+      s.qualities?.forEach((q) => {
+        const quality =
+          this.recommendationService.qualityAttributeInformation.find(
+            (qai) => qai.attribute.name == q.name
+          );
+        if (quality) {
+          quality.recommendationSuitability = RecommendationSuitability.Include;
         }
       });
     });
 
     this.projectService.scenarios.value.forEach((s) => {
-      s.qualitySublevels?.forEach(q => {
-        const qualitySub = this.recommendationService.qualitySublevelInformation.find(qai => qai.attribute.name == q.name);
-        if(qualitySub){
-        qualitySub.recommendationSuitability = RecommendationSuitability.Include;
+      s.qualitySublevels?.forEach((q) => {
+        const qualitySub =
+          this.recommendationService.qualitySublevelInformation.find(
+            (qai) => qai.attribute.name == q.name
+          );
+        if (qualitySub) {
+          qualitySub.recommendationSuitability =
+            RecommendationSuitability.Include;
         }
       });
     });

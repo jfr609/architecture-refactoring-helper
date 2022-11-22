@@ -1,6 +1,6 @@
 <div fxLayout='column' fxLayoutAlign='start center' fxLayoutGap='32px' class='page-container'>
   <h1 fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='12px'>
-    <button mat-mini-fab color='warn' [routerLink]="!scenarioBased ? ['/phase/2/recommendation'] : ['/phase/2']">
+    <button mat-mini-fab color='warn' [routerLink]="!scenarioBased ? ['/phase/2/recommendation/configure/manual'] : ['/phase/2/recommendation/configure/scenarioBased']">
       <mat-icon>arrow_back</mat-icon>
     </button>
     <span>Refactoring approach recommendations for {{getTitle()}}</span>

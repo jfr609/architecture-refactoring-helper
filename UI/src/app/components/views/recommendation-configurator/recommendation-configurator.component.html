@@ -8,7 +8,7 @@
     </button>
     <span>Configure a filter for available refactoring approaches</span>
   </h1>
-
+<ng-container *ngIf="configurationEnabled">
   <p class='max-width-800'>
     Here you have three possibilities:
   </p>
@@ -19,8 +19,40 @@
     <br>
     "Exclude" - the approach does not have this property
   </p>
+</ng-container>
 
-  <mat-stepper style='width: 100%'>
+<ng-container *ngIf="!configurationEnabled">
+  <div style="min-height: 800px" fxLayout='column' fxLayoutAlign='start center' fxLayoutGap='12px'>
+    <p class="max-width-800">
+      Here you have the possibility to apply the inputs from the scenarios for the qualities for the configuration.
+      You can see your configuration based on the scenarios in the sidebar on the right.
+    </p>
+    <p class="max-width-800">
+      You have the option of having the recommendations generated exclusively on the basis of the inputs made from the
+      scenarios, or you can make
+      additional configurations. In addition to the qualities, system properties can be added. There is also the
+      possibility to further configure the input preferences, the process preferences, the output preferences and the
+      usability preferences.
+    </p>
+
+    <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px' fxLayoutAlign="center">
+      <button mat-flat-button color='accent' [routerLink]="['/phase/1']">
+        <span>Edit Scenarios</span>
+      </button>
+      <button mat-flat-button color='primary' (click)="configurationEnabled = true">
+        <mat-icon>build</mat-icon>
+        <span>Configure</span>
+      </button>
+      <button mat-flat-button color='primary' (click)='onSearchRecommendation()'>
+        <mat-icon>search</mat-icon>
+        <span>Search without configuration</span>
+      </button>
+
+    </div>
+  </div>
+</ng-container>
+
+  <mat-stepper style='width: 100%' *ngIf="configurationEnabled">
     <mat-step>
       <ng-template matStepLabel>Select quality preferences</ng-template>
       <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px' fxLayoutAlign="center">
@@ -37,7 +69,7 @@
         </button>
       </div>
       <div fxLayout='row'>
-        <ng-container *ngIf="!scenarioBased;else scenarioQualities">
+        <ng-container *ngIf="!scenarioBased">
           <div fxFlex='25' fxLayout='column'>
             <h2>Quality attributes</h2>
             <div
@@ -78,25 +110,6 @@
             </div>
           </div>
         </ng-container>
-        <ng-template #scenarioQualities>
-          <div fxFlex='25' fxLayout='column'>
-            <h2> Qualities from Scenarios</h2>
-            <ng-container *ngFor="let scenario of projectService.scenarios.value" class='attribute-option-container'>
-              <ng-container *ngFor="let quality of scenario.qualities">
-                <dl>
-                  <dt>
-                    <strong>{{quality.name}}</strong> ({{scenario.importance}})</dt>
-                  <ng-container *ngFor="let qualitySub of quality.qualitySublevels">
-                    <dd>
-                      <strong>{{qualitySub.name}}</strong> ({{scenario.importance}})</dd>
-                  </ng-container>
-                </dl>
-              </ng-container>
-
-            </ng-container>
-          </div>
-        </ng-template>
-
         <div fxFlex='25' fxLayout='column'>
           <h2>System Properties</h2>
           <div
@@ -129,6 +142,9 @@
         <button mat-flat-button matStepperNext color='accent'>
           <span>Next</span>
           <mat-icon>arrow_forward</mat-icon>
+        </button>
+        <button *ngIf="scenarioBased" mat-flat-button color='accent' [routerLink]="['/phase/1']">
+          <span>Edit Scenarios</span>
         </button>
         <button mat-flat-button color='primary' (click)='onSearchRecommendation()'>
           <mat-icon>search</mat-icon>
@@ -230,6 +246,9 @@
           <span>Next</span>
           <mat-icon>arrow_forward</mat-icon>
         </button>
+        <button *ngIf="scenarioBased" mat-flat-button color='accent' [routerLink]="['/phase/1']">
+          <span>Edit Scenarios</span>
+        </button>
         <button mat-flat-button color='primary' (click)='onSearchRecommendation()'>
           <mat-icon>search</mat-icon>
           <span>Search</span>
@@ -330,6 +349,9 @@
           <span>Next</span>
           <mat-icon>arrow_forward</mat-icon>
         </button>
+        <button *ngIf="scenarioBased" mat-flat-button color='accent' [routerLink]="['/phase/1']">
+          <span>Edit Scenarios</span>
+        </button>
         <button mat-flat-button color='primary' (click)='onSearchRecommendation()'>
           <mat-icon>search</mat-icon>
           <span>Search</span>
@@ -385,6 +407,9 @@
         <button mat-flat-button matStepperPrevious color='accent'>
           <mat-icon>arrow_back</mat-icon>
           <span>Back</span>
+        </button>
+        <button *ngIf="scenarioBased" mat-flat-button color='accent' [routerLink]="['/phase/1']">
+          <span>Edit Scenarios</span>
         </button>
         <button mat-flat-button color='primary' (click)='onSearchRecommendation()'>
           <mat-icon>search</mat-icon>

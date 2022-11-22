@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UtilService } from 'src/app/services/util.service';
 import { PermissionService } from '../../../services/permission.service';
 
 @Component({
@@ -7,5 +8,10 @@ import { PermissionService } from '../../../services/permission.service';
   styleUrls: ['./framework-phase-two.component.scss']
 })
 export class FrameworkPhaseTwoComponent {
-  constructor(public permissionService: PermissionService) {}
+  constructor(
+    public permissionService: PermissionService,
+    public utilService: UtilService
+  ) {}
 }
+
+
