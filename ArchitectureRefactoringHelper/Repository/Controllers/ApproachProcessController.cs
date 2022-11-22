@@ -64,6 +64,26 @@ public class ApproachProcessController : ControllerBase
         return NoContent();
     }
 
+    [HttpGet(Constants.ApiSubPathQualitySublevels, Name = "ListQualitySublevels")]
+    public ActionResult<IEnumerable<QualitySublevel>> ListQualitySublevels()
+    {
+        return Ok(_processService.ListQualitySublevels());
+    }
+
+    [HttpPost(Constants.ApiSubPathQualitySublevels, Name = "AddQualitySublevel")]
+    public ActionResult<QualitySublevel> AddQualitySublevel([FromBody] QualitySublevel qualitySublevel)
+    {
+        var savedQualitySublevel = _processService.AddQualitySublevel(qualitySublevel);
+        return Created("", savedQualitySublevel);
+    }
+
+    [HttpDelete(Constants.ApiSubPathQualitySublevels + "/{name}", Name = "DeleteQualitySublevel")]
+    public IActionResult DeleteQualitySublevel(string name)
+    {
+        _processService.DeleteQualitySublevel(name);
+        return NoContent();
+    }
+
     [HttpGet(Constants.ApiSubPathDirections, Name = "ListDirections")]
     public ActionResult<IEnumerable<Direction>> ListDirections()
     {

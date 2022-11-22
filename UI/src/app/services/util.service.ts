@@ -5,12 +5,15 @@ import { ComponentType } from '@angular/cdk/overlay';
 import { DialogData } from '../utils/models/dialog-data';
 import { ConnectedDataListElement } from '../components/generics/connected-data-lists/connected-data-lists.component';
 import { copy, findArrayDifference } from '../utils/utils';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilService {
   private snackbarTimeOut = 3000;
+  private sidenav!: MatSidenav;
+  private scenarioBased = false;
 
   constructor(private snackBar: MatSnackBar, private dialog: MatDialog) {}
 
@@ -77,5 +80,29 @@ export class UtilService {
         ...this.createConnectedDataList<T>(allElements, getDisplayName)
       );
     }
+  }
+
+  public setSidenav(sidenav: MatSidenav) {
+    this.sidenav = sidenav;
+  }
+
+  public openSideNav() {
+    return this.sidenav.open();
+  }
+
+  public closeSideNav() {
+    return this.sidenav.close();
+  }
+
+  public toggleSideNav(): void {
+    this.sidenav.toggle();
+  }
+
+  public setSideNavScenarioBased(scenarioBased: boolean) {
+    this.scenarioBased = scenarioBased;
+  }
+
+  public isScenarioBasedMode() {
+    return this.scenarioBased;
   }
 }

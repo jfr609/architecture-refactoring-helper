@@ -30,6 +30,7 @@ import {
   ConfirmDialogData
 } from '../../dialogs/confirm-dialog/confirm-dialog.component';
 import { ApproachOutput } from '../../../../../api/repository/models/approach-output';
+import { QualitySublevel } from 'api/repository/models';
 
 interface OutputInfo {
   architecture: Architecture;
@@ -206,6 +207,17 @@ export class ApproachViewComponent implements OnInit, OnDestroy {
 
     return this.getAttributeColor(evaluation);
   }
+
+  getQualitySubColor(attribute: QualitySublevel): string {
+    if (this.selectedRecommendation == null) return '';
+
+    const evaluation = this.selectedRecommendation.qualitySublevelEvaluations?.find(
+      (value) => value.approachAttribute.name === attribute.name
+    );
+
+    return this.getAttributeColor(evaluation);
+  }
+
 
   getDirectionColor(attribute: Direction): string {
     if (this.selectedRecommendation == null) return '';

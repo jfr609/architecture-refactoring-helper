@@ -22,15 +22,6 @@
   </p>
 
   <div class='card-group' fxLayout='row' fxLayoutGap='50px'>
-    <app-card-button *ngIf='permissionService.isAdmin' color='phase-2' routerLink='approach'>
-      <div title>
-        <strong>Add</strong> a new approach!
-      </div>
-      <ng-container content>
-        Add a new refactoring approach that is not yet represented in the repository.
-      </ng-container>
-    </app-card-button>
-
     <app-card-button color='phase-2' routerLink='approaches'>
       <div title>
         <strong>Explore</strong> all approaches!
@@ -47,6 +38,15 @@
       <ng-container content>
         Find recommended refactoring approach recommendations based on preferred inputs, outputs,
         processes and usability aspects of the approach.
+      </ng-container>
+    </app-card-button>
+
+    <app-card-button color='phase-1' [routerLink]="['recommendation', 'configure' , 'scenarioBased']">
+      <div title>
+        Find <strong>scenario-based</strong> recommended approaches!
+      </div>
+      <ng-container content>
+        Find recommended refactoring approach recommendations based on scenarios declared in Phase 1.
       </ng-container>
     </app-card-button>
   </div>

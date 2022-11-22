@@ -57,7 +57,7 @@ export class ImageCarouselComponent implements AfterViewInit {
   }
 
   startTimer(): void {
-    this.timerInterval = setInterval(async () => {
+    this.timerInterval = window.setInterval(async () => {
       if (this.progress < this.imageChangeInterval) {
         this.progress += this.updateInterval;
       } else {

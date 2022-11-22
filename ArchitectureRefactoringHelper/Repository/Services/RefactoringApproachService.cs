@@ -317,6 +317,45 @@ public class RefactoringApproachService
         db.SaveChanges();
     }
 
+    public void AddQualitySublevelToProcess(int approachId, QualitySublevel qualitySublevel)
+    {
+        var db = new RefactoringApproachContext();
+
+        var approach = GetRefactoringApproach(approachId, ref db);
+
+        approach.ApproachProcess.QualitySublevels ??= new List<QualitySublevel>();
+        if (approach.ApproachProcess.QualitySublevels.Any(e => e.Name == qualitySublevel.Name))
+        {
+            throw new DuplicateElementException(
+                $"Quality Sublevel with name \"{qualitySublevel.Name}\" is already a process attribute of the given refactoring approach(ID: {approachId}).");
+        }
+
+        var savedQualitySublevel = _processService.GetProcessQualitySublevel(qualitySublevel.Name, ref db);
+        approach.ApproachProcess.QualitySublevels.Add(savedQualitySublevel);
+        db.SaveChanges();
+    }
+
+    public void RemoveQualitySublevelFromProcess(int approachId, string qualitySublevelName)
+    {
+        var db = new RefactoringApproachContext();
+
+        var approach = GetRefactoringApproach(approachId, ref db);
+
+        if (approach.ApproachProcess.QualitySublevels.IsNullOrEmpty())
+            return;
+
+        var qualitySublevel = approach.ApproachProcess.QualitySublevels!.FirstOrDefault(e => e.Name == qualitySublevelName);
+        if (qualitySublevel == null)
+        {
+            throw new EntityNotFoundException(
+                $"Quality with name \"{qualitySublevelName}\" is not a process attribute of the given refactoring approach(ID: {approachId}).");
+        }
+
+        approach.ApproachProcess.QualitySublevels!.Remove(qualitySublevel);
+        db.SaveChanges();
+    }
+
+
     public void AddDirectionToProcess(int approachId, Direction direction)
     {
         var db = new RefactoringApproachContext();
@@ -580,6 +619,10 @@ public class RefactoringApproachService
 
         query.Include(e => e.ApproachProcess)
             .ThenInclude(e => e.Qualities)
+            .Load();
+
+        query.Include(e => e.ApproachProcess)
+            .ThenInclude(e => e.QualitySublevels)
             .Load();
 
         query.Include(e => e.ApproachProcess)

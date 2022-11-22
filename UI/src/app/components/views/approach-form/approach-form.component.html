@@ -194,6 +194,17 @@
       </app-connected-data-lists>
 
       <app-connected-data-lists
+        [sourceDataListTitle]="'Quality Sublevels'"
+        [targetDataListTitle]="'Approach process quality sublevels'"
+        [sourceDataList]='qualitySubSourceDataList'
+        [targetDataList]='qualitySubTargetDataList'
+        [attributeCreationActive]='true'
+        [attributeDeletionActive]='true'
+        (createAttribute)='attributeOptionsService.createQualitySubWithDialog()'
+        (deleteAttribute)='attributeOptionsService.deleteQualitySubWithDialog()'>
+      </app-connected-data-lists>
+
+      <app-connected-data-lists
         [sourceDataListTitle]="'Directions'"
         [targetDataListTitle]="'Approach process directions'"
         [sourceDataList]='directionSourceDataList'

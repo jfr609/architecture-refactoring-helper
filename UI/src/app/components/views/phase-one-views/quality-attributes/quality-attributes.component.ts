@@ -59,7 +59,7 @@ export class QualityAttributesComponent implements OnInit {
       this.scenarioList = this.projectService.scenarios.value;
       this.updatingScenariosList = Object.assign([], this.scenarioList);
       this.qualityList = this.attributesService.getQualitiesByCategory(
-        this.QualityCategories.Requirement
+        this.QualityCategories.Attribute
       );
       this.isDataLoading = false;
     });
@@ -190,15 +190,15 @@ export class QualityAttributesComponent implements OnInit {
 
   allChecked(quality: Quality): boolean {
     return (
-      quality.qualitySubLevels?.every((e) =>
+      quality.qualitySublevels?.every((e) =>
         this.selectedScenario?.qualitySublevels?.some((q) => e.name === q.name)
       ) ?? false
     );
   }
 
   checkOrUncheckAll(selected: boolean, qa: Quality) {
-    if (qa.qualitySubLevels) {
-      for (let sqa of qa.qualitySubLevels) {
+    if (qa.qualitySublevels) {
+      for (let sqa of qa.qualitySublevels) {
         this.addOrRemoveQualitySub(selected, sqa);
       }
     }

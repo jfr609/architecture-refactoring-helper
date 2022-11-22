@@ -21,6 +21,7 @@ import { QualityCategory } from '../../../api/repository/models/quality-category
 import { AttributeOptionsService } from './attribute-options.service';
 import { ApproachRecommendationRequest } from '../../../api/repository/models/approach-recommendation-request';
 import { RecommendationPreset } from '../../../api/repository/models/recommendation-preset';
+import { QualitySublevelAttributeRecommendationInformation } from 'api/repository/models/quality-sublevel-attribute-recommendation-information';
 
 @Injectable({
   providedIn: 'root'
@@ -47,9 +48,11 @@ export class ApproachRecommendationService {
     [];
   public executableInformation: ExecutableInputAttributeRecommendationInformation[] =
     [];
-  public qualityMetricInformation: QualityAttributeRecommendationInformation[] =
+  public qualitySystemPropertyInformation: QualityAttributeRecommendationInformation[] =
     [];
-  public qualityRequirementInformation: QualityAttributeRecommendationInformation[] =
+  public qualityAttributeInformation: QualityAttributeRecommendationInformation[] =
+    [];
+  public qualitySublevelInformation: QualitySublevelAttributeRecommendationInformation[] =
     [];
   public directionInformation: DirectionAttributeRecommendationInformation[] =
     [];
@@ -79,8 +82,9 @@ export class ApproachRecommendationService {
     this.runtimeArtifactInformation = [];
     this.modelArtifactInformation = [];
     this.executableInformation = [];
-    this.qualityMetricInformation = [];
-    this.qualityRequirementInformation = [];
+    this.qualitySystemPropertyInformation = [];
+    this.qualityAttributeInformation = [];
+    this.qualitySublevelInformation = [];
     this.directionInformation = [];
     this.automationLevelInformation = [];
     this.analysisTypeInformation = [];
@@ -135,19 +139,26 @@ export class ApproachRecommendationService {
       recommendationSuitability
     );
     this.setAttributeInformation(
-      this.qualityMetricInformation,
+      this.qualitySystemPropertyInformation,
       this.attributeOptionsService.getQualitiesByCategory(
-        QualityCategory.Metric
+        QualityCategory.SystemProperty
       ),
       recommendationSuitability
     );
     this.setAttributeInformation(
-      this.qualityRequirementInformation,
+      this.qualityAttributeInformation,
       this.attributeOptionsService.getQualitiesByCategory(
-        QualityCategory.Requirement
+        QualityCategory.Attribute
       ),
       recommendationSuitability
     );
+
+    this.setAttributeInformation(
+      this.qualitySublevelInformation,
+      this.attributeOptionsService.qualitySublevels.value,
+      recommendationSuitability
+    );
+
     this.setAttributeInformation(
       this.directionInformation,
       this.attributeOptionsService.directions.value,
@@ -207,9 +218,11 @@ export class ApproachRecommendationService {
       modelArtifactInformation: this.modelArtifactInformation,
       executableInformation: this.executableInformation,
 
-      qualityInformation: this.qualityRequirementInformation.concat(
-        this.qualityMetricInformation
+      qualityInformation: this.qualityAttributeInformation.concat(
+        this.qualitySystemPropertyInformation
       ),
+
+      qualitySublevelInformation: this.qualitySublevelInformation,
       directionInformation: this.directionInformation,
       automationLevelInformation: this.automationLevelInformation,
       analysisTypeInformation: this.analysisTypeInformation,

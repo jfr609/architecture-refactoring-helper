@@ -15,6 +15,8 @@ public class ApproachProcess
     
     [JsonPropertyName("qualities")]
     public ICollection<Quality>? Qualities { get; set; }
+    [JsonPropertyName("qualitySublevels")]
+    public ICollection<QualitySublevel>? QualitySublevels { get; set; }
     [JsonPropertyName("directions")]
     public ICollection<Direction>? Directions { get; set; }
     [JsonPropertyName("automationLevels")]

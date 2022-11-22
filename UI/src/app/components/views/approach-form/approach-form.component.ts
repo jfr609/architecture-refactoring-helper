@@ -40,6 +40,7 @@ import { ToolSupport } from '../../../../../api/repository/models/tool-support';
 import { AccuracyPrecision } from '../../../../../api/repository/models/accuracy-precision';
 import { ValidationMethod } from '../../../../../api/repository/models/validation-method';
 import { AttributeOptionsService } from '../../../services/attribute-options.service';
+import { QualitySublevel } from 'api/repository/models';
 
 @Component({
   selector: 'app-approach-form',
@@ -81,6 +82,8 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
   executableTargetDataList: ConnectedDataListElement[] = [];
   qualitySourceDataList: ConnectedDataListElement[] = [];
   qualityTargetDataList: ConnectedDataListElement[] = [];
+  qualitySubSourceDataList: ConnectedDataListElement[] = [];
+  qualitySubTargetDataList: ConnectedDataListElement[] = [];
   directionSourceDataList: ConnectedDataListElement[] = [];
   directionTargetDataList: ConnectedDataListElement[] = [];
   automationLevelSourceDataList: ConnectedDataListElement[] = [];
@@ -187,6 +190,13 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
       })
     );
     this.attributeSubscriptions.push(
+      this.attributeOptionsService.qualitySublevels.subscribe({
+        next: () => {
+          this.fillQualitySubDataLists();
+        }
+      })
+    );
+    this.attributeSubscriptions.push(
       this.attributeOptionsService.directions.subscribe({
         next: () => {
           this.fillDirectionDataLists();
@@ -243,6 +253,7 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
     this.fillExecutableDataLists();
 
     this.fillQualityDataLists();
+    this.fillQualitySubDataLists();
     this.fillDirectionDataLists();
     this.fillAutomationLevelDataLists();
     this.fillAnalysisTypeDataLists();
@@ -381,6 +392,20 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
       this.qualitySourceDataList,
       this.qualityTargetDataList,
       (e: Quality) => `${e.category}: ${e.name}`
+    );
+  }
+
+  fillQualitySubDataLists(): void {
+    this.qualitySubSourceDataList = [];
+    this.qualitySubTargetDataList = [];
+
+    this.utilService.fillConnectedDataLists(
+      this.isCreateView,
+      this.refactoringApproach.approachProcess?.qualitySublevels,
+      this.attributeOptionsService.qualitySublevels.value,
+      this.qualitySubSourceDataList,
+      this.qualitySubTargetDataList,
+      (e: QualitySublevel) => `${e.name} (${e.qualityName})`
     );
   }
 
@@ -620,6 +645,7 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
     updatePromises.push(...this.updateExecutables(refactoringApproach));
 
     updatePromises.push(...this.updateQualities(refactoringApproach));
+    updatePromises.push(...this.updateQualitySublevels(refactoringApproach));
     updatePromises.push(...this.updateDirections(refactoringApproach));
     updatePromises.push(...this.updateAutomationLevels(refactoringApproach));
     updatePromises.push(...this.updateAnalysisTypes(refactoringApproach));
@@ -879,6 +905,46 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
     return updatePromises;
   }
 
+  updateQualitySublevels(refactoringApproach: RefactoringApproach): Promise<void>[] {
+    if (this.refactoringApproach.refactoringApproachId == null)
+      return [Promise.resolve()];
+
+    const elementsToRemove: QualitySublevel[] = findArrayDifference(
+      this.refactoringApproach.approachProcess?.qualitySublevels,
+      refactoringApproach.approachProcess?.qualitySublevels
+    );
+    const elementsToAdd: QualitySublevel[] = findArrayDifference(
+      refactoringApproach.approachProcess?.qualitySublevels,
+      this.refactoringApproach.approachProcess?.qualitySublevels
+    );
+
+    const updatePromises: Promise<void>[] = [];
+    for (const elementToAdd of elementsToAdd) {
+      updatePromises.push(
+        lastValueFrom(
+          this.refactoringApproachService.addQualitySublevelToProcess({
+            id: this.refactoringApproach.refactoringApproachId,
+            body: elementToAdd
+          })
+        )
+      );
+    }
+    for (const elementToRemove of elementsToRemove) {
+      if (elementToRemove.name == null) break;
+
+      updatePromises.push(
+        lastValueFrom(
+          this.refactoringApproachService.removeQualitySublevelFromProcess({
+            id: this.refactoringApproach.refactoringApproachId,
+            qualityName: elementToRemove.name
+          })
+        )
+      );
+    }
+
+    return updatePromises;
+  }
+
   updateDirections(refactoringApproach: RefactoringApproach): Promise<void>[] {
     if (this.refactoringApproach.refactoringApproachId == null)
       return [Promise.resolve()];
@@ -1116,6 +1182,11 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
       qualities.push(element.dataElement as Quality);
     }
 
+    const qualitySublevels: QualitySublevel[] = [];
+    for (const element of this.qualitySubTargetDataList) {
+      qualitySublevels.push(element.dataElement as QualitySublevel);
+    }
+
     const directions: Direction[] = [];
     for (const element of this.directionTargetDataList) {
       directions.push(element.dataElement as Direction);
@@ -1150,6 +1221,7 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
       executableInputs: executableInputs,
       approachProcess: {
         qualities: qualities,
+        qualitySublevels: qualitySublevels,
         directions: directions,
         automationLevels: automationLevels,
         analysisTypes: analysisTypes,

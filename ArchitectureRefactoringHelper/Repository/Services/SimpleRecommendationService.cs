@@ -7,10 +7,12 @@ namespace Repository.Services;
 public class SimpleRecommendationService : IRecommendationService
 {
     private readonly RefactoringApproachService _refactoringApproachService;
+    private readonly ScenarioService _scenarioService;
 
-    public SimpleRecommendationService(RefactoringApproachService refactoringApproachService)
+    public SimpleRecommendationService(RefactoringApproachService refactoringApproachService, ScenarioService scenarioService)
     {
         _refactoringApproachService = refactoringApproachService;
+        _scenarioService = scenarioService;
     }
 
     public IEnumerable<ApproachRecommendation> GetApproachRecommendations(
@@ -46,6 +48,13 @@ public class SimpleRecommendationService : IRecommendationService
         var matchCount = 0;
         var neutralCount = 0;
         var mismatchCount = 0;
+        var qualityAttributeCount = 0;
+        var qualityAttributeTotalCount = recommendationRequest.QualityInformation.Where(q => q.Attribute.Category == QualityCategory.Attribute && q.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count + recommendationRequest.QualitySublevelInformation.Where(q => q.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count;
+        var systemPropertyCount = 0;
+        var systemPropertyTotalCount = recommendationRequest.QualityInformation.Where(q => q.Attribute.Category == QualityCategory.SystemProperty && q.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count;
+        var weightedQualityCount = 0;
+        var totalIncludeCount = calculateTotalIncludeCount(recommendationRequest);
+
         var approachRecommendation = new ApproachRecommendation
         {
             RefactoringApproachId = refactoringApproach.RefactoringApproachId,
@@ -56,6 +65,7 @@ public class SimpleRecommendationService : IRecommendationService
             ModelArtifactInputEvaluations = new List<ApproachAttributeEvaluation<ModelArtifactInput>>(),
             ExecutableInputEvaluations = new List<ApproachAttributeEvaluation<ExecutableInput>>(),
             QualityEvaluations = new List<ApproachAttributeEvaluation<Quality>>(),
+            QualitySublevelEvaluations = new List<ApproachAttributeEvaluation<QualitySublevel>>(),
             DirectionEvaluations = new List<ApproachAttributeEvaluation<Direction>>(),
             AutomationLevelEvaluations = new List<ApproachAttributeEvaluation<AutomationLevel>>(),
             AnalysisTypeEvaluations = new List<ApproachAttributeEvaluation<AnalysisType>>(),
@@ -134,9 +144,41 @@ public class SimpleRecommendationService : IRecommendationService
                 var evaluation = EvaluateAttribute(quality, information, ref attributeCount, ref matchCount,
                     ref neutralCount, ref mismatchCount);
 
+                //Add all selected subqualities as match if quality is matched from approach
+                if (evaluation.AttributeEvaluation == AttributeEvaluation.Match)
+                {
+                    if (information != null && information.Attribute.QualitySublevels != null)
+                    {
+                        foreach (var subq in information.Attribute.QualitySublevels)
+                        {
+                            refactoringApproach.ApproachProcess.QualitySublevels?.Add(subq);
+                        }
+                    }
+                }
+
                 approachRecommendation.QualityEvaluations.Add(evaluation);
+
+                CountQualityMatches(quality.Category, information, ref qualityAttributeCount, ref systemPropertyCount, ref weightedQualityCount, quality.Name);
+
             }
         }
+
+        if (refactoringApproach.ApproachProcess.QualitySublevels != null)
+        {
+            foreach (var qualitySublevel in refactoringApproach.ApproachProcess.QualitySublevels)
+            {
+                var information = recommendationRequest.QualitySublevelInformation.FirstOrDefault(information =>
+                    information.Attribute.KeyEquals(qualitySublevel));
+
+                var evaluation = EvaluateAttribute(qualitySublevel, information, ref attributeCount, ref matchCount,
+                    ref neutralCount, ref mismatchCount);
+
+                approachRecommendation.QualitySublevelEvaluations.Add(evaluation);
+
+                CountQualitySubMatches(information, ref qualityAttributeCount, ref weightedQualityCount, qualitySublevel.Name);
+            }
+        }
+
 
         if (refactoringApproach.ApproachProcess.Directions != null)
         {
@@ -252,6 +294,21 @@ public class SimpleRecommendationService : IRecommendationService
         approachRecommendation.SuitabilityScore =
             CalculateSuitabilityScore(attributeCount, matchCount, neutralCount, mismatchCount);
 
+        approachRecommendation.TotalIncludeCount = totalIncludeCount;
+        approachRecommendation.MatchesCount = matchCount;
+
+        approachRecommendation.QualityScore =
+            CalculateQualityScore(ref qualityAttributeCount,
+        ref qualityAttributeTotalCount);
+
+        approachRecommendation.SystemPropertiesScore =
+            CaluclateSystemPropertiesScore(ref systemPropertyCount,
+        ref systemPropertyTotalCount);
+
+        approachRecommendation.WeightedScore = CalculateTotalWeightedScore(approachRecommendation, recommendationRequest, ref weightedQualityCount);
+
+        approachRecommendation.TotalScore = CalculateTotalQualityScore(approachRecommendation);
+
         return approachRecommendation;
     }
 
@@ -306,5 +363,129 @@ public class SimpleRecommendationService : IRecommendationService
         }
 
         return (int)Math.Round((double)matchCount * 100 / hitCount);
+    }
+
+    private void CountQualityMatches<T>(QualityCategory category, AttributeRecommendationInformation<T>? information,
+    ref int qualityAttributeCount, ref int systemPropertyCount, ref int weightedQualityCount, string qualityName)
+    {
+        if (information != null)
+        {
+            if (information.RecommendationSuitability == RecommendationSuitability.Include)
+            {
+                switch (category)
+                {
+                    case QualityCategory.Attribute:
+                        qualityAttributeCount++;
+                        weightedQualityCount += _scenarioService.GetWeightByQualityName(qualityName);
+                        break;
+
+                    case QualityCategory.SystemProperty:
+                        systemPropertyCount++;
+                        break;
+                }
+            }
+        }
+    }
+
+    private void CountQualitySubMatches<T>(AttributeRecommendationInformation<T>? information, ref int qualityAttributeCount,
+    ref int weightedQualityCount, string qualitySubName)
+    {
+        if (information != null)
+        {
+            if (information.RecommendationSuitability == RecommendationSuitability.Include)
+            {
+                qualityAttributeCount++;
+                weightedQualityCount += _scenarioService.GetWeightByQualitySubName(qualitySubName);
+            }
+        }
+    }
+
+    private static QualityScore CalculateQualityScore(ref int qualityAttributeCount, ref int qualityAttributeTotalCount)
+    {
+
+        return new QualityScore
+        {
+            SelectedAttributes = qualityAttributeCount,
+            TotalAttributes = qualityAttributeTotalCount,
+            Tendency = (qualityAttributeCount > 0) ? (int)Math.Round((double)qualityAttributeCount / (double)qualityAttributeTotalCount) : 0
+        };
+    }
+
+    private static SystemPropertiesScore CaluclateSystemPropertiesScore(ref int systemPropertyCount, ref int systemPropertyTotalCount)
+    {
+        return new SystemPropertiesScore
+        {
+            SelectedAttributes = systemPropertyCount,
+            TotalAttributes = systemPropertyTotalCount,
+            Tendency = (systemPropertyCount > 0) ? (int)Math.Round((double)systemPropertyCount / (double)systemPropertyTotalCount) : 0
+        };
+    }
+
+    private int CalculateTotalQualityScore(ApproachRecommendation approachRecommendation)
+    {
+        var totalScore = 0;
+        if (approachRecommendation.QualityScore != null && approachRecommendation.SystemPropertiesScore != null)
+        {
+            totalScore = (int)Math.Round(
+                ((double)approachRecommendation.QualityScore.SelectedAttributes +
+                (double)approachRecommendation.SystemPropertiesScore.SelectedAttributes) /
+                ((double)approachRecommendation.QualityScore.TotalAttributes + (double)approachRecommendation.SystemPropertiesScore.TotalAttributes) *
+                100);
+
+        }
+
+        return totalScore;
+    }
+
+    private int CalculateTotalWeightedScore(ApproachRecommendation approachRecommendation, ApproachRecommendationRequest recommendationRequest, ref int weightedQualityCount)
+    {
+        var totalWeightedScore = 0;
+        var totalWeight = 0;
+
+        foreach (var quality in recommendationRequest.QualityInformation
+        .Where(q => q.Attribute.Category == QualityCategory.Attribute && q.RecommendationSuitability == RecommendationSuitability.Include).ToList())
+        {
+            totalWeight += _scenarioService.GetWeightByQualityName(quality.Attribute.Name);
+        }
+
+        foreach (var qualitySub in recommendationRequest.QualitySublevelInformation
+        .Where(q => q.RecommendationSuitability == RecommendationSuitability.Include).ToList())
+        {
+            totalWeight += _scenarioService.GetWeightByQualitySubName(qualitySub.Attribute.Name);
+        }
+
+        if (approachRecommendation.SystemPropertiesScore != null)
+        {
+            totalWeightedScore = (int)Math.Round(
+                ((double)weightedQualityCount +
+                (double)approachRecommendation.SystemPropertiesScore.SelectedAttributes) /
+                ((double)totalWeight + (double)approachRecommendation.SystemPropertiesScore.TotalAttributes) *
+                100);
+        }
+        return totalWeightedScore;
+    }
+
+    private int calculateTotalIncludeCount(ApproachRecommendationRequest recommendationRequest)
+    {
+        var count = 0;
+        count = recommendationRequest.DomainArtifactInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+        + recommendationRequest.RuntimeArtifactInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.ModelArtifactInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.ExecutableInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.QualityInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.QualitySublevelInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.DirectionInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.AutomationLevelInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.AnalysisTypeInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.TechniqueInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.ArchitectureInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.ServiceTypeInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.ResultsQualityInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.ToolSupportInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.AccuracyPrecisionInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.ValidationMethodInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count;
+
+        return count;
+
     }
 }

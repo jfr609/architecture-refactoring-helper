@@ -20,9 +20,9 @@
     </button>
   </h1>
   <h2 *ngIf='selectedRecommendation'>
-    <span>Suitability: </span>
+    <span>Overall Matches: </span>
     <span [class]='getSuitabilityColor()'>
-      {{recommendationService.getSuitabilityDisplayString(selectedRecommendation.suitabilityScore)}}
+      {{selectedRecommendation.matchesCount}}  / {{selectedRecommendation.totalIncludeCount}}
     </span>
   </h2>
 
@@ -139,6 +139,22 @@
             <p [class]='getQualityColor(quality)'><strong>{{quality.name}}</strong></p>
             <p *ngIf='quality.description'>
               {{quality.description}}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div
+        *ngIf='refactoringApproach.approachProcess.qualitySublevels && refactoringApproach.approachProcess.qualitySublevels.length > 0'
+        fxLayout='row'>
+        <div fxFlex='25'>
+          <h3>Quality Sublevels</h3>
+        </div>
+        <div fxFlex fxLayout='column'>
+          <div *ngFor='let qualitySub of refactoringApproach.approachProcess.qualitySublevels'>
+            <p [class]='getQualitySubColor(qualitySub)'><strong>{{qualitySub.name}} ({{qualitySub.qualityName}})</strong></p>
+            <p *ngIf='qualitySub.description'>
+              {{qualitySub.description}}
             </p>
           </div>
         </div>

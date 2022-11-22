@@ -32,6 +32,7 @@ import {
 import { Validators } from '@angular/forms';
 import { removeValueFromArray } from '../utils/utils';
 import { QualityCategory } from '../../../api/repository/models/quality-category';
+import { QualitySublevel } from 'api/repository/models';
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +50,8 @@ export class AttributeOptionsService {
   public qualities: BehaviorSubject<Quality[]> = new BehaviorSubject<Quality[]>(
     []
   );
+  public qualitySublevels: BehaviorSubject<QualitySublevel[]> =
+    new BehaviorSubject<QualitySublevel[]>([]);
   public directions: BehaviorSubject<Direction[]> = new BehaviorSubject<
     Direction[]
   >([]);
@@ -99,6 +102,7 @@ export class AttributeOptionsService {
     dataLoadingPromises.push(this.requestModelArtifacts());
     dataLoadingPromises.push(this.requestExecutables());
     dataLoadingPromises.push(this.requestQualities());
+    dataLoadingPromises.push(this.requestQualitySublevels());
     dataLoadingPromises.push(this.requestDirections());
     dataLoadingPromises.push(this.requestAutomationLevels());
     dataLoadingPromises.push(this.requestAnalysisTypes());
@@ -174,6 +178,19 @@ export class AttributeOptionsService {
       console.log(err);
       this.utilService.callSnackBar(
         'Error! Process qualities could not be retrieved.'
+      );
+    }
+  }
+
+  async requestQualitySublevels(): Promise<void> {
+    try {
+      this.qualitySublevels.next(
+        await lastValueFrom(this.processService.listQualitySublevels())
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+        'Error! Process quality sublevels could not be retrieved.'
       );
     }
   }
@@ -739,6 +756,98 @@ export class AttributeOptionsService {
               console.log(reason);
               this.utilService.callSnackBar(
                 'Error! Some process quality options could not be deleted.'
+              );
+            });
+        }
+      });
+  }
+
+  createQualitySubWithDialog(): void {
+    const data: CreateAttributeDialogData<QualitySublevel> = {
+      title: 'Create a new process quality sublevel option',
+      confirmButtonText: 'Create',
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.qualitySublevels.value,
+      configs: [
+        {
+          title: 'name',
+          variableName: 'name',
+          isTextArea: false,
+          validators: [Validators.required]
+        },
+        {
+          title: 'description',
+          variableName: 'description',
+          isTextArea: true,
+          validators: null
+        },
+        {
+          title: 'qualityName',
+          variableName: 'qualityName',
+          isTextArea: false,
+          validators: [Validators.required]
+        }
+      ]
+    };
+    this.utilService
+      .createDialog(CreateAttributeDialogComponent, data)
+      .afterClosed()
+      .subscribe({
+        next: (data: CreateAttributeDialogData<QualitySublevel>) => {
+          if (data === undefined || data.attributesToCreate === undefined)
+            return;
+
+          this.createAttributes(
+            data.attributesToCreate,
+            this.qualitySublevels,
+            (params) => this.processService.addQualitySublevel(params)
+          )
+            .then(() => {
+              this.utilService.callSnackBar(
+                'Created process quality sublevel option(s).'
+              );
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some process quality sublevel options could not be created.'
+              );
+            });
+        }
+      });
+  }
+
+  deleteQualitySubWithDialog(): void {
+    const data: DeleteAttributeDialogData<QualitySublevel> = {
+      title: 'Delete an existing process quality sublevel option',
+      confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.qualitySublevels.value,
+      getDisplayName: (value: QualitySublevel) =>
+        `${value.name} (${value.qualityName})`
+    };
+    this.utilService
+      .createDialog(DeleteAttributeDialogComponent, data)
+      .afterClosed()
+      .subscribe({
+        next: (data: DeleteAttributeDialogData<QualitySublevel>) => {
+          if (data === undefined || data.attributesToDelete === undefined)
+            return;
+
+          this.deleteAttributes(
+            data.attributesToDelete,
+            this.qualitySublevels,
+            (value: QualitySublevel) => this.processService.deleteQualitySublevel(value)
+          )
+            .then(() => {
+              this.utilService.callSnackBar(
+                'Deleted process quality sublevel option(s).'
+              );
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some process quality sublevel options could not be deleted.'
               );
             });
         }

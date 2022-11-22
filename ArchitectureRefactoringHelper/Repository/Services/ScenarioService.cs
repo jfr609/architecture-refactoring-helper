@@ -54,6 +54,73 @@ public class ScenarioService
         return result;
     }
 
+    public int GetWeightByQualityName(string qualityName)
+    {
+
+        var weight = 0;
+        foreach (var s in ListScenarios())
+        {
+            if (s.Qualities != null)
+            {
+                if (s.Qualities.Any(s => s.Name == qualityName))
+                {
+                    if (s.Importance == Scenario.RatingLevel.A)
+                    {
+                        weight = weight + 3;
+                    }
+                    else if (s.Importance == Scenario.RatingLevel.B)
+                    {
+                        weight = weight + 2;
+                    }
+                    else
+                    {
+                        weight = weight + 1;
+                    }
+                }
+                else
+                {
+                    weight = weight + 1;
+                }
+            }
+        }
+
+        return weight > 0 ? weight : 1;
+    }
+
+    public int GetWeightByQualitySubName(string qualitySubName)
+    {
+
+        var weight = 0;
+        foreach (var s in ListScenarios())
+        {
+            if (s.QualitySublevels != null)
+            {
+
+                if (s.QualitySublevels.Any(s => s.Name == qualitySubName))
+                {
+                    if (s.Importance == Scenario.RatingLevel.A)
+                    {
+                        weight = weight + 3;
+                    }
+                    else if (s.Importance == Scenario.RatingLevel.B)
+                    {
+                        weight = weight + 2;
+                    }
+                    else
+                    {
+                        weight = weight + 1;
+                    }
+                }
+                else
+                {
+                    weight = weight + 1;
+                }
+            }
+        }
+
+        return weight > 0 ? weight : 1;
+    }
+
 
     public Scenario GetScenario(int scenarioId)
     {

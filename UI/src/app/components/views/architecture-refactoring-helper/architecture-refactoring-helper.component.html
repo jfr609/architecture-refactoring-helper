@@ -1,16 +1,289 @@
-<mat-toolbar color='primary'>
+<mat-toolbar color="primary">
   <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-    <div fxLayoutAlign='start center' fxLayoutGap='8px'>
-      <span>{{applicationTitle}}</span>
-      <button mat-icon-button routerLink='/'>
+    <div fxLayoutAlign="start center" fxLayoutGap="8px">
+      <span>{{ applicationTitle }}</span>
+      <button
+        mat-icon-button
+        routerLink="/"
+      >
         <mat-icon>home</mat-icon>
       </button>
     </div>
-    <button mat-icon-button (click)='openSettingsDialog()'>
+    <button mat-icon-button (click)="openSettingsDialog()">
       <mat-icon>settings</mat-icon>
     </button>
   </div>
 </mat-toolbar>
-<div class='main-container'>
-  <router-outlet></router-outlet>
-</div>
+<mat-drawer-container class="drawer-container">
+  <mat-drawer
+    #sideNav
+    mode="side"
+    opened="false"
+    position="end"
+    class="side-bar"
+  >
+    <div fxFlex="100" fxLayout="column" class="drawer">
+      <h3>Your Configuration:</h3>
+      <mat-accordion multi>
+        <mat-expansion-panel *ngIf="projectService.scenarios.value.length > 0 && utilService.isScenarioBasedMode()" expanded>
+          <mat-expansion-panel-header>
+            <mat-panel-title><strong>Scenarios and their Qualities</strong></mat-panel-title>
+            <mat-panel-description> </mat-panel-description>
+          </mat-expansion-panel-header>
+          <ng-container
+            *ngFor="let scenario of projectService.scenarios.value"
+            class="attribute-option-container"
+          >
+            <strong>{{ scenario.name }}</strong> (Importance {{ scenario.importance }}):
+            <ng-container *ngFor="let quality of scenario.qualities">
+              <mat-chip-list>
+              <mat-chip class="match-item">{{ quality.name }}</mat-chip>
+              <ng-container *ngFor="let qualitySub of quality.qualitySublevels">
+                <mat-chip class="match-item">{{ qualitySub.name }}</mat-chip>
+              </ng-container>
+              </mat-chip-list>
+            </ng-container>
+          </ng-container>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="utilService.isScenarioBasedMode()" >
+          <mat-expansion-panel-header>
+            <mat-panel-title><strong>System Properties</strong></mat-panel-title>
+            <mat-panel-description> </mat-panel-description>
+          </mat-expansion-panel-header>
+           <mat-chip-list>
+          <ng-container
+            *ngFor="let element of attributeOptionsService.getQualitiesByCategory(QualityCategories.SystemProperty); let i = index"
+            class="attribute-option-container"
+          >
+             
+              <mat-chip class="match-item" *ngIf="recommendationService.qualitySystemPropertyInformation[i].recommendationSuitability == RecommendationSuitability.Include">{{ element.name }}</mat-chip>
+              <mat-chip class="mismatch-item" *ngIf="recommendationService.qualitySystemPropertyInformation[i].recommendationSuitability == RecommendationSuitability.Exclude">{{ element.name }}</mat-chip>
+          </ng-container>
+          </mat-chip-list>
+        </mat-expansion-panel>
+                <mat-expansion-panel *ngIf="!utilService.isScenarioBasedMode()">
+          <mat-expansion-panel-header>
+            <mat-panel-title><strong>Quality Preferences</strong></mat-panel-title>
+            <mat-panel-description> </mat-panel-description>
+          </mat-expansion-panel-header>
+          <h4>Quality Attributes</h4>
+           <mat-chip-list>
+          <ng-container
+            *ngFor="let element of attributeOptionsService.getQualitiesByCategory(QualityCategories.Attribute); let i = index"
+            class="attribute-option-container"
+          >
+             
+              <mat-chip class="match-item" *ngIf="recommendationService.qualityAttributeInformation[i].recommendationSuitability == RecommendationSuitability.Include">{{ element.name }}</mat-chip>
+              <mat-chip class="mismatch-item" *ngIf="recommendationService.qualityAttributeInformation[i].recommendationSuitability == RecommendationSuitability.Exclude">{{ element.name }}</mat-chip>
+          </ng-container>
+          </mat-chip-list>
+          <h4>Quality Subattributes</h4>
+           <mat-chip-list>
+          <ng-container
+            *ngFor="let element of attributeOptionsService.qualitySublevels.value; let i = index"
+            class="attribute-option-container"
+          >
+             
+              <mat-chip class="match-item" *ngIf="recommendationService.qualitySublevelInformation[i].recommendationSuitability == RecommendationSuitability.Include">{{ element.name }}</mat-chip>
+              <mat-chip class="mismatch-item" *ngIf="recommendationService.qualitySublevelInformation[i].recommendationSuitability == RecommendationSuitability.Exclude">{{ element.name }}</mat-chip>
+          </ng-container>
+          </mat-chip-list>
+          <h4>System Properties</h4>
+           <mat-chip-list>
+          <ng-container
+            *ngFor="let element of attributeOptionsService.getQualitiesByCategory(QualityCategories.SystemProperty); let i = index"
+            class="attribute-option-container"
+          >
+             
+              <mat-chip class="match-item" *ngIf="recommendationService.qualitySystemPropertyInformation[i].recommendationSuitability == RecommendationSuitability.Include">{{ element.name }}</mat-chip>
+              <mat-chip class="mismatch-item" *ngIf="recommendationService.qualitySystemPropertyInformation[i].recommendationSuitability == RecommendationSuitability.Exclude">{{ element.name }}</mat-chip>
+          </ng-container>
+          </mat-chip-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title><strong>Input preferences</strong></mat-panel-title>
+            <mat-panel-description> </mat-panel-description>
+          </mat-expansion-panel-header>
+          <h4>Domain artifacts</h4>
+           <mat-chip-list>
+          <ng-container
+            *ngFor="let element of attributeOptionsService.domainArtifacts.value; let i = index"
+            class="attribute-option-container"
+          >
+             
+              <mat-chip class="match-item" *ngIf="recommendationService.domainArtifactInformation[i].recommendationSuitability == RecommendationSuitability.Include">{{ element.name }}</mat-chip>
+              <mat-chip class="mismatch-item" *ngIf="recommendationService.domainArtifactInformation[i].recommendationSuitability == RecommendationSuitability.Exclude">{{ element.name }}</mat-chip>
+          </ng-container>
+          </mat-chip-list>
+          <h4>Runtime artifacts</h4>
+           <mat-chip-list>
+          <ng-container
+            *ngFor="let element of attributeOptionsService.runtimeArtifacts.value; let i = index"
+            class="attribute-option-container"
+          >
+             
+              <mat-chip class="match-item" *ngIf="recommendationService.runtimeArtifactInformation[i].recommendationSuitability == RecommendationSuitability.Include">{{ element.name }}</mat-chip>
+              <mat-chip class="mismatch-item" *ngIf="recommendationService.runtimeArtifactInformation[i].recommendationSuitability == RecommendationSuitability.Exclude">{{ element.name }}</mat-chip>
+          </ng-container>
+          </mat-chip-list>
+          <h4>Model artifacts</h4>
+           <mat-chip-list>
+          <ng-container
+            *ngFor="let element of attributeOptionsService.modelArtifacts.value; let i = index"
+            class="attribute-option-container"
+          >
+             
+              <mat-chip class="match-item" *ngIf="recommendationService.modelArtifactInformation[i].recommendationSuitability == RecommendationSuitability.Include">{{ element.name }}</mat-chip>
+              <mat-chip class="mismatch-item" *ngIf="recommendationService.modelArtifactInformation[i].recommendationSuitability == RecommendationSuitability.Exclude">{{ element.name }}</mat-chip>
+          </ng-container>
+          </mat-chip-list>
+          <h4>Executables</h4>
+           <mat-chip-list>
+          <ng-container
+            *ngFor="let element of attributeOptionsService.executables.value; let i = index"
+            class="attribute-option-container"
+          >
+             
+              <mat-chip class="match-item" *ngIf="recommendationService.executableInformation[i].recommendationSuitability == RecommendationSuitability.Include">{{ element.name }}</mat-chip>
+              <mat-chip class="mismatch-item" *ngIf="recommendationService.executableInformation[i].recommendationSuitability == RecommendationSuitability.Exclude">{{ element.name }}</mat-chip>
+          </ng-container>
+          </mat-chip-list>
+        </mat-expansion-panel>
+                <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title><strong>Process preferences</strong></mat-panel-title>
+            <mat-panel-description> </mat-panel-description>
+          </mat-expansion-panel-header>
+          <h4>Directions</h4>
+           <mat-chip-list>
+          <ng-container
+            *ngFor="let element of attributeOptionsService.directions.value; let i = index"
+            class="attribute-option-container"
+          >
+             
+              <mat-chip class="match-item" *ngIf="recommendationService.directionInformation[i].recommendationSuitability == RecommendationSuitability.Include">{{ element.name }}</mat-chip>
+              <mat-chip class="mismatch-item" *ngIf="recommendationService.directionInformation[i].recommendationSuitability == RecommendationSuitability.Exclude">{{ element.name }}</mat-chip>
+          </ng-container>
+          </mat-chip-list>
+          <h4>Levels of automation</h4>
+           <mat-chip-list>
+          <ng-container
+            *ngFor="let element of attributeOptionsService.automationLevels.value; let i = index"
+            class="attribute-option-container"
+          >
+             
+              <mat-chip class="match-item" *ngIf="recommendationService.automationLevelInformation[i].recommendationSuitability == RecommendationSuitability.Include">{{ element.name }}</mat-chip>
+              <mat-chip class="mismatch-item" *ngIf="recommendationService.automationLevelInformation[i].recommendationSuitability == RecommendationSuitability.Exclude">{{ element.name }}</mat-chip>
+          </ng-container>
+          </mat-chip-list>
+          <h4>Analysis types</h4>
+           <mat-chip-list>
+          <ng-container
+            *ngFor="let element of attributeOptionsService.analysisTypes.value; let i = index"
+            class="attribute-option-container"
+          >
+             
+              <mat-chip class="match-item" *ngIf="recommendationService.analysisTypeInformation[i].recommendationSuitability == RecommendationSuitability.Include">{{ element.name }}</mat-chip>
+              <mat-chip class="mismatch-item" *ngIf="recommendationService.analysisTypeInformation[i].recommendationSuitability == RecommendationSuitability.Exclude">{{ element.name }}</mat-chip>
+          </ng-container>
+          </mat-chip-list>
+          <h4>Techniques</h4>
+           <mat-chip-list>
+          <ng-container
+            *ngFor="let element of attributeOptionsService.techniques.value; let i = index"
+            class="attribute-option-container"
+          >
+             
+              <mat-chip class="match-item" *ngIf="recommendationService.techniqueInformation[i].recommendationSuitability == RecommendationSuitability.Include">{{ element.name }}</mat-chip>
+              <mat-chip class="mismatch-item" *ngIf="recommendationService.techniqueInformation[i].recommendationSuitability == RecommendationSuitability.Exclude">{{ element.name }}</mat-chip>
+          </ng-container>
+          </mat-chip-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title><strong>Output preferences</strong></mat-panel-title>
+            <mat-panel-description> </mat-panel-description>
+          </mat-expansion-panel-header>
+          <h4>Architectures</h4>
+           <mat-chip-list>
+          <ng-container
+            *ngFor="let element of attributeOptionsService.architectures.value; let i = index"
+            class="attribute-option-container"
+          >
+             
+              <mat-chip class="match-item" *ngIf="recommendationService.architectureInformation[i].recommendationSuitability == RecommendationSuitability.Include">{{ element.name }}</mat-chip>
+              <mat-chip class="mismatch-item" *ngIf="recommendationService.architectureInformation[i].recommendationSuitability == RecommendationSuitability.Exclude">{{ element.name }}</mat-chip>
+          </ng-container>
+          </mat-chip-list>
+          <h4>Service types</h4>
+           <mat-chip-list>
+          <ng-container
+            *ngFor="let element of attributeOptionsService.serviceTypes.value; let i = index"
+            class="attribute-option-container"
+          >
+             
+              <mat-chip class="match-item" *ngIf="recommendationService.serviceTypeInformation[i].recommendationSuitability == RecommendationSuitability.Include">{{ element.name }}</mat-chip>
+              <mat-chip class="mismatch-item" *ngIf="recommendationService.serviceTypeInformation[i].recommendationSuitability == RecommendationSuitability.Exclude">{{ element.name }}</mat-chip>
+          </ng-container>
+          </mat-chip-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title><strong>Usability preferences</strong></mat-panel-title>
+            <mat-panel-description> </mat-panel-description>
+          </mat-expansion-panel-header>
+          <h4>Validation methods</h4>
+           <mat-chip-list>
+          <ng-container
+            *ngFor="let element of attributeOptionsService.validationMethods.value; let i = index"
+            class="attribute-option-container"
+          >
+             
+              <mat-chip class="match-item" *ngIf="recommendationService.validationMethodInformation[i].recommendationSuitability == RecommendationSuitability.Include">{{ element.name }}</mat-chip>
+              <mat-chip class="mismatch-item" *ngIf="recommendationService.validationMethodInformation[i].recommendationSuitability == RecommendationSuitability.Exclude">{{ element.name }}</mat-chip>
+          </ng-container>
+          </mat-chip-list>
+          <h4>Tool supports</h4>
+           <mat-chip-list>
+          <ng-container
+            *ngFor="let element of attributeOptionsService.toolSupports.value; let i = index"
+            class="attribute-option-container"
+          >
+             
+              <mat-chip class="match-item" *ngIf="recommendationService.toolSupportInformation[i].recommendationSuitability == RecommendationSuitability.Include">{{ element.name }}</mat-chip>
+              <mat-chip class="mismatch-item" *ngIf="recommendationService.toolSupportInformation[i].recommendationSuitability == RecommendationSuitability.Exclude">{{ element.name }}</mat-chip>
+          </ng-container>
+          </mat-chip-list>
+          <h4>Quality of results</h4>
+           <mat-chip-list>
+          <ng-container
+            *ngFor="let element of attributeOptionsService.resultsQualities.value; let i = index"
+            class="attribute-option-container"
+          >
+             
+              <mat-chip class="match-item" *ngIf="recommendationService.resultsQualityInformation[i].recommendationSuitability == RecommendationSuitability.Include">{{ element.name }}</mat-chip>
+              <mat-chip class="mismatch-item" *ngIf="recommendationService.resultsQualityInformation[i].recommendationSuitability == RecommendationSuitability.Exclude">{{ element.name }}</mat-chip>
+          </ng-container>
+          </mat-chip-list>
+          <h4>Accuracy/Precision of service identification approaches</h4>
+           <mat-chip-list>
+          <ng-container
+            *ngFor="let element of attributeOptionsService.accuracyPrecisions.value; let i = index"
+            class="attribute-option-container"
+          >
+             
+              <mat-chip class="match-item" *ngIf="recommendationService.accuracyPrecisionInformation[i].recommendationSuitability == RecommendationSuitability.Include">{{ element.name }}</mat-chip>
+              <mat-chip class="mismatch-item" *ngIf="recommendationService.accuracyPrecisionInformation[i].recommendationSuitability == RecommendationSuitability.Exclude">{{ element.name }}</mat-chip>
+          </ng-container>
+          </mat-chip-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="main-container">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

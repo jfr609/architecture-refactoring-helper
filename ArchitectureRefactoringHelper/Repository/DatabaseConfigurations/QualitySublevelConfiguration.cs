@@ -36,7 +36,7 @@ public class QualitySublevelConfiguration : IEntityTypeConfiguration<QualitySubl
             },
             new QualitySublevel
             {
-                Name = "Co-Existencce",
+                Name = "Co-Existence",
                 QualityName = "Compatibility"
             },
             new QualitySublevel

@@ -31,6 +31,8 @@ public class ApproachRecommendation
 
     [JsonPropertyName("qualityEvaluations")]
     public IList<ApproachAttributeEvaluation<Quality>> QualityEvaluations { get; set; }
+    [JsonPropertyName("qualitySublevelEvaluations")]
+    public IList<ApproachAttributeEvaluation<QualitySublevel>> QualitySublevelEvaluations { get; set; }
 
     [JsonPropertyName("directionEvaluations")]
     public IList<ApproachAttributeEvaluation<Direction>> DirectionEvaluations { get; set; }
@@ -65,4 +67,29 @@ public class ApproachRecommendation
     [Required]
     [JsonPropertyName("suitabilityScore")]
     public int SuitabilityScore { get; set; }
+
+    [Required]
+    [JsonPropertyName("matchesCount")]
+    public int MatchesCount { get; set; }
+
+    [Required]
+    [JsonPropertyName("totalIncludeCount")]
+    public int TotalIncludeCount { get; set; }
+
+    [Required]
+    [JsonPropertyName("qualityScore")]
+    public QualityScore? QualityScore { get; set; }
+
+    [Required]
+    [JsonPropertyName("systemPropertiesScore")]
+    public SystemPropertiesScore? SystemPropertiesScore { get; set; }
+
+    [Required]
+    [JsonPropertyName("totalScore")]
+    public int TotalScore { get; set; }
+
+    [Required]
+    [JsonPropertyName("weightedScore")]
+    public int WeightedScore { get; set; }
+
 }

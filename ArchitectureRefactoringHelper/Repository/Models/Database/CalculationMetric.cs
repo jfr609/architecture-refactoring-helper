@@ -14,7 +14,7 @@ public class CalculationMetric
     [JsonPropertyName("description")]
     public string? Description { get; set; }
     
-    public bool KeyEquals(Quality obj)
+    public bool KeyEquals(CalculationMetric obj)
     {
         return obj.Name == Name;
     }

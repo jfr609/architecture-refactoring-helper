@@ -55,6 +55,29 @@ body {
   color: #ad3d3d;
 }
 
+.score-very-high {
+  color: #3cc238;
+}
+
+.score-high {
+  color: #348b31;
+  transform: rotate(45deg)
+}
+
+.score-medium {
+  transform: rotate(90deg)
+}
+
+.score-low {
+  color: #baba30;;
+  transform: rotate(135deg)
+}
+
+.score-very-low {
+  color: #ad3d3d;
+  transform: rotate(180deg)
+}
+
 .match-item {
   color: #40ad3d;
 }
