@@ -19,8 +19,22 @@ public static class DataSeeder
 
         var serviceProvider = host.Services.CreateScope().ServiceProvider;
         var refactoringApproachService = serviceProvider.GetRequiredService<RefactoringApproachService>();
-
         SeedRefactoringApproachData(refactoringApproachService);
+    }
+
+        public static void GenerateArchitecturalDesignSeedData(IHost host)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            if (db.ArchitecturalDesigns.Any())
+            {
+                return;
+            }
+        }
+
+        var serviceProvider = host.Services.CreateScope().ServiceProvider;
+        var architecturalDesignService = serviceProvider.GetRequiredService<ArchitecturalDesignService>();
+        SeedArchitecturalDesignData(architecturalDesignService);
     }
 
     private static void SeedRefactoringApproachData(RefactoringApproachService refactoringApproachService)
@@ -29,6 +43,16 @@ public static class DataSeeder
         foreach (var refactoringApproach in refactoringApproaches)
         {
             refactoringApproachService.AddRefactoringApproachIfNotExists(refactoringApproach);
+        }
+    }
+
+    private static void SeedArchitecturalDesignData(ArchitecturalDesignService architecturalDesignService)
+    {
+        var architecturalDesigns = GetSeedDataFromJson<ArchitecturalDesign>("ArchitecturalDesigns.json");
+         foreach (var architecturalDesign in architecturalDesigns)
+        {
+            Console.WriteLine(architecturalDesign.ArchitecturalDesignSource.Name);
+            architecturalDesignService.AddArchitecturalDesignIfNotExists(architecturalDesign);
         }
     }
 

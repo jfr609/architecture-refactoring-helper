@@ -1,0 +1,53 @@
+[
+    {
+        "architecturalDesignId": 1,
+        "identifier": "1",
+        "architecturalDesignSource": {
+            "architecturalDesignId": 1,
+            "name": "API gateway",
+            "description": "",
+            "authors": ""
+        },
+        "category": "Pattern",
+        "approachProcess": {
+            "approachProcessId": 99,
+            "qualities": [
+                {
+                    "name": "Reliability",
+                    "category": "Attribute"
+                },
+                {
+                    "name": "Security",
+                    "category": "Attribute"
+                },
+                {
+                    "name": "Compatibility",
+                    "category": "Attribute"
+                }
+            ],
+            "directions": [
+                {
+                    "name": "Bottom-up"
+                }
+            ],
+            "automationLevels": [
+                {
+                    "name": "Semi-automatic"
+                }
+            ],
+            "analysisTypes": [
+                {
+                    "name": "Dynamic"
+                }
+            ],
+            "techniques": [
+                {
+                    "name": "Clustering"
+                },
+                {
+                    "name": "Custom heuristics"
+                }
+            ]
+        }
+    }
+]

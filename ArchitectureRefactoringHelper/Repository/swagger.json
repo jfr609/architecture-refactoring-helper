@@ -1503,6 +1503,69 @@
         }
       }
     },
+    "/api/v1/architectural-designs": {
+      "get": {
+        "tags": [
+          "ArchitecturalDesign"
+        ],
+        "operationId": "ListArchitecturalDesigns",
+        "parameters": [
+          {
+            "name": "withDetails",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ArchitecturalDesign"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/architectural-designs/{id}": {
+      "get": {
+        "tags": [
+          "ArchitecturalDesign"
+        ],
+        "operationId": "GetArchitecturalDesign",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArchitecturalDesign"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/approaches": {
       "get": {
         "tags": [
@@ -3454,6 +3517,67 @@
           },
           "validationMethod": {
             "$ref": "#/components/schemas/ValidationMethod"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ArchitecturalCategory": {
+        "enum": [
+          "Pattern",
+          "BestPractice"
+        ],
+        "type": "string"
+      },
+      "ArchitecturalDesign": {
+        "required": [
+          "category",
+          "identifier"
+        ],
+        "type": "object",
+        "properties": {
+          "architecturalDesignId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "identifier": {
+            "type": "string"
+          },
+          "architecturalDesignSource": {
+            "$ref": "#/components/schemas/ArchitecturalDesignSource"
+          },
+          "category": {
+            "$ref": "#/components/schemas/ArchitecturalCategory"
+          },
+          "approachProcess": {
+            "$ref": "#/components/schemas/ApproachProcess"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ArchitecturalDesignSource": {
+        "required": [
+          "authors",
+          "description",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "architecturalDesignSourceId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "link": {
+            "type": "string",
+            "nullable": true
+          },
+          "authors": {
+            "type": "string"
           }
         },
         "additionalProperties": false

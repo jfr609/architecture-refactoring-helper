@@ -7,7 +7,9 @@ public static class Constants
     public const string TableNameProject = "Project";
     public const string TableNameProjectScenario = ".Scenario";
     public const string TableNameApproach = "Approach";
+    public const string TableNameArchitecturalDesign = "ArchitecturalDesign";
     public const string TableNameApproachSource = TableNameApproach + ".Source";
+    public const string TableNameArchitecturalDesignSource = TableNameArchitecturalDesign + ".Source";
 
     public const string TableNameApproachInput = TableNameApproach + ".Input";
     public const string TableNameApproachInputDomainArtifact = TableNameApproachInput + ".DomainArtifact";
@@ -37,6 +39,7 @@ public static class Constants
     // Controller api path constants
     public const string ApiVersion = "1";
     public const string ApiSubPathApproaches = "approaches";
+    public const string ApiSubPathArchitecturalDesigns = "architectural-designs";
     public const string ApiSubPathProjects = "projects";
     public const string ApiSubPathScenarios = "scenarios";
 

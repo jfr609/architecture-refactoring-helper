@@ -42,6 +42,7 @@ builder.Services.AddScoped<ApproachUsabilityService>();
 builder.Services.AddScoped<RefactoringApproachContext>();
 builder.Services.AddScoped<IRecommendationService, SimpleRecommendationService>();
 builder.Services.AddScoped<ScenarioService>();
+builder.Services.AddScoped<ArchitecturalDesignService>();
 
 var app = builder.Build();
 
@@ -71,5 +72,6 @@ app.MapControllers();
 
 // Seed database with initial data
 DataSeeder.GenerateSeedData(app);
+DataSeeder.GenerateArchitecturalDesignSeedData(app);
 
 app.Run();

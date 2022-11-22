@@ -12,6 +12,8 @@ public class ApproachProcess
     public int ApproachProcessId { get; set; }
     [JsonIgnore]
     public RefactoringApproach? RefactoringApproach { get; set; }
+    [JsonIgnore]
+    public ArchitecturalDesign? ArchitecturalDesign { get; set; }
     
     [JsonPropertyName("qualities")]
     public ICollection<Quality>? Qualities { get; set; }
