@@ -25,6 +25,20 @@
             </td>
         </ng-container>
 
+        <ng-container matColumnDef='category'>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header='category'>
+                Category
+            </th>
+            <td mat-cell class='approach-cell' *matCellDef='let architecturalDesign'>
+               <ng-container *ngIf="architecturalDesign.category == ArchitecturalCategory.Pattern; else bestPractice">
+                Pattern
+               </ng-container> 
+               <ng-template #bestPractice>
+                Best Practice
+               </ng-template> 
+            </td>
+        </ng-container>
+
         <ng-container matColumnDef='description'>
             <th mat-header-cell *matHeaderCellDef mat-sort-header='description'>
                 Description

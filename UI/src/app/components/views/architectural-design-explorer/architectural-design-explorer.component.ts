@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { ArchitecturalDesign, RefactoringApproach } from 'api/repository/models';
+import { ArchitecturalCategory, ArchitecturalDesign, RefactoringApproach } from 'api/repository/models';
 import { ArchitecturalDesignService, RefactoringApproachService } from 'api/repository/services';
 import { UtilService } from 'src/app/services/util.service';
 
@@ -18,10 +18,12 @@ export class ArchitecturalDesignExplorerComponent implements OnInit {
   readonly displayedColumns: string[] = [
     'id',
     'name',
+    'category',
     'description',
     'authors',
     'link'
   ];
+  readonly ArchitecturalCategory = ArchitecturalCategory;
   dataSource!: MatTableDataSource<ArchitecturalDesign>;
 
   architecturalDesigns: ArchitecturalDesign[] = [];
@@ -66,6 +68,8 @@ export class ArchitecturalDesignExplorerComponent implements OnInit {
           return data.architecturalDesignSource?.description;
         case 'authors':
           return data.architecturalDesignSource?.authors;
+        case 'category':
+          return data.category.toString();
         case 'link':
           return data.architecturalDesignSource?.link;
         default:

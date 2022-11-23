@@ -7,6 +7,12 @@
             <mat-icon>arrow_back</mat-icon>
         </button>
         <span>
+            <ng-container *ngIf="architecturalDesign.category == ArchitecturalCategory.Pattern; else bestPractice">
+                Pattern:
+               </ng-container> 
+               <ng-template #bestPractice>
+                Best Practice:
+               </ng-template> 
             {{architecturalDesign.architecturalDesignSource?.name}} ({{architecturalDesign.identifier}})
         </span>
     </h1>

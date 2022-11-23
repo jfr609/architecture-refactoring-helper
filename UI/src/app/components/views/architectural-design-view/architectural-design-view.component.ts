@@ -21,7 +21,7 @@ import { Location } from '@angular/common';
 export class ArchitecturalDesignViewComponent implements OnInit {
 
   architecturalDesign: ArchitecturalDesign = { identifier: '' , category: ArchitecturalCategory.Pattern};
-
+  readonly ArchitecturalCategory = ArchitecturalCategory;
   routeSub!: Subscription;
   isDataLoading = true;
 
