@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { ArchitecturalDesign } from '../models/architectural-design';
+import { ArchitecturalDesignRecommendationRequest } from '../models/architectural-design-recommendation-request';
+import { ArchitecturalDesignRecommendation } from '../models/architectural-design-recommendation';
 
 @Injectable({
   providedIn: 'root',
@@ -111,6 +113,55 @@ export class ArchitecturalDesignService extends BaseService {
 
     return this.getArchitecturalDesign$Response(params).pipe(
       map((r: StrictHttpResponse<ArchitecturalDesign>) => r.body as ArchitecturalDesign)
+    );
+  }
+
+  /**
+   * Path part for operation recommendArchitecturalDesigns
+   */
+  static readonly RecommendArchitecturalDesignsPath = '/api/v1/architectural-designs/recommendations';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `recommendArchitecturalDesigns()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  recommendArchitecturalDesigns$Response(params?: {
+    count?: number;
+    body?: ArchitecturalDesignRecommendationRequest
+  }): Observable<StrictHttpResponse<Array<ArchitecturalDesignRecommendation>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ArchitecturalDesignService.RecommendArchitecturalDesignsPath, 'post');
+    if (params) {
+      rb.query('count', params.count, {});
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<ArchitecturalDesignRecommendation>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `recommendArchitecturalDesigns$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  recommendArchitecturalDesigns(params?: {
+    count?: number;
+    body?: ArchitecturalDesignRecommendationRequest
+  }): Observable<Array<ArchitecturalDesignRecommendation>> {
+
+    return this.recommendArchitecturalDesigns$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<ArchitecturalDesignRecommendation>>) => r.body as Array<ArchitecturalDesignRecommendation>)
     );
   }
 

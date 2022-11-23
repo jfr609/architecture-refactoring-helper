@@ -12,6 +12,7 @@ export { ApproachSource } from './models/approach-source';
 export { ApproachUsability } from './models/approach-usability';
 export { ArchitecturalCategory } from './models/architectural-category';
 export { ArchitecturalDesign } from './models/architectural-design';
+export { ArchitecturalDesignRecommendationRequest } from './models/architectural-design-recommendation-request';
 export { ArchitecturalDesignSource } from './models/architectural-design-source';
 export { Architecture } from './models/architecture';
 export { ArchitectureApproachAttributeEvaluation } from './models/architecture-approach-attribute-evaluation';

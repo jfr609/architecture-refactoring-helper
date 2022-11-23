@@ -22,6 +22,8 @@ import { AttributeOptionsService } from './attribute-options.service';
 import { ApproachRecommendationRequest } from '../../../api/repository/models/approach-recommendation-request';
 import { RecommendationPreset } from '../../../api/repository/models/recommendation-preset';
 import { QualitySublevelAttributeRecommendationInformation } from 'api/repository/models/quality-sublevel-attribute-recommendation-information';
+import { ArchitecturalDesignRecommendation } from 'api/repository/models/architectural-design-recommendation';
+import { ArchitecturalDesignRecommendationRequest } from 'api/repository/models';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +38,17 @@ export class ApproachRecommendationService {
 
   public set recommendations(value: ApproachRecommendation[]) {
     this._recommendationsSubject.next(value);
+  }
+
+  private _designRecommendationsSubject: BehaviorSubject<ArchitecturalDesignRecommendation[]> =
+    new BehaviorSubject<ArchitecturalDesignRecommendation[]>([]);
+
+  public get designRecommendations(): ArchitecturalDesignRecommendation[] {
+    return this._designRecommendationsSubject.value;
+  }
+
+  public set designRecommendations(value: ArchitecturalDesignRecommendation[]) {
+    this._designRecommendationsSubject.next(value);
   }
 
   public selectedPreset: RecommendationPreset | undefined = undefined;
@@ -116,7 +129,6 @@ export class ApproachRecommendationService {
   setRecommendationInformationSuitability(
     recommendationSuitability: RecommendationSuitability
   ): void {
-    this.clearRecommendationInformation();
 
     this.setAttributeInformation(
       this.domainArtifactInformation,
@@ -235,6 +247,15 @@ export class ApproachRecommendationService {
       toolSupportInformation: this.toolSupportInformation,
       resultsQualityInformation: this.resultsQualityInformation,
       accuracyPrecisionInformation: this.accuracyPrecisionInformation
+    };
+  }
+
+  createDesignRecommendationRequest(): ArchitecturalDesignRecommendationRequest {
+    return {
+      qualityInformation: this.qualityAttributeInformation.concat(
+        this.qualitySystemPropertyInformation
+      ),
+      qualitySublevelInformation: this.qualitySublevelInformation,
     };
   }
 

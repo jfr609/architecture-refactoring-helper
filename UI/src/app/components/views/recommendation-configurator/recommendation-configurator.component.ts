@@ -96,7 +96,6 @@ export class RecommendationConfiguratorComponent implements OnInit {
   }
 
   onSearchRecommendation(): void {
-    console.log(this.recommendationService.qualityAttributeInformation);
     const approachRecommendationRequest: ApproachRecommendationRequest =
       this.recommendationService.createRecommendationRequest();
 

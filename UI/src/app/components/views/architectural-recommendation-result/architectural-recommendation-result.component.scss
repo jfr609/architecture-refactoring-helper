@@ -1,0 +1,58 @@
+table{
+    width: 90%;
+  }
+  
+  tr.approach-row {
+    cursor: pointer;
+  }
+  
+  tr.approach-row:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  tr.approach-detail-row {
+    height: 0;
+  }
+  
+  .approach-header {
+    padding: 0 12px;
+  }
+  
+  tr>th:first-child>span.approach-header {
+    padding: 0;
+  }
+  
+  .approach-cell {
+    padding: 8px 12px;
+  }
+  
+  .approach-details-container {
+    overflow: hidden;
+  }
+  
+  .approach-details {
+    margin: 24px 0;
+    width: 100%;
+    min-height: 50px;
+  }
+  
+  .approach-row td {
+    border-bottom-width: 0;
+  }
+  
+  h3 {
+    margin: 0 0 8px 0;
+  }
+  
+  h4 {
+    margin: 0 0 8px 0;
+  }
+  
+  .evaluation-content {
+    margin-bottom: 16px;
+  }
+  
+  .evaluation-item {
+    margin-right: 16px;
+  }
+  

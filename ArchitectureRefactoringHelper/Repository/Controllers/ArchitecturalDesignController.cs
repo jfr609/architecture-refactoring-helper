@@ -14,10 +14,12 @@ namespace Repository.Controllers;
 public class ArchitecturalDesignController : ControllerBase
 {
     private readonly ArchitecturalDesignService _architecturalDesignService;
+    private readonly IRecommendationService _recommendationService;
 
-    public ArchitecturalDesignController(ArchitecturalDesignService architecturalDesignService)
+    public ArchitecturalDesignController(ArchitecturalDesignService architecturalDesignService, IRecommendationService recommendationService)
     {
         _architecturalDesignService = architecturalDesignService;
+        _recommendationService = recommendationService;
 
     }
 
@@ -31,6 +33,28 @@ public class ArchitecturalDesignController : ControllerBase
     public ActionResult<ArchitecturalDesign> GetArchitecturalDesign(int id)
     {
         return Ok(_architecturalDesignService.GetArchitecturalDesign(id));
+    }
+
+ 
+    [HttpPost("recommendations", Name = "RecommendArchitecturalDesigns")]
+    public ActionResult<IEnumerable<ArchitecturalDesignRecommendation>> RecommendArchitecturalDesigns(
+        [FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Allow)]
+        ArchitecturalDesignRecommendationRequest? architecturalRequest,
+        [FromQuery] int? count)
+    {
+        var numberOfRecommendations = count ?? Constants.DefaultNumberOfRecommendations;
+
+        IEnumerable<ArchitecturalDesignRecommendation> recommendations;
+    
+            if (architecturalRequest == null)
+                return BadRequest("Either a request body or a preset is required");
+
+            recommendations =
+                _recommendationService.GetArchitecturalDesignRecommendations(architecturalRequest,
+                    numberOfRecommendations);
+        
+    
+        return Ok(recommendations);
     }
 
 }
