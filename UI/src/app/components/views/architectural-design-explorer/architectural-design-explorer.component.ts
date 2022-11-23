@@ -90,4 +90,11 @@ export class ArchitecturalDesignExplorerComponent implements OnInit {
     if (architecturalDesign.architecturalDesignSource?.link == null) return;
     window.open(architecturalDesign.architecturalDesignSource?.link, '_blank');
   }
+
+  openArchitecturalDesignView(architecturalDesign: ArchitecturalDesign) {
+    this.router.navigate([
+      '/phase/3/architecturalDesigns',
+      architecturalDesign.architecturalDesignId
+    ]);
+  }
 }

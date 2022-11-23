@@ -66,6 +66,6 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef='displayedColumns'></tr>
-        <tr mat-row *matRowDef='let row; columns: displayedColumns;' class='approach-row'></tr>
+        <tr mat-row *matRowDef='let row; columns: displayedColumns;' class='approach-row' (click)='openArchitecturalDesignView(row)'></tr>
     </table>
 </div>
