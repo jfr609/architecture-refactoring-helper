@@ -1,0 +1,71 @@
+<div fxLayout='column' fxLayoutAlign='start center' class='page-container' fxLayoutGap='32px'>
+    <h1 fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='12px'>
+        <button mat-mini-fab color='warn' routerLink='/phase/3'>
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <span>Explore all currently available Patterns and Best Practices</span>
+    </h1>
+
+    <table mat-table [dataSource]='dataSource' matSort class='mat-elevation-z8'>
+        <ng-container matColumnDef='id'>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header='id'>
+                ID
+            </th>
+            <td mat-cell class='approach-cell' *matCellDef='let architecturalDesign'>
+                {{architecturalDesign.identifier}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef='name'>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header='name'>
+                Name
+            </th>
+            <td mat-cell class='approach-cell' *matCellDef='let architecturalDesign'>
+                {{architecturalDesign.architecturalDesignSource.name}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef='description'>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header='description'>
+                Description
+            </th>
+            <td mat-cell class='approach-cell' *matCellDef='let architecturalDesign'>
+                {{architecturalDesign.architecturalDesignSource.description}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef='authors'>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header='authors'>
+                Authors
+            </th>
+            <td mat-cell class='approach-cell' *matCellDef='let architecturalDesign'>
+                {{architecturalDesign.architecturalDesignSource.authors}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef='link'>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header='link'>
+                Link
+            </th>
+            <td mat-cell class='approach-cell' *matCellDef='let architecturalDesign'>
+                {{architecturalDesign.architecturalDesignSource.link}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef='actions'>
+            <th mat-header-cell *matHeaderCellDef>
+                Actions
+            </th>
+            <td mat-cell class='approach-cell' *matCellDef='let architecturalDesign'>
+                <div fxLayout='row'>
+                    <button mat-icon-button color='accent' (click)='goToLink(architecturalDesign, $event)'>
+                        <mat-icon>open_in_new</mat-icon>
+                    </button>
+                </div>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef='displayedColumns'></tr>
+        <tr mat-row *matRowDef='let row; columns: displayedColumns;' class='approach-row'></tr>
+    </table>
+</div>

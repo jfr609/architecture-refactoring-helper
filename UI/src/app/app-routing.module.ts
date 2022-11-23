@@ -12,6 +12,7 @@ import { RecommendationComponent } from './components/views/recommendation/recom
 import { FrameworkPhaseOneComponent } from './components/views/framework-phase-one/framework-phase-one.component';
 import { FrameworkPhaseTwoComponent } from './components/views/framework-phase-two/framework-phase-two.component';
 import { FrameworkPhaseThreeComponent } from './components/views/framework-phase-three/framework-phase-three.component';
+import { ArchitecturalDesignExplorerComponent } from './components/views/architectural-design-explorer/architectural-design-explorer.component';
 
 const routes: Routes = [
   {
@@ -57,6 +58,10 @@ const routes: Routes = [
   {
     path: 'phase/2/recommendation/result/:mode',
     component: RecommendationResultComponent
+  },
+  {
+    path: 'phase/3/architecturalDesigns',
+    component: ArchitecturalDesignExplorerComponent
   },
   {
     path: '',

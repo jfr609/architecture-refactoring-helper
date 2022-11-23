@@ -1,10 +1,19 @@
-<div class='window'>
-  <div class='window-body'>
-    <mat-icon class='icon-4x' color='accent'>info</mat-icon>
-    <h1>Phase three has not been designed yet!</h1>
-    <button mat-flat-button color='accent' routerLink='/'>
-      <mat-icon>home</mat-icon>
-      <span>Go home</span>
+<div fxLayout='column' fxLayoutAlign='start center' class='page-container'>
+  <h1 fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='12px'>
+    <button mat-mini-fab color='warn' routerLink='/home'>
+      <mat-icon>arrow_back</mat-icon>
     </button>
+    <span>Phase 3: Architecture Definition</span>
+  </h1>
+
+  <div class='card-group' fxLayout='row' fxLayoutGap='50px'>
+    <app-card-button color='phase-2' routerLink='architecturalDesigns'>
+      <div title>
+        <strong>Explore</strong> all architectural design approaches!
+      </div>
+      <ng-container content>
+        Freely explore all architectural design approaches that exist in the repository.
+      </ng-container>
+    </app-card-button>
   </div>
 </div>
