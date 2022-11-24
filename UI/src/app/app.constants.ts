@@ -9,3 +9,9 @@ export const URL_REGEX = new RegExp(
 );
 export const TOOLTIP_SHOW_DELAY = 300;
 export const TOOLTIP_HIDE_DELAY = 300;
+
+export const SCORE_VERY_LOW = 15;
+export const SCORE_LOW = 30;
+export const SCORE_MEDIUM = 50;
+export const SCORE_HIGH = 75;
+export const SCORE_MAX = 100;

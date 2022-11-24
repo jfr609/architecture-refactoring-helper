@@ -110,6 +110,15 @@ export class ApproachRecommendationService {
     this.accuracyPrecisionInformation = [];
   }
 
+  setQualitiesToNeutral() : void {
+     this.qualityAttributeInformation.forEach(
+       (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
+     );
+     this.qualitySublevelInformation.forEach(
+       (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
+     );
+  }
+
   setAttributeInformation<T>(
     informationArray: {
       attribute: T;

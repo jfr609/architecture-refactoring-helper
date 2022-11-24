@@ -62,7 +62,7 @@ const routes: Routes = [
     component: RecommendationResultComponent
   },
   {
-    path: 'phase/3/architecturalDesigns/result',
+    path: 'phase/3/architecturalDesigns/result/:mode',
     component: ArchitecturalRecommendationResultComponent
   },
   {

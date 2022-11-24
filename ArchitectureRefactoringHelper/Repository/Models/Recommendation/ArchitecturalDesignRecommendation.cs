@@ -16,6 +16,11 @@ namespace Repository.Models.Recommendation
     [JsonPropertyName("architecturalDesignSource")]
     public ArchitecturalDesignSource ArchitecturalDesignSource { get; set; }
 
+    [Required]
+    [JsonPropertyName("category")]
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public ArchitecturalCategory Category { get; set; }
+
 
     [JsonPropertyName("qualityEvaluations")]
     public IList<ApproachAttributeEvaluation<Quality>> QualityEvaluations { get; set; }

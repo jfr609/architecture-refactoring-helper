@@ -15,6 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RecommendationPreset } from '../../../../../api/repository/models/recommendation-preset';
 import { Subscription } from 'rxjs';
 import { UtilService } from 'src/app/services/util.service';
+import { SCORE_VERY_LOW, SCORE_LOW, SCORE_MEDIUM, SCORE_HIGH, SCORE_MAX } from 'src/app/app.constants';
 
 @Component({
   selector: 'app-recommendation-result',
@@ -157,6 +158,9 @@ export class RecommendationResultComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.utilService.closeSideNav();
+    if (this.scenarioBased) {
+      this.recommendationsService.setQualitiesToNeutral();
+    }
   }
 
   loadRecommendations(numberOfRecommendations: number): void {
@@ -252,15 +256,15 @@ export class RecommendationResultComponent implements OnInit {
     if (columnDef !== 'totalScore') {
       return '';
     }
-    if (score < 15) {
+    if (score < SCORE_VERY_LOW) {
       return 'score-very-low';
-    } else if (score < 30) {
+    } else if (score < SCORE_LOW) {
       return 'score-low';
-    } else if (score < 50) {
+    } else if (score < SCORE_MEDIUM) {
       return 'score-medium';
-    } else if (score < 75){
+    } else if (score < SCORE_HIGH) {
       return 'score-high';
-    } else if (score <= 100){
+    } else if (score <= SCORE_MAX) {
       return 'score-very-high';
     } else {
       return '';

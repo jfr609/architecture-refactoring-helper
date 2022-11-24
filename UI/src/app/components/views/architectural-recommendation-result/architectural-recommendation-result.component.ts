@@ -3,11 +3,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AttributeEvaluation, ApproachRecommendation, RecommendationPreset, ArchitecturalDesignRecommendationRequest } from 'api/repository/models';
+import { AttributeEvaluation, ApproachRecommendation, RecommendationPreset, ArchitecturalDesignRecommendationRequest, RecommendationSuitability } from 'api/repository/models';
 import { ArchitecturalDesignRecommendation } from 'api/repository/models/architectural-design-recommendation';
 import { ArchitecturalDesignService } from 'api/repository/services';
 import { lastValueFrom, Subscription } from 'rxjs';
+import { SCORE_HIGH, SCORE_LOW, SCORE_MAX, SCORE_MEDIUM, SCORE_VERY_LOW } from 'src/app/app.constants';
 import { ApproachRecommendationService } from 'src/app/services/approach-recommendation.service';
+import { ProjectService } from 'src/app/services/project.service';
 import { UtilService } from 'src/app/services/util.service';
 
 @Component({
@@ -23,13 +25,13 @@ import { UtilService } from 'src/app/services/util.service';
   ]
 })
 export class ArchitecturalRecommendationResultComponent implements OnInit {
-
   @ViewChild(MatSort) set sort(sort: MatSort) {
     if (sort) {
       this.dataSource.sort = sort;
     }
   }
 
+  categorySelected: string = 'Pattern';
   readonly AttributeEvaluation = AttributeEvaluation;
   columnData: ColumnData[] = [
     {
@@ -93,7 +95,7 @@ export class ArchitecturalRecommendationResultComponent implements OnInit {
       isActionColumn: false,
       isScoreColumn: true,
       cell: (recommendation: ArchitecturalDesignRecommendation) =>
-      `${recommendation.totalScore}`
+        `${recommendation.totalScore}`
     },
     {
       columnDef: 'actions',
@@ -128,7 +130,7 @@ export class ArchitecturalRecommendationResultComponent implements OnInit {
   expandedRecommendation: ArchitecturalDesignRecommendation | undefined | null;
 
   showAllActive = false;
-  
+
   sub!: Subscription;
 
   scenarioBased = false;
@@ -138,22 +140,35 @@ export class ArchitecturalRecommendationResultComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private utilService: UtilService,
-    private architecturalService: ArchitecturalDesignService
+    private architecturalService: ArchitecturalDesignService,
+    private projectService: ProjectService
   ) {}
 
   ngOnInit(): void {
-    this.onSearchRecommendation();
-    Promise.all([this.sub = this.route.params.subscribe(params => {
+    Promise.all([
+      (this.sub = this.route.params.subscribe((params) => {
         this.scenarioBased = params['mode'] == 'scenarioBased';
-      })]).then(() => {
-        this.loadRecommendations(10);
-        this.setDataSource();
-        this.utilService.openSideNav();
-      });
+      })),
+            this.projectService.requestProjectAttributes()
+    ]).then(() => {
+            this.recommendationsService.setRecommendationInformationSuitability(
+              RecommendationSuitability.Neutral
+            );
+      if (this.scenarioBased) {
+        this.projectService.setQualitiesFromScenarios();
+      }
+      this.onSearchRecommendation();
+      this.utilService.setSideNavScenarioBased(this.scenarioBased);
+      this.utilService.openSideNav();
+    });
   }
 
   ngOnDestroy(): void {
+    this.sub.unsubscribe();
     this.utilService.closeSideNav();
+    if(this.scenarioBased){
+      this.recommendationsService.setQualitiesToNeutral();
+    }
   }
 
   loadRecommendations(numberOfRecommendations: number): void {
@@ -164,10 +179,11 @@ export class ArchitecturalRecommendationResultComponent implements OnInit {
     if (this.showAllActive) {
       this.recommendations = this.recommendationsService.designRecommendations;
     } else {
-      this.recommendations = this.recommendationsService.designRecommendations.slice(
-        0,
-        numberOfRecommendations
-      );
+      this.recommendations =
+        this.recommendationsService.designRecommendations.slice(
+          0,
+          numberOfRecommendations
+        );
     }
     this.refreshDataSource();
     this.setDataSource();
@@ -202,6 +218,7 @@ export class ArchitecturalRecommendationResultComponent implements OnInit {
 
   refreshDataSource(): void {
     this.dataSource = new MatTableDataSource(this.recommendations);
+    this.dataSource.filter = this.categorySelected;
   }
 
   openRecommendationView(recommendation: ArchitecturalDesignRecommendation) {
@@ -230,21 +247,19 @@ export class ArchitecturalRecommendationResultComponent implements OnInit {
     }
   }
 
-  getScoreIconStyle(score: number,
-    columnDef: string
-  ): string {
+  getScoreIconStyle(score: number, columnDef: string): string {
     if (columnDef !== 'totalScore') {
       return '';
     }
-    if (score < 15) {
+    if (score < SCORE_VERY_LOW) {
       return 'score-very-low';
-    } else if (score < 30) {
+    } else if (score < SCORE_LOW) {
       return 'score-low';
-    } else if (score < 50) {
+    } else if (score < SCORE_MEDIUM) {
       return 'score-medium';
-    } else if (score < 75){
+    } else if (score < SCORE_HIGH) {
       return 'score-high';
-    } else if (score <= 100){
+    } else if (score <= SCORE_MAX) {
       return 'score-very-high';
     } else {
       return '';
@@ -258,6 +273,7 @@ export class ArchitecturalRecommendationResultComponent implements OnInit {
       this.expandedRecommendation = recommendation;
     }
   }
+
   onSearchRecommendation(): void {
     const architecturalRecommendationRequest: ArchitecturalDesignRecommendationRequest =
       this.recommendationsService.createDesignRecommendationRequest();
@@ -269,6 +285,8 @@ export class ArchitecturalRecommendationResultComponent implements OnInit {
     )
       .then((value: ArchitecturalDesignRecommendation[]) => {
         this.recommendationsService.designRecommendations = value;
+              this.loadRecommendations(10);
+              this.setDataSource();
       })
       .catch((reason) => {
         console.log(reason);

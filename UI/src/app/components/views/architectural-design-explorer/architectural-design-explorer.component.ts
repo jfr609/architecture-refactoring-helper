@@ -25,7 +25,7 @@ export class ArchitecturalDesignExplorerComponent implements OnInit {
   ];
   readonly ArchitecturalCategory = ArchitecturalCategory;
   dataSource!: MatTableDataSource<ArchitecturalDesign>;
-
+  categorySelected: string = "Pattern";
   architecturalDesigns: ArchitecturalDesign[] = [];
 
   constructor(
@@ -83,6 +83,7 @@ export class ArchitecturalDesignExplorerComponent implements OnInit {
 
   refreshDataSource(): void {
     this.dataSource = new MatTableDataSource(this.architecturalDesigns);
+    this.dataSource.filter = this.categorySelected;
   }
 
   goToLink(

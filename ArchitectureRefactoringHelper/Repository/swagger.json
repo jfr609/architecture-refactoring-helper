@@ -3610,6 +3610,7 @@
         "required": [
           "architecturalDesignId",
           "architecturalDesignSource",
+          "category",
           "identifier",
           "matchesCount",
           "qualityScore",
@@ -3630,6 +3631,9 @@
           },
           "architecturalDesignSource": {
             "$ref": "#/components/schemas/ArchitecturalDesignSource"
+          },
+          "category": {
+            "$ref": "#/components/schemas/ArchitecturalCategory"
           },
           "qualityEvaluations": {
             "type": "array",

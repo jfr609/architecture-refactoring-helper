@@ -5,7 +5,13 @@
         </button>
         <span>Explore all currently available Patterns and Best Practices</span>
     </h1>
-
+    
+    <mat-button-toggle-group name="categoryFilter" aria-label="Category Filter" [(ngModel)]="categorySelected"
+        (change)="refreshDataSource()">
+        <mat-button-toggle value="Pattern" checked><strong>Patterns</strong></mat-button-toggle>
+        <mat-button-toggle value="BestPractice"><strong>Best Practices</strong></mat-button-toggle>
+    </mat-button-toggle-group>
+    
     <table mat-table [dataSource]='dataSource' matSort class='mat-elevation-z8'>
         <ng-container matColumnDef='id'>
             <th mat-header-cell *matHeaderCellDef mat-sort-header='id'>

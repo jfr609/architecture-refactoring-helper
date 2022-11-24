@@ -171,7 +171,9 @@ public class SimpleRecommendationService : IRecommendationService
                     {
                         foreach (var subq in information.Attribute.QualitySublevels)
                         {
+                            if(!refactoringApproach.ApproachProcess.QualitySublevels!.Any(sq => sq.Name == subq.Name)){
                             refactoringApproach.ApproachProcess.QualitySublevels?.Add(subq);
+                            }
                         }
                     }
                 }
@@ -372,7 +374,10 @@ private ArchitecturalDesignRecommendation EvaluateArchitecturalSuitability(Archi
                     {
                         foreach (var subq in information.Attribute.QualitySublevels)
                         {
+                            if (!architecturalDesign.ApproachProcess.QualitySublevels!.Any(sq => sq.Name == subq.Name))
+                            {
                             architecturalDesign.ApproachProcess.QualitySublevels?.Add(subq);
+                            }
                         }
                     }
                 }
@@ -417,6 +422,8 @@ private ArchitecturalDesignRecommendation EvaluateArchitecturalSuitability(Archi
         architecturalRecommendation.WeightedScore = CalculateTotalDesignWeightedScore(architecturalRecommendation, architecturalRequest, ref weightedQualityCount);
 
         architecturalRecommendation.TotalScore = CalculateTotalDesignQualityScore(architecturalRecommendation);
+
+        architecturalRecommendation.Category = architecturalDesign.Category;
 
         return architecturalRecommendation;
     }
