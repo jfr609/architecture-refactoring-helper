@@ -1609,7 +1609,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/ArchitecturalDesign"
+                    "$ref": "#/components/schemas/ArchitecturalDesignRecommendation"
                   }
                 }
               }
@@ -3602,6 +3602,74 @@
           },
           "approachProcess": {
             "$ref": "#/components/schemas/ApproachProcess"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ArchitecturalDesignRecommendation": {
+        "required": [
+          "architecturalDesignId",
+          "architecturalDesignSource",
+          "identifier",
+          "matchesCount",
+          "qualityScore",
+          "suitabilityScore",
+          "systemPropertiesScore",
+          "totalIncludeCount",
+          "totalScore",
+          "weightedScore"
+        ],
+        "type": "object",
+        "properties": {
+          "architecturalDesignId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "identifier": {
+            "type": "string"
+          },
+          "architecturalDesignSource": {
+            "$ref": "#/components/schemas/ArchitecturalDesignSource"
+          },
+          "qualityEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QualityApproachAttributeEvaluation"
+            },
+            "nullable": true
+          },
+          "qualitySublevelEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QualitySublevelApproachAttributeEvaluation"
+            },
+            "nullable": true
+          },
+          "suitabilityScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "matchesCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalIncludeCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "qualityScore": {
+            "$ref": "#/components/schemas/QualityScore"
+          },
+          "systemPropertiesScore": {
+            "$ref": "#/components/schemas/SystemPropertiesScore"
+          },
+          "totalScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "weightedScore": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

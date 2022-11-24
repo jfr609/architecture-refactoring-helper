@@ -10,8 +10,8 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { ArchitecturalDesign } from '../models/architectural-design';
-import { ArchitecturalDesignRecommendationRequest } from '../models/architectural-design-recommendation-request';
 import { ArchitecturalDesignRecommendation } from '../models/architectural-design-recommendation';
+import { ArchitecturalDesignRecommendationRequest } from '../models/architectural-design-recommendation-request';
 
 @Injectable({
   providedIn: 'root',

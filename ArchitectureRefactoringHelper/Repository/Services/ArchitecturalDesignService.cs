@@ -76,6 +76,7 @@ public class ArchitecturalDesignService
         var newDesign = new ArchitecturalDesign
         {
             Identifier = architecturalDesign.Identifier,
+            Category = architecturalDesign.Category,
             ArchitecturalDesignSource = architecturalDesign.ArchitecturalDesignSource,
             ApproachProcess = _processService.AddApproachProcess(architecturalDesign.ApproachProcess, ref db)
 
