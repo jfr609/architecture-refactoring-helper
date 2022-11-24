@@ -1503,6 +1503,121 @@
         }
       }
     },
+    "/api/v1/architectural-designs": {
+      "get": {
+        "tags": [
+          "ArchitecturalDesign"
+        ],
+        "operationId": "ListArchitecturalDesigns",
+        "parameters": [
+          {
+            "name": "withDetails",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ArchitecturalDesign"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/architectural-designs/{id}": {
+      "get": {
+        "tags": [
+          "ArchitecturalDesign"
+        ],
+        "operationId": "GetArchitecturalDesign",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArchitecturalDesign"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/architectural-designs/recommendations": {
+      "post": {
+        "tags": [
+          "ArchitecturalDesign"
+        ],
+        "operationId": "RecommendArchitecturalDesigns",
+        "parameters": [
+          {
+            "name": "count",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ArchitecturalDesignRecommendationRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ArchitecturalDesignRecommendationRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ArchitecturalDesignRecommendationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ArchitecturalDesignRecommendation"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/approaches": {
       "get": {
         "tags": [
@@ -3454,6 +3569,161 @@
           },
           "validationMethod": {
             "$ref": "#/components/schemas/ValidationMethod"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ArchitecturalCategory": {
+        "enum": [
+          "Pattern",
+          "BestPractice"
+        ],
+        "type": "string"
+      },
+      "ArchitecturalDesign": {
+        "required": [
+          "category",
+          "identifier"
+        ],
+        "type": "object",
+        "properties": {
+          "architecturalDesignId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "identifier": {
+            "type": "string"
+          },
+          "architecturalDesignSource": {
+            "$ref": "#/components/schemas/ArchitecturalDesignSource"
+          },
+          "category": {
+            "$ref": "#/components/schemas/ArchitecturalCategory"
+          },
+          "approachProcess": {
+            "$ref": "#/components/schemas/ApproachProcess"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ArchitecturalDesignRecommendation": {
+        "required": [
+          "architecturalDesignId",
+          "architecturalDesignSource",
+          "category",
+          "identifier",
+          "matchesCount",
+          "qualityScore",
+          "suitabilityScore",
+          "systemPropertiesScore",
+          "totalIncludeCount",
+          "totalScore",
+          "weightedScore"
+        ],
+        "type": "object",
+        "properties": {
+          "architecturalDesignId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "identifier": {
+            "type": "string"
+          },
+          "architecturalDesignSource": {
+            "$ref": "#/components/schemas/ArchitecturalDesignSource"
+          },
+          "category": {
+            "$ref": "#/components/schemas/ArchitecturalCategory"
+          },
+          "qualityEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QualityApproachAttributeEvaluation"
+            },
+            "nullable": true
+          },
+          "qualitySublevelEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QualitySublevelApproachAttributeEvaluation"
+            },
+            "nullable": true
+          },
+          "suitabilityScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "matchesCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalIncludeCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "qualityScore": {
+            "$ref": "#/components/schemas/QualityScore"
+          },
+          "systemPropertiesScore": {
+            "$ref": "#/components/schemas/SystemPropertiesScore"
+          },
+          "totalScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "weightedScore": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ArchitecturalDesignRecommendationRequest": {
+        "required": [
+          "qualityInformation",
+          "qualitySublevelInformation"
+        ],
+        "type": "object",
+        "properties": {
+          "qualityInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QualityAttributeRecommendationInformation"
+            }
+          },
+          "qualitySublevelInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QualitySublevelAttributeRecommendationInformation"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ArchitecturalDesignSource": {
+        "required": [
+          "authors",
+          "description",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "architecturalDesignSourceId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "link": {
+            "type": "string",
+            "nullable": true
+          },
+          "authors": {
+            "type": "string"
           }
         },
         "additionalProperties": false

@@ -5,13 +5,16 @@ import { HomePageComponent } from './components/views/home-page/home-page.compon
 import { ApproachFormComponent } from './components/views/approach-form/approach-form.component';
 import { ApproachExplorerComponent } from './components/views/approach-explorer/approach-explorer.component';
 import { RecommendationConfiguratorComponent } from './components/views/recommendation-configurator/recommendation-configurator.component';
-import { NAV_PARAM_APPROACH_ID } from './app.constants';
+import { NAV_PARAM_APPROACH_ID, NAV_PARAM_DESIGN_ID } from './app.constants';
 import { ApproachViewComponent } from './components/views/approach-view/approach-view.component';
 import { RecommendationResultComponent } from './components/views/recommendation-result/recommendation-result.component';
 import { RecommendationComponent } from './components/views/recommendation/recommendation.component';
 import { FrameworkPhaseOneComponent } from './components/views/framework-phase-one/framework-phase-one.component';
 import { FrameworkPhaseTwoComponent } from './components/views/framework-phase-two/framework-phase-two.component';
 import { FrameworkPhaseThreeComponent } from './components/views/framework-phase-three/framework-phase-three.component';
+import { ArchitecturalDesignExplorerComponent } from './components/views/architectural-design-explorer/architectural-design-explorer.component';
+import { ArchitecturalDesignViewComponent } from './components/views/architectural-design-view/architectural-design-view.component';
+import { ArchitecturalRecommendationResultComponent } from './components/views/architectural-recommendation-result/architectural-recommendation-result.component';
 
 const routes: Routes = [
   {
@@ -57,6 +60,18 @@ const routes: Routes = [
   {
     path: 'phase/2/recommendation/result/:mode',
     component: RecommendationResultComponent
+  },
+  {
+    path: 'phase/3/architecturalDesigns/result/:mode',
+    component: ArchitecturalRecommendationResultComponent
+  },
+  {
+    path: 'phase/3/architecturalDesigns',
+    component: ArchitecturalDesignExplorerComponent
+  },
+  {
+    path: `phase/3/architecturalDesigns/:${NAV_PARAM_DESIGN_ID}`,
+    component: ArchitecturalDesignViewComponent
   },
   {
     path: '',

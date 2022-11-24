@@ -1,0 +1,130 @@
+[
+  {
+    "architecturalDesignId": 1,
+    "identifier": "1",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 1,
+      "name": "API gateway",
+      "description": "",
+      "authors": ""
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Security",
+          "category": "Attribute"
+        },
+        {
+          "name": "Compatibility",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 2,
+    "identifier": "2",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 2,
+      "name": "Backend for frontend",
+      "description": "",
+      "authors": ""
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Compatibility",
+          "category": "Attribute"
+        },
+        {
+          "name": "Performance",
+          "category": "Attribute"
+        },
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 3,
+    "identifier": "3",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 3,
+      "name": "Pipes and filters",
+      "description": "",
+      "authors": ""
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Performance",
+          "category": "Attribute"
+        },
+        {
+          "name": "Complexity",
+          "catergory": "SystemProperty"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Reusability",
+          "qualityName": "Maintainability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 4,
+    "identifier": "4",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 4,
+      "name": "Isolated State",
+      "description": "",
+      "authors": ""
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Portability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Performance",
+          "category": "Attribute"
+        },
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Replaceability",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Resource Utilization",
+          "qualityName": "Performance"
+        }
+      ]
+    }
+  }
+]

@@ -8,9 +8,12 @@ public class RefactoringApproachContext : DbContext
 {
     public DbSet<RefactoringApproach> RefactoringApproaches { get; set; }
 
+    public DbSet<ArchitecturalDesign> ArchitecturalDesigns { get; set; }
+
     public DbSet<Scenario> Scenarios { get; set; }
 
     public DbSet<ApproachSource> ApproachSources { get; set; }
+    public DbSet<ArchitecturalDesignSource> ArchitecturalDesignSources { get; set; }
 
     public DbSet<ApproachProcess> ApproachProcesses { get; set; }
     public DbSet<ApproachOutput> ApproachOutputs { get; set; }
@@ -58,6 +61,8 @@ public class RefactoringApproachContext : DbContext
         modelBuilder.ApplyConfiguration(new RefactoringApproachConfiguration());
         modelBuilder.ApplyConfiguration(new ApproachProcessConfiguration());
         modelBuilder.ApplyConfiguration(new ApproachUsabilityConfiguration());
+
+        modelBuilder.ApplyConfiguration(new ArchitecturalDesignConfiguration());
 
         modelBuilder.ApplyConfiguration(new DomainArtifactInputConfiguration());
         modelBuilder.ApplyConfiguration(new RuntimeArtifactInputConfiguration());

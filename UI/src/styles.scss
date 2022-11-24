@@ -45,37 +45,45 @@ body {
 
 .suitability-high {
   color: #40ad3d;
+  padding: 8px 12px;
 }
 
 .suitability-medium {
   color: #baba30;
+  padding: 8px 12px;
 }
 
 .suitability-low {
   color: #ad3d3d;
+  padding: 8px 12px;
 }
 
 .score-very-high {
   color: #3cc238;
+  padding: 8px 12px;
 }
 
 .score-high {
   color: #348b31;
-  transform: rotate(45deg)
+  transform: rotate(45deg);
+  padding: 8px 12px;
 }
 
 .score-medium {
-  transform: rotate(90deg)
+  transform: rotate(90deg);
+  padding: 8px 12px;
 }
 
 .score-low {
-  color: #baba30;;
-  transform: rotate(135deg)
+  color: #baba30;
+  transform: rotate(135deg);
+  padding: 8px 12px;
 }
 
 .score-very-low {
   color: #ad3d3d;
-  transform: rotate(180deg)
+  transform: rotate(180deg);
+  padding: 8px 12px;
 }
 
 .match-item {

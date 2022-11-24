@@ -59,7 +59,10 @@ import { SummaryComponent } from './components/views/phase-one-views/summary/sum
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCheckboxModule } from '@angular/material/checkbox'; 
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatChipsModule } from '@angular/material/chips'
+import { MatChipsModule } from '@angular/material/chips';
+import { ArchitecturalDesignExplorerComponent } from './components/views/architectural-design-explorer/architectural-design-explorer.component';
+import { ArchitecturalDesignViewComponent } from './components/views/architectural-design-view/architectural-design-view.component';
+import { ArchitecturalRecommendationResultComponent } from './components/views/architectural-recommendation-result/architectural-recommendation-result.component'
 
 @NgModule({
   declarations: [
@@ -87,7 +90,10 @@ import { MatChipsModule } from '@angular/material/chips'
     StrategicGoalsComponent,
     QualityAttributesComponent,
     AssessmentComponent,
-    SummaryComponent
+    SummaryComponent,
+    ArchitecturalDesignExplorerComponent,
+    ArchitecturalDesignViewComponent,
+    ArchitecturalRecommendationResultComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,205 @@
+<div fxLayout='column' fxLayoutAlign='start center' fxLayoutGap='32px' class='page-container'>
+    <h1 fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='12px'>
+      <button mat-mini-fab color='warn' [routerLink]="['/phase/3']">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <span>Architectural Design recommendation</span>
+    </h1>
+  
+    <p class='max-width-800'>
+      This results page will show a list of patterns and best practices recommendations ordered by the amount of matches that
+      expresses the overlap of the properties with your filter settings.
+    </p>
+    <p class='max-width-800' fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='8px'>
+      <mat-icon color='accent'>info</mat-icon>
+      <strong>Caution:</strong>
+      <span>The below presented result list does represent a work-in-progress state and may be inaccurate.</span>
+    </p>
+
+    <mat-button-toggle-group name="categoryFilter" aria-label="Category Filter" [(ngModel)]="categorySelected"
+      (change)="refreshDataSource()">
+      <mat-button-toggle value="Pattern" checked><strong>Patterns</strong></mat-button-toggle>
+      <mat-button-toggle value="BestPractice"><strong>Best Practices</strong></mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <table mat-table [dataSource]='dataSource' multiTemplateDataRows matSort matSortActive="matches" matSortDirection="desc" class='mat-elevation-z8'>
+      <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of sortColumns'>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header='{{ columnData.columnDef }}'>
+          <span class='approach-header'>
+            {{ columnData.header }}
+          </span>
+        </th>
+        <td mat-cell class='approach-cell' *matCellDef='let recommendation'
+          [class]='getSuitabilityColor(recommendation, columnData.columnDef)'>
+          {{ columnData.cell(recommendation) }}
+        </td>
+      </ng-container>
+  
+      <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of nonSortColumns'>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header='{{ columnData.columnDef }}'>
+          <span class='approach-header'>
+            {{ columnData.header }}
+          </span>
+        </th>
+        <td mat-cell class='approach-cell' *matCellDef='let recommendation'
+          [class]='getSuitabilityColor(recommendation, columnData.columnDef)'>
+          {{ columnData.cell(recommendation) }}
+        </td>
+      </ng-container>
+  
+      <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of scoreColumns'>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header='{{ columnData.columnDef }}'>
+          <span class='approach-header'>
+            {{ columnData.header }}
+          </span>
+        </th>
+        <td mat-cell class='approach-cell' *matCellDef='let recommendation'>
+          <mat-icon *ngIf="!scenarioBased; else scenarioScore"
+            [class]='getScoreIconStyle(recommendation.totalScore, columnData.columnDef)'>arrow_circle_up</mat-icon>
+          <ng-template #scenarioScore>
+            <mat-icon [class]='getScoreIconStyle(recommendation.weightedScore, columnData.columnDef)'>arrow_circle_up
+            </mat-icon>
+          </ng-template>
+        </td>
+      </ng-container>
+  
+      <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of actionColumns'>
+        <th mat-header-cell *matHeaderCellDef>
+          <span class='approach-header'>
+            {{ columnData.header }}
+          </span>
+        </th>
+        <td mat-cell class='approach-cell' *matCellDef='let recommendation'>
+          <div *ngIf='columnData.columnDef === "expandState"; then expandedStateCell else actionCell'></div>
+          <ng-template #actionCell>
+            <button mat-icon-button color='accent' (click)='openRecommendationView(recommendation)'>
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </ng-template>
+          <ng-template #expandedStateCell>
+            <mat-icon>{{ recommendation === expandedRecommendation ? 'expand_more' : 'expand_less' }}</mat-icon>
+          </ng-template>
+        </td>
+      </ng-container>
+  
+      <ng-container matColumnDef='expandedDetail'>
+        <td mat-cell *matCellDef='let recommendation' [attr.colspan]='columnData.length'>
+          <div class='approach-details-container'
+            [@detailExpand]="recommendation === expandedRecommendation ? 'expanded' : 'collapsed'">
+            <div fxLayout='column' class='approach-details'>
+              <h3>Process</h3>
+              <div fxLayout='row'>
+                <div fxFlex='50' fxLayout='column'>
+                  <h4>Mismatches:</h4>
+                  <div class='evaluation-content' fxLayout='row wrap'>
+                    <ng-container *ngFor='let evaluation of recommendation.qualityEvaluations'>
+                      <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
+                        class='evaluation-item mismatch-item'>
+                        {{ evaluation.approachAttribute.name }}
+                      </span>
+                    </ng-container>
+                    <ng-container *ngFor='let evaluation of recommendation.qualitySublevelEvaluations'>
+                      <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
+                        class='evaluation-item mismatch-item'>
+                        {{ evaluation.approachAttribute.name }} ({{ evaluation.approachAttribute.qualityName }})
+                      </span>
+                    </ng-container>
+                    <ng-container *ngFor='let evaluation of recommendation.directionEvaluations'>
+                      <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
+                        class='evaluation-item mismatch-item'>
+                        {{ evaluation.approachAttribute.name }}
+                      </span>
+                    </ng-container>
+                    <ng-container *ngFor='let evaluation of recommendation.automationLevelEvaluations'>
+                      <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
+                        class='evaluation-item mismatch-item'>
+                        {{ evaluation.approachAttribute.name }}
+                      </span>
+                    </ng-container>
+                    <ng-container *ngFor='let evaluation of recommendation.analysisTypeEvaluations'>
+                      <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
+                        class='evaluation-item mismatch-item'>
+                        {{ evaluation.approachAttribute.name }}
+                      </span>
+                    </ng-container>
+                    <ng-container *ngFor='let evaluation of recommendation.techniqueEvaluations'>
+                      <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
+                        class='evaluation-item mismatch-item'>
+                        {{ evaluation.approachAttribute.name }}
+                      </span>
+                    </ng-container>
+                  </div>
+                </div>
+                <div fxFlex='50' fxLayout='column'>
+                  <h4>Matches:</h4>
+                  <div class='evaluation-content' fxLayout='row wrap'>
+                    <ng-container *ngFor='let evaluation of recommendation.qualityEvaluations'>
+                      <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
+                        class='evaluation-item match-item'>
+                        {{ evaluation.approachAttribute.name }}
+                      </span>
+                    </ng-container>
+                    <ng-container *ngFor='let evaluation of recommendation.qualitySublevelEvaluations'>
+                      <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
+                        class='evaluation-item match-item'>
+                        {{ evaluation.approachAttribute.name }} ({{ evaluation.approachAttribute.qualityName }})
+                      </span>
+                    </ng-container>
+                    <ng-container *ngFor='let evaluation of recommendation.directionEvaluations'>
+                      <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
+                        class='evaluation-item match-item'>
+                        {{ evaluation.approachAttribute.name }}
+                      </span>
+                    </ng-container>
+                    <ng-container *ngFor='let evaluation of recommendation.automationLevelEvaluations'>
+                      <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
+                        class='evaluation-item match-item'>
+                        {{ evaluation.approachAttribute.name }}
+                      </span>
+                    </ng-container>
+                    <ng-container *ngFor='let evaluation of recommendation.analysisTypeEvaluations'>
+                      <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
+                        class='evaluation-item match-item'>
+                        {{ evaluation.approachAttribute.name }}
+                      </span>
+                    </ng-container>
+                    <ng-container *ngFor='let evaluation of recommendation.techniqueEvaluations'>
+                      <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
+                        class='evaluation-item match-item'>
+                        {{ evaluation.approachAttribute.name }}
+                      </span>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="header-row-first-group">
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]="4" style="text-align: center">Information</th>
+      </ng-container>
+      <ng-container matColumnDef="header-row-second-group">
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]="3" class="qualities-header"> Qualities </th>
+      </ng-container>
+      <ng-container matColumnDef="header-row-third-group">
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]="2" style="text-align: center"></th>
+      </ng-container>
+      
+      <tr mat-header-row *matHeaderRowDef="['header-row-first-group', 'header-row-second-group', 'header-row-third-group']"></tr>
+      <tr mat-header-row *matHeaderRowDef='displayedColumns' class="center-header"></tr>
+      <tr mat-row *matRowDef='let recommendation; columns: displayedColumns;' class='approach-row'
+        [class.expanded-row]='expandedRecommendation === recommendation'
+        (click)='setExpandedRecommendation(recommendation)'></tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class='approach-detail-row'></tr>
+    </table>
+    <button *ngIf='!showAllActive' mat-flat-button color='accent' (click)='loadRecommendations(-1)'>
+      <mat-icon>expand_more</mat-icon>
+      <span>Show all</span>
+    </button>
+    <button *ngIf='showAllActive' mat-flat-button color='accent' (click)='loadRecommendations(10)'>
+      <mat-icon>expand_less</mat-icon>
+      <span>Show less</span>
+    </button>
+  </div>

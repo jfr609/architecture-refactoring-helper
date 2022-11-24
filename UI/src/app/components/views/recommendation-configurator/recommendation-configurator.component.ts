@@ -63,7 +63,7 @@ export class RecommendationConfiguratorComponent implements OnInit {
         RecommendationSuitability.Neutral
       );
       if (this.scenarioBased) {
-        this.setQualitiesFromScenarios();
+        this.projectService.setQualitiesFromScenarios();
       }
 
       this.isDataLoading = false;
@@ -80,6 +80,9 @@ export class RecommendationConfiguratorComponent implements OnInit {
   ngOnDestroy(): void {
     this.sub.unsubscribe();
     this.utilService.closeSideNav();
+        if (this.scenarioBased) {
+          this.recommendationService.setQualitiesToNeutral();
+        }
   }
 
   getRadioButtonColor(
@@ -96,7 +99,6 @@ export class RecommendationConfiguratorComponent implements OnInit {
   }
 
   onSearchRecommendation(): void {
-    console.log(this.recommendationService.qualityAttributeInformation);
     const approachRecommendationRequest: ApproachRecommendationRequest =
       this.recommendationService.createRecommendationRequest();
 
@@ -123,32 +125,5 @@ export class RecommendationConfiguratorComponent implements OnInit {
           'Error! Receiving recommended refactoring approaches failed.'
         );
       });
-  }
-
-  setQualitiesFromScenarios(): void {
-    this.projectService.scenarios.value.forEach((s) => {
-      s.qualities?.forEach((q) => {
-        const quality =
-          this.recommendationService.qualityAttributeInformation.find(
-            (qai) => qai.attribute.name == q.name
-          );
-        if (quality) {
-          quality.recommendationSuitability = RecommendationSuitability.Include;
-        }
-      });
-    });
-
-    this.projectService.scenarios.value.forEach((s) => {
-      s.qualitySublevels?.forEach((q) => {
-        const qualitySub =
-          this.recommendationService.qualitySublevelInformation.find(
-            (qai) => qai.attribute.name == q.name
-          );
-        if (qualitySub) {
-          qualitySub.recommendationSuitability =
-            RecommendationSuitability.Include;
-        }
-      });
-    });
   }
 }

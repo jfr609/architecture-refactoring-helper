@@ -137,7 +137,7 @@ export class RecommendationComponent implements AfterViewChecked {
         this.recommendationService.recommendations = value;
         this.recommendationService.selectedPreset =
           RecommendationPreset.NewApplication;
-        this.router.navigate(['/phase/2/recommendation/result']);
+        this.router.navigate(['/phase/2/recommendation/result/manual']);
       })
       .catch((reason) => {
         console.log(reason);
@@ -157,7 +157,7 @@ export class RecommendationComponent implements AfterViewChecked {
         this.recommendationService.recommendations = value;
         this.recommendationService.selectedPreset =
           RecommendationPreset.ReBuild;
-        this.router.navigate(['/phase/2/recommendation/result']);
+        this.router.navigate(['/phase/2/recommendation/result/manual']);
       })
       .catch((reason) => {
         console.log(reason);
@@ -177,7 +177,7 @@ export class RecommendationComponent implements AfterViewChecked {
         this.recommendationService.recommendations = value;
         this.recommendationService.selectedPreset =
           RecommendationPreset.ReFactor;
-        this.router.navigate(['/phase/2/recommendation/result']);
+        this.router.navigate(['/phase/2/recommendation/result/manual']);
       })
       .catch((reason) => {
         console.log(reason);

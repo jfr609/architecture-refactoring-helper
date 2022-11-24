@@ -8,6 +8,7 @@ import { ApproachInputService } from './services/approach-input.service';
 import { ApproachOutputService } from './services/approach-output.service';
 import { ApproachProcessService } from './services/approach-process.service';
 import { ApproachUsabilityService } from './services/approach-usability.service';
+import { ArchitecturalDesignService } from './services/architectural-design.service';
 import { RefactoringApproachService } from './services/refactoring-approach.service';
 import { ScenarioService } from './services/scenario.service';
 
@@ -23,6 +24,7 @@ import { ScenarioService } from './services/scenario.service';
     ApproachOutputService,
     ApproachProcessService,
     ApproachUsabilityService,
+    ArchitecturalDesignService,
     RefactoringApproachService,
     ScenarioService,
     ApiConfiguration

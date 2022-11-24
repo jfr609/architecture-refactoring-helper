@@ -1,0 +1,76 @@
+table{
+    width: 90%;
+  }
+  
+  tr.approach-row {
+    cursor: pointer;
+  }
+  
+  tr.approach-row:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  tr.approach-detail-row {
+    height: 0;
+  }
+  
+  .approach-header {
+    padding: 0 15px;
+  }
+  
+  tr>th:first-child>span.approach-header {
+    padding: 0px;
+  }
+  
+  .approach-cell {
+    padding: 0px 15px;
+  }
+  
+  .approach-details-container {
+    overflow: hidden;
+  }
+  
+  .approach-details {
+    margin: 24px 0;
+    width: 100%;
+    min-height: 50px;
+  }
+  
+  .approach-row td {
+    border-bottom-width: 0;
+  }
+  
+  h3 {
+    margin: 0 0 8px 0;
+  }
+  
+  h4 {
+    margin: 0 0 8px 0;
+  }
+  
+  .evaluation-content {
+    margin-bottom: 16px;
+  }
+  
+  .evaluation-item {
+    margin-right: 16px;
+  }
+  
+  .mat-column-qualityScore {
+    border-left: 1px solid #e0e0e0;
+  }
+
+  .mat-column-totalScore {
+    border-right: 1px solid #e0e0e0;
+  }
+
+  .mat-column-matches {
+    text-align: center;
+  }
+
+  .qualities-header {
+    border-left: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+    text-align: center;
+  }
+  

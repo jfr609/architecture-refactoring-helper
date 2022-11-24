@@ -11,4 +11,8 @@ public interface IRecommendationService
     public IEnumerable<ApproachRecommendation> GetApproachRecommendations(
         RecommendationPreset recommendationPreset,
         int numberOfRecommendations);
+
+    public IEnumerable<ArchitecturalDesignRecommendation> GetArchitecturalDesignRecommendations(
+        ArchitecturalDesignRecommendationRequest recommendationRequest,
+        int numberOfRecommendations);
 }

@@ -1,26 +1,21 @@
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ApproachRecommendationService } from '../../../services/approach-recommendation.service';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { ApproachRecommendation } from '../../../../../api/repository/models/approach-recommendation';
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger
-} from '@angular/animations';
-import { AttributeEvaluation } from '../../../../../api/repository/models/attribute-evaluation';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RecommendationPreset } from '../../../../../api/repository/models/recommendation-preset';
-import { Subscription } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AttributeEvaluation, ApproachRecommendation, RecommendationPreset, ArchitecturalDesignRecommendationRequest, RecommendationSuitability } from 'api/repository/models';
+import { ArchitecturalDesignRecommendation } from 'api/repository/models/architectural-design-recommendation';
+import { ArchitecturalDesignService } from 'api/repository/services';
+import { lastValueFrom, Subscription } from 'rxjs';
+import { SCORE_HIGH, SCORE_LOW, SCORE_MAX, SCORE_MEDIUM, SCORE_VERY_LOW } from 'src/app/app.constants';
+import { ApproachRecommendationService } from 'src/app/services/approach-recommendation.service';
+import { ProjectService } from 'src/app/services/project.service';
 import { UtilService } from 'src/app/services/util.service';
-import { SCORE_VERY_LOW, SCORE_LOW, SCORE_MEDIUM, SCORE_HIGH, SCORE_MAX } from 'src/app/app.constants';
 
 @Component({
-  selector: 'app-recommendation-result',
-  templateUrl: './recommendation-result.component.html',
-  styleUrls: ['./recommendation-result.component.scss'],
+  selector: 'app-architectural-recommendation-result',
+  templateUrl: './architectural-recommendation-result.component.html',
+  styleUrls: ['./architectural-recommendation-result.component.scss'],
   animations: [
     trigger('detailExpand', [
       state('collapsed, void', style({ height: '0' })),
@@ -29,13 +24,14 @@ import { SCORE_VERY_LOW, SCORE_LOW, SCORE_MEDIUM, SCORE_HIGH, SCORE_MAX } from '
     ])
   ]
 })
-export class RecommendationResultComponent implements OnInit {
+export class ArchitecturalRecommendationResultComponent implements OnInit {
   @ViewChild(MatSort) set sort(sort: MatSort) {
     if (sort) {
       this.dataSource.sort = sort;
     }
   }
 
+  categorySelected: string = 'Pattern';
   readonly AttributeEvaluation = AttributeEvaluation;
   columnData: ColumnData[] = [
     {
@@ -44,7 +40,7 @@ export class RecommendationResultComponent implements OnInit {
       isSortColumn: true,
       isActionColumn: false,
       isScoreColumn: false,
-      cell: (recommendation: ApproachRecommendation) =>
+      cell: (recommendation: ArchitecturalDesignRecommendation) =>
         `${recommendation.matchesCount} / ${recommendation.totalIncludeCount}`
     },
     {
@@ -53,17 +49,17 @@ export class RecommendationResultComponent implements OnInit {
       isSortColumn: false,
       isActionColumn: false,
       isScoreColumn: false,
-      cell: (recommendation: ApproachRecommendation) =>
+      cell: (recommendation: ArchitecturalDesignRecommendation) =>
         `${recommendation.identifier}`
     },
     {
-      columnDef: 'title',
-      header: 'Title',
+      columnDef: 'name',
+      header: 'Name',
       isSortColumn: false,
       isActionColumn: false,
       isScoreColumn: false,
-      cell: (recommendation: ApproachRecommendation) =>
-        `${recommendation.approachSource.title}`
+      cell: (recommendation: ArchitecturalDesignRecommendation) =>
+        `${recommendation.architecturalDesignSource.name}`
     },
     {
       columnDef: 'authors',
@@ -71,8 +67,8 @@ export class RecommendationResultComponent implements OnInit {
       isSortColumn: false,
       isActionColumn: false,
       isScoreColumn: false,
-      cell: (recommendation: ApproachRecommendation) =>
-        `${recommendation.approachSource.authors}`
+      cell: (recommendation: ArchitecturalDesignRecommendation) =>
+        `${recommendation.architecturalDesignSource.authors}`
     },
     {
       columnDef: 'qualityScore',
@@ -80,7 +76,7 @@ export class RecommendationResultComponent implements OnInit {
       isSortColumn: false,
       isActionColumn: false,
       isScoreColumn: false,
-      cell: (recommendation: ApproachRecommendation) =>
+      cell: (recommendation: ArchitecturalDesignRecommendation) =>
         `${recommendation.qualityScore.selectedAttributes} / ${recommendation.qualityScore.totalAttributes}`
     },
     {
@@ -89,7 +85,7 @@ export class RecommendationResultComponent implements OnInit {
       isSortColumn: false,
       isActionColumn: false,
       isScoreColumn: false,
-      cell: (recommendation: ApproachRecommendation) =>
+      cell: (recommendation: ArchitecturalDesignRecommendation) =>
         `${recommendation.systemPropertiesScore.selectedAttributes} / ${recommendation.systemPropertiesScore.totalAttributes}`
     },
     {
@@ -98,8 +94,8 @@ export class RecommendationResultComponent implements OnInit {
       isSortColumn: false,
       isActionColumn: false,
       isScoreColumn: true,
-      cell: (recommendation: ApproachRecommendation) =>
-      `${recommendation.totalScore}`
+      cell: (recommendation: ArchitecturalDesignRecommendation) =>
+        `${recommendation.totalScore}`
     },
     {
       columnDef: 'actions',
@@ -129,12 +125,12 @@ export class RecommendationResultComponent implements OnInit {
 
   scoreColumns = this.columnData.filter((c: ColumnData) => c.isScoreColumn);
 
-  recommendations: ApproachRecommendation[] = [];
-  dataSource!: MatTableDataSource<ApproachRecommendation>;
-  expandedRecommendation: ApproachRecommendation | undefined | null;
+  recommendations: ArchitecturalDesignRecommendation[] = [];
+  dataSource!: MatTableDataSource<ArchitecturalDesignRecommendation>;
+  expandedRecommendation: ArchitecturalDesignRecommendation | undefined | null;
 
   showAllActive = false;
-  
+
   sub!: Subscription;
 
   scenarioBased = false;
@@ -143,22 +139,34 @@ export class RecommendationResultComponent implements OnInit {
     public recommendationsService: ApproachRecommendationService,
     private router: Router,
     private route: ActivatedRoute,
-    private utilService: UtilService
+    private utilService: UtilService,
+    private architecturalService: ArchitecturalDesignService,
+    private projectService: ProjectService
   ) {}
 
   ngOnInit(): void {
-    Promise.all([this.sub = this.route.params.subscribe(params => {
+    Promise.all([
+      (this.sub = this.route.params.subscribe((params) => {
         this.scenarioBased = params['mode'] == 'scenarioBased';
-      })]).then(() => {
-        this.loadRecommendations(10);
-        this.setDataSource();
-        this.utilService.openSideNav();
-      });
+      })),
+            this.projectService.requestProjectAttributes()
+    ]).then(() => {
+            this.recommendationsService.setRecommendationInformationSuitability(
+              RecommendationSuitability.Neutral
+            );
+      if (this.scenarioBased) {
+        this.projectService.setQualitiesFromScenarios();
+      }
+      this.onSearchRecommendation();
+      this.utilService.setSideNavScenarioBased(this.scenarioBased);
+      this.utilService.openSideNav();
+    });
   }
 
   ngOnDestroy(): void {
+    this.sub.unsubscribe();
     this.utilService.closeSideNav();
-    if (this.scenarioBased) {
+    if(this.scenarioBased){
       this.recommendationsService.setQualitiesToNeutral();
     }
   }
@@ -169,12 +177,13 @@ export class RecommendationResultComponent implements OnInit {
       numberOfRecommendations >=
         this.recommendationsService.recommendations.length;
     if (this.showAllActive) {
-      this.recommendations = this.recommendationsService.recommendations;
+      this.recommendations = this.recommendationsService.designRecommendations;
     } else {
-      this.recommendations = this.recommendationsService.recommendations.slice(
-        0,
-        numberOfRecommendations
-      );
+      this.recommendations =
+        this.recommendationsService.designRecommendations.slice(
+          0,
+          numberOfRecommendations
+        );
     }
     this.refreshDataSource();
     this.setDataSource();
@@ -183,7 +192,7 @@ export class RecommendationResultComponent implements OnInit {
   setDataSource(): void {
     this.refreshDataSource();
     this.dataSource.sortingDataAccessor = (
-      data: ApproachRecommendation,
+      data: ArchitecturalDesignRecommendation,
       sortHeaderId: string
     ) => {
       switch (sortHeaderId) {
@@ -191,10 +200,10 @@ export class RecommendationResultComponent implements OnInit {
           return data.matchesCount;
         case 'id':
           return data.identifier;
-        case 'title':
-          return data.approachSource.title;
+        case 'name':
+          return data.architecturalDesignSource.name;
         case 'authors':
-          return data.approachSource.authors;
+          return data.architecturalDesignSource.authors;
         case 'qualityScore':
           return data.qualityScore.selectedAttributes;
         case 'systemPropertiesScore':
@@ -209,32 +218,20 @@ export class RecommendationResultComponent implements OnInit {
 
   refreshDataSource(): void {
     this.dataSource = new MatTableDataSource(this.recommendations);
+    this.dataSource.filter = this.categorySelected;
   }
 
-  openRecommendationView(recommendation: ApproachRecommendation) {
+  openRecommendationView(recommendation: ArchitecturalDesignRecommendation) {
     this.router.navigate(
-      ['/phase/2/approach', recommendation.refactoringApproachId],
+      ['/phase/3/architecturalDesigns', recommendation.architecturalDesignId],
       {
         queryParams: { from: 'recommendation' }
       }
     );
   }
 
-  getTitle(): string {
-    switch (this.recommendationsService.selectedPreset) {
-      case RecommendationPreset.NewApplication:
-        return 'new applications';
-      case RecommendationPreset.ReBuild:
-        return 'rebuilding applications';
-      case RecommendationPreset.ReFactor:
-        return 'refactoring applications';
-      default:
-        return 'your configuration';
-    }
-  }
-
   getSuitabilityColor(
-    recommendation: ApproachRecommendation,
+    recommendation: ArchitecturalDesignRecommendation,
     columnDef: string
   ): string {
     if (columnDef !== 'matches') {
@@ -250,9 +247,7 @@ export class RecommendationResultComponent implements OnInit {
     }
   }
 
-  getScoreIconStyle(score: number,
-    columnDef: string
-  ): string {
+  getScoreIconStyle(score: number, columnDef: string): string {
     if (columnDef !== 'totalScore') {
       return '';
     }
@@ -271,12 +266,34 @@ export class RecommendationResultComponent implements OnInit {
     }
   }
 
-  setExpandedRecommendation(recommendation: ApproachRecommendation) {
+  setExpandedRecommendation(recommendation: ArchitecturalDesignRecommendation) {
     if (recommendation === this.expandedRecommendation) {
       this.expandedRecommendation = undefined;
     } else {
       this.expandedRecommendation = recommendation;
     }
+  }
+
+  onSearchRecommendation(): void {
+    const architecturalRecommendationRequest: ArchitecturalDesignRecommendationRequest =
+      this.recommendationsService.createDesignRecommendationRequest();
+
+    lastValueFrom(
+      this.architecturalService.recommendArchitecturalDesigns({
+        body: architecturalRecommendationRequest
+      })
+    )
+      .then((value: ArchitecturalDesignRecommendation[]) => {
+        this.recommendationsService.designRecommendations = value;
+              this.loadRecommendations(10);
+              this.setDataSource();
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.utilService.callSnackBar(
+          'Error! Receiving recommended architecural designs failed.'
+        );
+      });
   }
 }
 
@@ -286,5 +303,5 @@ export interface ColumnData {
   isSortColumn: boolean;
   isActionColumn: boolean;
   isScoreColumn: boolean;
-  cell: (recommendation: ApproachRecommendation) => string;
+  cell: (recommendation: ArchitecturalDesignRecommendation) => string;
 }

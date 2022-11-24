@@ -8,11 +8,13 @@ public class SimpleRecommendationService : IRecommendationService
 {
     private readonly RefactoringApproachService _refactoringApproachService;
     private readonly ScenarioService _scenarioService;
+    private readonly ArchitecturalDesignService _architecturalDesignService;
 
-    public SimpleRecommendationService(RefactoringApproachService refactoringApproachService, ScenarioService scenarioService)
+    public SimpleRecommendationService(RefactoringApproachService refactoringApproachService, ScenarioService scenarioService, ArchitecturalDesignService architecturalDesignService)
     {
         _refactoringApproachService = refactoringApproachService;
         _scenarioService = scenarioService;
+        _architecturalDesignService = architecturalDesignService;
     }
 
     public IEnumerable<ApproachRecommendation> GetApproachRecommendations(
@@ -26,6 +28,24 @@ public class SimpleRecommendationService : IRecommendationService
 
         var recommendations = refactoringApproaches
             .Select(refactoringApproach => EvaluateApproachSuitability(refactoringApproach, recommendationRequest))
+            .OrderByDescending(e => e.SuitabilityScore)
+            .Take(numberOfRecommendations)
+            .ToList();
+
+        return recommendations;
+    }
+
+    public IEnumerable<ArchitecturalDesignRecommendation> GetArchitecturalDesignRecommendations(
+        ArchitecturalDesignRecommendationRequest architecturalRequest,
+        int numberOfRecommendations)
+    {
+        var architecturalDesigns = _architecturalDesignService.ListArchitecturalDesigns(true);
+
+        if (numberOfRecommendations < 0)
+            numberOfRecommendations = int.MaxValue;
+
+        var recommendations = architecturalDesigns
+            .Select(architecturalDesigns => EvaluateArchitecturalSuitability(architecturalDesigns, architecturalRequest))
             .OrderByDescending(e => e.SuitabilityScore)
             .Take(numberOfRecommendations)
             .ToList();
@@ -151,7 +171,9 @@ public class SimpleRecommendationService : IRecommendationService
                     {
                         foreach (var subq in information.Attribute.QualitySublevels)
                         {
+                            if(!refactoringApproach.ApproachProcess.QualitySublevels!.Any(sq => sq.Name == subq.Name)){
                             refactoringApproach.ApproachProcess.QualitySublevels?.Add(subq);
+                            }
                         }
                     }
                 }
@@ -312,6 +334,100 @@ public class SimpleRecommendationService : IRecommendationService
         return approachRecommendation;
     }
 
+private ArchitecturalDesignRecommendation EvaluateArchitecturalSuitability(ArchitecturalDesign architecturalDesign,
+        ArchitecturalDesignRecommendationRequest architecturalRequest)
+    {
+        var attributeCount = 0;
+        var matchCount = 0;
+        var neutralCount = 0;
+        var mismatchCount = 0;
+        var qualityAttributeCount = 0;
+        var qualityAttributeTotalCount = architecturalRequest.QualityInformation.Where(q => q.Attribute.Category == QualityCategory.Attribute && q.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count + architecturalRequest.QualitySublevelInformation.Where(q => q.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count;
+        var systemPropertyCount = 0;
+        var systemPropertyTotalCount = architecturalRequest.QualityInformation.Where(q => q.Attribute.Category == QualityCategory.SystemProperty && q.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count;
+        var weightedQualityCount = 0;
+        var totalIncludeCount = calculateTotalDesignIncludeCount(architecturalRequest);
+
+        var architecturalRecommendation = new ArchitecturalDesignRecommendation
+        {
+            ArchitecturalDesignId = architecturalDesign.ArchitecturalDesignId,
+            Identifier = architecturalDesign.Identifier,
+            ArchitecturalDesignSource = architecturalDesign.ArchitecturalDesignSource,
+            QualityEvaluations = new List<ApproachAttributeEvaluation<Quality>>(),
+            QualitySublevelEvaluations = new List<ApproachAttributeEvaluation<QualitySublevel>>()
+        };
+
+        if (architecturalDesign.ApproachProcess.Qualities != null)
+        {
+            foreach (var quality in architecturalDesign.ApproachProcess.Qualities)
+            {
+                var information = architecturalRequest.QualityInformation.FirstOrDefault(information =>
+                    information.Attribute.KeyEquals(quality));
+
+                var evaluation = EvaluateAttribute(quality, information, ref attributeCount, ref matchCount,
+                    ref neutralCount, ref mismatchCount);
+
+                //Add all selected subqualities as match if quality is matched from approach
+                if (evaluation.AttributeEvaluation == AttributeEvaluation.Match)
+                {
+                    if (information != null && information.Attribute.QualitySublevels != null)
+                    {
+                        foreach (var subq in information.Attribute.QualitySublevels)
+                        {
+                            if (!architecturalDesign.ApproachProcess.QualitySublevels!.Any(sq => sq.Name == subq.Name))
+                            {
+                            architecturalDesign.ApproachProcess.QualitySublevels?.Add(subq);
+                            }
+                        }
+                    }
+                }
+
+                architecturalRecommendation.QualityEvaluations.Add(evaluation);
+
+                CountQualityMatches(quality.Category, information, ref qualityAttributeCount, ref systemPropertyCount, ref weightedQualityCount, quality.Name);
+
+            }
+        }
+
+        if (architecturalDesign.ApproachProcess.QualitySublevels != null)
+        {
+            foreach (var qualitySublevel in architecturalDesign.ApproachProcess.QualitySublevels)
+            {
+                var information = architecturalRequest.QualitySublevelInformation.FirstOrDefault(information =>
+                    information.Attribute.KeyEquals(qualitySublevel));
+
+                var evaluation = EvaluateAttribute(qualitySublevel, information, ref attributeCount, ref matchCount,
+                    ref neutralCount, ref mismatchCount);
+
+                architecturalRecommendation.QualitySublevelEvaluations.Add(evaluation);
+
+                CountQualitySubMatches(information, ref qualityAttributeCount, ref weightedQualityCount, qualitySublevel.Name);
+            }
+        }
+
+        architecturalRecommendation.SuitabilityScore =
+            CalculateSuitabilityScore(attributeCount, matchCount, neutralCount, mismatchCount);
+
+        architecturalRecommendation.TotalIncludeCount = totalIncludeCount;
+        architecturalRecommendation.MatchesCount = matchCount;
+
+        architecturalRecommendation.QualityScore =
+            CalculateQualityScore(ref qualityAttributeCount,
+        ref qualityAttributeTotalCount);
+
+        architecturalRecommendation.SystemPropertiesScore =
+            CaluclateSystemPropertiesScore(ref systemPropertyCount,
+        ref systemPropertyTotalCount);
+
+        architecturalRecommendation.WeightedScore = CalculateTotalDesignWeightedScore(architecturalRecommendation, architecturalRequest, ref weightedQualityCount);
+
+        architecturalRecommendation.TotalScore = CalculateTotalDesignQualityScore(architecturalRecommendation);
+
+        architecturalRecommendation.Category = architecturalDesign.Category;
+
+        return architecturalRecommendation;
+    }
+
     private ApproachAttributeEvaluation<T> EvaluateAttribute<T>(T attribute,
         AttributeRecommendationInformation<T>? information, ref int attributeCount, ref int matchCount,
         ref int neutralCount, ref int mismatchCount)
@@ -437,6 +553,22 @@ public class SimpleRecommendationService : IRecommendationService
         return totalScore;
     }
 
+    private int CalculateTotalDesignQualityScore(ArchitecturalDesignRecommendation designRecommendation)
+    {
+        var totalScore = 0;
+        if (designRecommendation.QualityScore != null && designRecommendation.SystemPropertiesScore != null)
+        {
+            totalScore = (int)Math.Round(
+                ((double)designRecommendation.QualityScore.SelectedAttributes +
+                (double)designRecommendation.SystemPropertiesScore.SelectedAttributes) /
+                ((double)designRecommendation.QualityScore.TotalAttributes + (double)designRecommendation.SystemPropertiesScore.TotalAttributes) *
+                100);
+
+        }
+
+        return totalScore;
+    }
+
     private int CalculateTotalWeightedScore(ApproachRecommendation approachRecommendation, ApproachRecommendationRequest recommendationRequest, ref int weightedQualityCount)
     {
         var totalWeightedScore = 0;
@@ -465,6 +597,34 @@ public class SimpleRecommendationService : IRecommendationService
         return totalWeightedScore;
     }
 
+    private int CalculateTotalDesignWeightedScore(ArchitecturalDesignRecommendation designRecommendation, ArchitecturalDesignRecommendationRequest architecturalRequest, ref int weightedQualityCount)
+    {
+        var totalWeightedScore = 0;
+        var totalWeight = 0;
+
+        foreach (var quality in architecturalRequest.QualityInformation
+        .Where(q => q.Attribute.Category == QualityCategory.Attribute && q.RecommendationSuitability == RecommendationSuitability.Include).ToList())
+        {
+            totalWeight += _scenarioService.GetWeightByQualityName(quality.Attribute.Name);
+        }
+
+        foreach (var qualitySub in architecturalRequest.QualitySublevelInformation
+        .Where(q => q.RecommendationSuitability == RecommendationSuitability.Include).ToList())
+        {
+            totalWeight += _scenarioService.GetWeightByQualitySubName(qualitySub.Attribute.Name);
+        }
+
+        if (designRecommendation.SystemPropertiesScore != null)
+        {
+            totalWeightedScore = (int)Math.Round(
+                ((double)weightedQualityCount +
+                (double)designRecommendation.SystemPropertiesScore.SelectedAttributes) /
+                ((double)totalWeight + (double)designRecommendation.SystemPropertiesScore.TotalAttributes) *
+                100);
+        }
+        return totalWeightedScore;
+    }
+
     private int calculateTotalIncludeCount(ApproachRecommendationRequest recommendationRequest)
     {
         var count = 0;
@@ -487,5 +647,14 @@ public class SimpleRecommendationService : IRecommendationService
 
         return count;
 
+    }
+
+    private int calculateTotalDesignIncludeCount(ArchitecturalDesignRecommendationRequest architecturalRequest)
+    {
+        var count = 0;
+        count = architecturalRequest.QualityInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + architecturalRequest.QualitySublevelInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count;
+
+         return count;
     }
 }

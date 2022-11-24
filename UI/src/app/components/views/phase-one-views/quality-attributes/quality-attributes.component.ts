@@ -122,7 +122,6 @@ export class QualityAttributesComponent implements OnInit {
 
   scenarioSelected(scenario: Scenario): void {
     this.selectedScenario = scenario;
-    console.log(this.selectedScenario);
   }
 
   checkCurrentScenario(currentScenario?: Scenario): boolean {
@@ -156,7 +155,6 @@ export class QualityAttributesComponent implements OnInit {
       this.selectedScenario?.qualitySublevels?.push(qa);
       }
     } else {
-      console.log(qa.name + " will be removed")
       let index =
         this.selectedScenario?.qualitySublevels?.findIndex(
           (q) => q.name === qa.name

@@ -1,0 +1,89 @@
+<div *ngIf='isDataLoading' class='loading-container' fxLayout='column' fxLayoutAlign='center center'>
+    <mat-spinner color='accent'></mat-spinner>
+</div>
+<div *ngIf='!isDataLoading' fxLayout='column' fxLayoutAlign='start center' fxLayoutGap='32px' class='page-container'>
+    <h1 fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='12px'>
+        <button mat-mini-fab color='warn' (click)='goBack()'>
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <span>
+            <ng-container *ngIf="architecturalDesign.category == ArchitecturalCategory.Pattern; else bestPractice">
+                Pattern:
+               </ng-container> 
+               <ng-template #bestPractice>
+                Best Practice:
+               </ng-template> 
+            {{architecturalDesign.architecturalDesignSource?.name}} ({{architecturalDesign.identifier}})
+        </span>
+    </h1>
+
+    <mat-card>
+        <mat-card-title>Source</mat-card-title>
+        <mat-card-content *ngIf='architecturalDesign.architecturalDesignSource'>
+            <div fxLayout='row'>
+                <div fxFlex='25'>
+                    <h3>Description</h3>
+                </div>
+                <div fxFlex>
+                    <p>{{architecturalDesign.architecturalDesignSource.description}}</p>
+                </div>
+            </div>
+
+            <div fxLayout='row'>
+                <div fxFlex='25'>
+                    <h3>Authors</h3>
+                </div>
+                <div fxFlex>
+                    <p>{{architecturalDesign.architecturalDesignSource.authors}}</p>
+                </div>
+            </div>
+
+            <div *ngIf='architecturalDesign.architecturalDesignSource.link' fxLayout='row'>
+                <div fxFlex='25'>
+                    <h3>Link</h3>
+                </div>
+                <div class='link-wrapper' fxFlex>
+                    <a [href]='architecturalDesign.architecturalDesignSource.link'
+                        target='_blank'>{{architecturalDesign.architecturalDesignSource.link}}</a>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-title>Process</mat-card-title>
+        <mat-card-content *ngIf='architecturalDesign.approachProcess'>
+            <div *ngIf='architecturalDesign.approachProcess.qualities && architecturalDesign.approachProcess.qualities.length > 0'
+                fxLayout='row'>
+                <div fxFlex='25'>
+                    <h3>Qualities</h3>
+                </div>
+                <div fxFlex fxLayout='column'>
+                    <div *ngFor='let quality of architecturalDesign.approachProcess.qualities'>
+                        <p><strong>{{quality.name}}</strong></p>
+                        <p *ngIf='quality.description'>
+                            {{quality.description}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+
+            <div *ngIf='architecturalDesign.approachProcess.qualitySublevels && architecturalDesign.approachProcess.qualitySublevels.length > 0'
+                fxLayout='row'>
+                <div fxFlex='25'>
+                    <h3>Quality Sublevels</h3>
+                </div>
+                <div fxFlex fxLayout='column'>
+                    <div *ngFor='let qualitySub of architecturalDesign.approachProcess.qualitySublevels'>
+                        <p><strong>{{qualitySub.name}}
+                                ({{qualitySub.qualityName}})</strong></p>
+                        <p *ngIf='qualitySub.description'>
+                            {{qualitySub.description}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
