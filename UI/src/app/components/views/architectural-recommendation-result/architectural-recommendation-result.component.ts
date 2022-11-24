@@ -72,7 +72,7 @@ export class ArchitecturalRecommendationResultComponent implements OnInit {
     },
     {
       columnDef: 'qualityScore',
-      header: 'QAs',
+      header: 'Attribute Matches',
       isSortColumn: false,
       isActionColumn: false,
       isScoreColumn: false,
@@ -81,7 +81,7 @@ export class ArchitecturalRecommendationResultComponent implements OnInit {
     },
     {
       columnDef: 'systemPropertiesScore',
-      header: 'SPs',
+      header: 'Property Matches',
       isSortColumn: false,
       isActionColumn: false,
       isScoreColumn: false,

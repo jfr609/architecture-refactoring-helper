@@ -15,15 +15,15 @@ tr.approach-detail-row {
 }
 
 .approach-header {
-  padding: 0 12px;
+  padding: 0 15px;
 }
 
 tr>th:first-child>span.approach-header {
-  padding: 0;
+  padding: 0px;
 }
 
 .approach-cell {
-  padding: 8px 12px;
+  padding: 0px 15px;
 }
 
 .approach-details-container {
@@ -54,4 +54,22 @@ h4 {
 
 .evaluation-item {
   margin-right: 16px;
+}
+
+.mat-column-qualityScore {
+  border-left: 1px solid #e0e0e0;
+}
+
+.mat-column-totalScore {
+  border-right: 1px solid #e0e0e0;
+}
+
+.mat-column-matches {
+  text-align: center;
+}
+
+.qualities-header {
+  border-left: 1px solid #e0e0e0;
+  border-right: 1px solid #e0e0e0;
+  text-align: center;
 }

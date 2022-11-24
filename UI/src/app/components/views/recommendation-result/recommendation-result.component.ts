@@ -76,7 +76,7 @@ export class RecommendationResultComponent implements OnInit {
     },
     {
       columnDef: 'qualityScore',
-      header: 'QAs',
+      header: 'QA Matches',
       isSortColumn: false,
       isActionColumn: false,
       isScoreColumn: false,
@@ -85,7 +85,7 @@ export class RecommendationResultComponent implements OnInit {
     },
     {
       columnDef: 'systemPropertiesScore',
-      header: 'SPs',
+      header: 'SP Matches',
       isSortColumn: false,
       isActionColumn: false,
       isScoreColumn: false,
