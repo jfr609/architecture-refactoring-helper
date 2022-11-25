@@ -7,7 +7,7 @@
     <span>Next</span>
     <mat-icon>arrow_forward</mat-icon>
   </button>
-  <button mat-raised-button color="primary" (click)="saveChanges()"><span>Save Changes</span></button>
+  <button mat-raised-button color="primary" (click)="saveChanges()" [disabled]='!nameFormControl.valid'><span>Save Changes</span></button>
   <mat-divider vertical></mat-divider>
   <button mat-flat-button color='accent' [routerLink]="['/phase/2']">
     <mat-icon>move_down</mat-icon>
@@ -44,7 +44,7 @@
             <div fxLayout="row" fxLayoutGap="10px" >
               <mat-form-field appearance="fill" fxFlex="70">
                 <mat-label>Name</mat-label>
-                <input matInput [(ngModel)]="scenario.name" required />
+                <input matInput [(ngModel)]="scenario.name" required   [formControl] = 'nameFormControl' />
               </mat-form-field>
 
 
