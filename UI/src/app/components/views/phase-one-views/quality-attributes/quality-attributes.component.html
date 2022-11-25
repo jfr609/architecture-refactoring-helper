@@ -8,7 +8,16 @@
     <mat-icon>arrow_forward</mat-icon>
   </button>
   <button mat-raised-button color="primary" (click)="saveChanges()"><span>Save Changes</span></button>
-</div>
+  <mat-divider vertical></mat-divider>
+  <button mat-flat-button color='accent' [routerLink]="['/phase/2']">
+    <mat-icon>move_down</mat-icon>
+    <span> Skip to Phase 2</span>
+  </button>
+  <button mat-flat-button color='accent' [routerLink]="['/phase/3']">
+    <mat-icon>move_down</mat-icon>
+    <span> Skip to Phase 3</span>
+  </button>
+  </div>
 
 <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center">
   <mat-card class="scenario-card" class="mat-elevation-z8">

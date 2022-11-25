@@ -16,6 +16,10 @@
     <span>The below presented result list does represent a work-in-progress state and may be inaccurate.</span>
   </p>
 
+  <button mat-flat-button color='accent' [routerLink]="['/phase/3']">
+    <mat-icon>move_down</mat-icon>
+    <span> Show Patterns and Best Practices </span>
+  </button>
   <table mat-table [dataSource]='dataSource' multiTemplateDataRows matSort matSortActive="matches" matSortDirection="desc" class='mat-elevation-z8'>
     <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of sortColumns'>
       <th mat-header-cell *matHeaderCellDef mat-sort-header='{{ columnData.columnDef }}'>
