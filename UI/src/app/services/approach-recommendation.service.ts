@@ -119,7 +119,7 @@ export class ApproachRecommendationService {
      );
   }
 
-  setAllAttributesToNeutral() : void {
+  setAllNotQualitiyAttributesToNeutral() : void {
     this.domainArtifactInformation.forEach(
       (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
     );
@@ -133,12 +133,6 @@ export class ApproachRecommendationService {
       (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
     );
     this.qualitySystemPropertyInformation.forEach(
-      (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
-    );
-    this.qualityAttributeInformation.forEach(
-      (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
-    );
-    this.qualitySublevelInformation.forEach(
       (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
     );
     this.directionInformation.forEach(

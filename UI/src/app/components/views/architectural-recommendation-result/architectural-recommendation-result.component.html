@@ -4,23 +4,35 @@
         <mat-icon>arrow_back</mat-icon>
       </button>
       <span>Architectural Design recommendation</span>
-    </h1>
-  
-    <p class='max-width-800'>
-      This results page will show a list of patterns and best practices recommendations ordered by the amount of matches that
-      expresses the overlap of the properties with your filter settings.
-    </p>
-    <p class='max-width-800' fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='8px'>
-      <mat-icon color='accent'>info</mat-icon>
-      <strong>Caution:</strong>
-      <span>The below presented result list does represent a work-in-progress state and may be inaccurate.</span>
-    </p>
+      <button mat-icon-button color="basic" (click)="showInfo()">
+        <mat-icon>info</mat-icon>
+      </button>
+      </h1>
+      
+      
+      <ng-container *ngIf="showInfoBool">
+        <p class='max-width-800'>
+          This results page will show a list of patterns and best practices recommendations ordered by the amount of matches
+          that
+          expresses the overlap of the properties with your filter settings.
+        </p>
+        <p class='max-width-800' fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='8px'>
+          <mat-icon color='accent'>info</mat-icon>
+          <strong>Caution:</strong>
+          <span>The below presented result list does represent a work-in-progress state and may be inaccurate.</span>
+        </p>
+      </ng-container>
 
     <mat-button-toggle-group name="categoryFilter" aria-label="Category Filter" [(ngModel)]="categorySelected"
       (change)="refreshDataSource()">
       <mat-button-toggle value="Pattern" checked><strong>Patterns</strong></mat-button-toggle>
       <mat-button-toggle value="BestPractice"><strong>Best Practices</strong></mat-button-toggle>
     </mat-button-toggle-group>
+
+    <button mat-flat-button color='accent' [routerLink]="!scenarioBased ? ['/phase/2/recommendation/configure/manual'] : ['/phase/2/recommendation/configure/scenarioBased']">
+      <mat-icon>move_up</mat-icon>
+      <span> Go back to Configuration</span>
+    </button>
 
     <table mat-table [dataSource]='dataSource' multiTemplateDataRows matSort matSortActive="matches" matSortDirection="desc" class='mat-elevation-z8'>
       <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of sortColumns'>

@@ -130,6 +130,9 @@ export class RecommendationConfiguratorComponent implements OnInit {
   }
 
   resetConfiguration(): void {
-    this.recommendationService.setAllAttributesToNeutral();
+    this.recommendationService.setAllNotQualitiyAttributesToNeutral();
+    if(!this.scenarioBased){
+      this.recommendationService.setQualitiesToNeutral();
+    }
   }
 }

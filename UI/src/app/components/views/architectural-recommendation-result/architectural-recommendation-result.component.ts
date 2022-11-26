@@ -7,7 +7,7 @@ import { AttributeEvaluation, ApproachRecommendation, RecommendationPreset, Arch
 import { ArchitecturalDesignRecommendation } from 'api/repository/models/architectural-design-recommendation';
 import { ArchitecturalDesignService } from 'api/repository/services';
 import { lastValueFrom, Subscription } from 'rxjs';
-import { SCORE_HIGH, SCORE_LOW, SCORE_MAX, SCORE_MEDIUM, SCORE_VERY_LOW } from 'src/app/app.constants';
+import { MODES, SCORE_HIGH, SCORE_LOW, SCORE_MAX, SCORE_MEDIUM, SCORE_VERY_LOW } from 'src/app/app.constants';
 import { ApproachRecommendationService } from 'src/app/services/approach-recommendation.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { UtilService } from 'src/app/services/util.service';
@@ -135,6 +135,8 @@ export class ArchitecturalRecommendationResultComponent implements OnInit {
 
   scenarioBased = false;
 
+  showInfoBool: boolean = false;
+
   constructor(
     public recommendationsService: ApproachRecommendationService,
     private router: Router,
@@ -142,18 +144,19 @@ export class ArchitecturalRecommendationResultComponent implements OnInit {
     private utilService: UtilService,
     private architecturalService: ArchitecturalDesignService,
     private projectService: ProjectService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     Promise.all([
       (this.sub = this.route.params.subscribe((params) => {
-        this.scenarioBased = params['mode'] == 'scenarioBased';
+        if (params['mode'] == MODES.modeScenario)
+          this.scenarioBased = true
       })),
-            this.projectService.requestProjectAttributes()
+      this.projectService.requestProjectAttributes()
     ]).then(() => {
-            this.recommendationsService.setRecommendationInformationSuitability(
-              RecommendationSuitability.Neutral
-            );
+      this.recommendationsService.setRecommendationInformationSuitability(
+        RecommendationSuitability.Neutral
+      );
       if (this.scenarioBased) {
         this.projectService.setQualitiesFromScenarios();
       }
@@ -166,16 +169,21 @@ export class ArchitecturalRecommendationResultComponent implements OnInit {
   ngOnDestroy(): void {
     this.sub.unsubscribe();
     this.utilService.closeSideNav();
-    if(this.scenarioBased){
+    if (this.scenarioBased) {
       this.recommendationsService.setQualitiesToNeutral();
     }
   }
+
+  showInfo() {
+    this.showInfoBool = !this.showInfoBool;
+  }
+
 
   loadRecommendations(numberOfRecommendations: number): void {
     this.showAllActive =
       numberOfRecommendations < 0 ||
       numberOfRecommendations >=
-        this.recommendationsService.recommendations.length;
+      this.recommendationsService.recommendations.length;
     if (this.showAllActive) {
       this.recommendations = this.recommendationsService.designRecommendations;
     } else {
@@ -285,8 +293,8 @@ export class ArchitecturalRecommendationResultComponent implements OnInit {
     )
       .then((value: ArchitecturalDesignRecommendation[]) => {
         this.recommendationsService.designRecommendations = value;
-              this.loadRecommendations(10);
-              this.setDataSource();
+        this.loadRecommendations(10);
+        this.setDataSource();
       })
       .catch((reason) => {
         console.log(reason);
