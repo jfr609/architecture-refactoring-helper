@@ -209,55 +209,61 @@ export class QualityAttributesComponent implements OnInit {
   }
 
   createAll() {
-    this.newScenariosList.forEach((e) => {
-      this.scenarioService
-        .addScenario({
-          body: e
-        })
-        .subscribe({
-          next: (value) => {},
-          error: (err) => {
-            console.log(err);
-            this.utilService.callSnackBar('Scenario could not be created.');
-          }
-        });
-    });
-    this.newScenariosList.splice(0);
+    if (this.newScenariosList.length > 0) {
+      this.newScenariosList.forEach((e) => {
+        this.scenarioService
+          .addScenario({
+            body: e
+          })
+          .subscribe({
+            next: (value) => { },
+            error: (err) => {
+              console.log(err);
+              this.utilService.callSnackBar('Scenario could not be created.');
+            }
+          });
+      });
+      this.newScenariosList.splice(0);
+    }
   }
 
   deleteAll() {
-    this.deletingScenariosList.forEach((e) => {
-      this.scenarioService
-        .deleteScenario({
-          id: e.scenarioId!
-        })
-        .subscribe({
-          next: (value) => {},
-          error: (err) => {
-            console.log(err);
-            this.utilService.callSnackBar('Scenario could not be deleted.');
-          }
-        });
-    });
-    this.deletingScenariosList.splice(0);
+    if (this.deletingScenariosList.length > 0) {
+      this.deletingScenariosList.forEach((e) => {
+        this.scenarioService
+          .deleteScenario({
+            id: e.scenarioId!
+          })
+          .subscribe({
+            next: (value) => { },
+            error: (err) => {
+              console.log(err);
+              this.utilService.callSnackBar('Scenario could not be deleted.');
+            }
+          });
+      });
+      this.deletingScenariosList.splice(0);
+    }
   }
 
   updateAll() {
-    this.updatingScenariosList.forEach((e) => {
-      this.scenarioService
-        .updateScenario({
-          id: e.scenarioId!,
-          body: e
-        })
-        .subscribe({
-          next: (value) => {},
-          error: (err) => {
-            console.log(err);
-            this.utilService.callSnackBar('Scenario could not be updated.');
-          }
-        });
-    });
-    this.updatingScenariosList.splice(0);
+    if (this.updatingScenariosList.length > 0) {
+      this.updatingScenariosList.forEach((e) => {
+        this.scenarioService
+          .updateScenario({
+            id: e.scenarioId!,
+            body: e
+          })
+          .subscribe({
+            next: (value) => { },
+            error: (err) => {
+              console.log(err);
+              this.utilService.callSnackBar('Scenario could not be updated.');
+            }
+          });
+      });
+      this.updatingScenariosList.splice(0);
+    }
   }
 
   saveChanges() {

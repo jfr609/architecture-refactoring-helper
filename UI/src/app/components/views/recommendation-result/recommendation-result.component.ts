@@ -15,7 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RecommendationPreset } from '../../../../../api/repository/models/recommendation-preset';
 import { Subscription } from 'rxjs';
 import { UtilService } from 'src/app/services/util.service';
-import { SCORE_VERY_LOW, SCORE_LOW, SCORE_MEDIUM, SCORE_HIGH, SCORE_MAX } from 'src/app/app.constants';
+import { SCORE_VERY_LOW, SCORE_LOW, SCORE_MEDIUM, SCORE_HIGH, SCORE_MAX, MODES } from 'src/app/app.constants';
 
 @Component({
   selector: 'app-recommendation-result',
@@ -138,6 +138,7 @@ export class RecommendationResultComponent implements OnInit {
   sub!: Subscription;
 
   scenarioBased = false;
+  preset = false;
 
   constructor(
     public recommendationsService: ApproachRecommendationService,
@@ -148,11 +149,17 @@ export class RecommendationResultComponent implements OnInit {
 
   ngOnInit(): void {
     Promise.all([this.sub = this.route.params.subscribe(params => {
-        this.scenarioBased = params['mode'] == 'scenarioBased';
+        if(params['mode'] == MODES.modeScenario){
+          this.scenarioBased = true;
+        }else if(params['mode'] == MODES.modePreset){
+          this.preset = true;
+        }
       })]).then(() => {
         this.loadRecommendations(10);
         this.setDataSource();
+        if(!this.preset){
         this.utilService.openSideNav();
+        }
       });
   }
 
@@ -160,6 +167,16 @@ export class RecommendationResultComponent implements OnInit {
     this.utilService.closeSideNav();
     if (this.scenarioBased) {
       this.recommendationsService.setQualitiesToNeutral();
+    }
+  }
+
+  goBack() {
+    if(this.preset){
+      this.router.navigate(['/phase/2/recommendation']);
+    }else if(!this.scenarioBased){
+    this.router.navigate(['/phase/2/recommendation/configure/manual']);
+    }else{
+      this.router.navigate(['/phase/2/recommendation/configure/scenarioBased']);
     }
   }
 

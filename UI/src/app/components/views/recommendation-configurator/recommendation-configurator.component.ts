@@ -10,7 +10,7 @@ import { ApproachRecommendation } from '../../../../../api/repository/models/app
 import { ApproachRecommendationService } from '../../../services/approach-recommendation.service';
 import { Router } from '@angular/router';
 import { lastValueFrom, Subscription } from 'rxjs';
-import { TOOLTIP_HIDE_DELAY, TOOLTIP_SHOW_DELAY } from '../../../app.constants';
+import { MODES, TOOLTIP_HIDE_DELAY, TOOLTIP_SHOW_DELAY } from '../../../app.constants';
 import { ActivatedRoute } from '@angular/router';
 import { ScenarioService } from 'api/repository/services';
 import { ProjectService } from 'src/app/services/project.service';
@@ -54,8 +54,10 @@ export class RecommendationConfiguratorComponent implements OnInit {
     Promise.all([
       this.attributeOptionsService.requestAttributeOptions(),
       (this.sub = this.route.params.subscribe((params) => {
-        this.scenarioBased = params['mode'] == 'scenarioBased';
-        this.configurationEnabled = !this.scenarioBased;
+        if(params['mode'] == MODES.modeScenario){
+          this.scenarioBased = true;
+          this.configurationEnabled = !this.scenarioBased;
+        }
       })),
       this.projectService.requestProjectAttributes()
     ]).then(() => {

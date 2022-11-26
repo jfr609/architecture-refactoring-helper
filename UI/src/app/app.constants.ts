@@ -15,3 +15,5 @@ export const SCORE_LOW = 30;
 export const SCORE_MEDIUM = 50;
 export const SCORE_HIGH = 75;
 export const SCORE_MAX = 100;
+
+export const MODES = {modeManual: 'manual', modeScenario: 'scenarioBased', modePreset: 'preset'}
