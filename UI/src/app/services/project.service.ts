@@ -67,4 +67,17 @@ export class ProjectService {
       });
     });
   }
+
+  getQualitiesOfScenarioLengths(): number {
+    let count = 0;
+    this.scenarios.value.forEach((s) => {
+      if (s.qualities) {
+        count += s.qualities?.length;
+      }
+      if (s.qualitySublevels) {
+        count += s.qualitySublevels?.length;
+      }
+    });
+    return count;
+  }
 }

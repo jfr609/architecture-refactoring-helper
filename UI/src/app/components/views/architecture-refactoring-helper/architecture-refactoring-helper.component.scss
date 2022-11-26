@@ -23,3 +23,7 @@ mat-drawer {
 .mismatch-item {
   color: #ad3d3d;
 }
+
+::ng-deep .mat-content {
+  overflow: visible !important;
+}

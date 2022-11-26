@@ -119,6 +119,60 @@ export class ApproachRecommendationService {
      );
   }
 
+  setAllAttributesToNeutral() : void {
+    this.domainArtifactInformation.forEach(
+      (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
+    );
+    this.runtimeArtifactInformation.forEach(
+      (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
+    );
+    this.modelArtifactInformation.forEach(
+      (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
+    );
+    this.executableInformation.forEach(
+      (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
+    );
+    this.qualitySystemPropertyInformation.forEach(
+      (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
+    );
+    this.qualityAttributeInformation.forEach(
+      (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
+    );
+    this.qualitySublevelInformation.forEach(
+      (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
+    );
+    this.directionInformation.forEach(
+      (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
+    );
+    this.automationLevelInformation.forEach(
+      (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
+    );
+    this.analysisTypeInformation.forEach(
+      (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
+    );
+    this.techniqueInformation.forEach(
+      (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
+    );
+    this.architectureInformation.forEach(
+      (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
+    );
+    this.serviceTypeInformation.forEach(
+      (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
+    );
+    this.validationMethodInformation.forEach(
+      (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
+    );
+    this.toolSupportInformation.forEach(
+      (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
+    );
+    this.resultsQualityInformation.forEach(
+      (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
+    );
+    this.accuracyPrecisionInformation.forEach(
+      (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
+    );
+  }
+
   setAttributeInformation<T>(
     informationArray: {
       attribute: T;

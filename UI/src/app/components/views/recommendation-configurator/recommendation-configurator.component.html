@@ -60,13 +60,16 @@
           <span>Next</span>
           <mat-icon>arrow_forward</mat-icon>
         </button>
-        <button *ngIf="scenarioBased" mat-flat-button color='accent' [routerLink]="['/phase/1']">
-          <span>Edit Scenarios</span>
-        </button>
         <button mat-flat-button color='primary' (click)='onSearchRecommendation()'>
           <mat-icon>search</mat-icon>
           <span>Search</span>
         </button>
+        <mat-divider [vertical]="true"></mat-divider>
+        <button mat-button color='warn' (click)='resetConfiguration()'>
+          <span>Reset Configuration </span>
+          <mat-icon>restart_alt</mat-icon>
+        </button>
+
       </div>
       <div fxLayout='row'>
         <ng-container *ngIf="!scenarioBased">
@@ -135,7 +138,7 @@
     <mat-step>
       <ng-template matStepLabel>Select input preferences</ng-template>
       <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px' fxLayoutAlign="center">
-        <button *ngIf="scenarioBased" mat-flat-button matStepperPrevious color='accent'>
+        <button mat-flat-button matStepperPrevious color='accent'>
           <mat-icon>arrow_back</mat-icon>
           <span>Back</span>
         </button>
@@ -143,12 +146,14 @@
           <span>Next</span>
           <mat-icon>arrow_forward</mat-icon>
         </button>
-        <button *ngIf="scenarioBased" mat-flat-button color='accent' [routerLink]="['/phase/1']">
-          <span>Edit Scenarios</span>
-        </button>
         <button mat-flat-button color='primary' (click)='onSearchRecommendation()'>
           <mat-icon>search</mat-icon>
           <span>Search</span>
+        </button>
+        <mat-divider [vertical]="true"></mat-divider>
+        <button mat-button color='warn' (click)='resetConfiguration()'>
+          <span>Reset Configuration </span>
+          <mat-icon>restart_alt</mat-icon>
         </button>
       </div>
 
@@ -246,12 +251,14 @@
           <span>Next</span>
           <mat-icon>arrow_forward</mat-icon>
         </button>
-        <button *ngIf="scenarioBased" mat-flat-button color='accent' [routerLink]="['/phase/1']">
-          <span>Edit Scenarios</span>
-        </button>
         <button mat-flat-button color='primary' (click)='onSearchRecommendation()'>
           <mat-icon>search</mat-icon>
           <span>Search</span>
+        </button>
+        <mat-divider [vertical]="true"></mat-divider>
+        <button mat-button color='warn' (click)='resetConfiguration()'>
+          <span>Reset Configuration </span>
+          <mat-icon>restart_alt</mat-icon>
         </button>
       </div>
 
@@ -349,12 +356,14 @@
           <span>Next</span>
           <mat-icon>arrow_forward</mat-icon>
         </button>
-        <button *ngIf="scenarioBased" mat-flat-button color='accent' [routerLink]="['/phase/1']">
-          <span>Edit Scenarios</span>
-        </button>
         <button mat-flat-button color='primary' (click)='onSearchRecommendation()'>
           <mat-icon>search</mat-icon>
           <span>Search</span>
+        </button>
+        <mat-divider [vertical]="true"></mat-divider>
+        <button mat-button color='warn' (click)='resetConfiguration()'>
+          <span>Reset Configuration </span>
+          <mat-icon>restart_alt</mat-icon>
         </button>
       </div>
 
@@ -408,12 +417,14 @@
           <mat-icon>arrow_back</mat-icon>
           <span>Back</span>
         </button>
-        <button *ngIf="scenarioBased" mat-flat-button color='accent' [routerLink]="['/phase/1']">
-          <span>Edit Scenarios</span>
-        </button>
         <button mat-flat-button color='primary' (click)='onSearchRecommendation()'>
           <mat-icon>search</mat-icon>
           <span>Search</span>
+        </button>
+        <mat-divider [vertical]="true"></mat-divider>
+        <button mat-button color='warn' (click)='resetConfiguration()'>
+          <span>Reset Configuration </span>
+          <mat-icon>restart_alt</mat-icon>
         </button>
       </div>
 

@@ -126,4 +126,8 @@ export class RecommendationConfiguratorComponent implements OnInit {
         );
       });
   }
+
+  resetConfiguration(): void {
+    this.recommendationService.setAllAttributesToNeutral();
+  }
 }
