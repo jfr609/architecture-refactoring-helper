@@ -5,9 +5,9 @@
     "architecturalDesignSource": {
       "architecturalDesignId": 1,
       "name": "API gateway",
-      "description": "",
-      "source": "",
-      "link": ""
+      "description": "This is about how the services can be accessed in a microservice architecture. This pattern provides an entry point for all possible clients.",
+      "source": "Microservices.io by Chris Richardson",
+      "link": "https://microservices.io/patterns/apigateway.html"
     },
     "category": "Pattern",
     "approachProcess": {

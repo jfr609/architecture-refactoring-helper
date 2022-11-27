@@ -84,6 +84,7 @@
         <ng-container *ngIf="!scenarioBased">
           <div fxFlex='25' fxLayout='column'>
             <h2>Quality attributes</h2>
+            <i>To optimize</i>
             <div
               *ngFor='let quality of attributeOptionsService.getQualitiesByCategory(QualityCategories.Attribute), let i = index'
               class='attribute-option-container'>
@@ -104,6 +105,7 @@
 
           <div fxFlex='25' fxLayout='column'>
             <h2>Quality Subattributes</h2>
+            <i>To optimize</i>
             <div *ngFor='let qualitySublevel of attributeOptionsService.qualitySublevels.value, let i = index'
               class='attribute-option-container'>
               <span fxLayoutAlign='start center'>
@@ -124,6 +126,7 @@
         </ng-container>
         <div fxFlex='25' fxLayout='column'>
           <h2>System Properties</h2>
+          <i>To consider</i>
           <div
             *ngFor='let quality of attributeOptionsService.getQualitiesByCategory(QualityCategories.SystemProperty), let i = index'
             class='attribute-option-container'>

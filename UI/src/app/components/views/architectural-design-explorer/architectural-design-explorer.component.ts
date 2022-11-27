@@ -21,7 +21,7 @@ export class ArchitecturalDesignExplorerComponent implements OnInit {
     'category',
     'description',
     'source',
-    'link'
+    'actions'
   ];
   readonly ArchitecturalCategory = ArchitecturalCategory;
   dataSource!: MatTableDataSource<ArchitecturalDesign>;
@@ -70,8 +70,6 @@ export class ArchitecturalDesignExplorerComponent implements OnInit {
           return data.architecturalDesignSource?.source;
         case 'category':
           return data.category.toString();
-        case 'link':
-          return data.architecturalDesignSource?.link;
         default:
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
