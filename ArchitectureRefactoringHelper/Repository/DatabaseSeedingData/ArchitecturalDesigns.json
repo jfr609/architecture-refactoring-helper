@@ -6,7 +6,8 @@
       "architecturalDesignId": 1,
       "name": "API gateway",
       "description": "",
-      "authors": ""
+      "sources": "",
+      "links": ""
     },
     "category": "Pattern",
     "approachProcess": {
@@ -33,7 +34,8 @@
       "architecturalDesignId": 2,
       "name": "Backend for frontend",
       "description": "",
-      "authors": ""
+      "sources": "",
+      "links": ""
     },
     "category": "Pattern",
     "approachProcess": {
@@ -60,7 +62,8 @@
       "architecturalDesignId": 3,
       "name": "Pipes and filters",
       "description": "",
-      "authors": ""
+      "sources": "",
+      "links": ""
     },
     "category": "Pattern",
     "approachProcess": {
@@ -97,7 +100,8 @@
       "architecturalDesignId": 4,
       "name": "Isolated State",
       "description": "",
-      "authors": ""
+      "sources": "",
+      "links": ""
     },
     "category": "BestPractice",
     "approachProcess": {
