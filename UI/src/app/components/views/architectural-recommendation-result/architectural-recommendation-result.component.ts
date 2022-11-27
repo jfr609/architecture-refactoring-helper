@@ -62,13 +62,13 @@ export class ArchitecturalRecommendationResultComponent implements OnInit {
         `${recommendation.architecturalDesignSource.name}`
     },
     {
-      columnDef: 'authors',
-      header: 'Authors',
+      columnDef: 'source',
+      header: 'Source',
       isSortColumn: false,
       isActionColumn: false,
       isScoreColumn: false,
       cell: (recommendation: ArchitecturalDesignRecommendation) =>
-        `${recommendation.architecturalDesignSource.authors}`
+        `${recommendation.architecturalDesignSource.source}`
     },
     {
       columnDef: 'qualityScore',
@@ -144,13 +144,12 @@ export class ArchitecturalRecommendationResultComponent implements OnInit {
     private utilService: UtilService,
     private architecturalService: ArchitecturalDesignService,
     private projectService: ProjectService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     Promise.all([
       (this.sub = this.route.params.subscribe((params) => {
-        if (params['mode'] == MODES.modeScenario)
-          this.scenarioBased = true
+        if (params['mode'] == MODES.modeScenario) this.scenarioBased = true;
       })),
       this.projectService.requestProjectAttributes()
     ]).then(() => {
@@ -178,12 +177,11 @@ export class ArchitecturalRecommendationResultComponent implements OnInit {
     this.showInfoBool = !this.showInfoBool;
   }
 
-
   loadRecommendations(numberOfRecommendations: number): void {
     this.showAllActive =
       numberOfRecommendations < 0 ||
       numberOfRecommendations >=
-      this.recommendationsService.recommendations.length;
+        this.recommendationsService.recommendations.length;
     if (this.showAllActive) {
       this.recommendations = this.recommendationsService.designRecommendations;
     } else {
@@ -210,8 +208,8 @@ export class ArchitecturalRecommendationResultComponent implements OnInit {
           return data.identifier;
         case 'name':
           return data.architecturalDesignSource.name;
-        case 'authors':
-          return data.architecturalDesignSource.authors;
+        case 'source':
+          return data.architecturalDesignSource.source;
         case 'qualityScore':
           return data.qualityScore.selectedAttributes;
         case 'systemPropertiesScore':

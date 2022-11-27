@@ -17,11 +17,11 @@ public class ArchitecturalDesignSource
     [Required]
     [JsonPropertyName("description")]
     public string Description { get; set; }
-    [JsonPropertyName("links")]
+    [JsonPropertyName("link")]
     public string? Links { get; set; }
     [Required]
-    [JsonPropertyName("sources")]
-    public string Sources { get; set; }
+    [JsonPropertyName("source")]
+    public string Source { get; set; }
 
     [JsonIgnore]
     public ArchitecturalDesign? ArchitecturalDesign { get; set; }

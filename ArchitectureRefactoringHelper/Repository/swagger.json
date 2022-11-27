@@ -3704,7 +3704,7 @@
         "required": [
           "description",
           "name",
-          "sources"
+          "source"
         ],
         "type": "object",
         "properties": {
@@ -3718,11 +3718,11 @@
           "description": {
             "type": "string"
           },
-          "links": {
+          "link": {
             "type": "string",
             "nullable": true
           },
-          "sources": {
+          "source": {
             "type": "string"
           }
         },
