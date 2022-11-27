@@ -1,4 +1,4 @@
-export const APP_TITLE = 'Architecture refactoring helper';
+export const APP_TITLE = 'Architecture Refactoring Helper';
 
 // Navigation parameters
 export const NAV_PARAM_APPROACH_ID = 'approachId';

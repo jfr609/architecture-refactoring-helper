@@ -135,4 +135,11 @@ export class RecommendationConfiguratorComponent implements OnInit {
       this.recommendationService.setQualitiesToNeutral();
     }
   }
+
+  getTitle(): string {
+    if(this.scenarioBased){
+      return "Scenario-based filter for available refactoring approaches"
+    }
+    return "Configure a filter for available refactoring approaches";
+  }
 }

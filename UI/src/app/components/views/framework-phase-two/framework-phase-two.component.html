@@ -24,7 +24,7 @@
   <div class='card-group' fxLayout='row' fxLayoutGap='50px'>
     <app-card-button color='phase-2' routerLink='approaches'>
       <div title>
-        <strong>Explore</strong> all approaches!
+        <strong>Explore</strong> all approaches
       </div>
       <ng-container content>
         Freely explore all refactoring approaches that exist in the repository.
@@ -33,17 +33,17 @@
 
     <app-card-button color='phase-2' routerLink='recommendation'>
       <div title>
-        <strong>Find</strong> recommended approaches!
+        <strong>Find</strong> recommended approaches
       </div>
       <ng-container content>
-        Find recommended refactoring approach recommendations based on preferred inputs, outputs,
+        Find recommended refactoring approach recommendations based on qualities, preferred inputs, outputs,
         processes and usability aspects of the approach.
       </ng-container>
     </app-card-button>
 
     <app-card-button color='phase-1' [routerLink]="['recommendation', 'configure' , 'scenarioBased']">
       <div title>
-        Find <strong>scenario-based</strong> recommended approaches!
+        Find <strong>scenario-based</strong> recommended approaches
       </div>
       <ng-container content>
         Find recommended refactoring approach recommendations based on scenarios declared in Phase 1.
