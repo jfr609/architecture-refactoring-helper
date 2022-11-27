@@ -39,12 +39,14 @@
         {
           "name": "Independence",
           "category": "Attribute"
-        }
-      ],
-      "qualitySublevels": [
+        },
         {
-          "name": "Modularity",
-          "qualityName": "Maintainability"
+          "name": "Coupling",
+          "category": "SystemProperty"
+        },
+        {
+          "name": "Cohesion",
+          "category": "SystemProperty"
         }
       ],
       "directions": [
@@ -1195,10 +1197,6 @@
         {
           "name": "Coupling",
           "category": "SystemProperty"
-        },
-        {
-          "name": "Granularity",
-          "category": "SystemProperty"
         }
       ],
       "directions": [
@@ -1282,6 +1280,16 @@
         {
           "name": "Granularity",
           "category": "SystemProperty"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Understandability",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Modularity",
+          "qualityName": "Maintainability"
         }
       ],
       "directions": [
@@ -1592,5 +1600,298 @@
         "name": "Experiment"
       }
     }
+  },
+  {
+    "refactoringApproachId": 19,
+    "identifier": "19",
+    "approachSource": {
+      "approachSourceId": 19,
+      "title": "GreenMicro: Identifying Microservices from Use Cases in Greenfield Development",
+      "year": 2022,
+      "link": "https://doi.org/10.1109/ACCESS.2022.3182495",
+      "authors": "Bajaj, Deepali; Goel, Anita; Gupta, S. C."
+    },
+    "domainArtifactInputs": [],
+    "runtimeArtifactInputs": [],
+    "modelArtifactInputs": [],
+    "executableInputs": [],
+    "approachProcess": {
+      "approachProcessId": 19,
+      "qualities": [
+        {
+          "name": "Performance",
+          "category": "Attribute"
+        },
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Coupling",
+          "category": "SystemProperty"
+        },
+        {
+          "name": "Cohesion",
+          "category": "SystemProperty"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Reusability",
+          "qualityName": "Maintainability"
+        }
+      ],
+      "directions": [],
+      "automationLevels": [],
+      "analysisTypes": [],
+      "techniques": []
+    },
+    "approachOutputs": [
+      {
+        "approachOutputId": 1,
+        "architecture": {
+          "name": "Microservices"
+        },
+        "serviceType": {
+          "name": "No specification"
+        }
+      }
+    ],
+    "approachUsability": {
+      "approachUsabilityId": 19,
+      "resultsQuality": {
+        "name": "Not available"
+      },
+      "toolSupport": {
+        "name": "No tool support"
+      },
+      "accuracyPrecision": {
+        "name": "Not available"
+      },
+      "validationMethod": {
+        "name": "No validation"
+      }
+    }
+  },
+  {
+    "refactoringApproachId": 20,
+    "identifier": "20",
+    "approachSource": {
+      "approachSourceId": 20,
+      "title": "Facilitating the migration to the microservice architecture via model-driven reverse engineering and reinforcement learning",
+      "year": 2022,
+      "link": "https://doi.org/10.1007/s10270-022-00977-3",
+      "authors": "Dehghani, MohammadHadi; Kolahdouz-Rahimi, Shekoufeh; Tisi, Massimo; Tamzalit, Dalila"
+    },
+    "domainArtifactInputs": [],
+    "runtimeArtifactInputs": [],
+    "modelArtifactInputs": [],
+    "executableInputs": [],
+    "approachProcess": {
+      "approachProcessId": 20,
+      "qualities": [
+        {
+          "name": "Performance",
+          "category": "Attribute"
+        },
+        {
+          "name": "Scalability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Availability",
+          "qualityName": "Reliability"
+        },
+        {
+          "name": "Time Behavior",
+          "qualityName": "Performance"
+        },
+        {
+          "name": "Modularity",
+          "qualityName": "Maintainability"
+        }
+      ],
+      "directions": [],
+      "automationLevels": [],
+      "analysisTypes": [],
+      "techniques": []
+    },
+    "approachOutputs": [
+      {
+        "approachOutputId": 1,
+        "architecture": {
+          "name": "Microservices"
+        },
+        "serviceType": {
+          "name": "No specification"
+        }
+      }
+    ],
+    "approachUsability": {
+      "approachUsabilityId": 20,
+      "resultsQuality": {
+        "name": "Not available"
+      },
+      "toolSupport": {
+        "name": "No tool support"
+      },
+      "accuracyPrecision": {
+        "name": "Not available"
+      },
+      "validationMethod": {
+        "name": "No validation"
+      }
+    }
+  },
+  {
+    "refactoringApproachId": 21,
+    "identifier": "21",
+    "approachSource": {
+      "approachSourceId": 21,
+      "title": "A Hot Decomposition Procedure : Operational Monolith System to Microservices",
+      "year": 2021,
+      "link": "https://ieeexplore.ieee.org/abstract/document/9639494",
+      "authors": "Ivanov, Nikolay; Tasheva, Antoniya"
+    },
+    "domainArtifactInputs": [],
+    "runtimeArtifactInputs": [],
+    "modelArtifactInputs": [],
+    "executableInputs": [],
+    "approachProcess": {
+      "approachProcessId": 21,
+      "qualities": [
+        {
+          "name": "Independence",
+          "category": "Attribute"
+        },
+        {
+          "name": "Scalability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Deployability",
+          "qualityName": "Portability"
+        }
+      ],
+      "directions": [],
+      "automationLevels": [],
+      "analysisTypes": [],
+      "techniques": []
+    },
+    "approachOutputs": [
+      {
+        "approachOutputId": 1,
+        "architecture": {
+          "name": "Microservices"
+        },
+        "serviceType": {
+          "name": "No specification"
+        }
+      }
+    ],
+    "approachUsability": {
+      "approachUsabilityId": 21,
+      "resultsQuality": {
+        "name": "Not available"
+      },
+      "toolSupport": {
+        "name": "No tool support"
+      },
+      "accuracyPrecision": {
+        "name": "Not available"
+      },
+      "validationMethod": {
+        "name": "No validation"
+      }
+    }
+  },
+  {
+    "refactoringApproachId": 22,
+    "identifier": "22",
+    "approachSource": {
+      "approachSourceId": 22,
+      "title": "A multi-model based microservices identification approach. Journal of Systems Architecture",
+      "year": 2021,
+      "link": "https://doi.org/10.1016/j.sysarc.2021.102200",
+      "authors": "Daoud, Mohamed Taoufik; El Mezouari, Asmae; Faci, Noura; Benslimane, Djamal; Maamar, Zakaria; El Fazziki, Abdelaziz"
+    },
+    "domainArtifactInputs": [],
+    "runtimeArtifactInputs": [],
+    "modelArtifactInputs": [],
+    "executableInputs": [],
+    "approachProcess": {
+      "approachProcessId": 22,
+      "qualities": [
+        {
+          "name": "Security",
+          "category": "Attribute"
+        },
+        {
+          "name": "Coupling",
+          "category": "SystemProperty"
+        },
+        {
+          "name": "Cohesion",
+          "category": "SystemProperty"
+        },
+        {
+          "name": "Granularity",
+          "category": "SystemProperty"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Confidentiality",
+          "qualityName": "Security"
+        },
+        {
+          "name": "Integrity",
+          "qualityName": "Security"
+        }
+      ],
+      "directions": [],
+      "automationLevels": [],
+      "analysisTypes": [],
+      "techniques": []
+    },
+    "approachOutputs": [
+      {
+        "approachOutputId": 1,
+        "architecture": {
+          "name": "Microservices"
+        },
+        "serviceType": {
+          "name": "No specification"
+        }
+      }
+    ],
+    "approachUsability": {
+      "approachUsabilityId": 22,
+      "resultsQuality": {
+        "name": "Not available"
+      },
+      "toolSupport": {
+        "name": "No tool support"
+      },
+      "accuracyPrecision": {
+        "name": "Not available"
+      },
+      "validationMethod": {
+        "name": "No validation"
+      }
+    }
   }
 ]
+

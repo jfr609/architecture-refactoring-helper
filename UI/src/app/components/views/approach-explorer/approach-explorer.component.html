@@ -5,6 +5,11 @@
     </button>
     <span>Explore all currently available refactoring approaches</span>
   </h1>
+  <p fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='8px'>
+    <mat-icon color='accent'>info</mat-icon>
+    <strong>Caution:</strong>
+    <span>The below presented result list does represent a work-in-progress state and may be inaccurate and incomplete.</span>
+  </p>
 
   <table mat-table [dataSource]='dataSource' matSort class='mat-elevation-z8'>
     <ng-container matColumnDef='id'>

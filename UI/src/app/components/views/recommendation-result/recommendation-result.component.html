@@ -10,10 +10,10 @@
     This results page will show a list of service identification approaches ordered by the amount of matches that
     expresses the overlap of the approach properties with your filter settings.
   </p>
-  <p class='max-width-800' fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='8px'>
+  <p fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='8px'>
     <mat-icon color='accent'>info</mat-icon>
     <strong>Caution:</strong>
-    <span>The below presented result list does represent a work-in-progress state and may be inaccurate.</span>
+    <span>The below presented result list does represent a work-in-progress state and may be inaccurate and incomplete.</span>
   </p>
 
   <button *ngIf="!preset" mat-flat-button color='accent' [routerLink]="!scenarioBased ? ['/phase/3/architecturalDesigns/result/manual'] : ['/phase/3/architecturalDesigns/result/scenarioBased'] ">
