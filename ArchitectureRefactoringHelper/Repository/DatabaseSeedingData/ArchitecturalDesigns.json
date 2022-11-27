@@ -371,7 +371,7 @@
       "name": "Circuit Breaker",
       "description": "Is intended to prevent a failure in one service from spreading to other services in a network, in the sense that a remote service is invoked via a proxy, which fails as soon as a certain threshold of the failure rate is exceeded.",
       "source": "Microservices.io by Chris Richardson",
-      "link": "https://microservices.io/patterns/refactoring/anti-corruption-layer.html"
+      "link": "https://microservices.io/patterns/reliability/circuit-breaker.html"
     },
     "category": "Pattern",
     "approachProcess": {
@@ -401,7 +401,7 @@
       "name": "CQRS",
       "description": "The Implementation of queries by maintaining one or more efficiently queryable materialized views",
       "source": "Microservices.io by Chris Richardson",
-      "link": "https://microservices.io/patterns/refactoring/anti-corruption-layer.html"
+      "link": "https://microservices.io/patterns/data/cqrs.html"
     },
     "category": "Pattern",
     "approachProcess": {
