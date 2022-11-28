@@ -28,7 +28,6 @@ import { UtilService } from 'src/app/services/util.service';
 })
 export class QualityAttributesComponent implements OnInit {
 
-  nameFormControl = new FormControl('', [Validators.required]);
   isDataLoading = true;
   ratingLevel = RatingLevel;
   enumKeys: any;
@@ -206,6 +205,10 @@ export class QualityAttributesComponent implements OnInit {
         this.addOrRemoveQualitySub(selected, sqa);
       }
     }
+  }
+
+  allNamesSet() : boolean {
+    return !this.scenarioList.some((s : any) => s.name == undefined || s.name == '');
   }
 
   createAll() {
