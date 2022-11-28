@@ -1,6 +1,6 @@
 # Architecture Refactoring Helper
 
-The Architecture Refactoring Helper is an application which aims to help find suitable migration approaches to microservices architecture. Likewise, appropriate patterns and best practices for microservice architectures can be recommended based on input configurations. 
+The Architecture Refactoring Helper is an application which aims to help find suitable approaches based on input configurations for migrating to microservices architecture. Likewise, appropriate patterns and best practices for microservice architectures can be recommended based on input configurations. 
 
 ## Running the application in Docker
 
