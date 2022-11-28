@@ -259,7 +259,7 @@
       ],
       "qualitySublevels": [
         {
-          "name": "Reuseability",
+          "name": "Reusability",
           "qualityName": "Maintainability"
         }
       ],
@@ -695,7 +695,7 @@
       ],
       "qualitySublevels": [
         {
-          "name": "Reuseability",
+          "name": "Reusability",
           "qualityName": "Maintainability"
         }
       ],
@@ -866,7 +866,7 @@
       ],
       "qualitySublevels": [
         {
-          "name": "Reuseability",
+          "name": "Reusability",
           "qualityName": "Maintainability"
         }
       ],
