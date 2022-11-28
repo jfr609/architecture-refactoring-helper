@@ -27,7 +27,6 @@ import { UtilService } from 'src/app/services/util.service';
   styleUrls: ['./quality-attributes.component.css']
 })
 export class QualityAttributesComponent implements OnInit {
-
   isDataLoading = true;
   ratingLevel = RatingLevel;
   enumKeys: any;
@@ -92,15 +91,24 @@ export class QualityAttributesComponent implements OnInit {
         next: (data: ConfirmDialogData) => {
           if (data == null) return;
 
-          if (!this.newScenariosList.includes(scenario)) {
+          if (scenario.scenarioId != null) {
             this.deletingScenariosList.push(scenario);
           }
 
-          let index = this.scenarioList.indexOf(scenario) ?? -1;
-          if (index !== -1) {
-            this.scenarioList.splice(index, 1);
+          let indexList = this.scenarioList.indexOf(scenario) ?? -1;
+          if (indexList !== -1) {
+            this.scenarioList.splice(indexList, 1);
           }
           this.selectedScenario = undefined;
+
+          let indexUpdate = this.updatingScenariosList.indexOf(scenario) ?? -1;
+          if (indexUpdate !== -1) {
+            this.updatingScenariosList.splice(indexUpdate, 1);
+          }
+          let indexNew = this.newScenariosList.indexOf(scenario) ?? -1;
+          if (indexNew !== -1) {
+            this.newScenariosList.splice(indexNew, 1);
+          }
         }
       });
   }
@@ -207,8 +215,10 @@ export class QualityAttributesComponent implements OnInit {
     }
   }
 
-  allNamesSet() : boolean {
-    return !this.scenarioList.some((s : any) => s.name == undefined || s.name == '');
+  allNamesSet(): boolean {
+    return !this.scenarioList.some(
+      (s: any) => s.name == undefined || s.name == ''
+    );
   }
 
   createAll() {
@@ -219,7 +229,7 @@ export class QualityAttributesComponent implements OnInit {
             body: e
           })
           .subscribe({
-            next: (value) => { },
+            next: (value) => {},
             error: (err) => {
               console.log(err);
               this.utilService.callSnackBar('Scenario could not be created.');
@@ -238,7 +248,7 @@ export class QualityAttributesComponent implements OnInit {
             id: e.scenarioId!
           })
           .subscribe({
-            next: (value) => { },
+            next: (value) => {},
             error: (err) => {
               console.log(err);
               this.utilService.callSnackBar('Scenario could not be deleted.');
@@ -258,7 +268,7 @@ export class QualityAttributesComponent implements OnInit {
             body: e
           })
           .subscribe({
-            next: (value) => { },
+            next: (value) => {},
             error: (err) => {
               console.log(err);
               this.utilService.callSnackBar('Scenario could not be updated.');
