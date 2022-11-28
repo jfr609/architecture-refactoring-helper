@@ -97,8 +97,8 @@ After starting the app the user interface can be reached on:
 
 #### With Docker
 After starting docker container the user interface can be reached at:
-- "https://localhost:8080/" or
-- "https://localhost:9000/"
+- "http://localhost:8080/" or
+- "http://localhost:9000/"
 
 ## Development
 
