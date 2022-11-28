@@ -129,7 +129,7 @@ export class ArchitecturalRecommendationResultComponent implements OnInit {
   dataSource!: MatTableDataSource<ArchitecturalDesignRecommendation>;
   expandedRecommendation: ArchitecturalDesignRecommendation | undefined | null;
 
-  showAllActive = false;
+  showAllActive = true;
 
   sub!: Subscription;
 
@@ -291,7 +291,7 @@ export class ArchitecturalRecommendationResultComponent implements OnInit {
     )
       .then((value: ArchitecturalDesignRecommendation[]) => {
         this.recommendationsService.designRecommendations = value;
-        this.loadRecommendations(10);
+        this.loadRecommendations(-1);
         this.setDataSource();
       })
       .catch((reason) => {

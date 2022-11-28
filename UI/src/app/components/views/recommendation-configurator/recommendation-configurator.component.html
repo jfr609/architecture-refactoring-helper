@@ -25,12 +25,11 @@
   <div style="min-height: 800px" fxLayout='column' fxLayoutAlign='start center' fxLayoutGap='12px'>
     <p class="max-width-800">
       Here you have the possibility to apply the inputs from the scenarios for the qualities for the configuration.
-      You can see your configuration based on the scenarios in the sidebar on the right.
+      You can see your configuration based on the scenarios and additional inputs in the sidebar on the right.
     </p>
     <p class="max-width-800">
-      You have the option of having the recommendations generated exclusively on the basis of the inputs made from the
-      scenarios, or you can make
-      additional configurations. In addition to the qualities, system properties can be added. There is also the
+      You have the option to generate the recommendations based on the input from the scenarios and the current configuration,
+      or you can further customize or clear the configuration. In addition to the qualities, system properties can be added. There is also the
       possibility to further configure the input preferences, the process preferences, the output preferences and the
       usability preferences.
     </p>
@@ -54,7 +53,7 @@
       </button>
       <button mat-flat-button color='primary' (click)='onSearchRecommendation()'>
         <mat-icon>search</mat-icon>
-        <span>Search without additional filters</span>
+        <span>Search without further configuration</span>
       </button>
 
     </div>

@@ -133,7 +133,7 @@ export class RecommendationResultComponent implements OnInit {
   dataSource!: MatTableDataSource<ApproachRecommendation>;
   expandedRecommendation: ApproachRecommendation | undefined | null;
 
-  showAllActive = false;
+  showAllActive = true;
   
   sub!: Subscription;
 
@@ -155,7 +155,7 @@ export class RecommendationResultComponent implements OnInit {
           this.preset = true;
         }
       })]).then(() => {
-        this.loadRecommendations(10);
+        this.loadRecommendations(-1);
         this.setDataSource();
         if(!this.preset){
         this.utilService.openSideNav();

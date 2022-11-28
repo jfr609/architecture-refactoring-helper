@@ -254,10 +254,13 @@
         {
           "name": "Number of services",
           "category": "SystemProperty"
-        },
+        }
+
+      ],
+      "qualitySublevels": [
         {
-          "name": "Reuse",
-          "category": "Attribute"
+          "name": "Reuseability",
+          "qualityName": "Maintainability"
         }
       ],
       "directions": [
@@ -688,10 +691,12 @@
         {
           "name": "Cohesion",
           "category": "SystemProperty"
-        },
+        }
+      ],
+      "qualitySublevels": [
         {
-          "name": "Reuse",
-          "category": "Attribute"
+          "name": "Reuseability",
+          "qualityName": "Maintainability"
         }
       ],
       "directions": [
@@ -857,10 +862,12 @@
         {
           "name": "Granularity",
           "category": "SystemProperty"
-        },
+        }
+      ],
+      "qualitySublevels": [
         {
-          "name": "Reuse",
-          "category": "Attribute"
+          "name": "Reuseability",
+          "qualityName": "Maintainability"
         }
       ],
       "directions": [
