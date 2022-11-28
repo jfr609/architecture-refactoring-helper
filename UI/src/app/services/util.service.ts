@@ -6,6 +6,7 @@ import { DialogData } from '../utils/models/dialog-data';
 import { ConnectedDataListElement } from '../components/generics/connected-data-lists/connected-data-lists.component';
 import { copy, findArrayDifference } from '../utils/utils';
 import { MatSidenav } from '@angular/material/sidenav';
+import { RecommendationSuitability } from 'api/repository/models';
 
 @Injectable({
   providedIn: 'root'
@@ -80,6 +81,16 @@ export class UtilService {
         ...this.createConnectedDataList<T>(allElements, getDisplayName)
       );
     }
+  }
+
+  getArraysLength(arr: any[][]): number {
+    let count = 0;
+    arr.forEach((element) => {
+      count += element.filter(
+        (e) => e.recommendationSuitability != RecommendationSuitability.Neutral
+      ).length;
+    });
+    return count;
   }
 
   public setSidenav(sidenav: MatSidenav) {

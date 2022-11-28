@@ -78,4 +78,9 @@ public static class Constants
     // RecommendationService
     public const int DefaultNumberOfRecommendations = -1;
     public const int NumberOfSuitabilityHits = 1;
+
+    // Weights
+    public const int weightA = 3;
+    public const int weightB = 2;
+    public const int weightC = 3;
 }

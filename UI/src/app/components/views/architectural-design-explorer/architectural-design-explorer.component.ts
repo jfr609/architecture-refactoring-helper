@@ -20,12 +20,12 @@ export class ArchitecturalDesignExplorerComponent implements OnInit {
     'name',
     'category',
     'description',
-    'authors',
-    'link'
+    'source',
+    'actions'
   ];
   readonly ArchitecturalCategory = ArchitecturalCategory;
   dataSource!: MatTableDataSource<ArchitecturalDesign>;
-  categorySelected: string = "Pattern";
+  categorySelected: string = 'Pattern';
   architecturalDesigns: ArchitecturalDesign[] = [];
 
   constructor(
@@ -66,12 +66,10 @@ export class ArchitecturalDesignExplorerComponent implements OnInit {
           return data.architecturalDesignSource?.name;
         case 'description':
           return data.architecturalDesignSource?.description;
-        case 'authors':
-          return data.architecturalDesignSource?.authors;
+        case 'source':
+          return data.architecturalDesignSource?.source;
         case 'category':
           return data.category.toString();
-        case 'link':
-          return data.architecturalDesignSource?.link;
         default:
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore

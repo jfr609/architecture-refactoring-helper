@@ -5,8 +5,9 @@
     "architecturalDesignSource": {
       "architecturalDesignId": 1,
       "name": "API gateway",
-      "description": "",
-      "authors": ""
+      "description": "This is about how the services can be accessed in a microservice architecture. This pattern provides an entry point for all possible clients.",
+      "source": "Microservices.io by Chris Richardson",
+      "link": "https://microservices.io/patterns/apigateway.html"
     },
     "category": "Pattern",
     "approachProcess": {
@@ -32,8 +33,9 @@
     "architecturalDesignSource": {
       "architecturalDesignId": 2,
       "name": "Backend for frontend",
-      "description": "",
-      "authors": ""
+      "description": "This patterns means that there is a separate entry point for each kind of client via API gateways",
+      "source": "Microservices.io by Chris Richardson",
+      "link": "https://microservices.io/patterns/apigateway.html"
     },
     "category": "Pattern",
     "approachProcess": {
@@ -58,34 +60,25 @@
     "identifier": "3",
     "architecturalDesignSource": {
       "architecturalDesignId": 3,
-      "name": "Pipes and filters",
-      "description": "",
-      "authors": ""
+      "name": "Database per Service",
+      "description": "Implies that each service in an architecture has its own database.  ",
+      "source": "Microservices.io by Chris Richardson",
+      "link": "https://microservices.io/patterns/data/database-per-service.html"
     },
     "category": "Pattern",
     "approachProcess": {
       "qualities": [
         {
-          "name": "Maintainability",
+          "name": "Scalability",
           "category": "Attribute"
         },
         {
-          "name": "Reliability",
+          "name": "Independence",
           "category": "Attribute"
         },
         {
-          "name": "Performance",
+          "name": "Security",
           "category": "Attribute"
-        },
-        {
-          "name": "Complexity",
-          "catergory": "SystemProperty"
-        }
-      ],
-      "qualitySublevels": [
-        {
-          "name": "Reusability",
-          "qualityName": "Maintainability"
         }
       ]
     }
@@ -97,7 +90,8 @@
       "architecturalDesignId": 4,
       "name": "Isolated State",
       "description": "",
-      "authors": ""
+      "source": "Towards a Quality Model for Cloud-native Applications by Robin Lichtenthäler and Guido Wirtz",
+      "link": "https://link.springer.com/chapter/10.1007/978-3-031-04718-3_7"
     },
     "category": "BestPractice",
     "approachProcess": {
@@ -123,6 +117,308 @@
         {
           "name": "Resource Utilization",
           "qualityName": "Performance"
+        },
+        {
+          "name": "Modularity",
+          "qualityName": "Maintainability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 6,
+    "identifier": "6",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 6,
+      "name": "Automated restarts",
+      "description": "",
+      "source": "Towards a Quality Model for Cloud-native Applications by Robin Lichtenthäler and Guido Wirtz",
+      "link": "https://link.springer.com/chapter/10.1007/978-3-031-04718-3_7"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Recoverability",
+          "qualityName": "Reliability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 7,
+    "identifier": "7",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 7,
+      "name": "Automated monitoring",
+      "description": "",
+      "source": "Towards a Quality Model for Cloud-native Applications by Robin Lichtenthäler and Guido Wirtz",
+      "link": "https://link.springer.com/chapter/10.1007/978-3-031-04718-3_7"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Recoverability",
+          "qualityName": "Reliability"
+        },
+        {
+          "name": "Analysability",
+          "qualityName": "Maintainability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 8,
+    "identifier": "8",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 8,
+      "name": "Loose Coupling",
+      "description": "",
+      "source": "Towards a Quality Model for Cloud-native Applications by Robin Lichtenthäler and Guido Wirtz",
+      "link": "https://link.springer.com/chapter/10.1007/978-3-031-04718-3_7"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Modularity",
+          "qualityName": "Maintainability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 9,
+    "identifier": "9",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 9,
+      "name": "Persistent Communication",
+      "description": "",
+      "source": "Towards a Quality Model for Cloud-native Applications by Robin Lichtenthäler and Guido Wirtz",
+      "link": "https://link.springer.com/chapter/10.1007/978-3-031-04718-3_7"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Complexity",
+          "category": "SystemProperty"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Recoverability",
+          "qualityName": "Reliability"
+        },
+        {
+          "name": "Modularity",
+          "qualityName": "Maintainability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 10,
+    "identifier": "10",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 10,
+      "name": "Dynamic Scheduling",
+      "description": "",
+      "source": "Towards a Quality Model for Cloud-native Applications by Robin Lichtenthäler and Guido Wirtz",
+      "link": "https://link.springer.com/chapter/10.1007/978-3-031-04718-3_7"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Performance",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Recoverability",
+          "qualityName": "Reliability"
+        },
+        {
+          "name": "Modifiability",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Resource Utilization",
+          "qualityName": "Performance"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 11,
+    "identifier": "11",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 11,
+      "name": "Built-in autoscaling",
+      "description": "",
+      "source": "Towards a Quality Model for Cloud-native Applications by Robin Lichtenthäler and Guido Wirtz",
+      "link": "https://link.springer.com/chapter/10.1007/978-3-031-04718-3_7"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Performance",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Resource Utilization",
+          "qualityName": "Performance"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 12,
+    "identifier": "12",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 12,
+      "name": "Standardized deployment unit",
+      "description": "",
+      "source": "Towards a Quality Model for Cloud-native Applications by Robin Lichtenthäler and Guido Wirtz",
+      "link": "https://link.springer.com/chapter/10.1007/978-3-031-04718-3_7"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Portability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Complexity",
+          "category": "SystemProperty"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Installability",
+          "qualityName": "Portability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 13,
+    "identifier": "13",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 13,
+      "name": "Anti-Corruption Layer",
+      "description": "This is about the extent to which the domain model of the monolithic application can possibly negatively influence the domain model of the microservices through refactoring. In this respect, a translation between the domain models must take place.",
+      "source": "Microservices.io by Chris Richardson",
+      "link": "https://microservices.io/patterns/refactoring/anti-corruption-layer.html"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Performance",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 14,
+    "identifier": "14",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 14,
+      "name": "Circuit Breaker",
+      "description": "Is intended to prevent a failure in one service from spreading to other services in a network, in the sense that a remote service is invoked via a proxy, which fails as soon as a certain threshold of the failure rate is exceeded.",
+      "source": "Microservices.io by Chris Richardson",
+      "link": "https://microservices.io/patterns/reliability/circuit-breaker.html"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Availability",
+          "qualityName": "Reliability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 15,
+    "identifier": "15",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 15,
+      "name": "CQRS",
+      "description": "The Implementation of queries by maintaining one or more efficiently queryable materialized views",
+      "source": "Microservices.io by Chris Richardson",
+      "link": "https://microservices.io/patterns/data/cqrs.html"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Scalability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Performance",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Availability",
+          "qualityName": "Reliability"
         }
       ]
     }

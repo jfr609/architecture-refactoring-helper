@@ -45,7 +45,7 @@ export class ArchitectureRefactoringHelperComponent {
         }
       });
   }
-
+  
   ngAfterViewInit(): void {
     this.utilService.setSidenav(this.sidenav);
   }

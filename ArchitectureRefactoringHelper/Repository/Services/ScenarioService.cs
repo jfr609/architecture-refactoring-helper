@@ -66,15 +66,15 @@ public class ScenarioService
                 {
                     if (s.Importance == Scenario.RatingLevel.A)
                     {
-                        weight = weight + 3;
+                        weight = weight + Constants.weightA;
                     }
                     else if (s.Importance == Scenario.RatingLevel.B)
                     {
-                        weight = weight + 2;
+                        weight = weight + Constants.weightB;
                     }
                     else
                     {
-                        weight = weight + 1;
+                        weight = weight + Constants.weightC;
                     }
                 }
                 else
@@ -100,15 +100,15 @@ public class ScenarioService
                 {
                     if (s.Importance == Scenario.RatingLevel.A)
                     {
-                        weight = weight + 3;
+                        weight = weight + Constants.weightA;
                     }
                     else if (s.Importance == Scenario.RatingLevel.B)
                     {
-                        weight = weight + 2;
+                        weight = weight + Constants.weightB;
                     }
                     else
                     {
-                        weight = weight + 1;
+                        weight = weight + Constants.weightC;
                     }
                 }
                 else
@@ -193,6 +193,7 @@ public class ScenarioService
 
         db.Scenarios.Attach(existingScenario);
 
+        // Remove Qualities first and detach so it is not tracked
         foreach (var q in existingScenario.Qualities ?? Enumerable.Empty<Quality>())
         {
             existingScenario.Qualities?.Remove(q);
@@ -200,6 +201,7 @@ public class ScenarioService
             db.Entry(q).State = EntityState.Detached;
         }
 
+        // Remove Subqualities first and detach so it is not tracked
         foreach (var q in existingScenario.QualitySublevels ?? Enumerable.Empty<QualitySublevel>())
         {
             existingScenario.QualitySublevels?.Remove(q);

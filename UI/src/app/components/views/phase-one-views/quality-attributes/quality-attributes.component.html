@@ -1,4 +1,10 @@
-
+<div fxLayout='row' fxLayoutGap='8px' fxLayoutAlign='center'>
+<p class='max-width-800'>In this section, scenarios can be created based on the <a href="https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=5177" target="_blank">ATAM method</a>. For this purpose, quality attributes you want to optimize can be assigned
+to the scenarios.
+<br/>
+For importance, a scale of prioritization is applied, where <strong>A</strong> means 'important', <strong>B</strong> means 'medium' and <strong>C</strong> means 'less
+important'. For difficulty, <strong>A</strong> means 'very difficult', <strong>B</strong> means 'normal' and <strong>C</strong> means 'easy'.</p>
+</div>
 <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px' fxLayoutAlign='center'>
   <button mat-flat-button matStepperPrevious color='accent'>
     <mat-icon>arrow_back</mat-icon>
@@ -8,148 +14,132 @@
     <span>Next</span>
     <mat-icon>arrow_forward</mat-icon>
   </button>
-  <button mat-raised-button color="primary" (click)="saveChanges()"><span>Save Changes</span></button>
-</div>
+  <button mat-raised-button color="primary" (click)="saveChanges()" [disabled]='!nameFormControl.valid'><span>Save Changes</span></button>
+  <mat-divider vertical></mat-divider>
+  <button mat-flat-button color='accent' [routerLink]="['/phase/2']">
+    <mat-icon>move_down</mat-icon>
+    <span> Skip to Phase 2</span>
+  </button>
+  <button mat-flat-button color='accent' [routerLink]="['/phase/3']">
+    <mat-icon>move_down</mat-icon>
+    <span> Skip to Phase 3</span>
+  </button>
+  </div>
+
+
 
 <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center">
   <mat-card class="scenario-card" class="mat-elevation-z8">
-    <mat-card-title
-      >Scenarios
-      <button
-        style="margin-left: 10px; margin-bottom: 10px"
-        mat-mini-fab
-        class="attribute-button"
-        color="primary"
-        (click)="addEmptyScenario()"
-      >
+    <mat-card-title>Scenarios
+      <button style="margin-left: 10px; margin-bottom: 10px" mat-mini-fab class="attribute-button" color="primary"
+        (click)="addEmptyScenario()">
         <mat-icon>add</mat-icon>
-      </button></mat-card-title
-    >
+      </button>
+    </mat-card-title>
 
-  
-    <div  class="mat-elevation-z8"
-      cdkDropList
-      class="drop-list"
-      (cdkDropListDropped)="drop($event)"
-      [cdkDropListData]="scenarioList"
-    >
-    <ng-container *ngIf="scenarioList.length > 0; else emptyScenarioList">
-      <div fxLayout="row" fxLayoutGap="5px"
-        *ngFor="let scenario of scenarioList"
-        [cdkDragData]="scenario"
-        cdkDragLockAxis="y"
-        cdkDragBoundary=".drop-list"
-        cdkDrag
-        (click)="scenarioSelected(scenario)"
-        [ngClass]="{
+
+    <div class="mat-elevation-z8" cdkDropList class="drop-list" (cdkDropListDropped)="drop($event)"
+      [cdkDropListData]="scenarioList">
+      <ng-container *ngIf="scenarioList.length > 0; else emptyScenarioList">
+        <div *ngFor="let scenario of scenarioList" [cdkDragData]="scenario" cdkDragLockAxis="y"
+          cdkDragBoundary=".drop-list" cdkDrag (click)="scenarioSelected(scenario)" [ngClass]="{
           'selected-drop-box': checkCurrentScenario(scenario),
           'drop-box': !checkCurrentScenario(scenario)
-        }"
-      >
-      <div class="drop-handle" cdkDragHandle>
-          <mat-icon mat-list-icon>drag_indicator</mat-icon>
+        }">
+          <div class="drop-handle" cdkDragHandle>
+            <mat-icon mat-list-icon>drag_indicator</mat-icon>
+          </div>
+          <div fxLayout="column">
+            <div fxLayout="row" fxLayoutGap="10px" >
+              <mat-form-field appearance="fill" fxFlex="70">
+                <mat-label>Name</mat-label>
+                <input matInput [(ngModel)]="scenario.name" required   [formControl] = 'nameFormControl' />
+              </mat-form-field>
+
+
+              <mat-form-field  appearance="fill" fxFlex="15"> 
+                <mat-label>Importance</mat-label>
+                <mat-select [(value)]="scenario.importance">
+                  <mat-option *ngFor="let rating of enumKeys" [value]="rating">{{
+                    rating
+                    }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="fill" fxFlex="15">
+                <mat-label>Difficulty</mat-label>
+                <mat-select [(value)]="scenario.difficulty">
+                  <mat-option *ngFor="let rating of enumKeys" [value]="rating">{{
+                    rating
+                    }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+          <div fxLayout="row" fxLayoutGap="10px">
+            <mat-form-field class="description-field" appearance="fill">
+              <mat-label>Description</mat-label>
+              <textarea matInput [(ngModel)]="scenario.description"></textarea>
+            </mat-form-field>
+          </div>
         </div>
-        <mat-form-field appearance="fill">
-          <mat-label>Name</mat-label>
-          <input matInput [(ngModel)]="scenario.name" required/>
-        </mat-form-field>
-        <mat-form-field class="description-field" appearance="fill">
-          <mat-label>Description</mat-label>
-          <input matInput [(ngModel)]="scenario.description" />
-        </mat-form-field>
 
-        <mat-form-field appearance="fill">
-          <mat-label>Importance</mat-label>
-          <mat-select [(value)]="scenario.importance">
-            <mat-option *ngFor="let rating of enumKeys" [value]="rating">{{
-              rating
-            }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Difficulty</mat-label>
-          <mat-select [(value)]="scenario.difficulty">
-            <mat-option *ngFor="let rating of enumKeys" [value]="rating">{{
-              rating
-            }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <button mat-button (click)="deleteScenario(scenario)"><mat-icon mat-list-icon color="warn">delete</mat-icon></button>
-      </div>
-          </ng-container>
+        <button mat-button (click)="deleteScenario(scenario)">
+          <mat-icon mat-list-icon color="warn">delete</mat-icon>
+        </button>
     </div>
-    <ng-template #emptyScenarioList><p style="color: grey; margin-left: 10px; margin-right: 10px" ><i>No existing scenarios. Please create a scenario by adding one using the green add button (+) </i></p></ng-template>
-  
-  </mat-card>
-  <mat-card class="mat-elevation-z8">
-    <mat-card-title>Quality Attributes</mat-card-title>
-    <mat-accordion>
-      <ng-container *ngFor="let qa of qualityList">
-        <ng-container
-          *ngIf="qa.qualitySublevels.length > 0; else singleAttribute"
-        >
-          <mat-expansion-panel [disabled]="selectedScenario === undefined">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                <section>
-                  <mat-checkbox
-                    #checkboxName
-                    class="example-margin"
-                    (click)="$event.stopPropagation()"
-                    (keydown)="$event.stopPropagation()"
-                    (change)="addOrRemoveQuality($event.checked, qa); checkOrUncheckAll($event.checked, qa)"
-                    [checked]="allChecked(qa)"
-                    [indeterminate]="someChecked(qa.name) && !allChecked(qa)"
-                    (indeterminateChange)="addOrRemoveQuality($event, qa)"
-                    [disabled]="selectedScenario === undefined"
-                  >
-                    {{ qa.name }}</mat-checkbox
-                  >
-                </section></mat-panel-title
-              >
-              <mat-panel-description> </mat-panel-description>
-            </mat-expansion-panel-header>
+    </ng-container>
+</div>
+<ng-template #emptyScenarioList>
+  <p style="color: grey; margin-left: 10px; margin-right: 10px"><i>No existing scenarios. Please create a scenario
+      by adding one using the green add button (+) </i></p>
+</ng-template>
 
-            <section *ngFor="let sqa of qa.qualitySublevels">
-              <mat-checkbox
-                class="example-margin"
-                (click)="$event.stopPropagation()"
-                (keydown)="$event.stopPropagation()"
-                (change)="addOrRemoveQualitySub($event.checked, sqa)"
-                [checked]="checkIfQualitySubExist(sqa.name)"
-                [disabled]="selectedScenario === undefined"
-              >
-                {{ sqa.name }}</mat-checkbox
-              >
-            </section>
-          </mat-expansion-panel>
-        </ng-container>
+</mat-card>
+<mat-card class="mat-elevation-z8">
+  <mat-card-title>Quality Attributes</mat-card-title>
+  <mat-accordion>
+    <ng-container *ngFor="let qa of qualityList">
+      <ng-container *ngIf="qa.qualitySublevels.length > 0; else singleAttribute">
+        <mat-expansion-panel [disabled]="selectedScenario === undefined">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <section>
+                <mat-checkbox #checkboxName class="example-margin" (click)="$event.stopPropagation()"
+                  (keydown)="$event.stopPropagation()"
+                  (change)="addOrRemoveQuality($event.checked, qa); checkOrUncheckAll($event.checked, qa)"
+                  [checked]="allChecked(qa)" [indeterminate]="someChecked(qa.name) && !allChecked(qa)"
+                  (indeterminateChange)="addOrRemoveQuality($event, qa)" [disabled]="selectedScenario === undefined">
+                  {{ qa.name }}</mat-checkbox>
+              </section>
+            </mat-panel-title>
+            <mat-panel-description> </mat-panel-description>
+          </mat-expansion-panel-header>
 
-        <ng-template #singleAttribute>
-          <mat-expansion-panel hideToggle [disabled]="selectedScenario === undefined">
-            <mat-expansion-panel-header
-              #panelHeader
-              (click)="panelHeader._toggle()"
-            >
-              <mat-panel-title>
-                <section>
-                  <mat-checkbox
-                    class="example-margin"
-                    (click)="$event.stopPropagation()"
-                    (keydown)="$event.stopPropagation()"
-                    (change)="addOrRemoveQuality($event.checked, qa)"
-                    [checked]="checkIfQualityExist(qa.name)"
-                    [disabled]="selectedScenario === undefined"
-                  >
-                    {{ qa.name }}</mat-checkbox
-                  >
-                </section></mat-panel-title
-              >
-              <mat-panel-description> </mat-panel-description>
-            </mat-expansion-panel-header>
-          </mat-expansion-panel>
-        </ng-template>
+          <section *ngFor="let sqa of qa.qualitySublevels">
+            <mat-checkbox class="example-margin" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()"
+              (change)="addOrRemoveQualitySub($event.checked, sqa)" [checked]="checkIfQualitySubExist(sqa.name)"
+              [disabled]="selectedScenario === undefined">
+              {{ sqa.name }}</mat-checkbox>
+          </section>
+        </mat-expansion-panel>
       </ng-container>
-    </mat-accordion>
-  </mat-card>
-  </div>
+
+      <ng-template #singleAttribute>
+        <mat-expansion-panel hideToggle [disabled]="selectedScenario === undefined">
+          <mat-expansion-panel-header #panelHeader (click)="panelHeader._toggle()">
+            <mat-panel-title>
+              <section>
+                <mat-checkbox class="example-margin" (click)="$event.stopPropagation()"
+                  (keydown)="$event.stopPropagation()" (change)="addOrRemoveQuality($event.checked, qa)"
+                  [checked]="checkIfQualityExist(qa.name)" [disabled]="selectedScenario === undefined">
+                  {{ qa.name }}</mat-checkbox>
+              </section>
+            </mat-panel-title>
+            <mat-panel-description> </mat-panel-description>
+          </mat-expansion-panel-header>
+        </mat-expansion-panel>
+      </ng-template>
+    </ng-container>
+  </mat-accordion>
+</mat-card>
+</div>

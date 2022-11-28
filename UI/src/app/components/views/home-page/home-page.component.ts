@@ -7,5 +7,10 @@ import { PermissionService } from '../../../services/permission.service';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent {
+  showInfoBool: boolean = true;
   constructor(public permissionService: PermissionService) {}
+
+  showInfo() {
+    this.showInfoBool = !this.showInfoBool;
+  }
 }

@@ -1,6 +1,6 @@
 <div fxLayout='column' fxLayoutAlign='start center' fxLayoutGap='32px' class='page-container'>
   <h1 fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='12px'>
-    <button mat-mini-fab color='warn' [routerLink]="!scenarioBased ? ['/phase/2/recommendation/configure/manual'] : ['/phase/2/recommendation/configure/scenarioBased']">
+    <button mat-mini-fab color='warn' (click)="goBack()">
       <mat-icon>arrow_back</mat-icon>
     </button>
     <span>Refactoring approach recommendations for {{getTitle()}}</span>
@@ -10,12 +10,16 @@
     This results page will show a list of service identification approaches ordered by the amount of matches that
     expresses the overlap of the approach properties with your filter settings.
   </p>
-  <p class='max-width-800' fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='8px'>
+  <p fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='8px'>
     <mat-icon color='accent'>info</mat-icon>
     <strong>Caution:</strong>
-    <span>The below presented result list does represent a work-in-progress state and may be inaccurate.</span>
+    <span>The below presented result list does represent a work-in-progress state and may be inaccurate and incomplete.</span>
   </p>
 
+  <button *ngIf="!preset" mat-flat-button color='accent' [routerLink]="!scenarioBased ? ['/phase/3/architecturalDesigns/result/manual'] : ['/phase/3/architecturalDesigns/result/scenarioBased'] ">
+    <mat-icon>move_down</mat-icon>
+    <span> Show Patterns and Best Practices </span>
+  </button>
   <table mat-table [dataSource]='dataSource' multiTemplateDataRows matSort matSortActive="matches" matSortDirection="desc" class='mat-elevation-z8'>
     <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of sortColumns'>
       <th mat-header-cell *matHeaderCellDef mat-sort-header='{{ columnData.columnDef }}'>
@@ -81,6 +85,45 @@
         <div class='approach-details-container'
           [@detailExpand]="recommendation === expandedRecommendation ? 'expanded' : 'collapsed'">
           <div fxLayout='column' class='approach-details'>
+
+            <h3>Qualities & System Properties</h3>
+            <div fxLayout='row'>
+              <div fxFlex='50' fxLayout='column'>
+                <h4>Mismatches:</h4>
+                <div class='evaluation-content' fxLayout='row wrap'>
+                  <ng-container *ngFor='let evaluation of recommendation.qualityEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
+                      class='evaluation-item mismatch-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.qualitySublevelEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
+                      class='evaluation-item mismatch-item'>
+                      {{ evaluation.approachAttribute.name }} ({{ evaluation.approachAttribute.qualityName }})
+                    </span>
+                  </ng-container>
+                </div>
+              </div>
+              <div fxFlex='50' fxLayout='column'>
+                <h4>Matches:</h4>
+                <div class='evaluation-content' fxLayout='row wrap'>
+                  <ng-container *ngFor='let evaluation of recommendation.qualityEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
+                      class='evaluation-item match-item'>
+                      {{ evaluation.approachAttribute.name }}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngFor='let evaluation of recommendation.qualitySublevelEvaluations'>
+                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
+                      class='evaluation-item match-item'>
+                      {{ evaluation.approachAttribute.name }} ({{ evaluation.approachAttribute.qualityName }})
+                    </span>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+
             <h3>Input</h3>
             <div fxLayout='row'>
               <div fxFlex='50' fxLayout='column'>
@@ -148,18 +191,6 @@
               <div fxFlex='50' fxLayout='column'>
                 <h4>Mismatches:</h4>
                 <div class='evaluation-content' fxLayout='row wrap'>
-                  <ng-container *ngFor='let evaluation of recommendation.qualityEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
-                      class='evaluation-item mismatch-item'>
-                      {{ evaluation.approachAttribute.name }}
-                    </span>
-                  </ng-container>
-                  <ng-container *ngFor='let evaluation of recommendation.qualitySublevelEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
-                      class='evaluation-item mismatch-item'>
-                      {{ evaluation.approachAttribute.name }} ({{ evaluation.approachAttribute.qualityName }})
-                    </span>
-                  </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.directionEvaluations'>
                     <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Mismatch'
                       class='evaluation-item mismatch-item'>
@@ -189,18 +220,6 @@
               <div fxFlex='50' fxLayout='column'>
                 <h4>Matches:</h4>
                 <div class='evaluation-content' fxLayout='row wrap'>
-                  <ng-container *ngFor='let evaluation of recommendation.qualityEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
-                      class='evaluation-item match-item'>
-                      {{ evaluation.approachAttribute.name }}
-                    </span>
-                  </ng-container>
-                  <ng-container *ngFor='let evaluation of recommendation.qualitySublevelEvaluations'>
-                    <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
-                      class='evaluation-item match-item'>
-                      {{ evaluation.approachAttribute.name }} ({{ evaluation.approachAttribute.qualityName }})
-                    </span>
-                  </ng-container>
                   <ng-container *ngFor='let evaluation of recommendation.directionEvaluations'>
                     <span *ngIf='evaluation.attributeEvaluation === AttributeEvaluation.Match'
                       class='evaluation-item match-item'>

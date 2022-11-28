@@ -6,7 +6,7 @@
     <button mat-mini-fab color='warn' [routerLink]="!scenarioBased ? ['/phase/2/recommendation'] : ['/phase/2']">
       <mat-icon>arrow_back</mat-icon>
     </button>
-    <span>Configure a filter for available refactoring approaches</span>
+    <span>{{getTitle()}}</span>
   </h1>
 <ng-container *ngIf="configurationEnabled">
   <p class='max-width-800'>
@@ -34,18 +34,27 @@
       possibility to further configure the input preferences, the process preferences, the output preferences and the
       usability preferences.
     </p>
-
+      <p class='max-width-800' fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='8px'>
+        <mat-icon color='accent'>info</mat-icon>
+        <strong>Important Note:</strong>
+  <p class='max-width-800' fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='8px'>
+    <span>The selected importance of the scenarios have an influence on the evaluation of the results. <br/>
+    In detail, this means that all selected quality attributes of the scenarios receive a weighting. The mapping for this
+    is: Importance <strong>A</strong> implies a weighting of 3, <strong>B</strong> implies a weighting of 2, and
+    <strong>C</strong> implies a weighting of 1.</span>
+  </p>
     <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px' fxLayoutAlign="center">
       <button mat-flat-button color='accent' [routerLink]="['/phase/1']">
-        <span>Edit Scenarios</span>
+        <mat-icon>move_up</mat-icon>
+        <span> Edit scenarios</span>
       </button>
       <button mat-flat-button color='primary' (click)="configurationEnabled = true">
         <mat-icon>build</mat-icon>
-        <span>Configure</span>
+        <span>Configure filters</span>
       </button>
       <button mat-flat-button color='primary' (click)='onSearchRecommendation()'>
         <mat-icon>search</mat-icon>
-        <span>Search without configuration</span>
+        <span>Search without additional filters</span>
       </button>
 
     </div>
@@ -60,18 +69,22 @@
           <span>Next</span>
           <mat-icon>arrow_forward</mat-icon>
         </button>
-        <button *ngIf="scenarioBased" mat-flat-button color='accent' [routerLink]="['/phase/1']">
-          <span>Edit Scenarios</span>
-        </button>
         <button mat-flat-button color='primary' (click)='onSearchRecommendation()'>
           <mat-icon>search</mat-icon>
           <span>Search</span>
         </button>
+        <mat-divider [vertical]="true"></mat-divider>
+        <button mat-button color='warn' (click)='resetConfiguration()'>
+          <span>Reset Configuration </span>
+          <mat-icon>restart_alt</mat-icon>
+        </button>
+
       </div>
       <div fxLayout='row'>
         <ng-container *ngIf="!scenarioBased">
           <div fxFlex='25' fxLayout='column'>
             <h2>Quality attributes</h2>
+            <i>To optimize</i>
             <div
               *ngFor='let quality of attributeOptionsService.getQualitiesByCategory(QualityCategories.Attribute), let i = index'
               class='attribute-option-container'>
@@ -92,6 +105,7 @@
 
           <div fxFlex='25' fxLayout='column'>
             <h2>Quality Subattributes</h2>
+            <i>To optimize</i>
             <div *ngFor='let qualitySublevel of attributeOptionsService.qualitySublevels.value, let i = index'
               class='attribute-option-container'>
               <span fxLayoutAlign='start center'>
@@ -112,6 +126,7 @@
         </ng-container>
         <div fxFlex='25' fxLayout='column'>
           <h2>System Properties</h2>
+          <i>To consider</i>
           <div
             *ngFor='let quality of attributeOptionsService.getQualitiesByCategory(QualityCategories.SystemProperty), let i = index'
             class='attribute-option-container'>
@@ -135,7 +150,7 @@
     <mat-step>
       <ng-template matStepLabel>Select input preferences</ng-template>
       <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px' fxLayoutAlign="center">
-        <button *ngIf="scenarioBased" mat-flat-button matStepperPrevious color='accent'>
+        <button mat-flat-button matStepperPrevious color='accent'>
           <mat-icon>arrow_back</mat-icon>
           <span>Back</span>
         </button>
@@ -143,12 +158,14 @@
           <span>Next</span>
           <mat-icon>arrow_forward</mat-icon>
         </button>
-        <button *ngIf="scenarioBased" mat-flat-button color='accent' [routerLink]="['/phase/1']">
-          <span>Edit Scenarios</span>
-        </button>
         <button mat-flat-button color='primary' (click)='onSearchRecommendation()'>
           <mat-icon>search</mat-icon>
           <span>Search</span>
+        </button>
+        <mat-divider [vertical]="true"></mat-divider>
+        <button mat-button color='warn' (click)='resetConfiguration()'>
+          <span>Reset Configuration </span>
+          <mat-icon>restart_alt</mat-icon>
         </button>
       </div>
 
@@ -246,12 +263,14 @@
           <span>Next</span>
           <mat-icon>arrow_forward</mat-icon>
         </button>
-        <button *ngIf="scenarioBased" mat-flat-button color='accent' [routerLink]="['/phase/1']">
-          <span>Edit Scenarios</span>
-        </button>
         <button mat-flat-button color='primary' (click)='onSearchRecommendation()'>
           <mat-icon>search</mat-icon>
           <span>Search</span>
+        </button>
+        <mat-divider [vertical]="true"></mat-divider>
+        <button mat-button color='warn' (click)='resetConfiguration()'>
+          <span>Reset Configuration </span>
+          <mat-icon>restart_alt</mat-icon>
         </button>
       </div>
 
@@ -349,12 +368,14 @@
           <span>Next</span>
           <mat-icon>arrow_forward</mat-icon>
         </button>
-        <button *ngIf="scenarioBased" mat-flat-button color='accent' [routerLink]="['/phase/1']">
-          <span>Edit Scenarios</span>
-        </button>
         <button mat-flat-button color='primary' (click)='onSearchRecommendation()'>
           <mat-icon>search</mat-icon>
           <span>Search</span>
+        </button>
+        <mat-divider [vertical]="true"></mat-divider>
+        <button mat-button color='warn' (click)='resetConfiguration()'>
+          <span>Reset Configuration </span>
+          <mat-icon>restart_alt</mat-icon>
         </button>
       </div>
 
@@ -408,12 +429,14 @@
           <mat-icon>arrow_back</mat-icon>
           <span>Back</span>
         </button>
-        <button *ngIf="scenarioBased" mat-flat-button color='accent' [routerLink]="['/phase/1']">
-          <span>Edit Scenarios</span>
-        </button>
         <button mat-flat-button color='primary' (click)='onSearchRecommendation()'>
           <mat-icon>search</mat-icon>
           <span>Search</span>
+        </button>
+        <mat-divider [vertical]="true"></mat-divider>
+        <button mat-button color='warn' (click)='resetConfiguration()'>
+          <span>Reset Configuration </span>
+          <mat-icon>restart_alt</mat-icon>
         </button>
       </div>
 

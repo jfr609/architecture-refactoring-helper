@@ -3702,9 +3702,9 @@
       },
       "ArchitecturalDesignSource": {
         "required": [
-          "authors",
           "description",
-          "name"
+          "name",
+          "source"
         ],
         "type": "object",
         "properties": {
@@ -3722,7 +3722,7 @@
             "type": "string",
             "nullable": true
           },
-          "authors": {
+          "source": {
             "type": "string"
           }
         },
