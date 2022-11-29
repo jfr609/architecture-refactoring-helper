@@ -19,8 +19,21 @@
         <p fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='8px'>
           <mat-icon color='accent'>info</mat-icon>
           <strong>Caution:</strong>
-          <span>The below presented result list does represent a work-in-progress state and may be inaccurate and incomplete.</span>
+          <span>The below presented result list does represent a work-in-progress state and may be inaccurate and
+            incomplete.</span>
         </p>
+        <ng-container *ngIf="scenarioBased">
+          <p class='max-width-800' fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='8px'>
+            <mat-icon color='accent'>info</mat-icon>
+            <strong>Important Note:</strong>
+          <p class='max-width-800' fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='8px'>
+            <span>The selected importance of the scenarios have an influence on the evaluation of the results. <br />
+              In detail, this means that all selected quality attributes of the scenarios receive a weighting. The mapping for
+              this
+              is: Importance <strong>A</strong> implies a weighting of 3, <strong>B</strong> implies a weighting of 2, and
+              <strong>C</strong> implies a weighting of 1.</span>
+          </p>
+        </ng-container>
       </ng-container>
 
     <mat-button-toggle-group name="categoryFilter" aria-label="Category Filter" [(ngModel)]="categorySelected"
