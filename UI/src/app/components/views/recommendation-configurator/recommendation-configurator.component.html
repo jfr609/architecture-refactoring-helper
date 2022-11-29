@@ -29,20 +29,22 @@
     </p>
     <p class="max-width-800">
       You have the option to generate the recommendations based on the input from the scenarios and the current configuration,
-      or you can further customize or clear the configuration. In addition to the qualities, system properties can be added. There is also the
+      or you can further customize or clear the configuration. In addition to the qualities, system properties can be added.
+      There is also the
       possibility to further configure the input preferences, the process preferences, the output preferences and the
       usability preferences.
-    </p>
+      </p>
       <p class='max-width-800' fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='8px'>
         <mat-icon color='accent'>info</mat-icon>
         <strong>Important Note:</strong>
-  <p class='max-width-800' fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='8px'>
-    <span>The selected importance of the scenarios have an influence on the evaluation of the results. <br/>
-    In detail, this means that all selected quality attributes of the scenarios receive a weighting. The mapping for this
-    is: Importance <strong>A</strong> implies a weighting of 3, <strong>B</strong> implies a weighting of 2, and
-    <strong>C</strong> implies a weighting of 1.</span>
-  </p>
-    <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px' fxLayoutAlign="center">
+      <p class='max-width-800' fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='8px'>
+        <span>The selected importance of the scenarios have an influence on the evaluation of the results. <br />
+          In detail, this means that all selected quality attributes of the scenarios receive a weighting. The mapping for
+          this
+          is: Importance <strong>A</strong> implies a weighting of 3, <strong>B</strong> implies a weighting of 2, and
+          <strong>C</strong> implies a weighting of 1.</span>
+      </p>
+      <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px' fxLayoutAlign="center">
       <button mat-flat-button color='accent' [routerLink]="['/phase/1']">
         <mat-icon>move_up</mat-icon>
         <span> Edit scenarios</span>
