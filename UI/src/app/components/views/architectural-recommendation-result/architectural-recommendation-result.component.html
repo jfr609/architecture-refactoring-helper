@@ -97,7 +97,7 @@
       <ng-container matColumnDef='expandedDetail'>
         <td mat-cell *matCellDef='let recommendation' [attr.colspan]='columnData.length'>
           <div class='approach-details-container'
-            [@detailExpand]="recommendation === expandedRecommendation ? 'expanded' : 'collapsed'">
+            [@detailExpand]="recommendation === expandedRecommendation ? 'expanded' : 'collapsed'" *ngIf="recommendation === expandedRecommendation">
             <div fxLayout='column' class='approach-details'>
               <h3>Qualities & System Properties</h3>
               <div fxLayout='row'>
