@@ -9,6 +9,7 @@ import { ArchitecturalDesignService } from 'api/repository/services';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { MODES, SCORE_HIGH, SCORE_LOW, SCORE_MAX, SCORE_MEDIUM, SCORE_VERY_LOW } from 'src/app/app.constants';
 import { ApproachRecommendationService } from 'src/app/services/approach-recommendation.service';
+import { AttributeOptionsService } from 'src/app/services/attribute-options.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { UtilService } from 'src/app/services/util.service';
 
@@ -143,7 +144,8 @@ export class ArchitecturalRecommendationResultComponent implements OnInit {
     private route: ActivatedRoute,
     private utilService: UtilService,
     private architecturalService: ArchitecturalDesignService,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private attributeOptionsService: AttributeOptionsService
   ) {}
 
   ngOnInit(): void {
@@ -151,7 +153,8 @@ export class ArchitecturalRecommendationResultComponent implements OnInit {
       (this.sub = this.route.params.subscribe((params) => {
         if (params['mode'] == MODES.modeScenario) this.scenarioBased = true;
       })),
-      this.projectService.requestProjectAttributes()
+      this.projectService.requestProjectAttributes(),
+      this.attributeOptionsService.requestAttributeOptions()
     ]).then(() => {
       this.recommendationsService.setRecommendationInformationSuitability(
         RecommendationSuitability.Neutral
