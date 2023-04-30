@@ -1,5 +1,50 @@
+
+<div fxLayout='row' fxLayoutGap='8px' fxLayoutAlign='center'>
+<p class='max-width-800'>In this section, scenarios can be created based on the <a href="https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=5177" target="_blank">ATAM method</a>. For this purpose, quality attributes you want to optimize can be assigned
+  to the scenarios.
+  <br/>
+  For importance, a scale of prioritization is applied, where <strong>A</strong> means 'important', <strong>B</strong> means 'medium' and <strong>C</strong> means 'less
+  important'. For difficulty, <strong>A</strong> means 'very difficult', <strong>B</strong> means 'normal' and <strong>C</strong> means 'easy'.</p>
+  </div>
+<div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px' fxLayoutAlign='center'>
+  <!--<button mat-flat-button matStepperPrevious color='accent'>
+    <mat-icon>arrow_back</mat-icon>
+    <span>Back</span>
+  </button>-->
+  <button mat-flat-button matStepperNext color='accent'>
+    <span>Next</span>
+    <mat-icon>arrow_forward</mat-icon>
+  </button>
+  <button mat-raised-button color="primary"><span>Save Changes</span></button><!--[disabled]='!allNamesSet()' (click)="saveChanges()"-->
+  <mat-divider vertical></mat-divider>
+  <button mat-flat-button color='accent' [routerLink]="['/phase/2']">
+    <mat-icon>move_down</mat-icon>
+    <span> Skip to Phase 2</span>
+  </button>
+  <button mat-flat-button color='accent' [routerLink]="['/phase/3']">
+    <mat-icon>move_down</mat-icon>
+    <span> Skip to Phase 3</span>
+  </button>
+  </div>
+
+
+
 <img  class="images" src="assets/Phase1-UI1.jpg"/>
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button matStepperNext>Next</button>
+      <button> "is this the right site"</button>
+    </div>
+<div>
+    <div>
+        system specs
+        <!--checkboxes-->
+      </div>
+      <div>
+        system description
+        <!-- checkboxes-->
+      </div>
+      <div>
+        properties
+      </div>
     </div>
