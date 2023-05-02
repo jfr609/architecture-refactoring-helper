@@ -36,6 +36,7 @@ export { ModelArtifactInput } from './models/model-artifact-input';
 export { ModelArtifactInputApproachAttributeEvaluation } from './models/model-artifact-input-approach-attribute-evaluation';
 export { ModelArtifactInputAttributeRecommendationInformation } from './models/model-artifact-input-attribute-recommendation-information';
 export { ProblemDetails } from './models/problem-details';
+export { ProjectDescription } from './models/project-description';
 export { Quality } from './models/quality';
 export { QualityApproachAttributeEvaluation } from './models/quality-approach-attribute-evaluation';
 export { QualityAttributeRecommendationInformation } from './models/quality-attribute-recommendation-information';
