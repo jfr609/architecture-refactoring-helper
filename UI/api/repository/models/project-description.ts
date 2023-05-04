@@ -23,5 +23,5 @@ export interface ProjectDescription {
   importance?: RatingLevel;
   qualities?: null | Array<Quality>;
   qualitySublevels?: null | Array<QualitySublevel>;
-  scenarioId?: number;
+  projectDescriptionId?: number;
 }
