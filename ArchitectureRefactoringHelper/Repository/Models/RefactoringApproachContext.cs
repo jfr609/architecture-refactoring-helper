@@ -12,6 +12,8 @@ public class RefactoringApproachContext : DbContext
 
     public DbSet<Scenario> Scenarios { get; set; }
 
+    public DbSet<ProjectDescription> ProjectDescriptions { get; set; }
+
     public DbSet<ApproachSource> ApproachSources { get; set; }
     public DbSet<ArchitecturalDesignSource> ArchitecturalDesignSources { get; set; }
 
@@ -57,6 +59,7 @@ public class RefactoringApproachContext : DbContext
     {
         // Apply Configurations
         modelBuilder.ApplyConfiguration(new ScenarioConfiguration());
+        modelBuilder.ApplyConfiguration(new ProjectDescriptionConfiguration());
 
         modelBuilder.ApplyConfiguration(new RefactoringApproachConfiguration());
         modelBuilder.ApplyConfiguration(new ApproachProcessConfiguration());

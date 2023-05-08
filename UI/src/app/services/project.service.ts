@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { RecommendationSuitability, Scenario } from 'api/repository/models';
+import { ProjectDescription, RecommendationSuitability, Scenario } from 'api/repository/models';
 import { ScenarioService } from 'api/repository/services';
+import { ProjectDescriptionService } from 'api/repository/services/project-description.service';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { ApproachRecommendationService } from './approach-recommendation.service';
 import { UtilService } from './util.service';
@@ -12,11 +13,16 @@ export class ProjectService {
   public scenarios: BehaviorSubject<Scenario[]> = new BehaviorSubject<
     Scenario[]
   >([]);
+  public projectDescriptions: BehaviorSubject<ProjectDescription[]> = new BehaviorSubject<
+    ProjectDescription[]
+  >([]);
+  
 
   constructor(
     private scenarioService: ScenarioService,
     private utilService: UtilService,
-    private recommendationService: ApproachRecommendationService
+    private recommendationService: ApproachRecommendationService,
+    private projectDescriptionService: ProjectDescriptionService
   ) {}
 
   requestProjectAttributes(): Promise<Awaited<void>[]> {
@@ -39,7 +45,27 @@ export class ProjectService {
       );
     }
   }
+  requestProjectDescriptionAttributes(): Promise<Awaited<void>[]> {
+    const dataLoadingPromises: Promise<void>[] = [];
 
+    dataLoadingPromises.push(this.requestProjectDescription());
+
+    return Promise.all(dataLoadingPromises);
+  }
+
+  async requestProjectDescription(): Promise<void> {
+    try {
+      this.projectDescriptions.next(
+        await lastValueFrom(this.projectDescriptionService.listProjectDescription())
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+       'Error! Project Descriptions inputs could not be retrieved.'
+      );
+    }
+  }
+  
   setQualitiesFromScenarios(): void {
     this.recommendationService.setQualitiesToNeutral();
     this.scenarios.value.forEach((s) => {

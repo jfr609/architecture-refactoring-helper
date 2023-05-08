@@ -15,7 +15,7 @@
     <span>Next</span>
     <mat-icon>arrow_forward</mat-icon>
   </button>
-  <button mat-raised-button color="primary"><span>Save Changes</span></button><!--[disabled]='!allNamesSet()' (click)="saveChanges()"-->
+  <button mat-raised-button color="primary" (click)="saveChanges()" ><span>Save Changes</span></button><!--[disabled]='!allNamesSet()' (click)="saveChanges()"-->
   <mat-divider vertical></mat-divider>
   <button mat-flat-button color='accent' [routerLink]="['/phase/2']">
     <mat-icon>move_down</mat-icon>
@@ -26,7 +26,6 @@
     <span> Skip to Phase 3</span>
   </button>
   </div>
-
   <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center">
     <mat-card class="projectDescription-card" class="mat-elevation-z8">
       <mat-card-title>Project Description
@@ -48,96 +47,96 @@
             <div class="drop-handle" cdkDragHandle>
               <mat-icon mat-list-icon>drag_indicator</mat-icon>
             </div>
-            <div fxLayout="column">
-              <h1>System specs</h1>
-              <div fxLayout="column" fxLayoutGap="10px" >
+            <div fxLayout="row"><!--row-->
+              
+              <div fxLayout="column"  fxLayoutGap="10px" style="padding:5px;" ><!--style="width: 50%"-->
+                <h2>System specs</h2>
                 <mat-form-field appearance="fill" >
                   <mat-label>System Name</mat-label>
                   <input matInput [(ngModel)]="projectDescription.systemname" required />
                 </mat-form-field>
                 <mat-form-field appearance="fill" fxFlex="70">
-                  <mat-label>ownership</mat-label>
+                  <mat-label>Ownership</mat-label>
                   <input matInput [(ngModel)]="projectDescription.ownership" required />
                 </mat-form-field>
                 <mat-form-field appearance="fill" fxFlex="70">
-                  <mat-label>creationdate</mat-label>
+                  <mat-label>Creationdate</mat-label>
                   <input matInput [(ngModel)]="projectDescription.creationdate" required />
                 </mat-form-field>
                 <mat-form-field appearance="fill" fxFlex="70">
-                  <mat-label>systemsize</mat-label>
+                  <mat-label>System Size</mat-label>
                   <input matInput [(ngModel)]="projectDescription.systemsize" required />
                 </mat-form-field>
                 <mat-form-field appearance="fill" fxFlex="70">
-                  <mat-label>hosting</mat-label>
+                  <mat-label>Hosting</mat-label>
                   <input matInput [(ngModel)]="projectDescription.hosting" required />
                 </mat-form-field>
                 <mat-form-field appearance="fill" fxFlex="70">
-                  <mat-label>teams</mat-label>
+                  <mat-label>Teams</mat-label>
                   <input matInput [(ngModel)]="projectDescription.teams" required />
                 </mat-form-field>
                 <mat-form-field appearance="fill" fxFlex="70">
-                  <mat-label>developers</mat-label>
-                  <input matInput [(ngModel)]="projectDescription.hosting" required />
+                  <mat-label>Developers</mat-label>
+                  <input matInput [(ngModel)]="projectDescription.developers" required />
                 </mat-form-field>
                 <mat-form-field appearance="fill" fxFlex="70">
-                  <mat-label>processmodel</mat-label>
-                  <input matInput [(ngModel)]="projectDescription.teams" required />
+                  <mat-label>Process Model</mat-label>
+                  <input matInput [(ngModel)]="projectDescription.processmodel" required />
                 </mat-form-field>
 
 
 
   
   
-                <mat-form-field  appearance="fill" fxFlex="15"> 
-                  <mat-label>Importance</mat-label>
-                  <mat-select [(value)]="projectDescription.importance">
-                    <mat-option *ngFor="let rating of enumKeys" [value]="rating">{{
-                      rating
-                      }}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <mat-form-field appearance="fill" fxFlex="15">
-                  <mat-label>Difficulty</mat-label>
-                  <mat-select [(value)]="projectDescription.difficulty">
-                    <mat-option *ngFor="let rating of enumKeys" [value]="rating">{{
-                      rating
-                      }}</mat-option>
-                  </mat-select>
-                </mat-form-field>
+                
               </div>
-  
-            <div fxLayout="row" fxLayoutGap="10px">
-              <h2>System Description</h2>
-              <mat-form-field class="description-field" appearance="fill">
-                <mat-label>Description</mat-label>
-                <textarea matInput [(ngModel)]="projectDescription.description"></textarea>
-              </mat-form-field>
-              <button style="margin-left: 10px; margin-bottom: 10px" mat-mini-fab class="attribute-button" color="primary"
-              (click)="addEmptyProjectDescription()">
-              <mat-icon>add</mat-icon>
-            </button>
-            </div>
+              <div fxLayout="column" fxLayoutGap="10px" style="width: 50%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
+                <h2>System Description</h2>
+                <!--<mat-tab-group>-->
+                <mat-form-field class="description-field" appearance="fill">
+                  <mat-label label="Purpose">Purpose</mat-label>
+                  <textarea matInput [(ngModel)]="projectDescription.purpose"></textarea>
+                </mat-form-field>
+                <mat-form-field class="description-field" appearance="fill">
+                  <mat-label  label="Functionality">Functionality</mat-label>
+                  <textarea matInput [(ngModel)]="projectDescription.functionality"></textarea>
+                </mat-form-field>
+                <mat-form-field class="description-field" appearance="fill">
+                  <mat-label label="Design Diagrams">Design Diagrams</mat-label>
+                  <textarea matInput [(ngModel)]="projectDescription.designdiagrams"></textarea>
+                </mat-form-field>
+                <button mat-button id="upload" >
+                  <mat-icon>move_up</mat-icon>
+                  <span>Upload Diagram</span>
+                </button>
+              <!--</mat-tab-group>-->
+
+              </div>
           </div>
-          <div fxLayout="row" fxLayoutGap="10px">
+          <div fxLayout="column" fxLayoutGap="10px" style="width: 50%;justify-content:center;padding:5px">
             <h2>Properties</h2>
             <mat-form-field class="description-field" appearance="fill">
               <mat-label>Architecture Patterns</mat-label>
-              <textarea matInput [(ngModel)]="projectDescription.description"></textarea>
+              <textarea matInput [(ngModel)]="projectDescription.patterns"></textarea>
             </mat-form-field>
             <mat-form-field class="description-field" appearance="fill">
               <mat-label>Languages</mat-label>
-              <textarea matInput [(ngModel)]="projectDescription.description"></textarea>
+              <textarea matInput [(ngModel)]="projectDescription.languages"></textarea>
             </mat-form-field>
             <mat-form-field class="description-field" appearance="fill">
               <mat-label>Persistence</mat-label>
-              <textarea matInput [(ngModel)]="projectDescription.description"></textarea>
+              <textarea matInput [(ngModel)]="projectDescription.perisistence"></textarea>
             </mat-form-field>
+            <button mat-button >
+              <mat-icon mat-list-icon color="warn">delete</mat-icon><!--missing deletion mechanism-->
+            </button>
+            <!--<button mat-button >
+              <mat-icon mat-list-icon color="warn">delete</mat-icon>-missing deletion mechanism-->
+            <!--</button>-->
           </div>
+
         </div>
-  
-          <button mat-button >
-            <mat-icon mat-list-icon color="warn">delete</mat-icon>
-          </button>
+
 
       </ng-container>
   </div>
@@ -146,22 +145,4 @@
         by adding one using the green add button (+) </i></p>
   </ng-template>
 
-<img  class="images" src="assets/Phase1-UI1.jpg"/>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext>Next</button>
-      <button> "is this the right site"</button>
-    </div>
-<div>
-    <div>
-        system specs
-        <!--checkboxes-->
-      </div>
-      <div>
-        system description
-        <!-- checkboxes-->
-      </div>
-      <div>
-        properties
-      </div>
-</div>
+<!--<img  class="images" src="assets/Phase1-UI1.jpg"/>-->

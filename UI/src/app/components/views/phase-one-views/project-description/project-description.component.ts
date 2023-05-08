@@ -3,19 +3,13 @@ import {
   moveItemInArray,
   transferArrayItem
 } from '@angular/cdk/drag-drop';
-
-
+import { ProjectDescriptionService } from 'api/repository/services/project-description.service';
 import { Component, OnInit, } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import {
-  Quality,
-  QualityCategory,
-  QualitySublevel,
   RatingLevel,
-  Scenario,
   ProjectDescription
 } from 'api/repository/models';
-import { ScenarioService } from 'api/repository/services';
 import {
   ConfirmDialogComponent,
   ConfirmDialogData
@@ -36,20 +30,37 @@ export class ProjectDescriptionComponent implements OnInit {
   projectDescriptionList: any = [];
   selectedProjectDescription?: ProjectDescription;
 
+
+
   deletingProjectDescriptionsList = new Array<ProjectDescription>();
-  newprojectDescriptionsList = new Array<ProjectDescription>();
+  newProjectDescriptionsList = new Array<ProjectDescription>();
   updatingProjectDescriptionsList = new Array<ProjectDescription>();
 
-
   constructor(
+    public projectService: ProjectService,
+    public attributesService: AttributeOptionsService,
+    public projectDescriptionService: ProjectDescriptionService,
     public utilService: UtilService
+
   ) { 
     this.enumKeys = Object.keys(this.ratingLevel);
   }
 
   ngOnInit(): void {
+    this.isDataLoading = true;
+    Promise.all([
+      this.projectService.requestProjectDescriptionAttributes(),
+      //this.attributesService.requestProjectDescriptionAttributes()
+    ]).then(() => {
+      this.projectDescriptionList = this.projectService.projectDescriptions.value;
+      this.updatingProjectDescriptionsList = Object.assign([], this.projectDescriptionList);
+      //this.qualityList = this.attributesService.getQualitiesByCategory(
+      //this.QualityCategories.Attribute
+      //);
+      this.isDataLoading = false;
+    });
   }
-
+  
   addEmptyProjectDescription(): void {
     let emptyProjectDescription: ProjectDescription = {
       systemname: '',//name
@@ -66,12 +77,9 @@ export class ProjectDescriptionComponent implements OnInit {
       purpose: '',
       functionality: '',
       designdiagrams: '',
-      //description: '',
-      //qualities: [],
-      //qualitySublevels: []
     };
     this.projectDescriptionList.push(emptyProjectDescription);
-    this.newprojectDescriptionsList.push(emptyProjectDescription);
+    this.newProjectDescriptionsList.push(emptyProjectDescription);
   }
 
   deleteProjectDescription(projectDescription: ProjectDescription): void {
@@ -102,9 +110,10 @@ export class ProjectDescriptionComponent implements OnInit {
         if(indexUpdate !== -1){
           this.updatingProjectDescriptionsList.splice(indexUpdate, 1);
         }
-        let indexNext = this.newprojectDescriptionsList.indexOf(projectDescription) ?? -1;
+        let indexNext = this.newProjectDescriptionsList.indexOf(projectDescription) ?? -1;
         if (indexNext !== -1) {
-          this.newprojectDescriptionsList.splice(indexNext, 1);
+
+          this.newProjectDescriptionsList.splice(indexNext, 1);
         }
       }
     });
@@ -134,6 +143,99 @@ export class ProjectDescriptionComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+
+
+  allNamesSet(): boolean {
+    return !this.projectDescriptionList.some(
+      (s: any) => s.name == undefined || s.name == ''
+    );
+  }
+
+  
+  createAll() {
+    if (this.newProjectDescriptionsList.length > 0) {
+      this.newProjectDescriptionsList.forEach((e) => {
+        this.projectDescriptionService
+          .addProjectDescription({
+            body: e
+          })
+          .subscribe({
+            next: (value) => {},
+            error: (err) => {
+              console.log(err);
+              this.utilService.callSnackBar('Project Description could not be created.');
+            }
+          });
+      });
+      this.newProjectDescriptionsList.splice(0);
+    }
+  }
+
+
+
+  deleteAll() {
+    if (this.deletingProjectDescriptionsList.length > 0) {
+      this.deletingProjectDescriptionsList.forEach((e) => {
+        this.projectDescriptionService
+          .deleteProjectDescription({
+            id: e.projectDescriptionId!
+          })
+          .subscribe({
+            next: (value) => {},
+            error: (err) => {
+              console.log(err);
+              this.utilService.callSnackBar('Project Description could not be deleted.');
+            }
+          });
+      });
+      this.deletingProjectDescriptionsList.splice(0);
+    }
+  }
+
+  updateAll() {
+    if (this.updatingProjectDescriptionsList.length > 0) {
+      this.updatingProjectDescriptionsList.forEach((e) => {
+        this.projectDescriptionService
+          .updateProjectDescription({
+            id: e.projectDescriptionId!,
+            body: e
+          })
+          .subscribe({
+            next: (value) => {},
+            error: (err) => {
+              console.log(err);
+              this.utilService.callSnackBar('Project Description could not be updated.');
+            }
+          });
+      });
+      this.updatingProjectDescriptionsList.splice(0);
+    }
+  }
+
+  saveChanges(){
+    const data: ConfirmDialogData = {
+      title: 'Save Changes?',
+      message: `Do you really want to save all changes?`,
+      confirmButtonText: 'Confirm',
+      cancelButtonText: 'Cancel'
+    };
+    this.utilService
+      .createDialog(ConfirmDialogComponent, data)
+      .afterClosed()
+      .subscribe({
+        next: (data: ConfirmDialogData) => {
+          if (data == null) return;
+          this.fireAll();
+        }
+      });
+  }
+
+  fireAll() { 
+    this.createAll();
+    this.deleteAll();
+    this.updateAll();
   }
 
 
