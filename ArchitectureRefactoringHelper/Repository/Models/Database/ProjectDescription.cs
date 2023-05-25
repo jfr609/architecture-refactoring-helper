@@ -8,12 +8,19 @@ namespace Repository.Models.Database;
 public class ProjectDescription
 {
     [Key]
+    [Required]
+    
     [JsonPropertyName("projectDescriptionId")]
     public int ProjectDescriptionId { get; set; }
-
-    [Required]
+    
     [JsonPropertyName("systemname")]
     public string Systemname { get; set; }
+    
+    
+    
+    
+    
+  
 
     [JsonPropertyName("ownership")]
     public string? Ownership { get; set; }

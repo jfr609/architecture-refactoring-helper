@@ -30,17 +30,17 @@ public class ProjectDescriptionService
         return GetProjectDescription(projectDescriptionId, ref db);
     }
 
-    public ProjectDescription GetProjectDescription(int projectDescriptionId, ref RefactoringApproachContext db)
+    public ProjectDescription GetProjectDescription(int ProjectDescriptionId, ref RefactoringApproachContext db)
     {
         var query = db.ProjectDescriptions
-            .Where(e => e.ProjectDescriptionId == projectDescriptionId);
+            .Where(e => e.ProjectDescriptionId == ProjectDescriptionId);
         var result = query.FirstOrDefault();
 
         LoadAllData(ref query);
 
         if (result == null)
         {
-            throw new EntityNotFoundException($"ProjectDescription with ID \"{projectDescriptionId}\" does not exist.");
+            throw new EntityNotFoundException($"ProjectDescription with ID \"{ProjectDescriptionId}\" does not exist.");
         }
 
         return result;
@@ -121,8 +121,8 @@ public class ProjectDescriptionService
 
     private static void LoadAllData(ref IQueryable<ProjectDescription> query)
     {
-       // query
-       // .Load();
+       query
+       .Load();
 
     }
 }

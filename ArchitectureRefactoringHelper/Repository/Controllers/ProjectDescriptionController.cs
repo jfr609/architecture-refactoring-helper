@@ -13,12 +13,12 @@ public class ProjectDescriptionController : ControllerBase
 {
     private readonly ProjectDescriptionService _projectDescriptionService;
 
-    public ProjectDescriptionController(ProjectDescriptionService projectDescriptionsService)
+    public ProjectDescriptionController(ProjectDescriptionService projectDescriptionService)
     {
-        _projectDescriptionService = projectDescriptionsService;
+        _projectDescriptionService = projectDescriptionService;
     }
 
-    [HttpGet(Name = "ListProjectDescriptions")]
+    [HttpGet(Name = "ListProjectDescription")]
     public ActionResult<IEnumerable<ProjectDescription>> ListProjectDescriptions()
     {
         return Ok(_projectDescriptionService.ListProjectDescription());

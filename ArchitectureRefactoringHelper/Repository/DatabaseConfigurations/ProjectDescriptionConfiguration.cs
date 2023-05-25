@@ -16,7 +16,7 @@ public class ProjectDescriptionConfiguration : IEntityTypeConfiguration<ProjectD
                 ProjectDescriptionId = 1,
                 Systemname = "System Name",
                 Ownership = "Ownership",
-                Creationdate = "Date",
+                Creationdate = "15.01.2021",
                 Systemsize = "System Size",
                 Hosting = "Hosting",
                 Teams = "Teams",

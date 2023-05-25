@@ -9,16 +9,52 @@ namespace Repository.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "ProjectDescription",
+                columns: table => new
+                {
+                    ProjectDescriptionId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Systemname = table.Column<string>(type: "TEXT", nullable: false),
+                    Ownership = table.Column<string>(type: "TEXT", nullable: true),
+                    Creationdate = table.Column<string>(type: "DATE", nullable: true),
+                    Systemsize = table.Column<string>(type: "TEXT", nullable: true),
+                    Hosting = table.Column<string>(type: "TEXT", nullable: true),
+                    Teams = table.Column<string>(type: "TEXT", nullable: true),
+                    Developers = table.Column<string>(type: "TEXT", nullable: true),
+                    Processmodel = table.Column<string>(type: "TEXT", nullable: true),
+                    Architecturepattern = table.Column<string>(type: "TEXT", nullable: true),
+                    Languages = table.Column<string>(type: "TEXT", nullable: true),
+                    Persistence = table.Column<string>(type: "TEXT", nullable: true),
+                    Purpose = table.Column<string>(type: "TEXT", nullable: true),
+                    Functionality = table.Column<string>(type: "TEXT", nullable: true),
+                    Designdiagrams = table.Column<string>(type: "TEXT", nullable: true)
+
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProjectDescription", x => x.ProjectDescriptionId);
+                });
+
+
+
+            migrationBuilder.CreateTable(
                 name: "Approach.Input.DomainArtifact",
                 columns: table => new
                 {
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: true)
+                    
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Approach.Input.DomainArtifact", x => x.Name);
                 });
+
+
+            /*migrationBuilder.InsertData(
+                table: "ProjectDescription",
+                columns: new[] { "ProjectDescriptionId", "Systemname" },
+                values: new object[] { "1","bitte gehe" });*/
+            
 
             migrationBuilder.CreateTable(
                 name: "Approach.Input.Executable",

@@ -1618,6 +1618,153 @@
         }
       }
     },
+    "/api/v1/projects/project-descriptions": {
+      "get": {
+        "tags": [
+          "ProjectDescription"
+        ],
+        "operationId": "ListProjectDescription",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProjectDescription"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ProjectDescription"
+        ],
+        "operationId": "AddProjectDescription",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectDescription"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectDescription"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectDescription"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/projects/project-descriptions/{id}": {
+      "get": {
+        "tags": [
+          "ProjectDescription"
+        ],
+        "operationId": "GetProjectDescription",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectDescription"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ProjectDescription"
+        ],
+        "operationId": "UpdateProjectDescription",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectDescription"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectDescription"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectDescription"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ProjectDescription"
+        ],
+        "operationId": "DeleteProjectDescription",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/v1/approaches": {
       "get": {
         "tags": [
@@ -4071,6 +4218,74 @@
           }
         },
         "additionalProperties": { }
+      },
+      "ProjectDescription": {
+        "required": [
+          "systemname"
+        ],
+        "type": "object",
+        "properties": {
+          "projectDescriptionId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "systemname": {
+            "type": "string"
+          },
+          "ownership": {
+            "type": "string",
+            "nullable": true
+          },
+          "creationdate": {
+            "type": "string",
+            "nullable": true
+          },
+          "systemsize": {
+            "type": "string",
+            "nullable": true
+          },
+          "hosting": {
+            "type": "string",
+            "nullable": true
+          },
+          "teams": {
+            "type": "string",
+            "nullable": true
+          },
+          "developers": {
+            "type": "string",
+            "nullable": true
+          },
+          "processmodel": {
+            "type": "string",
+            "nullable": true
+          },
+          "architecturepattern": {
+            "type": "string",
+            "nullable": true
+          },
+          "languages": {
+            "type": "string",
+            "nullable": true
+          },
+          "persistence": {
+            "type": "string",
+            "nullable": true
+          },
+          "purpose": {
+            "type": "string",
+            "nullable": true
+          },
+          "functionality": {
+            "type": "string",
+            "nullable": true
+          },
+          "designdiagrams": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       },
       "Quality": {
         "required": [
