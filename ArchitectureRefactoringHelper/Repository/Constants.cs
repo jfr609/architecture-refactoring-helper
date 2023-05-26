@@ -55,7 +55,7 @@ public static class Constants
    
 
     public const string ApiSubPathProjectDescriptions = "project-descriptions";
-    public const string ApiSubPathStrategicGoals = "strategy-goals";
+    public const string ApiSubPathStrategicGoals = "strategic-goals";
     public const string ApiSubPathSummary = "summary";
     public const string ApiSubPathAssessment = "assessment";
 

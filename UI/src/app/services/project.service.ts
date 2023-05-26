@@ -38,7 +38,7 @@ async requestStrategicGoals(): Promise<void> {
   } catch (err) {
     console.log(err);
     this.utilService.callSnackBar(
-     'Error! Project Descriptions inputs could not be retrieved.'
+     'Error! Strategic Goals inputs could not be retrieved.'
     );
   }
 }
