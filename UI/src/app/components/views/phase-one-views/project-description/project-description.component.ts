@@ -40,7 +40,7 @@ export class ProjectDescriptionComponent implements OnInit {
   projectDescriptionList: any = [];
   selectedProjectDescription?: ProjectDescription;
 
-
+//current commit
 
   deletingProjectDescriptionsList = new Array<ProjectDescription>();
   newProjectDescriptionsList = new Array<ProjectDescription>();
