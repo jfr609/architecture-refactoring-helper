@@ -17,16 +17,26 @@ import {
 import { AttributeOptionsService } from 'src/app/services/attribute-options.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { UtilService } from 'src/app/services/util.service';
+import { Languages } from 'api/repository/models/languages';
+import { Patterns } from 'api/repository/models/patterns';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatNativeDateModule} from '@angular/material/core';
+
 @Component({
   selector: 'app-project-description',
   templateUrl: './project-description.component.html',
-  styleUrls: ['./project-description.component.css']
+  styleUrls: ['./project-description.component.css'],
 })
 export class ProjectDescriptionComponent implements OnInit {
   isDataLoading = true;
   ratingLevel = RatingLevel;
   enumKeys: any;
-
+  enumKeys2: any;
+  languages = Languages;
+  patterns = Patterns;
   projectDescriptionList: any = [];
   selectedProjectDescription?: ProjectDescription;
 
@@ -43,7 +53,8 @@ export class ProjectDescriptionComponent implements OnInit {
     public utilService: UtilService
 
   ) { 
-    this.enumKeys = Object.keys(this.ratingLevel);
+    this.enumKeys = Object.keys(this.languages);
+    this.enumKeys2 = Object.keys(this.patterns);
   }
 
   ngOnInit(): void {
@@ -71,8 +82,6 @@ export class ProjectDescriptionComponent implements OnInit {
       teams: '',//name/object/id
       developers: '',//name/obect/id/list
       processmodel: '',
-      architecturepattern: '',
-      languages: '',
       persistence: '',
       purpose: '',
       functionality: '',

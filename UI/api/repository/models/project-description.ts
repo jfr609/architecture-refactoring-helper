@@ -1,4 +1,8 @@
 /* tslint:disable */
+
+import { Languages } from "./languages";
+import { Patterns } from "./patterns";
+
 /* eslint-disable */
 export interface ProjectDescription {
   projectDescriptionId?: number;
@@ -10,8 +14,8 @@ export interface ProjectDescription {
   teams?: string;
   developers?: string;
   processmodel?: string;
-  architecturepattern?: string;
-  languages?: string;
+  architecturepattern?: Patterns;
+  languages?: Languages;//enum languages
   persistence?: string;
   purpose?: string;
   functionality?: string;

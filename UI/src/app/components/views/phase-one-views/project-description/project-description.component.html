@@ -38,7 +38,7 @@
   
       <div class="mat-elevation-z8" cdkDropList class="drop-list" (cdkDropListDropped)="drop($event)"
         [cdkDropListData]="projectDescriptionList">
-        <ng-container *ngIf="projectDescriptionList.length > 0; else emptyprojectDescriptionList">
+        <ng-container *ngIf="projectDescriptionList.length > 0; else emptyProjectDescriptionList">
           <div *ngFor="let projectDescription of projectDescriptionList" [cdkDragData]="projectDescription" cdkDragLockAxis="y"
             cdkDragBoundary=".drop-list" cdkDrag (click)="projectDescriptionSelected(projectDescription)" [ngClass]="{
             'selected-drop-box': checkCurrentProjectDescription(projectDescription),
@@ -59,10 +59,21 @@
                   <mat-label>Ownership</mat-label>
                   <input matInput [(ngModel)]="projectDescription.ownership" required />
                 </mat-form-field>
+
                 <mat-form-field appearance="fill" fxFlex="70">
                   <mat-label>Creationdate</mat-label>
                   <input matInput [(ngModel)]="projectDescription.creationdate" required />
                 </mat-form-field>
+
+                <!--  <mat-form-field appearance="fill" fxFlex="70">
+                  <mat-label>Creationdate</mat-label>
+                  <mat-select [(value)]="projectDescription.creationdate"></mat-select>
+                  <input matInput  [matDatepicker]="picker" required />
+                  <mat-hint>MM/DD/YYYY</mat-hint>
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>-->
+                
                 <mat-form-field appearance="fill" fxFlex="70">
                   <mat-label>System Size</mat-label>
                   <input matInput [(ngModel)]="projectDescription.systemsize" required />
@@ -93,14 +104,23 @@
               <div fxLayout="column" fxLayoutGap="10px" style="width: 50%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
                 <h2>System Description</h2>
                 <!--<mat-tab-group>-->
-                <mat-form-field class="description-field" appearance="fill">
-                  <mat-label label="Purpose">Purpose</mat-label>
-                  <textarea matInput [(ngModel)]="projectDescription.purpose"></textarea>
+                  <mat-tab-group style="height: 75%;">  
+
+                <mat-tab label="Purpose">
+                  <mat-form-field class="description-field" appearance="fill">
+                    <mat-label label="Purpose">Purpose</mat-label>
+                    <textarea matInput [(ngModel)]="projectDescription.purpose"></textarea>
                 </mat-form-field>
+                </mat-tab>
+
+                <mat-tab label="Functionality">
                 <mat-form-field class="description-field" appearance="fill">
                   <mat-label  label="Functionality">Functionality</mat-label>
                   <textarea matInput [(ngModel)]="projectDescription.functionality"></textarea>
                 </mat-form-field>
+                </mat-tab>
+
+                <mat-tab label="Design Diagrams">
                 <mat-form-field class="description-field" appearance="fill">
                   <mat-label label="Design Diagrams">Design Diagrams</mat-label>
                   <textarea matInput [(ngModel)]="projectDescription.designdiagrams"></textarea>
@@ -109,6 +129,8 @@
                   <mat-icon>move_up</mat-icon>
                   <span>Upload Diagram</span>
                 </button>
+              </mat-tab>
+              </mat-tab-group>
               <!--</mat-tab-group>-->
 
               </div>
@@ -117,31 +139,38 @@
             <h2>Properties</h2>
             <mat-form-field class="description-field" appearance="fill">
               <mat-label>Architecture Patterns</mat-label>
-              <textarea matInput [(ngModel)]="projectDescription.patterns"></textarea>
+              <mat-select [(value)]="projectDescription.patterns">
+                <mat-option *ngFor="let pattern of enumKeys2" [value]="pattern">
+                  {{pattern}}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
+
             <mat-form-field class="description-field" appearance="fill">
               <mat-label>Languages</mat-label>
-              <textarea matInput [(ngModel)]="projectDescription.languages"></textarea>
+              <mat-select [(value)]="projectDescription.languages">
+                <mat-option *ngFor="let language of enumKeys" [value]="language">
+                  {{language}}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
+
             <mat-form-field class="description-field" appearance="fill">
               <mat-label>Persistence</mat-label>
               <textarea matInput [(ngModel)]="projectDescription.perisistence"></textarea>
             </mat-form-field>
-            <button mat-button >
+            <button mat-button (click)="deleteProjectDescription(projectDescription)">
               <mat-icon mat-list-icon color="warn">delete</mat-icon><!--missing deletion mechanism-->
             </button>
-            <!--<button mat-button >
-              <mat-icon mat-list-icon color="warn">delete</mat-icon>-missing deletion mechanism-->
-            <!--</button>-->
           </div>
 
-        </div>
+          </div>
 
 
       </ng-container>
   </div>
-  <ng-template #emptyprojectDescriptionList>
-    <p style="color: grey; margin-left: 10px; margin-right: 10px"><i>No existing Project Descriptions. Please create a scenario
+  <ng-template #emptyProjectDescriptionList>
+    <p style="color: grey; margin-left: 10px; margin-right: 10px"><i>No existing Project Descriptions. Please create a Project Description
         by adding one using the green add button (+) </i></p>
   </ng-template>
 
