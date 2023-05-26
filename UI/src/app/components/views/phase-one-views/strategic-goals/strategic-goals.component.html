@@ -49,7 +49,7 @@
                     
                       
                       <div fxLayout="column"  fxLayoutGap="10px" style="padding:5px;" ><!--style="width: 50%"-->
-                        <h2>Method</h2>
+                      
                         <mat-form-field appearance="fill" >
                           <mat-label>Method</mat-label>
                           <input matInput [(ngModel)]="strategicGoals.method" required />
@@ -64,14 +64,14 @@
                           <input matInput [(ngModel)]="strategicGoals.participants" required />
                         </mat-form-field>
         
-                        <div fxLayout="column" fxLayoutGap="10px" style="width: 50%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
+                        <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
                           <h2>Objectives</h2>
                           <!--<mat-tab-group>-->
                           <mat-tab-group >  
           
                             <mat-tab label="Business/Company Objectives">
                               <mat-form-field class="description-field" appearance="fill">
-                                <mat-label label="Purpose">Business/Company Objectives</mat-label>
+                                <mat-label label="Purpose" style="height: 100px;">Business/Company Objectives</mat-label>
                                 <textarea matInput [(ngModel)]="strategicGoals.business_company_objectives"></textarea>
                               </mat-form-field>
                             </mat-tab>
