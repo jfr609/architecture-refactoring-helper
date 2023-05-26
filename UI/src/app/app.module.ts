@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { MatTabsModule } from '@angular/material/tabs';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomePageComponent } from './components/views/home-page/home-page.component';
@@ -65,8 +65,15 @@ import { ArchitecturalDesignViewComponent } from './components/views/architectur
 import { ArchitecturalRecommendationResultComponent } from './components/views/architectural-recommendation-result/architectural-recommendation-result.component';
 import { MatBadgeModule } from '@angular/material/badge';
 
+
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
+import {MatNativeDateModule} from '@angular/material/core';
+
+
 @NgModule({
   declarations: [
+    
     AppComponent,
     HomePageComponent,
     PageNotFoundComponent,
@@ -97,6 +104,7 @@ import { MatBadgeModule } from '@angular/material/badge';
     ArchitecturalRecommendationResultComponent
   ],
   imports: [
+    MatTabsModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
@@ -104,6 +112,7 @@ import { MatBadgeModule } from '@angular/material/badge';
     ApiModule.forRoot({ rootUrl: environment.API_URL }),
     FlexLayoutModule,
     MatToolbarModule,
+    MatTabsModule,
     MatCardModule,
     MatButtonModule,
     MatSnackBarModule,
@@ -132,7 +141,12 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatCheckboxModule,
     MatSidenavModule,
     MatChipsModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

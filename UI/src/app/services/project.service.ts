@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ProjectDescription, RecommendationSuitability, Scenario } from 'api/repository/models';
+import { ProjectDescription, RecommendationSuitability, Scenario,StrategicGoals } from 'api/repository/models';
 import { ScenarioService } from 'api/repository/services';
 import { ProjectDescriptionService } from 'api/repository/services/project-description.service';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { ApproachRecommendationService } from './approach-recommendation.service';
 import { UtilService } from './util.service';
+import { StrategicGoalsService } from 'api/repository/services/strategic-goals.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +17,40 @@ export class ProjectService {
   public projectDescriptions: BehaviorSubject<ProjectDescription[]> = new BehaviorSubject<
     ProjectDescription[]
   >([]);
+  public strategicGoals: BehaviorSubject<StrategicGoals[]> = new BehaviorSubject<
+    StrategicGoals[]
+  >([]);
   
 
   constructor(
     private scenarioService: ScenarioService,
     private utilService: UtilService,
     private recommendationService: ApproachRecommendationService,
-    private projectDescriptionService: ProjectDescriptionService
+    private projectDescriptionService: ProjectDescriptionService,
+    private strategicGoalsService: StrategicGoalsService,
   ) {}
+
+async requestStrategicGoals(): Promise<void> {  
+  try {
+    this.strategicGoals.next(
+      await lastValueFrom(this.strategicGoalsService.listStrategicGoals())
+    );
+  } catch (err) {
+    console.log(err);
+    this.utilService.callSnackBar(
+     'Error! Project Descriptions inputs could not be retrieved.'
+    );
+  }
+}
+
+
+requestStrategicGoalsAttributes(): Promise<Awaited<void>[]> {
+    const dataLoadingPromises: Promise<void>[] = [];
+
+    dataLoadingPromises.push(this.requestStrategicGoals());
+
+    return Promise.all(dataLoadingPromises);
+  }
 
   requestProjectAttributes(): Promise<Awaited<void>[]> {
     const dataLoadingPromises: Promise<void>[] = [];

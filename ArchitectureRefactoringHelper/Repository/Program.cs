@@ -43,6 +43,10 @@ builder.Services.AddScoped<RefactoringApproachContext>();
 builder.Services.AddScoped<IRecommendationService, SimpleRecommendationService>();
 builder.Services.AddScoped<ScenarioService>();
 builder.Services.AddScoped<ProjectDescriptionService>();
+builder.Services.AddScoped<StrategicGoalsService>();
+//builder.Services.AddScoped<SummaryService>();
+//builder.Services.AddScoped<AssessmentService>();
+
 builder.Services.AddScoped<ArchitecturalDesignService>();
 
 var app = builder.Build();

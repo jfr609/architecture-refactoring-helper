@@ -69,3 +69,6 @@ export { ToolSupportAttributeRecommendationInformation } from './models/tool-sup
 export { ValidationMethod } from './models/validation-method';
 export { ValidationMethodApproachAttributeEvaluation } from './models/validation-method-approach-attribute-evaluation';
 export { ValidationMethodAttributeRecommendationInformation } from './models/validation-method-attribute-recommendation-information';
+export { StrategicGoals } from './models/strategic-goals';
+//export{Assessment} from './models/assessment';
+//export{Summary} from './models/summary';

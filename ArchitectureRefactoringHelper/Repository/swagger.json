@@ -3205,6 +3205,153 @@
           }
         }
       }
+    },
+    "/api/v1/projects/strategy-goals": {
+      "get": {
+        "tags": [
+          "StrategicGoals"
+        ],
+        "operationId": "ListStrategicGoals",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/StrategicGoals"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "StrategicGoals"
+        ],
+        "operationId": "AddStrategicGoals",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrategicGoals"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrategicGoals"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrategicGoals"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/projects/strategy-goals/{id}": {
+      "get": {
+        "tags": [
+          "StrategicGoals"
+        ],
+        "operationId": "GetStrategicGoals",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StrategicGoals"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "StrategicGoals"
+        ],
+        "operationId": "UpdateStrategicGoals",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrategicGoals"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrategicGoals"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrategicGoals"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "StrategicGoals"
+        ],
+        "operationId": "DeleteStrategicGoals",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -4221,7 +4368,7 @@
       },
       "ProjectDescription": {
         "required": [
-          "systemname"
+          "projectDescriptionId"
         ],
         "type": "object",
         "properties": {
@@ -4230,7 +4377,8 @@
             "format": "int32"
           },
           "systemname": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "ownership": {
             "type": "string",
@@ -4715,6 +4863,43 @@
           },
           "recommendationSuitability": {
             "$ref": "#/components/schemas/RecommendationSuitability"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StrategicGoals": {
+        "required": [
+          "strategicGoalsId"
+        ],
+        "type": "object",
+        "properties": {
+          "strategicGoalsId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "method": {
+            "type": "string",
+            "nullable": true
+          },
+          "owners": {
+            "type": "string",
+            "nullable": true
+          },
+          "participants": {
+            "type": "string",
+            "nullable": true
+          },
+          "business_company_objectives": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizational_objectives": {
+            "type": "string",
+            "nullable": true
+          },
+          "process_objectives": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

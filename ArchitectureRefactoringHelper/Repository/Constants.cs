@@ -10,7 +10,13 @@ public static class Constants
     public const string TableNameArchitecturalDesign = "ArchitecturalDesign";
     public const string TableNameApproachSource = TableNameApproach + ".Source";
     public const string TableNameArchitecturalDesignSource = TableNameArchitecturalDesign + ".Source";
-    public const string TableNameProjectDescription = ".ProjectDescription";
+    public const string TableNameProjectDescription = "ProjectDescription";
+
+    public const string TableNameStrategicGoals = "StrategicGoals";
+    public const string TableNameAssessment = "Assessment";
+
+    public const string TableNameSummary = "Summary";
+
     public const string TableNameApproachInput = TableNameApproach + ".Input";
     public const string TableNameApproachInputDomainArtifact = TableNameApproachInput + ".DomainArtifact";
     public const string TableNameApproachInputRuntimeArtifact = TableNameApproachInput + ".RuntimeArtifact";
@@ -46,7 +52,12 @@ public static class Constants
     public const string ApiSubPathProjects = "projects";
     public const string ApiSubPathScenarios = "scenarios";
 
+   
+
     public const string ApiSubPathProjectDescriptions = "project-descriptions";
+    public const string ApiSubPathStrategicGoals = "strategy-goals";
+    public const string ApiSubPathSummary = "summary";
+    public const string ApiSubPathAssessment = "assessment";
 
     public const string ApiSubPathInputs = "inputs";
     public const string ApiSubPathDomainArtifacts = "domain-artifacts";

@@ -34,6 +34,43 @@ namespace Repository.Migrations
                     table.PrimaryKey("PK_ProjectDescription", x => x.ProjectDescriptionId);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "StrategicGoals",
+                columns: table => new{
+                    StrategicGoalsId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Method = table.Column<string>(type: "TEXT", nullable: false),
+                    Owner = table.Column<string>(type: "TEXT", nullable: true),
+                    Participants = table.Column<string>(type: "TEXT", nullable: true),
+                    Business_company_objectives = table.Column<string>(type: "TEXT", nullable: true),
+                    Organizational_objectives = table.Column<string>(type: "TEXT", nullable: true),
+                    Process_objectives = table.Column<string>(type: "TEXT", nullable: true),
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StrategicGoals", x => x.StrategicGoalsId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Summary",
+                columns: table => new{
+                    SummaryId = table.Column<int>(type: "INTEGER", nullable: false),
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Summary", x => x.SummaryId);
+                });
+
+
+            migrationBuilder.CreateTable(
+                name: "Assessment",
+                columns: table => new{
+                    AssessmentId = table.Column<int>(type: "INTEGER", nullable: false),
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Assessment", x => x.AssessmentId);
+                });
+
 
 
             migrationBuilder.CreateTable(
