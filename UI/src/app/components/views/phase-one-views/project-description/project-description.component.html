@@ -50,7 +50,7 @@
             <div fxLayout="row"><!--row-->
               
               <div fxLayout="column"  fxLayoutGap="10px" style="padding:5px;" ><!--style="width: 50%"-->
-                <h2>System specs</h2>
+                <h2>System Specification</h2>
                 <mat-form-field appearance="fill" >
                   <mat-label>System Name</mat-label>
                   <input matInput [(ngModel)]="projectDescription.systemname" required />
@@ -75,19 +75,19 @@
                 </mat-form-field>-
                 
                 <mat-form-field appearance="fill" fxFlex="70">
-                  <mat-label>System Size</mat-label>
+                  <mat-label>System Size (LOC)</mat-label><!-- change to unit int-->
                   <input matInput [(ngModel)]="projectDescription.systemsize" required />
                 </mat-form-field>
                 <mat-form-field appearance="fill" fxFlex="70">
-                  <mat-label>Hosting</mat-label>
+                  <mat-label>Hosting Model</mat-label>
                   <input matInput [(ngModel)]="projectDescription.hosting" required />
                 </mat-form-field>
                 <mat-form-field appearance="fill" fxFlex="70">
-                  <mat-label>Teams</mat-label>
+                  <mat-label>Number of Teams</mat-label>
                   <input matInput [(ngModel)]="projectDescription.teams" required />
                 </mat-form-field>
                 <mat-form-field appearance="fill" fxFlex="70">
-                  <mat-label>Developers</mat-label>
+                  <mat-label>Number of Developers</mat-label>
                   <input matInput [(ngModel)]="projectDescription.developers" required />
                 </mat-form-field>
                 <mat-form-field appearance="fill" fxFlex="70">
@@ -135,9 +135,9 @@
             <mat-form-field class="description-field" appearance="fill">
               <mat-label>Architecture Patterns</mat-label>
               <mat-select [(value)]="projectDescription.patterns">
-                <mat-option *ngFor="let pattern of enumKeys2" [value]="pattern">
+              <mat-checkbox *ngFor="let pattern of enumKeys2" [value]="pattern">
                   {{pattern}}
-                </mat-option>
+                </mat-checkbox>
               </mat-select>
             </mat-form-field>
 
@@ -151,7 +151,7 @@
             </mat-form-field>
 
             <mat-form-field class="description-field" appearance="fill">
-              <mat-label>Persistence</mat-label>
+              <mat-label>Data Persistence</mat-label>
               <textarea matInput [(ngModel)]="projectDescription.perisistence"></textarea>
             </mat-form-field>
             <button mat-button (click)="deleteProjectDescription(projectDescription)">
