@@ -132,21 +132,22 @@
             <h2>Properties</h2>
             <mat-form-field class="description-field" appearance="fill">
               <mat-label>Architecture Patterns</mat-label>
-              <mat-select [(value)]="projectDescription.patterns">
-              <mat-checkbox *ngFor="let pattern of enumKeys2" [value]="pattern">
+              <mat-select [(value)]="projectDescription.patterns" multiple>
+              <mat-option *ngFor="let pattern of enumKeys2" [value]="pattern">
                   {{pattern}}<!--multi selection field -->
-                </mat-checkbox>
+                </mat-option>
               </mat-select>
             </mat-form-field>
 
             <mat-form-field class="description-field" appearance="fill">
               <mat-label>Languages</mat-label>
-              <mat-select [(value)]="projectDescription.languages">
+              <mat-select [(value)]="languages" multiple>
                 <mat-option *ngFor="let language of enumKeys" [value]="language">
-                  {{language}}<!--multi selection field -->
+                  {{ language }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
+
 
             <mat-form-field class="description-field" appearance="fill">
               <mat-label>Data Persistence</mat-label>
