@@ -70,7 +70,7 @@
                   <mat-hint>MM/DD/YYYY</mat-hint>
                   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>-
+                </mat-form-field>
                 
                 <mat-form-field appearance="fill" fxFlex="70">
                   <mat-label>System Size (LOC)</mat-label><!-- change to unit int-->
@@ -94,7 +94,7 @@
                 </mat-form-field>
 
               </div>
-              <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
+              <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:start;padding:5px"><!--style="width: 50%;justify-content:center"-->
                 <h2>System Description</h2>
                 <!--<mat-tab-group>-->
                   <mat-tab-group style="height: 75%;">  
@@ -102,21 +102,21 @@
                 <mat-tab label="Purpose">
                   <mat-form-field class="description-field" appearance="fill">
                     <mat-label label="Purpose">Purpose</mat-label>
-                    <textarea matInput [(ngModel)]="projectDescription.purpose"></textarea>
+                    <textarea  cdkTextareaAutosize matInput [(ngModel)]="projectDescription.purpose"></textarea>
                 </mat-form-field>
                 </mat-tab>
 
                 <mat-tab label="Functionality">
                 <mat-form-field class="description-field" appearance="fill">
                   <mat-label  label="Functionality">Functionality</mat-label>
-                  <textarea matInput [(ngModel)]="projectDescription.functionality"></textarea>
+                  <textarea cdkTextareaAutosize matInput [(ngModel)]="projectDescription.functionality"></textarea>
                 </mat-form-field>
                 </mat-tab>
 
                 <mat-tab label="Design Diagrams">
                 <mat-form-field class="description-field" appearance="fill">
                   <mat-label label="Design Diagrams">Design Diagrams</mat-label>
-                  <textarea matInput [(ngModel)]="projectDescription.designdiagrams"></textarea>
+                  <textarea  cdkTextareaAutosize matInput [(ngModel)]="projectDescription.designdiagrams"></textarea>
                 </mat-form-field>
                 <button mat-button id="upload" >
                   <mat-icon>move_up</mat-icon>
@@ -126,9 +126,9 @@
               </mat-tab-group>
               <!--</mat-tab-group>-->
 
-              </div>
-          </div>
-          <div fxLayout="column" fxLayoutGap="10px" style="width: 50%;justify-content:center;padding:5px">
+              </div>         
+              
+              <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:start;padding:5px">
             <h2>Properties</h2>
             <mat-form-field class="description-field" appearance="fill">
               <mat-label>Architecture Patterns</mat-label>
@@ -157,6 +157,8 @@
               <mat-icon mat-list-icon color="warn">delete</mat-icon>missing deletion mechanism
             </button>-->
           </div>
+          </div>
+ 
 
           </div>
 
