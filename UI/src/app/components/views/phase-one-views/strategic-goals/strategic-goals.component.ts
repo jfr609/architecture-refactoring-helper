@@ -68,6 +68,7 @@ export class StrategicGoalsComponent implements OnInit {
       //this.QualityCategories.Attribute
       //);
       this.isDataLoading = false;
+      this.addEmptyStrategicGoals();
     });
   }
   

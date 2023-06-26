@@ -35,6 +35,7 @@ export class ProjectDescriptionComponent implements OnInit {
   ratingLevel = RatingLevel;
   enumKeys: any;
   enumKeys2: any;
+ // language1 = "PHP";
   languages = Languages;
   patterns = Patterns;
   projectDescriptionList: any = [];
@@ -59,6 +60,7 @@ export class ProjectDescriptionComponent implements OnInit {
 
   ngOnInit(): void {
     this.isDataLoading = true;
+    
     Promise.all([
       this.projectService.requestProjectDescriptionAttributes(),
       //this.attributesService.requestProjectDescriptionAttributes()
@@ -69,6 +71,7 @@ export class ProjectDescriptionComponent implements OnInit {
       //this.QualityCategories.Attribute
       //);
       this.isDataLoading = false;
+      this.addEmptyProjectDescription();
     });
   }
   
@@ -153,8 +156,26 @@ export class ProjectDescriptionComponent implements OnInit {
       return false;
     }
   }
-
-
+/*  addOrRemoveProjectDescription(selected: boolean, language: Languages){
+    if (selected) {
+      if (!this.selectedProjectDescription?.languages?.find((e) => e.name === language.name)) {
+        this.selectedProjectDescription?.languages?.push(language);
+      }
+    } else {
+      let index =
+        this.selectedProjectDescription?.languages?.findIndex(
+          (q) => q.name === language.name
+        ) ?? -1;
+      if (index !== -1) {
+        this.selectedScenario?.qualities?.splice(index, 1);
+      }
+    }
+  }
+  checkIfProjectDescriptionLanguageExist(){
+    return (
+      this.selectedProjectDescription?.languages?.((e) => e.name === name) ?? false
+    );
+  }*/
 
   allNamesSet(): boolean {
     return !this.projectDescriptionList.some(

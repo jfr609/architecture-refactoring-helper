@@ -66,6 +66,7 @@ public class RefactoringApproachContext : DbContext
     {
         // Apply Configurations
         modelBuilder.ApplyConfiguration(new ProjectDescriptionConfiguration());
+        modelBuilder.ApplyConfiguration(new StrategicGoalsConfiguration());
         modelBuilder.ApplyConfiguration(new ScenarioConfiguration());
         
 

@@ -3206,7 +3206,7 @@
         }
       }
     },
-    "/api/v1/projects/strategy-goals": {
+    "/api/v1/projects/strategic-goals": {
       "get": {
         "tags": [
           "StrategicGoals"
@@ -3259,7 +3259,7 @@
         }
       }
     },
-    "/api/v1/projects/strategy-goals/{id}": {
+    "/api/v1/projects/strategic-goals/{id}": {
       "get": {
         "tags": [
           "StrategicGoals"
@@ -4366,9 +4366,10 @@
         },
         "additionalProperties": { }
       },
+      "_comment": "projectId",
       "ProjectDescription": {
         "required": [
-          "projectDescriptionId"
+          "systenname"
         ],
         "type": "object",
         "properties": {
