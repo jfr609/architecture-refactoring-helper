@@ -1,10 +1,8 @@
 
 <div fxLayout='row' fxLayoutGap='8px' fxLayoutAlign='center'>
-<p class='max-width-800'>In this section, scenarios can be created based on the <a href="https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=5177" target="_blank">ATAM method</a>. For this purpose, quality attributes you want to optimize can be assigned
-  to the scenarios.
-  <br/>
-  For importance, a scale of prioritization is applied, where <strong>A</strong> means 'important', <strong>B</strong> means 'medium' and <strong>C</strong> means 'less
-  important'. For difficulty, <strong>A</strong> means 'very difficult', <strong>B</strong> means 'normal' and <strong>C</strong> means 'easy'.</p>
+<p class='max-width-800'>
+  In this section, details of a new Microservices migration project are specified. The System Specification, System Description and System Properties fields characterizes the system to be migrated and reflect it's current state. 
+  The free-text fields within System Description allow to briefly summarize it's purpose, main functionality and attach additional design diagrams.</p>
   </div>
 <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px' fxLayoutAlign='center'>
   <!--<button mat-flat-button matStepperPrevious color='accent'>
@@ -31,7 +29,7 @@
       <mat-card-title>Project Description
         <button style="margin-left: 10px; margin-bottom: 10px" mat-mini-fab class="attribute-button" color="primary"
           (click)="addEmptyProjectDescription()">
-          <mat-icon>add</mat-icon>
+          <mat-icon>add</mat-icon><!--remove-->
         </button>
       </mat-card-title>
   
@@ -136,7 +134,7 @@
               <mat-label>Architecture Patterns</mat-label>
               <mat-select [(value)]="projectDescription.patterns">
               <mat-checkbox *ngFor="let pattern of enumKeys2" [value]="pattern">
-                  {{pattern}}
+                  {{pattern}}<!--multi selection field -->
                 </mat-checkbox>
               </mat-select>
             </mat-form-field>
@@ -145,7 +143,7 @@
               <mat-label>Languages</mat-label>
               <mat-select [(value)]="projectDescription.languages">
                 <mat-option *ngFor="let language of enumKeys" [value]="language">
-                  {{language}}
+                  {{language}}<!--multi selection field -->
                 </mat-option>
               </mat-select>
             </mat-form-field>
