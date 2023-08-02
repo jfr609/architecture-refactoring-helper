@@ -73,7 +73,6 @@ import {MatNativeDateModule} from '@angular/material/core';
 
 @NgModule({
   declarations: [
-    
     AppComponent,
     HomePageComponent,
     PageNotFoundComponent,
@@ -148,7 +147,7 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatNativeDateModule,
     MatButtonModule,
   ],
-  providers: [],
+  providers: [StrategicGoalsComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
