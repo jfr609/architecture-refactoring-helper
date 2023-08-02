@@ -32,6 +32,25 @@ export class ApplicationSettingsDialogComponent {
     this.dialogRef.close();
   }
 
+  /*importDB() {
+
+  }
+  exportDB() {
+    lastValueFrom(
+      this.refactoringApproachService.listRefactoringApproaches({
+        withDetails: true
+      })
+    ).then((refactoringApproaches: RefactoringApproach[]) => {
+      const downloadLink: HTMLAnchorElement = document.createElement('a');
+      downloadLink.download = 'approaches.json';
+      const fileContent: string = JSON.stringify(refactoringApproaches);
+      downloadLink.href = 'data:text/plain;charset=utf-16,' + fileContent;
+      downloadLink.click();
+      downloadLink.remove();
+    });
+  
+  }*/
+
   exportApproaches() {
     lastValueFrom(
       this.refactoringApproachService.listRefactoringApproaches({

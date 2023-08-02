@@ -9,12 +9,22 @@ $theme-grey: mat-palette($mat-grey, 500);
 $light-theme-primary: mat-palette($mat-green, 400);
 $light-theme-accent: mat-palette($mat-blue, A400);
 $light-theme-warn: mat-palette($mat-red, 600);
+$light-theme-secondary: mat-palette($mat-yellow, 700);
 
 $light-theme: mat-light-theme($light-theme-primary, $light-theme-accent, $light-theme-warn);
+//$medium-theme: mat-medium-theme($light-theme-primary, $light-theme-accent,  $light-theme-secondary);
 
 @include angular-material-theme($light-theme);
+//@include angular-material-theme($medium-theme);
 
 :root {
+
+  --color-secondary:  #{mat-color($light-theme-secondary)};
+  --color-secondary-lighter: #{mat-color($light-theme-secondary, lighter)};
+  --color-secondary-darker: #{mat-color($light-theme-secondary, darker)};
+  --color-secondary-50: #{mat-color($light-theme-secondary, 0.5)};
+
+
   --color-primary: #{mat-color($light-theme-primary)};
   --color-primary-lighter: #{mat-color($light-theme-primary, lighter)};
   --color-primary-darker: #{mat-color($light-theme-primary, darker)};
