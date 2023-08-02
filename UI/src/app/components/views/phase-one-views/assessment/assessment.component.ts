@@ -7,7 +7,8 @@ import {
 import { StrategicGoalsService } from 'api/repository/services/strategic-goals.service';
 import { FormControl, Validators } from '@angular/forms';
 import {
-  RatingLevel
+  RatingLevel,
+  
 } from 'api/repository/models';
 import {
   ConfirmDialogComponent,
@@ -24,6 +25,15 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatNativeDateModule} from '@angular/material/core';
 import { StrategicGoals } from 'api/repository/models';
+
+import {
+  Quality,
+  QualityCategory,
+  QualitySublevel,
+  Scenario
+} from 'api/repository/models';
+import { ScenarioService } from 'api/repository/services';
+
 @Component({
   selector: 'app-assessment',
   templateUrl: './assessment.component.html',
@@ -34,10 +44,24 @@ export class AssessmentComponent implements OnInit {
   ratingLevel = RatingLevel;
   enumKeys: any;
   enumKeys2: any;
+  enumKeys3: any;
+  enumKeys1: any;
   languages = Languages;
   patterns = Patterns;
   strategicGoalsList: any = [];
   selectedStrategicGoals?: StrategicGoals;
+
+  loadedonce = false;
+  scenarioList: any = [];
+  selectedScenario?: Scenario;
+
+  qualityList: any = [];
+  readonly QualityCategories = QualityCategory;
+  indeterminateList = new Array<Quality>();
+
+  deletingScenariosList = new Array<Scenario>();
+  newScenariosList = new Array<Scenario>();
+  updatingScenariosList = new Array<Scenario>();
 
 
 
@@ -49,28 +73,47 @@ export class AssessmentComponent implements OnInit {
     public projectService: ProjectService,
     public attributesService: AttributeOptionsService,
     public strategicGoalsService: StrategicGoalsService,
-    public utilService: UtilService
+    public utilService: UtilService,
+    public scenarioService: ScenarioService,
 
   ) { 
+    this.enumKeys1 = Object.keys(this.ratingLevel);
     this.enumKeys = Object.keys(this.languages);
-    this.enumKeys2 = Object.keys(this.patterns);
+    this.enumKeys2 = Object.values(this.patterns);
+    this.enumKeys3 = Object.values(this.patterns);
+
+
   }
 
   ngOnInit(): void {
     this.isDataLoading = true;
     Promise.all([
       this.projectService.requestStrategicGoalsAttributes(),
-      //this.attributesService.requeststrategicGoalsAttributes()
+      this.projectService.requestProjectAttributes(),
+      this.attributesService.requestQualities(),
+      this.projectService.requestScenarios(),
+      //this.
     ]).then(() => {
+      this.scenarioList = this.projectService.scenarios.value;
       this.strategicGoalsList = this.projectService.strategicGoals.value;
       this.updatingStrategicGoalsList = Object.assign([], this.strategicGoalsList);
-      //this.qualityList = this.attributesService.getQualitiesByCategory(
-      //this.QualityCategories.Attribute
-      //);
+      this.qualityList = this.attributesService.getQualitiesByCategory(
+      this.QualityCategories.Attribute
+      );
       this.isDataLoading = false;
     });
   }
   
+  /*addEmptyStrategicGoals(): void {
+    let emptyStrategicGoals: StrategicGoals = {
+      method: '',
+      owner: '',
+      participants: ''
+
+    };
+    this.strategicGoalsList.push(emptyStrategicGoals);
+    this.newStrategicGoalsList.push(emptyStrategicGoals);
+  }*/
   addEmptyStrategicGoals(): void {
     let emptyStrategicGoals: StrategicGoals = {
       method: '',
@@ -81,6 +124,15 @@ export class AssessmentComponent implements OnInit {
     this.strategicGoalsList.push(emptyStrategicGoals);
     this.newStrategicGoalsList.push(emptyStrategicGoals);
   }
+  /*addObjectives(): void {
+    let emptyObjective: Objectives = {
+      objectiveId: counter(this.k),
+      objective: '',
+      
+    };
+    this.objectivesList.push(emptyObjective);
+    this.newObjectivesList.push(emptyObjective);
+  }*/
 
   deleteStrategicGoals(strategicGoals: StrategicGoals): void {
     const data: ConfirmDialogData = {
@@ -118,6 +170,73 @@ export class AssessmentComponent implements OnInit {
       }
     });
   }
+
+  sendTheNewValue(){
+    
+  }
+
+  strategicGoalsSelected(strategicGoals: StrategicGoals): void {
+    this.selectedStrategicGoals = strategicGoals;
+  }
+  checkCurrentStrategicGoals(currentStrategicGoals?: StrategicGoals): boolean {
+    if(currentStrategicGoals === this.selectedStrategicGoals){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //injectScenario(): Boolean{
+   //return(window.alert("Scenario injected"));
+  //}
+
+  addEmptyScenario(): void {
+    let emptyScenario: Scenario = {
+      name: '',
+      description: '',
+      qualities: [],
+      qualitySublevels: []
+    };
+    this.scenarioList.push(emptyScenario);
+    this.newScenariosList.push(emptyScenario);
+  }
+
+  deleteScenario(scenario: Scenario): void {
+    const data: ConfirmDialogData = {
+      title: 'Delete Scenario?',
+      message: `Do you really want to delete the scenario "${scenario.name}"?`,
+      confirmButtonText: 'Confirm',
+      cancelButtonText: 'Cancel'
+    };
+    this.utilService
+      .createDialog(ConfirmDialogComponent, data)
+      .afterClosed()
+      .subscribe({
+        next: (data: ConfirmDialogData) => {
+          if (data == null) return;
+
+          if (scenario.scenarioId != null) {
+            this.deletingScenariosList.push(scenario);
+          }
+
+          let indexList = this.scenarioList.indexOf(scenario) ?? -1;
+          if (indexList !== -1) {
+            this.scenarioList.splice(indexList, 1);
+          }
+          this.selectedScenario = undefined;
+
+          let indexUpdate = this.updatingScenariosList.indexOf(scenario) ?? -1;
+          if (indexUpdate !== -1) {
+            this.updatingScenariosList.splice(indexUpdate, 1);
+          }
+          let indexNew = this.newScenariosList.indexOf(scenario) ?? -1;
+          if (indexNew !== -1) {
+            this.newScenariosList.splice(indexNew, 1);
+          }
+        }
+      });
+  }
+
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -134,87 +253,157 @@ export class AssessmentComponent implements OnInit {
       );
     }
   }
-  strategicGoalsSelected(strategicGoals: StrategicGoals): void {
-    this.selectedStrategicGoals = strategicGoals;
+
+  scenarioSelected(scenario: Scenario): void {
+    this.selectedScenario = scenario;
   }
-  checkCurrentStrategicGoals(currentStrategicGoals?: StrategicGoals): boolean {
-    if(currentStrategicGoals === this.selectedStrategicGoals){
+
+  checkCurrentScenario(currentScenario?: Scenario): boolean {
+    if (currentScenario === this.selectedScenario) {
       return true;
     } else {
       return false;
     }
   }
 
+  addOrRemoveQuality(selected: boolean, qa: Quality) {
+    if (selected) {
+      if (!this.selectedScenario?.qualities?.find((e) => e.name === qa.name)) {
+        this.selectedScenario?.qualities?.push(qa);
+      }
+    } else {
+      let index =
+        this.selectedScenario?.qualities?.findIndex(
+          (q) => q.name === qa.name
+        ) ?? -1;
+      if (index !== -1) {
+        this.selectedScenario?.qualities?.splice(index, 1);
+      }
+    }
+  }
 
+  addOrRemoveQualitySub(selected: boolean, qa: QualitySublevel) {
+    if (selected) {
+      if (
+        !this.selectedScenario?.qualitySublevels?.find(
+          (e) => e.name === qa.name
+        )
+      ) {
+        this.selectedScenario?.qualitySublevels?.push(qa);
+      }
+    } else {
+      let index =
+        this.selectedScenario?.qualitySublevels?.findIndex(
+          (q) => q.name === qa.name
+        ) ?? -1;
+      if (index !== -1) {
+        this.selectedScenario?.qualitySublevels?.splice(index, 1);
+      }
+    }
+  }
+
+  checkIfQualityExist(name: string): boolean {
+    return (
+      this.selectedScenario?.qualities?.some((e) => e.name === name) ?? false
+    );
+  }
+
+  checkIfQualitySubExist(name: string): boolean {
+    return (
+      this.selectedScenario?.qualitySublevels?.some((e) => e.name === name) ??
+      false
+    );
+  }
+
+  someChecked(name: string): boolean {
+    return (
+      this.selectedScenario?.qualitySublevels?.some(
+        (e) => e.qualityName === name
+      ) ?? false
+    );
+  }
+
+  allChecked(quality: Quality): boolean {
+    return (
+      quality.qualitySublevels?.every((e) =>
+        this.selectedScenario?.qualitySublevels?.some((q) => e.name === q.name)
+      ) ?? false
+    );
+  }
+
+  checkOrUncheckAll(selected: boolean, qa: Quality) {
+    if (qa.qualitySublevels) {
+      for (let sqa of qa.qualitySublevels) {
+        this.addOrRemoveQualitySub(selected, sqa);
+      }
+    }
+  }
 
   allNamesSet(): boolean {
-    return !this.strategicGoalsList.some(
+    return !this.scenarioList.some(
       (s: any) => s.name == undefined || s.name == ''
     );
   }
 
-  
   createAll() {
-    if (this.newStrategicGoalsList.length > 0) {
-      this.newStrategicGoalsList.forEach((e) => {
-        this.strategicGoalsService
-          .addStrategicGoals({
+    if (this.newScenariosList.length > 0) {
+      this.newScenariosList.forEach((e) => {
+        this.scenarioService
+          .addScenario({
             body: e
           })
           .subscribe({
             next: (value) => {},
             error: (err) => {
               console.log(err);
-              this.utilService.callSnackBar('Project Description could not be created.');
+              this.utilService.callSnackBar('Scenario could not be created.');
             }
           });
       });
-      this.newStrategicGoalsList.splice(0);
+      this.newScenariosList.splice(0);
     }
   }
 
-
-
   deleteAll() {
-    if (this.deletingStrategicGoalsList.length > 0) {
-      this.deletingStrategicGoalsList.forEach((e) => {
-        this.strategicGoalsService
-          .deleteStrategicGoals({
-            id: e.strategicGoalsId!
+    if (this.deletingScenariosList.length > 0) {
+      this.deletingScenariosList.forEach((e) => {
+        this.scenarioService
+          .deleteScenario({
+            id: e.scenarioId!
           })
           .subscribe({
             next: (value) => {},
             error: (err) => {
               console.log(err);
-              this.utilService.callSnackBar('Project Description could not be deleted.');
+              this.utilService.callSnackBar('Scenario could not be deleted.');
             }
           });
       });
-      this.deletingStrategicGoalsList.splice(0);
+      this.deletingScenariosList.splice(0);
     }
   }
 
   updateAll() {
-    if (this.updatingStrategicGoalsList.length > 0) {
-      this.updatingStrategicGoalsList.forEach((e) => {
-        this.strategicGoalsService
-          .updateStrategicGoals({
-            id: e.strategicGoalsId!,
+    if (this.updatingScenariosList.length > 0) {
+      this.updatingScenariosList.forEach((e) => {
+        this.scenarioService
+          .updateScenario({
+            id: e.scenarioId!,
             body: e
           })
           .subscribe({
             next: (value) => {},
             error: (err) => {
               console.log(err);
-              this.utilService.callSnackBar('Project Description could not be updated.');
+              this.utilService.callSnackBar('Scenario could not be updated.');
             }
           });
       });
-      this.updatingStrategicGoalsList.splice(0);
+      this.updatingScenariosList.splice(0);
     }
   }
 
-  saveChanges(){
+  saveChanges() {
     const data: ConfirmDialogData = {
       title: 'Save Changes?',
       message: `Do you really want to save all changes?`,
@@ -231,6 +420,7 @@ export class AssessmentComponent implements OnInit {
         }
       });
   }
+
 
   fireAll() { 
     this.createAll();

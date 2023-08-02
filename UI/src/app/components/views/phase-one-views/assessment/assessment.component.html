@@ -1,13 +1,15 @@
 <div fxLayout='row' fxLayoutGap='8px' fxLayoutAlign='center'>
-  <p class='max-width-800'>
-          In his section, all previosly entered scenarios are presented again. In this step, the system architecture styles for implementing each scenario is specified. In the tree, all scenarios can be browsed/selected. For each scenario, the possible architectural style for its implementation shoud be specified - either Monolith, Microservices, Other, or a commbination of them.
-          To narrow down this selection, the most suitable/preferred architectural style should be picked, which is either Monolith, Microservices, or Other.
-          </p></div>
+  <p class='max-width-800'>In this section, scenarios can be created based on the <a href="https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=5177" target="_blank">ATAM method</a>. For this purpose, quality attributes you want to optimize can be assigned
+          to the scenarios.
+          <br/>
+          For importance, a scale of prioritization is applied, where <strong>A</strong> means 'important', <strong>B</strong> means 'medium' and <strong>C</strong> means 'less
+          important'. For difficulty, <strong>A</strong> means 'very difficult', <strong>B</strong> means 'normal' and <strong>C</strong> means 'easy'.</p>
+          </div>
         <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px' fxLayoutAlign='center'>
-          <!--<button mat-flat-button matStepperPrevious color='accent'>
+          <button mat-flat-button matStepperPrevious color='accent'>
             <mat-icon>arrow_back</mat-icon>
             <span>Back</span>
-          </button>-->
+          </button>
           <button mat-flat-button matStepperNext color='accent'>
             <span>Next</span>
             <mat-icon>arrow_forward</mat-icon>
@@ -23,6 +25,10 @@
             <span> Skip to Phase 3</span>
           </button>
           </div>
+
+
+
+
           <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center">
             <mat-card class="strategicGoal-card" class="mat-elevation-z8">
               <mat-card-title>Assessment
@@ -47,75 +53,163 @@
                     
                       
                       <div fxLayout="column"  fxLayoutGap="10px" style="padding:5px;" ><!--style="width: 50%"-->
+                        <h2>Scenario Details</h2>
                         <div fxLayout="row"  fxLayoutGap="10px" style="padding:5px;" ><!--style="width: 50%"-->
-                        <!--<h2>Method</h2>-->
+                        
                         <mat-form-field appearance="fill" >
                           <mat-label>Method</mat-label>
                           <input matInput [(ngModel)]="strategicGoals.method" required />
                         </mat-form-field>
 
-                        <mat-radio-group aria-label="Select an option" style="padding:5px;">
+                        <!--<mat-radio-group aria-label="Select an option" style="padding:5px;">
                           <mat-radio-button value="1">Scenario-based</mat-radio-button>
                           <mat-radio-button value="2">Metric-based</mat-radio-button>
-                        </mat-radio-group>
+                        </mat-radio-group>-->
 
                         </div>
                         <mat-form-field appearance="fill" fxFlex="70">
-                          <mat-label>Ownership</mat-label>
-                          <input matInput [(ngModel)]="strategicGoals.owner" required />
+
+                          <mat-label>Owner</mat-label>
+                          <input matInput [(ngModel)]= "scenarioList.name"  required />
                         </mat-form-field>
         
                         <mat-form-field appearance="fill" fxFlex="70">
-                          <mat-label>Participants</mat-label>
+                          <mat-label>Particiapants</mat-label>
                           <input matInput [(ngModel)]="strategicGoals.participants" required />
                         </mat-form-field>
         
                         <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
-                          <h2>Objectives</h2>
+                     
                           <!--<mat-tab-group>-->
-                          <mat-tab-group >  
-          
-                            <mat-tab label="Business/Company Objectives">
+                            <mat-form-field appearance="fill" fxFlex="70">
+                              <mat-label>Description</mat-label>
+                              <input matInput [(ngModel)]="strategicGoals.participants" required />
+                            </mat-form-field>
+
+                            <mat-form-field  appearance="fill" fxFlex="15"> 
+                              <mat-label>Importance</mat-label>
+                              <mat-select [(value)]="strategicGoals.importance">
+                                <mat-option *ngFor="let rating of enumKeys1" [value]="rating">{{
+                                  rating
+                                  }}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill" fxFlex="15">
+                              <mat-label>Difficulty</mat-label>
+                              <mat-select [(value)]="strategicGoals.difficulty">
+                                <mat-option *ngFor="let rating of enumKeys1" [value]="rating">{{
+                                  rating
+                                  }}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+
+                            <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"></div>
+                            <h2>Architecture Suitability</h2>
+                            <div fxLayout="row">
+
                               <mat-form-field class="description-field" appearance="fill">
-                                <mat-label label="Purpose">Business/Company Objectives</mat-label>
+                                <mat-label>Implementable Using</mat-label>
+                                <mat-select [(value)]="strategicGoals.patterns" multiple>
+                                  <mat-option *ngFor="let goalstype of enumKeys2" [value]="goalstype">
+                                    {{ goalstype }}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+
+                              <mat-form-field class="description-field" appearance="fill">
+                                <mat-label>Preferred Pattern</mat-label>
+                                <mat-select [(value)]="strategicGoals.patterns" >
+                                  <mat-option *ngFor="let goalstype of enumKeys2" [value]="goalstype">
+                                    {{ goalstype }}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+
+                                                     
+                             
+                            
+                            </div>
+                             <mat-form-field class="description-field" appearance="fill">
+                                <mat-label label="Explanation">Explanation</mat-label>
                                 <textarea matInput [(ngModel)]="strategicGoals.business_company_objectives"></textarea>
                               </mat-form-field>
-                            </mat-tab>
-          
-                            <mat-tab label="Organizational Objectives">
-                              <mat-form-field class="description-field" appearance="fill">
-                                <mat-label  label="Functionality">Organizational Objectives</mat-label>
-                                <textarea matInput [(ngModel)]="strategicGoals.organizational_objectives"></textarea>
-                              </mat-form-field>
-                            </mat-tab>
-          
-                            <mat-tab label="Process Objectives">
-                              <mat-form-field class="description-field" appearance="fill">
-                                <mat-label label="Process Objectives">Design Diagrams</mat-label>
-                                <textarea matInput [(ngModel)]="strategicGoals.process_objectives"></textarea>
-                              </mat-form-field>
-                            </mat-tab>
+  
+                            </div>
+                            </div>
 
+
+
+                      
+          
                             
+        
+                         
+                        
+                 
+                            <!--<button mat-button (click)="deleteStrategicGoals(strategicGoals)">
+                              <mat-icon mat-list-icon color="warn">delete</mat-icon><missing deletion mechanism
+                            </button>-->
 
-                          </mat-tab-group>
-
-                            <button mat-button (click)="deleteStrategicGoals(strategicGoals)">
-                              <mat-icon mat-list-icon color="warn">delete</mat-icon><!--missing deletion mechanism-->
-                            </button>
-
-                        </div>
-                      </div>
-                     
-                  </div>
-
-                </ng-container>
-          </div>
-          <ng-template #emptyStrategicGoalsList>
-            <p style="color: grey; margin-left: 10px; margin-right: 10px"><i>No existing Strategic Goals. Please create a Strategic Goals
-                by adding one using the green add button (+) </i></p>
-          </ng-template>
+                    </div>
+                  </ng-container>
+    </div>       
+ <ng-template #emptyStrategicGoalsList>
+  <p style="color: grey; margin-left: 10px; margin-right: 10px"><i>No existing Strategic Goals. Please create a Strategic Goals
+      by adding one using the green add button (+) </i></p>
+</ng-template>
+        
+        
+        
+        </mat-card>
+          <mat-card class="mat-elevation-z8">
+                  <mat-card-title>Scenarios</mat-card-title>
+                  <mat-accordion>
+                    <ng-container *ngFor="let qa of  scenarioList">
+                      <ng-container *ngIf="qa.qualitySublevels.length > 0; else singleAttribute">
+                        <mat-expansion-panel [disabled]="selectedScenario === undefined">
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>
+                              <section>
+                                <mat-checkbox #checkboxName class="example-margin" (click)="$event.stopPropagation()"
+                                  (keydown)="$event.stopPropagation()"
+                                  (change)="addOrRemoveQuality($event.checked, qa); checkOrUncheckAll($event.checked, qa)"
+                                  [checked]="allChecked(qa)" [indeterminate]="someChecked(qa.name) && !allChecked(qa)"
+                                  (indeterminateChange)="addOrRemoveQuality($event, qa)" [disabled]="selectedScenario === undefined">
+                                  {{ qa.name }}{{ qa.description }}{{ qa.difficulty }}</mat-checkbox>
+                              </section>
+                            </mat-panel-title>
+                            <mat-panel-description> </mat-panel-description>
+                          </mat-expansion-panel-header>
+                
+                          <section *ngFor="let sqa of qa.qualitySublevels">
+                            <mat-checkbox class="example-margin" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()"
+                              (change)="addOrRemoveQualitySub($event.checked, sqa)" [checked]="checkIfQualitySubExist(sqa.name)"
+                              [disabled]="selectedScenario === undefined">
+                              {{ sqa.name }}</mat-checkbox>
+                          </section>
+                        </mat-expansion-panel>
+                      </ng-container>
+                
+                      <ng-template #singleAttribute>
+                        <mat-expansion-panel hideToggle>
+                          <mat-expansion-panel-header #panelHeader (click)="panelHeader._toggle()">
+                            <mat-panel-title>
+                              <section>
+                                <mat-checkbox class="example-margin" (click)="$event.stopPropagation()"
+                                  (keydown)="$event.stopPropagation()" (change)="addOrRemoveQuality($event.checked, qa)"
+                                  [checked]="">
+                                  {{ qa.name }}</mat-checkbox>
+                              </section>
+                            </mat-panel-title>
+                            <mat-panel-description> </mat-panel-description>
+                          </mat-expansion-panel-header>
+                        </mat-expansion-panel>
+                      </ng-template>
+                    </ng-container>
+                  </mat-accordion>
+                </mat-card>
+              </div>
         
         <!--<img  class="images" src="assets/Phase1-UI1.jpg"/>-->
         
-
