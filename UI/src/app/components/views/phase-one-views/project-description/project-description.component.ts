@@ -35,12 +35,11 @@ export class ProjectDescriptionComponent implements OnInit {
   ratingLevel = RatingLevel;
   enumKeys: any;
   enumKeys2: any;
- // language1 = "PHP";
   languages = Languages;
   patterns = Patterns;
   projectDescriptionList: any = [];
   selectedProjectDescription?: ProjectDescription;
-
+  loadedonce = false;
 //current commit
 
   deletingProjectDescriptionsList = new Array<ProjectDescription>();
@@ -54,13 +53,13 @@ export class ProjectDescriptionComponent implements OnInit {
     public utilService: UtilService
 
   ) { 
-    this.enumKeys = Object.keys(this.languages);
-    this.enumKeys2 = Object.keys(this.patterns);
+    this.enumKeys = Object.values(this.languages);
+    this.enumKeys2 = Object.values(this.patterns);
   }
 
+ 
   ngOnInit(): void {
     this.isDataLoading = true;
-    
     Promise.all([
       this.projectService.requestProjectDescriptionAttributes(),
       //this.attributesService.requestProjectDescriptionAttributes()
@@ -69,23 +68,23 @@ export class ProjectDescriptionComponent implements OnInit {
       this.updatingProjectDescriptionsList = Object.assign([], this.projectDescriptionList);
       //this.qualityList = this.attributesService.getQualitiesByCategory(
       //this.QualityCategories.Attribute
-      //);
+      
       this.isDataLoading = false;
-      this.addEmptyProjectDescription();
     });
   }
+
   
   addEmptyProjectDescription(): void {
     let emptyProjectDescription: ProjectDescription = {
       systemname: '',//name
       ownership: '',//name/object
-      creationdate: '',//date
-      systemsize: '',//int
-      hosting: '',//name/object
-      teams: '',//name/object/id
-      developers: '',//name/obect/id/list
+      creation_date: '',//date
+      systemsize_LOC: 0,//int
+      hosting_model: '',//name/object
+      number_of_teams: 0,//name/object/id
+      number_of_developers: 0,//name/obect/id/list
       processmodel: '',
-      persistence: '',
+      data_persistence: '',
       purpose: '',
       functionality: '',
       designdiagrams: '',
@@ -156,26 +155,8 @@ export class ProjectDescriptionComponent implements OnInit {
       return false;
     }
   }
-/*  addOrRemoveProjectDescription(selected: boolean, language: Languages){
-    if (selected) {
-      if (!this.selectedProjectDescription?.languages?.find((e) => e.name === language.name)) {
-        this.selectedProjectDescription?.languages?.push(language);
-      }
-    } else {
-      let index =
-        this.selectedProjectDescription?.languages?.findIndex(
-          (q) => q.name === language.name
-        ) ?? -1;
-      if (index !== -1) {
-        this.selectedScenario?.qualities?.splice(index, 1);
-      }
-    }
-  }
-  checkIfProjectDescriptionLanguageExist(){
-    return (
-      this.selectedProjectDescription?.languages?.((e) => e.name === name) ?? false
-    );
-  }*/
+
+
 
   allNamesSet(): boolean {
     return !this.projectDescriptionList.some(
@@ -185,7 +166,12 @@ export class ProjectDescriptionComponent implements OnInit {
 
   
   createAll() {
-    if (this.newProjectDescriptionsList.length > 0) {
+    let ok = JSON.stringify(this.projectDescriptionList.languages);
+    let ok2 = JSON.stringify(this.projectDescriptionList.patterns);
+    this.projectDescriptionList.languages = "ok";
+
+    this.projectDescriptionList.patterns = "ok2";
+    if (this.newProjectDescriptionsList.length>0) {
       this.newProjectDescriptionsList.forEach((e) => {
         this.projectDescriptionService
           .addProjectDescription({
@@ -199,14 +185,13 @@ export class ProjectDescriptionComponent implements OnInit {
             }
           });
       });
-      this.newProjectDescriptionsList.splice(0);
     }
   }
 
 
 
   deleteAll() {
-    if (this.deletingProjectDescriptionsList.length > 0) {
+    if (this.deletingProjectDescriptionsList.length >0) {
       this.deletingProjectDescriptionsList.forEach((e) => {
         this.projectDescriptionService
           .deleteProjectDescription({
@@ -225,7 +210,7 @@ export class ProjectDescriptionComponent implements OnInit {
   }
 
   updateAll() {
-    if (this.updatingProjectDescriptionsList.length > 0) {
+    if (this.updatingProjectDescriptionsList.length >0) {
       this.updatingProjectDescriptionsList.forEach((e) => {
         this.projectDescriptionService
           .updateProjectDescription({
@@ -251,15 +236,25 @@ export class ProjectDescriptionComponent implements OnInit {
       confirmButtonText: 'Confirm',
       cancelButtonText: 'Cancel'
     };
+    //this.projectDescriptionList.creation_date = JSON.stringify(this.projectDescriptionList.creation_date);
+
+    let ok = JSON.stringify(this.projectDescriptionList.languages);
+    let ok2 = JSON.stringify(this.projectDescriptionList.patterns);
+    this.projectDescriptionList.languages = "ok";
+
+    this.projectDescriptionList.patterns = "ok2";
+
+    //this.projectDescriptionList.patterns = JSON.stringify(this.projectDescriptionList.patterns);
     this.utilService
       .createDialog(ConfirmDialogComponent, data)
       .afterClosed()
       .subscribe({
         next: (data: ConfirmDialogData) => {
           if (data == null) return;
-          this.fireAll();
+           this.fireAll();
         }
       });
+  
   }
 
   fireAll() { 
@@ -280,3 +275,14 @@ export class ProjectDescriptionComponent implements OnInit {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
