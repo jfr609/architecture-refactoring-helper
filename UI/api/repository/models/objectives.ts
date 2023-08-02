@@ -1,8 +1,12 @@
 /* tslint:disable */
+
+import { GoalsType } from "./goals-type";
+
 /* eslint-disable */
 export interface Objectives {
-   objectiveId?: number;
+   objectiveId: number;
+   //strategicGoalsType:  GoalsType;
    objective?: string;
 
 }
-  
+   

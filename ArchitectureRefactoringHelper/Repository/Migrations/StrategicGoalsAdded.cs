@@ -17,9 +17,9 @@ namespace Repository.Migrations
                     Method = table.Column<string>(type: "TEXT", nullable: true),
                     Owner = table.Column<string>(type: "TEXT", nullable: true),
                     Participants = table.Column<string>(type: "TEXT", nullable: true),
-                    Business_company_objectives = table.Column<string>(type: "TEXT", nullable: true),
-                    Organizational_objectives = table.Column<string>(type: "TEXT", nullable: true),
-                    Process_objectives = table.Column<string>(type: "TEXT", nullable: true),
+                    //Business_company_objectives = table.Column<string>(type: "TEXT", nullable: true),
+                    //Organizational_objectives = table.Column<string>(type: "TEXT", nullable: true),
+                    //Process_objectives = table.Column<string>(type: "TEXT", nullable: true),
 
                 },
                 constraints: table =>

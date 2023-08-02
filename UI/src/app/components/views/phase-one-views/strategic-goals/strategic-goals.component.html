@@ -1,12 +1,15 @@
 <div fxLayout='row' fxLayoutGap='8px' fxLayoutAlign='center'>
-  <p class='max-width-800'>In this section, the overarching strategic goals of the migration project are collected. These goals provide the foundation for deriving quality attributes of the system to improve in the next step. Each set of goals can combine either several Business/Comany objectives, Organizational objectives, or Process objectives.
-     Each set of goals should be tagged with the used method for elicitation (e.g. Architecture Review), its ownership (e.g. Architect) and involved stakeholders/participants.</p>
+  <p class='max-width-800'>In this section, scenarios can be created based on the <a href="https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=5177" target="_blank">ATAM method</a>. For this purpose, quality attributes you want to optimize can be assigned
+          to the scenarios.
+          <br/>
+          For importance, a scale of prioritization is applied, where <strong>A</strong> means 'important', <strong>B</strong> means 'medium' and <strong>C</strong> means 'less
+          important'. For difficulty, <strong>A</strong> means 'very difficult', <strong>B</strong> means 'normal' and <strong>C</strong> means 'easy'.</p>
           </div>
         <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px' fxLayoutAlign='center'>
-          <!--<button mat-flat-button matStepperPrevious color='accent'>
+          <button mat-flat-button matStepperPrevious color='accent'>
             <mat-icon>arrow_back</mat-icon>
             <span>Back</span>
-          </button>-->
+          </button>
           <button mat-flat-button matStepperNext color='accent'>
             <span>Next</span>
             <mat-icon>arrow_forward</mat-icon>
@@ -25,24 +28,17 @@
           <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center">
             <mat-card class="strategicGoal-card" class="mat-elevation-z8">
               <mat-card-title>Strategic Goals
-                <!--<button style="margin-left: 10px; margin-bottom: 10px" mat-mini-fab class="attribute-button" color="primary"
+                <button *ngIf = "strategicGoalsList.length == 0"  style="margin-left: 10px; margin-bottom: 10px" mat-mini-fab class="attribute-button" color="primary"
                   (click)="addEmptyStrategicGoals()">
                   <mat-icon>add</mat-icon>
-                </button>-->
+                </button>
               </mat-card-title>
           
-              <div class="mat-elevation-z8" cdkDropList class="drop-list" (cdkDropListDropped)="drop($event)"
-                [cdkDropListData]="strategicGoalsList">
+          
+              <div class="mat-elevation-z8">
                 <ng-container *ngIf="strategicGoalsList.length > 0; else emptyStrategicGoalsList">
-                  <div *ngFor="let strategicGoals of strategicGoalsList" [cdkDragData]="strategicGoalsList" cdkDragLockAxis="y"
-                    cdkDragBoundary=".drop-list" cdkDrag (click)="strategicGoalsSelected(strategicGoalsList)" [ngClass]="{
-                    'selected-drop-box': checkCurrentStrategicGoals(strategicGoalsList),
-                    'drop-box': !checkCurrentStrategicGoals(strategicGoalsList)
-                    }">
-                    <div class="drop-handle" cdkDragHandle>
-                      <mat-icon mat-list-icon>drag_indicator</mat-icon>
-                    </div>
-                    
+                  <div *ngFor="let strategicGoals of strategicGoalsList">
+
                       
                       <div fxLayout="column"  fxLayoutGap="10px" style="padding:5px;" ><!--style="width: 50%"-->
                       
@@ -61,53 +57,68 @@
                         </mat-form-field>
         
                         <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
-                          <mat-card-title>Objectives
-
-                          <button style="margin-left: 10px; margin-bottom: 10px" mat-mini-fab class="attribute-button" color="primary"
-                          (click)="addEmptyStrategicGoals()">
-                          <mat-icon>add</mat-icon>
-                          </button>
-                        </mat-card-title>
+                         
                           <!--<mat-tab-group>-->
-                          <mat-tab-group >  
-          
-                            <mat-tab label="Business/Company Objectives">
-                              <mat-form-field class="description-field" appearance="fill">
-                                <mat-label label="Purpose" style="height: 100px;">Business/Company Objectives</mat-label>
-                                <textarea matInput [(ngModel)]="strategicGoals.business_company_objectives"></textarea>
-                              </mat-form-field>
-                            </mat-tab>
-          
-                            <mat-tab label="Organizational Objectives">
-                              <mat-form-field class="description-field" appearance="fill">
-                                <mat-label  label="Functionality">Organizational Objectives</mat-label>
-                                <textarea matInput [(ngModel)]="strategicGoals.organizational_objectives"></textarea>
-                              </mat-form-field>
-                            </mat-tab>
-          
-                            <mat-tab label="Process Objectives">
-                              <mat-form-field class="description-field" appearance="fill">
-                                <mat-label label="Process Objectives">Design Diagrams</mat-label>
-                                <textarea matInput [(ngModel)]="strategicGoals.process_objectives"></textarea>
-                              </mat-form-field>
-                            </mat-tab>
+                            <mat-card class="mat-elevation-z8" cdkDropList class="drop-list" (cdkDropListDropped)="drop($event)"
+                            [cdkDropListData]="objectivesList">
+                              <mat-card-title>Objectives<button style="margin-left: 10px; margin-bottom: 10px" mat-mini-fab class="attribute-button" color="primary"
+                              (click)="addObjectives()">
+                              <mat-icon>add</mat-icon>
+                            </button></mat-card-title>
+                              
 
-                            
+                                <ng-container *ngIf="objectivesList.length > 0; else emptyObjectivesList">     
+                                  <div fxLayoutGap="10px" *ngFor="let objective of objectivesList" [cdkDragData]="objective" cdkDragLockAxis="y"
+                                  cdkDragBoundary=".drop-list" cdkDrag (click)="scenarioSelected(objective)" [ngClass]="{
+                                  'selected-drop-box': checkCurrentScenario(objective),
+                                  'drop-box': !checkCurrentScenario(objective) 
+                                }">
 
-                          </mat-tab-group>
+                                            <div fxLayout="row"  fxLayoutGap="5px" style="padding:0px;" ><!--style="width: 50%"-->
+                      
+                                              <mat-form-field [style.width.%]="10" appearance="fill" >
+                                                <mat-label>ID</mat-label>
+                                                <input matInput [(ngModel)]="strategicGoals.method" required />
+                                              </mat-form-field>
+                                              <mat-form-field appearance="fill" fxFlex="70">
+                                                <mat-label>Name</mat-label>
+                                                <input matInput [(ngModel)]="strategicGoals.owner" required />
+                                              </mat-form-field>
+                              
+                                              <mat-form-field [style.width.%]="20" appearance="fill" fxFlex="40">
+                                                <mat-label>Type</mat-label>
+                                                <mat-select [(ngModel)]="strategicGoals.goalstype">
+                                                  <mat-option *ngFor="let goalstype of enumKeys3" [value]="goalstype">{{
+                                                    goalstype
+                                                    }}</mat-option>
+                                                </mat-select>
+                                              </mat-form-field>
+                                              <button  [style.width.%]="5" mat-button (click)="deleteObjectives(strategicGoals)">
+                                                <mat-icon mat-list-icon color="warn">delete</mat-icon><!--missing deletion mechanism-->
+                                              </button>
 
-                            <button mat-button (click)="deleteStrategicGoals(strategicGoals)">
-                              <mat-icon mat-list-icon color="warn">delete</mat-icon><!--missing deletion mechanism-->
-                            </button>
+                                            </div>
+                                            </div>
 
+                                        <mat-panel-description> </mat-panel-description>
+
+                                </ng-container>
+
+                            </mat-card>
+
+            
                         </div>
-
                       </div>
                      
                   </div>
 
                 </ng-container>
           </div>
+          <ng-template #emptyObjectivesList>
+            <p style="color: grey; margin-left: 10px; margin-right: 10px"><i>No existing Objectives. Please create a Strategic Goals
+                by adding one using the green add button (+) </i></p>
+          </ng-template>
+
           <ng-template #emptyStrategicGoalsList>
             <p style="color: grey; margin-left: 10px; margin-right: 10px"><i>No existing Strategic Goals. Please create a Strategic Goals
                 by adding one using the green add button (+) </i></p>
@@ -115,4 +126,3 @@
         
         <!--<img  class="images" src="assets/Phase1-UI1.jpg"/>-->
         
-

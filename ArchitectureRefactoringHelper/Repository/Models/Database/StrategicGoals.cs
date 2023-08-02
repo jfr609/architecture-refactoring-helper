@@ -16,24 +16,24 @@ public class StrategicGoals
     public int StrategicGoalsId { get; set; }
     
     [JsonPropertyName("method")]
-    public string Method { get; set; }
+    public string? Method { get; set; }
     
     
     [JsonPropertyName("owners")]
-    public string Owner { get; set; }
+    public string? Owner { get; set; }
 
     [JsonPropertyName("participants")]
-    public string Participants { get; set; }
+    public string? Participants { get; set; }
 
 
-    [JsonPropertyName("business_company_objectives")]
-    public string Business_company_objectives { get; set; }
+    [JsonPropertyName("objectives")]
+    public ICollection<Objectives>? Objectives { get; set; }
 
-    [JsonPropertyName("organizational_objectives")]
+    /*[JsonPropertyName("organizational_objectives")]
     public string Organizational_objectives { get; set; }
 
     [JsonPropertyName("process_objectives")]
-    public string Process_objectives { get; set; }
+    public string Process_objectives { get; set; }*/
 
     public bool KeyEquals(StrategicGoals obj)
     {

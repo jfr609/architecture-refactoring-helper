@@ -11,7 +11,7 @@ public class StrategicGoalsConfiguration : IEntityTypeConfiguration<StrategicGoa
     {
         builder.ToTable(Constants.TableNameStrategicGoals);
 
-        builder.HasData(
+        /*builder.HasData(
             new StrategicGoals
             {
                 StrategicGoalsId = 4,
@@ -24,6 +24,6 @@ public class StrategicGoalsConfiguration : IEntityTypeConfiguration<StrategicGoa
             
                 
             }
-        );
+        );*/
     }
 }

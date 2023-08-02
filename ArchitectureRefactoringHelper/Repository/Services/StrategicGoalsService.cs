@@ -55,9 +55,9 @@ public class StrategicGoalsService
             StrategicGoalsId = StrategicGoals.StrategicGoalsId,
             Method = StrategicGoals.Method,
             Owner = StrategicGoals.Owner,
-            Business_company_objectives = StrategicGoals.Business_company_objectives,
-            Organizational_objectives = StrategicGoals.Organizational_objectives,
-            Process_objectives = StrategicGoals.Process_objectives
+            Objectives = StrategicGoals.Objectives
+            //Organizational_objectives = StrategicGoals.Organizational_objectives,
+            //Process_objectives = StrategicGoals.Process_objectives
         };
 
         return Utils.AddEntityAndSaveChanges(newStrategicGoals, ref db);
@@ -78,9 +78,7 @@ public class StrategicGoalsService
             StrategicGoalsId = StrategicGoals.StrategicGoalsId,
             Method = StrategicGoals.Method,
             Owner = StrategicGoals.Owner,
-            Business_company_objectives = StrategicGoals.Business_company_objectives,
-            Organizational_objectives = StrategicGoals.Organizational_objectives,
-            Process_objectives = StrategicGoals.Process_objectives
+            Objectives = StrategicGoals.Objectives
         };
 
         db.Entry(existingStrategicGoals).CurrentValues.SetValues(newStrategicGoals);
