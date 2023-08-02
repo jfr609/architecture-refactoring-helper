@@ -49,4 +49,28 @@ export class ArchitectureRefactoringHelperComponent {
   ngAfterViewInit(): void {
     this.utilService.setSidenav(this.sidenav);
   }
+
+  changeSession(){
+
+  }
+  /*exportDB() {
+    lastValueFrom(
+      this.projectService.listProjects({
+        withDetails: true
+      })
+    ).then((refactoringApproaches: RefactoringApproach[]) => {
+      const downloadLink: HTMLAnchorElement = document.createElement('a');
+      downloadLink.download = 'approaches.json';
+      const fileContent: string = JSON.stringify(refactoringApproaches);
+      downloadLink.href = 'data:text/plain;charset=utf-16,' + fileContent;
+      downloadLink.click();
+      downloadLink.remove();
+    });
+  }*/
+
+  exportDB(){
+  }
+
+  importDB(){
+  }
 }

@@ -6,9 +6,22 @@
         <mat-icon>home</mat-icon>
       </button>
     </div>
+    <div fxLayoutAlign="flex-end" fxLayoutGap="8px">
+    <button mat-icon-button (click)="changeSession()">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <button mat-icon-button (click)="exportDB()">
+      <mat-icon>file_download</mat-icon>
+    </button>
+    <button mat-icon-button (click)="importDB()">
+      <mat-icon>file_upload</mat-icon>
+    </button>
     <button mat-icon-button (click)="openSettingsDialog()">
       <mat-icon>settings</mat-icon>
     </button>
+
+
+  </div>
   </div>
 </mat-toolbar>
 <mat-drawer-container class="drawer-container">
