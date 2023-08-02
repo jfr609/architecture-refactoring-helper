@@ -47,6 +47,13 @@
   border: ridge 2px;
   border-color: green;
 }
+/*.mat-card {
+  margin: 10px;
+  padding: 10px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}*/
 
 
 .drop-box:active {
@@ -93,6 +100,8 @@
 
 .radio-button {
   margin: 5px;
+
+
 }
 
 .description-field {

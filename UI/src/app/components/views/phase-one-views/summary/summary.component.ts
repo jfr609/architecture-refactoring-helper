@@ -39,7 +39,7 @@ export class SummaryComponent implements OnInit {
   strategicGoalsList: any = [];
   selectedStrategicGoals?: StrategicGoals;
 
-
+  loadedonce = false;
 
   deletingStrategicGoalsList = new Array<StrategicGoals>();
   newStrategicGoalsList = new Array<StrategicGoals>();
@@ -66,9 +66,16 @@ export class SummaryComponent implements OnInit {
       this.updatingStrategicGoalsList = Object.assign([], this.strategicGoalsList);
       //this.qualityList = this.attributesService.getQualitiesByCategory(
       //this.QualityCategories.Attribute
-      //);
+      //);  
+      if(this.loadedonce == false){//emergency solution
+      //this.deleteAll();//emergency solution
+      //this.addEmptyStrategicGoals();
+      this.loadedonce = true;
+    }
+     
       this.isDataLoading = false;
     });
+  
   }
   
   addEmptyStrategicGoals(): void {
@@ -144,7 +151,9 @@ export class SummaryComponent implements OnInit {
       return false;
     }
   }
-
+  //counter für alle implementables
+  //output graph
+  //ende Ampel
 
 
   allNamesSet(): boolean {
@@ -239,8 +248,10 @@ export class SummaryComponent implements OnInit {
   }
 
 
-
-
+//if monolith<micro = green
+//if monolith>micro = red
+//if monolith==micro = yellow
+//gloabl ownership,method,
 
 
 

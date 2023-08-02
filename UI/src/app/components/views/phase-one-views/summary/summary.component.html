@@ -4,14 +4,14 @@
           This summary, based on strategic goals, scenarios and related quality attributes provides the basis for a grounded decision for or against migrating the system towards a Microservices architecture.
           </p></div>
         <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px' fxLayoutAlign='center'>
-          <!--<button mat-flat-button matStepperPrevious color='accent'>
+          <button mat-flat-button matStepperPrevious color='accent'>
             <mat-icon>arrow_back</mat-icon>
             <span>Back</span>
-          </button>-->
-          <button mat-flat-button matStepperNext color='accent'>
+          </button>
+          <!--<button mat-flat-button matStepperNext color='accent'>
             <span>Next</span>
             <mat-icon>arrow_forward</mat-icon>
-          </button>
+          </button>-->
           <button mat-raised-button color="primary" (click)="saveChanges()" ><span>Save Changes</span></button><!--[disabled]='!allNamesSet()' (click)="saveChanges()"-->
           <mat-divider vertical></mat-divider>
           <button mat-flat-button color='accent' [routerLink]="['/phase/2']">
@@ -25,7 +25,7 @@
           </div>
           <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center">
             <mat-card class="strategicGoal-card" class="mat-elevation-z8">
-              <mat-card-title>Summary
+              <mat-card-title>Quality Assessment Summary
                 <button style="margin-left: 10px; margin-bottom: 10px" mat-mini-fab class="attribute-button" color="primary"
                   (click)="addEmptyStrategicGoals()">
                   <mat-icon>add</mat-icon>
@@ -48,51 +48,90 @@
                       
                       <div fxLayout="column"  fxLayoutGap="10px" style="padding:5px;" ><!--style="width: 50%"-->
                         <div fxLayout="row"  fxLayoutGap="10px" style="padding:5px;" ><!--style="width: 50%"-->
-                        <h2>Quality Assessment Summary</h2>
+                      
                         <!--<mat-form-field appearance="fill" >
                           <mat-label>Quality Assessment Summary</mat-label>
                           <input matInput [(ngModel)]="strategicGoals.method" required />
                         </mat-form-field>-->
 
-                        <mat-radio-group aria-label="Select an option">
+                        <!--<mat-radio-group aria-label="Select an option">
                           <mat-radio-button value="1">Scenario-based</mat-radio-button>
                           <mat-radio-button value="2">Metric-based</mat-radio-button>
-                        </mat-radio-group>
+                        </mat-radio-group>-->
 
                         </div>
-        
+                                    <h2>Result</h2>  
                         <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
                          
                           <!--<mat-tab-group>-->
-                            <h2>Result</h2>  
-                          <mat-tab-group >  
-          
-                            <mat-tab label="Implementable using">
-                              <mat-form-field class="description-field" appearance="fill">
-                                <mat-label label="Purpose">Implementable using</mat-label>
-                                <textarea matInput [(ngModel)]="strategicGoals.business_company_objectives"></textarea>
-                              </mat-form-field>
-                            </mat-tab>
-          
-                            <mat-tab label="Prefered Pattern">
-                              <mat-form-field class="description-field" appearance="fill">
-                                <mat-label  label="Functionality">Prefered Pattern</mat-label>
-                                <textarea matInput [(ngModel)]="strategicGoals.organizational_objectives"></textarea>
-                              </mat-form-field>
-                            </mat-tab>
-        
                             
 
-                          </mat-tab-group>
+ <h2>Implementable using</h2>
+                            <div fxLayout="row" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px">
+                              <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
 
-                            <button mat-button (click)="deleteStrategicGoals(strategicGoals)">
-                              <mat-icon mat-list-icon color="warn">delete</mat-icon><!--missing deletion mechanism-->
-                            </button>
+                              
+                                <mat-form-field class="description-field" appearance="fill">
+                                  <mat-label  label="Functionality">Monolith (current)</mat-label>
+                                  <textarea matInput [(ngModel)]="strategicGoals.languages"></textarea>
+                                </mat-form-field>
+                              <mat-form-field class="description-field" appearance="fill">
+                                <mat-label label="Purpose">Microservices</mat-label>
+                                <textarea matInput [(ngModel)]="strategicGoals.number_of_teams"></textarea>
+                              </mat-form-field>
+                              <mat-form-field class="description-field" appearance="fill">
+                                <mat-label label="Purpose">Other</mat-label>
+                                <textarea matInput [(ngModel)]="strategicGoals.hosting_pattern"></textarea>
+                              </mat-form-field>
+                              </div>  
+                              <img  class="images" src="assets/PL1.png" style="width:363px;height:209px"/>
+                            </div>
+
+<h2>Preferred Pattern</h2>
+                            <div fxLayout="row" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
+                              <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
+
+                               
+                              <mat-form-field class="description-field" appearance="fill">
+                                <mat-label  label="Functionality">Monolith (current)</mat-label>
+                                <textarea matInput [(ngModel)]="strategicGoals.organizational_objectives"></textarea>
+                              </mat-form-field>
+                              <mat-form-field class="description-field" appearance="fill">
+                                <mat-label label="Purpose">Microservices</mat-label>
+                                <textarea matInput type="number" [(ngModel)]="strategicGoals.business_company_objectives"></textarea>
+                              </mat-form-field>
+                              <mat-form-field class="description-field" appearance="fill">
+                                <mat-label label="Purpose">Other</mat-label>
+                                <textarea matInput [(ngModel)]="strategicGoals.patterns"></textarea>
+                              </mat-form-field>
+                            </div>  
+                            <img  class="images" src="assets/PL2.png"style="width:363px;height:209px"/>
+                          </div>
+
+                            <div fxLayout="row" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
+                              <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
+
+                              <h2>Migration Recommendation</h2> 
+
+                            </div> 
+                            <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
+                            <mat-radio-group aria-label="Select an option" fxLayout="column" >
+                              <mat-radio-button color="primary" class="red" id="red" value="1"></mat-radio-button>
+                              <mat-radio-button color="accent" class="yellow" id="yellow" value="2"></mat-radio-button>
+                              <mat-radio-button color="warn" class="green" id="green" value="3"></mat-radio-button>
+                            </mat-radio-group>
+                            </div>
+                           </div>
+                        </div>
+
+                            <!--<button mat-button (click)="deleteStrategicGoals(strategicGoals)">
+                              <mat-icon mat-list-icon color="warn">delete</mat-icon>missing deletion mechanism
+                            </button>-->
 
                         </div>
                       </div>
                      
-                  </div>
+                
 
                 </ng-container>
           </div>
