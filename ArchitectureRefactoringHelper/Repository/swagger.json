@@ -4369,7 +4369,7 @@
       "_comment": "projectId",
       "ProjectDescription": {
         "required": [
-          "systenname"
+          "projectDescriptionId"
         ],
         "type": "object",
         "properties": {
@@ -4385,24 +4385,27 @@
             "type": "string",
             "nullable": true
           },
-          "creationdate": {
+          "creation_date": {
             "type": "string",
             "nullable": true
           },
-          "systemsize": {
+          "systemsize_LOC": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "hosting_model": {
             "type": "string",
             "nullable": true
           },
-          "hosting": {
-            "type": "string",
+          "mumber_of_teams": {
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           },
-          "teams": {
-            "type": "string",
-            "nullable": true
-          },
-          "developers": {
-            "type": "string",
+          "number_of_developers": {
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           },
           "processmodel": {
@@ -4417,7 +4420,7 @@
             "type": "string",
             "nullable": true
           },
-          "persistence": {
+          "data_prsistence": {
             "type": "string",
             "nullable": true
           },
@@ -4890,15 +4893,7 @@
             "type": "string",
             "nullable": true
           },
-          "business_company_objectives": {
-            "type": "string",
-            "nullable": true
-          },
-          "organizational_objectives": {
-            "type": "string",
-            "nullable": true
-          },
-          "process_objectives": {
+          "objectives": {
             "type": "string",
             "nullable": true
           }

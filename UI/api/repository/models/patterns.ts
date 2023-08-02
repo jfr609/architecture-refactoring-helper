@@ -2,7 +2,7 @@
 /* eslint-disable */
 export enum Patterns {
     Monolith = 'Monolith',
-    Microservice = 'Microservice',
+    Microservice = 'Microservices',
     Model_View_Controller = 'Model-View-Controller',
     Pipe_Filter = 'Pipe-Filter',
 

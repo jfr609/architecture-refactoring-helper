@@ -6,6 +6,8 @@ import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { ApproachRecommendationService } from './approach-recommendation.service';
 import { UtilService } from './util.service';
 import { StrategicGoalsService } from 'api/repository/services/strategic-goals.service';
+import { Objectives } from 'api/repository/models/objectives';// not sure if working
+import { ProjectAssessment } from 'api/repository/models/project-assessment';// not sure if working
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +22,8 @@ export class ProjectService {
   public strategicGoals: BehaviorSubject<StrategicGoals[]> = new BehaviorSubject<
     StrategicGoals[]
   >([]);
-  
+  public goalObjectives: BehaviorSubject<Objectives[]> = new BehaviorSubject<Objectives[]>([]);//not sure if working
+  public projectAssessment: BehaviorSubject<ProjectAssessment[]> = new BehaviorSubject<ProjectAssessment[]>([]);
 
   constructor(
     private scenarioService: ScenarioService,
@@ -60,7 +63,7 @@ requestStrategicGoalsAttributes(): Promise<Awaited<void>[]> {
     return Promise.all(dataLoadingPromises);
   }
 
-  async requestScenarios(): Promise<void> {
+  async requestScenarios(): Promise<void> {//user for assessement
     try {
       this.scenarios.next(
         await lastValueFrom(this.scenarioService.listScenario())
@@ -92,7 +95,56 @@ requestStrategicGoalsAttributes(): Promise<Awaited<void>[]> {
       );
     }
   }
-  
+
+  requestProjectAssessmentAttributes(): Promise<Awaited<void>[]> {
+    const dataLoadingPromises: Promise<void>[] = [];
+
+    dataLoadingPromises.push(this.requestProjectDescription());
+
+    return Promise.all(dataLoadingPromises);
+  }
+
+  async requestProjectAssessment(): Promise<void> {
+    try {
+      this.projectDescriptions.next(
+        await lastValueFrom(this.projectDescriptionService.listProjectDescription())
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+       'Error! Project Descriptions inputs could not be retrieved.'
+      );
+    }
+  }
+
+
+
+  requestProjectGoalsAttributes(): Promise<Awaited<void>[]> {
+    const dataLoadingPromises: Promise<void>[] = [];
+
+    dataLoadingPromises.push(this.requestProjectDescription());
+
+    return Promise.all(dataLoadingPromises);
+
+  }
+
+  /*async requestProjectGoals(): Promise<void> {
+    try {
+      this.projectDescriptions.next(
+        await lastValueFrom(this.strategicGoalsService.listObjectives())
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+       'Error! Project Goals inputs could not be retrieved.'
+      );
+    }
+  }*/
+
+
+
+
+
   setQualitiesFromScenarios(): void {
     this.recommendationService.setQualitiesToNeutral();
     this.scenarios.value.forEach((s) => {
@@ -133,4 +185,6 @@ requestStrategicGoalsAttributes(): Promise<Awaited<void>[]> {
     });
     return count;
   }
+
+  //requestProjects
 }

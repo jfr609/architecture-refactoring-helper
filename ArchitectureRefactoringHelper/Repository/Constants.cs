@@ -11,8 +11,12 @@ public static class Constants
     public const string TableNameApproachSource = TableNameApproach + ".Source";
     public const string TableNameArchitecturalDesignSource = TableNameArchitecturalDesign + ".Source";
     public const string TableNameProjectDescription = "ProjectDescription";
+    public const string TableNameLanguages = "Languages";
+    public const string TableNameArchitecturePattern = "ArchitecturePattern";
 
     public const string TableNameStrategicGoals = "StrategicGoals";
+
+    public const string TableNameObjectives = "Objectives";
     public const string TableNameAssessment = "Assessment";
 
     public const string TableNameSummary = "Summary";

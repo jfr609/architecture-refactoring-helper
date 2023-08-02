@@ -13,17 +13,17 @@ namespace Repository.Migrations
                 columns: table => new
                 {
                     ProjectDescriptionId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Systemname = table.Column<string>(type: "TEXT", nullable: false),
+                    Systemname = table.Column<string>(type: "INTEGER", nullable: false),
                     Ownership = table.Column<string>(type: "TEXT", nullable: true),
-                    Creationdate = table.Column<string>(type: "DATE", nullable: true),
-                    Systemsize = table.Column<string>(type: "TEXT", nullable: true),
-                    Hosting = table.Column<string>(type: "TEXT", nullable: true),
-                    Teams = table.Column<string>(type: "TEXT", nullable: true),
-                    Developers = table.Column<string>(type: "TEXT", nullable: true),
+                    Creation_date = table.Column<string>(type: "TEXT", nullable: true),
+                    Systemsize_LOC = table.Column<string>(type: "INTEGER", nullable: true),
+                    Hosting_model = table.Column<string>(type: "TEXT", nullable: true),
+                    Number_of_Teams = table.Column<string>(type: "INTEGER", nullable: true),
+                    Number_of_Developers = table.Column<string>(type: "INTEGER", nullable: true),
                     Processmodel = table.Column<string>(type: "TEXT", nullable: true),
-                    Architecturepattern = table.Column<string>(type: "TEXT", nullable: true),
-                    Languages = table.Column<string>(type: "TEXT", nullable: true),
-                    Persistence = table.Column<string>(type: "TEXT", nullable: true),
+                    Architecturepattern = table.Column<object>(type: "TEXT", nullable: true),
+                    Languages = table.Column<object>(type: "TEXT", nullable: true),
+                    Data_Persistence = table.Column<string>(type: "TEXT", nullable: true),
                     Purpose = table.Column<string>(type: "TEXT", nullable: true),
                     Functionality = table.Column<string>(type: "TEXT", nullable: true),
                     Designdiagrams = table.Column<string>(type: "TEXT", nullable: true)
@@ -38,12 +38,10 @@ namespace Repository.Migrations
                 name: "StrategicGoals",
                 columns: table => new{
                     StrategicGoalsId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Method = table.Column<string>(type: "TEXT", nullable: false),
+                    Method = table.Column<string>(type: "TEXT", nullable: true),
                     Owner = table.Column<string>(type: "TEXT", nullable: true),
                     Participants = table.Column<string>(type: "TEXT", nullable: true),
-                    Business_company_objectives = table.Column<string>(type: "TEXT", nullable: true),
-                    Organizational_objectives = table.Column<string>(type: "TEXT", nullable: true),
-                    Process_objectives = table.Column<string>(type: "TEXT", nullable: true),
+                    Objectives = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -73,6 +71,25 @@ namespace Repository.Migrations
 
 
 
+           /* migrationBuilder.CreateTable(
+                name: "Project",
+                columns: table => new
+                {
+                    ProjectId = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    
+                },
+                      /* table.ForeignKey(
+                        name: "FK_Approach.Output_Approach.Output.Architecture_ArchitectureName",
+                        column: x => x.ArchitectureName,
+                        principalTable: "Approach.Output.Architecture",
+                        principalColumn: "Name",
+                        onDelete: ReferentialAction.Cascade);
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Project", x => x.ProjectId);
+                });*/
+
             migrationBuilder.CreateTable(
                 name: "Approach.Input.DomainArtifact",
                 columns: table => new
@@ -87,11 +104,10 @@ namespace Repository.Migrations
                 });
 
 
-            /*migrationBuilder.InsertData(
+           /* migrationBuilder.InsertData(
                 table: "ProjectDescription",
-                columns: new[] { "ProjectDescriptionId", "Systemname" },
-                values: new object[] { "1","bitte gehe" });*/
-            
+                columns: new[] { "ProjectDescriptionId", "Systemname" ,"Ownership"},
+                values: new object[] { "4","bitte gehe","" });*/
 
             migrationBuilder.CreateTable(
                 name: "Approach.Input.Executable",
@@ -1054,6 +1070,11 @@ namespace Repository.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name:"ProjectDescription"
+            );
+
+
             migrationBuilder.DropTable(
                 name: "JoinTable.Approach.Input.DomainArtifact");
 

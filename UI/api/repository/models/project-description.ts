@@ -8,15 +8,15 @@ export interface ProjectDescription {
   projectDescriptionId?: number;
   systemname?: string;
   ownership?: string;
-  creationdate?: string;//sollte date sein
-  systemsize?: string;//sollte int sein
-  hosting?: string;
-  teams?: string;
-  developers?: string;
+  creation_date?: string;//sollte date sein
+  systemsize_LOC?: number;//sollte int sein
+  hosting_model?: string;
+  number_of_teams?: number;
+  number_of_developers?: number;
   processmodel?: string;
   architecturepattern?: Patterns;
   languages?: Languages;//enum languages
-  persistence?: string;
+  data_persistence?: string;
   purpose?: string;
   functionality?: string;
   designdiagrams?: string;

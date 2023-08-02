@@ -21,8 +21,7 @@ public class ProjectDescriptionService
 
         return result;
     }
-
-   
+    
 
     public ProjectDescription GetProjectDescription(int projectDescriptionId)
     {
@@ -55,20 +54,19 @@ public class ProjectDescriptionService
             ProjectDescriptionId = projectDescription.ProjectDescriptionId,
             Systemname = projectDescription.Systemname,
             Ownership = projectDescription.Ownership,
-            Creationdate = projectDescription.Creationdate,
-            Systemsize = projectDescription.Systemsize,
-            Hosting = projectDescription.Hosting,
-            Teams = projectDescription.Teams,
-            Developers  = projectDescription.Developers,
+            Creation_date = projectDescription.Creation_date,
+            Systemsize_LOC = projectDescription.Systemsize_LOC,
+            Hosting_model = projectDescription.Hosting_model,
+            Number_of_Teams = projectDescription.Number_of_Teams,
+            Number_of_Developers  = projectDescription.Number_of_Developers,
             Processmodel = projectDescription.Processmodel,
             Architecturepattern = projectDescription.Architecturepattern,
             Languages = projectDescription.Languages,
-            Persistence = projectDescription.Persistence,
+            Data_Persistence = projectDescription.Data_Persistence,
             Purpose = projectDescription.Purpose,
             Functionality = projectDescription.Functionality,
             Designdiagrams = projectDescription.Designdiagrams,
         };
-
         return Utils.AddEntityAndSaveChanges(newProjectDescription, ref db);
     }
 
@@ -87,15 +85,15 @@ public class ProjectDescriptionService
             ProjectDescriptionId = projectDescription.ProjectDescriptionId,
             Systemname = projectDescription.Systemname,
             Ownership = projectDescription.Ownership,
-            Creationdate = projectDescription.Creationdate,
-            Systemsize = projectDescription.Systemsize,
-            Hosting = projectDescription.Hosting,
-            Teams = projectDescription.Teams,
-            Developers  = projectDescription.Developers,
+            Creation_date = projectDescription.Creation_date,
+            Systemsize_LOC = projectDescription.Systemsize_LOC,
+            Hosting_model = projectDescription.Hosting_model,
+            Number_of_Teams = projectDescription.Number_of_Teams,
+            Number_of_Developers  = projectDescription.Number_of_Developers,
             Processmodel = projectDescription.Processmodel,
             Architecturepattern = projectDescription.Architecturepattern,
             Languages = projectDescription.Languages,
-            Persistence = projectDescription.Persistence,
+            Data_Persistence = projectDescription.Data_Persistence,
             Purpose = projectDescription.Purpose,
             Functionality = projectDescription.Functionality,
             Designdiagrams = projectDescription.Designdiagrams,
