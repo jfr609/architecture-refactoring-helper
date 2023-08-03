@@ -122,16 +122,16 @@ requestStrategicGoalsAttributes(): Promise<Awaited<void>[]> {
   requestProjectGoalsAttributes(): Promise<Awaited<void>[]> {
     const dataLoadingPromises: Promise<void>[] = [];
 
-    dataLoadingPromises.push(this.requestProjectDescription());
+    dataLoadingPromises.push(this.requestProjectGoals());
 
     return Promise.all(dataLoadingPromises);
 
   }
 
-  /*async requestProjectGoals(): Promise<void> {
+  async requestProjectGoals(): Promise<void> {
     try {
-      this.projectDescriptions.next(
-        await lastValueFrom(this.strategicGoalsService.listObjectives())
+      this.strategicGoals.next(
+        await lastValueFrom(this.strategicGoalsService.listStrategicGoals())
       );
     } catch (err) {
       console.log(err);
@@ -139,7 +139,7 @@ requestStrategicGoalsAttributes(): Promise<Awaited<void>[]> {
        'Error! Project Goals inputs could not be retrieved.'
       );
     }
-  }*/
+  }
 
 
 
