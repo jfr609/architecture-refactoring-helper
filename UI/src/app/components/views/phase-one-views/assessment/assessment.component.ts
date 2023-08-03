@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -25,7 +25,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatNativeDateModule} from '@angular/material/core';
 import { StrategicGoals } from 'api/repository/models';
-
+import { Assessment } from 'api/repository/models/assessment';
 import {
   Quality,
   QualityCategory,
@@ -33,13 +33,14 @@ import {
   Scenario
 } from 'api/repository/models';
 import { ScenarioService } from 'api/repository/services';
+//import {AssessmentService} from 'api/repository/services/';
 
 @Component({
   selector: 'app-assessment',
   templateUrl: './assessment.component.html',
   styleUrls: ['./assessment.component.css']
 })
-export class AssessmentComponent implements OnInit {
+export class AssessmentComponent implements AfterViewInit {
   isDataLoading = true;
   ratingLevel = RatingLevel;
   enumKeys: any;
@@ -49,6 +50,17 @@ export class AssessmentComponent implements OnInit {
   languages = Languages;
   patterns = Patterns;
   strategicGoalsList: any = [];
+  assessmentList:any = [];
+  assessment:any = [];
+  selectedAssessment?: Assessment;
+  selectedAssessmentList= new Array<Assessment>();
+  deletingAssessmentList = new Array<Assessment>();
+  newAssessmentList = new Array<Assessment>();
+  updatingAssessmentList = new Array<Assessment>();
+
+  currentSelectedscenario: any = [];
+
+
   selectedStrategicGoals?: StrategicGoals;
 
   loadedonce = false;
@@ -75,6 +87,7 @@ export class AssessmentComponent implements OnInit {
     public strategicGoalsService: StrategicGoalsService,
     public utilService: UtilService,
     public scenarioService: ScenarioService,
+    //public assessmentService: AssessmentService
 
   ) { 
     this.enumKeys1 = Object.keys(this.ratingLevel);
@@ -85,13 +98,14 @@ export class AssessmentComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.isDataLoading = true;
     Promise.all([
       this.projectService.requestStrategicGoalsAttributes(),
       this.projectService.requestProjectAttributes(),
       this.attributesService.requestQualities(),
       this.projectService.requestScenarios(),
+
       //this.
     ]).then(() => {
       this.scenarioList = this.projectService.scenarios.value;
@@ -282,25 +296,16 @@ export class AssessmentComponent implements OnInit {
     }
   }
 
-  addOrRemoveQualitySub(selected: boolean, qa: QualitySublevel) {
+  addOrRemoveScenarioForAssessment(selected: boolean, qa: Scenario) {
+
+    this.selectedScenario = qa;
     if (selected) {
-      if (
-        !this.selectedScenario?.qualitySublevels?.find(
-          (e) => e.name === qa.name
-        )
-      ) {
-        this.selectedScenario?.qualitySublevels?.push(qa);
-      }
-    } else {
-      let index =
-        this.selectedScenario?.qualitySublevels?.findIndex(
-          (q) => q.name === qa.name
-        ) ?? -1;
-      if (index !== -1) {
-        this.selectedScenario?.qualitySublevels?.splice(index, 1);
-      }
+        this.selectedScenario.description =qa.description;
+        this.selectedScenario.importance =qa.importance;
+        this.selectedScenario.difficulty =qa.difficulty;
+    } 
     }
-  }
+  
 
   checkIfQualityExist(name: string): boolean {
     return (
@@ -331,13 +336,12 @@ export class AssessmentComponent implements OnInit {
     );
   }
 
-  checkOrUncheckAll(selected: boolean, qa: Quality) {
-    if (qa.qualitySublevels) {
-      for (let sqa of qa.qualitySublevels) {
-        this.addOrRemoveQualitySub(selected, sqa);
-      }
-    }
+  selectPattern(selected: Boolean, qa: Scenario): boolean {
+    this.currentSelectedscenario = qa;
+   return true;
   }
+
+
 
   allNamesSet(): boolean {
     return !this.scenarioList.some(
@@ -345,11 +349,11 @@ export class AssessmentComponent implements OnInit {
     );
   }
 
-  createAll() {
-    if (this.newScenariosList.length > 0) {
-      this.newScenariosList.forEach((e) => {
-        this.scenarioService
-          .addScenario({
+  /*createAll() {
+    if (this.newAssessmentList.length > 0) {
+      this.newAssessmentList.forEach((e) => {
+        this.assessmentService
+          .addAssessment({
             body: e
           })
           .subscribe({
@@ -360,9 +364,9 @@ export class AssessmentComponent implements OnInit {
             }
           });
       });
-      this.newScenariosList.splice(0);
+      this.newAssessmentList.splice(0);
     }
-  }
+  }*/
 
   deleteAll() {
     if (this.deletingScenariosList.length > 0) {
@@ -375,7 +379,7 @@ export class AssessmentComponent implements OnInit {
             next: (value) => {},
             error: (err) => {
               console.log(err);
-              this.utilService.callSnackBar('Scenario could not be deleted.');
+              this.utilService.callSnackBar('Assessment could not be deleted.');
             }
           });
       });
@@ -395,7 +399,7 @@ export class AssessmentComponent implements OnInit {
             next: (value) => {},
             error: (err) => {
               console.log(err);
-              this.utilService.callSnackBar('Scenario could not be updated.');
+              this.utilService.callSnackBar('Assessment could not be updated.');
             }
           });
       });
@@ -423,7 +427,7 @@ export class AssessmentComponent implements OnInit {
 
 
   fireAll() { 
-    this.createAll();
+    //this.createAll();
     this.deleteAll();
     this.updateAll();
   }

@@ -32,33 +32,39 @@
           <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center">
             <mat-card class="strategicGoal-card" class="mat-elevation-z8">
               <mat-card-title>Assessment
-                <button style="margin-left: 10px; margin-bottom: 10px" mat-mini-fab class="attribute-button" color="primary"
+                <button  *ngIf = "strategicGoalsList.length == 0" style="margin-left: 10px; margin-bottom: 10px" mat-mini-fab class="attribute-button" color="primary"
                   (click)="addEmptyStrategicGoals()">
                   <mat-icon>add</mat-icon>
                 </button>
               </mat-card-title>
           
           
-              <div class="mat-elevation-z8" cdkDropList class="drop-list" (cdkDropListDropped)="drop($event)"
+              <div class="mat-elevation-z8"  cdkDropList class="drop-list" (cdkDropListDropped)="drop($event)"
                 [cdkDropListData]="strategicGoalsList">
                 <ng-container *ngIf="strategicGoalsList.length > 0; else emptyStrategicGoalsList">
+                  <ng-container *ngIf="scenarioList.length > 0; else emptyScenarioList">
                   <div *ngFor="let strategicGoals of strategicGoalsList" [cdkDragData]="strategicGoalsList" cdkDragLockAxis="y"
                     cdkDragBoundary=".drop-list" cdkDrag (click)="strategicGoalsSelected(strategicGoalsList)" [ngClass]="{
                     'selected-drop-box': checkCurrentStrategicGoals(strategicGoalsList),
                     'drop-box': !checkCurrentStrategicGoals(strategicGoalsList)
                     }">
-                    <div class="drop-handle" cdkDragHandle>
+                    <!--<div class="drop-handle" cdkDragHandle>
                       <mat-icon mat-list-icon>drag_indicator</mat-icon>
-                    </div>
+                    </div>-->
                     
                       
                       <div fxLayout="column"  fxLayoutGap="10px" style="padding:5px;" ><!--style="width: 50%"-->
                         <h2>Scenario Details</h2>
                         <div fxLayout="row"  fxLayoutGap="10px" style="padding:5px;" ><!--style="width: 50%"-->
                         
-                        <mat-form-field appearance="fill" >
-                          <mat-label>Method</mat-label>
-                          <input matInput [(ngModel)]="strategicGoals.method" required />
+                        <mat-form-field appearance="outline" >
+                          <ng-container *ngFor="let qa of  strategicGoalsList">
+                            
+                            <mat-label>Method:</mat-label>
+
+                            <input matInput readonly="true" matInput [(ngModel)]="strategicGoals.method" required />
+                            </ng-container>
+
                         </mat-form-field>
 
                         <!--<mat-radio-group aria-label="Select an option" style="padding:5px;">
@@ -67,41 +73,48 @@
                         </mat-radio-group>-->
 
                         </div>
-                        <mat-form-field appearance="fill" fxFlex="70">
-
-                          <mat-label>Owner</mat-label>
-                          <input matInput [(ngModel)]= "scenarioList.name"  required />
+                        <mat-form-field appearance="outline" fxFlex="70">
+                          <ng-container *ngFor="let qa of  strategicGoalsList">
+                            <mat-label>Ownership:</mat-label>
+                            <input matInput readonly="true" matInput [(ngModel)]="strategicGoals.owner" required />
+                            </ng-container>
                         </mat-form-field>
         
-                        <mat-form-field appearance="fill" fxFlex="70">
-                          <mat-label>Particiapants</mat-label>
-                          <input matInput [(ngModel)]="strategicGoals.participants" required />
+                        <mat-form-field appearance="outline" fxFlex="70">
+                          <ng-container *ngFor="let qa of  strategicGoalsList">
+                            <mat-label>Participants:</mat-label>
+                            <input matInput readonly="true" matInput [(ngModel)]="strategicGoals.participants" required />
+                            </ng-container>
                         </mat-form-field>
         
                         <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
                      
                           <!--<mat-tab-group>-->
                             <mat-form-field appearance="fill" fxFlex="70">
-                              <mat-label>Description</mat-label>
-                              <input matInput [(ngModel)]="strategicGoals.participants" required />
+                              
+                                <mat-label>Description:</mat-label>
+                               <input matInput readonly="true" matInput [(ngModel)]="strategicGoals.participants"  required />
+            
+                              <!--<ng-container *ngFor="let cScen of  currentSelectedscenario">
+                               <mat-label>Description:</mat-label>
+                              <input matInput readonly="true" matInput [(ngModel)]="cScen.description"  required />
+                              </ng-container>-->
                             </mat-form-field>
 
                             <mat-form-field  appearance="fill" fxFlex="15"> 
-                              <mat-label>Importance</mat-label>
-                              <mat-select [(value)]="strategicGoals.importance">
-                                <mat-option *ngFor="let rating of enumKeys1" [value]="rating">{{
-                                  rating
-                                  }}</mat-option>
-                              </mat-select>
+   
+                                <ng-container *ngFor="let qa of  scenarioList">
+                                <mat-label>Importance:</mat-label>
+                                <input matInput readonly="true" matInput [(ngModel)]="qa.importance" required />
+                             
+                              </ng-container>  
                             </mat-form-field>
 
                             <mat-form-field appearance="fill" fxFlex="15">
-                              <mat-label>Difficulty</mat-label>
-                              <mat-select [(value)]="strategicGoals.difficulty">
-                                <mat-option *ngFor="let rating of enumKeys1" [value]="rating">{{
-                                  rating
-                                  }}</mat-option>
-                              </mat-select>
+                              <ng-container *ngFor="let qa of  scenarioList">
+                                <mat-label>Difficulty:</mat-label>
+                                <input matInput readonly="true" matInput [(ngModel)]="qa.difficulty"  required />
+                                </ng-container>
                             </mat-form-field>
 
                             <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"></div>
@@ -110,7 +123,7 @@
 
                               <mat-form-field class="description-field" appearance="fill">
                                 <mat-label>Implementable Using</mat-label>
-                                <mat-select [(value)]="strategicGoals.patterns" multiple>
+                                <mat-select [(value)]="assessment.implementedPattern" multiple>
                                   <mat-option *ngFor="let goalstype of enumKeys2" [value]="goalstype">
                                     {{ goalstype }}
                                   </mat-option>
@@ -119,7 +132,7 @@
 
                               <mat-form-field class="description-field" appearance="fill">
                                 <mat-label>Preferred Pattern</mat-label>
-                                <mat-select [(value)]="strategicGoals.patterns" >
+                                <mat-select [(value)]="assessment.preferredPattern" >
                                   <mat-option *ngFor="let goalstype of enumKeys2" [value]="goalstype">
                                     {{ goalstype }}
                                   </mat-option>
@@ -132,7 +145,7 @@
                             </div>
                              <mat-form-field class="description-field" appearance="fill">
                                 <mat-label label="Explanation">Explanation</mat-label>
-                                <textarea matInput [(ngModel)]="strategicGoals.business_company_objectives"></textarea>
+                                <textarea matInput [(ngModel)]="assessment.explanation"></textarea>
                               </mat-form-field>
   
                             </div>
@@ -153,10 +166,15 @@
 
                     </div>
                   </ng-container>
+                </ng-container>
     </div>       
  <ng-template #emptyStrategicGoalsList>
   <p style="color: grey; margin-left: 10px; margin-right: 10px"><i>No existing Strategic Goals. Please create a Strategic Goals
-      by adding one using the green add button (+) </i></p>
+      by adding one using the green add button (+) on the Strategic Goals Step </i></p>
+</ng-template>
+<ng-template #emptyScenarioList>
+  <p style="color: grey; margin-left: 10px; margin-right: 10px"><i>No existing Scenarios. Please create a Scenario
+      by adding one using the green add button (+) on the Quality Attributes Step </i></p>
 </ng-template>
         
         
@@ -166,32 +184,26 @@
                   <mat-card-title>Scenarios</mat-card-title>
                   <mat-accordion>
                     <ng-container *ngFor="let qa of  scenarioList">
-                      <ng-container *ngIf="qa.qualitySublevels.length > 0; else singleAttribute">
-                        <mat-expansion-panel [disabled]="selectedScenario === undefined">
+                      <ng-container *ngIf="scenarioList.length > 0">
+                        <mat-expansion-panel>
                           <mat-expansion-panel-header>
                             <mat-panel-title>
                               <section>
                                 <mat-checkbox #checkboxName class="example-margin" (click)="$event.stopPropagation()"
                                   (keydown)="$event.stopPropagation()"
-                                  (change)="addOrRemoveQuality($event.checked, qa); checkOrUncheckAll($event.checked, qa)"
-                                  [checked]="allChecked(qa)" [indeterminate]="someChecked(qa.name) && !allChecked(qa)"
-                                  (indeterminateChange)="addOrRemoveQuality($event, qa)" [disabled]="selectedScenario === undefined">
-                                  {{ qa.name }}{{ qa.description }}{{ qa.difficulty }}</mat-checkbox>
+                                  (change)="addOrRemoveScenarioForAssessment($event.checked, qa);"
+                                  [checked]="" ><!--selectScenario-->
+                                  {{ qa.name }}</mat-checkbox>
                               </section>
                             </mat-panel-title>
                             <mat-panel-description> </mat-panel-description>
                           </mat-expansion-panel-header>
                 
-                          <section *ngFor="let sqa of qa.qualitySublevels">
-                            <mat-checkbox class="example-margin" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()"
-                              (change)="addOrRemoveQualitySub($event.checked, sqa)" [checked]="checkIfQualitySubExist(sqa.name)"
-                              [disabled]="selectedScenario === undefined">
-                              {{ sqa.name }}</mat-checkbox>
-                          </section>
+
                         </mat-expansion-panel>
                       </ng-container>
                 
-                      <ng-template #singleAttribute>
+                      <!--<ng-template #singleAttribute>
                         <mat-expansion-panel hideToggle>
                           <mat-expansion-panel-header #panelHeader (click)="panelHeader._toggle()">
                             <mat-panel-title>
@@ -199,13 +211,13 @@
                                 <mat-checkbox class="example-margin" (click)="$event.stopPropagation()"
                                   (keydown)="$event.stopPropagation()" (change)="addOrRemoveQuality($event.checked, qa)"
                                   [checked]="">
-                                  {{ qa.name }}</mat-checkbox>
+                                  {{ qa.name }}{{qa.difficulty}}</mat-checkbox>
                               </section>
                             </mat-panel-title>
                             <mat-panel-description> </mat-panel-description>
                           </mat-expansion-panel-header>
                         </mat-expansion-panel>
-                      </ng-template>
+                      </ng-template>-->
                     </ng-container>
                   </mat-accordion>
                 </mat-card>

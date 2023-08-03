@@ -13,8 +13,8 @@
   background: white;
   border-radius: 4px;
   display: block;
-  width: 100%;
-  max-width: 100%;
+  width: 95%;
+  max-width: 95%;
   max-height: 700px;
   overflow: auto;
   overflow-x: hidden;
@@ -96,7 +96,7 @@
 }
 
 .description-field {
-  width: 100%;
+  width: 90%;
 }
 
 .stepper-button-row {
