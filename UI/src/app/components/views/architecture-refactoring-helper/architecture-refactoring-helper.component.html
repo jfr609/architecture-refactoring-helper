@@ -10,11 +10,13 @@
     <button mat-icon-button (click)="changeSession()">
       <mat-icon>account_circle</mat-icon>
     </button>
-    <button mat-icon-button (click)="exportDB()">
+    <button mat-icon-button (click)="exportDB()"> 
       <mat-icon>file_download</mat-icon>
+     
     </button>
     <button mat-icon-button (click)="importDB()">
-      <mat-icon>file_upload</mat-icon>
+      <mat-icon>file_upload</mat-icon> 
+      <input #importInput type='file' style='display: none' accept='.json' (change)='handleSessionImport($event)'>
     </button>
     <button mat-icon-button (click)="openSettingsDialog()">
       <mat-icon>settings</mat-icon>
