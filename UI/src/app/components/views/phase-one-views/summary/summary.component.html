@@ -12,7 +12,7 @@
             <span>Next</span>
             <mat-icon>arrow_forward</mat-icon>
           </button>-->
-          <button mat-raised-button color="primary" (click)="saveChanges()" ><span>Save Changes</span></button><!--[disabled]='!allNamesSet()' (click)="saveChanges()"-->
+          <!--<button mat-raised-button color="primary" (click)="saveChanges()" ><span>Save Changes</span></button>[disabled]='!allNamesSet()' (click)="saveChanges()"-->
           <mat-divider vertical></mat-divider>
           <button mat-flat-button color='accent' [routerLink]="['/phase/2']">
             <mat-icon>move_down</mat-icon>
@@ -41,9 +41,7 @@
                     'selected-drop-box': checkCurrentStrategicGoals(strategicGoalsList),
                     'drop-box': !checkCurrentStrategicGoals(strategicGoalsList)
                     }">
-                    <div class="drop-handle" cdkDragHandle>
-                      <mat-icon mat-list-icon>drag_indicator</mat-icon>
-                    </div>
+
                     
                       
                       <div fxLayout="column"  fxLayoutGap="10px" style="padding:5px;" ><!--style="width: 50%"-->
@@ -73,18 +71,24 @@
                               
                                 <mat-form-field class="description-field" appearance="fill">
                                   <mat-label  label="Functionality">Monolith (current)</mat-label>
-                                  <textarea matInput [(ngModel)]="strategicGoals.languages"></textarea>
+                                  <input mdInput
+                                  type="number" matInput [(ngModel)]="strategicGoals.number_of_teams" required />
                                 </mat-form-field>
                               <mat-form-field class="description-field" appearance="fill">
                                 <mat-label label="Purpose">Microservices</mat-label>
-                                <textarea matInput [(ngModel)]="strategicGoals.number_of_teams"></textarea>
+                                <input mdInput
+                                type="number" matInput [(ngModel)]="strategicGoals.number_of_teams" required />
                               </mat-form-field>
                               <mat-form-field class="description-field" appearance="fill">
                                 <mat-label label="Purpose">Other</mat-label>
-                                <textarea matInput [(ngModel)]="strategicGoals.hosting_pattern"></textarea>
+                                <input mdInput
+                                type="number" matInput [(ngModel)]="strategicGoals.number_of_teams" required />
                               </mat-form-field>
                               </div>  
                               <img  class="images" src="assets/PL1.png" style="width:363px;height:209px"/>
+                              <div>
+                                
+                            </div>          
                             </div>
 
 <h2>Preferred Pattern</h2>
@@ -94,18 +98,24 @@
                                
                               <mat-form-field class="description-field" appearance="fill">
                                 <mat-label  label="Functionality">Monolith (current)</mat-label>
-                                <textarea matInput [(ngModel)]="strategicGoals.organizational_objectives"></textarea>
+                                <input mdInput
+                                type="number" matInput [(ngModel)]="strategicGoals.number_of_teams" required />
                               </mat-form-field>
                               <mat-form-field class="description-field" appearance="fill">
                                 <mat-label label="Purpose">Microservices</mat-label>
-                                <textarea matInput type="number" [(ngModel)]="strategicGoals.business_company_objectives"></textarea>
+                                <input mdInput
+                                type="number" matInput [(ngModel)]="strategicGoals.number_of_teams" required />
                               </mat-form-field>
                               <mat-form-field class="description-field" appearance="fill">
                                 <mat-label label="Purpose">Other</mat-label>
-                                <textarea matInput [(ngModel)]="strategicGoals.patterns"></textarea>
-                              </mat-form-field>
+                              <input mdInput
+                              type="number" matInput [(ngModel)]="strategicGoals.number_of_teams" required />
+                            </mat-form-field>
                             </div>  
                             <img  class="images" src="assets/PL2.png"style="width:363px;height:209px"/>
+                            <div>
+                        
+                          </div>          
                           </div>
 
                             <div fxLayout="row" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
@@ -116,9 +126,9 @@
                             </div> 
                             <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
                             <mat-radio-group aria-label="Select an option" fxLayout="column" >
-                              <mat-radio-button color="primary" class="red" id="red" value="1"></mat-radio-button>
-                              <mat-radio-button color="accent" class="yellow" id="yellow" value="2"></mat-radio-button>
-                              <mat-radio-button color="warn" class="green" id="green" value="3"></mat-radio-button>
+                              <mat-radio-button color="primary" class="red" id="red" value="1" checked="case1()">Migration recommended</mat-radio-button>
+                              <mat-radio-button color="accent" class="yellow" id="yellow" value="2" checked="case2()">Migration caution</mat-radio-button>
+                              <mat-radio-button color="warn" class="green" id="green" value="3" checked="case3()">Migration disapproval</mat-radio-button>
                             </mat-radio-group>
                             </div>
                            </div>
