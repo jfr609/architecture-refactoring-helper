@@ -5,11 +5,13 @@
 
 $theme-brown: mat-palette($mat-brown, 500);
 $theme-grey: mat-palette($mat-grey, 500);
+$theme-yellow: mat-palette($mat-yellow, 500);
+
 
 $light-theme-primary: mat-palette($mat-green, 400);
 $light-theme-accent: mat-palette($mat-blue, A400);
 $light-theme-warn: mat-palette($mat-red, 600);
-$light-theme-secondary: mat-palette($mat-yellow, 700);
+
 
 $light-theme: mat-light-theme($light-theme-primary, $light-theme-accent, $light-theme-warn);
 //$medium-theme: mat-medium-theme($light-theme-primary, $light-theme-accent,  $light-theme-secondary);
@@ -19,10 +21,7 @@ $light-theme: mat-light-theme($light-theme-primary, $light-theme-accent, $light-
 
 :root {
 
-  --color-secondary:  #{mat-color($light-theme-secondary)};
-  --color-secondary-lighter: #{mat-color($light-theme-secondary, lighter)};
-  --color-secondary-darker: #{mat-color($light-theme-secondary, darker)};
-  --color-secondary-50: #{mat-color($light-theme-secondary, 0.5)};
+
 
 
   --color-primary: #{mat-color($light-theme-primary)};
@@ -48,6 +47,12 @@ $light-theme: mat-light-theme($light-theme-primary, $light-theme-accent, $light-
   --color-grey: #{mat-color($theme-grey)};
   --color-grey-lighter: #{mat-color($theme-grey, lighter)};
   --color-grey-darker: #{mat-color($theme-grey, darker)};
+
+  --color-yellow:  #{mat-color($theme-yellow)};
+  --color-yellow-lighter: #{mat-color($theme-yellow, lighter)};
+  --color-yellow-darker: #{mat-color($theme-yellow, darker)};
+  --color-yellow-50: #{mat-color($theme-yellow, 0.5)};
+
 
   --color-phase-1: #dae9ff;
   --color-phase-1-border: #8da1c2;
