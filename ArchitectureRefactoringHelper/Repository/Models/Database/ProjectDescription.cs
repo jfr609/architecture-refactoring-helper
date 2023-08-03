@@ -72,7 +72,7 @@ public class ProjectDescription
 
     public bool KeyEquals(ProjectDescription obj)
     {
-        return obj.Systemname == Systemname;
+        return obj.ProjectDescriptionId == ProjectDescriptionId;
     }
 
     /*public enum Languages

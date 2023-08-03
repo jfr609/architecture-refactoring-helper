@@ -133,7 +133,7 @@
             <h2>Properties</h2>
             <mat-form-field class="description-field" appearance="fill">
               <mat-label>Architecture Patterns</mat-label>
-              <mat-select [(value)]="projectDescription.patterns" ><!-- multiple-->
+              <mat-select [(value)]="projectDescription.patterns" multiple><!-- multiple-->
               <mat-option *ngFor="let pattern of enumKeys2" [value]="pattern">
                   {{pattern}}<!--multi selection field -->
                 </mat-option>
@@ -142,7 +142,7 @@
 
             <mat-form-field class="description-field" appearance="fill">
               <mat-label>Languages</mat-label>
-              <mat-select [(value)]="projectDescription.languages"><!-- multiple-->
+              <mat-select [(value)]="projectDescription.languages" multiple><!-- multiple-->
                 <mat-option *ngFor="let language of enumKeys" [value]="language">
                   {{ language }}
                 </mat-option>
@@ -155,7 +155,7 @@
               <textarea matInput [(ngModel)]="projectDescription.data_persistence"></textarea>
             </mat-form-field>
             <button mat-button (click)="deleteProjectDescription(projectDescription)">
-              <mat-icon mat-list-icon color="warn">delete</mat-icon>missing deletion mechanism
+              <mat-icon mat-list-icon color="warn">delete</mat-icon>
             </button>
           </div>
           </div>

@@ -60,8 +60,8 @@ public class ProjectDescriptionService
             Number_of_Teams = projectDescription.Number_of_Teams,
             Number_of_Developers  = projectDescription.Number_of_Developers,
             Processmodel = projectDescription.Processmodel,
-            Architecturepattern = projectDescription.Architecturepattern,
-            Languages = projectDescription.Languages,
+            Architecturepattern = projectDescription.Architecturepattern.ToJsonString(),
+            Languages = projectDescription.Languages.ToJsonString(),
             Data_Persistence = projectDescription.Data_Persistence,
             Purpose = projectDescription.Purpose,
             Functionality = projectDescription.Functionality,
@@ -74,9 +74,9 @@ public class ProjectDescriptionService
     {
         var db = new RefactoringApproachContext();
 
-        var existingProjectDescription = db.ProjectDescriptions.Where(s => s.ProjectDescriptionId == id);
+        var existingProjectDescription = db.ProjectDescriptions.Where(s => s.ProjectDescriptionId == id).Single();
 
-        db.ProjectDescriptions.Attach((ProjectDescription)existingProjectDescription);
+        db.ProjectDescriptions.Attach(existingProjectDescription);//hier ist der fehler
 
         db.SaveChanges();
 

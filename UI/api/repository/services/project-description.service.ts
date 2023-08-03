@@ -11,6 +11,8 @@ import { map, filter } from 'rxjs/operators';
 import { UtilService } from 'src/app/services/util.service';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { ProjectDescription } from '../models/project-description';
+import { StrategicGoals } from '../models';
+import { StrategicGoalsService } from './strategic-goals.service';
 
 @Injectable({
   providedIn: 'root',
@@ -128,7 +130,7 @@ export class ProjectDescriptionService extends BaseService {
   }
 
 
-  static readonly DeleteProjectDescriptionPath = '/api/v1/projects/projectdescription/{id}';
+  static readonly DeleteProjectDescriptionPath = '/api/v1/projects/project-descriptions/{id}';
 
   deleteProjectDescription$Response(params?: {
     id: number;
@@ -156,6 +158,43 @@ export class ProjectDescriptionService extends BaseService {
 
     return this.deleteProjectDescription$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  static readonly GetProjectDescriptionPath = '/api/v1/projects/project-descriptions/{id}';
+
+  getProjectDescription$Response(params: {
+    id: number;
+  }): Observable<StrictHttpResponse<ProjectDescription>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ProjectDescriptionService.GetProjectDescriptionPath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<ProjectDescription>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getScenario$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getProjectDescription(params: {
+    id: number;
+  }): Observable<ProjectDescription> {
+
+    return this.getProjectDescription$Response(params).pipe(
+      map((r: StrictHttpResponse<ProjectDescription>) => r.body as ProjectDescription)
     );
   }
 
