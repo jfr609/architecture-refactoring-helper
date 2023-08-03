@@ -24,10 +24,10 @@ public class StrategicGoalsService
 
    
 
-    public StrategicGoals GetStrategicGoals(int StrategicGoalsId)
+    public StrategicGoals GetStrategicGoals(int strategicGoals)
     {
         var db = new RefactoringApproachContext();
-        return GetStrategicGoals(StrategicGoalsId, ref db);
+        return GetStrategicGoals(strategicGoals, ref db);
     }
 
     public StrategicGoals GetStrategicGoals(int StrategicGoalsId, ref RefactoringApproachContext db)
@@ -46,16 +46,17 @@ public class StrategicGoalsService
         return result;
     }
 
-    public StrategicGoals AddStrategicGoals(StrategicGoals StrategicGoals)
+    public StrategicGoals AddStrategicGoals(StrategicGoals strategicGoals)
     {
         var db = new RefactoringApproachContext();
 
         var newStrategicGoals = new StrategicGoals
         {
-            StrategicGoalsId = StrategicGoals.StrategicGoalsId,
-            Method = StrategicGoals.Method,
-            Owner = StrategicGoals.Owner,
-            Objectives = StrategicGoals.Objectives
+            StrategicGoalsId = strategicGoals.StrategicGoalsId,
+            Method = strategicGoals.Method,
+            Owner = strategicGoals.Owner,
+            Participants = strategicGoals.Participants,
+            //Objectives = StrategicGoals.Objectives
             //Organizational_objectives = StrategicGoals.Organizational_objectives,
             //Process_objectives = StrategicGoals.Process_objectives
         };
@@ -63,22 +64,23 @@ public class StrategicGoalsService
         return Utils.AddEntityAndSaveChanges(newStrategicGoals, ref db);
     }
 
-    public void UpdateStrategicGoals(int id, StrategicGoals StrategicGoals)
+    public void UpdateStrategicGoals(int id, StrategicGoals strategicGoals)
     {
         var db = new RefactoringApproachContext();
 
-        var existingStrategicGoals = db.StrategicGoals.Where(s => s.StrategicGoalsId == id);
+        var existingStrategicGoals = db.StrategicGoals.Where(s => s.StrategicGoalsId == id).Single();
 
-        db.StrategicGoals.Attach((StrategicGoals)existingStrategicGoals);
+        db.StrategicGoals.Attach(existingStrategicGoals);
 
         db.SaveChanges();
 
         var newStrategicGoals = new StrategicGoals
         {
-            StrategicGoalsId = StrategicGoals.StrategicGoalsId,
-            Method = StrategicGoals.Method,
-            Owner = StrategicGoals.Owner,
-            Objectives = StrategicGoals.Objectives
+            StrategicGoalsId = strategicGoals.StrategicGoalsId,
+            Method = strategicGoals.Method,
+            Owner = strategicGoals.Owner,
+            Participants = strategicGoals.Participants,
+            //Objectives = StrategicGoals.Objectives
         };
 
         db.Entry(existingStrategicGoals).CurrentValues.SetValues(newStrategicGoals);

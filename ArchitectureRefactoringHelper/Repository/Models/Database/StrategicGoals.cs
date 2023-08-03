@@ -16,17 +16,18 @@ public class StrategicGoals
     public int StrategicGoalsId { get; set; }
     
     [JsonPropertyName("method")]
+ 
     public string? Method { get; set; }
     
     
-    [JsonPropertyName("owners")]
+    [JsonPropertyName("owner")]
     public string? Owner { get; set; }
 
     [JsonPropertyName("participants")]
     public string? Participants { get; set; }
 
 
-    [JsonPropertyName("objectives")]
+    /*[JsonPropertyName("objectives")]
     public ICollection<Objectives>? Objectives { get; set; }
 
     /*[JsonPropertyName("organizational_objectives")]
@@ -37,6 +38,6 @@ public class StrategicGoals
 
     public bool KeyEquals(StrategicGoals obj)
     {
-        return obj.StrategicGoalsId == StrategicGoalsId;
+        return obj.Method == Method;
     }
 }

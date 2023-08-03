@@ -26,7 +26,7 @@
           </button>
           </div>
           <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center">
-            <mat-card class="strategicGoal-card" class="mat-elevation-z8">
+            <mat-card class="strategicGoal-card" class="mat-elevation-z8" >
               <mat-card-title>Strategic Goals
                 <button *ngIf = "strategicGoalsList.length == 0"  style="margin-left: 10px; margin-bottom: 10px" mat-mini-fab class="attribute-button" color="primary"
                   (click)="addEmptyStrategicGoals()">
@@ -35,23 +35,23 @@
               </mat-card-title>
           
           
-              <div class="mat-elevation-z8">
+              <div class="mat-elevation-z8" cdkDropList class="drop-list">
                 <ng-container *ngIf="strategicGoalsList.length > 0; else emptyStrategicGoalsList">
                   <div *ngFor="let strategicGoals of strategicGoalsList">
 
                       
                       <div fxLayout="column"  fxLayoutGap="10px" style="padding:5px;" ><!--style="width: 50%"-->
                       
-                        <mat-form-field appearance="fill" >
+                        <mat-form-field appearance="outline" >
                           <mat-label>Method</mat-label>
                           <input matInput [(ngModel)]="strategicGoals.method" required />
                         </mat-form-field>
-                        <mat-form-field appearance="fill" fxFlex="70">
+                        <mat-form-field appearance="outline" fxFlex="70">
                           <mat-label>Ownership</mat-label>
                           <input matInput [(ngModel)]="strategicGoals.owner" required />
                         </mat-form-field>
         
-                        <mat-form-field appearance="fill" fxFlex="70">
+                        <mat-form-field appearance="outline" fxFlex="70">
                           <mat-label>Participants</mat-label>
                           <input matInput [(ngModel)]="strategicGoals.participants" required />
                         </mat-form-field>
@@ -68,26 +68,25 @@
                               
 
                                 <ng-container *ngIf="objectivesList.length > 0; else emptyObjectivesList">     
-                                  <div fxLayoutGap="10px" *ngFor="let objective of objectivesList" [cdkDragData]="objective" cdkDragLockAxis="y"
-                                  cdkDragBoundary=".drop-list" cdkDrag (click)="scenarioSelected(objective)" [ngClass]="{
-                                  'selected-drop-box': checkCurrentScenario(objective),
-                                  'drop-box': !checkCurrentScenario(objective) 
-                                }">
+                                  <div  *ngFor="let objective of objectivesList" cdkDragLockAxis="y"
+                                  cdkDragBoundary=".drop-list"   >
 
-                                            <div fxLayout="row"  fxLayoutGap="5px" style="padding:0px;" ><!--style="width: 50%"-->
-                      
-                                              <mat-form-field [style.width.%]="10" appearance="fill" >
-                                                <mat-label>ID</mat-label>
-                                                <input matInput [(ngModel)]="strategicGoals.method" required />
+                                            <div fxLayout="row"  fxLayoutGap="5px" style="padding:5px;" ><!--style="width: 50%"-->
+                                              <!--<div class="drop-handle" cdkDragHandle>
+                                                <mat-icon mat-list-icon>drag_indicator</mat-icon>
+                                              </div>-->
+                                              <mat-form-field [style.width.%]="10" appearance="outline" >
+                                                <mat-label>ID </mat-label>
+                                                <input readonly="true"  matInput [(ngModel)]="objective.objectiveId"  required /><!--change to method-->
                                               </mat-form-field>
-                                              <mat-form-field appearance="fill" fxFlex="70">
+                                              <mat-form-field appearance="outline" fxFlex="70">
                                                 <mat-label>Name</mat-label>
-                                                <input matInput [(ngModel)]="strategicGoals.owner" required />
+                                                <input matInput [(ngModel)]="objective.objective"  required /><!--change to owner-->
                                               </mat-form-field>
                               
-                                              <mat-form-field [style.width.%]="20" appearance="fill" fxFlex="40">
+                                              <mat-form-field [style.width.%]="20" appearance="outline" fxFlex="40">
                                                 <mat-label>Type</mat-label>
-                                                <mat-select [(ngModel)]="strategicGoals.goalstype">
+                                                <mat-select >
                                                   <mat-option *ngFor="let goalstype of enumKeys3" [value]="goalstype">{{
                                                     goalstype
                                                     }}</mat-option>
@@ -115,7 +114,7 @@
                 </ng-container>
           </div>
           <ng-template #emptyObjectivesList>
-            <p style="color: grey; margin-left: 10px; margin-right: 10px"><i>No existing Objectives. Please create a Strategic Goals
+            <p style="color: grey; margin-left: 10px; margin-right: 10px"><i>No existing Objectives. Please create an Objective
                 by adding one using the green add button (+) </i></p>
           </ng-template>
 

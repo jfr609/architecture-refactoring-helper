@@ -80,7 +80,7 @@
 }
 
 .scenario-card {
-  max-width: 100%;
+  max-width: 95%;
 }
 
 
@@ -96,7 +96,7 @@
 }
 
 .description-field {
-  width: 100%;
+  width: 95%;
 }
 
 .stepper-button-row {
@@ -107,3 +107,20 @@
   background-color: #2979ff;
   color:#fff;
 }
+.mat-form-field-flex {
+  display: inline-flex;
+  align-items: baseline;
+  box-sizing: border-box;
+  width: 95%;
+}
+.drop-list[_ngcontent-tlo-c203] {
+border: solid 1px #ccc;
+min-height: 60px;
+background: white;
+border-radius: 4px;
+display: block;
+width: 100%;
+max-width: 95%;
+max-height: 700px;
+overflow: auto;
+overflow-x: hidden;}

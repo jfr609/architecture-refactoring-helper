@@ -40,8 +40,8 @@ namespace Repository.Migrations
                     StrategicGoalsId = table.Column<int>(type: "INTEGER", nullable: false),
                     Method = table.Column<string>(type: "TEXT", nullable: true),
                     Owner = table.Column<string>(type: "TEXT", nullable: true),
-                    Participants = table.Column<string>(type: "TEXT", nullable: true),
-                    Objectives = table.Column<string>(type: "TEXT", nullable: true)
+                    Participants = table.Column<string>(type: "TEXT", nullable: true)
+                    //Objectives = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1073,6 +1073,9 @@ namespace Repository.Migrations
             migrationBuilder.DropTable(
                 name:"ProjectDescription"
             );
+
+            migrationBuilder.DropTable(
+                name: "StrategicGoals");
 
 
             migrationBuilder.DropTable(

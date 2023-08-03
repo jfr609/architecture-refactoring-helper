@@ -11,7 +11,7 @@ export interface StrategicGoals {
   method?: string;
   owner?: string;
   participants?: string;
-  goals?: null | Array<Objectives>;
+  //goals?: null | Array<Objectives>;
   //strategicGoalsType: GoalsType;
   //goal?: string;
 

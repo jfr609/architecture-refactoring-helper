@@ -16,7 +16,7 @@ namespace Repository.Migrations
                     StrategicGoalsId = table.Column<int>(type: "INTEGER", nullable: false),
                     Method = table.Column<string>(type: "TEXT", nullable: true),
                     Owner = table.Column<string>(type: "TEXT", nullable: true),
-                    Participants = table.Column<string>(type: "TEXT", nullable: true),
+                    Participants = table.Column<string>(type: "TEXT", nullable: true)
                     //Business_company_objectives = table.Column<string>(type: "TEXT", nullable: true),
                     //Organizational_objectives = table.Column<string>(type: "TEXT", nullable: true),
                     //Process_objectives = table.Column<string>(type: "TEXT", nullable: true),
@@ -24,7 +24,7 @@ namespace Repository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("StrategicGoals", x => x.StrategicGoalsId);
+                    table.PrimaryKey("PK_StrategicGoals", x => x.StrategicGoalsId);
                 });
             
         }

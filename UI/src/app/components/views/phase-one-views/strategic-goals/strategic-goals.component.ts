@@ -55,7 +55,7 @@ export class StrategicGoalsComponent implements OnInit {
   objectives?: Objectives;
   goalstype = GoalsType;
   loadedonce = false;
-   k = 0;//id counter for objectives
+   k =-1;//id counter for objectives
    selectedScenario?: Scenario;
  
    scenarioList: any = [];
@@ -89,13 +89,15 @@ export class StrategicGoalsComponent implements OnInit {
     this.isDataLoading = true;
     Promise.all([
       this.projectService.requestStrategicGoalsAttributes(),
-      this.attributesService.requestQualities()
+      this.attributesService.requestQualities(),
+      this.projectService.requestProjectGoalsAttributes(),
+
     ]).then(() => {
       this.strategicGoalsList = this.projectService.strategicGoals.value;
       this.updatingStrategicGoalsList = Object.assign([], this.strategicGoalsList);
-      this.qualityList = this.attributesService.getQualitiesByCategory(
-      this.QualityCategories.Attribute
-      );
+      //this.qualityList = this.attributesService.getQualitiesByCategory(
+      //this.QualityCategories.Attribute
+      //);
       this.isDataLoading = false;
     });
   }
@@ -112,41 +114,18 @@ export class StrategicGoalsComponent implements OnInit {
   }
   addObjectives(): void {
     let emptyObjectives: Objectives = {
-      objectiveId: 1 + counter(this.k),
+      objectiveId:  this.counter(this.k),
       objective: '',
       
     };
     this.objectivesList.push(emptyObjectives);
     this.newObjectivesList.push(emptyObjectives);
   }
-
-  /*addEmptyStrategicGoals2(): void {
-    const data: ConfirmDialogData = {
-      title: 'Add Strategic Goal',
-      message: `Do you really want to add a new Strategic Goal?`,
-      //selectBusinessType: this.enumKeys,
-
-      confirmButtonText: 'Add',
-      cancelButtonText: 'Cancel'
-    };
-    this.utilService
-    .createDialog(ConfirmDialogComponent, data)
+  counter(k: number): number {
+    k++;
+    this.k = k;
+    return this.k;
   }
-
-  addEmptyStrategicGoals3(): void {
-    const data: SelectStrategicGoalDialogData = {
-      title: 'Add Strategic Goal',
-      //type: "strategicGoal",
-      //goal: "strategicGoal",
-      message: `Do you really want to add a new Strategic Goal?`,
-      //selectBusinessType: this.enumKeys,
-
-      confirmButtonText: 'Add',
-      cancelButtonText: 'Cancel'
-    };
-    this.utilService
-    .createDialog(SelectStrategicGoalDialogComponent, data)
-  }*/
   
   scenarioSelected(scenario: Scenario): void {
     this.selectedScenario = scenario;
@@ -160,78 +139,7 @@ export class StrategicGoalsComponent implements OnInit {
     }
   }
 
-  addOrRemoveQuality(selected: boolean, qa: Quality) {
-    if (selected) {
-      if (!this.selectedScenario?.qualities?.find((e) => e.name === qa.name)) {
-        this.selectedScenario?.qualities?.push(qa);
-      }
-    } else {
-      let index =
-        this.selectedScenario?.qualities?.findIndex(
-          (q) => q.name === qa.name
-        ) ?? -1;
-      if (index !== -1) {
-        this.selectedScenario?.qualities?.splice(index, 1);
-      }
-    }
-  }
 
-  addOrRemoveQualitySub(selected: boolean, qa: QualitySublevel) {
-    if (selected) {
-      if (
-        !this.selectedScenario?.qualitySublevels?.find(
-          (e) => e.name === qa.name
-        )
-      ) {
-        this.selectedScenario?.qualitySublevels?.push(qa);
-      }
-    } else {
-      let index =
-        this.selectedScenario?.qualitySublevels?.findIndex(
-          (q) => q.name === qa.name
-        ) ?? -1;
-      if (index !== -1) {
-        this.selectedScenario?.qualitySublevels?.splice(index, 1);
-      }
-    }
-  }
-
-  checkIfQualityExist(name: string): boolean {
-    return (
-      this.selectedScenario?.qualities?.some((e) => e.name === name) ?? false
-    );
-  }
-
-  checkIfQualitySubExist(name: string): boolean {
-    return (
-      this.selectedScenario?.qualitySublevels?.some((e) => e.name === name) ??
-      false
-    );
-  }
-
-  someChecked(name: string): boolean {
-    return (
-      this.selectedScenario?.qualitySublevels?.some(
-        (e) => e.qualityName === name
-      ) ?? false
-    );
-  }
-
-  allChecked(quality: Quality): boolean {
-    return (
-      quality.qualitySublevels?.every((e) =>
-        this.selectedScenario?.qualitySublevels?.some((q) => e.name === q.name)
-      ) ?? false
-    );
-  }
-
-  checkOrUncheckAll(selected: boolean, qa: Quality) {
-    if (qa.qualitySublevels) {
-      for (let sqa of qa.qualitySublevels) {
-        this.addOrRemoveQualitySub(selected, sqa);
-      }
-    }
-  }
   deleteObjectives(strategicGoals: StrategicGoals): void {
     const data: ConfirmDialogData = {
       title: 'Delete Project Description',
@@ -275,7 +183,7 @@ export class StrategicGoalsComponent implements OnInit {
   deleteStrategicGoals(strategicGoals: StrategicGoals): void {
     const data: ConfirmDialogData = {
       title: 'Delete Project Description',
-      message: `Do you really want to delete the Project Description "${strategicGoals.strategicGoalsId}"?`,
+      message: `Do you really want to delete the Strategic Goal "${strategicGoals.strategicGoalsId}"?`,
       //selectBusinessType: this.enumKeys,
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel'
@@ -333,29 +241,7 @@ export class StrategicGoalsComponent implements OnInit {
   objectivesSelected(objectives: Objectives): void {
     this.objectives = objectives;
   }
-  checkCurrentStrategicGoals(currentStrategicGoals?: StrategicGoals): boolean {
-    if(currentStrategicGoals === this.selectedStrategicGoals){
-      return true;
-    } else {
-      return false;
-    }
-  }
-  checkCurrentObjectives(currentObjectives?: Objectives): boolean {
-    if(currentObjectives === this.objectives){
-      return true;
-    } else {
-      return false;
-    }
-  }
 
-
-  allNamesSet(): boolean {
-    return !this.strategicGoalsList.some(
-      (s: any) => s.name == undefined || s.name == ''
-    );
-  }
-
-  
   createAll() {
     if (this.newStrategicGoalsList.length > 0) {
       this.newStrategicGoalsList.forEach((e) => {
@@ -451,9 +337,5 @@ export class StrategicGoalsComponent implements OnInit {
 
 
 
-}
-function counter(k: number): number {
-
-  return k++;
 }
 

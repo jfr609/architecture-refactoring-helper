@@ -23,13 +23,13 @@ export class StrategicGoalsService extends BaseService {
     super(config, http);
   }
 
-  static readonly ListProjectDescriptionPath = '/api/v1/projects/strategic-goals';
+  static readonly ListStrategicGoalsPath = '/api/v1/projects/strategic-goals';
 
 
   listStrategicGoalsResponse(params?:{
   }): Observable<StrictHttpResponse<Array<StrategicGoals>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, StrategicGoalsService.ListProjectDescriptionPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, StrategicGoalsService.ListStrategicGoalsPath, 'get');
     if (params) {
     }
 
