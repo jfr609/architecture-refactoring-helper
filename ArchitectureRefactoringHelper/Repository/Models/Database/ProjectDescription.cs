@@ -14,14 +14,8 @@ public class ProjectDescription
     public int ProjectDescriptionId { get; set; }
     
     [JsonPropertyName("systemname")]
-    public string Systemname { get; set; }
+    public string? Systemname { get; set; }
     
-    
-    
-    
-    
-  
-
     [JsonPropertyName("ownership")]
     public string? Ownership { get; set; }
 

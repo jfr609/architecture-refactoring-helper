@@ -4,12 +4,9 @@ import {
   transferArrayItem
 } from '@angular/cdk/drag-drop';
 import { ProjectDescriptionService } from 'api/repository/services/project-description.service';
-import { Component, OnInit, } from '@angular/core';
+import {Component, CUSTOM_ELEMENTS_SCHEMA, NgModule, OnInit} from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import {
-  RatingLevel,
-  ProjectDescription
-} from 'api/repository/models';
+import { RatingLevel, ProjectDescription } from 'api/repository/models';
 import {
   ConfirmDialogComponent,
   ConfirmDialogData
@@ -19,16 +16,17 @@ import { ProjectService } from 'src/app/services/project.service';
 import { UtilService } from 'src/app/services/util.service';
 import { Languages } from 'api/repository/models/languages';
 import { Patterns } from 'api/repository/models/patterns';
-import {MatButtonModule} from '@angular/material/button';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatNativeDateModule} from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 @Component({
   selector: 'app-project-description',
   templateUrl: './project-description.component.html',
-  styleUrls: ['./project-description.component.css'],
+  styleUrls: ['./project-description.component.css']
 })
 export class ProjectDescriptionComponent implements OnInit {
   isDataLoading = true;
@@ -40,7 +38,7 @@ export class ProjectDescriptionComponent implements OnInit {
   projectDescriptionList: any = [];
   selectedProjectDescription?: ProjectDescription;
   loadedonce = false;
-//current commit
+  //current commit
 
   deletingProjectDescriptionsList = new Array<ProjectDescription>();
   newProjectDescriptionsList = new Array<ProjectDescription>();
@@ -51,44 +49,75 @@ export class ProjectDescriptionComponent implements OnInit {
     public attributesService: AttributeOptionsService,
     public projectDescriptionService: ProjectDescriptionService,
     public utilService: UtilService
-
-  ) { 
+  ) {
     this.enumKeys = Object.values(this.languages);
     this.enumKeys2 = Object.values(this.patterns);
   }
 
- 
   ngOnInit(): void {
     this.isDataLoading = true;
     Promise.all([
-      this.projectService.requestProjectDescriptionAttributes(),
+      this.projectService.requestProjectDescriptionAttributes()
       //this.attributesService.requestProjectDescriptionAttributes()
     ]).then(() => {
-      this.projectDescriptionList = this.projectService.projectDescriptions.value;
-      this.updatingProjectDescriptionsList = Object.assign([], this.projectDescriptionList);
+      this.projectDescriptionList =
+        this.projectService.projectDescriptions.value;
+      this.updatingProjectDescriptionsList = Object.assign(
+        [],
+        this.projectDescriptionList
+      );
       //this.qualityList = this.attributesService.getQualitiesByCategory(
       //this.QualityCategories.Attribute
-      
+
       this.isDataLoading = false;
     });
   }
-
+ 
+  refresh(){
+    for(let i = 1; i < 100; i++){
+      this.projectDescriptionService
+      .deleteProjectDescription({
+        id: i!
+      })
+      .subscribe({
+        next: (value) => {},
+        error: (err) => {
+          console.log(err);
+          this.utilService.callSnackBar(
+            'Project Description could not be deleted.'
+          );
+        }
+      });
+  };
+  this.deletingProjectDescriptionsList.splice(0);
+      console.log("deleted project description");
+      //this.strategicGoalsService.deleteStrategicGoals({id: i});
+      console.log("deleted strategic goals");
+      //this.objectivesService.deleteObjectives({id: i});
+      console.log("deleted objectives");
+      //this.scenarioService.deleteScenario({id: i});
+      console.log("deleted scenario");
+    }
   
+
   addEmptyProjectDescription(): void {
     let emptyProjectDescription: ProjectDescription = {
-      systemname: '',//name
-      ownership: '',//name/object
-      creation_date: '',//date
-      systemsize_LOC: 0,//int
-      hosting_model: '',//name/object
-      number_of_teams: 0,//name/object/id
-      number_of_developers: 0,//name/obect/id/list
+      systemname: '', //name
+      ownership: '', //name/object
+      creation_date: '', //date
+      systemsize_LOC: 0, //int
+      hosting_model: '', //name/object
+      number_of_teams: 0, //name/object/id
+      number_of_developers: 0, //name/obect/id/list
       processmodel: '',
       data_persistence: '',
       purpose: '',
       functionality: '',
-      designdiagrams: '',
+      designdiagrams: ''
     };
+    //const obj = { table: [] };
+    //obj.table.push({ id: 1, square: 2 });
+    //const json = JSON.stringify(obj);
     this.projectDescriptionList.push(emptyProjectDescription);
     this.newProjectDescriptionsList.push(emptyProjectDescription);
   }
@@ -101,33 +130,36 @@ export class ProjectDescriptionComponent implements OnInit {
       cancelButtonText: 'Cancel'
     };
     this.utilService
-    .createDialog(ConfirmDialogComponent, data)
-    .afterClosed()
-    .subscribe({
-      next:(data: ConfirmDialogData) => {
-        if(data == null) return;
+      .createDialog(ConfirmDialogComponent, data)
+      .afterClosed()
+      .subscribe({
+        next: (data: ConfirmDialogData) => {
+          if (data == null) return;
 
-        if(projectDescription.projectDescriptionId != null){
-          this.deletingProjectDescriptionsList.push(projectDescription);
-        }
+          if (projectDescription.projectDescriptionId != null) {
+            this.deletingProjectDescriptionsList.push(projectDescription);
+          }
 
-        let indexList = this.projectDescriptionList.indexOf(projectDescription) ?? -1;
-        if(indexList != -1){
-          this.projectDescriptionList.splice(indexList, 1);
-        }
-        this.selectedProjectDescription = undefined;
+          let indexList =
+            this.projectDescriptionList.indexOf(projectDescription) ?? -1;
+          if (indexList != -1) {
+            this.projectDescriptionList.splice(indexList, 1);
+          }
+          this.selectedProjectDescription = undefined;
 
-        let indexUpdate = this.updatingProjectDescriptionsList.indexOf(projectDescription) ?? -1;
-        if(indexUpdate !== -1){
-          this.updatingProjectDescriptionsList.splice(indexUpdate, 1);
+          let indexUpdate =
+            this.updatingProjectDescriptionsList.indexOf(projectDescription) ??
+            -1;
+          if (indexUpdate !== -1) {
+            this.updatingProjectDescriptionsList.splice(indexUpdate, 1);
+          }
+          let indexNext =
+            this.newProjectDescriptionsList.indexOf(projectDescription) ?? -1;
+          if (indexNext !== -1) {
+            this.newProjectDescriptionsList.splice(indexNext, 1);
+          }
         }
-        let indexNext = this.newProjectDescriptionsList.indexOf(projectDescription) ?? -1;
-        if (indexNext !== -1) {
-
-          this.newProjectDescriptionsList.splice(indexNext, 1);
-        }
-      }
-    });
+      });
   }
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -148,15 +180,15 @@ export class ProjectDescriptionComponent implements OnInit {
   projectDescriptionSelected(projectDescription: ProjectDescription): void {
     this.selectedProjectDescription = projectDescription;
   }
-  checkCurrentProjectDescription(currentProjectDescription?: ProjectDescription): boolean {
-    if(currentProjectDescription === this.selectedProjectDescription){
+  checkCurrentProjectDescription(
+    currentProjectDescription?: ProjectDescription
+  ): boolean {
+    if (currentProjectDescription === this.selectedProjectDescription) {
       return true;
     } else {
       return false;
     }
   }
-
-
 
   allNamesSet(): boolean {
     return !this.projectDescriptionList.some(
@@ -164,14 +196,13 @@ export class ProjectDescriptionComponent implements OnInit {
     );
   }
 
-  
   createAll() {
-    let ok = JSON.stringify(this.projectDescriptionList.languages);
-    let ok2 = JSON.stringify(this.projectDescriptionList.patterns);
-    this.projectDescriptionList.languages = "ok";
+    const ok = JSON.stringify(this.projectDescriptionList.languages);
+    const ok2 = JSON.stringify(this.projectDescriptionList.patterns);
+    this.projectDescriptionList.languages = 'ok';
 
-    this.projectDescriptionList.patterns = "ok2";
-    if (this.newProjectDescriptionsList.length>0) {
+    this.projectDescriptionList.patterns = 'ok2';
+    if (this.newProjectDescriptionsList.length > 0) {
       this.newProjectDescriptionsList.forEach((e) => {
         this.projectDescriptionService
           .addProjectDescription({
@@ -181,17 +212,17 @@ export class ProjectDescriptionComponent implements OnInit {
             next: (value) => {},
             error: (err) => {
               console.log(err);
-              this.utilService.callSnackBar('Project Description could not be created.');
+              this.utilService.callSnackBar(
+                'Project Description could not be created.'
+              );
             }
           });
       });
     }
   }
 
-
-
   deleteAll() {
-    if (this.deletingProjectDescriptionsList.length >0) {
+    if (this.deletingProjectDescriptionsList.length > 0) {
       this.deletingProjectDescriptionsList.forEach((e) => {
         this.projectDescriptionService
           .deleteProjectDescription({
@@ -201,7 +232,9 @@ export class ProjectDescriptionComponent implements OnInit {
             next: (value) => {},
             error: (err) => {
               console.log(err);
-              this.utilService.callSnackBar('Project Description could not be deleted.');
+              this.utilService.callSnackBar(
+                'Project Description could not be deleted.'
+              );
             }
           });
       });
@@ -210,7 +243,7 @@ export class ProjectDescriptionComponent implements OnInit {
   }
 
   updateAll() {
-    if (this.updatingProjectDescriptionsList.length >0) {
+    if (this.updatingProjectDescriptionsList.length > 0) {
       this.updatingProjectDescriptionsList.forEach((e) => {
         this.projectDescriptionService
           .updateProjectDescription({
@@ -221,7 +254,9 @@ export class ProjectDescriptionComponent implements OnInit {
             next: (value) => {},
             error: (err) => {
               console.log(err);
-              this.utilService.callSnackBar('Project Description could not be updated.');
+              this.utilService.callSnackBar(
+                'Project Description could not be updated.'
+              );
             }
           });
       });
@@ -229,7 +264,7 @@ export class ProjectDescriptionComponent implements OnInit {
     }
   }
 
-  saveChanges(){
+  saveChanges() {
     const data: ConfirmDialogData = {
       title: 'Save Changes?',
       message: `Do you really want to save all changes?`,
@@ -237,52 +272,41 @@ export class ProjectDescriptionComponent implements OnInit {
       cancelButtonText: 'Cancel'
     };
     //this.projectDescriptionList.creation_date = JSON.stringify(this.projectDescriptionList.creation_date);
+    //this.projectDescriptionList.languages.push()
+    //const ok = JSON.stringify(this.projectDescriptionList.languages);
+    //const ok2 = JSON.stringify(this.projectDescriptionList.patterns);
+    //this.projectDescriptionList.languages = 'ok';
 
-    let ok = JSON.stringify(this.projectDescriptionList.languages);
-    let ok2 = JSON.stringify(this.projectDescriptionList.patterns);
-    this.projectDescriptionList.languages = "ok";
-
-    this.projectDescriptionList.patterns = "ok2";
-
-    //this.projectDescriptionList.patterns = JSON.stringify(this.projectDescriptionList.patterns);
+    //this.projectDescriptionList.patterns = 'ok2';
+    /*this.projectDescriptionList[0].languages = this.projectDescriptionList.systemname;
+    this.projectDescriptionList[1].languages = this.projectDescriptionList.ownership;
+    this.projectDescriptionList[2].languages = this.projectDescriptionList.creation_date;
+    this.projectDescriptionList[3].languages = this.projectDescriptionList.systemsize_LOC;
+    this.projectDescriptionList[4].languages = this.projectDescriptionList.hosting_model;
+    this.projectDescriptionList[5].languages = this.projectDescriptionList.number_of_teams;
+    this.projectDescriptionList[6].languages = this.projectDescriptionList.number_of_developers;
+    this.projectDescriptionList[7].languages = this.projectDescriptionList.processmodel;
+    this.projectDescriptionList[8].languages = this.projectDescriptionList.purpose;
+    this.projectDescriptionList[9].languages = this.projectDescriptionList.functionality;
+    this.projectDescriptionList[10].languages = this.projectDescriptionList.designdiagrams;
+    this.projectDescriptionList[11].languages = this.projectDescriptionList.architecture;
+    this.projectDescriptionList[12].languages = this.projectDescriptionList.languages;
+    this.projectDescriptionList[13].languages = this.projectDescriptionList.data_persistence;
+    //this.projectDescriptionList.patterns = JSON.stringify(this.projectDescriptionList.patterns);*/
     this.utilService
       .createDialog(ConfirmDialogComponent, data)
       .afterClosed()
       .subscribe({
         next: (data: ConfirmDialogData) => {
           if (data == null) return;
-           this.fireAll();
+          this.fireAll();
         }
       });
-  
   }
 
-  fireAll() { 
+  fireAll() {
     this.createAll();
     this.deleteAll();
     this.updateAll();
   }
-
-
-
-
-
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-

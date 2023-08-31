@@ -44,7 +44,7 @@
           }">
 
             <div fxLayout="row"><!--row-->
-              
+              <button (click)="refresh()"></button>
               <div fxLayout="column"  fxLayoutGap="10px" style="padding:5px;" ><!--style="width: 50%"-->
                 <h2>System Specification</h2>
                 <mat-form-field appearance="fill" >
@@ -133,7 +133,7 @@
             <h2>Properties</h2>
             <mat-form-field class="description-field" appearance="fill">
               <mat-label>Architecture Patterns</mat-label>
-              <mat-select [(value)]="projectDescription.patterns" multiple><!-- multiple-->
+              <mat-select [(value)]="projectDescription.patterns"><!-- multiple-->
               <mat-option *ngFor="let pattern of enumKeys2" [value]="pattern">
                   {{pattern}}<!--multi selection field -->
                 </mat-option>
