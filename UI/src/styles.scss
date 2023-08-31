@@ -123,3 +123,18 @@ body {
   color: rgba(128, 128, 128, 0.54);
   //background-color: transparent;
 }
+/* Change the color of the radio button's circle for the element with ID 'radio-2' */
+#radio-2.mat-accent .mat-radio-outer-circle {
+  border-color: yellow; /* Change border color */
+}
+
+/* Change the color of the radio button's ripple effect for the element with ID 'radio-2' */
+#radio-2.mat-accent .mat-radio-inner-circle::after {
+  background-color: yellow; /* Change ripple color */
+}
+
+/* Change the background color of the radio button when selected for the element with ID 'radio-2' */
+#radio-2.mat-accent.mat-radio-checked .mat-radio-inner-circle {
+  background-color: yellow; /* Change selected background color */
+}
+

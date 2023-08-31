@@ -8,6 +8,7 @@ import { UtilService } from './util.service';
 import { StrategicGoalsService } from 'api/repository/services/strategic-goals.service';
 import { Objectives } from 'api/repository/models/objectives';// not sure if working
 import { ProjectAssessment } from 'api/repository/models/project-assessment';// not sure if working
+import { ObjectivesService } from 'api/repository/services/objectives-service';// not sure if working
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class ProjectService {
   public strategicGoals: BehaviorSubject<StrategicGoals[]> = new BehaviorSubject<
     StrategicGoals[]
   >([]);
-  public goalObjectives: BehaviorSubject<Objectives[]> = new BehaviorSubject<Objectives[]>([]);//not sure if working
+  public objectives: BehaviorSubject<Objectives[]> = new BehaviorSubject<Objectives[]>([]);//not sure if working
   public projectAssessment: BehaviorSubject<ProjectAssessment[]> = new BehaviorSubject<ProjectAssessment[]>([]);
 
   constructor(
@@ -31,7 +32,25 @@ export class ProjectService {
     private recommendationService: ApproachRecommendationService,
     private projectDescriptionService: ProjectDescriptionService,
     private strategicGoalsService: StrategicGoalsService,
+    private objectivesService: ObjectivesService,
   ) {}
+
+  requestProjectAttributes(): Promise<Awaited<void>[]> {
+    const dataLoadingPromises: Promise<void>[] = [];
+
+    dataLoadingPromises.push(this.requestScenarios());
+
+    return Promise.all(dataLoadingPromises);
+  }
+
+requestStrategicGoalsAttributes(): Promise<Awaited<void>[]> {
+    const dataLoadingPromises: Promise<void>[] = [];
+
+    dataLoadingPromises.push(this.requestStrategicGoals());
+
+    return Promise.all(dataLoadingPromises);
+  }
+
 
 async requestStrategicGoals(): Promise<void> {  
   try {
@@ -45,24 +64,13 @@ async requestStrategicGoals(): Promise<void> {
     );
   }
 }
-
-
-requestStrategicGoalsAttributes(): Promise<Awaited<void>[]> {
+  requestObjectivesAttributes(): Promise<Awaited<void>[]> {
     const dataLoadingPromises: Promise<void>[] = [];
 
-    dataLoadingPromises.push(this.requestStrategicGoals());
+    dataLoadingPromises.push(this.requestObjectives());
 
     return Promise.all(dataLoadingPromises);
   }
-
-  requestProjectAttributes(): Promise<Awaited<void>[]> {
-    const dataLoadingPromises: Promise<void>[] = [];
-
-    dataLoadingPromises.push(this.requestScenarios());
-
-    return Promise.all(dataLoadingPromises);
-  }
-
   async requestScenarios(): Promise<void> {//user for assessement
     try {
       this.scenarios.next(
@@ -71,10 +79,23 @@ requestStrategicGoalsAttributes(): Promise<Awaited<void>[]> {
     } catch (err) {
       console.log(err);
       this.utilService.callSnackBar(
-        'Error! Scenarios inputs could not be retrieved.'
+        'Error! Objectives could not be retrieved.'
       );
     }
   }
+  async requestObjectives(): Promise<void> {//user for assessement
+    try {
+      this.objectives.next(
+        await lastValueFrom(this.objectivesService.listObjectives())
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+        'Error! Objectives inputs could not be retrieved.'
+      );
+    }
+  }
+
   requestProjectDescriptionAttributes(): Promise<Awaited<void>[]> {
     const dataLoadingPromises: Promise<void>[] = [];
 
@@ -82,7 +103,6 @@ requestStrategicGoalsAttributes(): Promise<Awaited<void>[]> {
 
     return Promise.all(dataLoadingPromises);
   }
-
   async requestProjectDescription(): Promise<void> {
     try {
       this.projectDescriptions.next(
@@ -112,7 +132,7 @@ requestStrategicGoalsAttributes(): Promise<Awaited<void>[]> {
     } catch (err) {
       console.log(err);
       this.utilService.callSnackBar(
-       'Error! Project Descriptions inputs could not be retrieved.'
+       'Error! Project Assessment inputs could not be retrieved.'
       );
     }
   }
