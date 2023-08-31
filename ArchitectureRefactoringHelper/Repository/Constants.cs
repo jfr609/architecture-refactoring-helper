@@ -16,6 +16,7 @@ public static class Constants
 
     public const string TableNameStrategicGoals = "StrategicGoals";
 
+
     public const string TableNameObjectives = "Objectives";
     public const string TableNameAssessment = "Assessment";
 
@@ -62,6 +63,7 @@ public static class Constants
     public const string ApiSubPathStrategicGoals = "strategic-goals";
     public const string ApiSubPathSummary = "summary";
     public const string ApiSubPathAssessment = "assessment";
+    public const string ApiSubPathObjectives = "objectives";
 
     public const string ApiSubPathInputs = "inputs";
     public const string ApiSubPathDomainArtifacts = "domain-artifacts";

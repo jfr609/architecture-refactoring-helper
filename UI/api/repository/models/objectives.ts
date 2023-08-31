@@ -4,9 +4,10 @@ import { GoalsType } from "./goals-type";
 
 /* eslint-disable */
 export interface Objectives {
-   objectiveId: number;
-   //strategicGoalsType:  GoalsType;
-   objective?: string;
+   objectivesId: number;
+   objectivesName?: string;
+   objectivesGoalType?:  GoalsType;
+   
 
 }
    

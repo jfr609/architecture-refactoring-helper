@@ -64,7 +64,10 @@
                               <mat-card-title>Objectives<button style="margin-left: 10px; margin-bottom: 10px" mat-mini-fab class="attribute-button" color="primary"
                               (click)="addObjectives()">
                               <mat-icon>add</mat-icon>
-                            </button></mat-card-title>
+                           
+                            </button>   <button style="padding:20px" [style.width.%]="5" mat-button (click)="deleteStrategicGoals(strategicGoals)">
+                                <mat-icon mat-list-icon color="warn">delete</mat-icon><!--missing deletion mechanism-->
+                              </button></mat-card-title>
                               
 
                                 <ng-container *ngIf="objectivesList.length > 0; else emptyObjectivesList">     
@@ -77,22 +80,23 @@
                                               </div>-->
                                               <mat-form-field [style.width.%]="10" appearance="outline" >
                                                 <mat-label>ID </mat-label>
-                                                <input readonly="true"  matInput [(ngModel)]="objective.objectiveId"  required /><!--change to method-->
+                                                <input readonly="true"  matInput [(ngModel)]="objective.objectivesId"  required /><!--change to method-->
                                               </mat-form-field>
                                               <mat-form-field appearance="outline" fxFlex="70">
                                                 <mat-label>Name</mat-label>
-                                                <input matInput [(ngModel)]="objective.objective"  required /><!--change to owner-->
+                                                <input matInput [(ngModel)]="objective.objectivesName"  required /><!--change to owner-->
                                               </mat-form-field>
                               
                                               <mat-form-field [style.width.%]="20" appearance="outline" fxFlex="40">
                                                 <mat-label>Type</mat-label>
-                                                <mat-select >
+                                                <!--<input matInput [(ngModel)]="objective.objectivesGoalsType"  required />change to owner-->
+                                                <mat-select [(value)]="objective.objectivesGoalType">
                                                   <mat-option *ngFor="let goalstype of enumKeys3" [value]="goalstype">{{
                                                     goalstype
                                                     }}</mat-option>
                                                 </mat-select>
                                               </mat-form-field>
-                                              <button  [style.width.%]="5" mat-button (click)="deleteObjectives(strategicGoals)">
+                                              <button  [style.width.%]="5" mat-button (click)="deleteObjectives(objective)">
                                                 <mat-icon mat-list-icon color="warn">delete</mat-icon><!--missing deletion mechanism-->
                                               </button>
 

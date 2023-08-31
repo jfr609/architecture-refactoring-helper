@@ -69,6 +69,20 @@ namespace Repository.Migrations
                     table.PrimaryKey("PK_Assessment", x => x.AssessmentId);
                 });
 
+            
+
+            migrationBuilder.CreateTable(
+                name: "Objectives",
+                columns: table => new{
+                    ObjectivesId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ObjectivesName = table.Column<string>(type: "TEXT", nullable: true),
+                    ObjectivesGoalType = table.Column<string>(type: "TEXT", nullable: true),
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Objectives", x => x.ObjectivesId);
+                });
+
 
 
            /* migrationBuilder.CreateTable(

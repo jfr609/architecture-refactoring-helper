@@ -9,22 +9,30 @@ public class Objectives
 {
     [Key]
     [Required]
-    [JsonPropertyName("ObjectivesId")]
-    public string Name { get; set; }
-    //[JsonPropertyName("description")]
-   /* public string? ObjectiveType { get; set; }
-    [Required]
-    [JsonPropertyName("category")]
-    [JsonConverter(typeof(JsonStringEnumConverter))]*/
+    
+    [JsonPropertyName("objectivesId")]
+    public int ObjectivesId { get; set; }
+    
+    [JsonPropertyName("objectivesName")]
+    public string? ObjectivesName { get; set; }
+    
+    [JsonPropertyName("objectivesGoalType")]
+    public string? ObjectivesGoalType { get; set; }
 
-    public bool KeyEquals(Quality obj)
+
+
+    public bool KeyEquals(Objectives obj)
     {
-        return obj.Name == Name;
+        return obj.ObjectivesId == ObjectivesId;
     }
-}
 
-/*public enum QualityCategory
-{
-    Attribute,
-    SystemProperty
-}*/
+    /*public enum Languages
+    {
+        Java,
+        C_plus_plus,
+        Python,
+        JavaScript,
+        C_sharp,
+        PHP
+    }*/
+}

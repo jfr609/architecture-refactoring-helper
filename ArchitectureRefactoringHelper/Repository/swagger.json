@@ -1618,6 +1618,153 @@
         }
       }
     },
+    "/api/v1/projects/objectives":{
+      "get": {
+        "tags": [
+          "Objectives"
+        ],
+        "operationId": "ListObjectives",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Objectives"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Objectives"
+        ],
+        "operationId": "AddObjective",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Objectives"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Objectives"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Objectives"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/projects/objectives/{id}": {
+      "get": {
+        "tags": [
+          "Objectives"
+        ],
+        "operationId": "GetObjective",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Objectives"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Objectives"
+        ],
+        "operationId": "UpdateObjectives",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Objectives"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Objectives"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Objectives"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Objectives"
+        ],
+        "operationId": "DeleteObjective",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/v1/projects/project-descriptions": {
       "get": {
         "tags": [
@@ -4366,7 +4513,6 @@
         },
         "additionalProperties": { }
       },
-      "_comment": "projectId",
       "ProjectDescription": {
         "required": [
           "projectDescriptionId"
@@ -4420,7 +4566,7 @@
             "type": "string",
             "nullable": true
           },
-          "data_prsistence": {
+          "data_persistence": {
             "type": "string",
             "nullable": true
           },
@@ -4885,15 +5031,11 @@
             "type": "string",
             "nullable": true
           },
-          "owners": {
+          "owner": {
             "type": "string",
             "nullable": true
           },
           "participants": {
-            "type": "string",
-            "nullable": true
-          },
-          "objectives": {
             "type": "string",
             "nullable": true
           }

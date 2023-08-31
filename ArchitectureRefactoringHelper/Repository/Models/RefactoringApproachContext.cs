@@ -16,6 +16,8 @@ public class RefactoringApproachContext : DbContext
 
     public DbSet<StrategicGoals> StrategicGoals { get; set; }
 
+    public DbSet<Objectives> Objectives { get; set; }
+
     //public DbSet<Summary> Summaries { get; set; }
 
     //public DbSet<Assessment> Assessments { get; set; }
@@ -68,7 +70,7 @@ public class RefactoringApproachContext : DbContext
         modelBuilder.ApplyConfiguration(new ProjectDescriptionConfiguration());
         modelBuilder.ApplyConfiguration(new StrategicGoalsConfiguration());
         modelBuilder.ApplyConfiguration(new ScenarioConfiguration());
-        
+        //modelBuilder.ApplyConfiguration(new ObjectivesConfiguration());
 
         modelBuilder.ApplyConfiguration(new RefactoringApproachConfiguration());
         modelBuilder.ApplyConfiguration(new ApproachProcessConfiguration());
