@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AppComponent } from './app.component';
@@ -57,7 +57,7 @@ import { QualityAttributesComponent } from './components/views/phase-one-views/q
 import { AssessmentComponent } from './components/views/phase-one-views/assessment/assessment.component';
 import { SummaryComponent } from './components/views/phase-one-views/summary/summary.component';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatCheckboxModule } from '@angular/material/checkbox'; 
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatChipsModule } from '@angular/material/chips';
 import { ArchitecturalDesignExplorerComponent } from './components/views/architectural-design-explorer/architectural-design-explorer.component';
@@ -65,14 +65,21 @@ import { ArchitecturalDesignViewComponent } from './components/views/architectur
 import { ArchitecturalRecommendationResultComponent } from './components/views/architectural-recommendation-result/architectural-recommendation-result.component';
 import { MatBadgeModule } from '@angular/material/badge';
 
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+//import * as d3Shape from 'd3';
+//import * as d3 from 'd3';
+//import { NgChartsModule } from 'ng2-charts';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+//import { CanvasJS} from '@canvasjs/angular-charts';
+import { MatNativeDateModule } from '@angular/material/core';
 
-import {MatDatepickerModule} from '@angular/material/datepicker';
-
-import {MatNativeDateModule} from '@angular/material/core';
+import { RouterLink } from '@angular/router';
+//missing graph library
 
 
 @NgModule({
   declarations: [
+    
     AppComponent,
     HomePageComponent,
     PageNotFoundComponent,
@@ -102,13 +109,14 @@ import {MatNativeDateModule} from '@angular/material/core';
     ArchitecturalDesignViewComponent,
     ArchitecturalRecommendationResultComponent
   ],
-  imports: [
+  imports: [ 
+    ApiModule.forRoot({ rootUrl: environment.API_URL }),
     MatTabsModule,
+    FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    ApiModule.forRoot({ rootUrl: environment.API_URL }),
     FlexLayoutModule,
     MatToolbarModule,
     MatTabsModule,
@@ -146,8 +154,11 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
+    NgxChartsModule
+    
   ],
-  providers: [StrategicGoalsComponent],
-  bootstrap: [AppComponent]
+  providers: [StrategicGoalsComponent,AssessmentComponent,SummaryComponent],
+  bootstrap: [AppComponent],
+  schemas: []
 })
 export class AppModule {}

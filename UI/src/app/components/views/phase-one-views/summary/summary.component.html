@@ -64,7 +64,7 @@
                           <!--<mat-tab-group>-->
 
 
- <h2>Implementable using</h2>
+                          <h2>Implementable using</h2>
                             <div fxLayout="row" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px">
                               <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
 
@@ -82,14 +82,30 @@
                                 <input matInput readonly="true" matInput [(ngModel)]="assessmentService.cumulatedimplementedPattern3" required />
                               </mat-form-field>
                               </div>
-                              <img  class="images" src="assets/PL1.png" style="width:363px;height:209px"/>
-                              <button (click)="summarylogger()"></button>
+                              <ngx-charts-bar-horizontal
+                              [view]="view"
+                              [results]="implementedGraph"
+                              [gradient]="gradient"
+                              [xAxis]="showXAxis"
+                              [yAxis]="showYAxis"
+                              [legend]="showLegend"
+                              [showXAxisLabel]="showXAxisLabel"
+                              [showYAxisLabel]="showYAxisLabel"
+                              [xAxisLabel]="xAxisLabel"
+                              [yAxisLabel]="yAxisLabel"
+                              (select)="onSelect($event)"
+                              (activate)="onActivate($event)"
+                              (deactivate)="onDeactivate($event)"
+                              
+                              >
+                            </ngx-charts-bar-horizontal>
+                              <
                               <div>
                                
                             </div>
                             </div>
 
-                            <h2>Preferred Pattern</h2>
+                            <h2>Preferred Architecture</h2>
                             <div fxLayout="row" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
                               <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
 
@@ -107,13 +123,29 @@
                               <input matInput readonly="true" matInput [(ngModel)]="assessmentService.cumulatedpreferredPattern3" required />
                             </mat-form-field>
                             </div>
-                            <img  class="images" src="assets/PL2.png"style="width:363px;height:209px"/>
-                            <!--/*<div>
+                            <!--<img  class="images" src="assets/PL2.png"style="width:363px;height:209px"/>-->
+               
+                          <ngx-charts-bar-horizontal
+                          [view]="view"
+                          
+                          [results]="preferredGraph"
+                          [gradient]="gradient"
+                          [xAxis]="showXAxis"
+                          [yAxis]="showYAxis"
+                          [legend]="showLegend"
+                          [showXAxisLabel]="showXAxisLabel"
+                          [showYAxisLabel]="showYAxisLabel"
+                          [xAxisLabel]="xAxisLabel"
+                          [yAxisLabel]="yAxisLabel"
+                          (select)="onSelect($event)"
+                          (activate)="onActivate($event)"
+                          (deactivate)="onDeactivate($event)">
+                        </ngx-charts-bar-horizontal>
+                        <button (click)="summarylogger()"></button>
+                            <!--<div>
                               <canvasjs-chart [options]="chartOptions"></canvasjs-chart>
-                            </div>*/-->
-                            <div>
+                            </div>-->
 
-                          </div>
                           </div>
 
                             <div fxLayout="row" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
