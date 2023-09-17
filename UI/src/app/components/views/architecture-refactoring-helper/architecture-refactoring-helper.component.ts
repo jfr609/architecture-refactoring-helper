@@ -21,6 +21,9 @@ import { ScenarioService } from 'api/repository/services';
 import { Scenario } from 'api/repository/models';
 import { ObjectivesService } from 'api/repository/services/objectives-service';
 import { Objectives } from 'api/repository/models/objectives';
+import { AppModule } from 'src/app/app.module';
+import { concatMap, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 @Component({
   selector: 'app-architecture-refactoring-helper',
   templateUrl: './architecture-refactoring-helper.component.html',
@@ -68,7 +71,29 @@ export class ArchitectureRefactoringHelperComponent {
     this.utilService.setSidenav(this.sidenav);
   }
 
-  clearSession(){
+  clearSession() {
+    for (let i = 1; i < 100; i++) {
+      this.projectDescriptionService
+        .deleteProjectDescription({
+          id: i!
+        })
+        .pipe(
+          concatMap(() => this.strategicGoalsService.deleteStrategicGoals({ id: i! })),
+          concatMap(() => this.objectivesService.deleteObjectives({ id: i! })),
+          concatMap(() => this.scenarioService.deleteScenario({ id: i! })),
+          catchError((error) => {
+            console.log(error);
+            this.utilService.callSnackBar('Error deleting data.');
+            return of(null); // Skip to the next observable if an error occurs
+          })
+        )
+        .subscribe(() => {
+          // Handle successful deletion if needed
+        });
+    }
+  }
+
+  clearSession2(){
     for(let i = 1; i < 100; i++){
         this.projectDescriptionService
         .deleteProjectDescription({
@@ -147,7 +172,7 @@ export class ArchitectureRefactoringHelperComponent {
     }
     
   }
-  exportDB() {
+  exportDB2() {
     let fileContentDS: string = "";
     let fileContentSG: string = "";
     let fileContentOB: string = "";
@@ -203,6 +228,115 @@ export class ArchitectureRefactoringHelperComponent {
       downloadLink.remove();
     });
   }
+
+  exportDB3() {
+    let fileContentDS = "";
+    let fileContentSG = "";
+    let fileContentOB = "";
+    let fileContentSC = "";
+    let fileContentAS = "";
+  
+    const exportData = async () => {
+      try {
+        const projectDescription = await lastValueFrom(
+          this.projectDescriptionService.listProjectDescription({
+            withDetails: true
+          })
+        );
+        fileContentDS = JSON.stringify(projectDescription);
+  
+        const strategicGoals = await lastValueFrom(
+          this.strategicGoalsService.listStrategicGoals({
+            withDetails: true
+          })
+        );
+        fileContentSG = JSON.stringify(strategicGoals);
+  
+        const objectives = await lastValueFrom(
+          this.objectivesService.listObjectives({
+            withDetails: true
+          })
+        );
+        fileContentOB = JSON.stringify(objectives);
+  
+        const scenario = await lastValueFrom(
+          this.scenarioService.listScenario({
+            withDetails: true
+          })
+        );
+        fileContentSC = JSON.stringify(scenario);
+  
+        const downloadLink = document.createElement('a');
+        downloadLink.download = 'project.json';
+        downloadLink.href = 'data:text/plain;charset=utf-16,' + fileContentDS + ',' + fileContentSG + ',' + fileContentOB + ',' + fileContentSC;
+        downloadLink.click();
+        downloadLink.remove();
+      } catch (error) {
+        // Handle any errors that may occur during the data retrieval or export.
+        console.error('Export failed:', error);
+      }
+    };
+  
+    exportData();
+  }
+
+  exportDB() {
+    let fileContentDS = "";
+    let fileContentSG = "";
+    let fileContentOB = "";
+    let fileContentSC = "";
+    let fileContentAS = "";
+  
+    const exportData = async () => {
+      try {
+        const projectDescription = await lastValueFrom(
+          this.projectDescriptionService.listProjectDescription({
+            withDetails: true
+          })
+        );
+        fileContentDS = JSON.stringify(projectDescription);
+  
+        const strategicGoals = await lastValueFrom(
+          this.strategicGoalsService.listStrategicGoals({
+            withDetails: true
+          })
+        );
+        fileContentSG = JSON.stringify(strategicGoals);
+  
+        const objectives = await lastValueFrom(
+          this.objectivesService.listObjectives({
+            withDetails: true
+          })
+        );
+        fileContentOB = JSON.stringify(objectives);
+  
+        const scenario = await lastValueFrom(
+          this.scenarioService.listScenario({
+            withDetails: true
+          })
+        );
+        fileContentSC = JSON.stringify(scenario);
+  
+        const combinedData = {
+          projectDescription: JSON.parse(fileContentDS),
+          strategicGoals: JSON.parse(fileContentSG),
+          objectives: JSON.parse(fileContentOB),
+          scenario: JSON.parse(fileContentSC)
+        };
+  
+        const downloadLink = document.createElement('a');
+        downloadLink.download = 'project.json';
+        downloadLink.href = 'data:text/plain;charset=utf-16,' + JSON.stringify(combinedData);
+        downloadLink.click();
+        downloadLink.remove();
+      } catch (error) {
+        // Handle any errors that may occur during the data retrieval or export.
+        console.error('Export failed:', error);
+      }
+    };
+  
+    exportData();
+  }
   
   /*exportDB(){  
     lastValueFrom(
@@ -219,10 +353,10 @@ export class ArchitectureRefactoringHelperComponent {
       downloadLink.remove();
     });
   }*/
-  importDB() {
+  importDB2() {
     this.importInput?.nativeElement.click();
   }
-  handleSessionImport(event: Event){
+  handleSessionImport3(event: Event){
     const files: FileList | null = (event.currentTarget as HTMLInputElement)
       .files;
     if (files != null && files.length > 0) {
@@ -293,5 +427,162 @@ export class ArchitectureRefactoringHelperComponent {
           });
       });
     }
+  }
+  importDB4() {
+    this.importInput?.nativeElement.click();
+  }
+  
+  handleSessionImport5(event: Event) {
+    const files: FileList | null = (event.currentTarget as HTMLInputElement).files;
+    if (files != null && files.length > 0) {
+      const file = files[0];
+      const reader = new FileReader();
+  
+      reader.onload = async (event) => {
+        try {
+          if (event.target) {
+            const value: string = event.target.result as string;
+            const parsedData = JSON.parse(value);
+  
+            if (parsedData.projectDescription) {
+              const projectDescriptions: ProjectDescription[] = parsedData.projectDescription;
+              await this.importProjectDescriptions(projectDescriptions);
+            }
+  
+            if (parsedData.strategicGoals) {
+              const strategicGoals: StrategicGoals[] = parsedData.strategicGoals;
+              await this.importStrategicGoals(strategicGoals);
+            }
+  
+            if (parsedData.objectives) {
+              const objectives: Objectives[] = parsedData.objectives;
+              await this.importObjectives(objectives);
+            }
+  
+            if (parsedData.scenario) {
+              const scenarios: Scenario[] = parsedData.scenario;
+              await this.importScenarios(scenarios);
+            }
+  
+            this.utilService.callSnackBar('Data imported successfully.');
+          }
+        } catch (error) {
+          console.error(error);
+          this.utilService.callSnackBar('Error importing data. Please check the file format.');
+        }
+      };
+  
+      reader.readAsText(file);
+    }
+  }
+  
+
+
+  importDB() {
+    this.importInput?.nativeElement.click();
+  }
+  
+  handleSessionImport(event: Event) {
+    const files: FileList | null = (event.currentTarget as HTMLInputElement).files;
+    if (files != null && files.length > 0) {
+      const file = files[0];
+      const reader = new FileReader();
+  
+      reader.onload = async (event) => {
+        try {
+          if (event.target) {
+            const value: string = event.target.result as string;
+            const parsedData = JSON.parse(value);
+  
+            if (parsedData.projectDescription) {
+              const projectDescriptions: ProjectDescription[] = parsedData.projectDescription;
+              await this.importProjectDescriptions(projectDescriptions);
+            }
+  
+            if (parsedData.strategicGoals) {
+              const strategicGoals: StrategicGoals[] = parsedData.strategicGoals;
+              await this.importStrategicGoals(strategicGoals);
+            }
+  
+            if (parsedData.objectives) {
+              const objectives: Objectives[] = parsedData.objectives;
+              await this.importObjectives(objectives);
+            }
+  
+            if (parsedData.scenario) {
+              const scenarios: Scenario[] = parsedData.scenario;
+              await this.importScenarios(scenarios);
+            }
+  
+            this.utilService.callSnackBar('Data imported successfully.');
+          }
+        } catch (error) {
+          console.error(error);
+          this.utilService.callSnackBar('Error importing data. Please check the file format.');
+        }
+      };
+  
+      reader.readAsText(file);
+    }
+  }
+  
+  private async importProjectDescriptions(projectDescriptions: ProjectDescription[]): Promise<void> {
+    const promises: Promise<void>[] = [];
+    for (const projectDescription of projectDescriptions) {
+      promises.push(
+        lastValueFrom(
+          this.projectDescriptionService.addProjectDescription({
+            body: projectDescription
+          })
+        )
+      );
+    }
+  
+    await Promise.all(promises);
+  }
+  
+  private async importStrategicGoals(strategicGoals: StrategicGoals[]): Promise<void> {
+    const promises: Promise<void>[] = [];
+    for (const strategicGoal of strategicGoals) {
+      promises.push(
+        lastValueFrom(
+          this.strategicGoalsService.addStrategicGoals({
+            body: strategicGoal
+          })
+        )
+      );
+    }
+  
+    await Promise.all(promises);
+  }
+  
+  private async importObjectives(objectives: Objectives[]): Promise<void> {
+    const promises: Promise<void>[] = [];
+    for (const objective of objectives) {
+      promises.push(
+        lastValueFrom(
+          this.objectivesService.addObjectives({
+            body: objective
+          })
+        )
+      );
+    }
+  
+    await Promise.all(promises);
+  }
+  
+  private async importScenarios(scenarios: Scenario[]): Promise<void> {
+    const promises: Promise<void>[] = [];
+    for (const scenario of scenarios) {
+      promises.push(
+        lastValueFrom(
+          this.scenarioService.addScenario({
+            body: scenario
+          })
+        )
+      );
+    }
+  
+    await Promise.all(promises);
   }
 }
