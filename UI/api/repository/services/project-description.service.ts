@@ -27,7 +27,6 @@ export class ProjectDescriptionService extends BaseService {
 
   static readonly ListProjectDescriptionPath = '/api/v1/projects/project-descriptions';
 
-
   listProjectDescriptionResponse(params?:{
   }): Observable<StrictHttpResponse<Array<ProjectDescription>>> {
 
@@ -53,17 +52,17 @@ export class ProjectDescriptionService extends BaseService {
       );
   }
 
-
   static readonly AddProjectDescriptionPath = '/api/v1/projects/project-descriptions';
-  /**
-   * Path part for operation listScenario
-   */
-  //static readonly ListScenarioPath = '/api/v1/projects/projects/{projectId}/scenarios';
-  //static readonly ListProjectDescriptionPath = '/api/v1/projects/projects/{projectId}/project-description';
- 
 
+  updateProjectDescription(params: {
+    id: number;
+    body?: ProjectDescription
+  }): Observable<void> {
 
-  static readonly UpdateProjectDescriptionPath = '/api/v1/projects/project-descriptions/{id}';
+    return this.updateProjectDescription$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
 
   updateProjectDescription$Response(params: {
     id: number;
@@ -87,18 +86,16 @@ export class ProjectDescriptionService extends BaseService {
     );
   }
 
+  static readonly UpdateProjectDescriptionPath = '/api/v1/projects/project-descriptions/{id}';
 
-
-  updateProjectDescription(params: {
-    id: number;
+  addProjectDescription(params?: {
     body?: ProjectDescription
   }): Observable<void> {
-
-    return this.updateProjectDescription$Response(params).pipe(
+      
+    return this.addProjectDescription$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
-
 
   addProjectDescription$Response(params?: {
     body?: ProjectDescription
@@ -118,17 +115,6 @@ export class ProjectDescriptionService extends BaseService {
       })
     );  
   }
-
-
-  addProjectDescription(params?: {
-    body?: ProjectDescription
-  }): Observable<void> {
-      
-    return this.addProjectDescription$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
-    );
-  }
-
 
   static readonly DeleteProjectDescriptionPath = '/api/v1/projects/project-descriptions/{id}';
 

@@ -8,9 +8,6 @@ import { StrictHttpResponse } from '../strict-http-response';
 import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
-import { UtilService } from 'src/app/services/util.service';
-import { BehaviorSubject, lastValueFrom } from 'rxjs';
-import { StrategicGoals } from '../models/strategic-goals';
 import { Objectives } from '../models/objectives';
 @Injectable({
   providedIn: 'root',
@@ -24,7 +21,6 @@ export class ObjectivesService extends BaseService {
   }
 
   static readonly ListObjectivesPath = '/api/v1/projects/objectives';
-
 
   listObjectivesResponse(params?:{
   }): Observable<StrictHttpResponse<Array<Objectives>>> {
@@ -51,16 +47,6 @@ export class ObjectivesService extends BaseService {
       );
   }
 
-
-  static readonly AddObjectivesPath = '/api/v1/projects/objectives';
-  /**
-   * Path part for operation listScenario
-   */
-  //static readonly ListScenarioPath = '/api/v1/projects/projects/{projectId}/scenarios';
-  //static readonly ListStrategicGoalsPath = '/api/v1/projects/projects/{projectId}/project-description';
- 
-
-
   static readonly UpdateObjectivesPath = '/api/v1/projects/objectives/{id}';
 
   updateObjectives$Response(params: {
@@ -85,7 +71,7 @@ export class ObjectivesService extends BaseService {
     );
   }
 
-
+  static readonly AddObjectivesPath = '/api/v1/projects/objectives';
 
   updateObjectives(params: {
     id: number;
@@ -96,7 +82,6 @@ export class ObjectivesService extends BaseService {
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
-
 
   addObjectives$Response(params?: {
     body?: Objectives
@@ -117,7 +102,6 @@ export class ObjectivesService extends BaseService {
     );  
   }
 
-
   addObjectives(params?: {
     body?: Objectives
   }): Observable<void> {
@@ -126,7 +110,6 @@ export class ObjectivesService extends BaseService {
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
-
 
   static readonly DeleteObjectivesPath = '/api/v1/projects/objectives/{id}';
 

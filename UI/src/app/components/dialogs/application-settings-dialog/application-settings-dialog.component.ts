@@ -11,7 +11,6 @@ import { lastValueFrom } from 'rxjs';
 import { RefactoringApproach } from '../../../../../api/repository/models/refactoring-approach';
 import { UtilService } from '../../../services/util.service';
 import { ProjectService } from '../../../services/project.service';
-import { ProjectSessionService } from '../../../../../api/repository/services/project-session-service';
 
 @Component({
   selector: 'app-application-settings-dialog',
@@ -27,32 +26,12 @@ export class ApplicationSettingsDialogComponent {
     public dialog: MatDialog,
     public permissionService: PermissionService,
     private refactoringApproachService: RefactoringApproachService,
-    private projectSessionService: ProjectSessionService,
     private utilService: UtilService
   ) {}
 
   onCancelClicked() {
     this.dialogRef.close();
   }
-
-  importDB() {
-      this.importInput?.nativeElement.click();
-  }
-  /*exportDB() {
-    lastValueFrom(
-      this.projectSessionService.listProjectSession({
-        withDetails: true
-      })
-    ).then((projectSessions: ProjectSession[]) => {
-      const downloadLink: HTMLAnchorElement = document.createElement('a');
-      downloadLink.download = 'approaches.json';
-      const fileContent: string = JSON.stringify(ProjectSessions);
-      downloadLink.href = 'data:text/plain;charset=utf-16,' + fileContent;
-      downloadLink.click();
-      downloadLink.remove();
-    });
-  
-  }*/
 
   exportApproaches() {
     lastValueFrom(

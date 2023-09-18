@@ -8,11 +8,8 @@ import { ProjectService } from 'src/app/services/project.service';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AttributeOptionsService } from 'src/app/services/attribute-options.service';
 import { QualityCategory, RecommendationSuitability } from 'api/repository/models';
-import { ApproachRecommendationService } from 'src/app/services/approach-recommendation.service';
-import { ProjectSessionService } from '../../../../../api/repository/services/project-session-service';
+import { ApproachRecommendationService } from 'src/app/services/approach-recommendation.service';;
 import { lastValueFrom } from 'rxjs';
-import { RefactoringApproach } from '../../../../../api/repository/models/refactoring-approach';
-import { ProjectSession } from '../../../../../api/repository/models/project-session';
 import { ProjectDescription} from '../../../../../api/repository/models/project-description';
 import { ProjectDescriptionService } from '../../../../../api/repository/services/project-description.service';
 import { StrategicGoalsService } from 'api/repository/services/strategic-goals.service';
@@ -21,7 +18,6 @@ import { ScenarioService } from 'api/repository/services';
 import { Scenario } from 'api/repository/models';
 import { ObjectivesService } from 'api/repository/services/objectives-service';
 import { Objectives } from 'api/repository/models/objectives';
-import { AppModule } from 'src/app/app.module';
 import { concatMap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 @Component({
@@ -44,7 +40,6 @@ export class ArchitectureRefactoringHelperComponent {
     public projectService: ProjectService,
     public attributeOptionsService: AttributeOptionsService,
     public recommendationService: ApproachRecommendationService,
-    public projectSessionService: ProjectSessionService,
     public projectDescriptionService: ProjectDescriptionService,
     public strategicGoalsService: StrategicGoalsService,
     public objectivesService: ObjectivesService,
