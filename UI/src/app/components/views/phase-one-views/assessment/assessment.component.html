@@ -33,9 +33,10 @@
             <mat-card class="strategicGoal-card" class="mat-elevation-z8">
               <mat-card-title>Assessment
                 <button  *ngIf = "strategicGoalsList.length == 0" style="margin-left: 10px; margin-bottom: 10px" mat-mini-fab class="attribute-button" color="primary"
-                  (click)="addEmptyStrategicGoals()">
+                  ><!--(click)="addEmptyStrategicGoals()-->
                   <mat-icon>add</mat-icon>
                 </button>
+                <!--<button (click)="updateValueOccurrences2()" (click)="updateValueOccurrences()"></button>-->
               </mat-card-title>
           
           
@@ -54,7 +55,7 @@
                     
                       
                       <div fxLayout="column"  fxLayoutGap="10px" style="padding:5px;" ><!--style="width: 50%"-->
-                        <h2>Scenario Details</h2>
+                        <!--<h2>Scenario Details</h2>-->
                         <div fxLayout="row"  fxLayoutGap="10px" style="padding:5px;" ><!--style="width: 50%"-->
                         
                         <mat-form-field appearance="outline" >
@@ -90,74 +91,11 @@
                         <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
                      
                           <!--<mat-tab-group>-->
-                            <mat-form-field appearance="fill" fxFlex="70">
-                              
-                                <mat-label>Description:</mat-label>
-  
-                                
-                                  <input matInput readonly="true" matInput [(ngModel)]="currentSelectedscenario.description" required />
-                               
 
-            
-                              <!--<ng-container *ngFor="let cScen of  currentSelectedscenario">
-                               <mat-label>Description:</mat-label>
-                              <input matInput readonly="true" matInput [(ngModel)]="cScen.description"  required />
-                              </ng-container>-->
-                            </mat-form-field>
 
-                            <mat-form-field  appearance="fill" fxFlex="15"> 
-                                <mat-label>Importance:</mat-label>
-                                <!-- <ng-container *ngIf="currentSelectedscenario != undefined;"> -->
-                               <!-- <ng-container *ngFor="let qa of  currentSelectedscenario">-->
-                                
-                                <input matInput readonly="true" matInput [(ngModel)]="currentSelectedscenario.importance" required />
-                             
-                              <!--</ng-container> -->
-                            <!--</ng-container>  -->
-                            </mat-form-field>
 
-                            <mat-form-field appearance="fill" fxFlex="15">
-                              <mat-label>Difficulty:</mat-label>
 
-                                
-                                <input matInput readonly="true" matInput [(ngModel)]="currentSelectedscenario.difficulty"  required />
 
-                            </mat-form-field>
-
-                            <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"></div>
-                            <h2>Architecture Suitability</h2>
-                            <div fxLayout="row">
-
-                              <mat-form-field class="description-field" appearance="fill">
-                                <mat-label>Implementable Using</mat-label>
-                                <mat-select [(value)]="assessment.implementedPattern" multiple (selectionChange)="updateValueOccurrences()">
-                                  <mat-option *ngFor="let goalstype of enumKeys2" [value]="goalstype">
-                                   <!--  <div *ngFor="let value of selectedValues">-->
-                                    {{ goalstype }}<!--({{ valueOccurrences[value] || 0 }} times)</div>-->
-                                  </mat-option>
-                                </mat-select>
-                              </mat-form-field>
-
-                              <mat-form-field class="description-field" appearance="fill">
-                                <mat-label>Preferred Pattern</mat-label>
-                                <mat-select [(value)]="assessment.preferredPattern"><!-- (selectionChange)="updateValueOccurrences2()-->
-                                  
-                                  <mat-option *ngFor="let goalstype of enumKeys2" (onSelectionChange)="updateValueOccurrences2()" [value]="goalstype">
-                                   <!-- <div *ngFor="let value of selectedValues">-->
-                                    {{ goalstype }} <!-- ({{ valueOccurrences[value] || 0 }} times)</div>-->
-                                  </mat-option>
-                                </mat-select>
-                              </mat-form-field>
-
-                                                     
-                             
-                            
-                            </div>
-                             <mat-form-field class="description-field" appearance="fill">
-                                <mat-label label="Explanation">Explanation</mat-label>
-                                <textarea matInput [(ngModel)]="assessment.explanation" (change)="updateValueOccurrences3()"></textarea>
-                              </mat-form-field>
-  
                             </div>
                             </div>
 
@@ -191,25 +129,66 @@
         
         </mat-card>
           <mat-card class="mat-elevation-z8">
-                  <mat-card-title>Scenarios</mat-card-title>
+            <!--<button (click)="updateValueOccurrences2()" (click)="updateValueOccurrences()"></button>-->
+                 <h2>Architecture Suitability</h2> <mat-card-title>Scenarios</mat-card-title>
+                  
                   <mat-accordion>
                     <ng-container *ngFor="let qa of  scenarioList">
                       <ng-container *ngIf="scenarioList.length > 0">
-                        <mat-expansion-panel>
+                        <mat-expansion-panel style="height:100px;" hideToggle >
                           <mat-expansion-panel-header>
                             <mat-panel-title>
                               <section>
-                                <mat-checkbox #checkboxName class="example-margin" (click)="$event.stopPropagation()"
-                                  (keydown)="$event.stopPropagation()"
+                                <!--<mat-checkbox #checkboxName class="example-margin" (click)="selectCheckBox(check_box_type.CHECKED)" [checked]="currentlyChecked === check_box_type.CHECKED"
+                                  
                                   (change)="addOrRemoveScenarioForAssessment(qa);">
-                                  <!--[checked]="addOrRemoveScenarioForAssessment(qa.name)" >--><!--selectScenario-->
-                                  {{ qa.name }}</mat-checkbox>
+                                  [checked]="addOrRemoveScenarioForAssessment(qa.name)" >--><!--selectScenario
+                                  </mat-checkbox>-->{{"Name: " + qa.name }}
                               </section>
                             </mat-panel-title>
-                            <mat-panel-description> </mat-panel-description>
+                            <mat-panel-description>{{"Importance: " + qa.importance }}</mat-panel-description>
+                            <mat-panel-description>{{"Difficulty: " + qa.difficulty}}</mat-panel-description>
+                            <mat-panel-description>{{"Explanation: " + qa.description}}</mat-panel-description>
+                            <section>
+                              <h2>Architecture Suitability</h2>
+                              <!--<ng-container *ngIf="scenarioList.length > 0">     
+                                <div  *ngFor="let scenario of scenarioList" cdkDragLockAxis="y"
+                                cdkDragBoundary=".drop-list"   >-->
+                                
+                              <div fxLayout="row" padding>
+                               
+                                <mat-form-field class="description-field" appearance="outline">
+                                  <mat-label>Implementable Using</mat-label>
+                                  <mat-select [(value)]="qa.implementedPattern" multiple>
+                                    <mat-option *ngFor="let goalstype of enumKeys2" [value]="goalstype">
+                                     <!--  <div *ngFor="let value of selectedValues">-->
+                                      {{ goalstype }}<!--({{ valueOccurrences[value] || 0 }} times)</div>-->
+                                    </mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+  
+                                <mat-form-field class="description-field" appearance="outline">
+                                  <mat-label>Preferred Pattern</mat-label>
+                                  <mat-select [(value)]="qa.preferredPattern"><!-- (selectionChange)="updateValueOccurrences2()-->
+                                    
+                                    <mat-option *ngFor="let goalstype of enumKeys2"  [value]="goalstype">
+                                     <!-- <div *ngFor="let value of selectedValues">-->
+                                      {{ goalstype }} <!-- ({{ valueOccurrences[value] || 0 }} times)</div>-->
+                                    </mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                            
+                               <mat-form-field class="description-field" appearance="outline">
+                                  <mat-label  label="Explanation">Explanation</mat-label>
+                                  <textarea matInput [(ngModel)]="qa.explanation"></textarea>
+                                </mat-form-field>
+                            
+                              </div>      
+                              
+                              <!-- </div>
+                              </ng-container> -->               
+                            </section>
                           </mat-expansion-panel-header>
-                
-
                         </mat-expansion-panel>
                       </ng-container>
                 

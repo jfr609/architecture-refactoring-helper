@@ -1,9 +1,6 @@
 import {
   AfterViewInit,
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-  NgModule,
-  OnInit
+  Component
 } from '@angular/core';
 import {
   CdkDragDrop,
@@ -22,11 +19,6 @@ import { ProjectService } from 'src/app/services/project.service';
 import { UtilService } from 'src/app/services/util.service';
 import { Languages } from 'api/repository/models/languages';
 import { Patterns } from 'api/repository/models/patterns';
-import {MatButtonModule} from '@angular/material/button';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatNativeDateModule} from '@angular/material/core';
 import { StrategicGoals } from 'api/repository/models';
 import { Assessment } from 'api/repository/models/assessment';
 import {
@@ -41,6 +33,7 @@ import { ScenarioService } from 'api/repository/services';
 import { AssessmentService } from 'api/repository/services/assessment-service';
 
 
+enum CheckBoxType { CHECKED, NONE };
 @Component({
   selector: 'app-assessment',
   templateUrl: './assessment.component.html',
@@ -93,18 +86,6 @@ export class AssessmentComponent implements AfterViewInit {
   newStrategicGoalsList = new Array<StrategicGoals>();
   updatingStrategicGoalsList = new Array<StrategicGoals>();
 
-  options = [
-    { label: 'Option 1', value: 'Monolith' },
-    { label: 'Option 2', value: 'Microservices' },
-    { label: 'Option 3', value: 'Mode-View-Controller' },
-    { label: 'Option 4', value: 'Pipe-Filter'}
-  ];
-  options2 = [
-    { label: 'Option 1', value: 'Monolith' },
-    { label: 'Option 2', value: 'Microservices' },
-    { label: 'Option 3', value: 'Mode-View-Controller' },
-    { label: 'Option 4', value: 'Pipe-Filter'}
-  ];
   selectedValues: string[] = [];
   valueOccurrences2: { [key: string]: number } = {};
   valueOccurrences: { [value: string]: number } = {};
@@ -116,15 +97,11 @@ export class AssessmentComponent implements AfterViewInit {
     public utilService: UtilService,
     public scenarioService: ScenarioService,
     public assessmentService: AssessmentService
-    
-
   ) {
-    this.enumKeys1 = Object.keys(this.ratingLevel);
     this.enumKeys = Object.keys(this.languages);
+     this.enumKeys1 = Object.keys(this.ratingLevel);
     this.enumKeys2 = Object.values(this.patterns);
     this.enumKeys3 = Object.values(this.patterns);
-
-
   }
 
   ngAfterViewInit(): void {
@@ -134,8 +111,6 @@ export class AssessmentComponent implements AfterViewInit {
       this.projectService.requestProjectAttributes(),
       this.attributesService.requestQualities(),
       this.projectService.requestScenarios(),
-
-      //this.
     ]).then(() => {
       this.scenarioList = this.projectService.scenarios.value;
       this.strategicGoalsList = this.projectService.strategicGoals.value;
@@ -157,107 +132,42 @@ export class AssessmentComponent implements AfterViewInit {
     this.strategicGoalsList.push(emptyStrategicGoals);
     this.newStrategicGoalsList.push(emptyStrategicGoals);
   }*/
-  addEmptyStrategicGoals(): void {
-    let emptyStrategicGoals: StrategicGoals = {
-      method: '',
-      owner: '',
-      participants: ''
 
-    };
-    this.strategicGoalsList.push(emptyStrategicGoals);
-    this.newStrategicGoalsList.push(emptyStrategicGoals);
-  }
-  /*addObjectives(): void {
-    let emptyObjective: Objectives = {
-      objectiveId: counter(this.k),
-      objective: '',
-
-    };
-    this.objectivesList.push(emptyObjective);
-    this.newObjectivesList.push(emptyObjective);
-  }*/
-  updateValueOccurrences() {
-    this.valueOccurrences = {};
-    for (const value of this.selectedValues) {
-      if (this.valueOccurrences[value]) {
-        this.valueOccurrences[value]++;
-      } else {
-        this.valueOccurrences[value] = 1;
-      }
+  updateValueOccurrencesImplementedPattern() {
+    for (let patternsOfscenariolist of this.scenarioList) {
+      if(patternsOfscenariolist.implementedPattern != null){
+        if(patternsOfscenariolist.implementedPattern.includes('Monolith')){
+          this.assessmentService.increaseCumulatedImplementedPattern1();
+        } if(patternsOfscenariolist.implementedPattern.includes('Microservices')){
+          this.assessmentService.increaseCumulatedImplementedPattern2();
+        } if(patternsOfscenariolist.implementedPattern.includes('Model-View-Controller')){
+          this.assessmentService.increaseCumulatedImplementedPattern3();
+        } if(patternsOfscenariolist.implementedPattern.includes('Pipe-Filter')){
+          this.assessmentService.increaseCumulatedImplementedPattern3();
+        }
+      } 
     }
-    if(this.assessment.implementedPattern == "Monolith"){
-      //this.cumulatedimplementedPattern1++;
-      console.log(this.cumulatedimplementedPattern1);
-      this.assessmentService.increaseCumulatedImplementedPattern1();
-      this.assessmentService.cumulatedimplementedPattern1++;
+      console.log(this.assessmentService.cumulatedimplementedPattern1);
+      console.log(this.assessmentService.cumulatedimplementedPattern2);
+      console.log(this.assessmentService.cumulatedimplementedPattern3);
+}
+  updateValueOccurrencesPreferredPattern() {
+    for (let patternsOfscenariolist of this.scenarioList) {
+      if(patternsOfscenariolist.preferredPattern != null){
+        if( patternsOfscenariolist.preferredPattern == 'Monolith'){
+          this.assessmentService.increaseCumulatedPreferredPattern1();
+        } else if( patternsOfscenariolist.preferredPattern == 'Microservices'){
+          this.assessmentService.increaseCumulatedPreferredPattern2();
+        } else if(patternsOfscenariolist.preferredPattern == 'Model-View-Controller'){
+          this.assessmentService.increaseCumulatedPreferredPattern3();
+        } else if(patternsOfscenariolist.preferredPattern =='Pipe-Filter'){
+          this.assessmentService.increaseCumulatedPreferredPattern3();
+        }
+      } 
     }
-    else if(this.assessment.implementedPattern == "Microservices"){
-      this.cumulatedimplementedPattern2++;
-      console.log(this.cumulatedimplementedPattern2);
-      this.assessmentService.cumulatedimplementedPattern2++;
-      this.assessmentService.increaseCumulatedImplementedPattern2();
-      console.log("cumulatedimplementedPattern2: " + this.assessmentService.cumulatedimplementedPattern2)
-    }
-    else if(this.assessment.implementedPattern == "Mode-View-Controller"){
-      this.cumulatedimplementedPattern3++;
-      console.log(this.cumulatedimplementedPattern3);
-      this.assessmentService.cumulatedimplementedPattern3++;
-      this.assessmentService.increaseCumulatedImplementedPattern3();
-    }
-    else if(this.assessment.implementedPattern == "Pipe-Filter"){
-
-      this.cumulatedimplementedPattern3++;
-      console.log(this.cumulatedimplementedPattern3);
-      this.assessmentService.cumulatedimplementedPattern1++;
-      this.assessmentService.increaseCumulatedImplementedPattern3();
-    }
-
-
-
-
-
-
-    //console.log(this.valueOccurrences);
-    //console.log(this.assessment.implementedPattern);
-    //console.log("log for 1 working?");
-  }
-  updateValueOccurrences2() {
-    this.valueOccurrences = {};
-    for (const value of this.selectedValues) {
-      if (this.valueOccurrences[value]) {
-        this.valueOccurrences[value]++;
-      } else {
-        this.valueOccurrences[value] = 1;
-      }
-    }
-    if(this.assessment.preferredPattern == "Monolith"){
-      this.cumulatedpreferredPattern1++;
-      console.log(this.cumulatedpreferredPattern1);
-      this.assessmentService.cumulatedpreferredPattern1++;
-    }
-    else if(this.assessment.preferredPattern == "Microservices"){
-      this.cumulatedpreferredPattern2++;
-      console.log(this.cumulatedpreferredPattern2);
-      this.assessmentService.cumulatedpreferredPattern2++;
-    }
-    else if(this.assessment.preferredPattern == "Mode-View-Controller"){
-      this.cumulatedpreferredPattern3++;
-      this.assessmentService.cumulatedpreferredPattern3++;
-      console.log(this.cumulatedpreferredPattern3);
-    }
-
-    else if(this.assessment.preferredPattern == "Pipe-Filter"){
-      this.cumulatedpreferredPattern3++;
-      this.assessmentService.cumulatedpreferredPattern3++;
-      console.log(this.cumulatedpreferredPattern3);
-    }
-    //console.log(this.valueOccurrences);
-    //console.log(this.assessment.preferredPattern)
-    //console.log("log for 2 working?");
-  }
-  updateValueOccurrences3() {
-    console.log(this.assessment.explanation);
-   
+    console.log(this.assessmentService.cumulatedpreferredPattern1);
+    console.log(this.assessmentService.cumulatedpreferredPattern2);
+    console.log(this.assessmentService.cumulatedpreferredPattern3);
   }
 
   deleteStrategicGoals(strategicGoals: StrategicGoals): void {
@@ -409,7 +319,7 @@ export class AssessmentComponent implements AfterViewInit {
   }
 
   addOrRemoveScenarioForAssessment(qa: Scenario) {
-    this.pastSelectedscenario = false;
+    //this.pastSelectedscenario = false;
     this.currentSelectedscenario = qa;
 
         this.currentSelectedscenario.description =qa.description;
@@ -419,7 +329,7 @@ export class AssessmentComponent implements AfterViewInit {
         this.assessment.explanation = qa.explanation;
         this.assessment.preferredPattern = qa.preferredPattern;
         this.assessment.implementedPattern = qa.implementedPattern;
-       this.pastSelectedscenario=  this.currentSelectedscenario ;
+       //this.pastSelectedscenario=  this.currentSelectedscenario ;
     
     }
 
@@ -525,13 +435,15 @@ export class AssessmentComponent implements AfterViewInit {
   }
 
   saveChanges() {
+    this.updateValueOccurrencesImplementedPattern();
+    this.updateValueOccurrencesPreferredPattern();
     const data: ConfirmDialogData = {
       title: 'Save Changes?',
       message: `Do you really want to save all changes?`,
       confirmButtonText: 'Confirm',
       cancelButtonText: 'Cancel'
     };
-
+    
     
     /*this.scenarioList[4] = this.scenarioList.implented_using;
     this.scenarioList[5] = this.scenarioList.preferred_patterns;

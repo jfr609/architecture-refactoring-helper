@@ -47,10 +47,4 @@ export class AssessmentService extends BaseService {
   increaseCumulatedPreferredPattern3() {
     this.cumulatedpreferredPattern3++;
   }
-
-
-
-
-  
-
 }
