@@ -4,8 +4,7 @@ import {
   transferArrayItem
 } from '@angular/cdk/drag-drop';
 import { ProjectDescriptionService } from 'api/repository/services/project-description.service';
-import {Component, CUSTOM_ELEMENTS_SCHEMA, NgModule, OnInit} from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
 import { RatingLevel, ProjectDescription } from 'api/repository/models';
 import {
   ConfirmDialogComponent,
@@ -16,12 +15,6 @@ import { ProjectService } from 'src/app/services/project.service';
 import { UtilService } from 'src/app/services/util.service';
 import { Languages } from 'api/repository/models/languages';
 import { Patterns } from 'api/repository/models/patterns';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatNativeDateModule } from '@angular/material/core';
-
 
 @Component({
   selector: 'app-project-description',
@@ -38,7 +31,6 @@ export class ProjectDescriptionComponent implements OnInit {
   projectDescriptionList: any = [];
   selectedProjectDescription?: ProjectDescription;
   loadedonce = false;
-  //current commit
 
   deletingProjectDescriptionsList = new Array<ProjectDescription>();
   newProjectDescriptionsList = new Array<ProjectDescription>();
@@ -58,7 +50,6 @@ export class ProjectDescriptionComponent implements OnInit {
     this.isDataLoading = true;
     Promise.all([
       this.projectService.requestProjectDescriptionAttributes()
-      //this.attributesService.requestProjectDescriptionAttributes()
     ]).then(() => {
       this.projectDescriptionList =
         this.projectService.projectDescriptions.value;
@@ -66,9 +57,6 @@ export class ProjectDescriptionComponent implements OnInit {
         [],
         this.projectDescriptionList
       );
-      //this.qualityList = this.attributesService.getQualitiesByCategory(
-      //this.QualityCategories.Attribute
-
       this.isDataLoading = false;
     });
   }
@@ -91,11 +79,8 @@ export class ProjectDescriptionComponent implements OnInit {
   };
   this.deletingProjectDescriptionsList.splice(0);
       console.log("deleted project description");
-      //this.strategicGoalsService.deleteStrategicGoals({id: i});
       console.log("deleted strategic goals");
-      //this.objectivesService.deleteObjectives({id: i});
       console.log("deleted objectives");
-      //this.scenarioService.deleteScenario({id: i});
       console.log("deleted scenario");
     }
   
@@ -161,6 +146,7 @@ export class ProjectDescriptionComponent implements OnInit {
         }
       });
   }
+
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -177,9 +163,11 @@ export class ProjectDescriptionComponent implements OnInit {
       );
     }
   }
+
   projectDescriptionSelected(projectDescription: ProjectDescription): void {
     this.selectedProjectDescription = projectDescription;
   }
+  
   checkCurrentProjectDescription(
     currentProjectDescription?: ProjectDescription
   ): boolean {
@@ -197,11 +185,11 @@ export class ProjectDescriptionComponent implements OnInit {
   }
 
   createAll() {
-    const ok = JSON.stringify(this.projectDescriptionList.languages);
-    const ok2 = JSON.stringify(this.projectDescriptionList.patterns);
-    this.projectDescriptionList.languages = 'ok';
-
-    this.projectDescriptionList.patterns = 'ok2';
+     console.log(this.projectDescriptionList.languages);
+    this.projectDescriptionList.languages = JSON.stringify(this.projectDescriptionList.languages);
+    //this.newProjectDescriptionsList = JSON.stringify(this.newProjectDescriptionsList.languages);
+    this.projectDescriptionList.patterns = JSON.stringify(this.projectDescriptionList.patterns);
+    console.log(this.projectDescriptionList.patterns);
     if (this.newProjectDescriptionsList.length > 0) {
       this.newProjectDescriptionsList.forEach((e) => {
         this.projectDescriptionService
@@ -219,6 +207,12 @@ export class ProjectDescriptionComponent implements OnInit {
           });
       });
     }
+    console.log(this.projectDescriptionList.languages);
+    console.log(this.projectDescriptionList);
+    console.log(this.languages);
+    console.log(this.newProjectDescriptionsList);
+    this.projectDescriptionList.languages = JSON.stringify(this.projectDescriptionList.languages);
+    this.projectDescriptionList.patterns = JSON.stringify(this.projectDescriptionList.patterns);
   }
 
   deleteAll() {
@@ -265,34 +259,17 @@ export class ProjectDescriptionComponent implements OnInit {
   }
 
   saveChanges() {
+    console.log(this.projectDescriptionList.languages);
+    this.projectDescriptionList.languages = JSON.stringify(this.projectDescriptionList.languages); 
+    this.projectDescriptionList.patterns = JSON.stringify(this.projectDescriptionList.patterns);
+    console.log(this.projectDescriptionList.patterns);
     const data: ConfirmDialogData = {
       title: 'Save Changes?',
       message: `Do you really want to save all changes?`,
       confirmButtonText: 'Confirm',
       cancelButtonText: 'Cancel'
     };
-    //this.projectDescriptionList.creation_date = JSON.stringify(this.projectDescriptionList.creation_date);
-    //this.projectDescriptionList.languages.push()
-    //const ok = JSON.stringify(this.projectDescriptionList.languages);
-    //const ok2 = JSON.stringify(this.projectDescriptionList.patterns);
-    //this.projectDescriptionList.languages = 'ok';
-
-    //this.projectDescriptionList.patterns = 'ok2';
-    /*this.projectDescriptionList[0].languages = this.projectDescriptionList.systemname;
-    this.projectDescriptionList[1].languages = this.projectDescriptionList.ownership;
-    this.projectDescriptionList[2].languages = this.projectDescriptionList.creation_date;
-    this.projectDescriptionList[3].languages = this.projectDescriptionList.systemsize_LOC;
-    this.projectDescriptionList[4].languages = this.projectDescriptionList.hosting_model;
-    this.projectDescriptionList[5].languages = this.projectDescriptionList.number_of_teams;
-    this.projectDescriptionList[6].languages = this.projectDescriptionList.number_of_developers;
-    this.projectDescriptionList[7].languages = this.projectDescriptionList.processmodel;
-    this.projectDescriptionList[8].languages = this.projectDescriptionList.purpose;
-    this.projectDescriptionList[9].languages = this.projectDescriptionList.functionality;
-    this.projectDescriptionList[10].languages = this.projectDescriptionList.designdiagrams;
-    this.projectDescriptionList[11].languages = this.projectDescriptionList.architecture;
-    this.projectDescriptionList[12].languages = this.projectDescriptionList.languages;
-    this.projectDescriptionList[13].languages = this.projectDescriptionList.data_persistence;
-    //this.projectDescriptionList.patterns = JSON.stringify(this.projectDescriptionList.patterns);*/
+    console.log(this.projectDescriptionList.languages);
     this.utilService
       .createDialog(ConfirmDialogComponent, data)
       .afterClosed()
@@ -305,6 +282,7 @@ export class ProjectDescriptionComponent implements OnInit {
   }
 
   fireAll() {
+    console.log(this.projectDescriptionList.languages);
     this.createAll();
     this.deleteAll();
     this.updateAll();

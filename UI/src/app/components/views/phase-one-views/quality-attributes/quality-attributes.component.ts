@@ -30,14 +30,11 @@ export class QualityAttributesComponent implements OnInit {
   isDataLoading = true;
   ratingLevel = RatingLevel;
   enumKeys: any;
-
   scenarioList: any = [];
   selectedScenario?: Scenario;
-
   qualityList: any = [];
   readonly QualityCategories = QualityCategory;
   indeterminateList = new Array<Quality>();
-
   deletingScenariosList = new Array<Scenario>();
   newScenariosList = new Array<Scenario>();
   updatingScenariosList = new Array<Scenario>();
@@ -286,6 +283,10 @@ export class QualityAttributesComponent implements OnInit {
       confirmButtonText: 'Confirm',
       cancelButtonText: 'Cancel'
     };
+    /*this.scenarioList[0] = this.scenarioList.name;
+    this.scenarioList[1] = this.scenarioList.importance;
+    this.scenarioList[2] = this.scenarioList.difficulty;
+    this.scenarioList[3] = this.scenarioList.description;*/
     this.utilService
       .createDialog(ConfirmDialogComponent, data)
       .afterClosed()

@@ -142,28 +142,6 @@ export class ArchitectureRefactoringHelperComponent {
             );
           }
         });
-        
-      
-      
-      
-      
-      
-      /*
-
-
-
-
-
-
-
-      this.projectDescriptionService.deleteProjectDescription({id: i});
-      console.log("deleted project description");
-      this.strategicGoalsService.deleteStrategicGoals({id: i});
-      console.log("deleted strategic goals");
-      this.objectivesService.deleteObjectives({id: i});
-      console.log("deleted objectives");
-      this.scenarioService.deleteScenario({id: i});
-      console.log("deleted scenario")*/
     }
     
   }
@@ -179,8 +157,6 @@ export class ArchitectureRefactoringHelperComponent {
       })
     ).
     then((projectDescription: ProjectDescription[]) => {
-      //const downloadLink: HTMLAnchorElement = document.createElement('a');
-      ///downloadLink.download = 'project.json';
       fileContentDS= JSON.stringify(projectDescription);
     }),
     lastValueFrom(
@@ -189,8 +165,6 @@ export class ArchitectureRefactoringHelperComponent {
       })
     ).
     then((strategicGoals: StrategicGoals[]) => {
-      //const downloadLink: HTMLAnchorElement = document.createElement('a');
-      //downloadLink.download = 'project.json';
       fileContentSG = JSON.stringify(strategicGoals);
     }),
 
@@ -201,12 +175,8 @@ export class ArchitectureRefactoringHelperComponent {
       })
     ).
     then((objectives: Objectives[]) => {
-      //const downloadLink: HTMLAnchorElement = document.createElement('a');
-      //downloadLink.download = 'project.json';
       fileContentSG = JSON.stringify(objectives);
     }),
-
-
 
     lastValueFrom(
       this.scenarioService.listScenario({
@@ -267,7 +237,6 @@ export class ArchitectureRefactoringHelperComponent {
         downloadLink.click();
         downloadLink.remove();
       } catch (error) {
-        // Handle any errors that may occur during the data retrieval or export.
         console.error('Export failed:', error);
       }
     };
@@ -333,21 +302,6 @@ export class ArchitectureRefactoringHelperComponent {
     exportData();
   }
   
-  /*exportDB(){  
-    lastValueFrom(
-      this.strategicGoalsService.listStrategicGoals({
-        withDetails: true
-      })
-    ).
-    then((strategicGoals: StrategicGoals[]) => {
-      const downloadLink: HTMLAnchorElement = document.createElement('a');
-      downloadLink.download = 'project.json';
-      const fileContent: string = JSON.stringify(strategicGoals);
-      downloadLink.href = 'data:text/plain;charset=utf-16,'+ fileContent;// + fileContent;
-      downloadLink.click();
-      downloadLink.remove();
-    });
-  }*/
   importDB2() {
     this.importInput?.nativeElement.click();
   }
@@ -400,12 +354,6 @@ export class ArchitectureRefactoringHelperComponent {
           );
         }
 
-
-
-
-  //promise for strategic goals
-  //promise for objectives
-  //promise for scenarios
         Promise.all(promises)
           .then(() => {
             this.utilService.callSnackBar(
@@ -471,8 +419,6 @@ export class ArchitectureRefactoringHelperComponent {
     }
   }
   
-
-
   importDB() {
     this.importInput?.nativeElement.click();
   }

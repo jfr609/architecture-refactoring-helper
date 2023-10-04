@@ -7,6 +7,8 @@ namespace Repository.Models.Database;
 [Table(Constants.TableNameProjectDescription)]
 public class ProjectDescription
 {
+    internal string? jsonArray;
+
     [Key]
     [Required]
     
@@ -28,7 +30,7 @@ public class ProjectDescription
     [JsonPropertyName("hosting_model")]
     public string? Hosting_model { get; set; }
 
-    [JsonPropertyName("mumber_of_teams")]
+    [JsonPropertyName("number_of_teams")]
     public int? Number_of_Teams { get; set; }
 
     [JsonPropertyName("number_of_developers")]
@@ -39,13 +41,45 @@ public class ProjectDescription
 
     [JsonPropertyName("architecturepattern")]
     public string? Architecturepattern { get; set; }
-    //[JsonConverter(typeof(JsonStringEnumConverter))]
-    //public ICollection<ArchitecturePattern>? Architecturepattern { get; set; }
+    /*//[JsonConverter(typeof(JsonStringEnumConverter))]
+    //public ICollection<ArchitecturePattern>? Architecturepattern { get; set; }*/
+
+   /*[JsonPropertyName("monolith")]
+    public bool? Monolith { get; set; }
+
+    [JsonPropertyName("microservice")]
+    public bool? Microservice { get; set; }
+
+    [JsonPropertyName("serverless")]
+    public bool? Serverless { get; set; }
+
+    [JsonPropertyName("modelviewcontroller")]
+    public bool? Modelviewcontroller { get; set; }
+
+    [JsonPropertyName("Pipe-Filter")]
+    public bool? PipeFilter { get; set; }*/
+
 
     [JsonPropertyName("languages")]
     public string? Languages { get; set; }
-   // [JsonConverter(typeof(JsonStringEnumConverter))]
-    //public ICollection<Language>? Languages { get; set; }
+    //[JsonConverter(typeof(JsonStringEnumConverter))]
+    //public ICollection<Language>? Languages { get; set; }*/
+
+    /*[JsonPropertyName("java")]
+    public bool? Java { get; set; }
+    [JsonPropertyName("c++")]
+    public bool? Cpp { get; set; }
+    [JsonPropertyName("c#")]
+    public bool? Csharp { get; set; }
+    [JsonPropertyName("python")]
+    public bool? Python { get; set; }
+    [JsonPropertyName("javascript")]
+    public bool? Javascript { get; set; }
+
+    [JsonPropertyName("php")]
+    public bool? Php { get; set; }*/
+
+
 
     [JsonPropertyName("data_persistence")]
     public string? Data_Persistence { get; set; }
@@ -69,13 +103,4 @@ public class ProjectDescription
         return obj.ProjectDescriptionId == ProjectDescriptionId;
     }
 
-    /*public enum Languages
-    {
-        Java,
-        C_plus_plus,
-        Python,
-        JavaScript,
-        C_sharp,
-        PHP
-    }*/
 }

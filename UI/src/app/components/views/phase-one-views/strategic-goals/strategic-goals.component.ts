@@ -1,8 +1,6 @@
 import {
   Component,
-  CUSTOM_ELEMENTS_SCHEMA,
   Injectable,
-  NgModule,
   OnInit
 } from '@angular/core';
 import {
@@ -11,7 +9,6 @@ import {
   transferArrayItem
 } from '@angular/cdk/drag-drop';
 import { StrategicGoalsService } from 'api/repository/services/strategic-goals.service';
-import { FormControl, Validators } from '@angular/forms';
 import { RatingLevel } from 'api/repository/models';
 import {
   ConfirmDialogComponent,
@@ -29,11 +26,6 @@ import { ProjectService } from 'src/app/services/project.service';
 import { UtilService } from 'src/app/services/util.service';
 import { Languages } from 'api/repository/models/languages';
 import { Patterns } from 'api/repository/models/patterns';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatNativeDateModule } from '@angular/material/core';
 import { StrategicGoals } from 'api/repository/models';
 import { GoalsType } from 'api/repository/models/goals-type';
 import { Objectives } from 'api/repository/models/objectives';

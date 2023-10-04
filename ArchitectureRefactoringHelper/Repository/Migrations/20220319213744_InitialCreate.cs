@@ -21,8 +21,22 @@ namespace Repository.Migrations
                     Number_of_Teams = table.Column<string>(type: "INTEGER", nullable: true),
                     Number_of_Developers = table.Column<string>(type: "INTEGER", nullable: true),
                     Processmodel = table.Column<string>(type: "TEXT", nullable: true),
-                    Architecturepattern = table.Column<object>(type: "TEXT", nullable: true),
-                    Languages = table.Column<object>(type: "TEXT", nullable: true),
+                    //Architecturepattern = table.Column<object>(type: "TEXT", nullable: true),
+                    //Monolith
+                    //Microservices
+                    //Model-View-Controller
+                    //Pipe-Filter
+                    Architecturepattern = table.Column<string>(type: "TEXT", nullable: true),
+                    Languages = table.Column<string>(maxLength: 20, nullable: true),
+                    //Java = table.Column<bool>(type: "INTEGER", nullable: true),
+                    //Languages = table.Column<object>(type: "TEXT", nullable: true),
+
+                    //Java
+                    //C++
+                    //Python
+                    //JavaScript
+                    //C#
+                    //PHP
                     Data_Persistence = table.Column<string>(type: "TEXT", nullable: true),
                     Purpose = table.Column<string>(type: "TEXT", nullable: true),
                     Functionality = table.Column<string>(type: "TEXT", nullable: true),
@@ -32,6 +46,8 @@ namespace Repository.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProjectDescription", x => x.ProjectDescriptionId);
+                    table.CheckConstraint("CK_ProjectDescription_Architecturepattern", "Architecturepattern IN ('Monolith', 'Microservices', 'Model-View-Controller', 'Pipe-Filter')");
+                    table.CheckConstraint("CK_ProjectDescription_Languages", "Languages IN ('Java', 'C++', 'Python', 'JavaScript', 'C#', 'PHP')");
                 });
 
             migrationBuilder.CreateTable(

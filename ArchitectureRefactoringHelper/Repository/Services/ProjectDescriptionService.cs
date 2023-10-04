@@ -60,10 +60,25 @@ public class ProjectDescriptionService
             Number_of_Teams = projectDescription.Number_of_Teams,
             Number_of_Developers  = projectDescription.Number_of_Developers,
             Processmodel = projectDescription.Processmodel,
-            //Architecturepattern = projectDescription.Architecturepattern.ToJsonString(),
-            Architecturepattern = "Monolith",
-            //Languages = projectDescription.Languages.ToJsonString(),
-            Languages = "Java",
+            Architecturepattern = projectDescription.Architecturepattern,
+            //Architecturepattern = "Monolith",
+            /*if (projectDescription.Languages.contains("Java"){
+               Java = True;
+            }elseif (projectDescription.Languages.contains("C#"){
+                C# = True;
+            elseif (projectDescription.Languages.contains("C++"){
+                C++ = True;
+            elseif (projectDescription.Languages.contains("Python"){
+                Python = True;
+            elseif (projectDescription.Languages.contains("JavaScript"){
+                JavaScript = True;
+            elseif (projectDescription.Languages.contains("PHP"){
+                PHP = True;
+            elseif (projectDescription.Languages.contains("JavaScript"){
+                TypeScript = True;
+            } )*/
+            Languages = projectDescription.Languages,
+            //Languages = "Java",
             Data_Persistence = projectDescription.Data_Persistence,
             Purpose = projectDescription.Purpose,
             Functionality = projectDescription.Functionality,
@@ -94,9 +109,28 @@ public class ProjectDescriptionService
             Number_of_Developers  = projectDescription.Number_of_Developers,
             Processmodel = projectDescription.Processmodel,
             //Architecturepattern = projectDescription.Architecturepattern.ToJsonString(),
-            Architecturepattern = "Monolith",
-            //Languages = projectDescription.Languages.ToJsonString(),
-            Languages = "Java",
+            //Architecturepattern = "Monolith",
+            
+            //Languages = "Java",
+            
+            Architecturepattern = projectDescription.Architecturepattern,
+            //Architecturepattern = "Monolith",
+            /*if (projectDescription.Languages.contains("Java"){
+               Java = True;
+            }elseif (projectDescription.Languages.contains("C#"){
+                C# = True;
+            elseif (projectDescription.Languages.contains("C++"){
+                C++ = True;
+            elseif (projectDescription.Languages.contains("Python"){
+                Python = True;
+            elseif (projectDescription.Languages.contains("JavaScript"){
+                JavaScript = True;
+            elseif (projectDescription.Languages.contains("PHP"){
+                PHP = True;
+            elseif (projectDescription.Languages.contains("JavaScript"){
+                TypeScript = True;
+            } )*/
+            Languages = projectDescription.Languages,
             Data_Persistence = projectDescription.Data_Persistence,
             Purpose = projectDescription.Purpose,
             Functionality = projectDescription.Functionality,
