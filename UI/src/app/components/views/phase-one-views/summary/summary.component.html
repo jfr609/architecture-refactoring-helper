@@ -27,8 +27,8 @@
             <mat-card class="strategicGoal-card" class="mat-elevation-z8">
               <mat-card-title>Quality Assessment Summary
                 <button style="margin-left: 10px; margin-bottom: 10px" mat-mini-fab class="attribute-button" color="primary"
-                  (click)="addEmptyStrategicGoals()">
-                  <mat-icon>add</mat-icon>
+                  (click)="addEmptyStrategicGoals()" (click)="summarylogger()">
+                  <mat-icon>autorenew</mat-icon>
                 </button>
               </mat-card-title>
 
@@ -141,7 +141,7 @@
                           (activate)="onActivate($event)"
                           (deactivate)="onDeactivate($event)">
                         </ngx-charts-bar-horizontal>
-                        <button (click)="summarylogger()"></button>
+                       <!--  <button (click)="demo()"></button>-->
                             <!--<div>
                               <canvasjs-chart [options]="chartOptions"></canvasjs-chart>
                             </div>-->

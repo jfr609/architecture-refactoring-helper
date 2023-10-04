@@ -111,15 +111,15 @@ export class SummaryComponent implements AfterViewInit{
     this.enumKeys2 = Object.keys(this.patterns);
     //Object.assign(this, { this: this.single });
     //Object.assign(this, { this: this.implementedGraph });
-    Object.assign(this.implementedGraph, { implementedGraph: this.cumulatedimplementedPattern1 });
+    //Object.assign(this.implementedGraph, { implementedGraph: this.cumulatedimplementedPattern1 });
     //Object.assign(this.preferredGraph, { this: this.preferredGraph });
   }
 
   ngOnChanges(): void {
-    this.updateCharts();
+    /*this.updateCharts();
     this.implementedGraph[0].value = this.n++; // Update 'Monolith'
     this.implementedGraph[1].value = this.assessmentService.cumulatedimplementedPattern2; // Update 'Microservices'
-    this.implementedGraph[2].value = this.assessmentService.cumulatedimplementedPattern3; // Update 'Other'
+    this.implementedGraph[2].value = this.assessmentService.cumulatedimplementedPattern3; // Update 'Other'*/
     //Object.assign(this, { this: this.implementedGraph });
     //Object.assign(this.preferredGraph, { implementedGraph: this.preferredGraph });
     //this.preferredGraph = [...this.preferredGraph];
@@ -164,7 +164,7 @@ export class SummaryComponent implements AfterViewInit{
         "value": this.assessmentService.cumulatedpreferredPattern3
       }
     ];
-    this.implementedGraph[0].value = 4;
+    //this.implementedGraph[0].value = 4;
     //this.createChart();
     //this.createSvg();
     //this.drawBars(this.data);
@@ -204,11 +204,11 @@ export class SummaryComponent implements AfterViewInit{
   };
 
   updateCharts() {
-    this.implementedGraph[0].value = this.n++; // Update 'Monolith'
+   /* this.implementedGraph[0].value = this.n++; // Update 'Monolith'
     this.implementedGraph[1].value = this.assessmentService.cumulatedimplementedPattern2; // Update 'Microservices'
     this.implementedGraph[2].value = this.assessmentService.cumulatedimplementedPattern3; // Update 'Other'
 
-    this.assessmentService.cumulatedimplementedPattern3 = this.implementedGraph[2].value ;
+    this.assessmentService.cumulatedimplementedPattern3 = this.implementedGraph[2].value ;*/
 
 
   }
@@ -226,12 +226,13 @@ export class SummaryComponent implements AfterViewInit{
   }
 
   summarylogger(){this.recommendation();
-    this.assessmentService.increaseCumulatedImplementedPattern1();
+    /*this.assessmentService.increaseCumulatedImplementedPattern1();
     this.assessmentService.increaseCumulatedImplementedPattern2();  
     this.assessmentService.increaseCumulatedImplementedPattern3();
     this.assessmentService.increaseCumulatedPreferredPattern1();
     this.assessmentService.increaseCumulatedPreferredPattern2();
-    this.assessmentService.increaseCumulatedPreferredPattern3();
+    this.assessmentService.increaseCumulatedPreferredPattern3();*/
+    //this.assessmentService.increaseCumulatedPreferredPattern2();
     console.log(this.cumulatedimplementedPattern1);
     console.log(this.cumulatedimplementedPattern2);
     console.log(this.cumulatedimplementedPattern3);
@@ -257,9 +258,22 @@ export class SummaryComponent implements AfterViewInit{
     this.preferredGraph[1].value = this.assessmentService.cumulatedpreferredPattern2; // Update 'Microservices'
     this.preferredGraph[2].value = this.assessmentService.cumulatedpreferredPattern3; // Update 'Other'
 
+    
+
     console.log(this.preferredGraph[0].value);
     console.log(this.preferredGraph[1].value);
     console.log(this.preferredGraph[2].value);
+  }
+
+  demo(){
+    this.assessmentService.increaseCumulatedImplementedPattern1();
+    this.assessmentService.increaseCumulatedImplementedPattern2();  
+    this.assessmentService.increaseCumulatedImplementedPattern3();
+    this.assessmentService.increaseCumulatedPreferredPattern1();
+    this.assessmentService.increaseCumulatedPreferredPattern2();
+    this.assessmentService.increaseCumulatedPreferredPattern3();
+    this.summarylogger();
+    this.recommendation();
   }
 
   recommendation() {
@@ -270,13 +284,13 @@ export class SummaryComponent implements AfterViewInit{
         this.redLight = true;
         this.yellowLight = false;
         this.greenLight = false;
-    } else if (this.assessmentService.cumulatedpreferredPattern1<this.assessmentService.cumulatedpreferredPattern2) {
+    } if (this.assessmentService.cumulatedpreferredPattern1<this.assessmentService.cumulatedpreferredPattern2) {
       //ampel grün
       //window.alert('Ampel grün');
       this.greenLight = true;
       this.yellowLight = false;
       this.redLight = false;
-    } else if (this.assessmentService.cumulatedpreferredPattern1==this.assessmentService.cumulatedpreferredPattern2){
+    } if (this.assessmentService.cumulatedpreferredPattern1==this.assessmentService.cumulatedpreferredPattern2){
       //ampel gelb
       //window.alert('Ampel gelb');
       this.yellowLight = true;
@@ -287,17 +301,26 @@ export class SummaryComponent implements AfterViewInit{
 
   addEmptyStrategicGoals(): void {
     //delete this.addEmptyStrategicGoals;
-    this.deleteAll();
+    //this.deleteAll();
 
     const emptyStrategicGoals: StrategicGoals = {
       method: '',
       owner: '',
       participants: ''
     };
+
+    this.strategicGoalsList.shift();
     this.strategicGoalsList.push(emptyStrategicGoals);
+    //
+    this.newStrategicGoalsList.shift();
     this.newStrategicGoalsList.push(emptyStrategicGoals);
+    //this.newStrategicGoalsList.pop[0];
 
     
+  }
+
+  addEmptyStrategicGoals2(){
+    this.strategicGoalsList.shift();
   }
 
   deleteStrategicGoals(strategicGoals: StrategicGoals): void {
