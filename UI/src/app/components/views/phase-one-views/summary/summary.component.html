@@ -23,10 +23,10 @@
             <span> Skip to Phase 3</span>
           </button>
           </div>
-          <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center">
+          <div fxLayout="row" fxLayoutAlign="center">
             <mat-card class="strategicGoal-card" class="mat-elevation-z8">
               <mat-card-title>Quality Assessment Summary
-                <button style="margin-left: 10px; margin-bottom: 10px" mat-mini-fab class="attribute-button" color="primary"
+                <button style="margin-left: 10px;" mat-mini-fab class="attribute-button" color="primary"
                   (click)="addEmptyStrategicGoals()" (click)="summarylogger()">
                   <mat-icon>autorenew</mat-icon>
                 </button>
@@ -44,8 +44,8 @@
 
 
 
-                      <div fxLayout="column"  fxLayoutGap="10px" style="padding:5px;" ><!--style="width: 50%"-->
-                        <div fxLayout="row"  fxLayoutGap="10px" style="padding:5px;" ><!--style="width: 50%"-->
+                      <div fxLayout="column"   ><!--style="width: 50%"-->
+                         <!--<div fxLayout="row"  fxLayoutGap="10px" style="padding:5px;" >style="width: 50%"-->
 
                         <!--<mat-form-field appearance="fill" >
                           <mat-label>Quality Assessment Summary</mat-label>
@@ -57,30 +57,19 @@
                           <mat-radio-button value="2">Metric-based</mat-radio-button>
                         </mat-radio-group>-->
 
-                        </div>
-                                    <h2>Result</h2>
-                        <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
+                        <!--</div>-->
+                      
+                        <div fxLayout="column"  style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
 
                           <!--<mat-tab-group>-->
 
 
                           <h2>Implementable using</h2>
-                            <div fxLayout="row" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px">
+                            <div fxLayout="row" fxLayoutGap="10px" style="width: 100%;justify-content:center;">
                               <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
-
-
-                                <mat-form-field class="description-field" appearance="fill">
-                                  <mat-label  label="Functionality">Monolith (current)</mat-label>
-                                  <input matInput readonly="true" matInput [(ngModel)]="assessmentService.cumulatedimplementedPattern1" required />
-                                </mat-form-field>
-                              <mat-form-field class="description-field" appearance="fill">
-                                <mat-label label="Purpose">Microservices</mat-label>
-                                <input matInput readonly="true" matInput [(ngModel)]="assessmentService.cumulatedimplementedPattern2" required />
-                              </mat-form-field>
-                              <mat-form-field class="description-field" appearance="fill">
-                                <mat-label label="Purpose">Other</mat-label>
-                                <input matInput readonly="true" matInput [(ngModel)]="assessmentService.cumulatedimplementedPattern3" required />
-                              </mat-form-field>
+                                <div>Monolith (current):     {{assessmentService.cumulatedimplementedPattern1}}</div>
+                                <mat-label label="Purpose">Microservices: {{assessmentService.cumulatedimplementedPattern2}}</mat-label>
+                                <mat-label label="Purpose">Other : {{assessmentService.cumulatedimplementedPattern3}}</mat-label>
                               </div>
                               <ngx-charts-bar-horizontal
                               [view]="view"
@@ -96,32 +85,20 @@
                               (select)="onSelect($event)"
                               (activate)="onActivate($event)"
                               (deactivate)="onDeactivate($event)"
-                              
                               >
                             </ngx-charts-bar-horizontal>
-                              <
+                              
                               <div>
                                
                             </div>
                             </div>
 
                             <h2>Preferred Architecture</h2>
-                            <div fxLayout="row" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
+                            <div fxLayout="row" fxLayoutGap="10px" style="width: 100%;justify-content:center;"><!--style="width: 50%;justify-content:center"-->
                               <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
-
-
-                              <mat-form-field class="description-field" appearance="fill">
-                                <mat-label  label="Functionality">Monolith (current)</mat-label>
-                                <input matInput readonly="true" matInput [(ngModel)]="assessmentService.cumulatedpreferredPattern1" required />
-                              </mat-form-field>
-                              <mat-form-field class="description-field" appearance="fill">
-                                <mat-label label="Purpose">Microservices</mat-label>
-                                <input matInput readonly="true" matInput [(ngModel)]="assessmentService.cumulatedpreferredPattern2" required />
-                              </mat-form-field>
-                              <mat-form-field class="description-field" appearance="fill">
-                                <mat-label label="Purpose">Other</mat-label>
-                              <input matInput readonly="true" matInput [(ngModel)]="assessmentService.cumulatedpreferredPattern3" required />
-                            </mat-form-field>
+                                <div>Monolith (current):     {{assessmentService.cumulatedpreferredPattern1}}</div>
+                                <mat-label label="Purpose">Microservices: {{assessmentService.cumulatedpreferredPattern2}}</mat-label>
+                                <mat-label label="Purpose">Other : {{assessmentService.cumulatedpreferredPattern3}}</mat-label>
                             </div>
                             <!--<img  class="images" src="assets/PL2.png"style="width:363px;height:209px"/>-->
                
@@ -148,8 +125,8 @@
 
                           </div>
 
-                            <div fxLayout="row" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
-                              <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
+                            <div fxLayout="row"  style="width: 100%;justify-content:center;"><!--style="width: 50%;justify-content:center"-->
+                              <div fxLayout="column" style="width: 100%;justify-content:center;"><!--style="width: 50%;justify-content:center"-->
 
                               <h2>Migration Recommendation</h2>
 
