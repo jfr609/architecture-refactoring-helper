@@ -84,7 +84,7 @@ export class StrategicGoalsComponent implements OnInit {
     public objectivesService: ObjectivesService,
     public utilService: UtilService
   ) {
-    this.enumKeys3 = Object.keys(this.goalstype);
+    this.enumKeys3 = Object.values(this.goalstype);
     this.enumKeys4 = Object.keys(this.patterns);
   }
 
