@@ -96,12 +96,6 @@ export class ArchitectureRefactoringHelperComponent {
         })
         .subscribe({
           next: (value) => {},
-          error: (err) => {
-            console.log(err);
-            this.utilService.callSnackBar(
-              'Project Description could not be deleted.'
-            );
-          }
         });
         this.strategicGoalsService
         .deleteStrategicGoals({
@@ -109,12 +103,6 @@ export class ArchitectureRefactoringHelperComponent {
         })
         .subscribe({
           next: (value) => {},
-          error: (err) => {
-            console.log(err);
-            this.utilService.callSnackBar(
-              'Strategic Goals could not be deleted.'
-            );
-          }
         });
         this.objectivesService
         .deleteObjectives({
@@ -122,12 +110,6 @@ export class ArchitectureRefactoringHelperComponent {
         })
         .subscribe({
           next: (value) => {},
-          error: (err) => {
-            console.log(err);
-            this.utilService.callSnackBar(
-              'Objectives could not be deleted.'
-            );
-          }
         });
         this.scenarioService
         .deleteScenario({
@@ -135,15 +117,23 @@ export class ArchitectureRefactoringHelperComponent {
         })
         .subscribe({
           next: (value) => {},
+          
           error: (err) => {
             console.log(err);
+
+            window.location.reload();
             this.utilService.callSnackBar(
-              'Scenario could not be deleted.'
+              'Project Description, Strategic Goals, Objectives and Scenarios successfully deleted.'
+              
             );
           }
         });
     }
-    
+    this.utilService.callSnackBar(
+      'Project Description, Strategic Goals, Objectives and Scenarios successfully deleted.'
+      
+    );
+  
   }
   exportDB2() {
     let fileContentDS: string = "";
@@ -290,7 +280,7 @@ export class ArchitectureRefactoringHelperComponent {
   
         const downloadLink = document.createElement('a');
         downloadLink.download = 'project.json';
-        downloadLink.href = 'data:text/plain;charset=utf-16,' + JSON.stringify(combinedData);
+        downloadLink.href = 'data:text/plain;charset=utf-16,' + JSON.stringify(combinedData,null,2);
         downloadLink.click();
         downloadLink.remove();
       } catch (error) {
