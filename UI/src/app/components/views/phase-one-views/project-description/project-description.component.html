@@ -37,11 +37,8 @@
       <div class="mat-elevation-z8" cdkDropList class="drop-list" (cdkDropListDropped)="drop($event)"
         [cdkDropListData]="projectDescriptionList">
         <ng-container *ngIf="projectDescriptionList.length > 0; else emptyProjectDescriptionList">
-          <div *ngFor="let projectDescription of projectDescriptionList" [cdkDragData]="projectDescription" cdkDragLockAxis="y"
-            cdkDragBoundary=".drop-list" cdkDrag (click)="projectDescriptionSelected(projectDescription)" [ngClass]="{
-            'selected-drop-box': checkCurrentProjectDescription(projectDescription),
-            'drop-box': !checkCurrentProjectDescription(projectDescription)
-          }">
+          <div *ngFor="let projectDescription of projectDescriptionList" 
+           >
 
             <div fxLayout="row"><!--row-->
              <!-- <button (click)="refresh()"></button>-->
@@ -64,7 +61,7 @@
                  <mat-form-field appearance="fill" fxFlex="70">
                   <mat-label>Creationdate</mat-label>
                   <mat-select [(value)]="projectDescription.creation_date"></mat-select>
-                  <input matInput [(ngModel)]="projectDescription.creation_date"   [matDatepicker]="picker" required />
+                  <input matInput [(ngModel)]="projectDescription.creation_date"   [matDatepicker]="picker"  />
                   <mat-hint>MM/DD/YYYY</mat-hint>
                   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
@@ -73,51 +70,51 @@
                 <mat-form-field appearance="fill" fxFlex="70">
                   <mat-label>System Size (LOC)</mat-label><!-- change to unit int-->
                   <input mdInput
-                  type="number" matInput [(ngModel)]="projectDescription.systemsize_LOC" required />
+                  type="number"  min="0" matInput [(ngModel)]="projectDescription.systemsize_LOC"  />
                 </mat-form-field>
                 <mat-form-field appearance="fill" fxFlex="70">
                   <mat-label>Hosting Model</mat-label>
-                  <input matInput [(ngModel)]="projectDescription.hosting_model" required />
+                  <input matInput [(ngModel)]="projectDescription.hosting_model"  />
                 </mat-form-field>
                 <mat-form-field appearance="fill" fxFlex="70">
                   <mat-label>Number of Teams</mat-label>
                   <input mdInput
-                  type="number" matInput [(ngModel)]="projectDescription.number_of_teams" required />
+                  type="number"  min="0" matInput [(ngModel)]="projectDescription.number_of_teams"  />
                 </mat-form-field>
                 <mat-form-field appearance="fill" fxFlex="70">
                   <mat-label>Number of Developers</mat-label>
                   <input mdInput
-                  type="number" matInput [(ngModel)]="projectDescription.number_of_developers" required />
+                  type="number" min="0" matInput [(ngModel)]="projectDescription.number_of_developers"  />
                 </mat-form-field>
                 <mat-form-field appearance="fill" fxFlex="70">
                   <mat-label>Process Model</mat-label>
-                  <input matInput [(ngModel)]="projectDescription.processmodel" required />
+                  <input matInput [(ngModel)]="projectDescription.processmodel"  />
                 </mat-form-field>
 
               </div>
-              <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:start;padding:5px"><!--style="width: 50%;justify-content:center"-->
+              <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:start;padding:5px;height:100%"><!--style="width: 50%;justify-content:center"-->
                 <h2>System Description</h2>
                 <!--<mat-tab-group>-->
                   <mat-tab-group style="height: 75%;">  
 
-                <mat-tab label="Purpose">
-                  <mat-form-field class="description-field" appearance="fill">
+                <mat-tab label="Purpose" style="width: 100%;justify-content:start;padding:5px;height:100%">
+                  <mat-form-field class="description-field" appearance="fill" >
                     <mat-label label="Purpose">Purpose</mat-label>
-                    <textarea  cdkTextareaAutosize matInput [(ngModel)]="projectDescription.purpose"></textarea>
+                    <textarea   matInput [(ngModel)]="projectDescription.purpose"  style="height:400px"></textarea>
                 </mat-form-field>
                 </mat-tab>
 
-                <mat-tab label="Functionality">
+                <mat-tab label="Functionality" style="width: 100%;justify-content:start;padding:5px;height:100%">
                 <mat-form-field class="description-field" appearance="fill">
                   <mat-label  label="Functionality">Functionality</mat-label>
-                  <textarea cdkTextareaAutosize matInput [(ngModel)]="projectDescription.functionality"></textarea>
+                  <textarea  matInput [(ngModel)]="projectDescription.functionality"></textarea>
                 </mat-form-field>
                 </mat-tab>
 
-                <mat-tab label="Design Diagrams">
+                <mat-tab label="Design Diagrams" style="width: 100%;justify-content:start;padding:5px;height:100%">
                 <mat-form-field class="description-field" appearance="fill">
                   <mat-label label="Design Diagrams">Design Diagrams</mat-label>
-                  <textarea  cdkTextareaAutosize matInput [(ngModel)]="projectDescription.designdiagrams"></textarea>
+                  <textarea  matInput [(ngModel)]="projectDescription.designdiagrams"></textarea>
                 </mat-form-field>
                 <button mat-button id="upload" >
                   <mat-icon>move_up</mat-icon>
@@ -142,7 +139,7 @@
 
             <mat-form-field class="description-field" appearance="fill">
               <mat-label>Languages</mat-label>
-              <mat-select [(value)]="projectDescription.languages" ><!-- multiple-->
+              <mat-select [(value)]="projectDescription.languages" multiple><!-- multiple-->
                 <mat-option *ngFor="let language of enumKeys" [value]="language">
                   {{ language }}
                 </mat-option>
