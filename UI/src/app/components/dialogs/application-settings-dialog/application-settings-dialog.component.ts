@@ -19,6 +19,8 @@ import { ProjectService } from '../../../services/project.service';
 })
 export class ApplicationSettingsDialogComponent {
   @ViewChild('importInput') importInput!: ElementRef;
+  validAuthentication: boolean = false;
+  password: string = '';
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -28,6 +30,12 @@ export class ApplicationSettingsDialogComponent {
     private refactoringApproachService: RefactoringApproachService,
     private utilService: UtilService
   ) {}
+
+  validateAuthentication() {
+    if (this.password == 'admin') {
+      this.validAuthentication = true;
+    }
+  }
 
   onCancelClicked() {
     this.dialogRef.close();

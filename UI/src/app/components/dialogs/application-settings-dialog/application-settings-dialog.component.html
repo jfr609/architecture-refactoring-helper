@@ -2,6 +2,11 @@
   <h3>{{data.title}}</h3>
 </div>
 <div mat-dialog-content >
+  <mat-form-field class='margin-bottom'>
+    <mat-label>Enter Password</mat-label>
+    <input matInput  [(ngModel)]='this.password' (input)="validateAuthentication()" placeholder='*******'>
+  </mat-form-field>
+  <span *ngIf="validAuthentication">
   <mat-slide-toggle class='margin-bottom' [(ngModel)]='this.permissionService.isAdmin'>
     Show admin functions
   </mat-slide-toggle>
@@ -18,17 +23,18 @@
   <span><strong>Add</strong> a new approach to database! </span>
   </button>
 
-  <button mat-raised-button color='accent' class='margin-bottom' (click)='exportApproaches()'>
+  <button mat-raised-button color='accent' class='margin-bottom'  *ngIf="permissionService.isAdmin" (click)='exportApproaches()'>
     <mat-icon style='margin-right: 8px'>file_download</mat-icon>
     <span>Export approaches</span>
   </button>
 
 
-  <button mat-raised-button color='accent' class='margin-bottom' (click)='importApproaches()'>
+  <button mat-raised-button color='accent' class='margin-bottom'  *ngIf="permissionService.isAdmin" (click)='importApproaches()'>
     <mat-icon style='margin-right: 8px'>file_upload</mat-icon>
     <span>Import approaches</span>
     <input #importInput type='file' style='display: none' accept='.json' (change)='handleImport($event)'>
   </button>
+  </span>
 </div>
 
 <div mat-dialog-actions>
