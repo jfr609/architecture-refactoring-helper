@@ -135,104 +135,6 @@ export class ArchitectureRefactoringHelperComponent {
     );
   
   }
-  exportDB2() {
-    let fileContentDS: string = "";
-    let fileContentSG: string = "";
-    let fileContentOB: string = "";
-    let fileContentSC: string = "";
-    let fileContentAS: string = "";
-    lastValueFrom(
-      this.projectDescriptionService.listProjectDescription({
-        withDetails: true
-      })
-    ).
-    then((projectDescription: ProjectDescription[]) => {
-      fileContentDS= JSON.stringify(projectDescription);
-    }),
-    lastValueFrom(
-      this.strategicGoalsService.listStrategicGoals({
-         withDetails: true
-      })
-    ).
-    then((strategicGoals: StrategicGoals[]) => {
-      fileContentSG = JSON.stringify(strategicGoals);
-    }),
-
-    
-    lastValueFrom(
-      this.objectivesService.listObjectives({
-         withDetails: true
-      })
-    ).
-    then((objectives: Objectives[]) => {
-      fileContentSG = JSON.stringify(objectives);
-    }),
-
-    lastValueFrom(
-      this.scenarioService.listScenario({
-          withDetails: true
-          })
-      ).
-    then((scenario: Scenario[]) => {
-      fileContentSC = JSON.stringify(scenario);
-           
-      const downloadLink: HTMLAnchorElement = document.createElement('a');
-      downloadLink.download = 'project.json'; 
-      downloadLink.href = 'data:text/plain;charset=utf-16,'+ fileContentDS + "," + fileContentSG + "," +fileContentOB + ","+ fileContentSC;// better concatenation;
-      downloadLink.click();
-      downloadLink.remove();
-    });
-  }
-
-  exportDB3() {
-    let fileContentDS = "";
-    let fileContentSG = "";
-    let fileContentOB = "";
-    let fileContentSC = "";
-    let fileContentAS = "";
-  
-    const exportData = async () => {
-      try {
-        const projectDescription = await lastValueFrom(
-          this.projectDescriptionService.listProjectDescription({
-            withDetails: true
-          })
-        );
-        fileContentDS = JSON.stringify(projectDescription);
-  
-        const strategicGoals = await lastValueFrom(
-          this.strategicGoalsService.listStrategicGoals({
-            withDetails: true
-          })
-        );
-        fileContentSG = JSON.stringify(strategicGoals);
-  
-        const objectives = await lastValueFrom(
-          this.objectivesService.listObjectives({
-            withDetails: true
-          })
-        );
-        fileContentOB = JSON.stringify(objectives);
-  
-        const scenario = await lastValueFrom(
-          this.scenarioService.listScenario({
-            withDetails: true
-          })
-        );
-        fileContentSC = JSON.stringify(scenario);
-  
-        const downloadLink = document.createElement('a');
-        downloadLink.download = 'project.json';
-        downloadLink.href = 'data:text/plain;charset=utf-16,' + fileContentDS + ',' + fileContentSG + ',' + fileContentOB + ',' + fileContentSC;
-        downloadLink.click();
-        downloadLink.remove();
-      } catch (error) {
-        console.error('Export failed:', error);
-      }
-    };
-  
-    exportData();
-  }
 
   exportDB() {
     let fileContentDS = "";
@@ -243,6 +145,15 @@ export class ArchitectureRefactoringHelperComponent {
   
     const exportData = async () => {
       try {
+
+       /* const addNewFieldsToScenario = (scenario: any[]) => {
+          scenario.forEach((s) => {
+            s.newField1 = "New Value 1";
+            s.newField2 = "New Value 2";
+            s.newField3 = "New Value 3";
+          });
+        };*/
+        
         const projectDescription = await lastValueFrom(
           this.projectDescriptionService.listProjectDescription({
             withDetails: true
@@ -268,7 +179,21 @@ export class ArchitectureRefactoringHelperComponent {
           this.scenarioService.listScenario({
             withDetails: true
           })
+
         );
+
+        let scenarioId = 0;
+        scenario.forEach((s) => {
+        
+          
+          s.implementedPattern = localStorage.getItem(`implementedPattern_${scenarioId}`);
+          s.preferredPattern = localStorage.getItem(`preferredPattern_${scenarioId}`);
+          s.explanation = localStorage.getItem(`explanation_${scenarioId}`);
+          scenarioId++;
+        });
+
+
+
         fileContentSC = JSON.stringify(scenario);
   
         const combinedData = {
@@ -292,124 +217,8 @@ export class ArchitectureRefactoringHelperComponent {
     exportData();
   }
   
-  importDB2() {
-    this.importInput?.nativeElement.click();
-  }
-  handleSessionImport3(event: Event){
-    const files: FileList | null = (event.currentTarget as HTMLInputElement)
-      .files;
-    if (files != null && files.length > 0) {
-      files[0].text().then((value: string) => {
-        //const projectSessions: ProjectSession[] = JSON.parse(value);
-        const projectDescriptions: ProjectDescription[] = JSON.parse(value);
-        const strategicGoals: StrategicGoals[] = JSON.parse(value);
-        const objectives: Objectives[] = JSON.parse(value);
-        const scenarios: Scenario[] = JSON.parse(value);
-        //const promises: Promise<ProjectSession>[] = [];
-        const promises: Promise<void>[] = [];
-        for (const projectDescription of projectDescriptions) {
-          promises.push(
-            lastValueFrom(
-              this.projectDescriptionService.addProjectDescription({
-                body: projectDescription
-              })
-            )
-          );
-        }
-        for (const strategicGoal of strategicGoals) {
-          promises.push(
-            lastValueFrom(
-              this.strategicGoalsService.addStrategicGoals({
-                body: strategicGoal
-              })
-            )
-          );
-        }
-        for (const objective of objectives) {
-          promises.push(
-            lastValueFrom(
-              this.objectivesService.addObjectives({
-                body: objective
-              })
-            )
-          );
-        }
-        for (const scenario of scenarios) {
-          promises.push(
-            lastValueFrom(
-              this.scenarioService.addScenario({
-                body: scenario
-              })
-            )
-          );
-        }
-
-        Promise.all(promises)
-          .then(() => {
-            this.utilService.callSnackBar(
-              'Project was imported successfully.'
-            );
-          })
-          .catch((reason) => {
-            console.log(reason);
-            this.utilService.callSnackBar(
-              'Error! Some Project could not be imported. ' +
-                'This can happen if Project already exist or are invalid. ' +
-                'Please check if your selected file is valid.'
-            );
-          });
-      });
-    }
-  }
-  importDB4() {
-    this.importInput?.nativeElement.click();
-  }
-  
-  handleSessionImport5(event: Event) {
-    const files: FileList | null = (event.currentTarget as HTMLInputElement).files;
-    if (files != null && files.length > 0) {
-      const file = files[0];
-      const reader = new FileReader();
-  
-      reader.onload = async (event) => {
-        try {
-          if (event.target) {
-            const value: string = event.target.result as string;
-            const parsedData = JSON.parse(value);
-  
-            if (parsedData.projectDescription) {
-              const projectDescriptions: ProjectDescription[] = parsedData.projectDescription;
-              await this.importProjectDescriptions(projectDescriptions);
-            }
-  
-            if (parsedData.strategicGoals) {
-              const strategicGoals: StrategicGoals[] = parsedData.strategicGoals;
-              await this.importStrategicGoals(strategicGoals);
-            }
-  
-            if (parsedData.objectives) {
-              const objectives: Objectives[] = parsedData.objectives;
-              await this.importObjectives(objectives);
-            }
-  
-            if (parsedData.scenario) {
-              const scenarios: Scenario[] = parsedData.scenario;
-              await this.importScenarios(scenarios);
-            }
-  
-            this.utilService.callSnackBar('Data imported successfully.');
-          }
-        } catch (error) {
-          console.error(error);
-          this.utilService.callSnackBar('Error importing data. Please check the file format.');
-        }
-      };
-  
-      reader.readAsText(file);
-    }
-  }
-  
   importDB() {
+    this.clearSession();
     this.importInput?.nativeElement.click();
   }
   
