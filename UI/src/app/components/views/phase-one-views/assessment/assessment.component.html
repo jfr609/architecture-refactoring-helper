@@ -14,7 +14,7 @@
             <span>Next</span>
             <mat-icon>arrow_forward</mat-icon>
           </button>
-          <button mat-raised-button color="primary" (click)="saveChanges()" ><span>Save Changes</span></button><!--[disabled]='!allNamesSet()' (click)="saveChanges()"-->
+          <button mat-raised-button color="primary" (click)="saveChanges()" ><span>Save Changes </span></button><!--[disabled]='!allNamesSet()' (click)="saveChanges()"-->
           <mat-divider vertical></mat-divider>
           <button mat-flat-button color='accent' [routerLink]="['/phase/2']">
             <mat-icon>move_down</mat-icon>
@@ -39,7 +39,7 @@
                 <!--<button (click)="updateValueOccurrences2()" (click)="updateValueOccurrences()"></button>-->
               </mat-card-title>
           
-          
+               <!--delete here -->
               <div class="mat-elevation-z8"  cdkDropList class="drop-list" (cdkDropListDropped)="drop($event)"
                 [cdkDropListData]="strategicGoalsList">
                 <ng-container *ngIf="strategicGoalsList.length > 0; else emptyStrategicGoalsList">
@@ -115,7 +115,7 @@
                     </div>
                   </ng-container>
                 </ng-container>
-    </div>       
+    </div>       <!--delete here -->
  <ng-template #emptyStrategicGoalsList>
   <p style="color: grey; margin-left: 10px; margin-right: 10px"><i>No existing Strategic Goals. Please create a Strategic Goals
       by adding one using the green add button (+) on the Strategic Goals Step </i></p>
@@ -133,22 +133,22 @@
                  <h2>Architecture Suitability</h2> <mat-card-title>Scenarios</mat-card-title>
                   
                   <mat-accordion>
-                    <ng-container *ngFor="let qa of  scenarioList">
+                    <ng-container *ngFor="let scenario of  scenarioList">
                       <ng-container *ngIf="scenarioList.length > 0">
-                        <mat-expansion-panel style="height:100px;" hideToggle >
+                        <mat-expansion-panel style="height:100px;"  [expanded]="true"  [disabled]="false">
                           <mat-expansion-panel-header>
-                            <mat-panel-title>
+                           
                               <section>
                                 <!--<mat-checkbox #checkboxName class="example-margin" (click)="selectCheckBox(check_box_type.CHECKED)" [checked]="currentlyChecked === check_box_type.CHECKED"
                                   
                                   (change)="addOrRemoveScenarioForAssessment(qa);">
                                   [checked]="addOrRemoveScenarioForAssessment(qa.name)" >--><!--selectScenario
-                                  </mat-checkbox>-->{{"Name: " + qa.name }}
+                                  </mat-checkbox>-->{{"Name: " + scenario.name }}
                               </section>
-                            </mat-panel-title>
-                            <mat-panel-description>{{"Importance: " + qa.importance }}</mat-panel-description>
-                            <mat-panel-description>{{"Difficulty: " + qa.difficulty}}</mat-panel-description>
-                            <mat-panel-description>{{"Explanation: " + qa.description}}</mat-panel-description>
+                         
+                            <mat-panel-description>{{"Importance: " + scenario.importance }}</mat-panel-description>
+                            <mat-panel-description>{{"Difficulty: " + scenario.difficulty}}</mat-panel-description>
+                            <mat-panel-description>{{"Description: " + scenario.description}}</mat-panel-description>
                             <section>
                               <h2>Architecture Suitability</h2>
                               <!--<ng-container *ngIf="scenarioList.length > 0">     
@@ -159,28 +159,26 @@
                                
                                 <mat-form-field class="description-field" appearance="outline">
                                   <mat-label>Implementable Using</mat-label>
-                                  <mat-select [(value)]="qa.implementedPattern" multiple>
-                                    <mat-option *ngFor="let goalstype of enumKeys2" [value]="goalstype">
-                                     <!--  <div *ngFor="let value of selectedValues">-->
-                                      {{ goalstype }}<!--({{ valueOccurrences[value] || 0 }} times)</div>-->
+                                  <mat-select [(value)]="scenario.implementedPattern" multiple>
+                                    <mat-option *ngFor="let pattern of patternOptions" [value]="pattern">
+                                      {{ pattern }}
                                     </mat-option>
                                   </mat-select>
                                 </mat-form-field>
   
                                 <mat-form-field class="description-field" appearance="outline">
                                   <mat-label>Preferred Pattern</mat-label>
-                                  <mat-select [(value)]="qa.preferredPattern"><!-- (selectionChange)="updateValueOccurrences2()-->
-                                    
-                                    <mat-option *ngFor="let goalstype of enumKeys2"  [value]="goalstype">
-                                     <!-- <div *ngFor="let value of selectedValues">-->
-                                      {{ goalstype }} <!-- ({{ valueOccurrences[value] || 0 }} times)</div>-->
+                                  <mat-select [(value)]="scenario.preferredPattern">
+                                    <mat-option></mat-option>
+                                    <mat-option *ngFor="let pattern of patternOptions"  [value]="pattern">
+                                      {{ pattern }} 
                                     </mat-option>
                                   </mat-select>
                                 </mat-form-field>
                             
                                <mat-form-field class="description-field" appearance="outline">
                                   <mat-label  label="Explanation">Explanation</mat-label>
-                                  <textarea matInput [(ngModel)]="qa.explanation"></textarea>
+                                  <textarea matInput [(ngModel)]="scenario.explanation"></textarea>         
                                 </mat-form-field>
                             
                               </div>      
