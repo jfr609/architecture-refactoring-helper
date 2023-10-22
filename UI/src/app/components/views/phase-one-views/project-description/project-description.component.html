@@ -107,14 +107,14 @@
                 <mat-tab label="Functionality" style="width: 100%;justify-content:start;padding:5px;height:100%">
                 <mat-form-field class="description-field" appearance="fill">
                   <mat-label  label="Functionality">Functionality</mat-label>
-                  <textarea  matInput [(ngModel)]="projectDescription.functionality"></textarea>
+                  <textarea  matInput [(ngModel)]="projectDescription.functionality" style="height:400px"></textarea>
                 </mat-form-field>
                 </mat-tab>
 
                 <mat-tab label="Design Diagrams" style="width: 100%;justify-content:start;padding:5px;height:100%">
                 <mat-form-field class="description-field" appearance="fill">
                   <mat-label label="Design Diagrams">Design Diagrams</mat-label>
-                  <textarea  matInput [(ngModel)]="projectDescription.designdiagrams"></textarea>
+                  <textarea  matInput [(ngModel)]="projectDescription.designdiagrams" style="height:400px"></textarea>
                 </mat-form-field>
                 <button mat-button id="upload" >
                   <mat-icon>move_up</mat-icon>
@@ -130,7 +130,9 @@
             <h2>Properties</h2>
             <mat-form-field class="description-field" appearance="fill">
               <mat-label>Architecture Patterns</mat-label>
+              
               <mat-select [(value)]="projectDescription.architecturepattern"><!-- multiple-->
+              <mat-option></mat-option>  
               <mat-option *ngFor="let pattern of enumKeys2" [value]="pattern">
                   {{pattern}}<!--multi selection field -->
                 </mat-option>
@@ -139,7 +141,7 @@
 
             <mat-form-field class="description-field" appearance="fill">
               <mat-label>Languages</mat-label>
-              <mat-select [(value)]="projectDescription.languages" multiple><!-- multiple-->
+              <mat-select multiple><!-- multiple-->
                 <mat-option *ngFor="let language of enumKeys" [value]="language">
                   {{ language }}
                 </mat-option>
