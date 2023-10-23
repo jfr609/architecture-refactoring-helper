@@ -64,17 +64,15 @@ import { ArchitecturalDesignExplorerComponent } from './components/views/archite
 import { ArchitecturalDesignViewComponent } from './components/views/architectural-design-view/architectural-design-view.component';
 import { ArchitecturalRecommendationResultComponent } from './components/views/architectural-recommendation-result/architectural-recommendation-result.component';
 import { MatBadgeModule } from '@angular/material/badge';
-
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-//import * as d3Shape from 'd3';
-//import * as d3 from 'd3';
-//import { NgChartsModule } from 'ng2-charts';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-//import { CanvasJS} from '@canvasjs/angular-charts';
 import { MatNativeDateModule } from '@angular/material/core';
-
-import { RouterLink } from '@angular/router';
-//missing graph library
+import {Component} from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {TooltipPosition} from '@angular/material/tooltip';
+import {CdkScrollable} from '@angular/cdk/scrolling';
+import { ProjectService } from './services/project.service';
+import { ScenarioService } from 'api/repository/services';
 
 
 @NgModule({
@@ -111,6 +109,12 @@ import { RouterLink } from '@angular/router';
   ],
   imports: [ 
     ApiModule.forRoot({ rootUrl: environment.API_URL }),
+    MatFormFieldModule,
+    MatSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatTooltipModule,
     MatTabsModule,
     FormsModule,
     BrowserModule,
@@ -157,7 +161,7 @@ import { RouterLink } from '@angular/router';
     NgxChartsModule
     
   ],
-  providers: [StrategicGoalsComponent,AssessmentComponent,SummaryComponent],
+  providers: [ProjectDescriptionComponent,QualityAttributesComponent,ProjectService,StrategicGoalsComponent,AssessmentComponent,SummaryComponent,ArchitectureRefactoringHelperComponent,ScenarioService],
   bootstrap: [AppComponent],
   schemas: []
 })
