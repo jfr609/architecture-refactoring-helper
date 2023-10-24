@@ -25,6 +25,14 @@ public class Scenario
     public ICollection<Quality>? Qualities { get; set; }
     [JsonPropertyName("qualitySublevels")]
     public ICollection<QualitySublevel>? QualitySublevels { get; set; }
+    [JsonPropertyName("implementedPattern")]
+    public  string? ImplementedPattern { get; set; }
+
+    [JsonPropertyName("preferredPattern")]
+    public string? PreferredPattern { get; set; }
+
+    [JsonPropertyName("explanation")]
+    public string? Explanation { get; set; }
 
 
     public bool KeyEquals(Scenario obj)
@@ -38,5 +46,13 @@ public class Scenario
         A,
         B,
         C
+    }
+
+    public enum Pattern
+    {
+        Monolith,
+        Microservices,
+        Model_View_Controller,
+        Pipe_Filter
     }
 }

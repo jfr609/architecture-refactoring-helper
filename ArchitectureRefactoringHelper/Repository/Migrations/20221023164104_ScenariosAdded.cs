@@ -23,7 +23,11 @@ namespace Repository.Migrations
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     Difficulty = table.Column<string>(type: "TEXT", nullable: true),
-                    Importance = table.Column<string>(type: "TEXT", nullable: true)
+                    Importance = table.Column<string>(type: "TEXT", nullable: true),
+                    ImplementedPattern = table.Column<string>(type: "TEXT", nullable: true),
+                    PreferredPattern = table.Column<string>(type: "TEXT", nullable: true),
+                    Explanation = table.Column<string>(type: "TEXT", nullable: true)
+                    
                 },
                 constraints: table =>
                 {
@@ -41,6 +45,32 @@ namespace Repository.Migrations
                 column: "ScenarioId",
                 principalTable: ".Scenario",
                 principalColumn: "ScenarioId");
+
+
+          /*  migrationBuilder.CreateIndex(
+                name: "ImplementationPattern",
+                table: ".Scenario",
+                column: "ImplementedPattern");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_ImplementedPattern_.Scenario_ScenarioId",
+                table: "Approach.Process.ImplementedPattern",
+                column: "ScenarioId",
+                principalTable: ".Scenario",
+                principalColumn: "ScenarioId");
+
+            migrationBuilder.CreateIndex(
+                name: "PreferredPattern",
+                table: ".Scenario",
+                column: "PreferredPattern");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_PreferredPattern.Scenario_ScenarioId",
+                table: "PreferredPattern",
+                column: "ScenarioId",
+                principalTable: ".Scenario",
+                principalColumn: "ScenarioId");*/
+            
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

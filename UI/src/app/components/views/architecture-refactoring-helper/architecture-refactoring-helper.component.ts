@@ -182,7 +182,7 @@ export class ArchitectureRefactoringHelperComponent {
 
         );
 
-        let scenarioId = 0;
+        /*let scenarioId = 0;
         scenario.forEach((s) => {
         
           
@@ -190,7 +190,7 @@ export class ArchitectureRefactoringHelperComponent {
           s.preferredPattern = localStorage.getItem(`preferredPattern_${scenarioId}`);
           s.explanation = localStorage.getItem(`explanation_${scenarioId}`);
           scenarioId++;
-        });
+        });*/
 
 
 

@@ -44,11 +44,7 @@
                 [cdkDropListData]="strategicGoalsList">
                 <ng-container *ngIf="strategicGoalsList.length > 0; else emptyStrategicGoalsList">
                   <ng-container *ngIf="scenarioList.length > 0; else emptyScenarioList">
-                  <div *ngFor="let strategicGoals of strategicGoalsList" [cdkDragData]="strategicGoalsList" cdkDragLockAxis="y"
-                    cdkDragBoundary=".drop-list" cdkDrag (click)="strategicGoalsSelected(strategicGoalsList)" [ngClass]="{
-                    'selected-drop-box': checkCurrentStrategicGoals(strategicGoalsList),
-                    'drop-box': !checkCurrentStrategicGoals(strategicGoalsList)
-                    }">
+                  <div *ngFor="let strategicGoals of strategicGoalsList">
                     <!--<div class="drop-handle" cdkDragHandle>
                       <mat-icon mat-list-icon>drag_indicator</mat-icon>
                     </div>-->
@@ -156,10 +152,10 @@
                                 cdkDragBoundary=".drop-list"   >-->
                                 
                               <div fxLayout="row" padding>
-                               
+                                <!--<ng-container *ngFor="let assessemnt of  assessmentList">-->
                                 <mat-form-field class="description-field" appearance="outline">
                                   <mat-label>Implementable Using</mat-label>
-                                  <mat-select [(value)]="scenario.implementedPattern" multiple>
+                                  <mat-select [(value)]="scenario.implementedPattern" ><!-- multiple-->
                                     <mat-option *ngFor="let pattern of patternOptions" [value]="pattern">
                                       {{ pattern }}
                                     </mat-option>
@@ -180,7 +176,7 @@
                                   <mat-label  label="Explanation">Explanation</mat-label>
                                   <textarea matInput [(ngModel)]="scenario.explanation"></textarea>         
                                 </mat-form-field>
-                            
+                                <!--</ng-container>-->
                               </div>      
                               
                               <!-- </div>
@@ -188,6 +184,7 @@
                             </section>
                           </mat-expansion-panel-header>
                         </mat-expansion-panel>
+                        
                       </ng-container>
                 
                       <!--<ng-template #singleAttribute>

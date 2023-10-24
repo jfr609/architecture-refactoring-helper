@@ -5,6 +5,7 @@ import { Quality } from './quality';
 import { QualitySublevel } from './quality-sublevel';
 import { RatingLevel } from './rating-level';
 export interface Scenario {
+
   description?: null | string;
   difficulty?: RatingLevel;
   importance?: RatingLevel;
@@ -12,7 +13,7 @@ export interface Scenario {
   qualities?: null | Array<Quality>;
   qualitySublevels?: null | Array<QualitySublevel>;
   scenarioId?: number;
-  implementedPattern?: Patterns;
-  preferredPattern?: Patterns;
-  explanation?: string;
+  implementedPattern?: string | null;// Array<Patterns> | null
+  preferredPattern?: string | null;// Patterns | null
+  explanation?: string | null;
 }
