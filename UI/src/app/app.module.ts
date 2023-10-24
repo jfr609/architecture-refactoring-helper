@@ -67,10 +67,6 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {Component} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {TooltipPosition} from '@angular/material/tooltip';
-import {CdkScrollable} from '@angular/cdk/scrolling';
 import { ProjectService } from './services/project.service';
 import { ScenarioService } from 'api/repository/services';
 

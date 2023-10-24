@@ -27,7 +27,6 @@ import {
   QualitySublevel,
   Scenario
 } from 'api/repository/models';
-import { StorageService } from 'src/app/services/storage.service';
 import { ScenarioService } from 'api/repository/services';
 import { AssessmentService } from 'api/repository/services/assessment-service';
 import { OnInit } from '@angular/core';
@@ -90,7 +89,6 @@ export class AssessmentComponent implements AfterViewInit, OnInit {
   selectedValues: string[] = [];
   savedrlul: boolean = false;
   constructor(
-    public storageService: StorageService,
     public projectService: ProjectService,
     public attributesService: AttributeOptionsService,
     public strategicGoalsService: StrategicGoalsService,
