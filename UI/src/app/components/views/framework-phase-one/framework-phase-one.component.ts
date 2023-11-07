@@ -9,7 +9,7 @@ export class FrameworkPhaseOneComponent {
   readonly imageList = [
     'assets/Phase1-UI1.jpg',
     'assets/Phase1-UI2.jpg',
-    'assets/Phase1-UI3.jpg',
+//    'assets/Phase1-UI3.jpg',
     'assets/Phase1-UI4.jpg',
     'assets/Phase1-UI5.jpg'
   ];

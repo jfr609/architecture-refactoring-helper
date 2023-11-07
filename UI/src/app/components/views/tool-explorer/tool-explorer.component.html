@@ -1,0 +1,75 @@
+<div fxLayout='column' fxLayoutAlign='start center' class='page-container' fxLayoutGap='32px'>
+  <h1 fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='12px'>
+    <button mat-mini-fab color='warn' routerLink='/phase/2'>
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>Explore all currently available tools</span>
+  </h1>
+  <p fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='8px'>
+    <mat-icon color='accent'>info</mat-icon>
+    <strong>Caution:</strong>
+    <span>The below presented result list does represent a work-in-progress state and may be inaccurate and incomplete.</span>
+  </p>
+
+  <table mat-table [dataSource]='dataSource' matSort class='mat-elevation-z8'>
+    <ng-container matColumnDef='id'>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header='id'>
+        ID
+      </th>
+      <td mat-cell class='tool-cell' *matCellDef='let tool'>
+        {{tool.identifier}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef='name'>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header='name'>
+        Name
+      </th>
+      <td mat-cell class='tool-cell' *matCellDef='let tool'>
+        {{tool.toolSource.name}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef='types'>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header='types'>
+        Types
+      </th>
+      <td mat-cell class='tool-cell' *matCellDef='let tool'>
+        {{ formatToolTypes(tool) }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef='author'>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header='author'>
+        Author
+      </th>
+      <td mat-cell class='tool-cell' *matCellDef='let tool'>
+        {{tool.toolSource.author}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef='actions'>
+      <th mat-header-cell *matHeaderCellDef>
+        Actions
+      </th>
+      <td mat-cell class='tool-cell' *matCellDef='let tool'>
+        <div fxLayout='row'>
+          <button *ngIf='permissionService.isAdmin' mat-icon-button color='accent' (click)='goToEdit(tool, $event)'>
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button *ngIf='permissionService.isAdmin' mat-icon-button color='warn' (click)='deleteTool(tool, $event)'>
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button color='accent' (click)='goToLink(tool, $event)'>
+            <mat-icon>open_in_new</mat-icon>
+          </button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef='displayedColumns'></tr>
+    <tr mat-row *matRowDef='let row; columns: displayedColumns;'
+        class='tool-row'
+        (click)='openToolView(row)'></tr>
+  </table>
+</div>

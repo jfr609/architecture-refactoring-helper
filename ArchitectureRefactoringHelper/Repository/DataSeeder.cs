@@ -22,7 +22,7 @@ public static class DataSeeder
         SeedRefactoringApproachData(refactoringApproachService);
     }
 
-        public static void GenerateArchitecturalDesignSeedData(IHost host)
+    public static void GenerateArchitecturalDesignSeedData(IHost host)
     {
         using (var db = new RefactoringApproachContext())
         {
@@ -35,6 +35,21 @@ public static class DataSeeder
         var serviceProvider = host.Services.CreateScope().ServiceProvider;
         var architecturalDesignService = serviceProvider.GetRequiredService<ArchitecturalDesignService>();
         SeedArchitecturalDesignData(architecturalDesignService);
+    }
+
+    public static void GenerateToolSeedData(IHost host)
+    {
+        using (var db = new RefactoringApproachContext())
+        {
+            if (db.Tools.Any())
+            {
+                return;
+            }
+        }
+
+        var serviceProvider = host.Services.CreateScope().ServiceProvider;
+        var toolService = serviceProvider.GetRequiredService<ToolService>();
+        SeedToolData(toolService);
     }
 
     private static void SeedRefactoringApproachData(RefactoringApproachService refactoringApproachService)
@@ -53,6 +68,15 @@ public static class DataSeeder
         {
             Console.WriteLine(architecturalDesign.ArchitecturalDesignSource.Name);
             architecturalDesignService.AddArchitecturalDesignIfNotExists(architecturalDesign);
+        }
+    }
+
+    private static void SeedToolData(ToolService toolService)
+    {
+        var tools = GetSeedDataFromJson<Tool>("Tools.json");
+        foreach (var tool in tools)
+        {
+            toolService.AddToolIfNotExists(tool);
         }
     }
 

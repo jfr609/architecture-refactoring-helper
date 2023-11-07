@@ -69,4 +69,24 @@ public class ApproachOutputController : ControllerBase
         _outputService.DeleteServiceType(name);
         return NoContent();
     }
+
+    [HttpGet(Constants.ApiSubPathRepresentations, Name = "ListRepresentations")]
+    public ActionResult<IEnumerable<Representation>> ListRepresentations()
+    {
+        return Ok(_outputService.ListRepresentationOutputs());
+    }
+
+    [HttpPost(Constants.ApiSubPathRepresentations, Name = "AddRepresentation")]
+    public ActionResult<Representation> AddRepresentations([FromBody] Representation output)
+    {
+        var savedOutput = _outputService.AddRepresentationOutput(output);
+        return Created("", savedOutput);
+    }
+
+    [HttpDelete(Constants.ApiSubPathRepresentations + "/{name}", Name = "DeleteRepresentation")]
+    public IActionResult DeleteRepresentation(string name)
+    {
+        _outputService.DeleteRepresentationOutput(name);
+        return NoContent();
+    }
 }

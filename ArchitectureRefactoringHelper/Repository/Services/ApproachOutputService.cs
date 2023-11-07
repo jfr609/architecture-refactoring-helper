@@ -207,6 +207,52 @@ public class ApproachOutputService
                 "because entity does not exist");
     }
 
+    public IEnumerable<Representation> ListRepresentationOutputs()
+    {
+        var db = new RefactoringApproachContext();
+
+        return db.RepresentationOutputs
+            .OrderBy(e => e.Name)
+            .ToList();
+    }
+
+    public Representation GetRepresentationOutput(string outputName)
+    {
+        var db = new RefactoringApproachContext();
+        return GetRepresentationOutput(outputName, ref db);
+    }
+
+    public Representation GetRepresentationOutput(string outputName, ref RefactoringApproachContext db)
+    {
+        return db.RepresentationOutputs.Find(outputName) ??
+               throw new EntityNotFoundException($"Representation output with name \"{outputName}\" does not exist");
+    }
+
+    public Representation AddRepresentationOutput(Representation output)
+    {
+        var db = new RefactoringApproachContext();
+        return Utils.AddEntityAndSaveChanges(output, ref db);
+    }
+
+    public void DeleteRepresentationOutput(string outputName)
+    {
+        var db = new RefactoringApproachContext();
+
+        var blockDelete = db.RepresentationOutputs
+            .Where(e => e.Name == outputName)
+            .Any(e => e.RefactoringApproaches!.Count > 0);
+        if (blockDelete)
+            throw new EntityReferenceException(
+                $"Representation output with name \"{outputName}\" could not be deleted " +
+                "because the entity is still in use by refactoring approaches");
+
+        var deleteSuccess = Utils.DeleteEntityAndSaveChanges<Representation>(ref db, outputName);
+        if (!deleteSuccess)
+            throw new EntityNotFoundException(
+                $"Representation output with name \"{outputName}\" could not be deleted " +
+                "because entity does not exist");
+    }
+
     private ApproachOutput? FindDuplicateApproachOutput(ApproachOutput output, ref RefactoringApproachContext db)
     {
         return db.ApproachOutputs
@@ -214,5 +260,11 @@ public class ApproachOutputService
                         e.ServiceType.Name == output.ServiceType.Name)
             .IncludeAllApproachOutputData()
             .FirstOrDefault();
+    }
+
+    public ICollection<Representation> AddRepresentationsIfNotExist(ICollection<Representation>? outputs,
+        ref RefactoringApproachContext db)
+    {
+        return Utils.AddEntitiesIfNotExist(outputs, e => new object[] { e.Name }, ref db);
     }
 }

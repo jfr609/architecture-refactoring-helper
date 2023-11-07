@@ -25,6 +25,29 @@
     <span>Import approaches</span>
     <input #importInput type='file' style='display: none' accept='.json' (change)='handleImport($event)'>
   </button>
+  <hr>
+  <br>
+  <button
+    mat-raised-button
+    color="accent"
+    class="margin-bottom"
+    *ngIf="permissionService.isAdmin"
+    routerLink="phase/2/tool"
+    (click)="onCancelClicked()"
+  >
+    <span> <strong>Add</strong> a new tool to database! </span>
+  </button>
+  <br>
+  <button mat-raised-button color='accent' class='margin-bottom' (click)='exportTools()'>
+    <mat-icon style='margin-right: 8px'>file_download</mat-icon>
+    <span>Export tools</span>
+  </button>
+  <br>
+  <button mat-raised-button color='accent' class='margin-bottom' (click)='importTools()'>
+    <mat-icon style='margin-right: 8px'>file_upload</mat-icon>
+    <span>Import tools</span>
+    <input #importToolInput type='file' style='display: none' accept='.json' (change)='handleToolImport($event)'>
+  </button>
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button color='warn'

@@ -8,6 +8,11 @@ public class ApproachUsabilityConfiguration : IEntityTypeConfiguration<ApproachU
 {
     public void Configure(EntityTypeBuilder<ApproachUsability> builder)
     {
+        // Define Join Table for ApproachUsability and Tools
+        builder.HasMany(left => left.Tools)
+            .WithMany(right => right.ApproachUsabilities)
+            .UsingEntity(join => join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachUsabilityTool));
+
         builder.HasOne(e => e.AccuracyPrecision)
             .WithMany(e => e.ApproachUsabilities)
             .OnDelete(DeleteBehavior.SetNull);

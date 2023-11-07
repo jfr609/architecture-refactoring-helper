@@ -13,6 +13,9 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    // Added these lines to solve json cycle error
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.WriteIndented = true;
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -43,6 +46,8 @@ builder.Services.AddScoped<RefactoringApproachContext>();
 builder.Services.AddScoped<IRecommendationService, SimpleRecommendationService>();
 builder.Services.AddScoped<ScenarioService>();
 builder.Services.AddScoped<ArchitecturalDesignService>();
+builder.Services.AddScoped<ToolService>();
+builder.Services.AddScoped<ToolTypeService>();
 
 var app = builder.Build();
 
@@ -73,5 +78,6 @@ app.MapControllers();
 // Seed database with initial data
 DataSeeder.GenerateSeedData(app);
 DataSeeder.GenerateArchitecturalDesignSeedData(app);
+DataSeeder.GenerateToolSeedData(app);
 
 app.Run();

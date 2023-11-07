@@ -33,6 +33,12 @@ import { Validators } from '@angular/forms';
 import { removeValueFromArray } from '../utils/utils';
 import { QualityCategory } from '../../../api/repository/models/quality-category';
 import { QualitySublevel } from 'api/repository/models';
+import { ProcessStrategy } from 'api/repository/models/process-strategy';
+import { AtomarUnit } from 'api/repository/models/atomar-unit';
+import { Representation } from 'api/repository/models/representation';
+import { ToolService } from 'api/repository/services/tool.service';
+import { Tool } from 'api/repository/models/tool';
+import { ToolType } from 'api/repository/models/tool-type';
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +69,15 @@ export class AttributeOptionsService {
   public techniques: BehaviorSubject<Technique[]> = new BehaviorSubject<
     Technique[]
   >([]);
+  public processStrategies: BehaviorSubject<ProcessStrategy[]> = new BehaviorSubject<
+    ProcessStrategy[]
+  >([]);
+  public atomarUnits: BehaviorSubject<AtomarUnit[]> = new BehaviorSubject<
+    AtomarUnit[]
+  >([]);
+  public representations: BehaviorSubject<Representation[]> = new BehaviorSubject<
+    Representation[]
+  >([]);
   public architectures: BehaviorSubject<Architecture[]> = new BehaviorSubject<
     Architecture[]
   >([]);
@@ -78,6 +93,11 @@ export class AttributeOptionsService {
     new BehaviorSubject<AccuracyPrecision[]>([]);
   public validationMethods: BehaviorSubject<ValidationMethod[]> =
     new BehaviorSubject<ValidationMethod[]>([]);
+  public tools: BehaviorSubject<Tool[]> =
+    new BehaviorSubject<Tool[]>([]);
+
+  public toolTypes: BehaviorSubject<ToolType[]> =
+    new BehaviorSubject<ToolType[]>([]);
 
   constructor(
     private refactoringApproachService: RefactoringApproachService,
@@ -85,7 +105,8 @@ export class AttributeOptionsService {
     private processService: ApproachProcessService,
     private outputService: ApproachOutputService,
     private usabilityService: ApproachUsabilityService,
-    private utilService: UtilService
+    private utilService: UtilService,
+    private toolService: ToolService
   ) {}
 
   getQualitiesByCategory(category: QualityCategory): Quality[] {
@@ -107,14 +128,40 @@ export class AttributeOptionsService {
     dataLoadingPromises.push(this.requestAutomationLevels());
     dataLoadingPromises.push(this.requestAnalysisTypes());
     dataLoadingPromises.push(this.requestTechniques());
+    dataLoadingPromises.push(this.requestProcessStrategies());
+    dataLoadingPromises.push(this.requestAtomarUnits());
+    dataLoadingPromises.push(this.requestRepresentations());
     dataLoadingPromises.push(this.requestArchitectures());
     dataLoadingPromises.push(this.requestServiceTypes());
     dataLoadingPromises.push(this.requestResultsQualities());
     dataLoadingPromises.push(this.requestToolSupports());
     dataLoadingPromises.push(this.requestAccuracyPrecisions());
     dataLoadingPromises.push(this.requestValidationMethods());
+    dataLoadingPromises.push(this.requestTools());
+    dataLoadingPromises.push(this.requestToolTypes());
 
     return Promise.all(dataLoadingPromises);
+  }
+
+  requestToolAttributeOptions(): Promise<Awaited<void>[]> {
+    const dataLoadingPromises: Promise<void>[] = [];
+
+    dataLoadingPromises.push(this.requestToolTypes());
+
+    return Promise.all(dataLoadingPromises);
+  }
+
+  async requestToolTypes(): Promise<void> {
+    try {
+      this.toolTypes.next(
+        await lastValueFrom(this.toolService.listToolTypes())
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+        'Error! Tool types could not be retrieved.'
+      );
+    }
   }
 
   async requestDomainArtifacts(): Promise<void> {
@@ -126,6 +173,19 @@ export class AttributeOptionsService {
       console.log(err);
       this.utilService.callSnackBar(
         'Error! Domain artifact inputs could not be retrieved.'
+      );
+    }
+  }
+
+  async requestTools(): Promise<void> {
+    try {
+      this.tools.next(
+        await lastValueFrom(this.toolService.listTools())
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+        'Error! Tools could not be retrieved.'
       );
     }
   }
@@ -247,6 +307,45 @@ export class AttributeOptionsService {
     }
   }
 
+  async requestProcessStrategies(): Promise<void> {
+    try {
+      this.processStrategies.next(
+        await lastValueFrom(this.processService.listProcessStrategies())
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+        'Error! Process strategies could not be retrieved.'
+      );
+    }
+  }
+
+  async requestAtomarUnits(): Promise<void> {
+    try {
+      this.atomarUnits.next(
+        await lastValueFrom(this.processService.listAtomarUnits())
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+        'Error! Atomar Units could not be retrieved.'
+      );
+    }
+  }
+
+  async requestRepresentations(): Promise<void> {
+    try {
+      this.representations.next(
+        await lastValueFrom(this.outputService.listRepresentations())
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+        'Error! Representations could not be retrieved.'
+      );
+    }
+  }
+
   async requestArchitectures(): Promise<void> {
     try {
       this.architectures.next(
@@ -323,6 +422,92 @@ export class AttributeOptionsService {
         'Error! Accuracy/Precision options could not be retrieved.'
       );
     }
+  }
+
+  createToolTypeWithDialog(): void {
+    const data: CreateAttributeDialogData<ToolType> = {
+      title: 'Create a new tool type option',
+      confirmButtonText: 'Create',
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.toolTypes.value,
+      configs: [
+        {
+          title: 'name',
+          variableName: 'name',
+          isTextArea: false,
+          validators: [Validators.required]
+        },
+        {
+          title: 'description',
+          variableName: 'description',
+          isTextArea: true,
+          validators: null
+        }
+      ]
+    };
+    this.utilService
+      .createDialog(CreateAttributeDialogComponent, data)
+      .afterClosed()
+      .subscribe({
+        next: (data: CreateAttributeDialogData<ToolType>) => {
+          if (data === undefined || data.attributesToCreate === undefined)
+            return;
+
+          this.createAttributes(
+            data.attributesToCreate,
+            this.toolTypes,
+            (params) => this.toolService.addToolType(params)
+          )
+            .then(() => {
+              this.utilService.callSnackBar(
+                'Created tool type(s).'
+              );
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some tool types could not be created.'
+              );
+            });
+        }
+      });
+  }
+
+  deleteToolTypeWithDialog(): void {
+    const data: DeleteAttributeDialogData<ToolType> = {
+      title: 'Delete an existing tool type option',
+      confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.toolTypes.value,
+      getDisplayName: (value: ToolType) => value.name
+    };
+    this.utilService
+      .createDialog(DeleteAttributeDialogComponent, data)
+      .afterClosed()
+      .subscribe({
+        next: (data: DeleteAttributeDialogData<ToolType>) => {
+          if (data === undefined || data.attributesToDelete === undefined)
+            return;
+
+          this.deleteAttributes(
+            data.attributesToDelete,
+            this.toolTypes,
+            (value: ToolType) =>
+              this.toolService.deleteToolType(value)
+          )
+            .then(() => {
+              this.utilService.callSnackBar(
+                'Deleted tool type(s).'
+              );
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some tool types could not be deleted.'
+              );
+            });
+        }
+      });
   }
 
   createDomainArtifactWithDialog(): void {
@@ -1182,6 +1367,249 @@ export class AttributeOptionsService {
               console.log(reason);
               this.utilService.callSnackBar(
                 'Error! Some process techniques could not be deleted.'
+              );
+            });
+        }
+      });
+  }
+
+  createProcessStrategyWithDialog(): void {
+    const data: CreateAttributeDialogData<ProcessStrategy> = {
+      title: 'Create a new process strategy option',
+      confirmButtonText: 'Create',
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.processStrategies.value,
+      configs: [
+        {
+          title: 'name',
+          variableName: 'name',
+          isTextArea: false,
+          validators: [Validators.required]
+        },
+        {
+          title: 'description',
+          variableName: 'description',
+          isTextArea: true,
+          validators: null
+        }
+      ]
+    };
+    this.utilService
+      .createDialog(CreateAttributeDialogComponent, data)
+      .afterClosed()
+      .subscribe({
+        next: (data: CreateAttributeDialogData<ProcessStrategy>) => {
+          if (data === undefined || data.attributesToCreate === undefined)
+            return;
+
+          this.createAttributes(
+            data.attributesToCreate,
+            this.processStrategies,
+            (params) => this.processService.addProcessStrategy(params)
+          )
+            .then(() => {
+              this.utilService.callSnackBar('Created process strategy(s).');
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some process strategies could not be created.'
+              );
+            });
+        }
+      });
+  }
+
+  deleteProcessStrategyWithDialog(): void {
+    const data: DeleteAttributeDialogData<ProcessStrategy> = {
+      title: 'Delete an existing process strategy option',
+      confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.processStrategies.value,
+      getDisplayName: (value: ProcessStrategy) => value.name
+    };
+    this.utilService
+      .createDialog(DeleteAttributeDialogComponent, data)
+      .afterClosed()
+      .subscribe({
+        next: (data: DeleteAttributeDialogData<ProcessStrategy>) => {
+          if (data === undefined || data.attributesToDelete === undefined)
+            return;
+
+          this.deleteAttributes(
+            data.attributesToDelete,
+            this.processStrategies,
+            (value: ProcessStrategy) => this.processService.deleteProcessStrategy(value)
+          )
+            .then(() => {
+              this.utilService.callSnackBar('Deleted process strategy(s).');
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some process strategies could not be deleted.'
+              );
+            });
+        }
+      });
+  }
+
+  createAtomarUnitWithDialog(): void {
+    const data: CreateAttributeDialogData<AtomarUnit> = {
+      title: 'Create a new atomar unit option',
+      confirmButtonText: 'Create',
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.atomarUnits.value,
+      configs: [
+        {
+          title: 'name',
+          variableName: 'name',
+          isTextArea: false,
+          validators: [Validators.required]
+        },
+        {
+          title: 'description',
+          variableName: 'description',
+          isTextArea: true,
+          validators: null
+        }
+      ]
+    };
+    this.utilService
+      .createDialog(CreateAttributeDialogComponent, data)
+      .afterClosed()
+      .subscribe({
+        next: (data: CreateAttributeDialogData<AtomarUnit>) => {
+          if (data === undefined || data.attributesToCreate === undefined)
+            return;
+
+          this.createAttributes(
+            data.attributesToCreate,
+            this.atomarUnits,
+            (params) => this.processService.addAtomarUnit(params)
+          )
+            .then(() => {
+              this.utilService.callSnackBar('Created atomar unit(s).');
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some atomar units could not be created.'
+              );
+            });
+        }
+      });
+  }
+
+  deleteAtomarUnitWithDialog(): void {
+    const data: DeleteAttributeDialogData<AtomarUnit> = {
+      title: 'Delete an existing atomar unit option',
+      confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.atomarUnits.value,
+      getDisplayName: (value: AtomarUnit) => value.name
+    };
+    this.utilService
+      .createDialog(DeleteAttributeDialogComponent, data)
+      .afterClosed()
+      .subscribe({
+        next: (data: DeleteAttributeDialogData<AtomarUnit>) => {
+          if (data === undefined || data.attributesToDelete === undefined)
+            return;
+
+          this.deleteAttributes(
+            data.attributesToDelete,
+            this.atomarUnits,
+            (value: AtomarUnit) => this.processService.deleteAtomarUnit(value)
+          )
+            .then(() => {
+              this.utilService.callSnackBar('Deleted atomar unit(s).');
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some atomar units could not be deleted.'
+              );
+            });
+        }
+      });
+  }
+
+  createRepresentationWithDialog(): void {
+    const data: CreateAttributeDialogData<Representation> = {
+      title: 'Create a new representation option',
+      confirmButtonText: 'Create',
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.representations.value,
+      configs: [
+        {
+          title: 'name',
+          variableName: 'name',
+          isTextArea: false,
+          validators: [Validators.required]
+        },
+        {
+          title: 'description',
+          variableName: 'description',
+          isTextArea: true,
+          validators: null
+        }
+      ]
+    };
+    this.utilService
+      .createDialog(CreateAttributeDialogComponent, data)
+      .afterClosed()
+      .subscribe({
+        next: (data: CreateAttributeDialogData<Representation>) => {
+          if (data === undefined || data.attributesToCreate === undefined)
+            return;
+
+          this.createAttributes(
+            data.attributesToCreate,
+            this.representations,
+            (params) => this.outputService.addRepresentation(params)
+          )
+            .then(() => {
+              this.utilService.callSnackBar('Created representation(s).');
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some representation could not be created.'
+              );
+            });
+        }
+      });
+  }
+
+  deleteRepresentationWithDialog(): void {
+    const data: DeleteAttributeDialogData<Representation> = {
+      title: 'Delete an existing representation option',
+      confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel',
+      currentAttributeList: this.representations.value,
+      getDisplayName: (value: Representation) => value.name
+    };
+    this.utilService
+      .createDialog(DeleteAttributeDialogComponent, data)
+      .afterClosed()
+      .subscribe({
+        next: (data: DeleteAttributeDialogData<Representation>) => {
+          if (data === undefined || data.attributesToDelete === undefined)
+            return;
+
+          this.deleteAttributes(
+            data.attributesToDelete,
+            this.representations,
+            (value: Representation) => this.outputService.deleteRepresentation(value)
+          )
+            .then(() => {
+              this.utilService.callSnackBar('Deleted representation(s).');
+            })
+            .catch((reason) => {
+              console.log(reason);
+              this.utilService.callSnackBar(
+                'Error! Some representation could not be deleted.'
               );
             });
         }

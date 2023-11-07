@@ -16,6 +16,12 @@ public class RefactoringApproachConfiguration : IEntityTypeConfiguration<Refacto
             .WithMany(right => right.RefactoringApproaches)
             .UsingEntity(join => join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachOutput));
 
+        // Define Join Table for RefactoringApproach and RepresentationOutput
+        builder.HasMany(left => left.RepresentationOutputs)
+            .WithMany(right => right.RefactoringApproaches)
+            .UsingEntity(join =>
+                join.ToTable(Constants.JoinTablePrefix + Constants.TableNameApproachOutputRepresentation));
+
         // Define Join Table for RefactoringApproach and DomainArtifactInput
         builder.HasMany(left => left.DomainArtifactInputs)
             .WithMany(right => right.RefactoringApproaches)

@@ -163,4 +163,44 @@ public class ApproachProcessController : ControllerBase
         _processService.DeleteTechnique(name);
         return NoContent();
     }
+
+    [HttpGet(Constants.ApiSubPathProcessStrategies, Name = "ListProcessStrategies")]
+    public ActionResult<IEnumerable<ProcessStrategy>> ListProcessStrategies()
+    {
+        return Ok(_processService.ListProcessStrategies());
+    }
+
+    [HttpPost(Constants.ApiSubPathProcessStrategies, Name = "AddProcessStrategy")]
+    public ActionResult<ProcessStrategy> AddProcessStrategy([FromBody] ProcessStrategy processStrategy)
+    {
+        var savedProcessStrategy = _processService.AddProcessStrategy(processStrategy);
+        return Created("", savedProcessStrategy);
+    }
+
+    [HttpDelete(Constants.ApiSubPathProcessStrategies + "/{name}", Name = "DeleteProcessStrategy")]
+    public IActionResult DeleteProcessStrategy(string name)
+    {
+        _processService.DeleteProcessStrategy(name);
+        return NoContent();
+    }
+
+    [HttpGet(Constants.ApiSubPathAtomarUnits, Name = "ListAtomarUnits")]
+    public ActionResult<IEnumerable<AtomarUnit>> ListAtomarUnits()
+    {
+        return Ok(_processService.ListAtomarUnits());
+    }
+
+    [HttpPost(Constants.ApiSubPathAtomarUnits, Name = "AddAtomarUnit")]
+    public ActionResult<AtomarUnit> AddAtomarUnit([FromBody] AtomarUnit atomarUnit)
+    {
+        var savedAtomarUnit = _processService.AddAtomarUnit(atomarUnit);
+        return Created("", savedAtomarUnit);
+    }
+
+    [HttpDelete(Constants.ApiSubPathAtomarUnits + "/{name}", Name = "DeleteAtomarUnit")]
+    public IActionResult DeleteAtomarUnit(string name)
+    {
+        _processService.DeleteAtomarUnit(name);
+        return NoContent();
+    }
 }

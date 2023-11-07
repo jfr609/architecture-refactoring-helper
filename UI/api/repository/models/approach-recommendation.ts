@@ -4,20 +4,24 @@ import { AccuracyPrecisionApproachAttributeEvaluation } from './accuracy-precisi
 import { AnalysisTypeApproachAttributeEvaluation } from './analysis-type-approach-attribute-evaluation';
 import { ApproachSource } from './approach-source';
 import { ArchitectureApproachAttributeEvaluation } from './architecture-approach-attribute-evaluation';
+import { AtomarUnitApproachAttributeEvaluation } from './atomar-unit-approach-attribute-evaluation';
 import { AutomationLevelApproachAttributeEvaluation } from './automation-level-approach-attribute-evaluation';
 import { DirectionApproachAttributeEvaluation } from './direction-approach-attribute-evaluation';
 import { DomainArtifactInputApproachAttributeEvaluation } from './domain-artifact-input-approach-attribute-evaluation';
 import { ExecutableInputApproachAttributeEvaluation } from './executable-input-approach-attribute-evaluation';
 import { ModelArtifactInputApproachAttributeEvaluation } from './model-artifact-input-approach-attribute-evaluation';
+import { ProcessStrategyApproachAttributeEvaluation } from './process-strategy-approach-attribute-evaluation';
 import { QualityApproachAttributeEvaluation } from './quality-approach-attribute-evaluation';
 import { QualityScore } from './quality-score';
 import { QualitySublevelApproachAttributeEvaluation } from './quality-sublevel-approach-attribute-evaluation';
+import { RepresentationOutputApproachAttributeEvaluation } from './representation-output-approach-attribute-evaluation';
 import { ResultsQualityApproachAttributeEvaluation } from './results-quality-approach-attribute-evaluation';
 import { RuntimeArtifactInputApproachAttributeEvaluation } from './runtime-artifact-input-approach-attribute-evaluation';
 import { ServiceTypeApproachAttributeEvaluation } from './service-type-approach-attribute-evaluation';
 import { SystemPropertiesScore } from './system-properties-score';
 import { TechniqueApproachAttributeEvaluation } from './technique-approach-attribute-evaluation';
 import { ToolSupportApproachAttributeEvaluation } from './tool-support-approach-attribute-evaluation';
+import { ToolTypeApproachAttributeEvaluation } from './tool-type-approach-attribute-evaluation';
 import { ValidationMethodApproachAttributeEvaluation } from './validation-method-approach-attribute-evaluation';
 export interface ApproachRecommendation {
   accuracyPrecisionEvaluations?: null | Array<AccuracyPrecisionApproachAttributeEvaluation>;
@@ -27,6 +31,9 @@ export interface ApproachRecommendation {
   automationLevelEvaluations?: null | Array<AutomationLevelApproachAttributeEvaluation>;
   directionEvaluations?: null | Array<DirectionApproachAttributeEvaluation>;
   domainArtifactInputEvaluations?: null | Array<DomainArtifactInputApproachAttributeEvaluation>;
+  representationOutputEvaluations?: null | Array<RepresentationOutputApproachAttributeEvaluation>;
+  atomarUnitEvaluations?: null | Array<AtomarUnitApproachAttributeEvaluation>;
+  processStrategyEvaluations?: null | Array<ProcessStrategyApproachAttributeEvaluation>;
   executableInputEvaluations?: null | Array<ExecutableInputApproachAttributeEvaluation>;
   identifier: string;
   matchesCount: number;
@@ -42,6 +49,7 @@ export interface ApproachRecommendation {
   systemPropertiesScore: SystemPropertiesScore;
   techniqueEvaluations?: null | Array<TechniqueApproachAttributeEvaluation>;
   toolSupportEvaluations?: null | Array<ToolSupportApproachAttributeEvaluation>;
+  toolTypeEvaluations?: null | Array<ToolTypeApproachAttributeEvaluation>;
   totalIncludeCount: number;
   totalScore: number;
   validationMethodEvaluations?: null | Array<ValidationMethodApproachAttributeEvaluation>;

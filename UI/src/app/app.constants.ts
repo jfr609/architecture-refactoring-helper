@@ -3,6 +3,7 @@ export const APP_TITLE = 'Architecture Refactoring Helper';
 // Navigation parameters
 export const NAV_PARAM_APPROACH_ID = 'approachId';
 export const NAV_PARAM_DESIGN_ID = 'designId';
+export const NAV_PARAM_TOOL_ID = 'toolId';
 
 export const URL_REGEX = new RegExp(
   /^(|https?:\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-.,@?^=%&amp;:/~+#]*[\w\-@?^=%&amp;/~+#])?)$/gi

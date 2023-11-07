@@ -16,6 +16,8 @@ import { Direction } from '../models/direction';
 import { Quality } from '../models/quality';
 import { QualitySublevel } from '../models/quality-sublevel';
 import { Technique } from '../models/technique';
+import { ProcessStrategy } from '../models/process-strategy';
+import { AtomarUnit } from '../models/atomar-unit';
 
 @Injectable({
   providedIn: 'root',
@@ -923,6 +925,276 @@ export class ApproachProcessService extends BaseService {
   }): Observable<void> {
 
     return this.deleteTechnique$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation listProcessStrategy
+   */
+  static readonly ListProcessStrategiesPath = '/api/v1/processes/process-strategies';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `listProcessStrategys()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  listProcessStrategies$Response(params?: {
+  }): Observable<StrictHttpResponse<Array<ProcessStrategy>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ApproachProcessService.ListProcessStrategiesPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<ProcessStrategy>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `listProcessStrategys$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  listProcessStrategies(params?: {
+  }): Observable<Array<ProcessStrategy>> {
+
+    return this.listProcessStrategies$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<ProcessStrategy>>) => r.body as Array<ProcessStrategy>)
+    );
+  }
+
+  /**
+   * Path part for operation addProcessStrategy
+   */
+  static readonly AddProcessStrategyPath = '/api/v1/processes/process-strategies';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addProcessStrategy()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addProcessStrategy$Response(params?: {
+    body?: ProcessStrategy
+  }): Observable<StrictHttpResponse<ProcessStrategy>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ApproachProcessService.AddProcessStrategyPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<ProcessStrategy>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `addProcessStrategy$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addProcessStrategy(params?: {
+    body?: ProcessStrategy
+  }): Observable<ProcessStrategy> {
+
+    return this.addProcessStrategy$Response(params).pipe(
+      map((r: StrictHttpResponse<ProcessStrategy>) => r.body as ProcessStrategy)
+    );
+  }
+
+  /**
+   * Path part for operation deleteProcessStrategy
+   */
+  static readonly DeleteProcessStrategyPath = '/api/v1/processes/process-strategies/{name}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `deleteProcessStrategy()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteProcessStrategy$Response(params: {
+    name: string;
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ApproachProcessService.DeleteProcessStrategyPath, 'delete');
+    if (params) {
+      rb.path('name', params.name, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `deleteProcessStrategy$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteProcessStrategy(params: {
+    name: string;
+  }): Observable<void> {
+
+    return this.deleteProcessStrategy$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation listAtomarUnit
+   */
+  static readonly ListAtomarUnitsPath = '/api/v1/processes/atomar-units';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `listAtomarUnits()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  listAtomarUnits$Response(params?: {
+  }): Observable<StrictHttpResponse<Array<AtomarUnit>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ApproachProcessService.ListAtomarUnitsPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<AtomarUnit>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `listAtomarUnits$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  listAtomarUnits(params?: {
+  }): Observable<Array<AtomarUnit>> {
+
+    return this.listAtomarUnits$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<AtomarUnit>>) => r.body as Array<AtomarUnit>)
+    );
+  }
+
+  /**
+   * Path part for operation addAtomarUnit
+   */
+  static readonly AddAtomarUnitPath = '/api/v1/processes/atomar-units';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addAtomarUnit()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addAtomarUnit$Response(params?: {
+    body?: AtomarUnit
+  }): Observable<StrictHttpResponse<AtomarUnit>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ApproachProcessService.AddAtomarUnitPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<AtomarUnit>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `addAtomarUnit$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addAtomarUnit(params?: {
+    body?: AtomarUnit
+  }): Observable<AtomarUnit> {
+
+    return this.addAtomarUnit$Response(params).pipe(
+      map((r: StrictHttpResponse<AtomarUnit>) => r.body as AtomarUnit)
+    );
+  }
+
+  /**
+   * Path part for operation deleteAtomarUnit
+   */
+  static readonly DeleteAtomarUnitPath = '/api/v1/processes/atomar-units/{name}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `deleteAtomarUnit()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteAtomarUnit$Response(params: {
+    name: string;
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ApproachProcessService.DeleteAtomarUnitPath, 'delete');
+    if (params) {
+      rb.path('name', params.name, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `deleteAtomarUnit$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteAtomarUnit(params: {
+    name: string;
+  }): Observable<void> {
+
+    return this.deleteAtomarUnit$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }

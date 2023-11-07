@@ -30,14 +30,20 @@ public class RefactoringApproachContext : DbContext
     public DbSet<AutomationLevel> AutomationLevels { get; set; }
     public DbSet<AnalysisType> AnalysisTypes { get; set; }
     public DbSet<Technique> Techniques { get; set; }
+    public DbSet<ProcessStrategy> Strategies { get; set; }
+    public DbSet<AtomarUnit> AtomarUnits { get; set; }
 
     public DbSet<Architecture> Architectures { get; set; }
     public DbSet<ServiceType> ServiceTypes { get; set; }
+    public DbSet<Representation> RepresentationOutputs { get; set; }
 
     public DbSet<ResultsQuality> ResultsQualities { get; set; }
     public DbSet<ToolSupport> ToolSupports { get; set; }
     public DbSet<AccuracyPrecision> AccuracyPrecisions { get; set; }
     public DbSet<ValidationMethod> ValidationMethods { get; set; }
+    public DbSet<Tool> Tools { get; set; }
+    public DbSet<ToolSource> ToolSources { get; set; }
+    public DbSet<ToolType> ToolTypes { get; set; }
 
     public string DbPath { get; }
 
@@ -75,6 +81,8 @@ public class RefactoringApproachContext : DbContext
         modelBuilder.ApplyConfiguration(new AutomationLevelConfiguration());
         modelBuilder.ApplyConfiguration(new AnalysisTypeConfiguration());
         modelBuilder.ApplyConfiguration(new TechniqueConfiguration());
+        modelBuilder.ApplyConfiguration(new AtomarUnitConfiguration());
+        modelBuilder.ApplyConfiguration(new ProcessStrategyConfiguration());
 
         modelBuilder.ApplyConfiguration(new ArchitectureConfiguration());
         modelBuilder.ApplyConfiguration(new ServiceTypeConfiguration());
@@ -83,5 +91,10 @@ public class RefactoringApproachContext : DbContext
         modelBuilder.ApplyConfiguration(new AccuracyPrecisionConfiguration());
         modelBuilder.ApplyConfiguration(new ToolSupportConfiguration());
         modelBuilder.ApplyConfiguration(new ResultsQualityConfiguration());
+
+        modelBuilder.ApplyConfiguration(new RepresentationOutputConfiguration());
+
+        modelBuilder.ApplyConfiguration(new ToolConfiguration());
+        modelBuilder.ApplyConfiguration(new ToolTypeConfiguration());
     }
 }

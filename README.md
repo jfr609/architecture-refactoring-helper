@@ -1,6 +1,6 @@
 # Architecture Refactoring Helper
 
-The Architecture Refactoring Helper is an application which aims to help find suitable approaches based on input configurations for migrating to microservices architecture. Likewise, appropriate patterns and best practices for microservice architectures can be recommended based on input configurations. 
+The Architecture Refactoring Helper is an application which helps to find migration approaches based on a quality analysis. As well, Microservice patterns and best practices are recommended based on the analysis. 
 
 ## Running the application in Docker
 
@@ -17,18 +17,18 @@ The Architecture Refactoring Helper is an application which aims to help find su
 
 ### Using the application
 
-After starting the docker containers the API can be reached at:
+After starting the docker containers, the API can be reached at:
 - "https://localhost:8080/api/v1" or 
 - "https://localhost:5000/api/v1" 
 
-and the User interface at:
+The user interface at:
 - "https://localhost:8080/" or
 - "https://localhost:9000/"
 
 ### Troubleshooting
 
-It might be necessary to change the production URL of the API inside the user interface project.
-This can be done in the "{RepositoryFolder}/UI/src/environments/environment.prod.ts" file.
+It might be necessary to change the API production URL inside the UI project.
+This can be done in the file "{RepositoryFolder}/UI/src/environments/environment.prod.ts".
 
 ## Running the Backend
 
@@ -54,18 +54,18 @@ This can be done in the "{RepositoryFolder}/UI/src/environments/environment.prod
 ### Using the application
 
 #### Without Docker
-After starting the app the API will run on:
+After starting, the app the API will be running on:
 - "https://localhost:7262/api/v1" 
 
-and the swagger UI can be reached at:
+The swagger UI can be reached at:
 - "https://localhost:7262/swagger/index.html"
 
 #### With Docker
-After starting docker container the API can reached at:
+After starting the docker container, the API can reached at:
 - "https://localhost:8080/api/v1" or 
 - "https://localhost:5000/api/v1" 
 
-Swagger UI is not active when running the application in docker
+The Swagger UI is not active when running the application in docker.
 
 ## Running the User interface
 

@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ApproachFormComponent } from './components/views/approach-form/approach-form.component';
 import { RecommendationConfiguratorComponent } from './components/views/recommendation-configurator/recommendation-configurator.component';
 import { ApproachExplorerComponent } from './components/views/approach-explorer/approach-explorer.component';
+import { ToolExplorerComponent } from './components/views/tool-explorer/tool-explorer.component';
 import { ApiModule } from '../../api/repository/api.module';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
@@ -64,6 +65,8 @@ import { ArchitecturalDesignExplorerComponent } from './components/views/archite
 import { ArchitecturalDesignViewComponent } from './components/views/architectural-design-view/architectural-design-view.component';
 import { ArchitecturalRecommendationResultComponent } from './components/views/architectural-recommendation-result/architectural-recommendation-result.component';
 import { MatBadgeModule } from '@angular/material/badge';
+import { ToolFormComponent } from './components/views/tool-form/tool-form.component';
+import { ToolViewComponent } from './components/views/tool-view/tool-view.component';
 
 @NgModule({
   declarations: [
@@ -72,11 +75,14 @@ import { MatBadgeModule } from '@angular/material/badge';
     PageNotFoundComponent,
     ArchitectureRefactoringHelperComponent,
     ApproachFormComponent,
+    ToolFormComponent,
     RecommendationConfiguratorComponent,
     ApproachExplorerComponent,
+    ToolExplorerComponent,
     ConfirmDialogComponent,
     ConnectedDataListsComponent,
     ApproachViewComponent,
+    ToolViewComponent,
     CreateAttributeDialogComponent,
     DeleteAttributeDialogComponent,
     RecommendationResultComponent,

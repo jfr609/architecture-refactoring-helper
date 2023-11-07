@@ -12,6 +12,7 @@ import { map, filter } from 'rxjs/operators';
 import { ApproachOutput } from '../models/approach-output';
 import { Architecture } from '../models/architecture';
 import { ServiceType } from '../models/service-type';
+import { Representation } from '../models/representation';
 
 @Injectable({
   providedIn: 'root',
@@ -379,6 +380,141 @@ export class ApproachOutputService extends BaseService {
   }): Observable<void> {
 
     return this.deleteServiceType$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation listRepresentations
+   */
+  static readonly ListRepresentationsPath = '/api/v1/outputs/representations';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `listRepresentations()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  listRepresentations$Response(params?: {
+  }): Observable<StrictHttpResponse<Array<Representation>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ApproachOutputService.ListRepresentationsPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<Representation>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `listRepresentations$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  listRepresentations(params?: {
+  }): Observable<Array<Representation>> {
+
+    return this.listRepresentations$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<Representation>>) => r.body as Array<Representation>)
+    );
+  }
+
+  /**
+   * Path part for operation addRepresentation
+   */
+  static readonly AddRepresentationPath = '/api/v1/outputs/representations';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addRepresentation()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addRepresentation$Response(params?: {
+    body?: Representation
+  }): Observable<StrictHttpResponse<Representation>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ApproachOutputService.AddRepresentationPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Representation>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `addRepresentation$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addRepresentation(params?: {
+    body?: Representation
+  }): Observable<Representation> {
+
+    return this.addRepresentation$Response(params).pipe(
+      map((r: StrictHttpResponse<Representation>) => r.body as Representation)
+    );
+  }
+
+  /**
+   * Path part for operation deleteRepresentation
+   */
+  static readonly DeleteRepresentationPath = '/api/v1/outputs/representations/{name}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `deleteRepresentation()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteRepresentation$Response(params: {
+    name: string;
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ApproachOutputService.DeleteRepresentationPath, 'delete');
+    if (params) {
+      rb.path('name', params.name, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `deleteRepresentation$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteRepresentation(params: {
+    name: string;
+  }): Observable<void> {
+
+    return this.deleteRepresentation$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }

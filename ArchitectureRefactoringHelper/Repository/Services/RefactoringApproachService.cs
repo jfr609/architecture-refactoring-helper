@@ -11,14 +11,16 @@ public class RefactoringApproachService
     private readonly ApproachProcessService _processService;
     private readonly ApproachOutputService _outputService;
     private readonly ApproachUsabilityService _usabilityService;
+    private readonly ToolService _toolService;
 
     public RefactoringApproachService(ApproachInputService inputService, ApproachProcessService processService,
-        ApproachOutputService outputService, ApproachUsabilityService usabilityService)
+        ApproachOutputService outputService, ApproachUsabilityService usabilityService, ToolService toolService)
     {
         _inputService = inputService;
         _processService = processService;
         _outputService = outputService;
         _usabilityService = usabilityService;
+        _toolService = toolService;
     }
 
     public IEnumerable<RefactoringApproach> ListRefactoringApproaches(bool? withDetails)
@@ -50,7 +52,7 @@ public class RefactoringApproachService
     {
         IQueryable<RefactoringApproach> query = db.RefactoringApproaches
             .Where(e => e.RefactoringApproachId == refactoringApproachId)
-            .Include(e => e.ApproachUsability)
+            //.Include(e => e.ApproachUsability)
             .Include(e => e.ApproachSource);
         var result = query.FirstOrDefault();
 
@@ -93,7 +95,9 @@ public class RefactoringApproachService
                 _inputService.AddModelArtifactsIfNotExist(refactoringApproach.ModelArtifactInputs, ref db),
             ExecutableInputs = _inputService.AddExecutablesIfNotExist(refactoringApproach.ExecutableInputs, ref db),
             ApproachProcess = _processService.AddApproachProcess(refactoringApproach.ApproachProcess, ref db),
-            ApproachOutputs = _outputService.AddApproachOutputsIfNotExist(refactoringApproach.ApproachOutputs, ref db),
+            //ApproachOutputs = _outputService.AddApproachOutputsIfNotExist(refactoringApproach.ApproachOutputs, ref db),
+            RepresentationOutputs =
+                _outputService.AddRepresentationsIfNotExist(refactoringApproach.RepresentationOutputs, ref db),
             ApproachUsability = _usabilityService.AddApproachUsability(refactoringApproach.ApproachUsability, ref db)
         };
 
@@ -509,6 +513,82 @@ public class RefactoringApproachService
         db.SaveChanges();
     }
 
+    public void AddProcessStrategyToProcess(int approachId, ProcessStrategy processStrategy)
+    {
+        var db = new RefactoringApproachContext();
+
+        var approach = GetRefactoringApproach(approachId, ref db);
+
+        approach.ApproachProcess.ProcessStrategies ??= new List<ProcessStrategy>();
+        if (approach.ApproachProcess.ProcessStrategies.Any(e => e.Name == processStrategy.Name))
+        {
+            throw new DuplicateElementException(
+                $"ProcessStrategy with name \"{processStrategy.Name}\" is already a process attribute of the given refactoring approach(ID: {approachId}).");
+        }
+
+        var savedProcessStrategy = _processService.GetProcessStrategy(processStrategy.Name, ref db);
+        approach.ApproachProcess.ProcessStrategies.Add(savedProcessStrategy);
+        db.SaveChanges();
+    }
+
+    public void RemoveProcessStrategyFromProcess(int approachId, string processStrategyName)
+    {
+        var db = new RefactoringApproachContext();
+
+        var approach = GetRefactoringApproach(approachId, ref db);
+
+        if (approach.ApproachProcess.ProcessStrategies.IsNullOrEmpty())
+            return;
+
+        var processStrategy = approach.ApproachProcess.ProcessStrategies!.FirstOrDefault(e => e.Name == processStrategyName);
+        if (processStrategy == null)
+        {
+            throw new EntityNotFoundException(
+                $"ProcessStrategy with name \"{processStrategyName}\" is not a process attribute of the given refactoring approach(ID: {approachId}).");
+        }
+
+        approach.ApproachProcess.ProcessStrategies!.Remove(processStrategy);
+        db.SaveChanges();
+    }
+
+    public void AddAtomarUnitToProcess(int approachId, AtomarUnit atomarUnit)
+    {
+        var db = new RefactoringApproachContext();
+
+        var approach = GetRefactoringApproach(approachId, ref db);
+
+        approach.ApproachProcess.AtomarUnits ??= new List<AtomarUnit>();
+        if (approach.ApproachProcess.AtomarUnits.Any(e => e.Name == atomarUnit.Name))
+        {
+            throw new DuplicateElementException(
+                $"AtomarUnit with name \"{atomarUnit.Name}\" is already a process attribute of the given refactoring approach(ID: {approachId}).");
+        }
+
+        var savedAtomarUnit = _processService.GetAtomarUnit(atomarUnit.Name, ref db);
+        approach.ApproachProcess.AtomarUnits.Add(savedAtomarUnit);
+        db.SaveChanges();
+    }
+
+    public void RemoveAtomarUnitFromProcess(int approachId, string atomarUnitName)
+    {
+        var db = new RefactoringApproachContext();
+
+        var approach = GetRefactoringApproach(approachId, ref db);
+
+        if (approach.ApproachProcess.AtomarUnits.IsNullOrEmpty())
+            return;
+
+        var atomarUnit = approach.ApproachProcess.AtomarUnits!.FirstOrDefault(e => e.Name == atomarUnitName);
+        if (atomarUnit == null)
+        {
+            throw new EntityNotFoundException(
+                $"AtomarUnit with name \"{atomarUnitName}\" is not a process attribute of the given refactoring approach(ID: {approachId}).");
+        }
+
+        approach.ApproachProcess.AtomarUnits!.Remove(atomarUnit);
+        db.SaveChanges();
+    }
+
     public void AddOutput(int approachId, ApproachOutput output)
     {
         var db = new RefactoringApproachContext();
@@ -547,6 +627,46 @@ public class RefactoringApproachService
 
         approach.ApproachOutputs!.Remove(output);
         db.SaveChanges();
+    }
+
+    public void AddRepresentationAsOutput(int approachId, Representation representation)
+    {
+        var db = new RefactoringApproachContext();
+
+        var approach = GetRefactoringApproach(approachId, ref db);
+
+        approach.RepresentationOutputs ??= new List<Representation>();
+        if (approach.RepresentationOutputs.Any(e => e.Name == representation.Name))
+        {
+            throw new DuplicateElementException(
+                $"Representation output with name \"{representation.Name}\" is already an output of the given refactoring approach(ID: {approachId}).");
+        }
+
+        var output = _outputService.GetRepresentationOutput(representation.Name, ref db);
+        approach.RepresentationOutputs.Add(output);
+        db.SaveChanges();
+    }
+
+    public void RemoveRepresentationFromOutputs(int approachId, string outputName)
+    {
+        var db = new RefactoringApproachContext();
+
+        var approach = GetRefactoringApproach(approachId, ref db);
+
+        approach.RepresentationOutputs!.Clear();
+        db.SaveChanges();
+        //if (approach.RepresentationOutputs.IsNullOrEmpty())
+        //    return;
+
+        //var output = approach.RepresentationOutputs!.FirstOrDefault(e => e.Name == outputName);
+        //if (output == null)
+        //{
+        //    throw new EntityNotFoundException(
+        //        $"Representation output with name \"{outputName}\" is not an output of the given refactoring approach(ID: {approachId}).");
+        //}
+
+        //approach.RepresentationOutputs!.Remove(output);
+        //db.SaveChanges();
     }
 
     public void UpdateResultsQuality(int approachId, ResultsQuality resultsQuality)
@@ -603,6 +723,86 @@ public class RefactoringApproachService
         db.SaveChanges();
     }
 
+    public void UpdateTools(int approachId, int[] tools)
+    {
+        var db = new RefactoringApproachContext();
+
+        var approach = GetRefactoringApproach(approachId, ref db);
+
+        var selectedTools = _toolService.GetTools(tools, ref db);
+
+        if (tools.Count() == 0)
+        {
+            approach.ApproachUsability.NoToolSupport = true;
+        }
+        else
+        {
+            approach.ApproachUsability.NoToolSupport = false;
+        }
+
+        if (approach != null && approach.ApproachUsability != null && approach.ApproachUsability.Tools != null)
+        {
+            approach.ApproachUsability.Tools.Clear(); // Clear existing associations
+        }
+
+        foreach(var tool in selectedTools)
+        {
+            approach.ApproachUsability.Tools.Add(tool);
+        }
+        db.SaveChanges();
+    }
+    public void UpdateToolsByIdentifiers(int approachId, string[] tools)
+    {
+        var db = new RefactoringApproachContext();
+
+        var approach = GetRefactoringApproach(approachId, ref db);
+
+        var selectedTools = _toolService.GetToolsByIdentifiers(tools, ref db);
+
+        if (tools.Count() == 0)
+        {
+            approach.ApproachUsability.NoToolSupport = true;
+        }
+        else
+        {
+            approach.ApproachUsability.NoToolSupport = false;
+        }
+
+        if (approach != null && approach.ApproachUsability != null && approach.ApproachUsability.Tools != null)
+        {
+            approach.ApproachUsability.Tools.Clear(); // Clear existing associations
+        }
+
+        foreach (var tool in selectedTools)
+        {
+            approach.ApproachUsability.Tools.Add(tool);
+        }
+        db.SaveChanges();
+    }
+
+    public void RemoveApproachExistingCards(int approachId)
+    {
+        var db = new RefactoringApproachContext();
+
+        var approach = GetRefactoringApproach(approachId, ref db);
+
+        approach.DomainArtifactInputs?.Clear();
+        approach.RuntimeArtifactInputs?.Clear();
+        approach.ModelArtifactInputs?.Clear();
+        approach.ExecutableInputs?.Clear();
+        approach.ApproachProcess?.Qualities?.Clear();
+        approach.ApproachProcess?.QualitySublevels?.Clear();
+        approach.ApproachProcess?.Directions?.Clear();
+        approach.ApproachProcess?.AutomationLevels?.Clear();
+        approach.ApproachProcess?.AnalysisTypes?.Clear();
+        approach.ApproachProcess?.Techniques?.Clear();
+        approach.ApproachProcess?.ProcessStrategies?.Clear();
+        approach.ApproachProcess?.AtomarUnits?.Clear();
+        approach.RepresentationOutputs?.Clear();
+
+        db.SaveChanges();
+    }
+
     private static void LoadAllData(ref IQueryable<RefactoringApproach> query)
     {
         query.Include(e => e.DomainArtifactInputs!)
@@ -641,12 +841,31 @@ public class RefactoringApproachService
             .ThenInclude(e => e.Techniques!)
             .Load();
 
+        query.Include(e => e.ApproachProcess)
+            .ThenInclude(e => e.ProcessStrategies!)
+            .Load();
+
+        query.Include(e => e.ApproachProcess)
+            .ThenInclude(e => e.AtomarUnits!)
+            .Load();
+
         query.Include(e => e.ApproachOutputs)!
             .ThenInclude(e => e.Architecture)
             .Load();
 
         query.Include(e => e.ApproachOutputs)!
             .ThenInclude(e => e.ServiceType)
+            .Load();
+
+        query.Include(e => e.RepresentationOutputs!)
+            .Load();
+
+        query.Include(e => e.ApproachUsability)
+            .ThenInclude(e => e.Tools)
+            .ThenInclude(e => e.ToolSource)
+            .Include(e => e.ApproachUsability)
+            .ThenInclude(e => e.Tools)
+            .ThenInclude(e => e.ToolTypes)
             .Load();
 
         query.Select(e => e.ApproachUsability)

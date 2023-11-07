@@ -13,7 +13,7 @@ public class TechniqueConfiguration : IEntityTypeConfiguration<Technique>
         builder.HasData(
             new Technique
             {
-                Name = "Wrapping",
+                Name = "Wrapping / Black Box",
                 Description =
                     "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
             },
@@ -22,12 +22,6 @@ public class TechniqueConfiguration : IEntityTypeConfiguration<Technique>
                 Name = "Genetic algorithm",
                 Description =
                     "A meta-heuristic for solving optimization problems that is based on \"natural selection\". It relies on the calculation of a fitness function to reach an optimal (or near-optimal) solution. By definition, an optimal solution is a feasible solution where the fitness function reaches its maximum (or minimum) value."
-            },
-            new Technique
-            {
-                Name = "Formal concept analysis",
-                Description =
-                    "A method for data analysis where we derive implicit relationships between objects in a formal way. It is also considered as a principled way of grouping objects that have common properties."
             },
             new Technique
             {
@@ -45,6 +39,40 @@ public class TechniqueConfiguration : IEntityTypeConfiguration<Technique>
             {
                 Name = "General guidelines",
                 Description = "Proposes best practices, lessons learned, or recommendations for service identification."
+            },
+            new Technique
+            {
+                Name = "Domain-Driven Design",
+                Description =
+                    "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
+            },
+            new Technique
+            {
+                Name = "Data-flow driven",
+                Description =
+                    "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
+            },
+            new Technique
+            {
+                Name = "Graph-based",
+                Description =
+                    "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
+            },
+            new Technique
+            {
+                Name = "Scenario analysis",
+                Description =
+                    "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
+            }, new Technique
+            {
+                Name = "Execution-trace modeling",
+                Description =
+                    "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
+            }, new Technique
+            {
+                Name = "Performance modeling",
+                Description =
+                    "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
             });
     }
 }

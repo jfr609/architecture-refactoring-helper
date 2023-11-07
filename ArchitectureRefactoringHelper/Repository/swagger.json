@@ -565,6 +565,89 @@
         }
       }
     },
+    "/api/v1/outputs/representations": {
+      "get": {
+        "tags": [
+          "ApproachOutput"
+        ],
+        "operationId": "ListRepresentations",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Representation"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ApproachOutput"
+        ],
+        "operationId": "AddRepresentation",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Representation"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Representation"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Representation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Representation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/outputs/representations/{name}": {
+      "delete": {
+        "tags": [
+          "ApproachOutput"
+        ],
+        "operationId": "DeleteRepresentation",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/v1/processes": {
       "get": {
         "tags": [
@@ -1100,6 +1183,172 @@
           "ApproachProcess"
         ],
         "operationId": "DeleteTechnique",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/processes/process-strategies": {
+      "get": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "ListProcessStrategies",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProcessStrategy"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "AddProcessStrategy",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProcessStrategy"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProcessStrategy"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProcessStrategy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessStrategy"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/processes/process-strategies/{name}": {
+      "delete": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "DeleteProcessStrategy",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/processes/atomar-units": {
+      "get": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "ListAtomarUnits",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AtomarUnit"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "AddAtomarUnit",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AtomarUnit"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AtomarUnit"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AtomarUnit"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AtomarUnit"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/processes/atomar-units/{name}": {
+      "delete": {
+        "tags": [
+          "ApproachProcess"
+        ],
+        "operationId": "DeleteAtomarUnit",
         "parameters": [
           {
             "name": "name",
@@ -1906,6 +2155,105 @@
         }
       }
     },
+    "/api/v1/approaches/{id}/outputs/representations": {
+      "post": {
+        "tags": [
+          "RefactoringApproach"
+        ],
+        "operationId": "AddRepresentationAsOutput",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Representation"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Representation"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Representation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/approaches/{id}/outputs/representations/{outputName}": {
+      "delete": {
+        "tags": [
+          "RefactoringApproach"
+        ],
+        "operationId": "RemoveRepresentationFromOutputs",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "outputName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/approaches/{id}/existing-cards": {
+      "delete": {
+        "tags": [
+          "RefactoringApproach"
+        ],
+        "operationId": "RemoveApproachExistingCards",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/v1/approaches/{id}/inputs/runtime-artifacts": {
       "post": {
         "tags": [
@@ -2596,6 +2944,156 @@
         }
       }
     },
+    "/api/v1/approaches/{id}/processes/process-strategies": {
+      "post": {
+        "tags": [
+          "RefactoringApproach"
+        ],
+        "operationId": "AddProcessStrategyToProcess",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProcessStrategy"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProcessStrategy"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProcessStrategy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/approaches/{id}/processes/process-strategies/{processStrategyName}": {
+      "delete": {
+        "tags": [
+          "RefactoringApproach"
+        ],
+        "operationId": "RemoveProcessStrategyFromProcess",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "processStrategyName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/approaches/{id}/processes/atomar-units": {
+      "post": {
+        "tags": [
+          "RefactoringApproach"
+        ],
+        "operationId": "AddAtomarUnitToProcess",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AtomarUnit"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AtomarUnit"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AtomarUnit"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/approaches/{id}/processes/atomar-units/{atomarUnitName}": {
+      "delete": {
+        "tags": [
+          "RefactoringApproach"
+        ],
+        "operationId": "RemoveAtomarUnitFromProcess",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "atomarUnitName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/v1/approaches/{id}/outputs": {
       "post": {
         "tags": [
@@ -2844,6 +3342,113 @@
         }
       }
     },
+    "/api/v1/approaches/{id}/usabilities/tools": {
+      "post": {
+        "tags": [
+          "RefactoringApproach"
+        ],
+        "operationId": "UpdateTool",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/approaches/{id}/usabilities/tools-by-identifiers": {
+      "post": {
+        "tags": [
+          "RefactoringApproach"
+        ],
+        "operationId": "UpdateToolsByIdentifiers",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/v1/projects/scenarios": {
       "get": {
         "tags": [
@@ -3058,6 +3663,306 @@
           }
         }
       }
+    },
+    "/api/v1/tools": {
+      "get": {
+        "tags": [
+          "Tool"
+        ],
+        "summary": "Receives a complete list of all Tool items",
+        "operationId": "ListTools",
+        "parameters": [
+          {
+            "name": "withDetails",
+            "in": "query",
+            "description": "Decides whether the tools are returned with all details or not",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Tool"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Tool"
+        ],
+        "summary": "Creates a new Tool.\r\nToolTypes that don't exist will be created in the process.",
+        "operationId": "AddTool",
+        "requestBody": {
+          "description": "The Tool we want to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Tool"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Tool"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Tool"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Returns the newly created Tool",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tool"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "If the Tool is null",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "If a Tool with the same title already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tools/{id}": {
+      "get": {
+        "tags": [
+          "Tool"
+        ],
+        "summary": "Receives a Tool",
+        "operationId": "GetTool",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tool"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Tool"
+        ],
+        "summary": "Deletes a Tool",
+        "operationId": "DeleteTool",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/tools/{id}/tool-types": {
+      "post": {
+        "tags": [
+          "Tool"
+        ],
+        "operationId": "AddToolTypeToTool",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToolType"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToolType"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToolType"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/tools/{id}/existing-cards": {
+      "delete": {
+        "tags": [
+          "Tool"
+        ],
+        "operationId": "RemoveToolExistingCards",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/tools/tool-types": {
+      "get": {
+        "tags": [
+          "Tool"
+        ],
+        "operationId": "ListToolTypes",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ToolType"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Tool"
+        ],
+        "operationId": "AddToolType",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToolType"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToolType"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToolType"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ToolType"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tools/tool-types/{name}": {
+      "delete": {
+        "tags": [
+          "Tool"
+        ],
+        "operationId": "DeleteToolType",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -3226,6 +4131,20 @@
               "$ref": "#/components/schemas/Technique"
             },
             "nullable": true
+          },
+          "processStrategies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProcessStrategy"
+            },
+            "nullable": true
+          },
+          "atomarUnits": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AtomarUnit"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -3325,6 +4244,27 @@
             },
             "nullable": true
           },
+          "atomarUnitEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AtomarUnitApproachAttributeEvaluation"
+            },
+            "nullable": true
+          },
+          "processStrategyEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProcessStrategyApproachAttributeEvaluation"
+            },
+            "nullable": true
+          },
+          "representationOutputEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RepresentationApproachAttributeEvaluation"
+            },
+            "nullable": true
+          },
           "architectureEvaluations": {
             "type": "array",
             "items": {
@@ -3350,6 +4290,13 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ToolSupportApproachAttributeEvaluation"
+            },
+            "nullable": true
+          },
+          "toolTypeEvaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ToolTypeApproachAttributeEvaluation"
             },
             "nullable": true
           },
@@ -3401,18 +4348,22 @@
           "accuracyPrecisionInformation",
           "analysisTypeInformation",
           "architectureInformation",
+          "atomarUnitInformation",
           "automationLevelInformation",
           "directionInformation",
           "domainArtifactInformation",
           "executableInformation",
           "modelArtifactInformation",
+          "processStrategyInformation",
           "qualityInformation",
           "qualitySublevelInformation",
+          "representationInformation",
           "resultsQualityInformation",
           "runtimeArtifactInformation",
           "serviceTypeInformation",
           "techniqueInformation",
           "toolSupportInformation",
+          "toolTypeInformation",
           "validationMethodInformation"
         ],
         "type": "object",
@@ -3477,6 +4428,24 @@
               "$ref": "#/components/schemas/TechniqueAttributeRecommendationInformation"
             }
           },
+          "processStrategyInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProcessStrategyAttributeRecommendationInformation"
+            }
+          },
+          "atomarUnitInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AtomarUnitAttributeRecommendationInformation"
+            }
+          },
+          "representationInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RepresentationAttributeRecommendationInformation"
+            }
+          },
           "architectureInformation": {
             "type": "array",
             "items": {
@@ -3499,6 +4468,12 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ToolSupportAttributeRecommendationInformation"
+            }
+          },
+          "toolTypeInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ToolTypeAttributeRecommendationInformation"
             }
           },
           "accuracyPrecisionInformation": {
@@ -3548,8 +4523,6 @@
       "ApproachUsability": {
         "required": [
           "accuracyPrecision",
-          "resultsQuality",
-          "toolSupport",
           "validationMethod"
         ],
         "type": "object",
@@ -3557,6 +4530,13 @@
           "approachUsabilityId": {
             "type": "integer",
             "format": "int32"
+          },
+          "noToolSupport": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "refactoringApproach": {
+            "$ref": "#/components/schemas/RefactoringApproach"
           },
           "resultsQuality": {
             "$ref": "#/components/schemas/ResultsQuality"
@@ -3569,6 +4549,13 @@
           },
           "validationMethod": {
             "$ref": "#/components/schemas/ValidationMethod"
+          },
+          "tools": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Tool"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -3769,6 +4756,54 @@
         "properties": {
           "attribute": {
             "$ref": "#/components/schemas/Architecture"
+          },
+          "recommendationSuitability": {
+            "$ref": "#/components/schemas/RecommendationSuitability"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AtomarUnit": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AtomarUnitApproachAttributeEvaluation": {
+        "required": [
+          "approachAttribute",
+          "attributeEvaluation"
+        ],
+        "type": "object",
+        "properties": {
+          "approachAttribute": {
+            "$ref": "#/components/schemas/AtomarUnit"
+          },
+          "attributeEvaluation": {
+            "$ref": "#/components/schemas/AttributeEvaluation"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AtomarUnitAttributeRecommendationInformation": {
+        "required": [
+          "attribute",
+          "recommendationSuitability"
+        ],
+        "type": "object",
+        "properties": {
+          "attribute": {
+            "$ref": "#/components/schemas/AtomarUnit"
           },
           "recommendationSuitability": {
             "$ref": "#/components/schemas/RecommendationSuitability"
@@ -4072,6 +5107,54 @@
         },
         "additionalProperties": { }
       },
+      "ProcessStrategy": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProcessStrategyApproachAttributeEvaluation": {
+        "required": [
+          "approachAttribute",
+          "attributeEvaluation"
+        ],
+        "type": "object",
+        "properties": {
+          "approachAttribute": {
+            "$ref": "#/components/schemas/ProcessStrategy"
+          },
+          "attributeEvaluation": {
+            "$ref": "#/components/schemas/AttributeEvaluation"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProcessStrategyAttributeRecommendationInformation": {
+        "required": [
+          "attribute",
+          "recommendationSuitability"
+        ],
+        "type": "object",
+        "properties": {
+          "attribute": {
+            "$ref": "#/components/schemas/ProcessStrategy"
+          },
+          "recommendationSuitability": {
+            "$ref": "#/components/schemas/RecommendationSuitability"
+          }
+        },
+        "additionalProperties": false
+      },
       "Quality": {
         "required": [
           "category",
@@ -4314,8 +5397,63 @@
             },
             "nullable": true
           },
+          "representationOutputs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Representation"
+            },
+            "nullable": true
+          },
           "approachUsability": {
             "$ref": "#/components/schemas/ApproachUsability"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Representation": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RepresentationApproachAttributeEvaluation": {
+        "required": [
+          "approachAttribute",
+          "attributeEvaluation"
+        ],
+        "type": "object",
+        "properties": {
+          "approachAttribute": {
+            "$ref": "#/components/schemas/Representation"
+          },
+          "attributeEvaluation": {
+            "$ref": "#/components/schemas/AttributeEvaluation"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RepresentationAttributeRecommendationInformation": {
+        "required": [
+          "attribute",
+          "recommendationSuitability"
+        ],
+        "type": "object",
+        "properties": {
+          "attribute": {
+            "$ref": "#/components/schemas/Representation"
+          },
+          "recommendationSuitability": {
+            "$ref": "#/components/schemas/RecommendationSuitability"
           }
         },
         "additionalProperties": false
@@ -4570,6 +5708,67 @@
         },
         "additionalProperties": false
       },
+      "Tool": {
+        "required": [
+          "identifier"
+        ],
+        "type": "object",
+        "properties": {
+          "toolId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "identifier": {
+            "type": "string"
+          },
+          "toolSource": {
+            "$ref": "#/components/schemas/ToolSource"
+          },
+          "toolTypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ToolType"
+            },
+            "nullable": true
+          },
+          "approachUsabilities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApproachUsability"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ToolSource": {
+        "required": [
+          "author",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "toolSourceId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "link": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "ToolSupport": {
         "required": [
           "name"
@@ -4611,6 +5810,54 @@
         "properties": {
           "attribute": {
             "$ref": "#/components/schemas/ToolSupport"
+          },
+          "recommendationSuitability": {
+            "$ref": "#/components/schemas/RecommendationSuitability"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ToolType": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ToolTypeApproachAttributeEvaluation": {
+        "required": [
+          "approachAttribute",
+          "attributeEvaluation"
+        ],
+        "type": "object",
+        "properties": {
+          "approachAttribute": {
+            "$ref": "#/components/schemas/ToolType"
+          },
+          "attributeEvaluation": {
+            "$ref": "#/components/schemas/AttributeEvaluation"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ToolTypeAttributeRecommendationInformation": {
+        "required": [
+          "attribute",
+          "recommendationSuitability"
+        ],
+        "type": "object",
+        "properties": {
+          "attribute": {
+            "$ref": "#/components/schemas/ToolType"
           },
           "recommendationSuitability": {
             "$ref": "#/components/schemas/RecommendationSuitability"

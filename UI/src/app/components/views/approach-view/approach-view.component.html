@@ -223,13 +223,60 @@
           </div>
         </div>
       </div>
+
+      <div
+        *ngIf='refactoringApproach.approachProcess.processStrategies && refactoringApproach.approachProcess.processStrategies.length > 0'
+        fxLayout='row'>
+        <div fxFlex='25'>
+          <h3>Process Strategies</h3>
+        </div>
+        <div fxFlex fxLayout='column'>
+          <div *ngFor='let strategy of refactoringApproach.approachProcess.processStrategies'>
+            <p [class]='getStrategyColor(strategy)'><strong>{{strategy.name}}</strong></p>
+            <p *ngIf='strategy.description'>
+              {{strategy.description}}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div
+        *ngIf='refactoringApproach.approachProcess.atomarUnits && refactoringApproach.approachProcess.atomarUnits.length > 0'
+        fxLayout='row'>
+        <div fxFlex='25'>
+          <h3>Atomar Units</h3>
+        </div>
+        <div fxFlex fxLayout='column'>
+          <div *ngFor='let atomarUnit of refactoringApproach.approachProcess.atomarUnits'>
+            <p [class]='getAtomarUnitColor(atomarUnit)'><strong>{{atomarUnit.name}}</strong></p>
+            <p *ngIf='atomarUnit.description'>
+              {{atomarUnit.description}}
+            </p>
+          </div>
+        </div>
+      </div>
     </mat-card-content>
   </mat-card>
 
   <mat-card>
     <mat-card-title>Outputs</mat-card-title>
-    <mat-card-content *ngIf='refactoringApproach.approachOutputs'>
-      <div fxLayout='row'>
+    <mat-card-content>
+      <div *ngIf='refactoringApproach.representationOutputs && refactoringApproach.representationOutputs.length > 0'
+            fxLayout='row'>
+            <div fxFlex='25'>
+              <h3>Representations</h3>
+            </div>
+            <div fxFlex fxLayout='column'>
+              <div *ngFor='let representation of refactoringApproach.representationOutputs'>
+                <p [class]='getRepresentationColor(representation)'><strong>{{representation.name}}</strong></p>
+                <p *ngIf='representation.description'>
+                  {{representation.description}}
+                </p>
+              </div>
+            </div>
+      </div>
+      <!-- <mat-card-content *ngIf='refactoringApproach.approachOutputs'></mat-card-content> -->
+      <!-- <div fxLayout='row'>
         <div fxFlex='25'>
           <h3>Architecture</h3>
         </div>
@@ -251,7 +298,7 @@
             </p>
           </div>
         </div>
-      </div>
+      </div> -->
     </mat-card-content>
   </mat-card>
 
@@ -272,21 +319,7 @@
         </div>
       </div>
 
-      <div fxLayout='row'>
-        <div fxFlex='25'>
-          <h3>Tool support</h3>
-        </div>
-        <div fxFlex>
-          <p [class]='getToolSupportColor(refactoringApproach.approachUsability.toolSupport)'>
-            <strong>{{refactoringApproach.approachUsability.toolSupport.name}}</strong>
-          </p>
-          <p *ngIf='refactoringApproach.approachUsability.toolSupport.description'>
-            {{refactoringApproach.approachUsability.toolSupport.description}}
-          </p>
-        </div>
-      </div>
-
-      <div fxLayout='row'>
+      <!-- <div fxLayout='row'>
         <div fxFlex='25'>
           <h3>Results quality</h3>
         </div>
@@ -298,7 +331,7 @@
             {{refactoringApproach.approachUsability.resultsQuality.description}}
           </p>
         </div>
-      </div>
+      </div> -->
 
       <div fxLayout='row'>
         <div fxFlex='25'>
@@ -311,6 +344,29 @@
           <p *ngIf='refactoringApproach.approachUsability.accuracyPrecision.description'>
             {{refactoringApproach.approachUsability.accuracyPrecision.description}}
           </p>
+        </div>
+      </div>
+
+      <div fxLayout='row'>
+        <div fxFlex='25'>
+          <h3>Tool support</h3>
+        </div>
+        <div fxFlex fxLayout="column">
+          <p>
+            <strong><i>{{refactoringApproach.approachUsability.noToolSupport ? "No" : "Yes"}}</i></strong>
+          </p>
+          <div *ngFor='let tool of refactoringApproach.approachUsability.tools'>
+              <p>
+                <strong>
+                  <a [routerLink]="['/phase/2/tool', tool.toolId]" style="cursor: pointer;">
+                    <strong>{{ tool.toolSource!.name }}</strong>
+                  </a>
+                </strong>
+              </p>
+              <p *ngIf='tool.toolSource!.description'>
+                {{tool.toolSource!.description}}
+              </p>
+          </div>
         </div>
       </div>
     </mat-card-content>

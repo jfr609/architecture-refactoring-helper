@@ -24,6 +24,10 @@ import { RecommendationPreset } from '../../../api/repository/models/recommendat
 import { QualitySublevelAttributeRecommendationInformation } from 'api/repository/models/quality-sublevel-attribute-recommendation-information';
 import { ArchitecturalDesignRecommendation } from 'api/repository/models/architectural-design-recommendation';
 import { ArchitecturalDesignRecommendationRequest } from 'api/repository/models';
+import { AtomarUnitAttributeRecommendationInformation } from 'api/repository/models/atomar-unit-attribute-recommendation-information';
+import { ProcessStrategyAttributeRecommendationInformation } from 'api/repository/models/process-strategy-attribute-recommendation-information';
+import { RepresentationAttributeRecommendationInformation } from 'api/repository/models/representation-attribute-recommendation-information';
+import { ToolTypeAttributeRecommendationInformation } from 'api/repository/models/tool-type-attribute-recommendation-information';
 
 @Injectable({
   providedIn: 'root'
@@ -75,6 +79,12 @@ export class ApproachRecommendationService {
     [];
   public techniqueInformation: TechniqueAttributeRecommendationInformation[] =
     [];
+  public atomarUnitInformation: AtomarUnitAttributeRecommendationInformation[] =
+    [];
+  public processStrategyInformation: ProcessStrategyAttributeRecommendationInformation[] =
+    [];
+  public representationInformation: RepresentationAttributeRecommendationInformation[] =
+    [];
   public architectureInformation: ArchitectureAttributeRecommendationInformation[] =
     [];
   public serviceTypeInformation: ServiceTypeAttributeRecommendationInformation[] =
@@ -86,6 +96,8 @@ export class ApproachRecommendationService {
   public resultsQualityInformation: ResultsQualityAttributeRecommendationInformation[] =
     [];
   public accuracyPrecisionInformation: AccuracyPrecisionAttributeRecommendationInformation[] =
+    [];
+  public toolTypeInformation: ToolTypeAttributeRecommendationInformation[] =
     [];
 
   constructor(private attributeOptionsService: AttributeOptionsService) {}
@@ -102,12 +114,16 @@ export class ApproachRecommendationService {
     this.automationLevelInformation = [];
     this.analysisTypeInformation = [];
     this.techniqueInformation = [];
+    this.atomarUnitInformation = [];
+    this.processStrategyInformation = [];
+    this.representationInformation = [];
     this.architectureInformation = [];
     this.serviceTypeInformation = [];
     this.validationMethodInformation = [];
     this.toolSupportInformation = [];
     this.resultsQualityInformation = [];
     this.accuracyPrecisionInformation = [];
+    this.toolTypeInformation = [];
   }
 
   setQualitiesToNeutral() : void {
@@ -147,6 +163,15 @@ export class ApproachRecommendationService {
     this.techniqueInformation.forEach(
       (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
     );
+    this.atomarUnitInformation.forEach(
+      (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
+    );
+    this.processStrategyInformation.forEach(
+      (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
+    );
+    this.representationInformation.forEach(
+      (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
+    );
     this.architectureInformation.forEach(
       (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
     );
@@ -163,6 +188,9 @@ export class ApproachRecommendationService {
       (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
     );
     this.accuracyPrecisionInformation.forEach(
+      (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
+    );
+    this.toolTypeInformation.forEach(
       (e) => (e.recommendationSuitability = RecommendationSuitability.Neutral)
     );
   }
@@ -249,6 +277,21 @@ export class ApproachRecommendationService {
       recommendationSuitability
     );
     this.setAttributeInformation(
+      this.atomarUnitInformation,
+      this.attributeOptionsService.atomarUnits.value,
+      recommendationSuitability
+    );
+    this.setAttributeInformation(
+      this.processStrategyInformation,
+      this.attributeOptionsService.processStrategies.value,
+      recommendationSuitability
+    );
+    this.setAttributeInformation(
+      this.representationInformation,
+      this.attributeOptionsService.representations.value,
+      recommendationSuitability
+    );
+    this.setAttributeInformation(
       this.architectureInformation,
       this.attributeOptionsService.architectures.value,
       recommendationSuitability
@@ -278,6 +321,11 @@ export class ApproachRecommendationService {
       this.attributeOptionsService.accuracyPrecisions.value,
       recommendationSuitability
     );
+    this.setAttributeInformation(
+      this.toolTypeInformation,
+      this.attributeOptionsService.toolTypes.value,
+      recommendationSuitability
+    );
   }
 
   createRecommendationRequest(): ApproachRecommendationRequest {
@@ -296,6 +344,9 @@ export class ApproachRecommendationService {
       automationLevelInformation: this.automationLevelInformation,
       analysisTypeInformation: this.analysisTypeInformation,
       techniqueInformation: this.techniqueInformation,
+      processStrategyInformation: this.processStrategyInformation,
+      atomarUnitInformation: this.atomarUnitInformation,
+      representationInformation: this.representationInformation,
 
       architectureInformation: this.architectureInformation,
       serviceTypeInformation: this.serviceTypeInformation,
@@ -303,7 +354,8 @@ export class ApproachRecommendationService {
       validationMethodInformation: this.validationMethodInformation,
       toolSupportInformation: this.toolSupportInformation,
       resultsQualityInformation: this.resultsQualityInformation,
-      accuracyPrecisionInformation: this.accuracyPrecisionInformation
+      accuracyPrecisionInformation: this.accuracyPrecisionInformation,
+      toolTypeInformation: this.toolTypeInformation
     };
   }
 

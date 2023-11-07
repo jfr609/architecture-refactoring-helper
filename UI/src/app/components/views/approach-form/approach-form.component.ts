@@ -41,6 +41,10 @@ import { AccuracyPrecision } from '../../../../../api/repository/models/accuracy
 import { ValidationMethod } from '../../../../../api/repository/models/validation-method';
 import { AttributeOptionsService } from '../../../services/attribute-options.service';
 import { QualitySublevel } from 'api/repository/models';
+import { ProcessStrategy } from 'api/repository/models/process-strategy';
+import { AtomarUnit } from 'api/repository/models/atomar-unit';
+import { Representation } from 'api/repository/models/representation';
+import { Tool } from 'api/repository/models/tool';
 
 @Component({
   selector: 'app-approach-form',
@@ -92,6 +96,12 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
   analysisTypeTargetDataList: ConnectedDataListElement[] = [];
   techniqueSourceDataList: ConnectedDataListElement[] = [];
   techniqueTargetDataList: ConnectedDataListElement[] = [];
+  processStrategySourceDataList: ConnectedDataListElement[] = [];
+  processStrategyTargetDataList: ConnectedDataListElement[] = [];
+  atomarUnitSourceDataList: ConnectedDataListElement[] = [];
+  atomarUnitTargetDataList: ConnectedDataListElement[] = [];
+  representationSourceDataList: ConnectedDataListElement[] = [];
+  representationTargetDataList: ConnectedDataListElement[] = [];
 
   selectedOutputArchitecture!: Architecture;
   selectedOutputServiceType!: ServiceType;
@@ -102,6 +112,10 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
   selectedAccuracyPrecision!: AccuracyPrecision;
   selectedValidationMethod!: ValidationMethod;
 
+  selectedToolIds: number[] = []; // Array to store selected tool IDs
+  selectedToolIdsCopied: number[] = []; // Array to store selected tool IDs
+  noToolSupport: null | boolean = false;
+  
   isCreateView = true;
   isDataLoading = true;
 
@@ -129,6 +143,7 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
           this.attributeOptionsService.requestAttributeOptions().then(() => {
             this.fillDataLists();
             this.setRadioDefaults();
+            // this.setCheckboxDefaults();
             this.isDataLoading = false;
           });
         } else {
@@ -224,6 +239,27 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
         }
       })
     );
+    this.attributeSubscriptions.push(
+      this.attributeOptionsService.processStrategies.subscribe({
+        next: () => {
+          this.fillProcessStrategyDataLists();
+        }
+      })
+    );
+    this.attributeSubscriptions.push(
+      this.attributeOptionsService.atomarUnits.subscribe({
+        next: () => {
+          this.fillAtomarUnitDataLists();
+        }
+      })
+    );
+    this.attributeSubscriptions.push(
+      this.attributeOptionsService.representations.subscribe({
+        next: () => {
+          this.fillRepresentationDataLists();
+        }
+      })
+    );
   }
 
   ngOnDestroy() {
@@ -232,6 +268,25 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
     }
   }
 
+  toggleToolSelection(toolId: number): void {
+    const index = this.selectedToolIds.indexOf(toolId);
+    if (index !== -1) {
+      this.selectedToolIds.splice(index, 1); // Remove if already selected
+    } else {
+      this.selectedToolIds.push(toolId); // Add if not selected
+    }
+  }
+
+  toggleNoToolSupport() {
+    if (this.noToolSupport) {
+      this.selectedToolIdsCopied = this.selectedToolIds;
+      this.selectedToolIds = []; // Clear selected toolIds
+    }
+    else{
+      this.selectedToolIds = this.selectedToolIdsCopied;
+    }
+  }
+  
   requestRefactoringApproach(approachId: number): Promise<void> {
     return lastValueFrom(
       this.refactoringApproachService.getRefactoringApproach({ id: approachId })
@@ -258,6 +313,9 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
     this.fillAutomationLevelDataLists();
     this.fillAnalysisTypeDataLists();
     this.fillTechniqueDataLists();
+    this.fillProcessStrategyDataLists();
+    this.fillAtomarUnitDataLists();
+    this.fillRepresentationDataLists();
   }
 
   fillInOutputs() {
@@ -269,36 +327,40 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
   }
 
   setRadioDefaults(): void {
-    this.setSelectedResultsQualityToDefault();
-    this.setSelectedToolSupportToDefault();
+    // this.setSelectedResultsQualityToDefault();
+    // this.setSelectedToolSupportToDefault();
     this.setSelectedAccuracyPrecisionToDefault();
     this.setSelectedValidationMethodToDefault();
   }
 
-  fillInUsabilityAttributes() {
-    if (this.refactoringApproach.approachUsability?.resultsQuality != null) {
-      const foundResultsQuality =
-        this.attributeOptionsService.resultsQualities.value.find(
-          (value: ResultsQuality) =>
-            value.name ===
-            this.refactoringApproach.approachUsability?.resultsQuality.name
-        );
-      if (foundResultsQuality != null) {
-        this.selectedResultsQuality = foundResultsQuality;
-      }
-    }
+  // setCheckboxDefaults(): void {
+  //   this.setSelectedToolsToDefault();
+  // }
 
-    if (this.refactoringApproach.approachUsability?.toolSupport != null) {
-      const foundToolSupport =
-        this.attributeOptionsService.toolSupports.value.find(
-          (value: ToolSupport) =>
-            value.name ===
-            this.refactoringApproach.approachUsability?.toolSupport.name
-        );
-      if (foundToolSupport != null) {
-        this.selectedToolSupport = foundToolSupport;
-      }
-    }
+  fillInUsabilityAttributes() {
+    // if (this.refactoringApproach.approachUsability?.resultsQuality != null) {
+    //   const foundResultsQuality =
+    //     this.attributeOptionsService.resultsQualities.value.find(
+    //       (value: ResultsQuality) =>
+    //         value.name ===
+    //         this.refactoringApproach.approachUsability?.resultsQuality.name
+    //     );
+    //   if (foundResultsQuality != null) {
+    //     this.selectedResultsQuality = foundResultsQuality;
+    //   }
+    // }
+
+    // if (this.refactoringApproach.approachUsability?.toolSupport != null) {
+    //   const foundToolSupport =
+    //     this.attributeOptionsService.toolSupports.value.find(
+    //       (value: ToolSupport) =>
+    //         value.name ===
+    //         this.refactoringApproach.approachUsability?.toolSupport.name
+    //     );
+    //   if (foundToolSupport != null) {
+    //     this.selectedToolSupport = foundToolSupport;
+    //   }
+    // }
 
     if (this.refactoringApproach.approachUsability?.accuracyPrecision != null) {
       const foundAccuracyPrecision =
@@ -322,6 +384,18 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
       if (foundValidationMethod != null) {
         this.selectedValidationMethod = foundValidationMethod;
       }
+    }
+
+    if (this.refactoringApproach.approachUsability?.tools != null){
+      this.refactoringApproach.approachUsability.tools.forEach(tool => {
+        if (tool.toolId !== undefined) {
+          this.selectedToolIds.push(tool.toolId);
+        }
+      });
+    }
+
+    if (this.refactoringApproach.approachUsability?.noToolSupport == true){
+      this.noToolSupport = true;
     }
   }
 
@@ -465,6 +539,48 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
     );
   }
 
+  fillProcessStrategyDataLists(): void {
+    this.processStrategySourceDataList = [];
+    this.processStrategyTargetDataList = [];
+
+    this.utilService.fillConnectedDataLists(
+      this.isCreateView,
+      this.refactoringApproach.approachProcess?.processStrategies,
+      this.attributeOptionsService.processStrategies.value,
+      this.processStrategySourceDataList,
+      this.processStrategyTargetDataList,
+      (e: ProcessStrategy) => e.name
+    );
+  }
+
+  fillAtomarUnitDataLists(): void {
+    this.atomarUnitSourceDataList = [];
+    this.atomarUnitTargetDataList = [];
+
+    this.utilService.fillConnectedDataLists(
+      this.isCreateView,
+      this.refactoringApproach.approachProcess?.atomarUnits,
+      this.attributeOptionsService.atomarUnits.value,
+      this.atomarUnitSourceDataList,
+      this.atomarUnitTargetDataList,
+      (e: AtomarUnit) => e.name
+    );
+  }
+
+  fillRepresentationDataLists(): void {
+    this.representationSourceDataList = [];
+    this.representationTargetDataList = [];
+
+    this.utilService.fillConnectedDataLists(
+      this.isCreateView,
+      this.refactoringApproach.representationOutputs,
+      this.attributeOptionsService.representations.value,
+      this.representationSourceDataList,
+      this.representationTargetDataList,
+      (e: Representation) => e.name
+    );
+  }
+
   setSelectedResultsQualityToDefault(): void {
     const defaultValue =
       this.attributeOptionsService.resultsQualities.value.find(
@@ -515,6 +631,20 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
         this.attributeOptionsService.validationMethods.value[0];
     }
   }
+
+  // setSelectedToolsToDefault(): void {
+  //   const defaultValue =
+  //     this.attributeOptionsService.tools.value.find(
+  //       (value: Tool) => value.toolSource?.name === 'Not available'
+  //     );
+  //   if (defaultValue !== undefined) {
+  //     this.selectedTools = [defaultValue];
+  //   } else {
+  //     this.selectedTools =
+  //       [this.attributeOptionsService.tools.value[0]];
+  //   }
+  //   console.log("Debug =>", this.selectedTools);
+  // }
 
   addOutput(): void {
     if (
@@ -595,6 +725,14 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
             .subscribe({
               next: (value) => {
                 this.refactoringApproach = value;
+                //adding tools
+                lastValueFrom(
+                  this.refactoringApproachService.updateTools({
+                    id: this.refactoringApproach.refactoringApproachId!,
+                    body: this.selectedToolIds
+                  })
+                )
+                
                 this.isCreateView = false;
                 this.router.navigate([value.refactoringApproachId], {
                   relativeTo: this.route
@@ -632,43 +770,47 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
       });
   }
 
-  processRefactoringApproachUpdate(): void {
+  async processRefactoringApproachUpdate(): Promise<void> {
     if (this.refactoringApproach.refactoringApproachId == null) return;
 
     const refactoringApproach =
       this.createRefactoringApproachFromFilledInData();
     const updatePromises: Promise<void>[] = [];
 
-    updatePromises.push(...this.updateDomainArtifacts(refactoringApproach));
-    updatePromises.push(...this.updateRuntimeArtifacts(refactoringApproach));
-    updatePromises.push(...this.updateModelArtifacts(refactoringApproach));
-    updatePromises.push(...this.updateExecutables(refactoringApproach));
+    updatePromises.push(...await this.deleteApproachExistingCards());
+    
+    updatePromises.push(...this.updateDomainArtifacts());
+    updatePromises.push(...this.updateRuntimeArtifacts());
+    updatePromises.push(...this.updateModelArtifacts());
+    updatePromises.push(...this.updateExecutables());
 
-    updatePromises.push(...this.updateQualities(refactoringApproach));
-    updatePromises.push(...this.updateQualitySublevels(refactoringApproach));
-    updatePromises.push(...this.updateDirections(refactoringApproach));
-    updatePromises.push(...this.updateAutomationLevels(refactoringApproach));
-    updatePromises.push(...this.updateAnalysisTypes(refactoringApproach));
-    updatePromises.push(...this.updateTechniques(refactoringApproach));
+    updatePromises.push(...this.updateQualities());
+    updatePromises.push(...this.updateQualitySublevels());
+    updatePromises.push(...this.updateDirections());
+    updatePromises.push(...this.updateAutomationLevels());
+    updatePromises.push(...this.updateAnalysisTypes());
+    updatePromises.push(...this.updateTechniques());
+    updatePromises.push(...this.updateProcessStrategies());
+    updatePromises.push(...this.updateAtomarUnits());
+    updatePromises.push(...this.updateRepresentations());
+    // updatePromises.push(...this.updateOutputs(refactoringApproach));
 
-    updatePromises.push(...this.updateOutputs(refactoringApproach));
-
-    updatePromises.push(
-      lastValueFrom(
-        this.refactoringApproachService.updateResultsQuality({
-          id: this.refactoringApproach.refactoringApproachId,
-          body: this.selectedResultsQuality
-        })
-      )
-    );
-    updatePromises.push(
-      lastValueFrom(
-        this.refactoringApproachService.updateToolSupport({
-          id: this.refactoringApproach.refactoringApproachId,
-          body: this.selectedToolSupport
-        })
-      )
-    );
+    // updatePromises.push(
+    //   lastValueFrom(
+    //     this.refactoringApproachService.updateResultsQuality({
+    //       id: this.refactoringApproach.refactoringApproachId,
+    //       body: this.selectedResultsQuality
+    //     })
+    //   )
+    // );
+    // updatePromises.push(
+    //   lastValueFrom(
+    //     this.refactoringApproachService.updateToolSupport({
+    //       id: this.refactoringApproach.refactoringApproachId,
+    //       body: this.selectedToolSupport
+    //     })
+    //   )
+    // );
     updatePromises.push(
       lastValueFrom(
         this.refactoringApproachService.updateAccuracyPrecision({
@@ -685,6 +827,14 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
         })
       )
     );
+    updatePromises.push(
+      lastValueFrom(
+        this.refactoringApproachService.updateTools({
+          id: this.refactoringApproach.refactoringApproachId,
+          body: this.selectedToolIds
+        })
+      )
+    );
 
     Promise.all(updatePromises)
       .then(() => {
@@ -697,40 +847,59 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
       });
   }
 
-  updateDomainArtifacts(
-    refactoringApproach: RefactoringApproach
-  ): Promise<void>[] {
+  // updateDomainArtifacts(
+  //   refactoringApproach: RefactoringApproach
+  // ): Promise<void>[] {
+  //   if (this.refactoringApproach.refactoringApproachId == null)
+  //     return [Promise.resolve()];
+
+  //   const elementsToRemove: DomainArtifactInput[] = findArrayDifference(
+  //     this.refactoringApproach.domainArtifactInputs,
+  //     refactoringApproach.domainArtifactInputs
+  //   );
+  //   const elementsToAdd: DomainArtifactInput[] = findArrayDifference(
+  //     refactoringApproach.domainArtifactInputs,
+  //     this.refactoringApproach.domainArtifactInputs
+  //   );
+
+  //   const updatePromises: Promise<void>[] = [];
+  //   for (const elementToAdd of elementsToAdd) {
+  //     updatePromises.push(
+  //       lastValueFrom(
+  //         this.refactoringApproachService.addDomainArtifactAsInput({
+  //           id: this.refactoringApproach.refactoringApproachId,
+  //           body: elementToAdd
+  //         })
+  //       )
+  //     );
+  //   }
+  //   for (const elementToRemove of elementsToRemove) {
+  //     if (elementToRemove.name == null) break;
+
+  //     updatePromises.push(
+  //       lastValueFrom(
+  //         this.refactoringApproachService.removeDomainArtifactFromInputs({
+  //           id: this.refactoringApproach.refactoringApproachId,
+  //           inputName: elementToRemove.name
+  //         })
+  //       )
+  //     );
+  //   }
+
+  //   return updatePromises;
+  // }
+
+  updateDomainArtifacts(): Promise<void>[] {
     if (this.refactoringApproach.refactoringApproachId == null)
       return [Promise.resolve()];
 
-    const elementsToRemove: DomainArtifactInput[] = findArrayDifference(
-      this.refactoringApproach.domainArtifactInputs,
-      refactoringApproach.domainArtifactInputs
-    );
-    const elementsToAdd: DomainArtifactInput[] = findArrayDifference(
-      refactoringApproach.domainArtifactInputs,
-      this.refactoringApproach.domainArtifactInputs
-    );
-
     const updatePromises: Promise<void>[] = [];
-    for (const elementToAdd of elementsToAdd) {
+    for (const elementToAdd of this.domainArtifactTargetDataList) {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.addDomainArtifactAsInput({
             id: this.refactoringApproach.refactoringApproachId,
-            body: elementToAdd
-          })
-        )
-      );
-    }
-    for (const elementToRemove of elementsToRemove) {
-      if (elementToRemove.name == null) break;
-
-      updatePromises.push(
-        lastValueFrom(
-          this.refactoringApproachService.removeDomainArtifactFromInputs({
-            id: this.refactoringApproach.refactoringApproachId,
-            inputName: elementToRemove.name
+            body: elementToAdd.dataElement
           })
         )
       );
@@ -739,164 +908,112 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
     return updatePromises;
   }
 
-  updateRuntimeArtifacts(
-    refactoringApproach: RefactoringApproach
-  ): Promise<void>[] {
+  updateRuntimeArtifacts(): Promise<void>[] {
     if (this.refactoringApproach.refactoringApproachId == null)
       return [Promise.resolve()];
 
-    const elementsToRemove: RuntimeArtifactInput[] = findArrayDifference(
-      this.refactoringApproach.runtimeArtifactInputs,
-      refactoringApproach.runtimeArtifactInputs
-    );
-    const elementsToAdd: RuntimeArtifactInput[] = findArrayDifference(
-      refactoringApproach.runtimeArtifactInputs,
-      this.refactoringApproach.runtimeArtifactInputs
-    );
-
     const updatePromises: Promise<void>[] = [];
-    for (const elementToAdd of elementsToAdd) {
+    for (const elementToAdd of this.runtimeArtifactTargetDataList) {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.addRuntimeArtifactAsInput({
             id: this.refactoringApproach.refactoringApproachId,
-            body: elementToAdd
+            body: elementToAdd.dataElement
           })
         )
       );
     }
-    for (const elementToRemove of elementsToRemove) {
-      if (elementToRemove.name == null) break;
+    // for (const elementToRemove of elementsToRemove) {
+    //   if (elementToRemove.name == null) break;
 
-      updatePromises.push(
-        lastValueFrom(
-          this.refactoringApproachService.removeRuntimeArtifactFromInputs({
-            id: this.refactoringApproach.refactoringApproachId,
-            inputName: elementToRemove.name
-          })
-        )
-      );
-    }
+    //   updatePromises.push(
+    //     lastValueFrom(
+    //       this.refactoringApproachService.removeRuntimeArtifactFromInputs({
+    //         id: this.refactoringApproach.refactoringApproachId,
+    //         inputName: elementToRemove.name
+    //       })
+    //     )
+    //   );
+    // }
 
     return updatePromises;
   }
 
-  updateModelArtifacts(
-    refactoringApproach: RefactoringApproach
-  ): Promise<void>[] {
+  updateModelArtifacts(): Promise<void>[] {
     if (this.refactoringApproach.refactoringApproachId == null)
       return [Promise.resolve()];
 
-    const elementsToRemove: ModelArtifactInput[] = findArrayDifference(
-      this.refactoringApproach.modelArtifactInputs,
-      refactoringApproach.modelArtifactInputs
-    );
-    const elementsToAdd: ModelArtifactInput[] = findArrayDifference(
-      refactoringApproach.modelArtifactInputs,
-      this.refactoringApproach.modelArtifactInputs
-    );
-
     const updatePromises: Promise<void>[] = [];
-    for (const elementToAdd of elementsToAdd) {
+    for (const elementToAdd of this.modelArtifactTargetDataList) {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.addModelArtifactAsInput({
             id: this.refactoringApproach.refactoringApproachId,
-            body: elementToAdd
+            body: elementToAdd.dataElement
           })
         )
       );
     }
-    for (const elementToRemove of elementsToRemove) {
-      if (elementToRemove.name == null) break;
+    // for (const elementToRemove of elementsToRemove) {
+    //   if (elementToRemove.name == null) break;
 
-      updatePromises.push(
-        lastValueFrom(
-          this.refactoringApproachService.removeModelArtifactFromInputs({
-            id: this.refactoringApproach.refactoringApproachId,
-            inputName: elementToRemove.name
-          })
-        )
-      );
-    }
+    //   updatePromises.push(
+    //     lastValueFrom(
+    //       this.refactoringApproachService.removeModelArtifactFromInputs({
+    //         id: this.refactoringApproach.refactoringApproachId,
+    //         inputName: elementToRemove.name
+    //       })
+    //     )
+    //   );
+    // }
 
     return updatePromises;
   }
 
-  updateExecutables(refactoringApproach: RefactoringApproach): Promise<void>[] {
+  updateExecutables(): Promise<void>[] {
     if (this.refactoringApproach.refactoringApproachId == null)
       return [Promise.resolve()];
 
-    const elementsToRemove: ExecutableInput[] = findArrayDifference(
-      this.refactoringApproach.executableInputs,
-      refactoringApproach.executableInputs
-    );
-    const elementsToAdd: ExecutableInput[] = findArrayDifference(
-      refactoringApproach.executableInputs,
-      this.refactoringApproach.executableInputs
-    );
-
     const updatePromises: Promise<void>[] = [];
-    for (const elementToAdd of elementsToAdd) {
+    for (const elementToAdd of this.executableTargetDataList) {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.addExecutableAsInput({
             id: this.refactoringApproach.refactoringApproachId,
-            body: elementToAdd
+            body: elementToAdd.dataElement
           })
         )
       );
     }
-    for (const elementToRemove of elementsToRemove) {
-      if (elementToRemove.name == null || elementToRemove.language == null)
-        break;
+    // for (const elementToRemove of elementsToRemove) {
+    //   if (elementToRemove.name == null || elementToRemove.language == null)
+    //     break;
 
-      updatePromises.push(
-        lastValueFrom(
-          this.refactoringApproachService.removeExecutableFromInputs({
-            id: this.refactoringApproach.refactoringApproachId,
-            inputName: elementToRemove.name,
-            language: elementToRemove.language
-          })
-        )
-      );
-    }
+    //   updatePromises.push(
+    //     lastValueFrom(
+    //       this.refactoringApproachService.removeExecutableFromInputs({
+    //         id: this.refactoringApproach.refactoringApproachId,
+    //         inputName: elementToRemove.name,
+    //         language: elementToRemove.language
+    //       })
+    //     )
+    //   );
+    // }
 
     return updatePromises;
   }
 
-  updateQualities(refactoringApproach: RefactoringApproach): Promise<void>[] {
+  updateQualities(): Promise<void>[] {
     if (this.refactoringApproach.refactoringApproachId == null)
       return [Promise.resolve()];
 
-    const elementsToRemove: Quality[] = findArrayDifference(
-      this.refactoringApproach.approachProcess?.qualities,
-      refactoringApproach.approachProcess?.qualities
-    );
-    const elementsToAdd: Quality[] = findArrayDifference(
-      refactoringApproach.approachProcess?.qualities,
-      this.refactoringApproach.approachProcess?.qualities
-    );
-
     const updatePromises: Promise<void>[] = [];
-    for (const elementToAdd of elementsToAdd) {
+    for (const elementToAdd of this.qualityTargetDataList) {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.addQualityToProcess({
             id: this.refactoringApproach.refactoringApproachId,
-            body: elementToAdd
-          })
-        )
-      );
-    }
-    for (const elementToRemove of elementsToRemove) {
-      if (elementToRemove.name == null) break;
-
-      updatePromises.push(
-        lastValueFrom(
-          this.refactoringApproachService.removeQualityFromProcess({
-            id: this.refactoringApproach.refactoringApproachId,
-            qualityName: elementToRemove.name
+            body: elementToAdd.dataElement
           })
         )
       );
@@ -905,38 +1022,17 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
     return updatePromises;
   }
 
-  updateQualitySublevels(refactoringApproach: RefactoringApproach): Promise<void>[] {
+  updateQualitySublevels(): Promise<void>[] {
     if (this.refactoringApproach.refactoringApproachId == null)
       return [Promise.resolve()];
 
-    const elementsToRemove: QualitySublevel[] = findArrayDifference(
-      this.refactoringApproach.approachProcess?.qualitySublevels,
-      refactoringApproach.approachProcess?.qualitySublevels
-    );
-    const elementsToAdd: QualitySublevel[] = findArrayDifference(
-      refactoringApproach.approachProcess?.qualitySublevels,
-      this.refactoringApproach.approachProcess?.qualitySublevels
-    );
-
     const updatePromises: Promise<void>[] = [];
-    for (const elementToAdd of elementsToAdd) {
+    for (const elementToAdd of this.qualitySubTargetDataList) {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.addQualitySublevelToProcess({
             id: this.refactoringApproach.refactoringApproachId,
-            body: elementToAdd
-          })
-        )
-      );
-    }
-    for (const elementToRemove of elementsToRemove) {
-      if (elementToRemove.name == null) break;
-
-      updatePromises.push(
-        lastValueFrom(
-          this.refactoringApproachService.removeQualitySublevelFromProcess({
-            id: this.refactoringApproach.refactoringApproachId,
-            qualityName: elementToRemove.name
+            body: elementToAdd.dataElement
           })
         )
       );
@@ -945,38 +1041,17 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
     return updatePromises;
   }
 
-  updateDirections(refactoringApproach: RefactoringApproach): Promise<void>[] {
+  updateDirections(): Promise<void>[] {
     if (this.refactoringApproach.refactoringApproachId == null)
       return [Promise.resolve()];
 
-    const elementsToRemove: Direction[] = findArrayDifference(
-      this.refactoringApproach.approachProcess?.directions,
-      refactoringApproach.approachProcess?.directions
-    );
-    const elementsToAdd: Direction[] = findArrayDifference(
-      refactoringApproach.approachProcess?.directions,
-      this.refactoringApproach.approachProcess?.directions
-    );
-
     const updatePromises: Promise<void>[] = [];
-    for (const elementToAdd of elementsToAdd) {
+    for (const elementToAdd of this.directionTargetDataList) {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.addDirectionToProcess({
             id: this.refactoringApproach.refactoringApproachId,
-            body: elementToAdd
-          })
-        )
-      );
-    }
-    for (const elementToRemove of elementsToRemove) {
-      if (elementToRemove.name == null) break;
-
-      updatePromises.push(
-        lastValueFrom(
-          this.refactoringApproachService.removeDirectionFromProcess({
-            id: this.refactoringApproach.refactoringApproachId,
-            directionName: elementToRemove.name
+            body: elementToAdd.dataElement
           })
         )
       );
@@ -985,40 +1060,17 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
     return updatePromises;
   }
 
-  updateAutomationLevels(
-    refactoringApproach: RefactoringApproach
-  ): Promise<void>[] {
+  updateAutomationLevels(): Promise<void>[] {
     if (this.refactoringApproach.refactoringApproachId == null)
       return [Promise.resolve()];
 
-    const elementsToRemove: AutomationLevel[] = findArrayDifference(
-      this.refactoringApproach.approachProcess?.automationLevels,
-      refactoringApproach.approachProcess?.automationLevels
-    );
-    const elementsToAdd: AutomationLevel[] = findArrayDifference(
-      refactoringApproach.approachProcess?.automationLevels,
-      this.refactoringApproach.approachProcess?.automationLevels
-    );
-
     const updatePromises: Promise<void>[] = [];
-    for (const elementToAdd of elementsToAdd) {
+    for (const elementToAdd of this.automationLevelTargetDataList) {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.addAutomationLevelToProcess({
             id: this.refactoringApproach.refactoringApproachId,
-            body: elementToAdd
-          })
-        )
-      );
-    }
-    for (const elementToRemove of elementsToRemove) {
-      if (elementToRemove.name == null) break;
-
-      updatePromises.push(
-        lastValueFrom(
-          this.refactoringApproachService.removeAutomationLevelFromProcess({
-            id: this.refactoringApproach.refactoringApproachId,
-            automationLevelName: elementToRemove.name
+            body: elementToAdd.dataElement
           })
         )
       );
@@ -1027,40 +1079,17 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
     return updatePromises;
   }
 
-  updateAnalysisTypes(
-    refactoringApproach: RefactoringApproach
-  ): Promise<void>[] {
+  updateAnalysisTypes(): Promise<void>[] {
     if (this.refactoringApproach.refactoringApproachId == null)
       return [Promise.resolve()];
 
-    const elementsToRemove: AnalysisType[] = findArrayDifference(
-      this.refactoringApproach.approachProcess?.analysisTypes,
-      refactoringApproach.approachProcess?.analysisTypes
-    );
-    const elementsToAdd: AnalysisType[] = findArrayDifference(
-      refactoringApproach.approachProcess?.analysisTypes,
-      this.refactoringApproach.approachProcess?.analysisTypes
-    );
-
     const updatePromises: Promise<void>[] = [];
-    for (const elementToAdd of elementsToAdd) {
+    for (const elementToAdd of this.analysisTypeTargetDataList) {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.addAnalysisTypeToProcess({
             id: this.refactoringApproach.refactoringApproachId,
-            body: elementToAdd
-          })
-        )
-      );
-    }
-    for (const elementToRemove of elementsToRemove) {
-      if (elementToRemove.name == null) break;
-
-      updatePromises.push(
-        lastValueFrom(
-          this.refactoringApproachService.removeAnalysisTypeFromProcess({
-            id: this.refactoringApproach.refactoringApproachId,
-            analysisTypeName: elementToRemove.name
+            body: elementToAdd.dataElement
           })
         )
       );
@@ -1069,43 +1098,115 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
     return updatePromises;
   }
 
-  updateTechniques(refactoringApproach: RefactoringApproach): Promise<void>[] {
+  updateTechniques(): Promise<void>[] {
     if (this.refactoringApproach.refactoringApproachId == null)
       return [Promise.resolve()];
 
-    const elementsToRemove: Technique[] = findArrayDifference(
-      this.refactoringApproach.approachProcess?.techniques,
-      refactoringApproach.approachProcess?.techniques
-    );
-    const elementsToAdd: Technique[] = findArrayDifference(
-      refactoringApproach.approachProcess?.techniques,
-      this.refactoringApproach.approachProcess?.techniques
-    );
-
     const updatePromises: Promise<void>[] = [];
-    for (const elementToAdd of elementsToAdd) {
+    for (const elementToAdd of this.techniqueTargetDataList) {
       updatePromises.push(
         lastValueFrom(
           this.refactoringApproachService.addTechniqueToProcess({
             id: this.refactoringApproach.refactoringApproachId,
-            body: elementToAdd
+            body: elementToAdd.dataElement
           })
         )
       );
     }
-    for (const elementToRemove of elementsToRemove) {
-      if (elementToRemove.name == null) break;
 
+    return updatePromises;
+  }
+
+  updateProcessStrategies(): Promise<void>[] {
+    if (this.refactoringApproach.refactoringApproachId == null)
+      return [Promise.resolve()];
+
+    const updatePromises: Promise<void>[] = [];
+    for (const elementToAdd of this.processStrategyTargetDataList) {
       updatePromises.push(
         lastValueFrom(
-          this.refactoringApproachService.removeTechniqueFromProcess({
+          this.refactoringApproachService.addProcessStrategyToProcess({
             id: this.refactoringApproach.refactoringApproachId,
-            techniqueName: elementToRemove.name
+            body: elementToAdd.dataElement
           })
         )
       );
     }
 
+    return updatePromises;
+  }
+
+  updateAtomarUnits(): Promise<void>[] {
+    if (this.refactoringApproach.refactoringApproachId == null)
+      return [Promise.resolve()];
+
+    const updatePromises: Promise<void>[] = [];
+    for (const elementToAdd of this.atomarUnitTargetDataList) {
+      updatePromises.push(
+        lastValueFrom(
+          this.refactoringApproachService.addAtomarUnitToProcess({
+            id: this.refactoringApproach.refactoringApproachId,
+            body: elementToAdd.dataElement
+          })
+        )
+      );
+    }
+
+    return updatePromises;
+  }
+
+  updateRepresentations(): Promise<void>[] {
+    if (this.refactoringApproach.refactoringApproachId == null)
+      return [Promise.resolve()];
+  
+    // const elementsToRemove: Representation[] = findArrayDifference(
+    //   this.refactoringApproach.representationOutputs,
+    //   refactoringApproach.representationOutputs
+    // );
+    // const elementsToAdd: Representation[] = findArrayDifference(
+    //   refactoringApproach.representationOutputs,
+    //   this.refactoringApproach.representationOutputs
+    // );
+  
+    // First, execute remove operations sequentially
+    // for (const elementToRemove of this.representationSourceDataList) {
+    //   if (elementToRemove.dataElement.name == null) continue;
+  
+    //   const removePromise = lastValueFrom(this.refactoringApproachService.removeRepresentationFromOutputs({
+    //     id: this.refactoringApproach.refactoringApproachId,
+    //     representationName: elementToRemove.dataElement.name
+    //   }));
+  
+    //   updatePromises.push(removePromise);
+    //   await removePromise; // Wait for removal to complete
+    // }
+  
+    const updatePromises: Array<Promise<void>> = [];
+
+    // Then, execute add operations sequentially
+    for (const elementToAdd of this.representationTargetDataList) {
+      const addPromise = lastValueFrom(this.refactoringApproachService.addRepresentationAsOutput({
+        id: this.refactoringApproach.refactoringApproachId,
+        body: elementToAdd.dataElement
+      }));
+    }
+  
+    return updatePromises;
+  }
+  
+  async deleteApproachExistingCards(): Promise<Array<Promise<void>>> {
+    if (this.refactoringApproach.refactoringApproachId == null)
+      return [Promise.resolve()];
+  
+    const updatePromises: Array<Promise<void>> = [];
+  
+    const removePromise = lastValueFrom(this.refactoringApproachService.removeApproachExistingCards({
+      id: this.refactoringApproach.refactoringApproachId
+    }));
+
+    updatePromises.push(removePromise);
+    await removePromise; // Wait for removal to complete
+  
     return updatePromises;
   }
 
@@ -1207,6 +1308,21 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
       techniques.push(element.dataElement as Technique);
     }
 
+    const processStrategies: ProcessStrategy[] = [];
+    for (const element of this.processStrategyTargetDataList) {
+      processStrategies.push(element.dataElement as ProcessStrategy);
+    }
+
+    const atomarUnits: AtomarUnit[] = [];
+    for (const element of this.atomarUnitTargetDataList) {
+      atomarUnits.push(element.dataElement as AtomarUnit);
+    }
+
+    const representationOutputs: Representation[] = [];
+    for (const element of this.representationTargetDataList) {
+      representationOutputs.push(element.dataElement as Representation);
+    }
+
     return {
       identifier: this.identifierInputValue,
       approachSource: {
@@ -1225,14 +1341,18 @@ export class ApproachFormComponent implements OnInit, OnDestroy {
         directions: directions,
         automationLevels: automationLevels,
         analysisTypes: analysisTypes,
-        techniques: techniques
+        techniques: techniques,
+        processStrategies: processStrategies,
+        atomarUnits: atomarUnits
       },
       approachOutputs: this.currentOutputList,
+      representationOutputs: representationOutputs,
       approachUsability: {
         resultsQuality: this.selectedResultsQuality,
         toolSupport: this.selectedToolSupport,
         accuracyPrecision: this.selectedAccuracyPrecision,
-        validationMethod: this.selectedValidationMethod
+        validationMethod: this.selectedValidationMethod,
+        noToolSupport: this.noToolSupport
       }
     };
   }

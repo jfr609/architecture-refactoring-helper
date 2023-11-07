@@ -73,7 +73,7 @@ public class SimpleRecommendationService : IRecommendationService
         var systemPropertyCount = 0;
         var systemPropertyTotalCount = recommendationRequest.QualityInformation.Where(q => q.Attribute.Category == QualityCategory.SystemProperty && q.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count;
         var weightedQualityCount = 0;
-        var totalIncludeCount = calculateTotalIncludeCount(recommendationRequest);
+        int noToolSupportCount = 0;
 
         var approachRecommendation = new ApproachRecommendation
         {
@@ -90,10 +90,14 @@ public class SimpleRecommendationService : IRecommendationService
             AutomationLevelEvaluations = new List<ApproachAttributeEvaluation<AutomationLevel>>(),
             AnalysisTypeEvaluations = new List<ApproachAttributeEvaluation<AnalysisType>>(),
             TechniqueEvaluations = new List<ApproachAttributeEvaluation<Technique>>(),
+            ProcessStrategyEvaluations = new List<ApproachAttributeEvaluation<ProcessStrategy>>(),
+            AtomarUnitEvaluations = new List<ApproachAttributeEvaluation<AtomarUnit>>(),
+            RepresentationOutputEvaluations = new List<ApproachAttributeEvaluation<Representation>>(),
             ArchitectureEvaluations = new List<ApproachAttributeEvaluation<Architecture>>(),
             ServiceTypeEvaluations = new List<ApproachAttributeEvaluation<ServiceType>>(),
             ValidationMethodEvaluations = new List<ApproachAttributeEvaluation<ValidationMethod>>(),
             ToolSupportEvaluations = new List<ApproachAttributeEvaluation<ToolSupport>>(),
+            ToolTypeEvaluations = new List<ApproachAttributeEvaluation<ToolType>>(),
             ResultsQualityEvaluations = new List<ApproachAttributeEvaluation<ResultsQuality>>(),
             AccuracyPrecisionEvaluations = new List<ApproachAttributeEvaluation<AccuracyPrecision>>(),
         };
@@ -258,6 +262,48 @@ public class SimpleRecommendationService : IRecommendationService
             }
         }
 
+        if (refactoringApproach.ApproachProcess.ProcessStrategies != null)
+        {
+            foreach (var processStrategy in refactoringApproach.ApproachProcess.ProcessStrategies)
+            {
+                var information = recommendationRequest.ProcessStrategyInformation.FirstOrDefault(information =>
+                    information.Attribute.KeyEquals(processStrategy));
+
+                var evaluation = EvaluateAttribute(processStrategy, information, ref attributeCount, ref matchCount,
+                    ref neutralCount, ref mismatchCount);
+
+                approachRecommendation.ProcessStrategyEvaluations.Add(evaluation);
+            }
+        }
+
+        if (refactoringApproach.ApproachProcess.AtomarUnits != null)
+        {
+            foreach (var atomarUnit in refactoringApproach.ApproachProcess.AtomarUnits)
+            {
+                var information = recommendationRequest.AtomarUnitInformation.FirstOrDefault(information =>
+                    information.Attribute.KeyEquals(atomarUnit));
+
+                var evaluation = EvaluateAttribute(atomarUnit, information, ref attributeCount, ref matchCount,
+                    ref neutralCount, ref mismatchCount);
+
+                approachRecommendation.AtomarUnitEvaluations.Add(evaluation);
+            }
+        }
+
+        if (refactoringApproach.RepresentationOutputs != null)
+        {
+            foreach (var representationOutput in refactoringApproach.RepresentationOutputs)
+            {
+                var information = recommendationRequest.RepresentationInformation.FirstOrDefault(information =>
+                    information.Attribute.KeyEquals(representationOutput));
+
+                var evaluation = EvaluateAttribute(representationOutput, information, ref attributeCount, ref matchCount,
+                    ref neutralCount, ref mismatchCount);
+
+                approachRecommendation.RepresentationOutputEvaluations.Add(evaluation);
+            }
+        }
+
         if (refactoringApproach.ApproachOutputs != null)
         {
             var architectures = refactoringApproach.ApproachOutputs
@@ -289,22 +335,54 @@ public class SimpleRecommendationService : IRecommendationService
             }
         }
 
-        var validationMethodInformation = recommendationRequest.ValidationMethodInformation.FirstOrDefault(
-            information => information.Attribute.KeyEquals(refactoringApproach.ApproachUsability.ValidationMethod));
-        approachRecommendation.ValidationMethodEvaluations.Add(EvaluateAttribute(
-            refactoringApproach.ApproachUsability.ValidationMethod, validationMethodInformation, ref attributeCount,
-            ref matchCount, ref neutralCount, ref mismatchCount));
+        if (refactoringApproach.ApproachUsability.Tools != null)
+        {
+            foreach (var tool in refactoringApproach.ApproachUsability.Tools)
+            {
+                foreach (var toolType in tool.ToolTypes)
+                {
+                    var information = recommendationRequest.ToolTypeInformation.FirstOrDefault(information =>
+                    information.Attribute.KeyEquals(toolType));
 
+                    var evaluation = EvaluateAttribute(toolType, information, ref attributeCount, ref matchCount,
+                        ref neutralCount, ref mismatchCount);
+
+                    approachRecommendation.ToolTypeEvaluations.Add(evaluation);
+                }
+            }
+            
+            // remeber matchCount before deduplication
+            var ToolTypeEvaluationsCountBeforeDedup = approachRecommendation.ToolTypeEvaluations.Count();
+
+            // removing duplicates i.e. getting only unique
+            approachRecommendation.ToolTypeEvaluations = approachRecommendation.ToolTypeEvaluations
+                .DistinctBy(evaluation => evaluation.ApproachAttribute.Name)
+                .ToList();
+
+            // adjust matchCount after deduplication (should be done as well for neutralCount, mismatchCount)
+            var ToolTypeEvaluationsCountAfterDedup = approachRecommendation.ToolTypeEvaluations.Count();
+			matchCount = matchCount - (ToolTypeEvaluationsCountBeforeDedup - ToolTypeEvaluationsCountAfterDedup);
+        }
+
+        //tentative code for no tool support filter
         var toolSupportInformation = recommendationRequest.ToolSupportInformation.FirstOrDefault(
-            information => information.Attribute.KeyEquals(refactoringApproach.ApproachUsability.ToolSupport));
+        information => information.Attribute.Name == "No tool support" && information.RecommendationSuitability != RecommendationSuitability.Neutral && refactoringApproach.ApproachUsability.NoToolSupport == true);
+        if (toolSupportInformation != null)
+        {
+            refactoringApproach.ApproachUsability.ToolSupport = new ToolSupport()
+            {
+                Name = "No tool support"
+            };
+            noToolSupportCount += 1;
+        }
         approachRecommendation.ToolSupportEvaluations.Add(EvaluateAttribute(
             refactoringApproach.ApproachUsability.ToolSupport, toolSupportInformation, ref attributeCount,
             ref matchCount, ref neutralCount, ref mismatchCount));
 
-        var resultsQualityInformation = recommendationRequest.ResultsQualityInformation.FirstOrDefault(
-            information => information.Attribute.KeyEquals(refactoringApproach.ApproachUsability.ResultsQuality));
-        approachRecommendation.ResultsQualityEvaluations.Add(EvaluateAttribute(
-            refactoringApproach.ApproachUsability.ResultsQuality, resultsQualityInformation, ref attributeCount,
+        var validationMethodInformation = recommendationRequest.ValidationMethodInformation.FirstOrDefault(
+            information => information.Attribute.KeyEquals(refactoringApproach.ApproachUsability.ValidationMethod));
+        approachRecommendation.ValidationMethodEvaluations.Add(EvaluateAttribute(
+            refactoringApproach.ApproachUsability.ValidationMethod, validationMethodInformation, ref attributeCount,
             ref matchCount, ref neutralCount, ref mismatchCount));
 
         var accuracyPrecisionInformation = recommendationRequest.AccuracyPrecisionInformation.FirstOrDefault(
@@ -315,6 +393,9 @@ public class SimpleRecommendationService : IRecommendationService
 
         approachRecommendation.SuitabilityScore =
             CalculateSuitabilityScore(attributeCount, matchCount, neutralCount, mismatchCount);
+
+
+        var totalIncludeCount = calculateTotalIncludeCount(recommendationRequest, noToolSupportCount);
 
         approachRecommendation.TotalIncludeCount = totalIncludeCount;
         approachRecommendation.MatchesCount = matchCount;
@@ -625,7 +706,7 @@ private ArchitecturalDesignRecommendation EvaluateArchitecturalSuitability(Archi
         return totalWeightedScore;
     }
 
-    private int calculateTotalIncludeCount(ApproachRecommendationRequest recommendationRequest)
+    private int calculateTotalIncludeCount(ApproachRecommendationRequest recommendationRequest, int noToolSupportCount)
     {
         var count = 0;
         count = recommendationRequest.DomainArtifactInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
@@ -638,10 +719,15 @@ private ArchitecturalDesignRecommendation EvaluateArchitecturalSuitability(Archi
          + recommendationRequest.AutomationLevelInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
          + recommendationRequest.AnalysisTypeInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
          + recommendationRequest.TechniqueInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.AtomarUnitInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.ProcessStrategyInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.RepresentationInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
          + recommendationRequest.ArchitectureInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
          + recommendationRequest.ServiceTypeInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
          + recommendationRequest.ResultsQualityInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
-         + recommendationRequest.ToolSupportInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + noToolSupportCount
+         //+ recommendationRequest.ToolSupportInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
+         + recommendationRequest.ToolTypeInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
          + recommendationRequest.AccuracyPrecisionInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count
          + recommendationRequest.ValidationMethodInformation.Where(e => e.RecommendationSuitability == RecommendationSuitability.Include).ToList().Count;
 

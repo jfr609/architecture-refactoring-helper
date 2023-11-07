@@ -75,6 +75,24 @@ public class ApproachProcessService
             .ToList();
     }
 
+    public IEnumerable<ProcessStrategy> ListProcessStrategies()
+    {
+        var db = new RefactoringApproachContext();
+
+        return db.Strategies
+            .OrderBy(e => e.Name)
+            .ToList();
+    }
+
+    public IEnumerable<AtomarUnit> ListAtomarUnits()
+    {
+        var db = new RefactoringApproachContext();
+
+        return db.AtomarUnits
+            .OrderBy(e => e.Name)
+            .ToList();
+    }
+
     public ApproachProcess GetApproachProcess(int processId)
     {
         var db = new RefactoringApproachContext();
@@ -171,6 +189,30 @@ public class ApproachProcessService
                throw new EntityNotFoundException($"Process technique with name \"{name}\" does not exist.");
     }
 
+    public ProcessStrategy GetProcessStrategy(string name)
+    {
+        var db = new RefactoringApproachContext();
+        return GetProcessStrategy(name, ref db);
+    }
+
+    public ProcessStrategy GetProcessStrategy(string name, ref RefactoringApproachContext db)
+    {
+        return db.Strategies.Find(name) ??
+               throw new EntityNotFoundException($"Process strategy with name \"{name}\" does not exist.");
+    }
+
+    public AtomarUnit GetAtomarUnit(string name)
+    {
+        var db = new RefactoringApproachContext();
+        return GetAtomarUnit(name, ref db);
+    }
+
+    public AtomarUnit GetAtomarUnit(string name, ref RefactoringApproachContext db)
+    {
+        return db.AtomarUnits.Find(name) ??
+               throw new EntityNotFoundException($"Atomar unit with name \"{name}\" does not exist.");
+    }
+
     public ApproachProcess AddApproachProcess(ApproachProcess process)
     {
         var db = new RefactoringApproachContext();
@@ -188,7 +230,9 @@ public class ApproachProcessService
             Directions = AddDirectionsIfNotExist(process.Directions, ref db),
             AutomationLevels = AddAutomationLevelsIfNotExist(process.AutomationLevels, ref db),
             AnalysisTypes = AddAnalysisTypesIfNotExist(process.AnalysisTypes, ref db),
-            Techniques = AddTechniquesIfNotExist(process.Techniques, ref db)
+            Techniques = AddTechniquesIfNotExist(process.Techniques, ref db),
+            ProcessStrategies = AddProcessStrategiesIfNotExist(process.ProcessStrategies, ref db),
+            AtomarUnits = AddAtomarUnitsIfNotExist(process.AtomarUnits, ref db)
         };
 
         return db.ApproachProcesses.Add(preparedProcess).Entity;
@@ -294,6 +338,40 @@ public class ApproachProcessService
         ref RefactoringApproachContext db)
     {
         return Utils.AddEntitiesIfNotExist(techniques, e => new object[] { e.Name }, ref db);
+    }
+
+    public ProcessStrategy AddProcessStrategy(ProcessStrategy processStrategy)
+    {
+        var db = new RefactoringApproachContext();
+        return Utils.AddEntityAndSaveChanges(processStrategy, ref db);
+    }
+
+    public ProcessStrategy AddProcessStrategy(ProcessStrategy processStrategy, ref RefactoringApproachContext db)
+    {
+        return Utils.AddEntity(processStrategy, ref db);
+    }
+
+    public ICollection<ProcessStrategy> AddProcessStrategiesIfNotExist(ICollection<ProcessStrategy>? processStrategies,
+        ref RefactoringApproachContext db)
+    {
+        return Utils.AddEntitiesIfNotExist(processStrategies, e => new object[] { e.Name }, ref db);
+    }
+
+    public AtomarUnit AddAtomarUnit(AtomarUnit atomarUnit)
+    {
+        var db = new RefactoringApproachContext();
+        return Utils.AddEntityAndSaveChanges(atomarUnit, ref db);
+    }
+
+    public AtomarUnit AddAtomarUnit(AtomarUnit atomarUnit, ref RefactoringApproachContext db)
+    {
+        return Utils.AddEntity(atomarUnit, ref db);
+    }
+
+    public ICollection<AtomarUnit> AddAtomarUnitsIfNotExist(ICollection<AtomarUnit>? atomarUnits,
+        ref RefactoringApproachContext db)
+    {
+        return Utils.AddEntitiesIfNotExist(atomarUnits, e => new object[] { e.Name }, ref db);
     }
 
     public void DeleteApproachProcess(int processId, ref RefactoringApproachContext db)
@@ -419,6 +497,44 @@ public class ApproachProcessService
                 $"because entity does not exist");
     }
 
+    public void DeleteProcessStrategy(string name)
+    {
+        var db = new RefactoringApproachContext();
+
+        var blockDelete = db.Strategies
+            .Where(e => e.Name == name)
+            .Any(e => e.ApproachProcesses!.Count > 0);
+        if (blockDelete)
+            throw new EntityReferenceException(
+                $"Process strategy with name \"{name}\" could not be deleted " +
+                "because the entity is still in use by refactoring approaches");
+
+        var deleteSuccess = Utils.DeleteEntityAndSaveChanges<ProcessStrategy>(ref db, name);
+        if (!deleteSuccess)
+            throw new EntityNotFoundException(
+                $"Process strategy with name \"{name}\" could not be deleted " +
+                $"because entity does not exist");
+    }
+
+    public void DeleteAtomarUnit(string name)
+    {
+        var db = new RefactoringApproachContext();
+
+        var blockDelete = db.AtomarUnits
+            .Where(e => e.Name == name)
+            .Any(e => e.ApproachProcesses!.Count > 0);
+        if (blockDelete)
+            throw new EntityReferenceException(
+                $"Atomar unit with name \"{name}\" could not be deleted " +
+                "because the entity is still in use by refactoring approaches");
+
+        var deleteSuccess = Utils.DeleteEntityAndSaveChanges<AtomarUnit>(ref db, name);
+        if (!deleteSuccess)
+            throw new EntityNotFoundException(
+                $"Atomar unit with name \"{name}\" could not be deleted " +
+                $"because entity does not exist");
+    }
+
     private static void LoadAllData(ref IQueryable<ApproachProcess> query)
     {
         query.Include(e => e.Qualities)
@@ -437,6 +553,12 @@ public class ApproachProcessService
             .Load();
 
         query.Include(e => e.Techniques)
+            .Load();
+
+        query.Include(e => e.ProcessStrategies)
+            .Load();
+
+        query.Include(e => e.AtomarUnits)
             .Load();
     }
 }

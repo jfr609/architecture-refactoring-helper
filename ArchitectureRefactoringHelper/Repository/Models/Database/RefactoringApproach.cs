@@ -35,7 +35,10 @@ public class RefactoringApproach
     
     [JsonPropertyName("approachOutputs")]
     public ICollection<ApproachOutput>? ApproachOutputs { get; set; }
-    
+
+    [JsonPropertyName("representationOutputs")]
+    public ICollection<Representation>? RepresentationOutputs { get; set; }
+
     [JsonIgnore]
     public int ApproachUsabilityId { get; set; }
     [JsonPropertyName("approachUsability")]

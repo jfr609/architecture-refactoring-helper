@@ -1,11 +1,17 @@
 using Repository.Exceptions;
 using Repository.Models;
 using Repository.Models.Database;
+using System.Diagnostics;
 
 namespace Repository.Services;
 
 public class ApproachUsabilityService
 {
+    private readonly ToolService _toolService;
+    public ApproachUsabilityService(ToolService toolService)
+    {
+        _toolService = toolService;
+    }
     public IEnumerable<ApproachUsability> ListApproachUsabilities()
     {
         var db = new RefactoringApproachContext();
@@ -136,10 +142,12 @@ public class ApproachUsabilityService
     {
         var preparedUsability = new ApproachUsability
         {
-            ResultsQuality = GetResultsQuality(usability.ResultsQuality.Name, ref db),
-            ToolSupport = GetToolSupport(usability.ToolSupport.Name, ref db),
+            ResultsQuality = null, //GetResultsQuality(usability.ResultsQuality.Name, ref db),
+            ToolSupport = null, //GetToolSupport(usability.ToolSupport.Name, ref db),
             AccuracyPrecision = GetAccuracyPrecision(usability.AccuracyPrecision.Name, ref db),
-            ValidationMethod = GetValidationMethod(usability.ValidationMethod.Name, ref db)
+            ValidationMethod = GetValidationMethod(usability.ValidationMethod.Name, ref db),
+            Tools = _toolService.AddToolsIfNotExist(usability.Tools, ref db),
+            NoToolSupport = usability.NoToolSupport
         };
 
         return Utils.AddEntity(preparedUsability, ref db);

@@ -46,6 +46,15 @@ public class ApproachRecommendation
     [JsonPropertyName("techniqueEvaluations")]
     public IList<ApproachAttributeEvaluation<Technique>> TechniqueEvaluations { get; set; }
 
+    [JsonPropertyName("atomarUnitEvaluations")]
+    public IList<ApproachAttributeEvaluation<AtomarUnit>> AtomarUnitEvaluations { get; set; }
+
+    [JsonPropertyName("processStrategyEvaluations")]
+    public IList<ApproachAttributeEvaluation<ProcessStrategy>> ProcessStrategyEvaluations { get; set; }
+
+    [JsonPropertyName("representationOutputEvaluations")]
+    public IList<ApproachAttributeEvaluation<Representation>> RepresentationOutputEvaluations { get; set; }
+
     [JsonPropertyName("architectureEvaluations")]
     public IList<ApproachAttributeEvaluation<Architecture>> ArchitectureEvaluations { get; set; }
 
@@ -57,6 +66,9 @@ public class ApproachRecommendation
 
     [JsonPropertyName("toolSupportEvaluations")]
     public IList<ApproachAttributeEvaluation<ToolSupport>> ToolSupportEvaluations { get; set; }
+
+    [JsonPropertyName("toolTypeEvaluations")]
+    public IList<ApproachAttributeEvaluation<ToolType>> ToolTypeEvaluations { get; set; }
 
     [JsonPropertyName("resultsQualityEvaluations")]
     public IList<ApproachAttributeEvaluation<ResultsQuality>> ResultsQualityEvaluations { get; set; }

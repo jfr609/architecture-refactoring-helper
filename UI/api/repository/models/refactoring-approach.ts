@@ -7,9 +7,11 @@ import { ApproachUsability } from './approach-usability';
 import { DomainArtifactInput } from './domain-artifact-input';
 import { ExecutableInput } from './executable-input';
 import { ModelArtifactInput } from './model-artifact-input';
+import { Representation } from './representation';
 import { RuntimeArtifactInput } from './runtime-artifact-input';
 export interface RefactoringApproach {
   approachOutputs?: null | Array<ApproachOutput>;
+  representationOutputs?: null | Array<Representation>;
   approachProcess?: ApproachProcess;
   approachSource?: ApproachSource;
   approachUsability?: ApproachUsability;

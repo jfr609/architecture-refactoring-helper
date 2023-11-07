@@ -48,6 +48,8 @@ export class ApproachExplorerComponent implements OnInit {
       next: (response: RefactoringApproach[]) => {
         this.refactoringApproaches = response;
         this.setDataSource();
+        // Sort the table by the "id" column in ascending order on page load (you can use 'desc' for descending order)
+        this.sort.sort({ id: 'id', start: 'asc', disableClear: false });
       },
       error: () => {
         this.utilService.callSnackBar(

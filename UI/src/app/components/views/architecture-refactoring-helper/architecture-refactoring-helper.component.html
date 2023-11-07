@@ -176,8 +176,8 @@
         </mat-expansion-panel>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title><strong matBadge="{{ utilService.getArraysLength([recommendationService.directionInformation, recommendationService.automationLevelInformation, recommendationService.analysisTypeInformation, recommendationService.techniqueInformation]) }}"
-                [matBadgeHidden]="utilService.getArraysLength([recommendationService.directionInformation, recommendationService.automationLevelInformation, recommendationService.analysisTypeInformation, recommendationService.techniqueInformation]) == 0"
+            <mat-panel-title><strong matBadge="{{ utilService.getArraysLength([recommendationService.directionInformation, recommendationService.automationLevelInformation, recommendationService.analysisTypeInformation, recommendationService.techniqueInformation, recommendationService.processStrategyInformation, recommendationService.atomarUnitInformation]) }}"
+                [matBadgeHidden]="utilService.getArraysLength([recommendationService.directionInformation, recommendationService.automationLevelInformation, recommendationService.analysisTypeInformation, recommendationService.techniqueInformation, recommendationService.processStrategyInformation, recommendationService.atomarUnitInformation]) == 0"
                 matBadgeOverlap="false">Process preferences</strong></mat-panel-title>
             <mat-panel-description> </mat-panel-description>
           </mat-expansion-panel-header>
@@ -233,15 +233,60 @@
                 {{ element.name }}</mat-chip>
             </ng-container>
           </mat-chip-list>
+          <h4>Process Strategy</h4>
+          <mat-chip-list>
+            <ng-container *ngFor="let element of attributeOptionsService.processStrategies.value; let i = index"
+              class="attribute-option-container">
+
+              <mat-chip class="match-item"
+                *ngIf="recommendationService.processStrategyInformation[i]?.recommendationSuitability == RecommendationSuitability.Include">
+                {{ element.name }}</mat-chip>
+              <mat-chip class="mismatch-item"
+                *ngIf="recommendationService.processStrategyInformation[i]?.recommendationSuitability == RecommendationSuitability.Exclude">
+                {{ element.name }}</mat-chip>
+            </ng-container>
+          </mat-chip-list>
+          <h4>Atomar Unit</h4>
+          <mat-chip-list>
+            <ng-container *ngFor="let element of attributeOptionsService.atomarUnits.value; let i = index"
+              class="attribute-option-container">
+
+              <mat-chip class="match-item"
+                *ngIf="recommendationService.atomarUnitInformation[i]?.recommendationSuitability == RecommendationSuitability.Include">
+                {{ element.name }}</mat-chip>
+              <mat-chip class="mismatch-item"
+                *ngIf="recommendationService.atomarUnitInformation[i]?.recommendationSuitability == RecommendationSuitability.Exclude">
+                {{ element.name }}</mat-chip>
+            </ng-container>
+          </mat-chip-list>
         </mat-expansion-panel>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
+            <mat-panel-title><strong matBadge="{{ utilService.getArraysLength([recommendationService.representationInformation]) }}"
+                [matBadgeHidden]="utilService.getArraysLength([recommendationService.representationInformation]) == 0"
+                matBadgeOverlap="false">Output preferences</strong></mat-panel-title>
+            <mat-panel-description> </mat-panel-description>
+          </mat-expansion-panel-header>
+          <h4>Representation</h4>
+          <mat-chip-list>
+            <ng-container *ngFor="let element of attributeOptionsService.representations.value; let i = index"
+              class="attribute-option-container">
+
+              <mat-chip class="match-item"
+                *ngIf="recommendationService.representationInformation[i]?.recommendationSuitability == RecommendationSuitability.Include">
+                {{ element.name }}</mat-chip>
+              <mat-chip class="mismatch-item"
+                *ngIf="recommendationService.representationInformation[i]?.recommendationSuitability == RecommendationSuitability.Exclude">
+                {{ element.name }}</mat-chip>
+            </ng-container>
+          </mat-chip-list>
+          <!-- <mat-expansion-panel-header>
             <mat-panel-title><strong matBadge="{{ utilService.getArraysLength([recommendationService.architectureInformation, recommendationService.serviceTypeInformation]) }}"
                 [matBadgeHidden]="utilService.getArraysLength([recommendationService.architectureInformation, recommendationService.serviceTypeInformation]) == 0"
                 matBadgeOverlap="false">Output preferences</strong></mat-panel-title>
             <mat-panel-description> </mat-panel-description>
-          </mat-expansion-panel-header>
-          <h4>Architectures</h4>
+          </mat-expansion-panel-header> -->
+          <!-- <h4>Architectures</h4>
           <mat-chip-list>
             <ng-container *ngFor="let element of attributeOptionsService.architectures.value; let i = index"
               class="attribute-option-container">
@@ -266,12 +311,12 @@
                 *ngIf="recommendationService.serviceTypeInformation[i]?.recommendationSuitability == RecommendationSuitability.Exclude">
                 {{ element.name }}</mat-chip>
             </ng-container>
-          </mat-chip-list>
+          </mat-chip-list> -->
         </mat-expansion-panel>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title><strong matBadge="{{ utilService.getArraysLength([recommendationService.validationMethodInformation, recommendationService.toolSupportInformation, recommendationService.resultsQualityInformation, recommendationService.accuracyPrecisionInformation]) }}"
-                [matBadgeHidden]="utilService.getArraysLength([recommendationService.validationMethodInformation, recommendationService.toolSupportInformation, recommendationService.resultsQualityInformation, recommendationService.accuracyPrecisionInformation]) == 0"
+            <mat-panel-title><strong matBadge="{{ utilService.getArraysLength([recommendationService.validationMethodInformation, recommendationService.toolSupportInformation, recommendationService.resultsQualityInformation, recommendationService.accuracyPrecisionInformation, recommendationService.toolTypeInformation]) }}"
+                [matBadgeHidden]="utilService.getArraysLength([recommendationService.validationMethodInformation, recommendationService.toolSupportInformation, recommendationService.resultsQualityInformation, recommendationService.accuracyPrecisionInformation, recommendationService.toolTypeInformation]) == 0"
                 matBadgeOverlap="false">Usability preferences</strong></mat-panel-title>
             <mat-panel-description> </mat-panel-description>
           </mat-expansion-panel-header>
@@ -301,7 +346,7 @@
                 {{ element.name }}</mat-chip>
             </ng-container>
           </mat-chip-list>
-          <h4>Quality of results</h4>
+          <!-- <h4>Quality of results</h4>
           <mat-chip-list>
             <ng-container *ngFor="let element of attributeOptionsService.resultsQualities.value; let i = index"
               class="attribute-option-container">
@@ -313,7 +358,7 @@
                 *ngIf="recommendationService.resultsQualityInformation[i]?.recommendationSuitability == RecommendationSuitability.Exclude">
                 {{ element.name }}</mat-chip>
             </ng-container>
-          </mat-chip-list>
+          </mat-chip-list> -->
           <h4>Accuracy/Precision of service identification approaches</h4>
           <mat-chip-list>
             <ng-container *ngFor="let element of attributeOptionsService.accuracyPrecisions.value; let i = index"
@@ -324,6 +369,19 @@
                 {{ element.name }}</mat-chip>
               <mat-chip class="mismatch-item"
                 *ngIf="recommendationService.accuracyPrecisionInformation[i]?.recommendationSuitability == RecommendationSuitability.Exclude">
+                {{ element.name }}</mat-chip>
+            </ng-container>
+          </mat-chip-list>
+          <h4>Tool types</h4>
+          <mat-chip-list>
+            <ng-container *ngFor="let element of attributeOptionsService.toolTypes.value; let i = index"
+              class="attribute-option-container">
+
+              <mat-chip class="match-item"
+                *ngIf="recommendationService.toolTypeInformation[i]?.recommendationSuitability == RecommendationSuitability.Include">
+                {{ element.name }}</mat-chip>
+              <mat-chip class="mismatch-item"
+                *ngIf="recommendationService.toolTypeInformation[i]?.recommendationSuitability == RecommendationSuitability.Exclude">
                 {{ element.name }}</mat-chip>
             </ng-container>
           </mat-chip-list>

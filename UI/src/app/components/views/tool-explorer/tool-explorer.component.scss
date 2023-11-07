@@ -1,0 +1,19 @@
+table{
+  width: 90%;
+}
+
+tr.tool-row {
+  cursor: pointer;
+}
+
+tr.tool-row:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.tool-cell {
+  padding: 8px 24px 8px 0;
+}
+
+.tool-cell:last-child {
+  padding: 8px 8px 8px 0;
+}

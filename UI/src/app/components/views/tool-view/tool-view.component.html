@@ -1,0 +1,132 @@
+<div *ngIf='isDataLoading' class='loading-container' fxLayout='column' fxLayoutAlign='center center'>
+  <mat-spinner color='accent'></mat-spinner>
+</div>
+<div *ngIf='!isDataLoading' fxLayout='column' fxLayoutAlign='start center' fxLayoutGap='32px' class='page-container'>
+  <h1 fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='12px'>
+    <button mat-mini-fab color='warn' (click)='goBack()'>
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>
+      {{tool.toolSource?.name}} ({{tool.identifier}})
+    </span>
+    <button mat-mini-fab *ngIf='permissionService.isAdmin'
+            (click)='goToEdit()'>
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-mini-fab *ngIf='permissionService.isAdmin'
+            color='warn'
+            (click)='deleteTool()'>
+      <mat-icon>delete</mat-icon>
+    </button>
+  </h1>
+
+  <mat-card>
+    <mat-card-title>Source</mat-card-title>
+    <mat-card-content *ngIf='tool.toolSource'>
+      <div fxLayout='row'>
+        <div fxFlex='25'>
+          <h3>Author</h3>
+        </div>
+        <div fxFlex>
+          <p>{{tool.toolSource.author}}</p>
+        </div>
+      </div>
+
+      <div fxLayout='row'>
+        <div fxFlex='25'>
+          <h3>Name</h3>
+        </div>
+        <div fxFlex>
+          <p>{{tool.toolSource.name}}</p>
+        </div>
+      </div>
+
+      <div *ngIf='tool.toolSource.link' fxLayout='row'>
+        <div fxFlex='25'>
+          <h3>Link</h3>
+        </div>
+        <div class='link-wrapper' fxFlex>
+          <a [href]='tool.toolSource.link'
+             target='_blank'>{{tool.toolSource.link}}</a>
+        </div>
+      </div>
+
+      <div *ngIf='tool.toolSource.description' fxLayout='row'>
+        <div fxFlex='25'>
+          <h3>Description</h3>
+        </div>
+        <div fxFlex>
+          <p>{{tool.toolSource.description}}</p>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card style='width: 80%'>
+    <mat-card-title>Types</mat-card-title>
+    <mat-card-content>
+      <div *ngIf='tool.toolTypes && tool.toolTypes.length > 0'
+           fxLayout='row'>
+        <div fxFlex='25'>
+          <h3>Tool Types</h3>
+        </div>
+        <div fxFlex fxLayout='column'>
+          <div *ngFor='let type of tool.toolTypes'>
+            <p ><strong>{{type.name}}</strong></p>
+            <p *ngIf='type.description'>
+              {{type.description}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf='tool.approachUsabilities && tool.approachUsabilities.length > 0' style='width: 80%'>
+    <mat-card-title>Used in Approaches</mat-card-title>
+  </mat-card>
+  
+    <table *ngIf='tool.approachUsabilities && tool.approachUsabilities.length > 0' mat-table [dataSource]='dataSource' matSort class='mat-elevation-z8'>
+      <ng-container matColumnDef='id'>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header='id'>
+          ID
+        </th>
+        <td mat-cell class='approach-cell' *matCellDef='let approach'>
+          {{approach.identifier}}
+        </td>
+      </ng-container>
+  
+      <ng-container matColumnDef='title'>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header='title'>
+          Title
+        </th>
+        <td mat-cell class='approach-cell' *matCellDef='let approach'>
+          {{approach.approachSource.title}}
+        </td>
+      </ng-container>
+  
+      <ng-container matColumnDef='year'>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header='year'>
+          Year
+        </th>
+        <td mat-cell class='approach-cell' *matCellDef='let approach'>
+          {{approach.approachSource.year}}
+        </td>
+      </ng-container>
+  
+      <ng-container matColumnDef='authors'>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header='authors'>
+          Authors
+        </th>
+        <td mat-cell class='approach-cell' *matCellDef='let approach'>
+          {{approach.approachSource.authors}}
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef='displayedColumns'></tr>
+      <tr mat-row *matRowDef='let row; columns: displayedColumns;'
+          class='approach-row'
+          (click)='openApproachView(row)'></tr>
+    </table>
+
+</div>

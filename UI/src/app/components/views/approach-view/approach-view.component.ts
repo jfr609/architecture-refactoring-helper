@@ -17,6 +17,7 @@ import { Direction } from '../../../../../api/repository/models/direction';
 import { AutomationLevel } from '../../../../../api/repository/models/automation-level';
 import { AnalysisType } from '../../../../../api/repository/models/analysis-type';
 import { Technique } from '../../../../../api/repository/models/technique';
+import { ProcessStrategy } from '../../../../../api/repository/models/process-strategy';
 import { ServiceType } from '../../../../../api/repository/models/service-type';
 import { Architecture } from '../../../../../api/repository/models/architecture';
 import { ResultsQuality } from '../../../../../api/repository/models/results-quality';
@@ -31,6 +32,8 @@ import {
 } from '../../dialogs/confirm-dialog/confirm-dialog.component';
 import { ApproachOutput } from '../../../../../api/repository/models/approach-output';
 import { QualitySublevel } from 'api/repository/models';
+import { AtomarUnit } from 'api/repository/models/atomar-unit';
+import { Representation } from 'api/repository/models/representation';
 
 interface OutputInfo {
   architecture: Architecture;
@@ -121,7 +124,7 @@ export class ApproachViewComponent implements OnInit, OnDestroy {
     const queryParamMap: ParamMap = this.route.snapshot.queryParamMap;
     if (
       queryParamMap.has('from') &&
-      queryParamMap.get('from') === 'recommendation'
+      queryParamMap.get('from') === 'recommendation_disabled'
     ) {
       this.selectedRecommendation =
         this.recommendationService.recommendations.find(
@@ -159,6 +162,17 @@ export class ApproachViewComponent implements OnInit, OnDestroy {
 
     const evaluation =
       this.selectedRecommendation.domainArtifactInputEvaluations?.find(
+        (value) => value.approachAttribute.name === attribute.name
+      );
+
+    return this.getAttributeColor(evaluation);
+  }
+
+  getRepresentationColor(attribute: Representation): string {
+    if (this.selectedRecommendation == null) return '';
+
+    const evaluation =
+      this.selectedRecommendation.representationOutputEvaluations?.find(
         (value) => value.approachAttribute.name === attribute.name
       );
 
@@ -252,6 +266,26 @@ export class ApproachViewComponent implements OnInit, OnDestroy {
   }
 
   getTechniqueColor(attribute: Technique): string {
+    if (this.selectedRecommendation == null) return '';
+
+    const evaluation = this.selectedRecommendation.techniqueEvaluations?.find(
+      (value) => value.approachAttribute.name === attribute.name
+    );
+
+    return this.getAttributeColor(evaluation);
+  }
+
+  getStrategyColor(attribute: ProcessStrategy): string {
+    if (this.selectedRecommendation == null) return '';
+
+    const evaluation = this.selectedRecommendation.techniqueEvaluations?.find(
+      (value) => value.approachAttribute.name === attribute.name
+    );
+
+    return this.getAttributeColor(evaluation);
+  }
+
+  getAtomarUnitColor(attribute: AtomarUnit): string {
     if (this.selectedRecommendation == null) return '';
 
     const evaluation = this.selectedRecommendation.techniqueEvaluations?.find(

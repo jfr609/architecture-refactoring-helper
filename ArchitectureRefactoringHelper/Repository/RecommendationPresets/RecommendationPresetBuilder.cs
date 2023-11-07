@@ -37,6 +37,9 @@ public static class RecommendationPresetBuilder
         var automationLevelInformation = new List<AttributeRecommendationInformation<AutomationLevel>>();
         var analysisTypeInformation = new List<AttributeRecommendationInformation<AnalysisType>>();
         var techniqueInformation = new List<AttributeRecommendationInformation<Technique>>();
+        var processStrategyInformation = new List<AttributeRecommendationInformation<ProcessStrategy>>();
+        var atomarUnitInformation = new List<AttributeRecommendationInformation<AtomarUnit>>();
+        var representationInformation = new List<AttributeRecommendationInformation<Representation>>();
         var architectureInformation = new List<AttributeRecommendationInformation<Architecture>>();
         var serviceTypeInformation = new List<AttributeRecommendationInformation<ServiceType>>();
         var resultsQualityInformation = new List<AttributeRecommendationInformation<ResultsQuality>>();
@@ -152,6 +155,42 @@ public static class RecommendationPresetBuilder
             });
         }
 
+        foreach (var entity in db.Strategies)
+        {
+            if (request.ProcessStrategyInformation.Any(e => e.Attribute.KeyEquals(entity)))
+                continue;
+
+            processStrategyInformation.Add(new AttributeRecommendationInformation<ProcessStrategy>
+            {
+                Attribute = entity,
+                RecommendationSuitability = RecommendationSuitability.Neutral
+            });
+        }
+
+        foreach (var entity in db.AtomarUnits)
+        {
+            if (request.AtomarUnitInformation.Any(e => e.Attribute.KeyEquals(entity)))
+                continue;
+
+            atomarUnitInformation.Add(new AttributeRecommendationInformation<AtomarUnit>
+            {
+                Attribute = entity,
+                RecommendationSuitability = RecommendationSuitability.Neutral
+            });
+        }
+
+        foreach (var entity in db.RepresentationOutputs)
+        {
+            if (request.RepresentationInformation.Any(e => e.Attribute.KeyEquals(entity)))
+                continue;
+
+            representationInformation.Add(new AttributeRecommendationInformation<Representation>
+            {
+                Attribute = entity,
+                RecommendationSuitability = RecommendationSuitability.Neutral
+            });
+        }
+
         foreach (var entity in db.Architectures)
         {
             if (request.ArchitectureInformation.Any(e => e.Attribute.KeyEquals(entity)))
@@ -233,6 +272,9 @@ public static class RecommendationPresetBuilder
         request.AutomationLevelInformation.AddRange(automationLevelInformation);
         request.AnalysisTypeInformation.AddRange(analysisTypeInformation);
         request.TechniqueInformation.AddRange(techniqueInformation);
+        request.ProcessStrategyInformation.AddRange(processStrategyInformation);
+        request.AtomarUnitInformation.AddRange(atomarUnitInformation);
+        request.RepresentationInformation.AddRange(representationInformation);
         request.ArchitectureInformation.AddRange(architectureInformation);
         request.ServiceTypeInformation.AddRange(serviceTypeInformation);
         request.ValidationMethodInformation.AddRange(validationMethodInformation);

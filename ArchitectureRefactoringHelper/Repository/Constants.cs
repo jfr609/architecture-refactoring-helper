@@ -23,18 +23,27 @@ public static class Constants
     public const string TableNameApproachProcessDirection = TableNameApproachProcess + ".Direction";
     public const string TableNameApproachProcessAutomationLevel = TableNameApproachProcess + ".AutomationLevel";
     public const string TableNameApproachProcessAnalysisType = TableNameApproachProcess + ".AnalysisType";
+    public const string TableNameApproachProcessStrategy = TableNameApproachProcess + ".Strategy";
+    public const string TableNameApproachAtomarUnit = TableNameApproachProcess + ".AtomarUnit";
     public const string TableNameApproachProcessTechnique = TableNameApproachProcess + ".Technique";
     public const string TableNameApproachProcessCalculationMetric = TableNameApproachProcess + ".CalculationMetric";
 
     public const string TableNameApproachOutput = TableNameApproach + ".Output";
     public const string TableNameApproachOutputArchitecture = TableNameApproachOutput + ".Architecture";
     public const string TableNameApproachOutputServiceType = TableNameApproachOutput + ".ServiceType";
+    public const string TableNameApproachOutputRepresentation = TableNameApproachOutput + ".Representation";
 
     public const string TableNameApproachUsability = TableNameApproach + ".Usability";
     public const string TableNameApproachUsabilityResultsQuality = TableNameApproachUsability + ".ResultsQuality";
     public const string TableNameApproachUsabilityToolSupport = TableNameApproachUsability + ".ToolSupport";
     public const string TableNameApproachUsabilityAccuracyPrecision = TableNameApproachUsability + ".AccuracyPrecision";
     public const string TableNameApproachUsabilityValidationMethod = TableNameApproachUsability + ".ValidationMethod";
+
+    public const string TableNameTool = "Tool";
+    public const string TableNameToolSource = TableNameTool + ".Source";
+    public const string TableNameToolType = TableNameTool + ".Type";
+
+    public const string TableNameApproachUsabilityTool = TableNameApproachUsability + ".Tool";
 
     // Controller api path constants
     public const string ApiVersion = "1";
@@ -56,16 +65,25 @@ public static class Constants
     public const string ApiSubPathAutomationLevels = "automation-levels";
     public const string ApiSubPathAnalysisTypes = "analysis-types";
     public const string ApiSubPathTechniques = "techniques";
+    public const string ApiSubPathProcessStrategies = "process-strategies";
+    public const string ApiSubPathAtomarUnits = "atomar-units";
 
     public const string ApiSubPathOutputs = "outputs";
     public const string ApiSubPathArchitectures = "architectures";
     public const string ApiSubPathServiceTypes = "service-types";
+    public const string ApiSubPathRepresentations = "representations";
 
     public const string ApiSubPathUsabilities = "usabilities";
     public const string ApiSubPathResultsQualities = "result-qualities";
     public const string ApiSubPathToolSupports = "tool-supports";
     public const string ApiSubPathAccuracyPrecisions = "accuracy-precisions";
     public const string ApiSubPathValidationMethods = "validation-methods";
+
+    public const string ApiSubPathTools = "tools";
+    public const string ApiSubPathToolTypes = "tool-types";
+    public const string ApiSubPathToolsByIdentifiers = "tools-by-identifiers";
+
+    public const string ApiSubPathExistingCards = "existing-cards";
 
     // Default attribute options
     public const string AttributeDefaultHigh = "High";

@@ -18,12 +18,16 @@ public class ApproachRecommendationRequest
         AutomationLevelInformation = new List<AttributeRecommendationInformation<AutomationLevel>>();
         AnalysisTypeInformation = new List<AttributeRecommendationInformation<AnalysisType>>();
         TechniqueInformation = new List<AttributeRecommendationInformation<Technique>>();
+        ProcessStrategyInformation = new List<AttributeRecommendationInformation<ProcessStrategy>>();
+        AtomarUnitInformation = new List<AttributeRecommendationInformation<AtomarUnit>>();
+        RepresentationInformation = new List<AttributeRecommendationInformation<Representation>>();
         ArchitectureInformation = new List<AttributeRecommendationInformation<Architecture>>();
         ServiceTypeInformation = new List<AttributeRecommendationInformation<ServiceType>>();
         ResultsQualityInformation = new List<AttributeRecommendationInformation<ResultsQuality>>();
         ToolSupportInformation = new List<AttributeRecommendationInformation<ToolSupport>>();
         AccuracyPrecisionInformation = new List<AttributeRecommendationInformation<AccuracyPrecision>>();
         ValidationMethodInformation = new List<AttributeRecommendationInformation<ValidationMethod>>();
+        ToolTypeInformation = new List<AttributeRecommendationInformation<ToolType>>();
     }
 
     [Required]
@@ -67,6 +71,18 @@ public class ApproachRecommendationRequest
     public List<AttributeRecommendationInformation<Technique>> TechniqueInformation { get; set; }
 
     [Required]
+    [JsonPropertyName("processStrategyInformation")]
+    public List<AttributeRecommendationInformation<ProcessStrategy>> ProcessStrategyInformation { get; set; }
+
+    [Required]
+    [JsonPropertyName("atomarUnitInformation")]
+    public List<AttributeRecommendationInformation<AtomarUnit>> AtomarUnitInformation { get; set; }
+
+    [Required]
+    [JsonPropertyName("representationInformation")]
+    public List<AttributeRecommendationInformation<Representation>> RepresentationInformation { get; set; }
+
+    [Required]
     [JsonPropertyName("architectureInformation")]
     public List<AttributeRecommendationInformation<Architecture>> ArchitectureInformation { get; set; }
 
@@ -81,6 +97,9 @@ public class ApproachRecommendationRequest
     [Required]
     [JsonPropertyName("toolSupportInformation")]
     public List<AttributeRecommendationInformation<ToolSupport>> ToolSupportInformation { get; set; }
+    [Required]
+    [JsonPropertyName("toolTypeInformation")]
+    public List<AttributeRecommendationInformation<ToolType>> ToolTypeInformation { get; set; }
 
     [Required]
     [JsonPropertyName("accuracyPrecisionInformation")]

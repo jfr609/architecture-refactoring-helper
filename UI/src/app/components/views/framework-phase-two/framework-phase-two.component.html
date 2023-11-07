@@ -3,7 +3,7 @@
     <button mat-mini-fab color='warn' routerLink='/home'>
       <mat-icon>arrow_back</mat-icon>
     </button>
-    <span>Phase 2: Strategy Definition</span>
+    <span>Phase 2</span>
   </h1>
 
   <p class='max-width-800'>
@@ -31,6 +31,17 @@
       </ng-container>
     </app-card-button>
 
+    <app-card-button color='phase-2' routerLink='tools'>
+      <div title>
+        <strong>Explore</strong> all tools
+      </div>
+      <ng-container content>
+        Freely explore all tools that exist in the repository.
+      </ng-container>
+    </app-card-button>
+  </div>
+
+  <div class='card-group' fxLayout='row' fxLayoutGap='50px'>
     <app-card-button color='phase-2' routerLink='recommendation'>
       <div title>
         <strong>Find</strong> recommended approaches

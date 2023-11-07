@@ -136,6 +136,35 @@ public class RefactoringApproachController : ControllerBase
         return NoContent();
     }
 
+    [HttpPost("{id:int}/" + Constants.ApiSubPathOutputs + "/" + Constants.ApiSubPathRepresentations,
+        Name = "AddRepresentationAsOutput")]
+    public IActionResult AddRepresentationAsOutput(int id, [FromBody] Representation representation)
+    {
+        _refactoringApproachService.AddRepresentationAsOutput(id, representation);
+
+        return NoContent();
+    }
+
+    [HttpDelete(
+        "{id:int}/" + Constants.ApiSubPathOutputs + "/" + Constants.ApiSubPathRepresentations + "/{outputName}",
+        Name = "RemoveRepresentationFromOutputs")]
+    public IActionResult RemoveRepresentationFromOutputs(int id, string outputName)
+    {
+        _refactoringApproachService.RemoveRepresentationFromOutputs(id, outputName);
+
+        return NoContent();
+    }
+
+    [HttpDelete(
+        "{id:int}/" + Constants.ApiSubPathExistingCards,
+        Name = "RemoveApproachExistingCards")]
+    public IActionResult RemoveApproachExistingCards(int id)
+    {
+        _refactoringApproachService.RemoveApproachExistingCards(id);
+
+        return NoContent();
+    }
+
     [HttpPost("{id:int}/" + Constants.ApiSubPathInputs + "/" + Constants.ApiSubPathRuntimeArtifacts,
         Name = "AddRuntimeArtifactAsInput")]
     public IActionResult AddRuntimeArtifactAsInput(int id, [FromBody] RuntimeArtifactInput runtimeArtifact)
@@ -310,6 +339,44 @@ public class RefactoringApproachController : ControllerBase
         return NoContent();
     }
 
+    [HttpPost("{id:int}/" + Constants.ApiSubPathProcesses + "/" + Constants.ApiSubPathProcessStrategies,
+        Name = "AddProcessStrategyToProcess")]
+    public IActionResult AddProcessStrategyToProcess(int id, [FromBody] ProcessStrategy processStrategy)
+    {
+        _refactoringApproachService.AddProcessStrategyToProcess(id, processStrategy);
+
+        return NoContent();
+    }
+
+    [HttpDelete(
+        "{id:int}/" + Constants.ApiSubPathProcesses + "/" + Constants.ApiSubPathProcessStrategies + "/{processStrategyName}",
+        Name = "RemoveProcessStrategyFromProcess")]
+    public IActionResult RemoveProcessStrategyFromProcess(int id, string processStrategyName)
+    {
+        _refactoringApproachService.RemoveProcessStrategyFromProcess(id, processStrategyName);
+
+        return NoContent();
+    }
+
+    [HttpPost("{id:int}/" + Constants.ApiSubPathProcesses + "/" + Constants.ApiSubPathAtomarUnits,
+        Name = "AddAtomarUnitToProcess")]
+    public IActionResult AddAtomarUnitToProcess(int id, [FromBody] AtomarUnit atomarUnit)
+    {
+        _refactoringApproachService.AddAtomarUnitToProcess(id, atomarUnit);
+
+        return NoContent();
+    }
+
+    [HttpDelete(
+        "{id:int}/" + Constants.ApiSubPathProcesses + "/" + Constants.ApiSubPathAtomarUnits + "/{atomarUnitName}",
+        Name = "RemoveAtomarUnitFromProcess")]
+    public IActionResult RemoveAtomarUnityFromProcess(int id, string atomarUnitName)
+    {
+        _refactoringApproachService.RemoveAtomarUnitFromProcess(id, atomarUnitName);
+
+        return NoContent();
+    }
+
     [HttpPost("{id:int}/" + Constants.ApiSubPathOutputs,
         Name = "AddOutput")]
     public IActionResult AddOutput(int id, [FromBody] ApproachOutput output)
@@ -360,6 +427,24 @@ public class RefactoringApproachController : ControllerBase
     public IActionResult UpdateValidationMethod(int id, [FromBody] ValidationMethod validationMethod)
     {
         _refactoringApproachService.UpdateValidationMethod(id, validationMethod);
+
+        return NoContent();
+    }
+
+    [HttpPost("{id:int}/" + Constants.ApiSubPathUsabilities + "/" + Constants.ApiSubPathTools,
+        Name = "UpdateTool")]
+    public IActionResult UpdateTools(int id, [FromBody] int[] tools)
+    {
+        _refactoringApproachService.UpdateTools(id, tools);
+
+        return NoContent();
+    }
+
+    [HttpPost("{id:int}/" + Constants.ApiSubPathUsabilities + "/" + Constants.ApiSubPathToolsByIdentifiers,
+        Name = "UpdateToolsByIdentifiers")]
+    public IActionResult UpdateToolsByIdentifiers(int id, [FromBody] string[] tools)
+    {
+        _refactoringApproachService.UpdateToolsByIdentifiers(id, tools);
 
         return NoContent();
     }

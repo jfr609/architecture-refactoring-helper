@@ -5,7 +5,7 @@ import { HomePageComponent } from './components/views/home-page/home-page.compon
 import { ApproachFormComponent } from './components/views/approach-form/approach-form.component';
 import { ApproachExplorerComponent } from './components/views/approach-explorer/approach-explorer.component';
 import { RecommendationConfiguratorComponent } from './components/views/recommendation-configurator/recommendation-configurator.component';
-import { NAV_PARAM_APPROACH_ID, NAV_PARAM_DESIGN_ID } from './app.constants';
+import { NAV_PARAM_APPROACH_ID, NAV_PARAM_DESIGN_ID, NAV_PARAM_TOOL_ID } from './app.constants';
 import { ApproachViewComponent } from './components/views/approach-view/approach-view.component';
 import { RecommendationResultComponent } from './components/views/recommendation-result/recommendation-result.component';
 import { RecommendationComponent } from './components/views/recommendation/recommendation.component';
@@ -15,6 +15,9 @@ import { FrameworkPhaseThreeComponent } from './components/views/framework-phase
 import { ArchitecturalDesignExplorerComponent } from './components/views/architectural-design-explorer/architectural-design-explorer.component';
 import { ArchitecturalDesignViewComponent } from './components/views/architectural-design-view/architectural-design-view.component';
 import { ArchitecturalRecommendationResultComponent } from './components/views/architectural-recommendation-result/architectural-recommendation-result.component';
+import { ToolExplorerComponent } from './components/views/tool-explorer/tool-explorer.component';
+import { ToolFormComponent } from './components/views/tool-form/tool-form.component';
+import { ToolViewComponent } from './components/views/tool-view/tool-view.component';
 
 const routes: Routes = [
   {
@@ -38,16 +41,32 @@ const routes: Routes = [
     component: ApproachFormComponent
   },
   {
+    path: 'phase/2/tool',
+    component: ToolFormComponent
+  },
+  {
     path: `phase/2/approach/:${NAV_PARAM_APPROACH_ID}`,
     component: ApproachViewComponent
+  },
+  {
+    path: `phase/2/tool/:${NAV_PARAM_TOOL_ID}`,
+    component: ToolViewComponent
   },
   {
     path: `phase/2/approach/:${NAV_PARAM_APPROACH_ID}/edit`,
     component: ApproachFormComponent
   },
   {
+    path: `phase/2/tool/:${NAV_PARAM_TOOL_ID}/edit`,
+    component: ToolFormComponent
+  },
+  {
     path: 'phase/2/approaches',
     component: ApproachExplorerComponent
+  },
+  {
+    path: 'phase/2/tools',
+    component: ToolExplorerComponent
   },
   {
     path: 'phase/2/recommendation',

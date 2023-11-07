@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UtilService } from '../../../services/util.service';
 import { AttributeOptionsService } from '../../../services/attribute-options.service';
 import { QualityCategory } from '../../../../../api/repository/models/quality-category';
@@ -14,6 +14,7 @@ import { MODES, TOOLTIP_HIDE_DELAY, TOOLTIP_SHOW_DELAY } from '../../../app.cons
 import { ActivatedRoute } from '@angular/router';
 import { ScenarioService } from 'api/repository/services';
 import { ProjectService } from 'src/app/services/project.service';
+import { MatAccordion } from '@angular/material/expansion';
 
 
 @Component({
@@ -25,6 +26,9 @@ export class RecommendationConfiguratorComponent implements OnInit {
   readonly TOOLTIP_SHOW_DELAY = TOOLTIP_SHOW_DELAY;
   readonly TOOLTIP_HIDE_DELAY = TOOLTIP_HIDE_DELAY;
   readonly QualityCategories = QualityCategory;
+
+  @ViewChild(MatAccordion)
+  accordion!: MatAccordion;
 
   scenarioBased: boolean = false;
   configurationEnabled: boolean = true;
@@ -97,6 +101,30 @@ export class RecommendationConfiguratorComponent implements OnInit {
         return 'warn';
       default:
         return 'accent';
+    }
+  }
+
+  getIconName(recommendationSuitability: RecommendationSuitability): string {
+    switch (recommendationSuitability) {
+      case RecommendationSuitability.Include:
+        return 'done'; // Use 'done' for tick icon
+      case RecommendationSuitability.Exclude:
+        return 'cancel'; // Use 'cancel' for cross icon
+      default:
+        return ''; // Use 'fiber_manual_record' for filled circle
+    }
+  }
+
+  getIconClass(recommendationSuitability: RecommendationSuitability): string {
+    // Implement your logic to determine the color based on suitability
+    // For example, return 'include-icon', 'neutral-icon', or 'exclude-icon'
+    switch (recommendationSuitability) {
+      case RecommendationSuitability.Include:
+        return 'include-icon';
+      case RecommendationSuitability.Exclude:
+        return 'exclude-icon';
+      default:
+        return 'neutral-icon';
     }
   }
 

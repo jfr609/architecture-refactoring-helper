@@ -247,6 +247,28 @@
         (createAttribute)='attributeOptionsService.createTechniqueWithDialog()'
         (deleteAttribute)='attributeOptionsService.deleteTechniqueWithDialog()'>
       </app-connected-data-lists>
+
+      <app-connected-data-lists
+        [sourceDataListTitle]="'Process Strategy'"
+        [targetDataListTitle]="'Approach process strategy'"
+        [sourceDataList]='processStrategySourceDataList'
+        [targetDataList]='processStrategyTargetDataList'
+        [attributeCreationActive]='true'
+        [attributeDeletionActive]='true'
+        (createAttribute)='attributeOptionsService.createProcessStrategyWithDialog()'
+        (deleteAttribute)='attributeOptionsService.deleteProcessStrategyWithDialog()'>
+      </app-connected-data-lists>
+
+      <app-connected-data-lists
+        [sourceDataListTitle]="'Atomar Unit'"
+        [targetDataListTitle]="'Approach process atomar unit'"
+        [sourceDataList]='atomarUnitSourceDataList'
+        [targetDataList]='atomarUnitTargetDataList'
+        [attributeCreationActive]='true'
+        [attributeDeletionActive]='true'
+        (createAttribute)='attributeOptionsService.createAtomarUnitWithDialog()'
+        (deleteAttribute)='attributeOptionsService.deleteAtomarUnitWithDialog()'>
+      </app-connected-data-lists>
     </mat-expansion-panel>
 
     <mat-expansion-panel expanded>
@@ -258,7 +280,17 @@
           Define the outputs of the refactoring approach.
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <div fxLayout='row' fxLayoutGap='16px'>
+      <app-connected-data-lists
+        [sourceDataListTitle]="'Representation'"
+        [targetDataListTitle]="'Approach representation'"
+        [sourceDataList]='representationSourceDataList'
+        [targetDataList]='representationTargetDataList'
+        [attributeCreationActive]='true'
+        [attributeDeletionActive]='true'
+        (createAttribute)='attributeOptionsService.createRepresentationWithDialog()'
+        (deleteAttribute)='attributeOptionsService.deleteRepresentationWithDialog()'>
+      </app-connected-data-lists>
+      <!-- <div fxLayout='row' fxLayoutGap='16px'>
         <div style='padding: 16px' fxFlex='40' fxLayout='column'>
           <div fxLayout='row'>
             <mat-form-field fxFlex appearance='fill'>
@@ -343,7 +375,7 @@
             <p>No outputs</p>
           </div>
         </div>
-      </div>
+      </div> -->
     </mat-expansion-panel>
 
     <mat-expansion-panel expanded>
@@ -387,16 +419,29 @@
           <div fxFlex fxLayout='column' fxLayoutGap='16px'>
             <h3>
               Pick a tool support option
-              <button mat-mini-fab class='attribute-button' color='primary'
+              <!-- <button mat-mini-fab class='attribute-button' color='primary'
                       (click)='attributeOptionsService.createToolSupportWithDialog()'>
                 <mat-icon>add</mat-icon>
               </button>
               <button mat-mini-fab class='attribute-button' color='warn'
                       (click)='attributeOptionsService.deleteToolSupportWithDialog()'>
                 <mat-icon>remove</mat-icon>
-              </button>
+              </button> -->
             </h3>
-            <mat-radio-group
+            <mat-slide-toggle class='margin-bottom' [(ngModel)]="noToolSupport" (ngModelChange)="toggleNoToolSupport()">
+              No Tool Support
+            </mat-slide-toggle>
+            <div fxLayout="column" fxLayoutGap="8px">
+              <mat-checkbox *ngFor="let tool of attributeOptionsService.tools.value"
+                            [value]="tool.toolId !== undefined ? tool.toolId.toString() : ''"
+                            [checked]="selectedToolIds.includes(tool.toolId || -1) && !noToolSupport"
+                            [disabled]="noToolSupport"
+                            (change)="tool.toolId !== undefined && toggleToolSelection(tool.toolId)">
+                            <!-- [(ngModel)]="selectedToolIds[tool.toolId]"> Use ngModel to track selected toolIds -->
+                {{tool?.toolSource?.name}}
+              </mat-checkbox>
+            </div>
+            <!-- <mat-radio-group
               fxLayout='column'
               fxLayoutGap='8px'
               [(ngModel)]='selectedToolSupport'>
@@ -408,11 +453,11 @@
                   {{toolSupport.name}}
                 </span>
               </mat-radio-button>
-            </mat-radio-group>
+            </mat-radio-group> -->
           </div>
         </div>
         <div fxLayout='row' fxLayoutGap='16px'>
-          <div fxFlex fxLayout='column' fxLayoutGap='16px'>
+          <!-- <div fxFlex fxLayout='column' fxLayoutGap='16px'>
             <h3>
               Pick the quality of results
               <button mat-mini-fab class='attribute-button' color='primary'
@@ -437,7 +482,7 @@
                 </span>
               </mat-radio-button>
             </mat-radio-group>
-          </div>
+          </div> -->
 
           <div fxFlex fxLayout='column' fxLayoutGap='16px'>
             <h3>

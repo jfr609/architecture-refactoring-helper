@@ -3,21 +3,26 @@
 import { AccuracyPrecisionAttributeRecommendationInformation } from './accuracy-precision-attribute-recommendation-information';
 import { AnalysisTypeAttributeRecommendationInformation } from './analysis-type-attribute-recommendation-information';
 import { ArchitectureAttributeRecommendationInformation } from './architecture-attribute-recommendation-information';
+import { AtomarUnitAttributeRecommendationInformation } from './atomar-unit-attribute-recommendation-information';
 import { AutomationLevelAttributeRecommendationInformation } from './automation-level-attribute-recommendation-information';
 import { DirectionAttributeRecommendationInformation } from './direction-attribute-recommendation-information';
 import { DomainArtifactInputAttributeRecommendationInformation } from './domain-artifact-input-attribute-recommendation-information';
 import { ExecutableInputAttributeRecommendationInformation } from './executable-input-attribute-recommendation-information';
 import { ModelArtifactInputAttributeRecommendationInformation } from './model-artifact-input-attribute-recommendation-information';
+import { ProcessStrategyAttributeRecommendationInformation } from './process-strategy-attribute-recommendation-information';
 import { QualityAttributeRecommendationInformation } from './quality-attribute-recommendation-information';
 import { QualitySublevelAttributeRecommendationInformation } from './quality-sublevel-attribute-recommendation-information';
+import { RepresentationAttributeRecommendationInformation } from './representation-attribute-recommendation-information';
 import { ResultsQualityAttributeRecommendationInformation } from './results-quality-attribute-recommendation-information';
 import { RuntimeArtifactInputAttributeRecommendationInformation } from './runtime-artifact-input-attribute-recommendation-information';
 import { ServiceTypeAttributeRecommendationInformation } from './service-type-attribute-recommendation-information';
 import { TechniqueAttributeRecommendationInformation } from './technique-attribute-recommendation-information';
 import { ToolSupportAttributeRecommendationInformation } from './tool-support-attribute-recommendation-information';
+import { ToolTypeAttributeRecommendationInformation } from './tool-type-attribute-recommendation-information';
 import { ValidationMethodAttributeRecommendationInformation } from './validation-method-attribute-recommendation-information';
 export interface ApproachRecommendationRequest {
   accuracyPrecisionInformation: Array<AccuracyPrecisionAttributeRecommendationInformation>;
+  toolTypeInformation: Array<ToolTypeAttributeRecommendationInformation>;
   analysisTypeInformation: Array<AnalysisTypeAttributeRecommendationInformation>;
   architectureInformation: Array<ArchitectureAttributeRecommendationInformation>;
   automationLevelInformation: Array<AutomationLevelAttributeRecommendationInformation>;
@@ -31,6 +36,9 @@ export interface ApproachRecommendationRequest {
   runtimeArtifactInformation: Array<RuntimeArtifactInputAttributeRecommendationInformation>;
   serviceTypeInformation: Array<ServiceTypeAttributeRecommendationInformation>;
   techniqueInformation: Array<TechniqueAttributeRecommendationInformation>;
+  processStrategyInformation: Array<ProcessStrategyAttributeRecommendationInformation>;
+  atomarUnitInformation: Array<AtomarUnitAttributeRecommendationInformation>;
+  representationInformation: Array<RepresentationAttributeRecommendationInformation>;
   toolSupportInformation: Array<ToolSupportAttributeRecommendationInformation>;
   validationMethodInformation: Array<ValidationMethodAttributeRecommendationInformation>;
 }

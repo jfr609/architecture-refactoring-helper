@@ -27,4 +27,8 @@ public class ApproachProcess
     public ICollection<AnalysisType>? AnalysisTypes { get; set; }
     [JsonPropertyName("techniques")]
     public ICollection<Technique>? Techniques { get; set; }
+    [JsonPropertyName("processStrategies")]
+    public ICollection<ProcessStrategy>? ProcessStrategies { get; set; }
+    [JsonPropertyName("atomarUnits")]
+    public ICollection<AtomarUnit>? AtomarUnits { get; set; }
 }
