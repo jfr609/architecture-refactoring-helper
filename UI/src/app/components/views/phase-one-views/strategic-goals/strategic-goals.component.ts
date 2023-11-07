@@ -17,11 +17,9 @@ import {
 import {
   Quality,
   QualityCategory,
-  QualitySublevel,
   Scenario
 } from 'api/repository/models';
 import { AttributeOptionsService } from 'src/app/services/attribute-options.service';
-//import { SelectStrategicGoalDialogComponent, SelectStrategicGoalDialogData } from 'src/app/components/dialogs/select-strategicgoals-dialog/select-strategicgoals-dialog.component';
 import { ProjectService } from 'src/app/services/project.service';
 import { UtilService } from 'src/app/services/util.service';
 import { Languages } from 'api/repository/models/languages';
@@ -103,9 +101,6 @@ export class StrategicGoalsComponent implements OnInit {
       );
       this.objectivesList = this.projectService.objectives.value;
       this.updatingObjectivesList = Object.assign([], this.objectivesList);
-      //this.qualityList = this.attributesService.getQualitiesByCategory(
-      //this.QualityCategories.Attribute
-      //);
       this.isDataLoading = false;
     });
   }
@@ -119,6 +114,7 @@ export class StrategicGoalsComponent implements OnInit {
     this.strategicGoalsList.push(emptyStrategicGoals);
     this.newStrategicGoalsList.push(emptyStrategicGoals);
   }
+
   addObjectives(): void {
     const emptyObjectives: Objectives = {
       objectivesId: this.counter(this.k),
@@ -127,29 +123,17 @@ export class StrategicGoalsComponent implements OnInit {
     this.objectivesList.push(emptyObjectives);
     this.newObjectivesList.push(emptyObjectives);
   }
+
   counter(k: number): number {
     k++;
     this.k = k;
     return this.k;
   }
 
-  scenarioSelected(scenario: Scenario): void {
-    this.selectedScenario = scenario;
-  }
-
-  checkCurrentScenario(currentScenario?: Scenario): boolean {
-    if (currentScenario === this.selectedScenario) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   deleteObjectives(objectives: Objectives): void {
     const data: ConfirmDialogData = {
       title: 'Delete Objective',
       message: `Do you really want to delete Objective "${objectives.objectivesId}"?`,
-      //selectBusinessType: this.enumKeys,
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel'
     };
@@ -189,7 +173,6 @@ export class StrategicGoalsComponent implements OnInit {
     const data: ConfirmDialogData = {
       title: 'Delete Project Description',
       message: `Do you really want to delete the Strategic Goal "${strategicGoals.strategicGoalsId}"?`,
-      //selectBusinessType: this.enumKeys,
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel'
     };
@@ -224,6 +207,7 @@ export class StrategicGoalsComponent implements OnInit {
         }
       });
   }
+
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -240,6 +224,7 @@ export class StrategicGoalsComponent implements OnInit {
       );
     }
   }
+
   strategicGoalsSelected(strategicGoals: StrategicGoals): void {
     this.selectedStrategicGoals = strategicGoals;
   }
@@ -374,10 +359,6 @@ export class StrategicGoalsComponent implements OnInit {
       confirmButtonText: 'Confirm',
       cancelButtonText: 'Cancel'
     };
-    /*this.strategicGoalsList[0] = this.strategicGoalsList.method;
-    this.strategicGoalsList[1] = this.strategicGoalsList.ownership;
-    this.strategicGoalsList[2] = this.strategicGoalsList.participants;
-    this.strategicGoalsList[3] = this.strategicGoalsList.objectives;*/
     this.utilService
       .createDialog(ConfirmDialogComponent, data)
       .afterClosed()
@@ -386,7 +367,8 @@ export class StrategicGoalsComponent implements OnInit {
           if (data == null) return;
           this.fireAll();
         }
-      });
+      }
+    );
   }
 
   fireAll() {

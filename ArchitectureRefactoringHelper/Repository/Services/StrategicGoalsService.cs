@@ -18,11 +18,8 @@ public class StrategicGoalsService
 
         db.Dispose();
 
-
         return result;
     }
-
-   
 
     public StrategicGoals GetStrategicGoals(int strategicGoals)
     {
@@ -56,9 +53,6 @@ public class StrategicGoalsService
             Method = strategicGoals.Method,
             Owner = strategicGoals.Owner,
             Participants = strategicGoals.Participants,
-            //Objectives = StrategicGoals.Objectives
-            //Organizational_objectives = StrategicGoals.Organizational_objectives,
-            //Process_objectives = StrategicGoals.Process_objectives
         };
 
         return Utils.AddEntityAndSaveChanges(newStrategicGoals, ref db);
@@ -80,7 +74,6 @@ public class StrategicGoalsService
             Method = strategicGoals.Method,
             Owner = strategicGoals.Owner,
             Participants = strategicGoals.Participants,
-            //Objectives = StrategicGoals.Objectives
         };
 
         db.Entry(existingStrategicGoals).CurrentValues.SetValues(newStrategicGoals);

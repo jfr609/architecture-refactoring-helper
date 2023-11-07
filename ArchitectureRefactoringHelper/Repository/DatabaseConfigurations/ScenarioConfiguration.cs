@@ -25,6 +25,11 @@ public class ScenarioConfiguration : IEntityTypeConfiguration<Scenario>
         .HasMany(sc => sc.QualitySublevels)
         .WithMany(qu => qu.Scenarios);
 
+        // To each Scenario 1-4 implemented Patterns can be assigned
+        /*builder
+        .HasMany(sc => sc.ImplementedPattern)
+        .WithMany(pa => pa.Scenarios);*/
+
 
     }
 }

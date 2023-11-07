@@ -21,22 +21,8 @@ namespace Repository.Migrations
                     Number_of_Teams = table.Column<string>(type: "INTEGER", nullable: true),
                     Number_of_Developers = table.Column<string>(type: "INTEGER", nullable: true),
                     Processmodel = table.Column<string>(type: "TEXT", nullable: true),
-                    //Architecturepattern = table.Column<object>(type: "TEXT", nullable: true),
-                    //Monolith
-                    //Microservices
-                    //Model-View-Controller
-                    //Pipe-Filter
                     Architecturepattern = table.Column<string>(type: "TEXT", nullable: true),
-                    Languages = table.Column<string>(maxLength: 20, nullable: true),
-                    //Java = table.Column<bool>(type: "INTEGER", nullable: true),
-                    //Languages = table.Column<object>(type: "TEXT", nullable: true),
-
-                    //Java
-                    //C++
-                    //Python
-                    //JavaScript
-                    //C#
-                    //PHP
+                    Languages = table.Column<string>(type: "TEXT", nullable: true),
                     Data_Persistence = table.Column<string>(type: "TEXT", nullable: true),
                     Purpose = table.Column<string>(type: "TEXT", nullable: true),
                     Functionality = table.Column<string>(type: "TEXT", nullable: true),
@@ -46,8 +32,6 @@ namespace Repository.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProjectDescription", x => x.ProjectDescriptionId);
-                    table.CheckConstraint("CK_ProjectDescription_Architecturepattern", "Architecturepattern IN ('Monolith', 'Microservices', 'Model-View-Controller', 'Pipe-Filter')");
-                    table.CheckConstraint("CK_ProjectDescription_Languages", "Languages IN ('Java', 'C++', 'Python', 'JavaScript', 'C#', 'PHP')");
                 });
 
             migrationBuilder.CreateTable(
@@ -57,35 +41,11 @@ namespace Repository.Migrations
                     Method = table.Column<string>(type: "TEXT", nullable: true),
                     Owner = table.Column<string>(type: "TEXT", nullable: true),
                     Participants = table.Column<string>(type: "TEXT", nullable: true)
-                    //Objectives = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_StrategicGoals", x => x.StrategicGoalsId);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "Summary",
-                columns: table => new{
-                    SummaryId = table.Column<int>(type: "INTEGER", nullable: false),
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Summary", x => x.SummaryId);
-                });
-
-
-            migrationBuilder.CreateTable(
-                name: "Assessment",
-                columns: table => new{
-                    AssessmentId = table.Column<int>(type: "INTEGER", nullable: false),
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Assessment", x => x.AssessmentId);
-                });
-
-            
 
             migrationBuilder.CreateTable(
                 name: "Objectives",
@@ -99,27 +59,6 @@ namespace Repository.Migrations
                     table.PrimaryKey("PK_Objectives", x => x.ObjectivesId);
                 });
 
-
-
-           /* migrationBuilder.CreateTable(
-                name: "Project",
-                columns: table => new
-                {
-                    ProjectId = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
-                    
-                },
-                      /* table.ForeignKey(
-                        name: "FK_Approach.Output_Approach.Output.Architecture_ArchitectureName",
-                        column: x => x.ArchitectureName,
-                        principalTable: "Approach.Output.Architecture",
-                        principalColumn: "Name",
-                        onDelete: ReferentialAction.Cascade);
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Project", x => x.ProjectId);
-                });*/
-
             migrationBuilder.CreateTable(
                 name: "Approach.Input.DomainArtifact",
                 columns: table => new
@@ -132,12 +71,6 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_Approach.Input.DomainArtifact", x => x.Name);
                 });
-
-
-           /* migrationBuilder.InsertData(
-                table: "ProjectDescription",
-                columns: new[] { "ProjectDescriptionId", "Systemname" ,"Ownership"},
-                values: new object[] { "4","bitte gehe","" });*/
 
             migrationBuilder.CreateTable(
                 name: "Approach.Input.Executable",

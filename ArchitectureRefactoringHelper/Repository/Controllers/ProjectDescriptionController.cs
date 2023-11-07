@@ -24,6 +24,11 @@ public class ProjectDescriptionController : ControllerBase
         return Ok(_projectDescriptionService.ListProjectDescription());
     }
 
+   /* [HttpGet("{id:int}/" + Constants.ApiSubPathLanguages, Name = "GetLanguages")]
+    public ActionResult<IEnumerable<Language>> GetLanguages(int id)
+    {
+        return Ok(_projectDescriptionService.GetLanguages(id));
+    }*/
 
     [HttpGet("{id:int}", Name = "GetProjectDescription")]
     public ActionResult<ProjectDescription> GetProjectDescription(int id)
@@ -38,7 +43,6 @@ public class ProjectDescriptionController : ControllerBase
         return Ok();
     }
 
-
     [HttpPut("{id:int}", Name = "UpdateProjectDescription")]
     public IActionResult UpdateProjectDescription(int id, [FromBody] ProjectDescription projectDescription)
     {
@@ -46,13 +50,10 @@ public class ProjectDescriptionController : ControllerBase
         return Ok();
     }
 
-
     [HttpDelete("{id:int}", Name = "DeleteProjectDescription")]
     public IActionResult DeleteProjectDescription(int id)
     {
         _projectDescriptionService.DeleteProjectDescription(id);
         return Ok();
     }
-
-
 }

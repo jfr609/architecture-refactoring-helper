@@ -12,7 +12,8 @@ namespace Repository.Migrations
             migrationBuilder.CreateTable(
                 name: "Objectives",
                 columns: table => new{
-                    ObjectivesId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ObjectivesId = table.Column<int>(type: "INTEGER", nullable: false)
+                     .Annotation("Sqlite:Autoincrement", true),
                     ObjectivesName = table.Column<string>(type: "TEXT", nullable: true),
                     ObjectivesGoalsType = table.Column<string>(type: "TEXT", nullable: true),
                 },

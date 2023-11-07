@@ -19,20 +19,9 @@ public class Objectives
     [JsonPropertyName("objectivesGoalType")]
     public string? ObjectivesGoalType { get; set; }
 
-
-
     public bool KeyEquals(Objectives obj)
     {
         return obj.ObjectivesId == ObjectivesId;
     }
 
-    /*public enum Languages
-    {
-        Java,
-        C_plus_plus,
-        Python,
-        JavaScript,
-        C_sharp,
-        PHP
-    }*/
 }

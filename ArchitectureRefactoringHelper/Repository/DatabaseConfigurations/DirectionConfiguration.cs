@@ -28,6 +28,7 @@ public class DirectionConfiguration : IEntityTypeConfiguration<Direction>
                 Name = "Mixed",
                 Description =
                     "A mixed hybrid process combines a top-down and a bottom-up process. It uses both requirements and implementation artifacts to identify the candidate services."
-            });
+            }
+        );
     }
 }

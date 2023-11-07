@@ -66,6 +66,4 @@ public class ScenarioController : ControllerBase
         _scenarioService.DeleteScenario(id);
         return Ok();
     }
-
-
 }

@@ -32,7 +32,6 @@ export class ArchitectureRefactoringHelperComponent {
 
   readonly QualityCategories = QualityCategory;
   readonly RecommendationSuitability = RecommendationSuitability;
-  //projectSessionService: any;
 
   constructor(
     private permissionService: PermissionService,
@@ -145,15 +144,6 @@ export class ArchitectureRefactoringHelperComponent {
   
     const exportData = async () => {
       try {
-
-       /* const addNewFieldsToScenario = (scenario: any[]) => {
-          scenario.forEach((s) => {
-            s.newField1 = "New Value 1";
-            s.newField2 = "New Value 2";
-            s.newField3 = "New Value 3";
-          });
-        };*/
-        
         const projectDescription = await lastValueFrom(
           this.projectDescriptionService.listProjectDescription({
             withDetails: true
@@ -181,18 +171,6 @@ export class ArchitectureRefactoringHelperComponent {
           })
 
         );
-
-        /*let scenarioId = 0;
-        scenario.forEach((s) => {
-        
-          
-          s.implementedPattern = localStorage.getItem(`implementedPattern_${scenarioId}`);
-          s.preferredPattern = localStorage.getItem(`preferredPattern_${scenarioId}`);
-          s.explanation = localStorage.getItem(`explanation_${scenarioId}`);
-          scenarioId++;
-        });*/
-
-
 
         fileContentSC = JSON.stringify(scenario);
   

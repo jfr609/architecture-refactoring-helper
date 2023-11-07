@@ -21,35 +21,16 @@ import { ProjectService } from 'src/app/services/project.service';
 import { UtilService } from 'src/app/services/util.service';
 import { Languages } from 'api/repository/models/languages';
 import { Patterns } from 'api/repository/models/patterns';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatNativeDateModule } from '@angular/material/core';
 import { StrategicGoals } from 'api/repository/models';
 import { AssessmentComponent } from '../assessment/assessment.component';
-
-import { ViewChild, ElementRef, Input } from '@angular/core';
-import {Chart, ChartConfiguration, ChartItem, registerables} from 'node_modules/chart.js'
-//import { single } from './data';
-//import { single} from './data';
-//import * as d3 from 'd3';
-//import * as d3 from 'd3';
-//import * as d3Scale from 'd3';
-//import * as d3Shape from 'd3';
-//import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
-//import { BaseChartDirective } from 'ng2-charts';
 import { AssessmentService } from 'api/repository/services/assessment-service';
-//import DataLabelsPlugin from 'chartjs-plugin-datalabels';
-import { AppModule } from 'src/app/app.module';
-//import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+
 @Component({
   selector: 'app-summary',
   templateUrl: './summary.component.html',
   styleUrls: ['./summary.component.css']
 })
 export class SummaryComponent implements AfterViewInit{
-  //@ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
  
   isDataLoading = true;
   ratingLevel = RatingLevel;
@@ -109,32 +90,9 @@ export class SummaryComponent implements AfterViewInit{
   ) {
     this.enumKeys = Object.keys(this.languages);
     this.enumKeys2 = Object.keys(this.patterns);
-    //Object.assign(this, { this: this.single });
-    //Object.assign(this, { this: this.implementedGraph });
-    //Object.assign(this.implementedGraph, { implementedGraph: this.cumulatedimplementedPattern1 });
-    //Object.assign(this.preferredGraph, { this: this.preferredGraph });
-  }
-
-  ngOnChanges(): void {
-    /*this.updateCharts();
-    this.implementedGraph[0].value = this.n++; // Update 'Monolith'
-    this.implementedGraph[1].value = this.assessmentService.cumulatedimplementedPattern2; // Update 'Microservices'
-    this.implementedGraph[2].value = this.assessmentService.cumulatedimplementedPattern3; // Update 'Other'*/
-    //Object.assign(this, { this: this.implementedGraph });
-    //Object.assign(this.preferredGraph, { implementedGraph: this.preferredGraph });
-    //this.preferredGraph = [...this.preferredGraph];
-    //Object.assign(this.implementedGraph, { implementedGraph: this.cumulatedimplementedPattern1 });
-    //this.implementedGraph = [...this.implementedGraph];
-    //this.implementedGraph[1].value = this.assessmentService.cumulatedimplementedPattern1;
-  
   }
 
   ngAfterViewInit(): void {
-    //this.updateCharts();
-     // Update 'Monolith'
-    //this.implementedGraph[1].value = this.assessmentService.cumulatedimplementedPattern2; // Update 'Microservices'
-    //this.implementedGraph[2].value = this.assessmentService.cumulatedimplementedPattern3; // Update 'Other'
-
     this.implementedGraph = [
       {
         "name": "Monolith",
@@ -164,37 +122,19 @@ export class SummaryComponent implements AfterViewInit{
         "value": this.assessmentService.cumulatedpreferredPattern3
       }
     ];
-    //this.implementedGraph[0].value = 4;
-    //this.createChart();
-    //this.createSvg();
-    //this.drawBars(this.data);
-    this.updateCharts();
-    //Object.assign(this, { this: this.implementedGraph });
-    //Object.assign(this.preferredGraph, { implementedGraph: this.preferredGraph });
-    //this.preferredGraph = [...this.preferredGraph];
-    //this.implementedGraph = [...this.implementedGraph];
-    //this.summarylogger();
+
     this.isDataLoading = true;
     Promise.all([
       this.projectService.requestStrategicGoalsAttributes(),
-      
-      //this.attributesService.requeststrategicGoalsAttributes()
     ]).then(() => {
       this.strategicGoalsList = this.projectService.strategicGoals.value;
       this.updatingStrategicGoalsList = Object.assign(
         [],
         this.strategicGoalsList
       );
-      //this.qualityList = this.attributesService.getQualitiesByCategory(
-      //this.QualityCategories.Attribute
-      //);
       if (this.loadedonce == false) {
-        //emergency solution
-        //this.deleteAll();//emergency solution
-        //this.addEmptyStrategicGoals();
         this.loadedonce = true;
       }
-
       this.isDataLoading = false;
     });
   }
@@ -202,16 +142,6 @@ export class SummaryComponent implements AfterViewInit{
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
-
-  updateCharts() {
-   /* this.implementedGraph[0].value = this.n++; // Update 'Monolith'
-    this.implementedGraph[1].value = this.assessmentService.cumulatedimplementedPattern2; // Update 'Microservices'
-    this.implementedGraph[2].value = this.assessmentService.cumulatedimplementedPattern3; // Update 'Other'
-
-    this.assessmentService.cumulatedimplementedPattern3 = this.implementedGraph[2].value ;*/
-
-
-  }
  
   onSelect(data: any): void {
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));
@@ -225,27 +155,8 @@ export class SummaryComponent implements AfterViewInit{
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 
-  summarylogger(){this.recommendation();
-    /*this.assessmentService.increaseCumulatedImplementedPattern1();
-    this.assessmentService.increaseCumulatedImplementedPattern2();  
-    this.assessmentService.increaseCumulatedImplementedPattern3();
-    this.assessmentService.increaseCumulatedPreferredPattern1();
-    this.assessmentService.increaseCumulatedPreferredPattern2();
-    this.assessmentService.increaseCumulatedPreferredPattern3();*/
-    //this.assessmentService.increaseCumulatedPreferredPattern2();
-    console.log(this.cumulatedimplementedPattern1);
-    console.log(this.cumulatedimplementedPattern2);
-    console.log(this.cumulatedimplementedPattern3);
-    console.log(this.cumulatedpreferredPattern1);
-    console.log(this.cumulatedpreferredPattern2);
-    console.log(this.cumulatedpreferredPattern3);
-    console.log(this.assessmentService.cumulatedimplementedPattern1);
-    console.log(this.assessmentService.cumulatedimplementedPattern2);
-    console.log(this.assessmentService.cumulatedimplementedPattern3);
-    console.log(this.assessmentService.cumulatedpreferredPattern1);
-    console.log(this.assessmentService.cumulatedpreferredPattern2);
-    console.log(this.assessmentService.cumulatedpreferredPattern3);
-
+  summarylogger(){
+    this.recommendation();
 
     console.log(this.implementedGraph[0].value);
     this.implementedGraph[0].value = this.assessmentService.cumulatedimplementedPattern1; // Update 'Monolith'
@@ -257,12 +168,6 @@ export class SummaryComponent implements AfterViewInit{
     this.preferredGraph[0].value = this.assessmentService.cumulatedpreferredPattern1; // Update 'Monolith'
     this.preferredGraph[1].value = this.assessmentService.cumulatedpreferredPattern2; // Update 'Microservices'
     this.preferredGraph[2].value = this.assessmentService.cumulatedpreferredPattern3; // Update 'Other'
-
-    
-
-    console.log(this.preferredGraph[0].value);
-    console.log(this.preferredGraph[1].value);
-    console.log(this.preferredGraph[2].value);
   }
 
   demo(){
@@ -277,22 +182,16 @@ export class SummaryComponent implements AfterViewInit{
   }
 
   recommendation() {
-    //if(this.cumulatedimplementedPattern1>this.cumulatedpreferredPattern2){
-
-    if (this.assessmentService.cumulatedpreferredPattern1>this.assessmentService.cumulatedpreferredPattern2) {//preferred architecture
-        //window.alert('Ampel rot');
+    if (this.assessmentService.cumulatedpreferredPattern1>this.assessmentService.cumulatedpreferredPattern2) {
         this.redLight = true;
         this.yellowLight = false;
         this.greenLight = false;
     } if (this.assessmentService.cumulatedpreferredPattern1<this.assessmentService.cumulatedpreferredPattern2) {
-      //ampel grün
-      //window.alert('Ampel grün');
+
       this.greenLight = true;
       this.yellowLight = false;
       this.redLight = false;
     } if (this.assessmentService.cumulatedpreferredPattern1==this.assessmentService.cumulatedpreferredPattern2){
-      //ampel gelb
-      //window.alert('Ampel gelb');
       this.yellowLight = true;
       this.greenLight = false;
       this.redLight = false;
@@ -300,8 +199,6 @@ export class SummaryComponent implements AfterViewInit{
   }
 
   addEmptyStrategicGoals(): void {
-    //delete this.addEmptyStrategicGoals;
-    //this.deleteAll();
 
     const emptyStrategicGoals: StrategicGoals = {
       method: '',
@@ -311,12 +208,9 @@ export class SummaryComponent implements AfterViewInit{
 
     this.strategicGoalsList.shift();
     this.strategicGoalsList.push(emptyStrategicGoals);
-    //
     this.newStrategicGoalsList.shift();
     this.newStrategicGoalsList.push(emptyStrategicGoals);
-    //this.newStrategicGoalsList.pop[0];
 
-    
   }
 
   addEmptyStrategicGoals2(){
@@ -387,9 +281,6 @@ export class SummaryComponent implements AfterViewInit{
       return false;
     }
   }
-  //counter für alle implementables
-  //output graph
-  //ende Ampel
 
   allNamesSet(): boolean {
     return !this.strategicGoalsList.some(
@@ -484,11 +375,6 @@ export class SummaryComponent implements AfterViewInit{
     this.deleteAll();
     this.updateAll();
   }
-
-  //if monolith<micro = green
-  //if monolith>micro = red
-  //if monolith==micro = yellow
-  //gloabl ownership,method,
 }
 
 

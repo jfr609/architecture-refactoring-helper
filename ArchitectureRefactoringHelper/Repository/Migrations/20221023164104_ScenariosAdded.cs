@@ -48,9 +48,9 @@ namespace Repository.Migrations
 
 
           /*  migrationBuilder.CreateIndex(
-                name: "ImplementationPattern",
-                table: ".Scenario",
-                column: "ImplementedPattern");
+                name: "IX_ImplementationPattern",
+                table: "ImplementationPattern",
+                column: "ScenarioId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_ImplementedPattern_.Scenario_ScenarioId",
@@ -58,19 +58,7 @@ namespace Repository.Migrations
                 column: "ScenarioId",
                 principalTable: ".Scenario",
                 principalColumn: "ScenarioId");
-
-            migrationBuilder.CreateIndex(
-                name: "PreferredPattern",
-                table: ".Scenario",
-                column: "PreferredPattern");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_PreferredPattern.Scenario_ScenarioId",
-                table: "PreferredPattern",
-                column: "ScenarioId",
-                principalTable: ".Scenario",
-                principalColumn: "ScenarioId");*/
-            
+                                                    */   
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -89,6 +77,22 @@ namespace Repository.Migrations
             migrationBuilder.DropColumn(
                 name: "ScenarioId",
                 table: "Approach.Process.Quality");
+        
+        //abhier kp
+            migrationBuilder.DropForeignKey(
+                name: "FK_ImplementedPattern_.Scenario_ScenarioId",
+                table: "Approach.Process.ImplementedPattern");
+
+            migrationBuilder.DropTable(
+                name: ".Scenario");
+
+            migrationBuilder.DropIndex(
+                name: "IX_ImplementationPattern",
+                table: "ImplementationPattern");
+
+            migrationBuilder.DropColumn(
+                name: "ScenarioId",
+                table: "Approach.Process.ImplementedPattern");
         }
     }
 }

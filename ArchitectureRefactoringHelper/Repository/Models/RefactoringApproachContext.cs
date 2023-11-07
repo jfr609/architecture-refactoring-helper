@@ -14,14 +14,13 @@ public class RefactoringApproachContext : DbContext
 
     public DbSet<ProjectDescription> ProjectDescriptions { get; set; }
 
+    //public DbSet<Language> Languages { get; set; }
+
     public DbSet<StrategicGoals> StrategicGoals { get; set; }
 
     public DbSet<Objectives> Objectives { get; set; }
 
-    //public DbSet<Summary> Summaries { get; set; }
-
-    //public DbSet<Assessment> Assessments { get; set; }
-
+    //public DbSet<ImplementedPattern> ImplementedPatterns { get; set; }
 
     public DbSet<ApproachSource> ApproachSources { get; set; }
     public DbSet<ArchitecturalDesignSource> ArchitecturalDesignSources { get; set; }

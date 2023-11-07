@@ -34,10 +34,36 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_ProjectDescription", x => x.ProjectDescriptionId);
                 });
+
+          /*  migrationBuilder.CreateIndex(
+                name: "IX_Languages_ProjectDescriptionId",
+                table: "Language",
+                column: "ProjectDescriptionId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Languages_ProjectDescription_ProjectDescriptionId",
+                table: "Language",
+                column: "ProjectDescriptionId",
+                principalTable: "ProjectDescription",
+                principalColumn: "ProjectDescriptionId");*/
             
         }
         protected override void Down(MigrationBuilder migrationBuilder)
-        {
+        {/*
+            migrationBuilder.DropForeignKey(
+                name: "FK_Languages_ProjectDescription_ProjectDescriptionId",
+                table: "Languages");
+
+            migrationBuilder.DropTable(
+                name: "ProjectDescription");
+
+            migrationBuilder.DropIndex(
+                name: "IX_Languages_ProjectDescriptionId",
+                table: "Language");
+
+            migrationBuilder.DropColumn(
+                name: "ProjectDescriptionId",
+                table: "Language");*/
             
         }
     }

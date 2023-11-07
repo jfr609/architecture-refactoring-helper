@@ -45,6 +45,7 @@ public class TechniqueConfiguration : IEntityTypeConfiguration<Technique>
             {
                 Name = "General guidelines",
                 Description = "Proposes best practices, lessons learned, or recommendations for service identification."
-            });
+            }
+        );
     }
 }

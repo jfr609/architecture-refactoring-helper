@@ -68,7 +68,7 @@ export class QualityAttributesComponent implements OnInit {
       name: '',
       description: '',
       qualities: [],
-      qualitySublevels: []
+      qualitySublevels: [],
     };
     this.scenarioList.push(emptyScenario);
     this.newScenariosList.push(emptyScenario);
@@ -283,10 +283,6 @@ export class QualityAttributesComponent implements OnInit {
       confirmButtonText: 'Confirm',
       cancelButtonText: 'Cancel'
     };
-    /*this.scenarioList[0] = this.scenarioList.name;
-    this.scenarioList[1] = this.scenarioList.importance;
-    this.scenarioList[2] = this.scenarioList.difficulty;
-    this.scenarioList[3] = this.scenarioList.description;*/
     this.utilService
       .createDialog(ConfirmDialogComponent, data)
       .afterClosed()
@@ -295,7 +291,8 @@ export class QualityAttributesComponent implements OnInit {
           if (data == null) return;
           this.fireAll();
         }
-      });
+      }
+    );
   }
 
   fireAll() {

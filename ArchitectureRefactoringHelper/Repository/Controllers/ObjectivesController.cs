@@ -24,7 +24,6 @@ public class ObjectiveController : ControllerBase
         return Ok(_objectivesService.ListObjectives());
     }
 
-
     [HttpGet("{id:int}", Name = "GetObjective")]
     public ActionResult<Objectives> GetObjective(int id)
     {
@@ -38,7 +37,6 @@ public class ObjectiveController : ControllerBase
         return Ok();
     }
 
-
     [HttpPut("{id:int}", Name = "UpdateObjective")]
     public IActionResult UpdateObjective(int id, [FromBody] Objectives objective)
     {
@@ -46,13 +44,10 @@ public class ObjectiveController : ControllerBase
         return Ok();
     }
 
-
     [HttpDelete("{id:int}", Name = "DeleteObjectives")]
     public IActionResult DeleteObjective(int id)
     {
         _objectivesService.DeleteObjective(id);
         return Ok();
     }
-
-
 }

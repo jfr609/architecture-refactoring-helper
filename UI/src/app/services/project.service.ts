@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ProjectDescription, RecommendationSuitability, Scenario,StrategicGoals } from 'api/repository/models';
+import { ProjectDescription, RecommendationSuitability, Scenario, StrategicGoals } from 'api/repository/models';
 import { ScenarioService } from 'api/repository/services';
 import { ProjectDescriptionService } from 'api/repository/services/project-description.service';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { ApproachRecommendationService } from './approach-recommendation.service';
 import { UtilService } from './util.service';
 import { StrategicGoalsService } from 'api/repository/services/strategic-goals.service';
-import { Objectives } from 'api/repository/models/objectives';// not sure if working
-import { ProjectAssessment } from 'api/repository/models/project-assessment';// not sure if working
-import { ObjectivesService } from 'api/repository/services/objectives-service';// not sure if working
+import { Objectives } from 'api/repository/models/objectives';
+import { ObjectivesService } from 'api/repository/services/objectives-service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +22,7 @@ export class ProjectService {
   public strategicGoals: BehaviorSubject<StrategicGoals[]> = new BehaviorSubject<
     StrategicGoals[]
   >([]);
-  public objectives: BehaviorSubject<Objectives[]> = new BehaviorSubject<Objectives[]>([]);//not sure if working
-  public projectAssessment: BehaviorSubject<ProjectAssessment[]> = new BehaviorSubject<ProjectAssessment[]>([]);
+  public objectives: BehaviorSubject<Objectives[]> = new BehaviorSubject<Objectives[]>([]);
 
   constructor(
     private scenarioService: ScenarioService,
@@ -33,7 +31,7 @@ export class ProjectService {
     private projectDescriptionService: ProjectDescriptionService,
     private strategicGoalsService: StrategicGoalsService,
     private objectivesService: ObjectivesService,
-  ) {}
+  ) { }
 
   requestProjectAttributes(): Promise<Awaited<void>[]> {
     const dataLoadingPromises: Promise<void>[] = [];
@@ -43,7 +41,7 @@ export class ProjectService {
     return Promise.all(dataLoadingPromises);
   }
 
-requestStrategicGoalsAttributes(): Promise<Awaited<void>[]> {
+  requestStrategicGoalsAttributes(): Promise<Awaited<void>[]> {
     const dataLoadingPromises: Promise<void>[] = [];
 
     dataLoadingPromises.push(this.requestStrategicGoals());
@@ -52,18 +50,18 @@ requestStrategicGoalsAttributes(): Promise<Awaited<void>[]> {
   }
 
 
-async requestStrategicGoals(): Promise<void> {  
-  try {
-    this.strategicGoals.next(
-      await lastValueFrom(this.strategicGoalsService.listStrategicGoals())
-    );
-  } catch (err) {
-    console.log(err);
-    this.utilService.callSnackBar(
-     'Error! Strategic Goals inputs could not be retrieved.'
-    );
+  async requestStrategicGoals(): Promise<void> {
+    try {
+      this.strategicGoals.next(
+        await lastValueFrom(this.strategicGoalsService.listStrategicGoals())
+      );
+    } catch (err) {
+      console.log(err);
+      this.utilService.callSnackBar(
+        'Error! Strategic Goals inputs could not be retrieved.'
+      );
+    }
   }
-}
   requestObjectivesAttributes(): Promise<Awaited<void>[]> {
     const dataLoadingPromises: Promise<void>[] = [];
 
@@ -111,7 +109,7 @@ async requestStrategicGoals(): Promise<void> {
     } catch (err) {
       console.log(err);
       this.utilService.callSnackBar(
-       'Error! Project Descriptions inputs could not be retrieved.'
+        'Error! Project Descriptions inputs could not be retrieved.'
       );
     }
   }
@@ -132,12 +130,10 @@ async requestStrategicGoals(): Promise<void> {
     } catch (err) {
       console.log(err);
       this.utilService.callSnackBar(
-       'Error! Project Assessment inputs could not be retrieved.'
+        'Error! Project Assessment inputs could not be retrieved.'
       );
     }
   }
-
-
 
   requestProjectGoalsAttributes(): Promise<Awaited<void>[]> {
     const dataLoadingPromises: Promise<void>[] = [];
@@ -156,14 +152,10 @@ async requestStrategicGoals(): Promise<void> {
     } catch (err) {
       console.log(err);
       this.utilService.callSnackBar(
-       'Error! Project Goals inputs could not be retrieved.'
+        'Error! Project Goals inputs could not be retrieved.'
       );
     }
   }
-
-
-
-
 
   setQualitiesFromScenarios(): void {
     this.recommendationService.setQualitiesToNeutral();
@@ -205,6 +197,4 @@ async requestStrategicGoals(): Promise<void> {
     });
     return count;
   }
-
-  //requestProjects
 }

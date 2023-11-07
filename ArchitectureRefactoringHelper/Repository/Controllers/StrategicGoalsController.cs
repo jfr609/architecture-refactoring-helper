@@ -24,7 +24,6 @@ public class StrategicGoalsController : ControllerBase
         return Ok(_StrategicGoalsService.ListStrategicGoals());
     }
 
-
     [HttpGet("{id:int}", Name = "GetStrategicGoals")]
     public ActionResult<StrategicGoals> GetStrategicGoals(int id)
     {
@@ -38,7 +37,6 @@ public class StrategicGoalsController : ControllerBase
         return Ok();
     }
 
-
     [HttpPut("{id:int}", Name = "UpdateStrategicGoals")]
     public IActionResult UpdateStrategicGoals(int id, [FromBody] StrategicGoals StrategicGoals)
     {
@@ -46,13 +44,10 @@ public class StrategicGoalsController : ControllerBase
         return Ok();
     }
 
-
     [HttpDelete("{id:int}", Name = "DeleteStrategicGoals")]
     public IActionResult DeleteStrategicGoals(int id)
     {
         _StrategicGoalsService.DeleteStrategicGoals(id);
         return Ok();
     }
-
-
 }

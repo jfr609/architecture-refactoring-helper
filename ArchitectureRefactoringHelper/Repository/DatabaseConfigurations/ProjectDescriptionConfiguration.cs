@@ -10,9 +10,11 @@ public class ProjectDescriptionConfiguration : IEntityTypeConfiguration<ProjectD
     {
         builder.ToTable(Constants.TableNameProjectDescription);
 
-        builder.Property(q => q.Languages)
+      /*builder.Property(q => q.Languages)
             .HasConversion<string>();
-        builder.Property(q => q.Architecturepattern)
-            .HasConversion<string>();
+
+        builder
+        .HasMany(sc => sc.Languages);*/
+        
     }
 }

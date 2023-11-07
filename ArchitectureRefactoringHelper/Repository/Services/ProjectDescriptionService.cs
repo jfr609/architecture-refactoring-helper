@@ -21,6 +21,21 @@ public class ProjectDescriptionService
 
         return result;
     }
+
+    /*public IEnumerable<Language> GetLanguages(int projectDescriptionId)
+    {
+        var db = new RefactoringApproachContext();
+        var query = db.ProjectDescriptions
+            .Where(e => e.ProjectDescriptionId == projectDescriptionId).Select(e => e.Languages).ToList();
+        var result = query.FirstOrDefault();
+
+        if (result == null)
+        {
+            throw new EntityNotFoundException($"ProjectDescription with ID \"{projectDescriptionId}\" does not exist.");
+        }
+
+        return result;
+    }*/
     
 
     public ProjectDescription GetProjectDescription(int projectDescriptionId)
@@ -61,29 +76,24 @@ public class ProjectDescriptionService
             Number_of_Developers  = projectDescription.Number_of_Developers,
             Processmodel = projectDescription.Processmodel,
             Architecturepattern = projectDescription.Architecturepattern,
-            //Architecturepattern = "Monolith",
-            /*if (projectDescription.Languages.contains("Java"){
-               Java = True;
-            }elseif (projectDescription.Languages.contains("C#"){
-                C# = True;
-            elseif (projectDescription.Languages.contains("C++"){
-                C++ = True;
-            elseif (projectDescription.Languages.contains("Python"){
-                Python = True;
-            elseif (projectDescription.Languages.contains("JavaScript"){
-                JavaScript = True;
-            elseif (projectDescription.Languages.contains("PHP"){
-                PHP = True;
-            elseif (projectDescription.Languages.contains("JavaScript"){
-                TypeScript = True;
-            } )*/
             Languages = projectDescription.Languages,
-            //Languages = "Java",
             Data_Persistence = projectDescription.Data_Persistence,
             Purpose = projectDescription.Purpose,
             Functionality = projectDescription.Functionality,
             Designdiagrams = projectDescription.Designdiagrams,
         };
+        /*if(projectDescription.Languages != null)
+
+        {
+            foreach(var language in projectDescription.Languages)
+            {
+                db.Languages.Attach(language);
+            }
+
+            newProjectDescription.Languages = projectDescription.Languages;            
+
+        }*/
+
         return Utils.AddEntityAndSaveChanges(newProjectDescription, ref db);
     }
 
@@ -93,7 +103,7 @@ public class ProjectDescriptionService
 
         var existingProjectDescription = db.ProjectDescriptions.Where(s => s.ProjectDescriptionId == id).Single();
 
-        db.ProjectDescriptions.Attach(existingProjectDescription);//hier ist der fehler
+        db.ProjectDescriptions.Attach(existingProjectDescription);
 
         db.SaveChanges();
 
@@ -108,33 +118,13 @@ public class ProjectDescriptionService
             Number_of_Teams = projectDescription.Number_of_Teams,
             Number_of_Developers  = projectDescription.Number_of_Developers,
             Processmodel = projectDescription.Processmodel,
-            //Architecturepattern = projectDescription.Architecturepattern.ToJsonString(),
-            //Architecturepattern = "Monolith",
-            
-            //Languages = "Java",
-            
             Architecturepattern = projectDescription.Architecturepattern,
-            //Architecturepattern = "Monolith",
-            /*if (projectDescription.Languages.contains("Java"){
-               Java = True;
-            }elseif (projectDescription.Languages.contains("C#"){
-                C# = True;
-            elseif (projectDescription.Languages.contains("C++"){
-                C++ = True;
-            elseif (projectDescription.Languages.contains("Python"){
-                Python = True;
-            elseif (projectDescription.Languages.contains("JavaScript"){
-                JavaScript = True;
-            elseif (projectDescription.Languages.contains("PHP"){
-                PHP = True;
-            elseif (projectDescription.Languages.contains("JavaScript"){
-                TypeScript = True;
-            } )*/
             Languages = projectDescription.Languages,
             Data_Persistence = projectDescription.Data_Persistence,
             Purpose = projectDescription.Purpose,
             Functionality = projectDescription.Functionality,
             Designdiagrams = projectDescription.Designdiagrams,
+
         };
 
         db.Entry(existingProjectDescription).CurrentValues.SetValues(newProjectDescription);
@@ -158,6 +148,8 @@ public class ProjectDescriptionService
     private static void LoadAllData(ref IQueryable<ProjectDescription> query)
     {
        query
+       //.Include(e => e.Languages!)
+       //.Include(e => e.Languages)
        .Load();
 
     }

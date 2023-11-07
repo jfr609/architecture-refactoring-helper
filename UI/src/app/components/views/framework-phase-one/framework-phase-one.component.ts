@@ -21,11 +21,5 @@ export class FrameworkPhaseOneComponent {
   }
 
   progress(){
-    //start grey
-    //input yellow
-    //finished green
-
-    //if safe chagne success change to green
-    //textinput yellow
   }
 }

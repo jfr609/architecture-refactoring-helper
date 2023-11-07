@@ -39,6 +39,7 @@ public class ModelArtifactInputConfiguration : IEntityTypeConfiguration<ModelArt
                 Name = "State machine diagram",
                 Description =
                     "State Machine Diagrams (SMDs) shows a dynamic view of a system and describe the different states that entities can have during their lifetimes"
-            });
+            }
+        );
     }
 }

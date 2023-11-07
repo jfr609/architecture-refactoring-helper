@@ -14,6 +14,6 @@ export interface Scenario {
   qualitySublevels?: null | Array<QualitySublevel>;
   scenarioId?: number;
   implementedPattern?: string | null;// Array<Patterns> | null
-  preferredPattern?: string | null;// Patterns | null
+  preferredPattern?: string | null;
   explanation?: string | null;
 }

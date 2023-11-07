@@ -26,7 +26,8 @@ public class Scenario
     [JsonPropertyName("qualitySublevels")]
     public ICollection<QualitySublevel>? QualitySublevels { get; set; }
     [JsonPropertyName("implementedPattern")]
-    public  string? ImplementedPattern { get; set; }
+    //public ICollection<Pattern>? ImplementedPattern { get; set; }
+    public string? ImplementedPattern { get; set; }
 
     [JsonPropertyName("preferredPattern")]
     public string? PreferredPattern { get; set; }
@@ -40,14 +41,13 @@ public class Scenario
         return obj.Name == Name;
     }
 
-
     public enum RatingLevel
     {
         A,
         B,
         C
     }
-
+    
     public enum Pattern
     {
         Monolith,

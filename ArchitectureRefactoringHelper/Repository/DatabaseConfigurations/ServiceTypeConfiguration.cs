@@ -51,6 +51,7 @@ public class ServiceTypeConfiguration : IEntityTypeConfiguration<ServiceType>
             {
                 Name = "No specification",
                 Description = ""
-            });
+            }
+        );
     }
 }

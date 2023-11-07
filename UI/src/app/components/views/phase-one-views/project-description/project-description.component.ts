@@ -24,14 +24,13 @@ import { Patterns } from 'api/repository/models/patterns';
 export class ProjectDescriptionComponent implements OnInit {
   isDataLoading = true;
   ratingLevel = RatingLevel;
-  enumKeys: any;
-  enumKeys2: any;
+  languageOptions: any;
+  patternOptions: any;
   languages = Languages;
   patterns = Patterns;
   projectDescriptionList: any = [];
   selectedProjectDescription?: ProjectDescription;
   loadedonce = false;
-
   deletingProjectDescriptionsList = new Array<ProjectDescription>();
   newProjectDescriptionsList = new Array<ProjectDescription>();
   updatingProjectDescriptionsList = new Array<ProjectDescription>();
@@ -42,8 +41,8 @@ export class ProjectDescriptionComponent implements OnInit {
     public projectDescriptionService: ProjectDescriptionService,
     public utilService: UtilService
   ) {
-    this.enumKeys = Object.values(this.languages);
-    this.enumKeys2 = Object.values(this.patterns);
+    this.languageOptions = Object.values(this.languages);
+    this.patternOptions = Object.values(this.patterns);
   }
 
   ngOnInit(): void {
@@ -61,48 +60,21 @@ export class ProjectDescriptionComponent implements OnInit {
     });
   }
  
-  refresh(){
-    for(let i = 1; i < 100; i++){
-      this.projectDescriptionService
-      .deleteProjectDescription({
-        id: i!
-      })
-      .subscribe({
-        next: (value) => {},
-        error: (err) => {
-          console.log(err);
-          this.utilService.callSnackBar(
-            'Project Description could not be deleted.'
-          );
-        }
-      });
-  };
-  this.deletingProjectDescriptionsList.splice(0);
-      console.log("deleted project description");
-      console.log("deleted strategic goals");
-      console.log("deleted objectives");
-      console.log("deleted scenario");
-    }
-  
-
   addEmptyProjectDescription(): void {
     let emptyProjectDescription: ProjectDescription = {
-      systemname: '', //name
-      ownership: '', //name/object
-      creation_date: '', //date
-      systemsize_LOC: 0, //int
-      hosting_model: '', //name/object
-      number_of_teams: 0, //name/object/id
-      number_of_developers: 0, //name/obect/id/list
+      systemname: '',
+      ownership: '',
+      creation_date: '',
+      systemsize_LOC: 0,
+      hosting_model: '',
+      number_of_teams: 0, 
+      number_of_developers: 0,
       processmodel: '',
       data_persistence: '',
       purpose: '',
       functionality: '',
-      designdiagrams: ''
+      designdiagrams: '',
     };
-    //const obj = { table: [] };
-    //obj.table.push({ id: 1, square: 2 });
-    //const json = JSON.stringify(obj);
     this.projectDescriptionList.push(emptyProjectDescription);
     this.newProjectDescriptionsList.push(emptyProjectDescription);
   }
@@ -185,16 +157,11 @@ export class ProjectDescriptionComponent implements OnInit {
   }
 
   createAll() {
-     console.log(this.projectDescriptionList.languages);
-    this.projectDescriptionList.languages = JSON.stringify(this.projectDescriptionList.languages);
-    //this.newProjectDescriptionsList = JSON.stringify(this.newProjectDescriptionsList.languages);
-    this.projectDescriptionList.patterns = JSON.stringify(this.projectDescriptionList.patterns);
-    console.log(this.projectDescriptionList.patterns);
     if (this.newProjectDescriptionsList.length > 0) {
       this.newProjectDescriptionsList.forEach((e) => {
         this.projectDescriptionService
           .addProjectDescription({
-            body: e
+            body: e,
           })
           .subscribe({
             next: (value) => {},
@@ -207,12 +174,6 @@ export class ProjectDescriptionComponent implements OnInit {
           });
       });
     }
-    console.log(this.projectDescriptionList.languages);
-    console.log(this.projectDescriptionList);
-    console.log(this.languages);
-    console.log(this.newProjectDescriptionsList);
-    this.projectDescriptionList.languages = JSON.stringify(this.projectDescriptionList.languages);
-    this.projectDescriptionList.patterns = JSON.stringify(this.projectDescriptionList.patterns);
   }
 
   deleteAll() {
@@ -259,10 +220,6 @@ export class ProjectDescriptionComponent implements OnInit {
   }
 
   saveChanges() {
-    console.log(this.projectDescriptionList.languages);
-    this.projectDescriptionList.languages = JSON.stringify(this.projectDescriptionList.languages); 
-    this.projectDescriptionList.patterns = JSON.stringify(this.projectDescriptionList.patterns);
-    console.log(this.projectDescriptionList.patterns);
     const data: ConfirmDialogData = {
       title: 'Save Changes?',
       message: `Do you really want to save all changes?`,
@@ -278,7 +235,8 @@ export class ProjectDescriptionComponent implements OnInit {
           if (data == null) return;
           this.fireAll();
         }
-      });
+      }
+    );
   }
 
   fireAll() {

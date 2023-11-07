@@ -1,19 +1,18 @@
-
 <div fxLayout='row' fxLayoutGap='8px' fxLayoutAlign='center'>
-<p class='max-width-800'>
-  In this section, details of a new Microservices migration project are specified. The System Specification, System Description and System Properties fields characterizes the system to be migrated and reflect it's current state. 
-  The free-text fields within System Description allow to briefly summarize it's purpose, main functionality and attach additional design diagrams.</p>
-  </div>
+  <p class='max-width-800'>
+    In this section, details of a new Microservices migration project are specified. The System Specification, System
+    Description and System Properties fields characterizes the system to be migrated and reflect it's current state.
+    The free-text fields within System Description allow to briefly summarize it's purpose, main functionality and
+    attach additional design diagrams.</p>
+</div>
+
 <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px' fxLayoutAlign='center'>
-  <!--<button mat-flat-button matStepperPrevious color='accent'>
-    <mat-icon>arrow_back</mat-icon>
-    <span>Back</span>
-  </button>-->
   <button mat-flat-button matStepperNext color='accent'>
     <span>Next</span>
     <mat-icon>arrow_forward</mat-icon>
   </button>
-  <button mat-raised-button color="primary" (click)="saveChanges()" ><span>Save Changes</span></button><!--[disabled]='!allNamesSet()' (click)="saveChanges()"-->
+  <button mat-raised-button color="primary" (click)="saveChanges()"><span>Save
+      Changes</span></button>
   <mat-divider vertical></mat-divider>
   <button mat-flat-button color='accent' [routerLink]="['/phase/2']">
     <mat-icon>move_down</mat-icon>
@@ -23,151 +22,149 @@
     <mat-icon>move_down</mat-icon>
     <span> Skip to Phase 3</span>
   </button>
-  </div>
-  <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center">
-    <mat-card class="projectDescription-card" class="mat-elevation-z8">
-      <mat-card-title>Project Description
-        <button *ngIf = "projectDescriptionList.length == 0" style="margin-left: 10px; margin-bottom: 10px" mat-mini-fab class="attribute-button" color="primary"
-          (click)="addEmptyProjectDescription()" >
-          <mat-icon>add</mat-icon>
-        </button>
-      </mat-card-title>
-  
-  
-      <div class="mat-elevation-z8" cdkDropList class="drop-list" (cdkDropListDropped)="drop($event)"
-        [cdkDropListData]="projectDescriptionList">
-        <ng-container *ngIf="projectDescriptionList.length > 0; else emptyProjectDescriptionList">
-          <div *ngFor="let projectDescription of projectDescriptionList" 
-           >
+</div>
 
-            <div fxLayout="row"><!--row-->
-             <!-- <button (click)="refresh()"></button>-->
-              <div fxLayout="column"  fxLayoutGap="10px" style="padding:5px;" ><!--style="width: 50%"-->
-                <h2>System Specification</h2>
-                <mat-form-field appearance="fill" >
-                  <mat-label>System Name</mat-label>
-                  <input matInput [(ngModel)]="projectDescription.systemname" required />
-                </mat-form-field>
-                <mat-form-field appearance="fill" fxFlex="70">
-                  <mat-label>Ownership</mat-label>
-                  <input matInput [(ngModel)]="projectDescription.ownership" required />
-                </mat-form-field>
+<div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center">
+  <mat-card class="projectDescription-card" class="mat-elevation-z8">
+    <mat-card-title>Project Description
+      <button *ngIf="projectDescriptionList.length == 0" style="margin-left: 10px; margin-bottom: 10px" mat-mini-fab
+        class="attribute-button" color="primary" (click)="addEmptyProjectDescription()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-card-title>
 
-                <!--<mat-form-field appearance="fill" fxFlex="70">
-                  <mat-label>Creationdate</mat-label>
-                  <input matInput [(ngModel)]="projectDescription.creationdate" required />
-                </mat-form-field>-->
+    <div class="mat-elevation-z8" cdkDropList class="drop-list" (cdkDropListDropped)="drop($event)"
+      [cdkDropListData]="projectDescriptionList">
+      <ng-container *ngIf="projectDescriptionList.length > 0; else emptyProjectDescriptionList">
+        <div *ngFor="let projectDescription of projectDescriptionList">
+          <div fxLayout="row">
+            <div fxLayout="column" fxLayoutGap="10px" style="padding:5px;">
 
-                 <mat-form-field appearance="fill" fxFlex="70">
-                  <mat-label>Creationdate</mat-label>
-                  <mat-select [(value)]="projectDescription.creation_date"></mat-select>
-                  <input matInput [(ngModel)]="projectDescription.creation_date"   [matDatepicker]="picker"  />
-                  <mat-hint>MM/DD/YYYY</mat-hint>
-                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-                
-                <mat-form-field appearance="fill" fxFlex="70">
-                  <mat-label>System Size (LOC)</mat-label><!-- change to unit int-->
-                  <input mdInput
-                  type="number"  min="0" matInput [(ngModel)]="projectDescription.systemsize_LOC"  />
-                </mat-form-field>
-                <mat-form-field appearance="fill" fxFlex="70">
-                  <mat-label>Hosting Model</mat-label>
-                  <input matInput [(ngModel)]="projectDescription.hosting_model"  />
-                </mat-form-field>
-                <mat-form-field appearance="fill" fxFlex="70">
-                  <mat-label>Number of Teams</mat-label>
-                  <input mdInput
-                  type="number"  min="0" matInput [(ngModel)]="projectDescription.number_of_teams"  />
-                </mat-form-field>
-                <mat-form-field appearance="fill" fxFlex="70">
-                  <mat-label>Number of Developers</mat-label>
-                  <input mdInput
-                  type="number" min="0" matInput [(ngModel)]="projectDescription.number_of_developers"  />
-                </mat-form-field>
-                <mat-form-field appearance="fill" fxFlex="70">
-                  <mat-label>Process Model</mat-label>
-                  <input matInput [(ngModel)]="projectDescription.processmodel"  />
-                </mat-form-field>
+              <h2>System Specification</h2>
 
-              </div>
-              <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:start;padding:5px;height:100%"><!--style="width: 50%;justify-content:center"-->
-                <h2>System Description</h2>
-                <!--<mat-tab-group>-->
-                  <mat-tab-group style="height: 75%;">  
+              <mat-form-field appearance="fill">
+                <mat-label>System Name</mat-label>
+                <input matInput [(ngModel)]="projectDescription.systemname" required />
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" fxFlex="70">
+                <mat-label>Ownership</mat-label>
+                <input matInput [(ngModel)]="projectDescription.ownership" required />
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" fxFlex="70">
+                <mat-label>Creationdate</mat-label>
+                <mat-select [(value)]="projectDescription.creation_date"></mat-select>
+                <input matInput [(ngModel)]="projectDescription.creation_date" [matDatepicker]="picker" />
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" fxFlex="70">
+                <mat-label>System Size (LOC)</mat-label>
+                <input mdInput type="number" min="0" matInput [(ngModel)]="projectDescription.systemsize_LOC" />
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" fxFlex="70">
+                <mat-label>Hosting Model</mat-label>
+                <input matInput [(ngModel)]="projectDescription.hosting_model" />
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" fxFlex="70">
+                <mat-label>Number of Teams</mat-label>
+                <input mdInput type="number" min="0" matInput [(ngModel)]="projectDescription.number_of_teams" />
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" fxFlex="70">
+                <mat-label>Number of Developers</mat-label>
+                <input mdInput type="number" min="0" matInput [(ngModel)]="projectDescription.number_of_developers" />
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" fxFlex="70">
+                <mat-label>Process Model</mat-label>
+                <input matInput [(ngModel)]="projectDescription.processmodel" />
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:start;padding:5px;height:100%">
+
+              <h2>System Description</h2>
+
+              <mat-tab-group style="height: 75%;">
 
                 <mat-tab label="Purpose" style="width: 100%;justify-content:start;padding:5px;height:100%">
-                  <mat-form-field class="description-field" appearance="fill" >
+                  <mat-form-field class="description-field" appearance="fill">
                     <mat-label label="Purpose">Purpose</mat-label>
-                    <textarea   matInput [(ngModel)]="projectDescription.purpose"  style="height:400px"></textarea>
-                </mat-form-field>
+                    <textarea matInput [(ngModel)]="projectDescription.purpose" style="height:400px"></textarea>
+                  </mat-form-field>
                 </mat-tab>
 
                 <mat-tab label="Functionality" style="width: 100%;justify-content:start;padding:5px;height:100%">
-                <mat-form-field class="description-field" appearance="fill">
-                  <mat-label  label="Functionality">Functionality</mat-label>
-                  <textarea  matInput [(ngModel)]="projectDescription.functionality" style="height:400px"></textarea>
-                </mat-form-field>
+                  <mat-form-field class="description-field" appearance="fill">
+                    <mat-label label="Functionality">Functionality</mat-label>
+                    <textarea matInput [(ngModel)]="projectDescription.functionality" style="height:400px"></textarea>
+                  </mat-form-field>
                 </mat-tab>
 
                 <mat-tab label="Design Diagrams" style="width: 100%;justify-content:start;padding:5px;height:100%">
-                <mat-form-field class="description-field" appearance="fill">
-                  <mat-label label="Design Diagrams">Design Diagrams</mat-label>
-                  <textarea  matInput [(ngModel)]="projectDescription.designdiagrams" style="height:400px"></textarea>
-                </mat-form-field>
-                <button mat-button id="upload" >
-                  <mat-icon>move_up</mat-icon>
-                  <span>Upload Diagram</span>
-                </button>
-              </mat-tab>
+
+                  <mat-form-field class="description-field" appearance="fill">
+                    <mat-label label="Design Diagrams">Design Diagrams</mat-label>
+                    <textarea matInput [(ngModel)]="projectDescription.designdiagrams" style="height:400px"></textarea>
+                  </mat-form-field>
+
+                  <button mat-button id="upload">
+                    <mat-icon>move_up</mat-icon>
+                    <span>Upload Diagram</span>
+                  </button>
+
+                </mat-tab>
               </mat-tab-group>
-              <!--</mat-tab-group>-->
+            </div>
 
-              </div>         
-              
-              <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:start;padding:5px">
-            <h2>Properties</h2>
-            <mat-form-field class="description-field" appearance="fill">
-              <mat-label>Architecture Patterns</mat-label>
-              
-              <mat-select [(value)]="projectDescription.architecturepattern"><!-- multiple-->
-              <mat-option></mat-option>  
-              <mat-option *ngFor="let pattern of enumKeys2" [value]="pattern">
-                  {{pattern}}<!--multi selection field -->
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+            <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:start;padding:5px">
 
-            <mat-form-field class="description-field" appearance="fill">
-              <mat-label>Languages</mat-label>
-              <mat-select multiple><!-- multiple-->
-                <mat-option *ngFor="let language of enumKeys" [value]="language">
-                  {{ language }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+              <h2>Properties</h2>
 
+              <mat-form-field class="description-field" appearance="fill">
+                <mat-label>Architecture Patterns</mat-label>
 
-            <mat-form-field class="description-field" appearance="fill">
-              <mat-label>Data Persistence</mat-label>
-              <textarea matInput [(ngModel)]="projectDescription.data_persistence"></textarea>
-            </mat-form-field>
-            <button mat-button (click)="deleteProjectDescription(projectDescription)">
-              <mat-icon mat-list-icon color="warn">delete</mat-icon>
-            </button>
+                <mat-select [(value)]="projectDescription.architecturepattern">
+                  <mat-option></mat-option>
+                  <mat-option *ngFor="let pattern of patternOptions" [value]="pattern">
+                    {{ pattern }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field class="description-field" appearance="fill">
+                <mat-label>Languages</mat-label>
+                <mat-select [(value)]="projectDescription.languages"> <!--languages-->
+                  <mat-option></mat-option>
+                  <mat-option *ngFor="let language of languageOptions" [value]="language">
+                    {{ language }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field class="description-field" appearance="fill">
+                <mat-label>Data Persistence</mat-label>
+                <textarea matInput [(ngModel)]="projectDescription.data_persistence"></textarea>
+              </mat-form-field>
+
+              <button mat-button (click)="deleteProjectDescription(projectDescription)">
+                <mat-icon mat-list-icon color="warn">delete</mat-icon>
+              </button>
+
+            </div>
           </div>
-          </div>
- 
-
-          </div>
-
-
+        </div>
       </ng-container>
-  </div>
-  <ng-template #emptyProjectDescriptionList>
-    <p style="color: grey; margin-left: 10px; margin-right: 10px"><i>No existing Project Descriptions. Please create a Project Description
-        by adding one using the green add button (+) </i></p>
-  </ng-template>
+    </div>
 
-<!--<img  class="images" src="assets/Phase1-UI1.jpg"/>-->
+    <ng-template #emptyProjectDescriptionList>
+      <p style="color: grey; margin-left: 10px; margin-right: 10px"><i>No existing Project Descriptions. Please create a
+          Project Description
+          by adding one using the green add button (+) </i></p>
+    </ng-template>
