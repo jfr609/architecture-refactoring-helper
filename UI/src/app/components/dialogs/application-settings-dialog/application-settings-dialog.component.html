@@ -4,7 +4,7 @@
 <div mat-dialog-content >
   <mat-form-field class='margin-bottom'>
     <mat-label>Enter Password</mat-label>
-    <input matInput  [(ngModel)]='this.password' (input)="validateAuthentication()" placeholder='*******'>
+    <input matInput type="password" [(ngModel)]='this.password' (input)="validateAuthentication()" placeholder='*******'>
   </mat-form-field>
   <span *ngIf="validAuthentication">
   <mat-slide-toggle class='margin-bottom' [(ngModel)]='this.permissionService.isAdmin'>
