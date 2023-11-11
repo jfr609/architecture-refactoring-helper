@@ -94,15 +94,15 @@
         <mat-accordion>
           <ng-container *ngFor="let scenario of  scenarioList">
             <ng-container *ngIf="scenarioList.length > 0">
-              <mat-expansion-panel style="height:100px;"  [expanded]="true"  [disabled]="false">
-                <mat-expansion-panel-header>
-                  <section>{{"Name: " + scenario.name }}</section>
+              <!--<mat-expansion-panel style="height:100px;"  [expanded]="true"  [disabled]="false">-->
+                <!--<mat-expansion-panel-header>-->
+                  <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center">
+                  <!--<section>{{"Name: " + scenario.name }}</section>-->
                     <mat-panel-description>{{"Name: " + scenario.name }}</mat-panel-description>
                     <mat-panel-description>{{"Importance: " + scenario.importance }}</mat-panel-description>
                     <mat-panel-description>{{"Difficulty: " + scenario.difficulty}}</mat-panel-description>
                     <mat-panel-description>{{"Description: " + scenario.description}}</mat-panel-description>
                   <section>
-                  <h2>Architecture Suitability</h2>
 
                   <div fxLayout="row" padding>
                     <mat-form-field class="description-field" appearance="outline">
@@ -129,10 +129,10 @@
                       <mat-label  label="Explanation">Explanation</mat-label>
                         <textarea matInput [(ngModel)]="scenario.explanation"></textarea>         
                     </mat-form-field>
-                  </div>                   
-                </section>
-              </mat-expansion-panel-header>
-            </mat-expansion-panel>
+                  </div>                  
+                </section></div> 
+              <!--</mat-expansion-panel-header>-->
+            <!--</mat-expansion-panel>-->
           </ng-container>
         </ng-container>
       </mat-accordion>
