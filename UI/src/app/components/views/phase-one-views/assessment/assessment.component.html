@@ -107,8 +107,7 @@
                   <div fxLayout="row" padding>
                     <mat-form-field class="description-field" appearance="outline">
                       <mat-label>Implementable Using</mat-label>
-                        <mat-select [(value)]="scenario.implementedPattern"><!-- multiple-->
-                          <mat-option></mat-option>
+                        <mat-select [(value)]="scenario.implementedPattern" multiple><!-- multiple-->
                           <mat-option *ngFor="let pattern of patternOptions" [value]="pattern">
                             {{ pattern }}
                           </mat-option>

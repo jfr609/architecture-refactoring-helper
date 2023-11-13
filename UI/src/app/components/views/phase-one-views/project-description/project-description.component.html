@@ -140,8 +140,8 @@
 
               <mat-form-field class="description-field" appearance="fill">
                 <mat-label>Languages</mat-label>
-                <mat-select [(value)]="projectDescription.languages"> <!--languages-->
-                  <mat-option></mat-option>
+                <mat-select [(value)]="projectDescription.languages" multiple> <!--languages-->
+                  <!--<mat-option></mat-option>-->
                   <mat-option *ngFor="let language of languageOptions" [value]="language">
                     {{ language }}
                   </mat-option>

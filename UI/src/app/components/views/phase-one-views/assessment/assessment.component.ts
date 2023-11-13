@@ -54,7 +54,7 @@ export class AssessmentComponent implements  OnInit {
   updatingAssessmentList = new Array<Assessment>();
 
   currentSelectedscenario: any = [];
-
+  originalImplementedPattern: any = [];
   pastSelectedscenario: any = [];
 
   selectedStrategicGoals?: StrategicGoals;
@@ -109,6 +109,11 @@ ngOnInit(): void {
     this.projectService.requestScenarios(),
   ]).then(() => {
     this.scenarioList = this.projectService.scenarios.value;
+    for (let i = 0; i < this.scenarioList.length; i++) {
+      if (this.scenarioList[i] !== undefined) {
+      this.scenarioList[i].implementedPattern = JSON.parse(this.scenarioList[i].implementedPattern);
+      }
+  }
     this.strategicGoalsList = this.projectService.strategicGoals.value;
     this.updatingStrategicGoalsList = Object.assign([], this.strategicGoalsList);
     this.qualityList = this.attributesService.getQualitiesByCategory(
@@ -179,6 +184,10 @@ ngOnInit(): void {
   }
 
   updateAll() {
+
+    for (let i = 0; i < this.scenarioList.length; i++) {
+      this.scenarioList[i].implementedPattern = JSON.stringify(this.scenarioList[i].implementedPattern);
+  }
     this.scenarioList.forEach((e:any) => {
       this.scenarioService
         .updateScenario({
@@ -199,6 +208,9 @@ ngOnInit(): void {
   saveChanges() {
     this.updateValueOccurrencesImplementedPattern();
     this.updateValueOccurrencesPreferredPattern();
+    /*for (let i = 0; i < this.scenarioList.length; i++) {
+      this.originalImplementedPattern[i].implementedPattern = JSON.stringify(this.scenarioList[i].implementedPattern);
+    }*/
     const data: ConfirmDialogData = {
       title: 'Save Changes?',
       message: `Do you really want to save all changes?`,
@@ -212,6 +224,9 @@ ngOnInit(): void {
         next: (data: ConfirmDialogData) => {
           if (data == null) return;
           this.updateAll();
+         /* for (let i = 0; i < this.scenarioList.length; i++) {
+            this.scenarioList[i].implementedPattern = this.originalImplementedPattern[i].implementedPattern;
+        }*/
         }
       }
     );
