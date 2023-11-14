@@ -203,6 +203,9 @@ ngOnInit(): void {
         });
       }
     );
+    for (let i = 0; i < this.scenarioList.length; i++) {
+      this.scenarioList[i].implementedPattern = JSON.parse(this.scenarioList[i].implementedPattern);
+  }
   }
  
   saveChanges() {
