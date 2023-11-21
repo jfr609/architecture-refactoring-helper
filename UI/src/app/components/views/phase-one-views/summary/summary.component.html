@@ -98,9 +98,9 @@
 
               <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px">
                 <mat-radio-group aria-label="Select an option" fxLayout="column" >
-                  <mat-radio-button *ngIf="greenLight == true" [checked]= "true" color="primary" class="red" id="red" value="1" checked="case1()">Migration recommended</mat-radio-button>
-                  <mat-radio-button *ngIf="yellowLight == true" [checked]= "true" id="radio-2" class="yellow" id="yellow" value="2" checked="case2()">Migration caution</mat-radio-button>
-                  <mat-radio-button *ngIf="redLight == true" [checked]= "true"  color="warn" class="green" id="green" value="3" checked="case3()">Migration disapproval</mat-radio-button>
+                  <mat-radio-button [checked]="redLight"   color="warn" class="green" id="green" value="3" checked="case3()">Migration disapproval</mat-radio-button>
+                  <mat-radio-button [checked]="yellowLight" id="radio-2"  class="custom-yellow" id="yellow" value="2" checked="case2()">Migration caution</mat-radio-button>
+                  <mat-radio-button [checked]="greenLight"  color="primary" class="red" id="red" value="1" checked="case1()">Migration recommended</mat-radio-button>
                 </mat-radio-group>
               </div>
             </div>
