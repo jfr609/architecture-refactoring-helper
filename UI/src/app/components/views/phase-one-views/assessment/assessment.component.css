@@ -96,7 +96,7 @@
 }
 
 .description-field {
-  width: 90%;
+  width: 100%;
 }
 
 .stepper-button-row {
@@ -106,4 +106,25 @@
 #upload{
   background-color: #2979ff;
   color:#fff;
+}
+.max-width-descriptionA {
+  max-width: 100px; /* Set your desired maximum width */
+  width: 100px;
+  max-height: fit-content;
+  overflow: hidden; /* Optional: Hide content that exceeds the maximum width */
+  text-overflow: hidden; /* Optional: Add ellipsis (...) for text that exceeds the maximum width */
+}
+.max-width-descriptionB {
+  max-width: 100px; /* Set your desired maximum width */
+  width: 100px;
+  max-height: fit-content;
+  overflow: hidden; /* Optional: Hide content that exceeds the maximum width */
+  text-overflow: hidden; /* Optional: Add ellipsis (...) for text that exceeds the maximum width */
+}
+.max-width-description {
+  max-width: 1000px; /* Set your desired maximum width */
+  width: 1000px;
+  max-height: fit-content;
+  overflow: hidden; /* Optional: Hide content that exceeds the maximum width */
+  text-overflow: hidden; /* Optional: Add ellipsis (...) for text that exceeds the maximum width */
 }

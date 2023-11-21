@@ -25,14 +25,14 @@
             <span> Skip to Phase 3</span>
           </button>
           </div>
-
+          
           <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center">
             <mat-card class="strategicGoal-card" class="mat-elevation-z8">
               <mat-card-title>Assessment
-                <!--<button  *ngIf = "strategicGoalsList.length == 0" style="margin-left: 10px; margin-bottom: 10px" mat-mini-fab class="attribute-button" color="primary" 
+                <button  *ngIf = "strategicGoalsList.length == 0" style="margin-left: 10px; margin-bottom: 10px" mat-mini-fab class="attribute-button" color="primary" 
                 (click)="refreshAssessment()">
                   <mat-icon>add</mat-icon>
-                </button>-->
+                </button>
               </mat-card-title>
           
               <div class="mat-elevation-z8"  cdkDropList class="drop-list" (cdkDropListDropped)="drop($event)"
@@ -41,9 +41,9 @@
                   <ng-container *ngIf="scenarioList.length > 0; else emptyScenarioList">
                   <div *ngFor="let strategicGoals of strategicGoalsList">
 
-                      <div fxLayout="column"  fxLayoutGap="10px" style="padding:5px;" ><!--style="width: 50%"-->
+                      <div fxLayout="column"  fxLayoutGap="10px" style="padding:5px;" >
 
-                        <div fxLayout="row"  fxLayoutGap="10px" style="padding:5px;" ><!--style="width: 50%"-->
+                        <div fxLayout="row"  fxLayoutGap="10px" style="padding:5px;" >
                         
                         <mat-form-field appearance="outline" >
                           <ng-container *ngFor="let qa of  strategicGoalsList">
@@ -70,7 +70,7 @@
                             </ng-container>
                         </mat-form-field>
         
-                        <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
+                        <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px">
   
                         </div>
                       </div>
@@ -88,33 +88,35 @@
       by adding one using the green add button (+) on the Quality Attributes Step </i></p>
 </ng-template>
         
-  </mat-card>
+ </mat-card> 
     <mat-card class="mat-elevation-z8">
       <h2>Architecture Suitability</h2> <mat-card-title>Scenarios</mat-card-title>
         <mat-accordion>
           <ng-container *ngFor="let scenario of  scenarioList">
             <ng-container *ngIf="scenarioList.length > 0">
-              <!--<mat-expansion-panel style="height:100px;"  [expanded]="true"  [disabled]="false">-->
-                <!--<mat-expansion-panel-header>-->
-                  <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center">
-                  <!--<section>{{"Name: " + scenario.name }}</section>-->
-                    <mat-panel-description>{{"Name: " + scenario.name }}</mat-panel-description>
-                    <mat-panel-description>{{"Importance: " + scenario.importance }}</mat-panel-description>
-                    <mat-panel-description>{{"Difficulty: " + scenario.difficulty}}</mat-panel-description>
-                    <mat-panel-description>{{"Description: " + scenario.description}}</mat-panel-description>
+              <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center">
+                <div fxLayout="column"  fxLayoutAlign="start start">
+                  <div fxLayout="column"  fxLayoutAlign="start start">
+                    <mat-panel-description>{{"Name: " + scenario.name }}</mat-panel-description>  
+                  </div>
+                  <div fxLayout="row"  fxLayoutAlign="start start">
+                    <mat-panel-description class="max-width-descriptionA">{{"Importance: " + scenario.importance }}</mat-panel-description>
+                    <mat-panel-description class="max-width-descriptionB">{{"Difficulty: " + scenario.difficulty}}</mat-panel-description>
+                    <mat-panel-description class="max-width-description">{{"Description: " + scenario.description}}</mat-panel-description>
+                  </div>
+                </div>
                   <section>
-
-                  <div fxLayout="row" padding>
-                    <mat-form-field class="description-field" appearance="outline">
+                    <div fxLayout="row" padding>
+                      <mat-form-field class="description-field" appearance="outline" style="width: 150px;justify-content:start;padding:5px;height:100%">
                       <mat-label>Implementable Using</mat-label>
                         <mat-select [(value)]="scenario.implementedPattern" multiple><!-- multiple-->
                           <mat-option *ngFor="let pattern of patternOptions" [value]="pattern">
                             {{ pattern }}
                           </mat-option>
                         </mat-select>
-                    </mat-form-field>
+                      </mat-form-field>
   
-                    <mat-form-field class="description-field" appearance="outline">
+                      <mat-form-field class="description-field" appearance="outline" style="width: 150px;justify-content:start;padding:5px;height:100%">
                       <mat-label>Preferred Pattern</mat-label>
                         <mat-select [(value)]="scenario.preferredPattern">
                           <mat-option></mat-option>
@@ -122,19 +124,18 @@
                             {{ pattern }} 
                           </mat-option>
                         </mat-select>
-                    </mat-form-field>
+                      </mat-form-field>
                             
-                    <mat-form-field class="description-field" appearance="outline">
+                      <mat-form-field class="description-field" appearance="outline" style="width: 300px;justify-content:start;padding:5px;height:100px">
                       <mat-label  label="Explanation">Explanation</mat-label>
-                        <textarea matInput [(ngModel)]="scenario.explanation"></textarea>         
-                    </mat-form-field>
-                  </div>                  
-                </section></div> 
-              <!--</mat-expansion-panel-header>-->
-            <!--</mat-expansion-panel>-->
+                        <textarea matInput [(ngModel)]="scenario.explanation"  ></textarea>         
+                      </mat-form-field>
+                    </div>                  
+                  </section>
+              </div> 
+            </ng-container>
           </ng-container>
-        </ng-container>
-      </mat-accordion>
+        </mat-accordion>
     </mat-card>
-  </div>
+
         
