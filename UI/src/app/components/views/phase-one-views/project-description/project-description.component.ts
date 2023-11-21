@@ -47,39 +47,14 @@ export class ProjectDescriptionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //if(this.projectDescriptionList && this.projectDescriptionList.length > 0){
-    ///this.setLanguagesFromString(this.projectDescriptionList[0].data_persistence);
-  //}
-    //this.projectDescriptionList[0].languages = JSON.parse(this.projectDescriptionList[0].languages);
-    
-    //this.projectDescription.languages = JSON.parse(this.projectDescription.languages);
-   /* if( this.projectDescriptionList[0] !== undefined){  
-    this.projectDescriptionList[0].languages = JSON.parse(this.projectDescriptionList[0].languages);
-    this.projectDescriptionList[1].languages = JSON.parse(this.projectDescriptionList[1].languages);
-    this.projectDescriptionList[2].languages = JSON.parse(this.projectDescriptionList[2].languages);
-    this.projectDescriptionList[3].languages = JSON.parse(this.projectDescriptionList[3].languages);
-  }*/
     this.isDataLoading = true;
     Promise.all([
       this.projectService.requestProjectDescriptionAttributes()
     ]).then(() => {
-      this.projectDescriptionList =
-        this.projectService.projectDescriptions.value;
+      this.projectDescriptionList = this.projectService.projectDescriptions.value;
+        //this.projectDescriptionList[0].languages = JSON.stringify(this.projectDescriptionList[0].languages);
         if (this.projectDescriptionList[0] !== undefined) {
           this.projectDescriptionList[0].languages = JSON.parse(this.projectDescriptionList[0].languages);
-        }
-    
-        // Repeat the check for other elements in the projectDescriptionList array
-        if (this.projectDescriptionList[1] !== undefined) {
-          this.projectDescriptionList[1].languages = JSON.parse(this.projectDescriptionList[1].languages);
-        }
-    
-        if (this.projectDescriptionList[2] !== undefined) {
-          this.projectDescriptionList[2].languages = JSON.parse(this.projectDescriptionList[2].languages);
-        }
-    
-        if (this.projectDescriptionList[3] !== undefined) {
-          this.projectDescriptionList[3].languages = JSON.parse(this.projectDescriptionList[3].languages);
         }
       this.updatingProjectDescriptionsList = Object.assign(
         [],
@@ -87,14 +62,6 @@ export class ProjectDescriptionComponent implements OnInit {
       );
       this.isDataLoading = false;
     });
-  }
- 
-  setLanguagesFromString(languagesString: string) {
-    // Parse the string into a JavaScript array
-    const languagesArray = JSON.parse(languagesString);
-    console.log(languagesArray);
-    // Set the array to the projectDescription.languages property
-    this.projectDescriptionList[0].languages = languagesArray;
   }
 
   addEmptyProjectDescription(): void {
@@ -111,11 +78,9 @@ export class ProjectDescriptionComponent implements OnInit {
       purpose: '',
       functionality: '',
       designdiagrams: '',
-      //languages: [],
     };
     this.projectDescriptionList.push(emptyProjectDescription);
     this.newProjectDescriptionsList.push(emptyProjectDescription);
-    //this.projectDescriptionList[0].languages =["PHP"];
   }
 
   deleteProjectDescription(projectDescription: ProjectDescription): void {
@@ -285,26 +250,6 @@ export class ProjectDescriptionComponent implements OnInit {
   }
 
   saveChanges() {
-
-    /*console.log(this.projectDescriptionList[0].languages);
-    console.log(JSON.stringify(this.projectDescriptionList[0].languages));
-    console.log(JSON.parse(JSON.stringify(this.projectDescriptionList[0].languages)));
-    const oked =   this.projectDescriptionList[0].languages;*/
-   
-       //this.projectDescriptionList[0].languages = JSON.stringify(this.projectDescriptionList[0].languages);
- 
-    /*if (this.projectDescriptionList[0].languages == undefined){
-  
-      this.projectDescriptionList[0].data_persistence = this.projectDescriptionList[0].data_persistence;
-    } else {
-              console.log(this.projectDescriptionList[0].languages);
-    const oked =   this.projectDescriptionList[0].languages;
-   
-       this.projectDescriptionList[0].languages = JSON.stringify(this.projectDescriptionList[0].languages);
-         console.log(this.projectDescriptionList[0].languages);
-        this.projectDescriptionList[0].data_persistence = this.projectDescriptionList[0].languages;
-    }*/
-    //this.projectDescriptionList[0].languages = JSON.parse(this.projectDescriptionList[0].languages);
     const data: ConfirmDialogData = {
       title: 'Save Changes?',
       message: `Do you really want to save all changes?`,
@@ -326,13 +271,24 @@ export class ProjectDescriptionComponent implements OnInit {
   }
 
   fireAll() {
-    //console.log(this.projectDescriptionList[0].languages);
-    //console.log(this.projectDescriptionList);
-    //this.projectDescriptionList[0].languages = JSON.stringify(this.projectDescriptionList[0].languages);
-    //console.log(this.projectDescriptionList[0].languages);
-    //this.projectDescriptionList.languages = serializedLanguages;
     this.createAll();
     this.deleteAll();
     this.updateAll();
+    Promise.all([
+      this.projectService.requestProjectDescriptionAttributes()
+    ]).then(() => {
+        this.projectDescriptionList[0].languages = JSON.stringify(this.projectDescriptionList[0].languages);
+        //this.projectDescriptionList = this.projectService.projectDescriptions.value;
+        console.log(this.projectService.projectDescriptions.value);
+        console.log(this.projectDescriptionList);
+        if (this.projectDescriptionList[0] !== undefined) {
+          this.projectDescriptionList[0].languages = JSON.parse(this.projectDescriptionList[0].languages);
+        }
+      this.updatingProjectDescriptionsList = Object.assign(
+        [],
+        this.projectDescriptionList
+      );
+      this.isDataLoading = false;
+    });
   }
 }
