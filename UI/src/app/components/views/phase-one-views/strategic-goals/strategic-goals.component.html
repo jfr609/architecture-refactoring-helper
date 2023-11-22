@@ -76,7 +76,7 @@
 
                         <mat-form-field [style.width.%]="10" appearance="outline" >
                           <mat-label>ID </mat-label>
-                            <input matInput [(ngModel)]="objective.objectivesId"  required />
+                            <input mdInput type="number" min="0" matInput [(ngModel)]="objective.objectivesId"  required />
                         </mat-form-field>
 
                         <mat-form-field appearance="outline" fxFlex="70">

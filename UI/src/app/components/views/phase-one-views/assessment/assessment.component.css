@@ -108,8 +108,8 @@
   color:#fff;
 }
 .max-width-descriptionA {
-  max-width: 100px; /* Set your desired maximum width */
-  width: 100px;
+  max-width: 110px; /* Set your desired maximum width */
+  width: 110px;
   max-height: fit-content;
   overflow: hidden; /* Optional: Hide content that exceeds the maximum width */
   text-overflow: hidden; /* Optional: Add ellipsis (...) for text that exceeds the maximum width */
@@ -122,8 +122,8 @@
   text-overflow: hidden; /* Optional: Add ellipsis (...) for text that exceeds the maximum width */
 }
 .max-width-description {
-  max-width: 1000px; /* Set your desired maximum width */
-  width: 1000px;
+  max-width: 600px; /* Set your desired maximum width */
+  width: 600px;
   max-height: fit-content;
   overflow: hidden; /* Optional: Hide content that exceeds the maximum width */
   text-overflow: hidden; /* Optional: Add ellipsis (...) for text that exceeds the maximum width */
