@@ -3,7 +3,7 @@ import { APP_TITLE } from '../../../app.constants';
 import { UtilService } from '../../../services/util.service';
 import { ApplicationSettingsDialogComponent } from '../../dialogs/application-settings-dialog/application-settings-dialog.component';
 import { DialogData } from '../../../utils/models/dialog-data';
-import { PermissionService } from '../../../services/permission.service';
+//import { PermissionService } from '../../../services/permission.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AttributeOptionsService } from 'src/app/services/attribute-options.service';
@@ -20,6 +20,7 @@ import { ObjectivesService } from 'api/repository/services/objectives-service';
 import { Objectives } from 'api/repository/models/objectives';
 import { concatMap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { AssessmentComponent } from '../phase-one-views/assessment/assessment.component';
 @Component({
   selector: 'app-architecture-refactoring-helper',
   templateUrl: './architecture-refactoring-helper.component.html',
@@ -34,7 +35,7 @@ export class ArchitectureRefactoringHelperComponent {
   readonly RecommendationSuitability = RecommendationSuitability;
 
   constructor(
-    private permissionService: PermissionService,
+    //private permissionService: PermissionService,
     public utilService: UtilService,
     public projectService: ProjectService,
     public attributeOptionsService: AttributeOptionsService,
@@ -43,6 +44,7 @@ export class ArchitectureRefactoringHelperComponent {
     public strategicGoalsService: StrategicGoalsService,
     public objectivesService: ObjectivesService,
     public scenarioService: ScenarioService,
+    public assessmentComponent: AssessmentComponent
   ) {}
 
   openSettingsDialog() {
@@ -88,28 +90,32 @@ export class ArchitectureRefactoringHelperComponent {
   }
 
   clearSession2(){
-    for(let i = 1; i < 100; i++){
-        this.projectDescriptionService
-        .deleteProjectDescription({
-          id: i!
-        })
-        .subscribe({
-          next: (value) => {},
-        });
-        this.strategicGoalsService
-        .deleteStrategicGoals({
-          id: i!
-        })
-        .subscribe({
-          next: (value) => {},
-        });
-        this.objectivesService
-        .deleteObjectives({
-          id: i!
-        })
-        .subscribe({
-          next: (value) => {},
-        });
+
+    this.projectDescriptionService
+    .deleteProjectDescription({
+      id: 1
+    })
+    .subscribe({
+      next: (value) => {},
+    });   
+    
+    this.strategicGoalsService
+    .deleteStrategicGoals({
+      id: 1
+    })
+    .subscribe({
+      next: (value) => {},
+    });
+    
+    for(let i = 1; i < 20; i++){
+      this.objectivesService
+      .deleteObjectives({
+        id: i!
+      })
+      .subscribe({
+        next: (value) => {},
+      });
+
         this.scenarioService
         .deleteScenario({
           id: i!
@@ -140,7 +146,6 @@ export class ArchitectureRefactoringHelperComponent {
     let fileContentSG = "";
     let fileContentOB = "";
     let fileContentSC = "";
-    let fileContentAS = "";
   
     const exportData = async () => {
       try {
@@ -197,6 +202,7 @@ export class ArchitectureRefactoringHelperComponent {
   
   importDB() {
     this.clearSession();
+    //window.location.reload();
     this.importInput?.nativeElement.click();
   }
   
@@ -214,7 +220,10 @@ export class ArchitectureRefactoringHelperComponent {
   
             if (parsedData.projectDescription) {
               const projectDescriptions: ProjectDescription[] = parsedData.projectDescription;
-              await this.importProjectDescriptions(projectDescriptions);
+              if (projectDescriptions.length > 0) {
+                const firstProjectDescription: ProjectDescription = projectDescriptions[0];
+                await this.importProjectDescriptions([firstProjectDescription]);
+              }
             }
   
             if (parsedData.strategicGoals) {
@@ -231,8 +240,13 @@ export class ArchitectureRefactoringHelperComponent {
               const scenarios: Scenario[] = parsedData.scenario;
               await this.importScenarios(scenarios);
             }
-  
+          
             this.utilService.callSnackBar('Data imported successfully.');
+            if (this.assessmentComponent) {
+              this.assessmentComponent.saveChanges();
+            } else {
+              console.error('assessmentComponent is not initialized.');
+            }
           }
         } catch (error) {
           console.error(error);
@@ -243,6 +257,7 @@ export class ArchitectureRefactoringHelperComponent {
       reader.readAsText(file);
     }
   }
+  //this.assessmentComponent.saveChanges();
   
   private async importProjectDescriptions(projectDescriptions: ProjectDescription[]): Promise<void> {
     const promises: Promise<void>[] = [];
@@ -291,7 +306,11 @@ export class ArchitectureRefactoringHelperComponent {
   
   private async importScenarios(scenarios: Scenario[]): Promise<void> {
     const promises: Promise<void>[] = [];
+
+  
     for (const scenario of scenarios) {
+
+  
       promises.push(
         lastValueFrom(
           this.scenarioService.addScenario({
