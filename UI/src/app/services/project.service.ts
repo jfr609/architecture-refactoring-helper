@@ -8,6 +8,7 @@ import { UtilService } from './util.service';
 import { StrategicGoalsService } from 'api/repository/services/strategic-goals.service';
 import { Objectives } from 'api/repository/models/objectives';
 import { ObjectivesService } from 'api/repository/services/objectives-service';
+import { map, scan, toArray, mergeMap  } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -72,7 +73,12 @@ export class ProjectService {
   async requestScenarios(): Promise<void> {//user for assessement
     try {
       this.scenarios.next(
-        await lastValueFrom(this.scenarioService.listScenario())
+        await lastValueFrom(
+          this.scenarioService.listScenario().pipe(
+            mergeMap(scenarios => scenarios), // Flatten the array
+            toArray()
+          )
+        ) as Scenario[] // Explicitly cast to Scenario[]
       );
     } catch (err) {
       console.log(err);

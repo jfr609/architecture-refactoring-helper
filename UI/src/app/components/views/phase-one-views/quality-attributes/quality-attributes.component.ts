@@ -38,6 +38,7 @@ export class QualityAttributesComponent implements OnInit {
   deletingScenariosList = new Array<Scenario>();
   newScenariosList = new Array<Scenario>();
   updatingScenariosList = new Array<Scenario>();
+  k = 0;
 
   constructor(
     public projectService: ProjectService,
@@ -55,7 +56,7 @@ export class QualityAttributesComponent implements OnInit {
       this.attributesService.requestQualities()
     ]).then(() => {
       this.scenarioList = this.projectService.scenarios.value;
-      this.updatingScenariosList = Object.assign([], this.scenarioList);
+      this.updatingScenariosList = [...this.scenarioList];//was it this?
       this.qualityList = this.attributesService.getQualitiesByCategory(
         this.QualityCategories.Attribute
       );
@@ -65,6 +66,7 @@ export class QualityAttributesComponent implements OnInit {
 
   addEmptyScenario(): void {
     let emptyScenario: Scenario = {
+      scenarioId: this.counter(this.k),
       name: '',
       description: '',
       qualities: [],
@@ -73,6 +75,13 @@ export class QualityAttributesComponent implements OnInit {
     this.scenarioList.push(emptyScenario);
     this.newScenariosList.push(emptyScenario);
   }
+
+  counter(k: number): number {
+    k++;
+    this.k = k;
+    return this.k;
+  }
+
 
   deleteScenario(scenario: Scenario): void {
     const data: ConfirmDialogData = {
@@ -220,10 +229,13 @@ export class QualityAttributesComponent implements OnInit {
 
   createAll() {
     if (this.newScenariosList.length > 0) {
+      //this.scenarioList.reverse();
+      //this.newScenariosList.reverse();
       this.newScenariosList.forEach((e) => {
         this.scenarioService
           .addScenario({
             body: e
+            
           })
           .subscribe({
             next: (value) => {},
@@ -233,6 +245,7 @@ export class QualityAttributesComponent implements OnInit {
             }
           });
       });
+      console.log(this.newScenariosList);
       this.newScenariosList.splice(0);
     }
   }
