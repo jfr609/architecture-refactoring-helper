@@ -26,8 +26,9 @@ namespace Repository.Migrations
                     Data_Persistence = table.Column<string>(type: "TEXT", nullable: true),
                     Purpose = table.Column<string>(type: "TEXT", nullable: true),
                     Functionality = table.Column<string>(type: "TEXT", nullable: true),
-                    Designdiagrams = table.Column<string>(type: "TEXT", nullable: true)
-
+                    Designdiagrams = table.Column<string>(type: "TEXT", nullable: true),
+                    //new column for implemented pattern
+                    //new column for preferred pattern
                 },
                 constraints: table =>
                 {

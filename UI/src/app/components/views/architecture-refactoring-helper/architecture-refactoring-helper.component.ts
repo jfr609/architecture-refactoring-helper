@@ -107,7 +107,7 @@ export class ArchitectureRefactoringHelperComponent {
       next: (value) => {},
     });
     
-    for(let i = 1; i < 20; i++){
+    for(let i = 1; i < 200; i++){
       this.objectivesService
       .deleteObjectives({
         id: i!
@@ -201,7 +201,7 @@ export class ArchitectureRefactoringHelperComponent {
   }
   
   importDB() {
-    this.clearSession();
+    //this.clearSession();
     //window.location.reload();
     this.importInput?.nativeElement.click();
   }

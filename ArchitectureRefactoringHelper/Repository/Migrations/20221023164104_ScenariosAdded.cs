@@ -26,7 +26,14 @@ namespace Repository.Migrations
                     Importance = table.Column<string>(type: "TEXT", nullable: true),
                     ImplementedPattern = table.Column<string>(type: "TEXT", nullable: true),
                     PreferredPattern = table.Column<string>(type: "TEXT", nullable: true),
-                    Explanation = table.Column<string>(type: "TEXT", nullable: true)
+                    Explanation = table.Column<string>(type: "TEXT", nullable: true),
+                    ImplementedPatternValue1 = table.Column<string>(type: "INTEGER", nullable: true),//test
+                    ImplementedPatternValue2 = table.Column<string>(type: "INTEGER", nullable: true),//test
+                    ImplementedPatternValue3 = table.Column<string>(type: "INTEGER", nullable: true),//test
+                    PreferredPatternValue1 = table.Column<string>(type: "INTEGER", nullable: true),//test
+                    PreferredPatternValue2 = table.Column<string>(type: "INTEGER", nullable: true),//test
+                    PreferredPatternValue3 = table.Column<string>(type: "INTEGER", nullable: true)//test
+
                     
                 },
                 constraints: table =>
@@ -79,7 +86,7 @@ namespace Repository.Migrations
                 table: "Approach.Process.Quality");
         
         //abhier kp
-            migrationBuilder.DropForeignKey(
+            /*migrationBuilder.DropForeignKey(
                 name: "FK_ImplementedPattern_.Scenario_ScenarioId",
                 table: "Approach.Process.ImplementedPattern");
 
@@ -92,7 +99,7 @@ namespace Repository.Migrations
 
             migrationBuilder.DropColumn(
                 name: "ScenarioId",
-                table: "Approach.Process.ImplementedPattern");
+                table: "Approach.Process.ImplementedPattern");*/
         }
     }
 }
