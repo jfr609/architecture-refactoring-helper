@@ -100,5 +100,5 @@ public static class Constants
     // Weights
     public const int weightA = 3;
     public const int weightB = 2;
-    public const int weightC = 3;
+    public const int weightC = 1;
 }

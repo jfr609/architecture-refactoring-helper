@@ -205,7 +205,7 @@ export class RecommendationResultComponent implements OnInit {
     ) => {
       switch (sortHeaderId) {
         case 'matches':
-          return data.matchesCount;
+          return (2 * data.matchesCount - data.totalIncludeCount);
         case 'id':
           return data.identifier;
         case 'title':
@@ -216,6 +216,8 @@ export class RecommendationResultComponent implements OnInit {
           return data.qualityScore.selectedAttributes;
         case 'systemPropertiesScore':
           return data.systemPropertiesScore.selectedAttributes;
+        case 'totalScore':
+          return data.weightedScore;
         default:
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
