@@ -26,6 +26,7 @@ public class AutomationLevelConfiguration : IEntityTypeConfiguration<AutomationL
             {
                 Name = "Manual",
                 Description = "Manual approaches depend entirely on human experts."
-            });
+            }
+        );
     }
 }

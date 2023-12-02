@@ -12,6 +12,7 @@ import { lastValueFrom } from 'rxjs';
 import { RefactoringApproach } from '../../../../../api/repository/models/refactoring-approach';
 import { UtilService } from '../../../services/util.service';
 import { Tool } from 'api/repository/models/tool';
+import { ProjectService } from '../../../services/project.service';
 
 @Component({
   selector: 'app-application-settings-dialog',
@@ -21,6 +22,8 @@ import { Tool } from 'api/repository/models/tool';
 export class ApplicationSettingsDialogComponent {
   @ViewChild('importInput') importInput!: ElementRef;
   @ViewChild('importToolInput') importToolInput!: ElementRef;
+  validAuthentication: boolean = false;
+  password: string = '';
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -31,6 +34,12 @@ export class ApplicationSettingsDialogComponent {
     private toolService: ToolService,
     private utilService: UtilService
   ) {}
+
+  validateAuthentication() {
+    if (this.password == 'admin') {
+      this.validAuthentication = true;
+    }
+  }
 
   onCancelClicked() {
     this.dialogRef.close();

@@ -1,6 +1,121 @@
-<img  class="images" src="assets/Phase1-UI5.jpg"/>
-<p>You are now done.</p>
-<div>
-  <button mat-button matStepperPrevious>Back</button>
-  <button mat-button routerLink='/home'>Finish</button>
+<div fxLayout='row' fxLayoutGap='8px' fxLayoutAlign='center'>
+  <p class='max-width-800'>
+          This overview summarizes the specified scenarios regarding the architectural styles that can be used for their implementation (upper chart). As well, it summarizes the scenarios regarding their preferred architectural syle (lower chart).
+          This summary, based on strategic goals, scenarios and related quality attributes provides the basis for a grounded decision for or against migrating the system towards a Microservices architecture.
+  </p>
 </div>
+
+<div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px' fxLayoutAlign='center'>
+  <button mat-flat-button matStepperPrevious color='accent'>
+    <mat-icon>arrow_back</mat-icon>
+    <span>Back</span>
+  </button>
+
+  <mat-divider vertical></mat-divider>
+    <button mat-flat-button color='accent'[routerLink]="['/phase/2']">
+      <mat-icon>move_down</mat-icon>
+      <span> Skip to Phase 2</span>
+    </button>
+
+    <button mat-flat-button color='accent'[routerLink]="['/phase/3']">
+      <mat-icon>move_down</mat-icon>
+      <span> Skip to Phase 3</span>
+    </button>
+</div>
+
+<div fxLayout="row" fxLayoutAlign="center">
+  <mat-card class="strategicGoal-card" class="mat-elevation-z8">
+    <mat-card-title>Quality Assessment Summary
+        <button style="margin-left: 10px;" mat-mini-fab class="attribute-button" color="primary" (click)="addEmptyStrategicGoals()" (click)="summarylogger()">
+          <mat-icon>autorenew</mat-icon>
+        </button>
+    </mat-card-title>
+
+  <div class="mat-elevation-z8" cdkDropList class="drop-list" (cdkDropListDropped)="drop($event)" [cdkDropListData]="strategicGoalsList">
+    <ng-container *ngIf="strategicGoalsList.length > 0; else emptyStrategicGoalsList">
+      <div *ngFor="let strategicGoals of strategicGoalsList" [cdkDragData]="strategicGoalsList" cdkDragLockAxis="y"
+        cdkDragBoundary=".drop-list" cdkDrag (click)="strategicGoalsSelected(strategicGoalsList)" [ngClass]="{
+        'selected-drop-box': checkCurrentStrategicGoals(strategicGoalsList),
+        'drop-box': !checkCurrentStrategicGoals(strategicGoalsList)}">
+        <div fxLayout="column">
+          <div fxLayout="column"  style="width: 100%;justify-content:center;padding:5px">
+            <h2>Implementable using</h2>
+              <div fxLayout="row" fxLayoutGap="10px" style="width: 100%;justify-content:center;">
+                <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px">
+                  <div>Monolith (current):     {{assessmentService.cumulatedimplementedPattern1}}</div>
+                  <mat-label label="Purpose">Microservices: {{assessmentService.cumulatedimplementedPattern2}}</mat-label>
+                  <mat-label label="Purpose">Other : {{assessmentService.cumulatedimplementedPattern3}}</mat-label>
+                </div>
+
+                <ngx-charts-bar-horizontal
+                  [view]="view"
+                  [results]="implementedGraph"
+                  [gradient]="gradient"
+                  [xAxis]="showXAxis"
+                  [yAxis]="showYAxis"
+                  [legend]="showLegend"
+                  [showXAxisLabel]="showXAxisLabel"
+                  [showYAxisLabel]="showYAxisLabel"
+                  [xAxisLabel]="xAxisLabel"
+                  [yAxisLabel]="yAxisLabel"
+                  (select)="onSelect($event)"
+                  (activate)="onActivate($event)"
+                  (deactivate)="onDeactivate($event)">
+                </ngx-charts-bar-horizontal>
+              <div>       
+            </div>
+          </div>
+
+          <h2>Preferred Architecture</h2>
+            <div fxLayout="row" fxLayoutGap="10px" style="width: 100%;justify-content:center;"><!--style="width: 50%;justify-content:center"-->
+              <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px"><!--style="width: 50%;justify-content:center"-->
+                <div>Monolith (current):     {{assessmentService.cumulatedpreferredPattern1}}</div>
+                <mat-label label="Purpose">Microservices: {{assessmentService.cumulatedpreferredPattern2}}</mat-label>
+                <mat-label label="Purpose">Other : {{assessmentService.cumulatedpreferredPattern3}}</mat-label>
+              </div>
+
+              <ngx-charts-bar-horizontal
+                [view]="view"
+                [results]="preferredGraph"
+                [gradient]="gradient"
+                [xAxis]="showXAxis"
+                [yAxis]="showYAxis"
+                [legend]="showLegend"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xAxisLabel"
+                [yAxisLabel]="yAxisLabel"
+                (select)="onSelect($event)"
+                (activate)="onActivate($event)"
+                (deactivate)="onDeactivate($event)">
+              </ngx-charts-bar-horizontal>
+            </div>
+
+            <div fxLayout="row"  style="width: 100%;justify-content:center;">
+              <div fxLayout="column" style="width: 100%;justify-content:center;">
+                <h2>Migration Recommendation</h2>
+              </div>
+
+              <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px">
+                <mat-radio-group aria-label="Select an option" fxLayout="column" >
+                  <mat-radio-button [checked]="redLight"   color="warn" class="green" id="green" value="3" checked="case3()">Migration disapproval</mat-radio-button>
+                  <mat-radio-button [checked]="yellowLight" id="radio-2"  class="custom-yellow" id="yellow" value="2" checked="case2()">Migration caution</mat-radio-button>
+                  <mat-radio-button [checked]="greenLight"  color="primary" class="red" id="red" value="1" checked="case1()">Migration recommended</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+<ng-template #emptyStrategicGoalsList>
+  <p style="color: grey; margin-left: 10px; margin-right: 10px">
+    <i>No existing Strategic Goals. Please create a Strategic Goals
+        by adding one using the green add button (+) 
+    </i>
+  </p>
+</ng-template>
+
+

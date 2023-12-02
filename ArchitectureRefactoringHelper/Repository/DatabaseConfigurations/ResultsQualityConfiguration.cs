@@ -30,6 +30,7 @@ public class ResultsQualityConfiguration : IEntityTypeConfiguration<ResultsQuali
             {
                 Name = Constants.AttributeDefaultNotAvailable,
                 Description = ""
-            });
+            }
+        );
     }
 }

@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { MatTabsModule } from '@angular/material/tabs';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomePageComponent } from './components/views/home-page/home-page.component';
@@ -58,7 +58,7 @@ import { QualityAttributesComponent } from './components/views/phase-one-views/q
 import { AssessmentComponent } from './components/views/phase-one-views/assessment/assessment.component';
 import { SummaryComponent } from './components/views/phase-one-views/summary/summary.component';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatCheckboxModule } from '@angular/material/checkbox'; 
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatChipsModule } from '@angular/material/chips';
 import { ArchitecturalDesignExplorerComponent } from './components/views/architectural-design-explorer/architectural-design-explorer.component';
@@ -67,9 +67,16 @@ import { ArchitecturalRecommendationResultComponent } from './components/views/a
 import { MatBadgeModule } from '@angular/material/badge';
 import { ToolFormComponent } from './components/views/tool-form/tool-form.component';
 import { ToolViewComponent } from './components/views/tool-view/tool-view.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { ProjectService } from './services/project.service';
+import { ScenarioService } from 'api/repository/services';
+
 
 @NgModule({
   declarations: [
+    
     AppComponent,
     HomePageComponent,
     PageNotFoundComponent,
@@ -102,14 +109,23 @@ import { ToolViewComponent } from './components/views/tool-view/tool-view.compon
     ArchitecturalDesignViewComponent,
     ArchitecturalRecommendationResultComponent
   ],
-  imports: [
+  imports: [ 
+    ApiModule.forRoot({ rootUrl: environment.API_URL }),
+    MatFormFieldModule,
+    MatSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatTabsModule,
+    FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    ApiModule.forRoot({ rootUrl: environment.API_URL }),
     FlexLayoutModule,
     MatToolbarModule,
+    MatTabsModule,
     MatCardModule,
     MatButtonModule,
     MatSnackBarModule,
@@ -138,9 +154,17 @@ import { ToolViewComponent } from './components/views/tool-view/tool-view.compon
     MatCheckboxModule,
     MatSidenavModule,
     MatChipsModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule,
+    NgxChartsModule
+    
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [ProjectDescriptionComponent,QualityAttributesComponent,ProjectService,StrategicGoalsComponent,AssessmentComponent,SummaryComponent,ArchitectureRefactoringHelperComponent,ScenarioService],
+  bootstrap: [AppComponent],
+  schemas: []
 })
 export class AppModule {}

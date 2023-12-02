@@ -835,6 +835,41 @@ namespace Repository.Migrations
                         });
                 });
 
+
+            /* modelBuilder.Entity("Patterns", b =>
+ {
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("QualityName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Name");
+
+                    b.HasIndex("QualityName");
+
+                    b.ToTable("Approach.Process.Patterns", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Name = "Availability",
+                            QualityName = "Reliability"
+                        },
+                        new
+                        {
+                            Name = "Fault Tolerance",
+                            QualityName = "Reliability"
+                        },
+                        new{
+                            Name = "Fault Tolerance",
+                            QualityName = "Reliability"
+                        });
+                 });    */
+
             modelBuilder.Entity("Repository.Models.Database.RefactoringApproach", b =>
                 {
                     b.Property<int>("RefactoringApproachId")

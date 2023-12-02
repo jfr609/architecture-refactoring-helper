@@ -36,6 +36,7 @@ export { ModelArtifactInput } from './models/model-artifact-input';
 export { ModelArtifactInputApproachAttributeEvaluation } from './models/model-artifact-input-approach-attribute-evaluation';
 export { ModelArtifactInputAttributeRecommendationInformation } from './models/model-artifact-input-attribute-recommendation-information';
 export { ProblemDetails } from './models/problem-details';
+export { ProjectDescription } from './models/project-description';
 export { Quality } from './models/quality';
 export { QualityApproachAttributeEvaluation } from './models/quality-approach-attribute-evaluation';
 export { QualityAttributeRecommendationInformation } from './models/quality-attribute-recommendation-information';
@@ -68,3 +69,6 @@ export { ToolSupportAttributeRecommendationInformation } from './models/tool-sup
 export { ValidationMethod } from './models/validation-method';
 export { ValidationMethodApproachAttributeEvaluation } from './models/validation-method-approach-attribute-evaluation';
 export { ValidationMethodAttributeRecommendationInformation } from './models/validation-method-attribute-recommendation-information';
+export { StrategicGoals } from './models/strategic-goals';
+//export{Assessment} from './models/assessment';
+//export{Summary} from './models/summary';

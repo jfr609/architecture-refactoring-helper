@@ -23,7 +23,18 @@ namespace Repository.Migrations
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     Difficulty = table.Column<string>(type: "TEXT", nullable: true),
-                    Importance = table.Column<string>(type: "TEXT", nullable: true)
+                    Importance = table.Column<string>(type: "TEXT", nullable: true),
+                    ImplementedPattern = table.Column<string>(type: "TEXT", nullable: true),
+                    PreferredPattern = table.Column<string>(type: "TEXT", nullable: true),
+                    Explanation = table.Column<string>(type: "TEXT", nullable: true),
+                    ImplementedPatternValue1 = table.Column<string>(type: "INTEGER", nullable: true),//test
+                    ImplementedPatternValue2 = table.Column<string>(type: "INTEGER", nullable: true),//test
+                    ImplementedPatternValue3 = table.Column<string>(type: "INTEGER", nullable: true),//test
+                    PreferredPatternValue1 = table.Column<string>(type: "INTEGER", nullable: true),//test
+                    PreferredPatternValue2 = table.Column<string>(type: "INTEGER", nullable: true),//test
+                    PreferredPatternValue3 = table.Column<string>(type: "INTEGER", nullable: true)//test
+
+                    
                 },
                 constraints: table =>
                 {
@@ -41,6 +52,20 @@ namespace Repository.Migrations
                 column: "ScenarioId",
                 principalTable: ".Scenario",
                 principalColumn: "ScenarioId");
+
+
+          /*  migrationBuilder.CreateIndex(
+                name: "IX_ImplementationPattern",
+                table: "ImplementationPattern",
+                column: "ScenarioId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_ImplementedPattern_.Scenario_ScenarioId",
+                table: "Approach.Process.ImplementedPattern",
+                column: "ScenarioId",
+                principalTable: ".Scenario",
+                principalColumn: "ScenarioId");
+                                                    */   
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -59,6 +84,22 @@ namespace Repository.Migrations
             migrationBuilder.DropColumn(
                 name: "ScenarioId",
                 table: "Approach.Process.Quality");
+        
+        //abhier kp
+            /*migrationBuilder.DropForeignKey(
+                name: "FK_ImplementedPattern_.Scenario_ScenarioId",
+                table: "Approach.Process.ImplementedPattern");
+
+            migrationBuilder.DropTable(
+                name: ".Scenario");
+
+            migrationBuilder.DropIndex(
+                name: "IX_ImplementationPattern",
+                table: "ImplementationPattern");
+
+            migrationBuilder.DropColumn(
+                name: "ScenarioId",
+                table: "Approach.Process.ImplementedPattern");*/
         }
     }
 }

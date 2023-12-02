@@ -30,6 +30,7 @@ public class ValidationMethodConfiguration : IEntityTypeConfiguration<Validation
             {
                 Name = Constants.AttributeDefaultNoValidation,
                 Description = ""
-            });
+            }
+        );
     }
 }

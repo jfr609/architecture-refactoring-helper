@@ -6,9 +6,36 @@
         <mat-icon>home</mat-icon>
       </button>
     </div>
-    <button mat-icon-button (click)="openSettingsDialog()">
+    <div fxLayoutAlign="flex-end" fxLayoutGap="8px">
+    <button mat-icon-button  #tooltip="matTooltip"
+    matTooltip="Delete Project"
+    matTooltipPosition="above"
+    class="example-button" (click)="clearSession2()"><!--look for diffent session clear-->
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+    <button mat-icon-button  #tooltip="matTooltip"
+    matTooltip="Export Project"
+    matTooltipPosition="above"
+    (click)="exportDB()"> 
+      <mat-icon>file_upload</mat-icon>
+     
+    </button>
+    <button mat-icon-button  #tooltip="matTooltip"
+    matTooltip="Import Project"
+    matTooltipPosition="above"
+    (click)="importDB()">
+      <mat-icon>file_download</mat-icon> 
+      <input #importInput type='file' style='display: none' accept='.json' (change)='handleSessionImport($event)'>
+    </button>
+    <button mat-icon-button  #tooltip="matTooltip"
+    matTooltip="Settings"
+    matTooltipPosition="above"
+    (click)="openSettingsDialog()">
       <mat-icon>settings</mat-icon>
     </button>
+
+
+  </div>
   </div>
 </mat-toolbar>
 <mat-drawer-container class="drawer-container">

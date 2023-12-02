@@ -10,12 +10,24 @@ public static class Constants
     public const string TableNameArchitecturalDesign = "ArchitecturalDesign";
     public const string TableNameApproachSource = TableNameApproach + ".Source";
     public const string TableNameArchitecturalDesignSource = TableNameArchitecturalDesign + ".Source";
+    public const string TableNameProjectDescription = "ProjectDescription";
+    //public const string TableNameLanguages = "Languages";
+
+    public const string TableNameStrategicGoals = "StrategicGoals";
+
+    public const string TableNameObjectives = "Objectives";
+    public const string TableNameAssessment = "Assessment";
+
+    public const string TableNameSummary = "Summary";
 
     public const string TableNameApproachInput = TableNameApproach + ".Input";
     public const string TableNameApproachInputDomainArtifact = TableNameApproachInput + ".DomainArtifact";
     public const string TableNameApproachInputRuntimeArtifact = TableNameApproachInput + ".RuntimeArtifact";
     public const string TableNameApproachInputModelArtifact = TableNameApproachInput + ".ModelArtifact";
     public const string TableNameApproachInputExecutable = TableNameApproachInput + ".Executable";
+
+  
+
 
     public const string TableNameApproachProcess = TableNameApproach + ".Process";
     public const string TableNameApproachProcessQuality = TableNameApproachProcess + ".Quality";
@@ -51,6 +63,16 @@ public static class Constants
     public const string ApiSubPathArchitecturalDesigns = "architectural-designs";
     public const string ApiSubPathProjects = "projects";
     public const string ApiSubPathScenarios = "scenarios";
+
+    public const string ApiSubPathImplementedPatterns = "implemented-patterns";
+
+    public const string ApiSubPathProjectDescriptions = "project-descriptions";
+
+    //public const string ApiSubPathLanguages = "languages";
+    public const string ApiSubPathStrategicGoals = "strategic-goals";
+    public const string ApiSubPathSummary = "summary";
+    public const string ApiSubPathAssessment = "assessment";
+    public const string ApiSubPathObjectives = "objectives";
 
     public const string ApiSubPathInputs = "inputs";
     public const string ApiSubPathDomainArtifacts = "domain-artifacts";

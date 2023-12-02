@@ -1,5 +1,141 @@
-<img  class="images" src="assets/Phase1-UI4.jpg"/>
-<div>
-  <button mat-button matStepperPrevious>Back</button>
-  <button mat-button matStepperNext>Next</button>
-</div>
+<div fxLayout='row' fxLayoutGap='8px' fxLayoutAlign='center'>
+  <p class='max-width-800'>In this section, scenarios can be created based on the <a href="https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=5177" target="_blank">ATAM method</a>. For this purpose, quality attributes you want to optimize can be assigned
+          to the scenarios.
+          <br/>
+          For importance, a scale of prioritization is applied, where <strong>A</strong> means 'important', <strong>B</strong> means 'medium' and <strong>C</strong> means 'less
+          important'. For difficulty, <strong>A</strong> means 'very difficult', <strong>B</strong> means 'normal' and <strong>C</strong> means 'easy'.</p>
+          </div>
+        <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px' fxLayoutAlign='center'>
+          <button mat-flat-button matStepperPrevious color='accent'>
+            <mat-icon>arrow_back</mat-icon>
+            <span>Back</span>
+          </button>
+          <button mat-flat-button matStepperNext color='accent'>
+            <span>Next</span>
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+          <button mat-raised-button color="primary" (click)="saveChanges()" ><span>Save Changes </span></button>
+          <mat-divider vertical></mat-divider>
+          <button mat-flat-button color='accent' [routerLink]="['/phase/2']">
+            <mat-icon>move_down</mat-icon>
+            <span> Skip to Phase 2</span>
+          </button>
+          <button mat-flat-button color='accent' [routerLink]="['/phase/3']">
+            <mat-icon>move_down</mat-icon>
+            <span> Skip to Phase 3</span>
+          </button>
+          </div>
+          
+          <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center">
+            <mat-card class="strategicGoal-card" class="mat-elevation-z8">
+              <mat-card-title>Assessment
+                <button  *ngIf = "strategicGoalsList.length == 0" style="margin-left: 10px; margin-bottom: 10px" mat-mini-fab class="attribute-button" color="primary" 
+                (click)="refreshAssessment()">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </mat-card-title>
+          
+              <div class="mat-elevation-z8"  cdkDropList class="drop-list" (cdkDropListDropped)="drop($event)"
+                [cdkDropListData]="strategicGoalsList">
+                <ng-container *ngIf="strategicGoalsList.length > 0; else emptyStrategicGoalsList">
+                  <ng-container *ngIf="scenarioList.length > 0; else emptyScenarioList">
+                  <div *ngFor="let strategicGoals of strategicGoalsList">
+
+                      <div fxLayout="column"  fxLayoutGap="10px" style="padding:5px;" >
+
+                        <div fxLayout="row"  fxLayoutGap="10px" style="padding:5px;" >
+                        
+                        <mat-form-field appearance="outline" >
+                          <ng-container *ngFor="let qa of  strategicGoalsList">
+                            
+                            <mat-label>Method:</mat-label>
+
+                            <input matInput readonly="true" matInput [(ngModel)]="strategicGoals.method" required />
+                            </ng-container>
+
+                        </mat-form-field>
+
+                        </div>
+                        <mat-form-field appearance="outline" fxFlex="70">
+                          <ng-container *ngFor="let qa of  strategicGoalsList">
+                            <mat-label>Ownership:</mat-label>
+                            <input matInput readonly="true" matInput [(ngModel)]="strategicGoals.owner" required />
+                            </ng-container>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" fxFlex="70">
+                          <ng-container *ngFor="let qa of  strategicGoalsList">
+                            <mat-label>Participants:</mat-label>
+                            <input matInput readonly="true" matInput [(ngModel)]="strategicGoals.participants" required />
+                            </ng-container>
+                        </mat-form-field>
+        
+                        <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;justify-content:center;padding:5px">
+  
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </div> 
+
+ <ng-template #emptyStrategicGoalsList>
+  <p style="color: grey; margin-left: 10px; margin-right: 10px"><i>No existing Strategic Goals. Please create a Strategic Goals
+      by adding one using the green add button (+) on the Strategic Goals Step </i></p>
+</ng-template>
+<ng-template #emptyScenarioList>
+  <p style="color: grey; margin-left: 10px; margin-right: 10px"><i>No existing Scenarios. Please create a Scenario
+      by adding one using the green add button (+) on the Quality Attributes Step </i></p>
+</ng-template>
+        
+ </mat-card> 
+    <mat-card class="mat-elevation-z8">
+      <h2>Architecture Suitability</h2> <mat-card-title>Scenarios</mat-card-title>
+        <mat-accordion>
+          <ng-container *ngFor="let scenario of  scenarioList">
+            <ng-container *ngIf="scenarioList.length > 0">
+              <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center">
+                <div fxLayout="column"  fxLayoutAlign="start start">
+                  <div fxLayout="column"  fxLayoutAlign="start start">
+                    <mat-panel-description>{{"Name: " + scenario.name }}</mat-panel-description>  
+                  </div>
+                  <div fxLayout="row"  fxLayoutAlign="start start">
+                    <mat-panel-description class="max-width-descriptionA">{{"Importance: " + scenario.importance }}</mat-panel-description>
+                    <mat-panel-description class="max-width-descriptionB">{{"Difficulty: " + scenario.difficulty}}</mat-panel-description>
+                    <mat-panel-description class="max-width-description">{{"Description: " + scenario.description}}</mat-panel-description>
+                  </div>
+                </div>
+                  <section>
+                    <div fxLayout="row" padding>
+                      <mat-form-field class="description-field" appearance="outline" style="width: 150px;justify-content:start;padding:5px;height:100%">
+                      <mat-label>Implementable Using</mat-label>
+                        <mat-select [(value)]="scenario.implementedPattern" multiple><!-- multiple-->
+                          <mat-option *ngFor="let pattern of patternOptions" [value]="pattern">
+                            {{ pattern }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+  
+                      <mat-form-field class="description-field" appearance="outline" style="width: 150px;justify-content:start;padding:5px;height:100%">
+                      <mat-label>Preferred Pattern</mat-label>
+                        <mat-select [(value)]="scenario.preferredPattern">
+                          <mat-option></mat-option>
+                          <mat-option *ngFor="let pattern of patternOptions" [value]="pattern">
+                            {{ pattern }} 
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                            
+                      <mat-form-field class="description-field" appearance="outline" style="width: 300px;justify-content:start;padding:5px;height:100px">
+                      <mat-label  label="Explanation">Explanation</mat-label>
+                        <textarea matInput [(ngModel)]="scenario.explanation"  ></textarea>         
+                      </mat-form-field>
+                    </div>                  
+                  </section>
+              </div> 
+            </ng-container>
+          </ng-container>
+        </mat-accordion>
+    </mat-card>
+
+        

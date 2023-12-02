@@ -10,9 +10,6 @@ public class QualitySublevelConfiguration : IEntityTypeConfiguration<QualitySubl
     {
         builder.ToTable(Constants.TableNameApproachProcessQualitySublevel);
 
-
-
-
         builder.HasData(
             new QualitySublevel
             {

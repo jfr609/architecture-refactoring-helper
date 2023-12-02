@@ -1867,6 +1867,300 @@
         }
       }
     },
+    "/api/v1/projects/objectives":{
+      "get": {
+        "tags": [
+          "Objectives"
+        ],
+        "operationId": "ListObjectives",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Objectives"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Objectives"
+        ],
+        "operationId": "AddObjective",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Objectives"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Objectives"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Objectives"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/projects/objectives/{id}": {
+      "get": {
+        "tags": [
+          "Objectives"
+        ],
+        "operationId": "GetObjective",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Objectives"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Objectives"
+        ],
+        "operationId": "UpdateObjectives",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Objectives"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Objectives"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Objectives"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Objectives"
+        ],
+        "operationId": "DeleteObjective",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/projects/project-descriptions": {
+      "get": {
+        "tags": [
+          "ProjectDescription"
+        ],
+        "operationId": "ListProjectDescription",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProjectDescription"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ProjectDescription"
+        ],
+        "operationId": "AddProjectDescription",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectDescription"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectDescription"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectDescription"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/projects/project-descriptions/{id}": {
+      "get": {
+        "tags": [
+          "ProjectDescription"
+        ],
+        "operationId": "GetProjectDescription",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectDescription"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ProjectDescription"
+        ],
+        "operationId": "UpdateProjectDescription",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectDescription"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectDescription"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectDescription"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ProjectDescription"
+        ],
+        "operationId": "DeleteProjectDescription",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/v1/approaches": {
       "get": {
         "tags": [
@@ -3681,6 +3975,12 @@
             }
           }
         ],
+    "/api/v1/projects/strategic-goals": {
+      "get": {
+        "tags": [
+          "StrategicGoals"
+        ],
+        "operationId": "ListStrategicGoals",
         "responses": {
           "200": {
             "description": "Success",
@@ -3690,6 +3990,7 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Tool"
+                    "$ref": "#/components/schemas/StrategicGoals"
                   }
                 }
               }
@@ -3709,16 +4010,26 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/Tool"
+          "StrategicGoals"
+        ],
+        "operationId": "AddStrategicGoals",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrategicGoals"
               }
             },
             "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/Tool"
+                "$ref": "#/components/schemas/StrategicGoals"
               }
             },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/Tool"
+                "$ref": "#/components/schemas/StrategicGoals"
               }
             }
           }
@@ -3753,6 +4064,8 @@
                 }
               }
             }
+          "200": {
+            "description": "Success"
           }
         }
       }
@@ -3764,6 +4077,12 @@
         ],
         "summary": "Receives a Tool",
         "operationId": "GetTool",
+    "/api/v1/projects/strategic-goals/{id}": {
+      "get": {
+        "tags": [
+          "StrategicGoals"
+        ],
+        "operationId": "GetStrategicGoals",
         "parameters": [
           {
             "name": "id",
@@ -3783,6 +4102,7 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Tool"
+                  "$ref": "#/components/schemas/StrategicGoals"
                 }
               }
             }
@@ -3820,6 +4140,11 @@
           "Tool"
         ],
         "operationId": "AddToolTypeToTool",
+      "put": {
+        "tags": [
+          "StrategicGoals"
+        ],
+        "operationId": "UpdateStrategicGoals",
         "parameters": [
           {
             "name": "id",
@@ -3836,16 +4161,19 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/ToolType"
+                "$ref": "#/components/schemas/StrategicGoals"
               }
             },
             "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/ToolType"
+                "$ref": "#/components/schemas/StrategicGoals"
               }
             },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/ToolType"
+                "$ref": "#/components/schemas/StrategicGoals"
               }
             }
           }
@@ -3954,6 +4282,20 @@
             "required": true,
             "schema": {
               "type": "string"
+      },
+      "delete": {
+        "tags": [
+          "StrategicGoals"
+        ],
+        "operationId": "DeleteStrategicGoals",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -5117,6 +5459,72 @@
             "type": "string"
           },
           "description": {
+      "ProjectDescription": {
+        "required": [
+          "projectDescriptionId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectDescriptionId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "systemname": {
+            "type": "string",
+            "nullable": true
+          },
+          "ownership": {
+            "type": "string",
+            "nullable": true
+          },
+          "creation_date": {
+            "type": "string",
+            "nullable": true
+          },
+          "systemsize_LOC": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "hosting_model": {
+            "type": "string",
+            "nullable": true
+          },
+          "mumber_of_teams": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "number_of_developers": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "processmodel": {
+            "type": "string",
+            "nullable": true
+          },
+          "architecturepattern": {
+            "type": "string",
+            "nullable": true
+          },
+          "languages": {
+            "type": "string",
+            "nullable": true
+          },
+          "data_persistence": {
+            "type": "string",
+            "nullable": true
+          },
+          "purpose": {
+            "type": "string",
+            "nullable": true
+          },
+          "functionality": {
+            "type": "string",
+            "nullable": true
+          },
+          "designdiagrams": {
             "type": "string",
             "nullable": true
           }
@@ -5638,6 +6046,31 @@
           },
           "recommendationSuitability": {
             "$ref": "#/components/schemas/RecommendationSuitability"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StrategicGoals": {
+        "required": [
+          "strategicGoalsId"
+        ],
+        "type": "object",
+        "properties": {
+          "strategicGoalsId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "method": {
+            "type": "string",
+            "nullable": true
+          },
+          "owner": {
+            "type": "string",
+            "nullable": true
+          },
+          "participants": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

@@ -45,6 +45,12 @@ builder.Services.AddScoped<ApproachUsabilityService>();
 builder.Services.AddScoped<RefactoringApproachContext>();
 builder.Services.AddScoped<IRecommendationService, SimpleRecommendationService>();
 builder.Services.AddScoped<ScenarioService>();
+builder.Services.AddScoped<ProjectDescriptionService>();
+builder.Services.AddScoped<StrategicGoalsService>();
+builder.Services.AddScoped<ObjectivesService>();
+//builder.Services.AddScoped<SummaryService>();
+//builder.Services.AddScoped<AssessmentService>();
+
 builder.Services.AddScoped<ArchitecturalDesignService>();
 builder.Services.AddScoped<ToolService>();
 builder.Services.AddScoped<ToolTypeService>();
