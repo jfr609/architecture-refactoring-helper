@@ -3958,23 +3958,6 @@
         }
       }
     },
-    "/api/v1/tools": {
-      "get": {
-        "tags": [
-          "Tool"
-        ],
-        "summary": "Receives a complete list of all Tool items",
-        "operationId": "ListTools",
-        "parameters": [
-          {
-            "name": "withDetails",
-            "in": "query",
-            "description": "Decides whether the tools are returned with all details or not",
-            "schema": {
-              "type": "boolean"
-            }
-          }
-        ],
     "/api/v1/projects/strategic-goals": {
       "get": {
         "tags": [
@@ -3989,7 +3972,6 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Tool"
                     "$ref": "#/components/schemas/StrategicGoals"
                   }
                 }
@@ -4000,16 +3982,6 @@
       },
       "post": {
         "tags": [
-          "Tool"
-        ],
-        "summary": "Creates a new Tool.\r\nToolTypes that don't exist will be created in the process.",
-        "operationId": "AddTool",
-        "requestBody": {
-          "description": "The Tool we want to add",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Tool"
           "StrategicGoals"
         ],
         "operationId": "AddStrategicGoals",
@@ -4022,61 +3994,23 @@
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Tool"
                 "$ref": "#/components/schemas/StrategicGoals"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Tool"
                 "$ref": "#/components/schemas/StrategicGoals"
               }
             }
           }
         },
         "responses": {
-          "201": {
-            "description": "Returns the newly created Tool",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Tool"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "If the Tool is null",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "If a Tool with the same title already exists",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
           "200": {
             "description": "Success"
           }
         }
       }
     },
-    "/api/v1/tools/{id}": {
-      "get": {
-        "tags": [
-          "Tool"
-        ],
-        "summary": "Receives a Tool",
-        "operationId": "GetTool",
     "/api/v1/projects/strategic-goals/{id}": {
       "get": {
         "tags": [
@@ -4087,7 +4021,6 @@
           {
             "name": "id",
             "in": "path",
-            "description": "",
             "required": true,
             "schema": {
               "type": "integer",
@@ -4101,7 +4034,6 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Tool"
                   "$ref": "#/components/schemas/StrategicGoals"
                 }
               }
@@ -4109,37 +4041,6 @@
           }
         }
       },
-      "delete": {
-        "tags": [
-          "Tool"
-        ],
-        "summary": "Deletes a Tool",
-        "operationId": "DeleteTool",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/tools/{id}/tool-types": {
-      "post": {
-        "tags": [
-          "Tool"
-        ],
-        "operationId": "AddToolTypeToTool",
       "put": {
         "tags": [
           "StrategicGoals"
@@ -4160,19 +4061,16 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ToolType"
                 "$ref": "#/components/schemas/StrategicGoals"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/ToolType"
                 "$ref": "#/components/schemas/StrategicGoals"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/ToolType"
                 "$ref": "#/components/schemas/StrategicGoals"
               }
             }
@@ -4183,105 +4081,6 @@
             "description": "Success"
           }
         }
-      }
-    },
-    "/api/v1/tools/{id}/existing-cards": {
-      "delete": {
-        "tags": [
-          "Tool"
-        ],
-        "operationId": "RemoveToolExistingCards",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/tools/tool-types": {
-      "get": {
-        "tags": [
-          "Tool"
-        ],
-        "operationId": "ListToolTypes",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ToolType"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Tool"
-        ],
-        "operationId": "AddToolType",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ToolType"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ToolType"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ToolType"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ToolType"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/tools/tool-types/{name}": {
-      "delete": {
-        "tags": [
-          "Tool"
-        ],
-        "operationId": "DeleteToolType",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
       },
       "delete": {
         "tags": [
@@ -4307,7 +4106,306 @@
       }
     }
   },
-  "components": {
+  "/api/v1/tools": {
+    "get": {
+      "tags": [
+        "Tool"
+      ],
+      "summary": "Receives a complete list of all Tool items",
+      "operationId": "ListTools",
+      "parameters": [
+        {
+          "name": "withDetails",
+          "in": "query",
+          "description": "Decides whether the tools are returned with all details or not",
+          "schema": {
+            "type": "boolean"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Success",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Tool"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "post": {
+      "tags": [
+        "Tool"
+      ],
+      "summary": "Creates a new Tool.\r\nToolTypes that don't exist will be created in the process.",
+      "operationId": "AddTool",
+      "requestBody": {
+        "description": "The Tool we want to add",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Tool"
+            }
+          },
+          "text/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Tool"
+            }
+          },
+          "application/*+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Tool"
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "description": "Returns the newly created Tool",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Tool"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "If the Tool is null",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProblemDetails"
+              }
+            }
+          }
+        },
+        "409": {
+          "description": "If a Tool with the same title already exists",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProblemDetails"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/v1/tools/{id}": {
+    "get": {
+      "tags": [
+        "Tool"
+      ],
+      "summary": "Receives a Tool",
+      "operationId": "GetTool",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Success",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Tool"
+              }
+            }
+          }
+        }
+      }
+    },
+    "delete": {
+      "tags": [
+        "Tool"
+      ],
+      "summary": "Deletes a Tool",
+      "operationId": "DeleteTool",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Success"
+        }
+      }
+    }
+  },
+  "/api/v1/tools/{id}/tool-types": {
+    "post": {
+      "tags": [
+        "Tool"
+      ],
+      "operationId": "AddToolTypeToTool",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ToolType"
+            }
+          },
+          "text/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ToolType"
+            }
+          },
+          "application/*+json": {
+            "schema": {
+              "$ref": "#/components/schemas/ToolType"
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Success"
+        }
+      }
+    }
+  },
+  "/api/v1/tools/{id}/existing-cards": {
+    "delete": {
+      "tags": [
+        "Tool"
+      ],
+      "operationId": "RemoveToolExistingCards",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Success"
+        }
+      }
+    }
+  },
+  "/api/v1/tools/tool-types": {
+    "get": {
+      "tags": [
+        "Tool"
+      ],
+      "operationId": "ListToolTypes",
+      "responses": {
+        "200": {
+          "description": "Success",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ToolType"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "post": {
+      "tags": [
+        "Tool"
+      ],
+      "operationId": "AddToolType",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ToolType"
+            }
+          },
+          "text/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ToolType"
+            }
+          },
+          "application/*+json": {
+            "schema": {
+              "$ref": "#/components/schemas/ToolType"
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Success",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToolType"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/v1/tools/tool-types/{name}": {
+    "delete": {
+      "tags": [
+        "Tool"
+      ],
+      "operationId": "DeleteToolType",
+      "parameters": [
+        {
+          "name": "name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Success"
+        }
+      }
+    }
+  },"components": {
     "schemas": {
       "AccuracyPrecision": {
         "required": [
@@ -6348,4 +6446,4 @@
       }
     }
   }
-}
+}}}}
