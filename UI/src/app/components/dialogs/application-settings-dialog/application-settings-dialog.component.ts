@@ -33,11 +33,33 @@ export class ApplicationSettingsDialogComponent {
     private refactoringApproachService: RefactoringApproachService,
     private toolService: ToolService,
     private utilService: UtilService
-  ) {}
+  ) {
+    this.checkAdminSession();
+  }
 
   validateAuthentication() {
     if (this.password == 'admin') {
       this.validAuthentication = true;
+      const now = new Date();
+      const item = {
+          value: 'admin',
+          expiry: now.getTime() + 86400000, // current time + 1 day in milliseconds
+      };
+      sessionStorage.setItem('adminAuth', JSON.stringify(item));
+    }
+  }
+
+  checkAdminSession() {
+    const adminAuthString = sessionStorage.getItem('adminAuth');
+  
+    if (adminAuthString) { // This checks if the string is not null
+      const adminAuth = JSON.parse(adminAuthString);
+      const now = new Date();
+  
+      if (now.getTime() < adminAuth.expiry) {
+        this.validAuthentication = true;
+        this.permissionService.isAdmin = true;
+      }
     }
   }
 
