@@ -55,16 +55,16 @@ Difficulty indicates how much effort is needed (how difficult is) to implement t
           </div>
           <div fxLayout="column">
             <div fxLayout="row" fxLayoutGap="10px" >
-              <mat-form-field appearance="fill" fxFlex="50">
-                <mat-label>Name</mat-label>
-                <input matInput [(ngModel)]="scenario.name" required />
-              </mat-form-field>
 
               <mat-form-field appearance="fill" fxFlex="10">
                 <mat-label>ID </mat-label>
                   <input mdInput type="number" min="0" matInput [(ngModel)]="scenario.scenarioId"  required />
               </mat-form-field>
 
+              <mat-form-field appearance="fill" fxFlex="50">
+                <mat-label>Name</mat-label>
+                <input matInput [(ngModel)]="scenario.name" required />
+              </mat-form-field>
 
               <mat-form-field  appearance="fill" fxFlex="15"> 
                 <mat-label>Importance</mat-label>
