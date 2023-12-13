@@ -28,12 +28,12 @@ export class AssessmentService extends BaseService {
   cumulatedpreferredPattern1: number = 0;
   cumulatedpreferredPattern2: number = 0;
   cumulatedpreferredPattern3: number = 0;
-  newValue1: number = 2;
-  newValue2: number = 2;
-  newValue3: number = 1;
-  newValue4: number = 1;
-  newValue5: number = 1;
-  newValue6: number = 0;
+  //newValue1: number = 2;
+  //newValue2: number = 2;
+  //newValue3: number = 1;
+  //newValue4: number = 1;
+  //newValue5: number = 1;
+  //newValue6: number = 0;
   public scenarioList: any = [];
 
   increaseCumulatedImplementedPattern1() {
@@ -91,6 +91,48 @@ export class AssessmentService extends BaseService {
           this.increaseCumulatedPreferredPattern3();
         }
       } 
+    }
+  }
+  updateValueOccurrencesImplementedPattern3(scenarioList: any[]) {
+    // Reset counters to 0 before new count
+    this.cumulatedimplementedPattern1 = 0;
+    this.cumulatedimplementedPattern2 = 0;
+    this.cumulatedimplementedPattern3 = 0;
+  
+    // Iterate over the provided scenario list
+    for (let patternsOfscenariolist of scenarioList) {
+      if (patternsOfscenariolist.implementedPattern != null) {
+        if (patternsOfscenariolist.implementedPattern.includes('Monolith')) {
+          this.increaseCumulatedImplementedPattern1();
+        }
+        if (patternsOfscenariolist.implementedPattern.includes('Microservices')) {
+          this.increaseCumulatedImplementedPattern2();
+        }
+        if (patternsOfscenariolist.implementedPattern.includes('Model-View-Controller') || 
+            patternsOfscenariolist.implementedPattern.includes('Pipe-Filter')) {
+          this.increaseCumulatedImplementedPattern3();
+        }
+      }
+    }
+  }
+  updateValueOccurrencesPreferredPattern4(scenarioList: any[]) {
+    // Reset counters to 0 before new count
+    this.cumulatedpreferredPattern1 = 0;
+    this.cumulatedpreferredPattern2 = 0;
+    this.cumulatedpreferredPattern3 = 0;
+  
+    // Iterate over the provided scenario list
+    for (let patternsOfscenariolist of scenarioList) {
+      if (patternsOfscenariolist.preferredPattern != null) {
+        if (patternsOfscenariolist.preferredPattern === 'Monolith') {
+          this.increaseCumulatedPreferredPattern1();
+        } else if (patternsOfscenariolist.preferredPattern === 'Microservices') {
+          this.increaseCumulatedPreferredPattern2();
+        } else if (patternsOfscenariolist.preferredPattern === 'Model-View-Controller' || 
+                   patternsOfscenariolist.preferredPattern === 'Pipe-Filter') {
+          this.increaseCumulatedPreferredPattern3();
+        }
+      }
     }
   }
 }

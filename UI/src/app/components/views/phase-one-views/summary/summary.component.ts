@@ -2,7 +2,7 @@ import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   NgModule,
-  OnInit,AfterViewInit, OnChanges
+  OnInit,AfterViewInit, OnChanges, ViewChild
 } from '@angular/core';
 import {
   CdkDragDrop,
@@ -30,8 +30,8 @@ import { AssessmentService } from 'api/repository/services/assessment-service';
   templateUrl: './summary.component.html',
   styleUrls: ['./summary.component.css']
 })
-export class SummaryComponent implements AfterViewInit{
- 
+export class SummaryComponent implements OnInit{
+  @ViewChild(AssessmentComponent) public assessmentComponent: AssessmentComponent | undefined;
   isDataLoading = true;
   ratingLevel = RatingLevel;
   enumKeys: any;
@@ -55,7 +55,7 @@ export class SummaryComponent implements AfterViewInit{
   yAxisLabel: string = 'Architecture pattern';
   showYAxisLabel: boolean = false;
   xAxisLabel: string = '# Scenarios';
-
+  scenarioList: any = [];
   greenLight = false;
   yellowLight = false;
   redLight = false;
@@ -92,7 +92,7 @@ export class SummaryComponent implements AfterViewInit{
     this.enumKeys2 = Object.keys(this.patterns);
   }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this.implementedGraph = [
       {
         "name": "Monolith",
@@ -126,7 +126,14 @@ export class SummaryComponent implements AfterViewInit{
     this.isDataLoading = true;
     Promise.all([
       this.projectService.requestStrategicGoalsAttributes(),
+      this.projectService.requestScenarios(),
     ]).then(() => {
+      this.scenarioList = this.projectService.scenarios.value;
+      for (let i = 0; i < this.scenarioList.length; i++) {
+        if (this.scenarioList[i] !== undefined) {
+        this.scenarioList[i].implementedPattern = JSON.parse(this.scenarioList[i].implementedPattern);
+        }
+    }
       this.strategicGoalsList = this.projectService.strategicGoals.value;
       this.updatingStrategicGoalsList = Object.assign(
         [],
@@ -155,10 +162,29 @@ export class SummaryComponent implements AfterViewInit{
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 
-  summarylogger(){
+   summarylogger(){
     this.recommendation();
+     this.projectService.requestScenarios(); // Assuming requestScenarios returns a Promise
+
+    this.scenarioList = this.projectService.scenarios.value;
+    for (let i = 0; i < this.scenarioList.length; i++) {
+      if (this.scenarioList[i] !== undefined) {
+        try {
+          this.scenarioList[i].implementedPattern = JSON.parse(this.scenarioList[i].implementedPattern);
+        } catch (e) {
+          console.error('Error parsing implementedPattern', e);
+          // Handle parsing error appropriately
+        }
+      }
+    }
     //this.assessmentService.updateValueOccurrencesImplementedPattern();
     //this.assessmentService.updateValueOccurrencesPreferredPattern();
+    this.assessmentService.updateValueOccurrencesImplementedPattern3(this.scenarioList);
+    this.assessmentService.updateValueOccurrencesPreferredPattern4(this.scenarioList);
+    //if(this.assessmentComponent != undefined){
+      //this.assessmentComponent.updateValueOccurrencesImplementedPattern();
+      //this.assessmentComponent.updateValueOccurrencesPreferredPattern();
+    //}
     console.log(this.implementedGraph[0].value);
     this.implementedGraph[0].value = this.assessmentService.cumulatedimplementedPattern1; // Update 'Monolith'
     console.log(this.implementedGraph[1].value);
@@ -169,14 +195,14 @@ export class SummaryComponent implements AfterViewInit{
     this.preferredGraph[0].value = this.assessmentService.cumulatedpreferredPattern1; // Update 'Monolith'
     this.preferredGraph[1].value = this.assessmentService.cumulatedpreferredPattern2; // Update 'Microservices'
     this.preferredGraph[2].value = this.assessmentService.cumulatedpreferredPattern3; // Update 'Other'
-    if((this.assessmentService.cumulatedpreferredPattern1&&this.assessmentService.cumulatedpreferredPattern2&&this.assessmentService.cumulatedpreferredPattern3//use values of imported graph
+  /*  if((this.assessmentService.cumulatedpreferredPattern1&&this.assessmentService.cumulatedpreferredPattern2&&this.assessmentService.cumulatedpreferredPattern3//use values of imported graph
       &&this.assessmentService.cumulatedimplementedPattern1&&this.assessmentService.cumulatedimplementedPattern2&&this.assessmentService.cumulatedimplementedPattern3)==0){
         this.importedGraph();
-      }
+      }*/
       
   }
 
-  importedGraph(){
+  /*importedGraph(){
 
     this.implementedGraph[0].value = this.assessmentService.newValue1;
     this.assessmentService.cumulatedimplementedPattern1 = this.assessmentService.newValue1;
@@ -196,7 +222,7 @@ export class SummaryComponent implements AfterViewInit{
     this.preferredGraph[2].value = this.assessmentService.newValue6;
     this.assessmentService.cumulatedpreferredPattern3 = this.assessmentService.newValue6; 
 
-  }
+  }*/
 
   /*demo(){
     this.assessmentService.increaseCumulatedImplementedPattern1();
@@ -210,6 +236,7 @@ export class SummaryComponent implements AfterViewInit{
   }*/
 
   recommendation() {
+    
     if (this.assessmentService.cumulatedpreferredPattern1>this.assessmentService.cumulatedpreferredPattern2) {
         this.redLight = true;
         this.yellowLight = false;
