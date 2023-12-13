@@ -38,7 +38,7 @@
               <div class="mat-elevation-z8"  cdkDropList class="drop-list" (cdkDropListDropped)="drop($event)"
                 [cdkDropListData]="strategicGoalsList">
                 <ng-container *ngIf="strategicGoalsList.length > 0; else emptyStrategicGoalsList">
-                  <ng-container *ngIf="scenarioList.length > 0; else emptyScenarioList">
+                  <!--<ng-container *ngIf="scenarioList.length > 0; else emptyScenarioList">-->
                   <div *ngFor="let strategicGoals of strategicGoalsList">
 
                       <div fxLayout="column"  fxLayoutGap="10px" style="padding:5px;" >
@@ -76,7 +76,7 @@
                       </div>
                     </div>
                   </ng-container>
-                </ng-container>
+                <!--</ng-container>-->
               </div> 
 
  <ng-template #emptyStrategicGoalsList>
