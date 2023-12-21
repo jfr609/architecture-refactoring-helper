@@ -20,11 +20,14 @@ import {
 import { AttributeOptionsService } from 'src/app/services/attribute-options.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { UtilService } from 'src/app/services/util.service';
-
+import { Injectable } from '@angular/core';
 @Component({
   selector: 'app-quality-attributes',
   templateUrl: './quality-attributes.component.html',
   styleUrls: ['./quality-attributes.component.css']
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class QualityAttributesComponent implements OnInit {
   isDataLoading = true;
@@ -65,13 +68,23 @@ export class QualityAttributesComponent implements OnInit {
   }
 
   addEmptyScenario(): void {
+    // Find the highest scenario ID in the scenarioList
+    const highestId = this.scenarioList.reduce((max: number, scenario: Scenario) => {
+      // Use 0 as a fallback if scenarioId is undefined
+      const currentId = scenario.scenarioId ?? 0;
+      return currentId > max ? currentId : max;
+    }, 0);
+  
+    // Create a new scenario with an ID that is one more than the highest
     let emptyScenario: Scenario = {
-      scenarioId: this.counter(this.k),
+      scenarioId: highestId + 1,
       name: '',
       description: '',
       qualities: [],
       qualitySublevels: [],
     };
+  
+    // Add the new scenario to the lists
     this.scenarioList.push(emptyScenario);
     this.newScenariosList.push(emptyScenario);
   }

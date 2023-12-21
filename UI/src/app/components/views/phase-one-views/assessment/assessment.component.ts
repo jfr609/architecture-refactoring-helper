@@ -107,6 +107,7 @@ ngOnInit(): void {
     this.projectService.requestProjectAttributes(),
     this.attributesService.requestQualities(),
     this.projectService.requestScenarios(),
+    this.projectService.requestStrategicGoals()
   ]).then(() => {
     this.scenarioList = this.projectService.scenarios.value;
     for (let i = 0; i < this.scenarioList.length; i++) {

@@ -68,7 +68,7 @@ export class ArchitectureRefactoringHelperComponent {
   }
 
   clearSession() {
-    for (let i = 1; i < 100; i++) {
+    for (let i = 1; i < 1000; i++) {
       this.projectDescriptionService
         .deleteProjectDescription({
           id: i!

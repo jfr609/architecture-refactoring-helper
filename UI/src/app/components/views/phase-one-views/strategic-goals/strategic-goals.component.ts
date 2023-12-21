@@ -50,7 +50,7 @@ export class StrategicGoalsComponent implements OnInit {
   objectives?: Objectives;
   goalstype = GoalsType;
   loadedonce = false;
-  k = -1; //id counter for objectives
+  k = 0; //id counter for objectives
   selectedScenario?: Scenario;
   selectedObjectives?: Objectives;
 
@@ -116,10 +116,20 @@ export class StrategicGoalsComponent implements OnInit {
   }
 
   addObjectives(): void {
-    const emptyObjectives: Objectives = {
-      objectivesId: this.counter(this.k),
+    // Find the highest objectives ID in the objectivesList
+    const highestId = this.objectivesList.reduce((max: number, objective:Objectives) => {
+
+      // Use 0 as a fallback if objectivesId is undefined
+      const currentId = objective.objectivesId ?? 0;
+      return currentId > max ? currentId : max;
+    },0);
+
+    // Create a new objective with an ID that is one more than the highest
+    let emptyObjectives: Objectives = {
+      objectivesId: highestId + 1,
       objectivesName: '',
     };
+
     this.objectivesList.push(emptyObjectives);
     this.newObjectivesList.push(emptyObjectives);
   }
