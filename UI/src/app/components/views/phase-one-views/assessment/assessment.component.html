@@ -26,7 +26,7 @@
           </button>
           </div>
           
-          <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center">
+         <!-- <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center">
             <mat-card class="strategicGoal-card" class="mat-elevation-z8">
               <mat-card-title>Assessment
                 <button  *ngIf = "strategicGoalsList.length == 0" style="margin-left: 10px; margin-bottom: 10px" mat-mini-fab class="attribute-button" color="primary" 
@@ -38,7 +38,7 @@
               <div class="mat-elevation-z8"  cdkDropList class="drop-list" (cdkDropListDropped)="drop($event)"
                 [cdkDropListData]="strategicGoalsList">
                 <ng-container *ngIf="strategicGoalsList.length > 0; else emptyStrategicGoalsList">
-                  <!--<ng-container *ngIf="scenarioList.length > 0; else emptyScenarioList">-->
+                  <ng-container *ngIf="scenarioList.length > 0; else emptyScenarioList">
                   <div *ngFor="let strategicGoals of strategicGoalsList">
 
                       <div fxLayout="column"  fxLayoutGap="10px" style="padding:5px;" >
@@ -76,8 +76,8 @@
                       </div>
                     </div>
                   </ng-container>
-                <!--</ng-container>-->
-              </div> 
+                </ng-container>
+              </div>  </mat-card> Strategic goals box in assessment tab
 
  <ng-template #emptyStrategicGoalsList>
   <p style="color: grey; margin-left: 10px; margin-right: 10px"><i>No existing Strategic Goals. Please create a Strategic Goals
@@ -86,11 +86,11 @@
 <ng-template #emptyScenarioList>
   <p style="color: grey; margin-left: 10px; margin-right: 10px"><i>No existing Scenarios. Please create a Scenario
       by adding one using the green add button (+) on the Quality Attributes Step </i></p>
-</ng-template>
+</ng-template>-->
         
- </mat-card> 
+
     <mat-card class="mat-elevation-z8">
-      <h2>Architecture Suitability</h2> <mat-card-title>Scenarios</mat-card-title>
+      <h2>Architecture Suitability Assessment</h2> <mat-card-title>Scenarios</mat-card-title>
         <mat-accordion>
           <ng-container *ngFor="let scenario of  scenarioList">
             <ng-container *ngIf="scenarioList.length > 0">
