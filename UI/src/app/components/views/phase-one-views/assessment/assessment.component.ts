@@ -163,9 +163,6 @@ ngOnInit(): void {
     }
   }
 
-  refreshAssessment(){
-    
-  }
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -181,6 +178,18 @@ ngOnInit(): void {
         event.previousIndex,
         event.currentIndex
       );
+    }
+  }
+
+  scenarioSelected(scenario: Scenario): void {
+    this.selectedScenario = scenario;
+  }
+
+  checkCurrentScenario(currentScenario?: Scenario): boolean {
+    if (currentScenario === this.selectedScenario) {
+      return true;
+    } else {
+      return false;
     }
   }
 
