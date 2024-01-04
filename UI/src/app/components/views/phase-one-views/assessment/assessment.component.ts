@@ -115,12 +115,21 @@ ngOnInit(): void {
       this.scenarioList[i].implementedPattern = JSON.parse(this.scenarioList[i].implementedPattern);
       }
   }
-    this.strategicGoalsList = this.projectService.strategicGoals.value;
-    this.updatingStrategicGoalsList = Object.assign([], this.strategicGoalsList);
     this.qualityList = this.attributesService.getQualitiesByCategory(
       this.QualityCategories.Attribute
     );
     this.isDataLoading = false;
+  });
+}
+
+renewAssessment() {
+    //this.scenarioList.length = 0;
+  this.isDataLoading = true;
+  Promise.all([
+    this.projectService.requestScenarios()
+  ]).then(() => {
+    this.scenarioList = this.projectService.scenarios.value;
+    this.updatingScenariosList = Object.assign([], this.scenarioList);
   });
 }
    

@@ -31,7 +31,10 @@
 
       <mat-card class="scenario-card" class="mat-elevation-z8">
         <h2>Architecture Suitability Assessment</h2> 
-        <mat-card-title>Scenarios</mat-card-title>  
+        <mat-card-title>Scenarios        
+          <button style="margin-left: 10px;" mat-mini-fab class="attribute-button" color="primary" (click)="renewAssessment()" >
+          <mat-icon>autorenew</mat-icon>
+        </button></mat-card-title>  
 
 
       <div class="mat-elevation-z8"  cdkDropList class="drop-list" (cdkDropListDropped)="drop($event)"

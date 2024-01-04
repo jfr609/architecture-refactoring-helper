@@ -195,45 +195,9 @@ export class SummaryComponent implements OnInit{
     this.preferredGraph[0].value = this.assessmentService.cumulatedpreferredPattern1; // Update 'Monolith'
     this.preferredGraph[1].value = this.assessmentService.cumulatedpreferredPattern2; // Update 'Microservices'
     this.preferredGraph[2].value = this.assessmentService.cumulatedpreferredPattern3; // Update 'Other'
-  /*  if((this.assessmentService.cumulatedpreferredPattern1&&this.assessmentService.cumulatedpreferredPattern2&&this.assessmentService.cumulatedpreferredPattern3//use values of imported graph
-      &&this.assessmentService.cumulatedimplementedPattern1&&this.assessmentService.cumulatedimplementedPattern2&&this.assessmentService.cumulatedimplementedPattern3)==0){
-        this.importedGraph();
-      }*/
-      
+
   }
 
-  /*importedGraph(){
-
-    this.implementedGraph[0].value = this.assessmentService.newValue1;
-    this.assessmentService.cumulatedimplementedPattern1 = this.assessmentService.newValue1;
-
-    this.implementedGraph[1].value = this.assessmentService.newValue2; // Update 'Microservices'
-    this.assessmentService.cumulatedimplementedPattern2 = this.assessmentService.newValue2;
-
-    this.implementedGraph[2].value =  this.assessmentService.newValue3; // Update 'Other'
-    this.assessmentService.cumulatedimplementedPattern3 = this.assessmentService.newValue3;
-
-    this.preferredGraph[0].value = this.assessmentService.newValue4; // Update 'Monolith'
-    this.assessmentService.cumulatedpreferredPattern1 = this.assessmentService.newValue4;
-
-    this.preferredGraph[1].value = this.assessmentService.newValue5; // Update 'Microservices'
-    this.assessmentService.cumulatedpreferredPattern2 = this.assessmentService.newValue5;
-
-    this.preferredGraph[2].value = this.assessmentService.newValue6;
-    this.assessmentService.cumulatedpreferredPattern3 = this.assessmentService.newValue6; 
-
-  }*/
-
-  /*demo(){
-    this.assessmentService.increaseCumulatedImplementedPattern1();
-    this.assessmentService.increaseCumulatedImplementedPattern2();  
-    this.assessmentService.increaseCumulatedImplementedPattern3();
-    this.assessmentService.increaseCumulatedPreferredPattern1();
-    this.assessmentService.increaseCumulatedPreferredPattern2();
-    this.assessmentService.increaseCumulatedPreferredPattern3();
-    this.summarylogger();
-    this.recommendation();
-  }*/
 
   recommendation() {
     
