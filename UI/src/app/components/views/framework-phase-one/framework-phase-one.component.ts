@@ -19,4 +19,7 @@ export class FrameworkPhaseOneComponent {
   showInfo() {
     this.showInfoBool = !this.showInfoBool;
   }
+
+  progress(){
+  }
 }

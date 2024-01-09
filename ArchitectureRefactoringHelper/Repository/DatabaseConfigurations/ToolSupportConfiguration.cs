@@ -30,6 +30,7 @@ public class ToolSupportConfiguration : IEntityTypeConfiguration<ToolSupport>
             {
                 Name = Constants.AttributeDefaultNoToolSupport,
                 Description = ""
-            });
+            }
+        );
     }
 }

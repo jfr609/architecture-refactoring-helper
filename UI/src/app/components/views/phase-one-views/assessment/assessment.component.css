@@ -1,6 +1,130 @@
-.images {
+.drop-list {
+  border: solid 1px #ccc;
+  min-height: 60px;
+  background: white;
+  border-radius: 4px;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
+  width: 100%;
+  max-width: 100%;
+  max-height: 700px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.drop-box {
+  padding: 5px 5px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background: white;
+  font-size: 14px;
+
+}
+
+.selected-drop-box {
+  padding: 20px 10px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background: white;
+  font-size: 12px;
+  border: ridge 2px;
+  border-color: green;
+}
+
+
+.drop-box:active {
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 100ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.drop-box:last-child {
+  border: none;
+}
+
+.drop-list .cdk-drop-list-dragging .drop-box:not(.cdk-drag-placeholder) {
+  transition: transform 100ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.drop-handle {
+  padding: 10px;
+  cursor: move;
+}
+
+.scenario-card {
+  max-width: 100%;
+}
+
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  align-items: flex-start;
+}
+
+.radio-button {
+  margin: 5px;
+}
+
+.description-field {
+  width: 100%;
+}
+
+.stepper-button-row {
+  margin: 25px 0;
+}
+
+.max-width-descriptionA {
+  min-width: 10%;
+  max-width: 100vw;
+  overflow: auto;
+  text-overflow: hidden;
+}
+.max-width-descriptionB {
+  min-width: 10%;
+  max-width: 100vw;
+  overflow: auto;
+  text-overflow: hidden;
+}
+.max-width-descriptionC {
+  min-width: 30%;
+  width:300px;
+  max-width: 100vw;
+  height: fit-content;
+  overflow: auto;
+
+}
+.pattern-field {
+  min-width: 10%;
+  max-width: 100vw;
+  overflow: auto;
+
+}
+.explanation-field {
+  min-width: 25%;
+  max-width: 100vw;
+  overflow: auto;
+
 }

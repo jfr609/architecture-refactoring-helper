@@ -27,6 +27,7 @@ public class DomainArtifactInputConfiguration : IEntityTypeConfiguration<DomainA
                 Name = "Documentation",
                 Description =
                     "Software documentation describes and documents systems at different levels of abstraction. It includes textual descriptions as well as diagrams and models"
-            });
+            }
+        );
     }
 }

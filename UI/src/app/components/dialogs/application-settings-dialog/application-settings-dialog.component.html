@@ -2,6 +2,11 @@
   <h3>{{data.title}}</h3>
 </div>
 <div mat-dialog-content >
+  <mat-form-field class='margin-bottom'>
+    <mat-label>Enter Password</mat-label>
+    <input matInput type="password" [(ngModel)]='this.password' (input)="validateAuthentication()" placeholder='*******'>
+  </mat-form-field>
+  <span *ngIf="validAuthentication">
   <mat-slide-toggle class='margin-bottom' [(ngModel)]='this.permissionService.isAdmin'>
     Show admin functions
   </mat-slide-toggle>
@@ -14,13 +19,17 @@
     routerLink="phase/2/approach"
     (click)="onCancelClicked()"
   >
-    <span> <strong>Add</strong> a new approach to database! </span>
+ 
+  <span><strong>Add</strong> a new approach to database! </span>
   </button>
-  <button mat-raised-button color='accent' class='margin-bottom' (click)='exportApproaches()'>
+
+  <button mat-raised-button color='accent' class='margin-bottom'  *ngIf="permissionService.isAdmin" (click)='exportApproaches()'>
     <mat-icon style='margin-right: 8px'>file_download</mat-icon>
     <span>Export approaches</span>
   </button>
-  <button mat-raised-button color='accent' class='margin-bottom' (click)='importApproaches()'>
+
+
+  <button mat-raised-button color='accent' class='margin-bottom'  *ngIf="permissionService.isAdmin" (click)='importApproaches()'>
     <mat-icon style='margin-right: 8px'>file_upload</mat-icon>
     <span>Import approaches</span>
     <input #importInput type='file' style='display: none' accept='.json' (change)='handleImport($event)'>
@@ -48,7 +57,8 @@
     <span>Import tools</span>
     <input #importToolInput type='file' style='display: none' accept='.json' (change)='handleToolImport($event)'>
   </button>
-</div>
+
+
 <div mat-dialog-actions>
   <button mat-raised-button color='warn'
           (click)='onCancelClicked()'>{{data.cancelButtonText}}</button>

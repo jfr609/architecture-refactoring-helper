@@ -22,6 +22,7 @@ public class RuntimeArtifactInputConfiguration : IEntityTypeConfiguration<Runtim
                 Name = "User-Application interactions",
                 Description =
                     "User-interface inputs capturing the relationship between users and the system’s functionalities."
-            });
+            }
+        );
     }
 }

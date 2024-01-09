@@ -20,27 +20,28 @@ import {
 import { AttributeOptionsService } from 'src/app/services/attribute-options.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { UtilService } from 'src/app/services/util.service';
-
+import { Injectable } from '@angular/core';
 @Component({
   selector: 'app-quality-attributes',
   templateUrl: './quality-attributes.component.html',
   styleUrls: ['./quality-attributes.component.css']
 })
+@Injectable({
+  providedIn: 'root'
+})
 export class QualityAttributesComponent implements OnInit {
   isDataLoading = true;
   ratingLevel = RatingLevel;
   enumKeys: any;
-
   scenarioList: any = [];
   selectedScenario?: Scenario;
-
   qualityList: any = [];
   readonly QualityCategories = QualityCategory;
   indeterminateList = new Array<Quality>();
-
   deletingScenariosList = new Array<Scenario>();
   newScenariosList = new Array<Scenario>();
   updatingScenariosList = new Array<Scenario>();
+  k = 0;
 
   constructor(
     public projectService: ProjectService,
@@ -58,7 +59,7 @@ export class QualityAttributesComponent implements OnInit {
       this.attributesService.requestQualities()
     ]).then(() => {
       this.scenarioList = this.projectService.scenarios.value;
-      this.updatingScenariosList = Object.assign([], this.scenarioList);
+      this.updatingScenariosList = [...this.scenarioList];//was it this?
       this.qualityList = this.attributesService.getQualitiesByCategory(
         this.QualityCategories.Attribute
       );
@@ -67,15 +68,33 @@ export class QualityAttributesComponent implements OnInit {
   }
 
   addEmptyScenario(): void {
+    // Find the highest scenario ID in the scenarioList
+    const highestId = this.scenarioList.reduce((max: number, scenario: Scenario) => {
+      // Use 0 as a fallback if scenarioId is undefined
+      const currentId = scenario.scenarioId ?? 0;
+      return currentId > max ? currentId : max;
+    }, 0);
+  
+    // Create a new scenario with an ID that is one more than the highest
     let emptyScenario: Scenario = {
+      scenarioId: highestId + 1,
       name: '',
       description: '',
       qualities: [],
-      qualitySublevels: []
+      qualitySublevels: [],
     };
+  
+    // Add the new scenario to the lists
     this.scenarioList.push(emptyScenario);
     this.newScenariosList.push(emptyScenario);
   }
+
+  counter(k: number): number {
+    k++;
+    this.k = k;
+    return this.k;
+  }
+
 
   deleteScenario(scenario: Scenario): void {
     const data: ConfirmDialogData = {
@@ -223,10 +242,13 @@ export class QualityAttributesComponent implements OnInit {
 
   createAll() {
     if (this.newScenariosList.length > 0) {
+      //this.scenarioList.reverse();
+      //this.newScenariosList.reverse();
       this.newScenariosList.forEach((e) => {
         this.scenarioService
           .addScenario({
             body: e
+            
           })
           .subscribe({
             next: (value) => {},
@@ -236,6 +258,7 @@ export class QualityAttributesComponent implements OnInit {
             }
           });
       });
+      console.log(this.newScenariosList);
       this.newScenariosList.splice(0);
     }
   }
@@ -294,7 +317,8 @@ export class QualityAttributesComponent implements OnInit {
           if (data == null) return;
           this.fireAll();
         }
-      });
+      }
+    );
   }
 
   fireAll() {

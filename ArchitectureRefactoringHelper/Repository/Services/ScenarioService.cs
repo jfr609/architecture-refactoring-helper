@@ -154,7 +154,10 @@ public class ScenarioService
             Name = scenario.Name,
             Description = scenario.Description,
             Difficulty = scenario.Difficulty,
-            Importance = scenario.Importance
+            Importance = scenario.Importance,
+            ImplementedPattern = scenario.ImplementedPattern,
+            PreferredPattern = scenario.PreferredPattern,
+            Explanation = scenario.Explanation
         };
 
         if (scenario.Qualities != null)
@@ -180,6 +183,11 @@ public class ScenarioService
             newScenario.Qualities = scenario.Qualities;
             newScenario.QualitySublevels = subList;
         }
+
+       /* if (scenario.ImplementedPattern != null)
+        {
+            db.ImplementedPatterns.Attach(scenario.ImplementedPattern);
+        }*/
 
 
         return Utils.AddEntityAndSaveChanges(newScenario, ref db);
@@ -220,7 +228,10 @@ public class ScenarioService
             Name = scenario.Name,
             Description = scenario.Description,
             Difficulty = scenario.Difficulty,
-            Importance = scenario.Importance
+            Importance = scenario.Importance,
+            ImplementedPattern = scenario.ImplementedPattern,
+            PreferredPattern = scenario.PreferredPattern,
+            Explanation = scenario.Explanation
         };
 
         db.Entry(existingScenario).CurrentValues.SetValues(newScenario);

@@ -1,0 +1,64 @@
+{
+  "project": 1,
+  "systemspecs": [
+    {
+      "projectname": null,
+      "projectownership": null,
+      "creationdate": null,
+      "systemsize": null,
+      "hosting": null,
+      "teams": null,
+      "developers": null,
+      "process modell": null
+    }
+  ],
+  "systemdescription": [
+    {
+      "purpose": "",
+      "functionality": "",
+      "designdiagrams": ""
+    }
+  ],
+  "properties":[
+    {
+      "architecture_pattern": {},
+      "languages": {},
+      "persistence": {}
+    }
+  ],
+  "strategicGoals":[
+    {
+      "projectmethod": "",
+      "projectowner": "",
+      "participants": "",
+      "objectives": [
+        {
+          "id":   "",
+          "name": "",
+          "type": ""
+        },
+        {
+          "id": "",
+          "name": "",
+          "type": ""
+        }
+      ]
+    }
+  ],
+  "Scenarios":[
+    {
+      "description": "",
+      "importance": "",
+      "difficulty": "",
+      "implented_using": 
+          {
+            "value1": "",
+            "value2": "",
+            "value3": "",
+            "value4": ""
+          },
+      "preferred pattern": "",
+      "explanation": ""
+    } 
+  ]
+}

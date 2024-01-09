@@ -56,5 +56,4 @@ public class ArchitecturalDesignController : ControllerBase
     
         return Ok(recommendations);
     }
-
 }

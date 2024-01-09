@@ -8,4 +8,5 @@ import { APP_TITLE } from './app.constants';
 })
 export class AppComponent {
   title = APP_TITLE;
+
 }

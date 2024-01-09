@@ -9,11 +9,64 @@ namespace Repository.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "ProjectDescription",
+                columns: table => new
+                {
+                    ProjectDescriptionId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Systemname = table.Column<string>(type: "INTEGER", nullable: false),
+                    Ownership = table.Column<string>(type: "TEXT", nullable: true),
+                    Creation_date = table.Column<string>(type: "TEXT", nullable: true),
+                    Systemsize_LOC = table.Column<string>(type: "INTEGER", nullable: true),
+                    Hosting_model = table.Column<string>(type: "TEXT", nullable: true),
+                    Number_of_Teams = table.Column<string>(type: "INTEGER", nullable: true),
+                    Number_of_Developers = table.Column<string>(type: "INTEGER", nullable: true),
+                    Processmodel = table.Column<string>(type: "TEXT", nullable: true),
+                    Architecturepattern = table.Column<string>(type: "TEXT", nullable: true),
+                    Languages = table.Column<string>(type: "TEXT", nullable: true),
+                    Data_Persistence = table.Column<string>(type: "TEXT", nullable: true),
+                    Purpose = table.Column<string>(type: "TEXT", nullable: true),
+                    Functionality = table.Column<string>(type: "TEXT", nullable: true),
+                    Designdiagrams = table.Column<string>(type: "TEXT", nullable: true),
+                    //new column for implemented pattern
+                    //new column for preferred pattern
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProjectDescription", x => x.ProjectDescriptionId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StrategicGoals",
+                columns: table => new{
+                    StrategicGoalsId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Method = table.Column<string>(type: "TEXT", nullable: true),
+                    Owner = table.Column<string>(type: "TEXT", nullable: true),
+                    Participants = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StrategicGoals", x => x.StrategicGoalsId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Objectives",
+                columns: table => new{
+                    ObjectivesId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ObjectivesName = table.Column<string>(type: "TEXT", nullable: true),
+                    ObjectivesGoalType = table.Column<string>(type: "TEXT", nullable: true),
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Objectives", x => x.ObjectivesId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Approach.Input.DomainArtifact",
                 columns: table => new
                 {
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: true)
+                    
                 },
                 constraints: table =>
                 {
@@ -981,6 +1034,14 @@ namespace Repository.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name:"ProjectDescription"
+            );
+
+            migrationBuilder.DropTable(
+                name: "StrategicGoals");
+
+
             migrationBuilder.DropTable(
                 name: "JoinTable.Approach.Input.DomainArtifact");
 

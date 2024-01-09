@@ -102,3 +102,52 @@ body {
 .small-card-title {
   font-size: 16px !important;
 }
+.mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+  //background-color: transparent !important;
+  color: green;
+  +.mat-step-label{
+    color: green !important;
+  }
+}
+.mat-step-header .mat-step-icon-selected{
+  // background-color: $primary;
+  background-color:  rgb(255, 255, 0);
+  +.mat-step-label{
+    color: rgb(0, 0, 0) !important;
+  }
+}
+.mat-step-header {
+  color: rgba(128, 128, 128, 0.54)
+}
+.mat-step-header  {
+  color: rgba(128, 128, 128, 0.54);
+  //background-color: transparent;
+}
+/* Change the color of the radio button's circle for the element with ID 'radio-2' */
+.custom-yellow.mat-radio-checked.mat-accent .mat-radio-inner-circle {
+  background-color: yellow; /* Your custom yellow color */
+}
+
+.custom-yellow.mat-radio-ripple.mat-accent {
+  background-color: yellow; /* Your custom yellow color */
+}
+
+.custom-yellow.mat-accent.mat-radio-ripple-element {
+  background-color: yellow; /* Your custom yellow color */
+}
+.custom-yellow.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: yellow; /* Your custom yellow color for the outer circle */
+}
+
+.custom-yellow.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-inner-circle {
+  background-color: yellow; /* Your custom yellow color for the inner circle when checked */
+}
+.custom-yellow.mat-ripple-element {
+  background-color: yellow; /* Your custom yellow color for the persistent ripple effect */
+}
+.custom-yellow.mat-radio-ripple.mat-accent {
+  background-color: yellow; /* Your custom yellow color for the ripple effect */
+}
+.mat-radio-inner-circle, .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple), .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple, .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
+  background-color: yellow;
+}

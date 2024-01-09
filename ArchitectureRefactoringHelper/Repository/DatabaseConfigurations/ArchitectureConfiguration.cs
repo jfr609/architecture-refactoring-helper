@@ -20,6 +20,7 @@ public class ArchitectureConfiguration : IEntityTypeConfiguration<Architecture>
             {
                 Name = "Microservices",
                 Description = ""
-            });
+            }
+        );
     }
 }

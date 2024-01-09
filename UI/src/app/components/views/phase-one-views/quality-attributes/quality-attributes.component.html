@@ -3,7 +3,11 @@
 to the scenarios.
 <br/>
 For importance, a scale of prioritization is applied, where <strong>A</strong> means 'important', <strong>B</strong> means 'medium' and <strong>C</strong> means 'less
-important'. For difficulty, <strong>A</strong> means 'very difficult', <strong>B</strong> means 'normal' and <strong>C</strong> means 'easy'.</p>
+important'. For difficulty, <strong>A</strong> means 'very difficult', <strong>B</strong> means 'normal' and <strong>C</strong> means 'easy'.
+In this section, several scenarios can be specified that reflect the system's use cases and behaviour from a user perspective. Such scenarios are elicitated e.g. as described in the ATAM method, typically in the course of an Architecture Review session.
+To each scenario, a set of related quality attributes (to be improved) can be assigned. Furthermore, each scenario is assiged an Importance and Difficulty value ranging from A to C. Importance indicates the relevance of the scenario for the functionality of the entire system, where A means 'important', B means 'medium' and C means 'less important'.
+Difficulty indicates how much effort is needed (how difficult is) to implement the scenario, where means 'very difficult', B means 'normal' and C means 'easy'.</p>
+
 </div>
 <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px' fxLayoutAlign='center'>
   <button mat-flat-button matStepperPrevious color='accent'>
@@ -51,11 +55,16 @@ important'. For difficulty, <strong>A</strong> means 'very difficult', <strong>B
           </div>
           <div fxLayout="column">
             <div fxLayout="row" fxLayoutGap="10px" >
-              <mat-form-field appearance="fill" fxFlex="70">
+
+              <mat-form-field appearance="fill" fxFlex="10">
+                <mat-label>ID </mat-label>
+                  <input mdInput type="number" min="0" matInput [(ngModel)]="scenario.scenarioId"  required />
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" fxFlex="50">
                 <mat-label>Name</mat-label>
                 <input matInput [(ngModel)]="scenario.name" required />
               </mat-form-field>
-
 
               <mat-form-field  appearance="fill" fxFlex="15"> 
                 <mat-label>Importance</mat-label>

@@ -12,6 +12,16 @@ public class RefactoringApproachContext : DbContext
 
     public DbSet<Scenario> Scenarios { get; set; }
 
+    public DbSet<ProjectDescription> ProjectDescriptions { get; set; }
+
+    //public DbSet<Language> Languages { get; set; }
+
+    public DbSet<StrategicGoals> StrategicGoals { get; set; }
+
+    public DbSet<Objectives> Objectives { get; set; }
+
+    //public DbSet<ImplementedPattern> ImplementedPatterns { get; set; }
+
     public DbSet<ApproachSource> ApproachSources { get; set; }
     public DbSet<ArchitecturalDesignSource> ArchitecturalDesignSources { get; set; }
 
@@ -62,7 +72,10 @@ public class RefactoringApproachContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Apply Configurations
+        modelBuilder.ApplyConfiguration(new ProjectDescriptionConfiguration());
+        modelBuilder.ApplyConfiguration(new StrategicGoalsConfiguration());
         modelBuilder.ApplyConfiguration(new ScenarioConfiguration());
+        //modelBuilder.ApplyConfiguration(new ObjectivesConfiguration());
 
         modelBuilder.ApplyConfiguration(new RefactoringApproachConfiguration());
         modelBuilder.ApplyConfiguration(new ApproachProcessConfiguration());

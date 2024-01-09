@@ -29,6 +29,7 @@ public class ExecutableInputInputConfiguration : IEntityTypeConfiguration<Execut
                 Name = "Test cases",
                 Language = "No specification",
                 Description = ""
-            });
+            }
+        );
     }
 }

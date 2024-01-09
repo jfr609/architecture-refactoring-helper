@@ -1,5 +1,114 @@
-<img  class="images" src="assets/Phase1-UI4.jpg"/>
-<div>
-  <button mat-button matStepperPrevious>Back</button>
-  <button mat-button matStepperNext>Next</button>
-</div>
+<div fxLayout='row' fxLayoutGap='8px' fxLayoutAlign='center'>
+  <p class='max-width-800'>In this section, scenarios can be created based on the <a href="https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=5177" target="_blank">ATAM method</a>. For this purpose, quality attributes you want to optimize can be assigned
+          to the scenarios.
+          <br/>
+          For importance, a scale of prioritization is applied, where <strong>A</strong> means 'important', <strong>B</strong> means 'medium' and <strong>C</strong> means 'less
+          important'. For difficulty, <strong>A</strong> means 'very difficult', <strong>B</strong> means 'normal' and <strong>C</strong> means 'easy'.</p>
+          </div>
+        <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px' fxLayoutAlign='center'>
+          <button mat-flat-button matStepperPrevious color='accent'>
+            <mat-icon>arrow_back</mat-icon>
+            <span>Back</span>
+          </button>
+          <button mat-flat-button matStepperNext color='accent'>
+            <span>Next</span>
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+          <button mat-raised-button color="primary" (click)="saveChanges()" ><span>Save Changes </span></button>
+          <mat-divider vertical></mat-divider>
+          <button mat-flat-button color='accent' [routerLink]="['/phase/2']">
+            <mat-icon>move_down</mat-icon>
+            <span> Skip to Phase 2</span>
+          </button>
+          <button mat-flat-button color='accent' [routerLink]="['/phase/3']">
+            <mat-icon>move_down</mat-icon>
+            <span> Skip to Phase 3</span>
+          </button>
+          </div>
+          
+
+  <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center">
+
+      <mat-card class="scenario-card" class="mat-elevation-z8">
+        <h2>Architecture Suitability Assessment</h2> 
+        <mat-card-title>Scenarios        
+          <button style="margin-left: 10px;" mat-mini-fab class="attribute-button" color="primary" (click)="renewAssessment()" >
+          <mat-icon>autorenew</mat-icon>
+        </button></mat-card-title>  
+
+
+      <div class="mat-elevation-z8"  cdkDropList class="drop-list" (cdkDropListDropped)="drop($event)"
+      [cdkDropListData]="scenarioList">
+
+        <ng-container *ngIf="scenarioList.length > 0; else emptyScenarioList">
+          <div *ngFor="let scenario of  scenarioList" [cdkDragData]="scenario" cdkDragLockAxis="y" 
+          cdkDrag (click)="scenarioSelected(scenario)" [ngClass]="{
+            'selected-drop-box': checkCurrentScenario(scenario),
+            'drop-box': !checkCurrentScenario(scenario)
+          }"
+          cdkDragBoundary=".drop-list" > 
+           
+
+          <div fxLayout="column">
+          
+
+
+              <div fxLayout="row"  fxLayoutAlign="start start">
+                  <div class="drop-handle" cdkDragHandle>
+                    <mat-icon mat-list-icon>drag_indicator</mat-icon>
+                  </div> 
+
+                <div fxLayout="column"  fxLayoutAlign="start start">
+ 
+                  <div fxLayout="column"  fxLayoutAlign="start start">
+                    <mat-panel-description>{{"Name: " + scenario.name }}</mat-panel-description>  
+                  </div>                   
+  
+                  <div fxLayout="row"  fxLayoutAlign="start start">
+
+
+
+                    <mat-panel-description class="max-width-descriptionA">{{"Importance: " + scenario.importance }}</mat-panel-description>
+                    <mat-panel-description class="max-width-descriptionB">{{"Difficulty: " + scenario.difficulty}}</mat-panel-description>
+                    <mat-form-field class="max-width-descriptionC" appearance="outline">
+                    <mat-label  label="Description">Description</mat-label>
+                      <textarea matInput [(ngModel)]=" scenario.description" readonly></textarea> 
+                    </mat-form-field>
+                 
+              
+                      <mat-form-field class="pattern-field" appearance="outline">
+                      <mat-label>Implementable Using</mat-label>
+                        <mat-select [(value)]="scenario.implementedPattern" multiple><!-- multiple-->
+                          <mat-option *ngFor="let pattern of patternOptions" [value]="pattern">
+                            {{ pattern }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+  
+                      <mat-form-field class="pattern-field" appearance="outline">
+                      <mat-label>Preferred Pattern</mat-label>
+                        <mat-select [(value)]="scenario.preferredPattern">
+                          <mat-option></mat-option>
+                          <mat-option *ngFor="let pattern of patternOptions" [value]="pattern">
+                            {{ pattern }} 
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                            
+                      <mat-form-field class="explanation-field" appearance="outline">
+                      <mat-label  label="Explanation">Explanation</mat-label>
+                        <textarea matInput [(ngModel)]="scenario.explanation"></textarea>         
+                      </mat-form-field></div>
+                  </div>
+             </div>
+           
+          </div></div>
+        </ng-container>
+      </div>
+          
+
+    <ng-template #emptyScenarioList>
+      <p style="color: grey; margin-left: 10px; margin-right: 10px"><i>No existing scenarios. Please create a scenarios
+         in the scenario step</i></p>
+    </ng-template>
+    

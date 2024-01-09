@@ -12,6 +12,7 @@ import { lastValueFrom } from 'rxjs';
 import { RefactoringApproach } from '../../../../../api/repository/models/refactoring-approach';
 import { UtilService } from '../../../services/util.service';
 import { Tool } from 'api/repository/models/tool';
+import { ProjectService } from '../../../services/project.service';
 
 @Component({
   selector: 'app-application-settings-dialog',
@@ -21,6 +22,8 @@ import { Tool } from 'api/repository/models/tool';
 export class ApplicationSettingsDialogComponent {
   @ViewChild('importInput') importInput!: ElementRef;
   @ViewChild('importToolInput') importToolInput!: ElementRef;
+  validAuthentication: boolean = false;
+  password: string = '';
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -30,7 +33,35 @@ export class ApplicationSettingsDialogComponent {
     private refactoringApproachService: RefactoringApproachService,
     private toolService: ToolService,
     private utilService: UtilService
-  ) {}
+  ) {
+    this.checkAdminSession();
+  }
+
+  validateAuthentication() {
+    if (this.password == 'admin') {
+      this.validAuthentication = true;
+      const now = new Date();
+      const item = {
+          value: 'admin',
+          expiry: now.getTime() + 86400000, // current time + 1 day in milliseconds
+      };
+      sessionStorage.setItem('adminAuth', JSON.stringify(item));
+    }
+  }
+
+  checkAdminSession() {
+    const adminAuthString = sessionStorage.getItem('adminAuth');
+  
+    if (adminAuthString) { // This checks if the string is not null
+      const adminAuth = JSON.parse(adminAuthString);
+      const now = new Date();
+  
+      if (now.getTime() < adminAuth.expiry) {
+        this.validAuthentication = true;
+        this.permissionService.isAdmin = true;
+      }
+    }
+  }
 
   onCancelClicked() {
     this.dialogRef.close();
