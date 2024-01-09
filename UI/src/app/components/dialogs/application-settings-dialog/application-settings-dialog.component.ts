@@ -73,10 +73,86 @@ export class ApplicationSettingsDialogComponent {
       withDetails: true
     })
   ).then((refactoringApproaches: RefactoringApproach[]) => {
-    //remove all tool properties but keep only identifier
     for (const approach of refactoringApproaches) {
+	    
+      // remove all tool properties and keep only identifier
       if (approach && approach.approachUsability && approach.approachUsability.tools) {
         approach.approachUsability.tools = approach.approachUsability.tools.map(tool => ({ identifier: tool?.identifier }));
+      }
+
+      // if domainArtifactInputs is defined and not null, then remove description for export
+      if (approach.domainArtifactInputs && Array.isArray(approach.domainArtifactInputs)) {
+        approach.domainArtifactInputs.forEach(input => delete input.description);
+      }
+
+      // if runtimeArtifactInputs is defined and not null, then remove description for export
+      if (approach.runtimeArtifactInputs && Array.isArray(approach.runtimeArtifactInputs)) {
+        approach.runtimeArtifactInputs.forEach(input => delete input.description);
+      }
+
+      // if modelArtifactInputs is defined and not null, then remove description for export
+      if (approach.modelArtifactInputs && Array.isArray(approach.modelArtifactInputs)) {
+        approach.modelArtifactInputs.forEach(input => delete input.description);
+      }
+
+      // if executableInputs is defined and not null, then remove description for export
+      if (approach.executableInputs && Array.isArray(approach.executableInputs)) {
+        approach.executableInputs.forEach(input => delete input.description);
+      }
+
+      // if approachProcess.qualities is defined and not null, then remove description for export
+      if (approach.approachProcess && approach.approachProcess.qualities && Array.isArray(approach.approachProcess.qualities)) {
+        approach.approachProcess.qualities.forEach(quality => delete quality.description);
+      }
+
+      // if approachProcess.qualitySublevels is defined and not null, then remove description for export
+      if (approach.approachProcess && approach.approachProcess.qualitySublevels && Array.isArray(approach.approachProcess.qualitySublevels)) {
+        approach.approachProcess.qualitySublevels.forEach(qualitySublevels => delete qualitySublevels.description);
+      }
+
+      // if approachProcess.directions is defined and not null, then remove description for export
+      if (approach.approachProcess && approach.approachProcess.directions && Array.isArray(approach.approachProcess.directions)) {
+        approach.approachProcess.directions.forEach(direction => delete direction.description);
+      }
+
+      // if approachProcess.automationLevels is defined and not null, then remove description for export
+      if (approach.approachProcess && approach.approachProcess.automationLevels && Array.isArray(approach.approachProcess.automationLevels)) {
+        approach.approachProcess.automationLevels.forEach(level => delete level.description);
+      }
+
+      // if approachProcess.analysisTypes is defined and not null, then remove description for export
+      if (approach.approachProcess && approach.approachProcess.analysisTypes && Array.isArray(approach.approachProcess.analysisTypes)) {
+        approach.approachProcess.analysisTypes.forEach(type => delete type.description);
+      }
+
+      // if approachProcess.techniques is defined and not null, then remove description for export
+      if (approach.approachProcess && approach.approachProcess.techniques && Array.isArray(approach.approachProcess.techniques)) {
+        approach.approachProcess.techniques.forEach(technique => delete technique.description);
+      }
+
+      // if approachProcess.processStrategies is defined and not null, then remove description for export
+      if (approach.approachProcess && approach.approachProcess.processStrategies && Array.isArray(approach.approachProcess.processStrategies)) {
+        approach.approachProcess.processStrategies.forEach(strategy => delete strategy.description);
+      }
+
+      // if approachProcess.atomarUnits is defined and not null, then remove description for export
+      if (approach.approachProcess && approach.approachProcess.atomarUnits && Array.isArray(approach.approachProcess.atomarUnits)) {
+        approach.approachProcess.atomarUnits.forEach(unit => delete unit.description);
+      }
+
+      // if representationOutputs is defined and not null, then remove description for export
+      if (approach.representationOutputs && Array.isArray(approach.representationOutputs)) {
+        approach.representationOutputs.forEach(output => delete output.description);
+      }
+
+      // if approachUsability.accuracyPrecision is defined and not null, then remove description for export
+      if (approach.approachUsability && approach.approachUsability.accuracyPrecision) {
+        delete approach.approachUsability.accuracyPrecision.description;
+      }
+
+      // if approachUsability.validationMethod is defined and not null, then remove description for export
+      if (approach.approachUsability && approach.approachUsability.validationMethod) {
+        delete approach.approachUsability.validationMethod.description;
       }
     }
     const downloadLink: HTMLAnchorElement = document.createElement('a');
@@ -94,12 +170,19 @@ export class ApplicationSettingsDialogComponent {
         withDetails: true
       })
     ).then((tools: Tool[]) => {
-      //remove approachUsabilities from tools.json
       for (const tool of tools) {
-        if(tool && tool.approachUsabilities){
+	
+	// remove approachUsabilities from export
+        if (tool && tool.approachUsabilities) {
           delete tool.approachUsabilities;
         }
+	
+	// if toolTypes is defined and not null, then remove description from export
+        if (tool.toolTypes && Array.isArray(tool.toolTypes)) {
+          tool.toolTypes.forEach(input => delete input.description);
+        }
       }
+      
       const downloadLink: HTMLAnchorElement = document.createElement('a');
       downloadLink.download = 'tools.json';
       const fileContent: string = JSON.stringify(tools, null, 2); // Added indentation and null for space
