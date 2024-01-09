@@ -47,12 +47,12 @@
     <span> <strong>Add</strong> a new tool to database! </span>
   </button>
   <br>
-  <button mat-raised-button color='accent' class='margin-bottom' (click)='exportTools()'>
+  <button mat-raised-button color='accent' class='margin-bottom' *ngIf="permissionService.isAdmin" (click)='exportTools()'>
     <mat-icon style='margin-right: 8px'>file_download</mat-icon>
     <span>Export tools</span>
   </button>
   <br>
-  <button mat-raised-button color='accent' class='margin-bottom' (click)='importTools()'>
+  <button mat-raised-button color='accent' class='margin-bottom' *ngIf="permissionService.isAdmin" (click)='importTools()'>
     <mat-icon style='margin-right: 8px'>file_upload</mat-icon>
     <span>Import tools</span>
     <input #importToolInput type='file' style='display: none' accept='.json' (change)='handleToolImport($event)'>

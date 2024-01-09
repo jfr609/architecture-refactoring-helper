@@ -52,11 +52,16 @@
         </span>
       </th>
       <td mat-cell class='approach-cell' *matCellDef='let recommendation'>
-        <mat-icon *ngIf="!scenarioBased; else scenarioScore"
+	<mat-icon
+          matTooltip="Quality Tendency: {{ recommendation.totalScore < 0 ? 0 : recommendation.totalScore }}%"
+          matTooltipClass="recommendation-custom-tooltip"
+          *ngIf="!scenarioBased; else scenarioScore"
           [class]='getScoreIconStyle(recommendation.totalScore, columnData.columnDef)'>arrow_circle_up</mat-icon>
         <ng-template #scenarioScore>
-          <mat-icon [class]='getScoreIconStyle(recommendation.weightedScore, columnData.columnDef)'>arrow_circle_up
-          </mat-icon>
+          <mat-icon
+            matTooltip="Quality Tendency: {{ recommendation.totalScore < 0 ? 0 : recommendation.totalScore }}%"
+            matTooltipClass="recommendation-custom-tooltip"
+            [class]='getScoreIconStyle(recommendation.weightedScore, columnData.columnDef)'>arrow_circle_up</mat-icon>
         </ng-template>
       </td>
     </ng-container>
