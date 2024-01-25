@@ -15,24 +15,24 @@ public class RepresentationOutputConfiguration : IEntityTypeConfiguration<Repres
             {
                 Name = "Source code",
                 Description =
-                    "An ontology is a structured set of terms representing the semantics of a domain, whether through metadata or elements of a knowledge domain"
+                    "The approach generates source code for individual microservices or a skeleton for their implementation."
             },
             new Representation
             {
                 Name = "List of services",
-                Description = ""
+                Description = "The approach generates a list of services that typically contains clustered elements of the atomic unit."
             },
             new Representation
             {
                 Name = "Splitting recommendations",
                 Description =
-                    "Software documentation describes and documents systems at different levels of abstraction. It includes textual descriptions as well as diagrams and models"
+                    "The approach produces splitting recommendations or creates potential parameterizable service cuts."
             },
             new Representation
             {
                 Name = "Guideline / Workflow",
                 Description =
-                    "Software documentation describes and documents systems at different levels of abstraction. It includes textual descriptions as well as diagrams and models"
+                    "The approach does not produce tangible output artifacts, but rather serves as guideline or workflow in the decomposition process. It typically requires a high degree of human expertise and offers a low degree of automation."
             });
     }
 }

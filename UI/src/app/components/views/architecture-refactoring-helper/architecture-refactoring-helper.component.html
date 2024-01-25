@@ -43,13 +43,13 @@
     <div fxFlex="100" fxLayout="column" class="drawer">
       <h3>Your Configuration:</h3>
       <p *ngIf="projectService.scenarios.value.length == 0 && utilService.isScenarioBasedMode()"><i>No existing
-          scenarios. Please create a scenario by pressing the edit scenarios button.</i></p>
+          scenarios. Please create a scenario in phase 1.</i></p>
       <mat-accordion multi>
         <mat-expansion-panel *ngIf="projectService.scenarios.value.length > 0 && utilService.isScenarioBasedMode()"
           expanded>
           <mat-expansion-panel-header>
             <mat-panel-title><strong matBadge="{{ projectService.getQualitiesOfScenarioLengths() }}"
-                [matBadgeHidden]="projectService.getQualitiesOfScenarioLengths() == 0" matBadgeOverlap="false">Scenarios and their Qualities</strong>
+                [matBadgeHidden]="projectService.getQualitiesOfScenarioLengths() == 0" matBadgeOverlap="false">Scenarios and their qualities</strong>
             </mat-panel-title>
             <mat-panel-description> </mat-panel-description>
           </mat-expansion-panel-header>
@@ -96,7 +96,7 @@
             <mat-panel-title><strong
                 matBadge="{{ utilService.getArraysLength([recommendationService.qualityAttributeInformation, recommendationService.qualitySublevelInformation, recommendationService.qualitySystemPropertyInformation ]) }}"
                 [matBadgeHidden]="utilService.getArraysLength([recommendationService.qualityAttributeInformation, recommendationService.qualitySublevelInformation, recommendationService.qualitySystemPropertyInformation]) == 0"
-                matBadgeOverlap="false">Quality Preferences</strong></mat-panel-title>
+                matBadgeOverlap="false">Quality preferences</strong></mat-panel-title>
             <mat-panel-description> </mat-panel-description>
           </mat-expansion-panel-header>
           <h4>Quality Attributes</h4>
@@ -260,7 +260,7 @@
                 {{ element.name }}</mat-chip>
             </ng-container>
           </mat-chip-list>
-          <h4>Process Strategy</h4>
+          <h4>Process strategy</h4>
           <mat-chip-list>
             <ng-container *ngFor="let element of attributeOptionsService.processStrategies.value; let i = index"
               class="attribute-option-container">
@@ -360,7 +360,7 @@
                 {{ element.name }}</mat-chip>
             </ng-container>
           </mat-chip-list>
-          <h4>Tool supports</h4>
+          <h4>Tool support</h4>
           <mat-chip-list>
             <ng-container *ngFor="let element of attributeOptionsService.toolSupports.value; let i = index"
               class="attribute-option-container">
@@ -386,7 +386,7 @@
                 {{ element.name }}</mat-chip>
             </ng-container>
           </mat-chip-list> -->
-          <h4>Accuracy/Precision of service identification approaches</h4>
+          <h4>Accuracy/Precision of approach</h4>
           <mat-chip-list>
             <ng-container *ngFor="let element of attributeOptionsService.accuracyPrecisions.value; let i = index"
               class="attribute-option-container">

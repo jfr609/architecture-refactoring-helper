@@ -15,64 +15,64 @@ public class TechniqueConfiguration : IEntityTypeConfiguration<Technique>
             {
                 Name = "Wrapping / Black Box",
                 Description =
-                    "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
+                    "A Wrapping / Black Box technique is characterized by leaving an existing implementation unchanged, but wraps it by an additional service layer that exposes only the needed functionality."
             },
             new Technique
             {
                 Name = "Genetic algorithm",
                 Description =
-                    "A meta-heuristic for solving optimization problems that is based on \"natural selection\". It relies on the calculation of a fitness function to reach an optimal (or near-optimal) solution. By definition, an optimal solution is a feasible solution where the fitness function reaches its maximum (or minimum) value."
+                    "Genetic algorithms are defined as a meta-heuristic for solving optimization problems that is based on 'natural selection' that relies on the calculation of a fitness function to reach an optimal (or near-optimal) solution. However, the yielded optimization and service cut may not necessarily be architecturally relevant."
             },
             new Technique
             {
                 Name = "Clustering",
                 Description =
-                    "Clustering consists of classifying and partitioning data into clusters that share common properties. These clusters are built based on the internal homogeneity of their elements and the external separation between them."
+                    "Clustering is a technique of classifying and partitioning elements into clusters that share common properties. These clusters are built based on the internal homogeneity of their elements and the external separation between them. In the context of generating highly cohesive and loosely coupled services, clustering is an essential technique next to rule-based methods."
             },
             new Technique
             {
                 Name = "Custom heuristics",
                 Description =
-                    "Custom heuristic algorithms to decompose legacy software into Service Oriented Architecture differing from predefined algorithms."
+                    "Custom heuristics comprise techniques that have been specifically developed for the decomposition task. They do not clearly identify as one of the other mentioned techniques."
             },
             new Technique
             {
                 Name = "General guidelines",
-                Description = "Proposes best practices, lessons learned, or recommendations for service identification."
+                Description = "No specific technique is used. The approaches usually describes the decomposition on a higher level of abstraction by proposing best practices, lessons learned, or recommendations for service identification."
             },
             new Technique
             {
                 Name = "Domain-Driven Design",
                 Description =
-                    "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
+                    "Domain-Driven Design (DDD) is a popular manual technique in the context of microservices identification. Its complexity and involvement of domain expertise makes an automation difficult."
             },
             new Technique
             {
                 Name = "Data-flow driven",
                 Description =
-                    "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
+                    "Data-Flow driven techniques inspect the flow and processing of data throughout the application, e.g., by means of data flow diagrams."
             },
             new Technique
             {
                 Name = "Graph-based",
                 Description =
-                    "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
+                    "Graph-based techniques are common in the context of static code analysis, e.g., to represent source code at a higher level of abstraction."
             },
             new Technique
             {
                 Name = "Scenario analysis",
                 Description =
-                    "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
+                    "Scenario analysis is usually associated with a top-down direction and the utilization of, e.g., use-case models as input, but can also be used in conjunction with dynamic analysis techniques."
             }, new Technique
             {
                 Name = "Execution-trace modeling",
                 Description =
-                    "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
+                    "Execution-trace modeling reflects the application's runtime behavior. It can require the collection of logs or execution traces, which sometimes requires instrumenting the application and/or performing certain scenarios or user interactions."
             }, new Technique
             {
                 Name = "Performance modeling",
                 Description =
-                    "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
+                    "Performance modeling techniques aim to direct the decomposition of the applications by taking into account performance and scalability aspects."
             });
     }
 }

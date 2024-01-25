@@ -3,22 +3,23 @@
     <button mat-mini-fab color='warn' (click)="goBack()">
       <mat-icon>arrow_back</mat-icon>
     </button>
-    <span>Refactoring approach recommendations for {{getTitle()}}</span>
+    <span>Recommended refactoring approaches for {{getTitle()}}</span>
   </h1>
 
   <p class='max-width-800'>
-    This results page will show a list of service identification approaches ordered by the amount of matches that
-    expresses the overlap of the approach properties with your filter settings.
+    The result list below shows all refactoring approaches ordered by the number of matches 
+    that indicate the overlap of an approach's properties with your filter configuration.
+	By clicking on a title, matches and mismatches for an approach will be shown.
   </p>
   <p fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='8px'>
     <mat-icon color='accent'>info</mat-icon>
     <strong>Caution:</strong>
-    <span>The below presented result list does represent a work-in-progress state and may be inaccurate and incomplete.</span>
+    <span>The below presented list represents a work-in-progress state and may be inaccurate/incomplete.</span>
   </p>
 
   <button *ngIf="!preset" mat-flat-button color='accent' [routerLink]="!scenarioBased ? ['/phase/3/architecturalDesigns/result/manual'] : ['/phase/3/architecturalDesigns/result/scenarioBased'] ">
     <mat-icon>move_down</mat-icon>
-    <span> Show Patterns and Best Practices </span>
+    <span> Show Patterns and Best Practices (Phase 3)</span>
   </button>
   <table mat-table [dataSource]='dataSource' multiTemplateDataRows matSort matSortActive="matches" matSortDirection="desc" class='mat-elevation-z8'>
     <ng-container matColumnDef='{{ columnData.columnDef }}' *ngFor='let columnData of sortColumns'>

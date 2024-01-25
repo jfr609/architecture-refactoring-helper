@@ -15,37 +15,37 @@ public class ProcessStrategyConfiguration : IEntityTypeConfiguration<ProcessStra
             {
                 Name = "Greenfield",
                 Description =
-                    "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
+                    "The Greenfield strategy aims for building an entirely new application or system without restrictions or dependencies on the legacy application."
             },
             new ProcessStrategy
             {
                 Name = "Rewrite / Rebuild",
                 Description =
-                    "A meta-heuristic for solving optimization problems that is based on \"natural selection\". It relies on the calculation of a fitness function to reach an optimal (or near-optimal) solution. By definition, an optimal solution is a feasible solution where the fitness function reaches its maximum (or minimum) value."
+                    "Rewriting or rebuilding an application eases the introduction of new technologies. Individual services can be implemented using, e.g., the most suitable programming language or database technology. They can resolve current technical limitations and thereby improve several qualities of the application."
             },
             new ProcessStrategy
             {
                 Name = "Refactor",
                 Description =
-                    "Clustering consists of classifying and partitioning data into clusters that share common properties. These clusters are built based on the internal homogeneity of their elements and the external separation between them."
+                    "The existing monolithic code base is split up adequately into smaller parts, eventually forming several microservices. In the process of a refactoring, the currently employed technologies like programming languages, libraries, or packages can be retained. Moving to new technologies is not a necessity and thus reduces the overall cost and effort, allowing to shorten the timeframe for the entire migration process."
             },
             new ProcessStrategy
             {
                 Name = "Strangler",
                 Description =
-                    "Custom heuristic algorithms to decompose legacy software into Service Oriented Architecture differing from predefined algorithms."
+                    "The Strangler pattern suggests to iteratively replace parts or components of the system with new services in a resource-efficient and targeted manner. Existing functionalities will be implemented as services that are then attached to the existing system, while at the same time, this functionality in the legacy system is disabled. The process is completed when the newly emerged microservices application replaces the legacy system entirely."
             },
             new ProcessStrategy
             {
                 Name = "Continuous Evolution",
                 Description =
-                    "Custom heuristic algorithms to decompose legacy software into Service Oriented Architecture differing from predefined algorithms."
+                    "The Continuous Evolution strategy aims at minimizing the efforts and maintaining the system in its current state as far as possible. Compared to the Refactor strategy, changes can be done in a more targeted manner, e.g., combined with the implementation of new features, or based on certain qualities that should be improved."
             },
             new ProcessStrategy
             {
                 Name = "Extension",
                 Description =
-                    "Custom heuristic algorithms to decompose legacy software into Service Oriented Architecture differing from predefined algorithms."
+                    "This strategy aims for substantially extending the application's functionality in the course of a migration to microservices and is often combined with one of the other process strategies."
             });
     }
 }

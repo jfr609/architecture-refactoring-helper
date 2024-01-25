@@ -15,17 +15,17 @@ public class AutomationLevelConfiguration : IEntityTypeConfiguration<AutomationL
             {
                 Name = "Automatic",
                 Description =
-                    "Automatic approaches do not need any human intervention during the identification process."
+                    "An automatic approach needs only minimal human intervention in the refactoring process."
             },
             new AutomationLevel
             {
                 Name = "Semi-automatic",
-                Description = "Semi-automatic approaches need human experts to perform some of the tasks."
+                Description = "An semi-automatic approach needs human expertise in the refactoring process, which is partly automated."
             },
             new AutomationLevel
             {
                 Name = "Manual",
-                Description = "Manual approaches depend entirely on human experts."
+                Description = "A manual approach relies entirely on human expertise."
             }
         );
     }

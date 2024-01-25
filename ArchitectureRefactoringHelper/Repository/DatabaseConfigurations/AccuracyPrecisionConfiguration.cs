@@ -14,17 +14,17 @@ public class AccuracyPrecisionConfiguration : IEntityTypeConfiguration<AccuracyP
             new AccuracyPrecision
             {
                 Name = Constants.AttributeDefaultHigh,
-                Description = "Estimates the accuracy/precision of the service identification approach as high."
+                Description = "Estimates the accuracy/precision of the approach as high."
             },
             new AccuracyPrecision
             {
                 Name = Constants.AttributeDefaultMedium,
-                Description = "Estimates the accuracy/precision of the service identification approach as medium."
+                Description = "Estimates the accuracy/precision of the approach as medium."
             },
             new AccuracyPrecision
             {
                 Name = Constants.AttributeDefaultLow,
-                Description = "Estimates the accuracy/precision of the service identification approach as low."
+                Description = "Estimates the accuracy/precision of the approach as low."
             },
             new AccuracyPrecision
             {

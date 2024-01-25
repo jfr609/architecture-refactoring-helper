@@ -6,17 +6,12 @@
     <span>Phase 3</span>
   </h1>
   <p class='max-width-800'>
-    In the third phase of a migration, the architect considers important aspects for the target architecture. For this he chooses the patterns for the target architecture and at the same time,
-    he considers appropriate best practices for this purpose.
+    In Phase 3 of a migration, the target microservices architecture is designed. Patterns and best practices for the architectural design are means to achieve certain quality goals.
   </p>
   <p class='max-width-800'>
-    As a first step, you may want to explore the entire list of patterns and best practices by clicking on "Explore all architectural designs". This
-    will give you a list of patterns and best practices (currently there's only a subset of 6 patterns and 8 best practices in the database) which can
-    be explored in detail by clicking on them.
-  </p>
-  <p class='max-width-800'>
-    Otherwise you can look for recommended patterns and best practices based on qualities, inputs, outputs, processes and usability
-    aspects of existing patterns and best practices by clicking on "Find recommended Patterns and Best Practices".
+    As a first step, you may want to explore the list of cataloged patterns and best practices by clicking on "Explore all Patterns and Best Practices". It will present a list with the possibility to inspect all details of a pattern or best practice.
+    "Find recommended Patterns and Best Practices" presents you a ranked list of patterns based on the filter configuration in Phase 2 (shown in the Sidebar).
+	"Find scenario-based recommended Patterns and Best Practices" will combine the scenarios' quality goals from Phase 1 with the additional filter configuration in Phase 2 for calculating the ranking. <br />
   </p>
 
   <div class='card-group' fxLayout='row' fxLayoutGap='50px'>
@@ -33,15 +28,15 @@
         <strong>Find</strong> recommended Patterns and Best Practices
       </div>
       <ng-container content>
-        Find recommended Patterns and Best Practices based on preferred configurations.
+        Find recommended Patterns and Best Practices based on the filter configuration in Phase 2.
       </ng-container>
     </app-card-button>
     <app-card-button color='phase-1' routerLink='architecturalDesigns/result/scenarioBased'>
       <div title>
-        Find <strong>scenario-based</strong> recommended Patterns and Best Practices
+        <strong>Find scenario-based</strong> recommended Patterns and Best Practices
       </div>
       <ng-container content>
-        Find recommended Patterns and Best Practices based on scenarios declared in Phase 1.
+        Find recommended Patterns and Best Practices based on scenarios specified in Phase 1 and the filter configuration in Phase 2.
       </ng-container>
     </app-card-button>
   </div>

@@ -1,9 +1,6 @@
 <div fxLayout='row' fxLayoutGap='8px' fxLayoutAlign='center'>
-  <p class='max-width-800'>In this section, scenarios can be created based on the 
-    <a href="https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=5177" target="_blank">ATAM method</a>. 
-    For this purpose, quality attributes you want to optimize can be assigned to the scenarios.<br/>
-    For importance, a scale of prioritization is applied, where <strong>A</strong> means 'important', <strong>B</strong> means 'medium' and <strong>C</strong> means 'less
-    important'. For difficulty, <strong>A</strong> means 'very difficult', <strong>B</strong> means 'normal' and <strong>C</strong> means 'easy'.
+  <p class='max-width-800'>In this step, strategic goals can be added, e.g., based on the ATAM method. 
+    Strategic goals are reflected by business-, organizational-, or process-related objectives that drive a system's migration towards the microservices architectural style. The information is collected for documentation purposes only.
   </p>
 </div>
 
@@ -33,7 +30,7 @@
 
 <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center">
   <mat-card class="strategicGoal-card" class="mat-elevation-z8" >
-    <mat-card-title>Strategic Goals
+    <mat-card-title>Strategic Goals Definition
       <button *ngIf = "strategicGoalsList.length == 0"  style="margin-left: 10px; margin-bottom: 10px" mat-mini-fab class="attribute-button" color="primary" (click)="addEmptyStrategicGoals()">
         <mat-icon>add</mat-icon>
       </button>
@@ -107,12 +104,10 @@
         </div>
 
 <ng-template #emptyObjectivesList>
-  <p style="color: grey; margin-left: 10px; margin-right: 10px"><i>No existing Objectives. Please create an Objective
-    by adding one using the green add button (+) </i></p>
+  <p style="color: grey; margin-left: 10px; margin-right: 10px"><i>Please create an Objective by pressing the green add button (+).</i></p>
 </ng-template>
 
 <ng-template #emptyStrategicGoalsList>
-  <p style="color: grey; margin-left: 10px; margin-right: 10px"><i>No existing Strategic Goals. Please create a Strategic Goals
-    by adding one using the green add button (+) </i></p>
+  <p style="color: grey; margin-left: 10px; margin-right: 10px"><i>Please create a Strategic Goal by pressing the green add button (+).</i></p>
 </ng-template>
         

@@ -7,18 +7,18 @@
   </h1>
 
   <p class='max-width-800'>
-    In the second phase of a migration, the architect chooses the migration strategy and subsequently selects a suitable
-    service identification approach. The diagram on the following page shows the different development strategies that
-    can be chosen for a system modernization or migration.
+    In "Phase 2: Strategy Definition", a migration strategy and refactoring approach for the identification of microservices is selected. 
   </p>
   <p class='max-width-800'>
-    As a first step, you may want to explore the entire list of approaches by clicking on "Explore all approaches". This
-    will give you a list of approaches (currently there's only a subset of 22 approaches in the database) which can
-    be explored in detail by clicking on them. Each approach represents a peer-reviewed scientific publication.
+    As a first step, you may want to explore the list of all cataloged approaches and tools by clicking on 
+	"Explore all approaches" or "Explore all tools". It will present a list with the possibility to inspect
+	all details of an approach or tool. Each approach represents a peer-reviewed scientific publication.
   </p>
   <p class='max-width-800'>
-    Otherwise you can look for recommended refactoring approaches based on inputs, outputs, processes and usability
-    aspects of existing refactoring approaches by clicking on "Find recommended approaches".
+    "Find recommended approaches" offers basic filter presets for Refactor, Rebuild, and New Application,
+	and allows for a detailed filtering by subsequently clicking on "Configure".
+	"Find scenario-based recommended approaches" preselects the detailed filter configuration with the qualities
+	specified for the scenarios in "Phase 1: System Comprehension", and allows to apply further filters.
   </p>
 
   <div class='card-group' fxLayout='row' fxLayoutGap='50px'>
@@ -47,17 +47,17 @@
         <strong>Find</strong> recommended approaches
       </div>
       <ng-container content>
-        Find recommended refactoring approach recommendations based on qualities, preferred inputs, outputs,
-        processes and usability aspects of the approach.
+        Find refactoring approach recommendations based on qualities, preferred inputs, outputs,
+        processes, and usability aspects.
       </ng-container>
     </app-card-button>
 
     <app-card-button color='phase-1' [routerLink]="['recommendation', 'configure' , 'scenarioBased']">
       <div title>
-        Find <strong>scenario-based</strong> recommended approaches
+        <strong>Find scenario-based</strong> recommended approaches
       </div>
       <ng-container content>
-        Find recommended refactoring approach recommendations based on scenarios declared in Phase 1.
+        Find refactoring approach recommendations based on the scenarios specified in "Phase 1: System Comprehension".
       </ng-container>
     </app-card-button>
   </div>

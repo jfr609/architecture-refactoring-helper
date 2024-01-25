@@ -3,12 +3,12 @@
         <button mat-mini-fab color='warn' routerLink='/phase/3'>
             <mat-icon>arrow_back</mat-icon>
         </button>
-        <span>Explore all currently available Patterns and Best Practices</span>
+        <span>Explore all cataloged Patterns and Best Practices</span>
     </h1>
     <p fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='8px'>
         <mat-icon color='accent'>info</mat-icon>
         <strong>Caution:</strong>
-        <span>The below presented result list does represent a work-in-progress state and may be inaccurate and incomplete.</span>
+        <span>The below presented list represents a work-in-progress state and may be inaccurate/incomplete.</span>
       </p>
     <mat-button-toggle-group name="categoryFilter" aria-label="Category Filter" [(ngModel)]="categorySelected"
         (change)="refreshDataSource()">

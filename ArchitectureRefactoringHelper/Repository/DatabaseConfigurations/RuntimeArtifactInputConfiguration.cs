@@ -15,13 +15,13 @@ public class RuntimeArtifactInputConfiguration : IEntityTypeConfiguration<Runtim
             {
                 Name = "Log traces",
                 Description =
-                    "Execution traces of legacy software systems depicting the dynamic behavior of the systems"
+                    "Execution traces of the monolithic application, that reflect the dynamic behavior, are required as input."
             },
             new RuntimeArtifactInput
             {
                 Name = "User-Application interactions",
                 Description =
-                    "User-interface inputs capturing the relationship between users and the system’s functionalities."
+                    "User-interface interactions that capture the actions a user performs when using certain functionalities are required as input."
             }
         );
     }

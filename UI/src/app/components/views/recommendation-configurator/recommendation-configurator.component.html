@@ -10,44 +10,41 @@
   </h1>
 <ng-container *ngIf="configurationEnabled">
   <p class='max-width-800'>
-    Here you have three possibilities:
+    For each property, you can select one of three options:
   </p>
   <p class='max-width-800'>
-    "Include" - the approach must have this property
+    "Include" - the approach should have this property (match count +1)
     <br>
-    "Neutral" - the approach can have this property
+    "Neutral" - the approach can have this property (default, match count 0)
     <br>
-    "Exclude" - the approach does not have this property
+    "Exclude" - the approach should not have this property (match count -1)
+  </p>
+  <p class='max-width-800'>
+    When clicking "Show Results", you will be presented a ranked list of approaches, sorted by the match count.
   </p>
 </ng-container>
 
 <ng-container *ngIf="!configurationEnabled">
   <div style="min-height: 800px" fxLayout='column' fxLayoutAlign='start center' fxLayoutGap='12px'>
     <p class="max-width-800">
-      Here you have the possibility to apply the inputs from the scenarios for the qualities for the configuration.
-      You can see your configuration based on the scenarios and additional inputs in the sidebar on the right.
-    </p>
-    <p class="max-width-800">
-      You have the option to generate the recommendations based on the input from the scenarios and the current configuration,
-      or you can further customize or clear the configuration. In addition to the qualities, system properties can be added.
-      There is also the
-      possibility to further configure the input preferences, the process preferences, the output preferences and the
-      usability preferences.
+      Your selected quality attributes based on the scenarios are shown in the sidebar on the right.
+      By clicking on "Configure filters", you can now apply further filters, e.g., for input, output, 
+	  usability, or process properties. If you want to find recommended approaches solely based on the
+	  qualities, click on "Show results without further configuration".
       </p>
       <p class='max-width-800' fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='8px'>
         <mat-icon color='accent'>info</mat-icon>
         <strong>Important Note:</strong>
       <p class='max-width-800' fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='8px'>
-        <span>The selected importance of the scenarios have an influence on the evaluation of the results. <br />
-          In detail, this means that all selected quality attributes of the scenarios receive a weighting. The mapping for
-          this
-          is: Importance <strong>A</strong> implies a weighting of 3, <strong>B</strong> implies a weighting of 2, and
-          <strong>C</strong> implies a weighting of 1.</span>
+        <span>The selected importance of the scenarios influence the result calculation:<br />
+          All quality attributes of a scenario are weighted based on the scenario's importance,<br />
+          with <strong>A</strong> = weight of 3,&nbsp; <strong>B</strong> = weight of 2,&nbsp; and
+          <strong>C</strong> = weight of 1.</span>
       </p>
       <div class='stepper-button-row' fxLayout='row' fxLayoutGap='8px' fxLayoutAlign="center">
       <button mat-flat-button color='accent' [routerLink]="['/phase/1']">
         <mat-icon>move_up</mat-icon>
-        <span> Edit scenarios</span>
+        <span>Edit scenarios</span>
       </button>
       <button mat-flat-button color='primary' (click)="configurationEnabled = true">
         <mat-icon>build</mat-icon>
@@ -55,7 +52,7 @@
       </button>
       <button mat-flat-button color='primary' (click)='onSearchRecommendation()'>
         <mat-icon>search</mat-icon>
-        <span>Search without further configuration</span>
+        <span>Show results without further filters</span>
       </button>
 
     </div>
@@ -80,11 +77,11 @@
         </button>
         <button mat-flat-button color='primary' (click)='onSearchRecommendation()'>
           <mat-icon>search</mat-icon>
-          <span>Search</span>
+          <span>Show Results</span>
         </button>
         <mat-divider [vertical]="true"></mat-divider>
         <button mat-button color='warn' (click)='resetConfiguration()'>
-          <span>Reset Configuration </span>
+          <span>Reset Filter Configuration </span>
           <mat-icon>restart_alt</mat-icon>
         </button>
 
@@ -94,10 +91,10 @@
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <h2>Select quality preferences</h2>
+              <h2>Quality preferences</h2>
             </mat-panel-title>
             <mat-panel-description>
-              Select quality preferences for the refactoring approach.
+              Select quality preferences for refactoring approaches.
             </mat-panel-description>
           </mat-expansion-panel-header>
 
@@ -242,10 +239,10 @@
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <h2>Select input preferences</h2>
+              <h2>Input preferences</h2>
             </mat-panel-title>
             <mat-panel-description>
-              Select input preferences for the refactoring approach.
+              Select input preferences for refactoring approaches.
             </mat-panel-description>
           </mat-expansion-panel-header>
           <div style='margin-bottom: 20px;' fxLayout='row' fxLayoutGap='30px'>
@@ -432,10 +429,10 @@
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <h2>Select process preferences</h2>
+              <h2>Process preferences</h2>
             </mat-panel-title>
             <mat-panel-description>
-              Select process preferences for the refactoring approach.
+              Select process preferences for refactoring approaches.
             </mat-panel-description>
           </mat-expansion-panel-header>
 
@@ -720,10 +717,10 @@
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <h2>Select output preferences</h2>
+              <h2>Output preferences</h2>
             </mat-panel-title>
             <mat-panel-description>
-              Select output preferences for the refactoring approach.
+              Select output preferences for refactoring approaches.
             </mat-panel-description>
           </mat-expansion-panel-header>
 
@@ -777,10 +774,10 @@
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <h2>Select usability preferences</h2>
+              <h2>Usability preferences</h2>
             </mat-panel-title>
             <mat-panel-description>
-              Select usability preferences for the refactoring approach.
+              Select usability preferences for refactoring approaches.
             </mat-panel-description>
           </mat-expansion-panel-header>
 

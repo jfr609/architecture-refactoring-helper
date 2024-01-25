@@ -14,7 +14,7 @@ export class FrameworkPhaseOneComponent {
     'assets/Phase1-UI5.jpg'
   ];
 
-  showInfoBool: boolean = false;
+  showInfoBool: boolean = true;
 
   showInfo() {
     this.showInfoBool = !this.showInfoBool;

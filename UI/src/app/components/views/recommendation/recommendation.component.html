@@ -8,9 +8,8 @@
 
   <p class='max-width-800'>
     To narrow down the choice of a suitable service identification approach, you can (according to the diagram) select
-    either "New application", "Re-Build" or "Re-factor". The diagram also shows input artifacts that are
-    typically needed for approaches in these categories. Now you will be presented a subset of the approach according to
-    their suitability for the chosen strategy.
+    either "New application", "Re-Build" or "Re-factor". The diagram also shows typical input artifacts used by
+    such approaches. You will then be presented a ranked approach list according to their suitability for the strategy.
   </p>
 
   <svg class='main-container connection-container'>
@@ -168,12 +167,11 @@
   </div>
 
   <p class='max-width-800'>
-    If these presets are too unspecific, you can click on "Configure". This brings up a UI mask that allows you to
-    specifically filter the available approaches according to your needs.
+    If these preset filters are too unspecific, click on "Configure filter" for more detailed filtering capabilities.
   </p>
   <app-card-button [routerLink]="['configure', 'manual']"
                    icon='settings'
                    [showContent]='false'>
-    <ng-container title>Configure</ng-container>
+    <ng-container title>Configure filter</ng-container>
   </app-card-button>
 </div>

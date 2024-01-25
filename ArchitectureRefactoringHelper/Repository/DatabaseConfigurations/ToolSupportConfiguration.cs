@@ -14,22 +14,22 @@ public class ToolSupportConfiguration : IEntityTypeConfiguration<ToolSupport>
             new ToolSupport
             {
                 Name = "Industry ready",
-                Description = "The approach has a tool implementation which is industry ready."
+                Description = "The tool has been applied to production environments in industry."
             },
             new ToolSupport
             {
                 Name = "Open source",
-                Description = "The approach has a tool implementation which is open source."
+                Description = "The tool is developed as open source software."
             },
             new ToolSupport
             {
                 Name = "Prototype",
-                Description = "The approach has a prototype tool which was implementation."
+                Description = "The tool is in a prototype state which can entail several limitations, such as no evaluation, limited functionality, or no support."
             },
             new ToolSupport
             {
                 Name = Constants.AttributeDefaultNoToolSupport,
-                Description = ""
+                Description = "The approach offers no tool support."
             }
         );
     }

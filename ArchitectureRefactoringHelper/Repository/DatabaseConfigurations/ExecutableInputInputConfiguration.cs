@@ -16,19 +16,19 @@ public class ExecutableInputInputConfiguration : IEntityTypeConfiguration<Execut
             {
                 Name = "Source code",
                 Language = "No specification",
-                Description = ""
+                Description = "Source code written in an arbitrary programming language is required as input."
             },
             new ExecutableInput
             {
                 Name = "Database file",
                 Language = "No specification",
-                Description = ""
+                Description = "The database schema or contents are required as input."
             },
             new ExecutableInput
             {
                 Name = "Test cases",
                 Language = "No specification",
-                Description = ""
+                Description = "Test cases of the application are required as input."
             }
         );
     }

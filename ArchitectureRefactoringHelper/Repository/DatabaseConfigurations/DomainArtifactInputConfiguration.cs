@@ -15,18 +15,18 @@ public class DomainArtifactInputConfiguration : IEntityTypeConfiguration<DomainA
             {
                 Name = "Ontology",
                 Description =
-                    "An ontology is a structured set of terms representing the semantics of a domain, whether through metadata or elements of a knowledge domain"
+                    "An ontology represents a structured taxonomy that reflects the semantics of a domain, e.g., through meta-data or domain elements."
             },
             new DomainArtifactInput
             {
                 Name = "Human expertise",
-                Description = ""
+                Description = "Substantial domain knowledge and technical expertise are required for applying the approach."
             },
             new DomainArtifactInput
             {
                 Name = "Documentation",
                 Description =
-                    "Software documentation describes and documents systems at different levels of abstraction. It includes textual descriptions as well as diagrams and models"
+                    "Software documentation includes specifications, textual descriptions, or diagrams that document the application at different levels of abstraction."
             }
         );
     }

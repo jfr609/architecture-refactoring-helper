@@ -14,27 +14,27 @@ public class ToolTypeConfiguration : IEntityTypeConfiguration<ToolType>
             new ToolType
             {
                 Name = "Static Analysis",
-                Description = "The approach has a tool implementation which is industry ready."
+                Description = "The tool performs a for static analysis."
             },
             new ToolType
             {
                 Name = "Dynamic Analysis",
-                Description = "The approach has a tool implementation which is open source."
+                Description = "The tool performs a dynamic analysis."
             },
             new ToolType
             {
                 Name = "Decomposition",
-                Description = "The approach has a prototype tool which was implementation."
+                Description = "The tool performs a decomposition into microservices."
             },
             new ToolType
             {
                 Name = "Other",
-                Description = "The approach has a prototype tool which was implementation"
+                Description = "The tool serves another purpose (see tool description)."
             },
             new ToolType
             {
                 Name = "Open Source",
-                Description = "The approach has a prototype tool which was implementation"
+                Description = "The tool is developed as open source software."
             });
     }
 }
