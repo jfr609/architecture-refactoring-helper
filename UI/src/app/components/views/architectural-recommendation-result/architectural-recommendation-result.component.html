@@ -85,7 +85,7 @@
 	  </mat-icon>
           <ng-template #scenarioScore>
             <mat-icon
-              matTooltip="Quality Tendency: {{ recommendation.totalScore < 0 ? 0 : recommendation.totalScore }}%"
+              matTooltip="Quality Tendency: {{ recommendation.weightedScore < 0 ? 0 : recommendation.weightedScore }}%"
               matTooltipClass="recommendation-custom-tooltip"
               [class]='getScoreIconStyle(recommendation.weightedScore, columnData.columnDef)'>arrow_circle_up
 	    </mat-icon>
