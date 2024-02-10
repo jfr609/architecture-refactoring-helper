@@ -1,4 +1,4 @@
-// Test Name:   T5_QueryExistingTool.cy.js
+// Test Name:   T5_QueryToolByID.cy.js
 //
 // Description: Query existing and non-existing tool by ID.     
 //              Prerequisite: Tool with ID=0 does not exist in database.

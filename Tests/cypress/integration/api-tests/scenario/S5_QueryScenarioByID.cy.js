@@ -1,4 +1,4 @@
-// Test Name:   C5_QueryExistingScenario.cy.js
+// Test Name:   S5_QueryScenarioByID.cy.js
 //
 // Description: Query existing and non-existing scenario by ID. 
 //              Prerequisite: Scenario with ID=0 does not exist in database.

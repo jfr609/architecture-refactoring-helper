@@ -1,4 +1,4 @@
-// Test Name:   C3_QueryAllScenarios.cy.js
+// Test Name:   S4_QueryAllScenarios.cy.js
 //
 // Description: Query all scenarios in database.
 //

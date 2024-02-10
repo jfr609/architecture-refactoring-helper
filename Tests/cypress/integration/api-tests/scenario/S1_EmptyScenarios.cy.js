@@ -1,4 +1,4 @@
-// Test Name:   C1_EmptyScenarioDatabase.cy.js
+// Test Name:   S1_EmptyScenarios.cy.js
 //
 // Description: Query all existing scenarios and delete them.
 //

@@ -1,4 +1,4 @@
-// Test Name:   T4_CreateNewAndDulicateTool.cy.js
+// Test Name:   T3_DulicateTool.cy.js
 //
 // Description: Create a new and duplicate tool in the database.
 //              Step 1: Create a new random sample tool in the database

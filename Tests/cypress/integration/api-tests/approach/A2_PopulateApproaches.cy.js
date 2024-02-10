@@ -1,4 +1,4 @@
-// Test Name:   A2_PopulateApproachDatabase.cy.js
+// Test Name:   A2_PopulateApproaches.cy.js
 //
 // Description: Populate approach database with 5 random approaches.
 //              Step 1: Query all existing approaches and delete them

@@ -1,4 +1,4 @@
-// Test Name:   T2_PopulateToolDatabase.cy.js
+// Test Name:   T2_PopulateTools.cy.js
 //
 // Description: Populate tool database with 5 random tools.
 //              Step 1: Query all existing tools and delete them

@@ -1,4 +1,4 @@
-// Test Name:   A4_CreateNewAndDulicateApproach.cy.js
+// Test Name:   A3_DulicateApproach.cy.js
 //
 // Description: Create a new and duplicate approach in the database.
 //              Step 1: Create a new random sample approach in the database

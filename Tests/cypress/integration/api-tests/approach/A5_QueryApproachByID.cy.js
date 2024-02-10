@@ -1,4 +1,4 @@
-// Test Name:   A5_QueryExistingApproach.cy.js
+// Test Name:   A5_QueryApproachByID.cy.js
 //
 // Description: Query existing and non-existing approach by ID. 
 //              Prerequisite: Approach with ID=0 does not exist in database.

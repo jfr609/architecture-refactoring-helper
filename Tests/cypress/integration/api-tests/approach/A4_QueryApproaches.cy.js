@@ -1,4 +1,4 @@
-// Test Name:   A3_QueryApproachDatabase.cy.js
+// Test Name:   A4_QueryApproaches.cy.js
 //
 // Description: Query approach database.
 //

@@ -1,4 +1,4 @@
-// Test Name:   T3_QueryToolDatabase.cy.js
+// Test Name:   T4_QueryTools.cy.js
 //
 // Description: Query tool database.
 //

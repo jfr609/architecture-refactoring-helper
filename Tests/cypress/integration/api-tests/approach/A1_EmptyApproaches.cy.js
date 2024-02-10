@@ -1,4 +1,4 @@
-// Test Name:   A1_EmptyApproachDatabase.cy.js
+// Test Name:   A1_EmptyApproaches.cy.js
 //
 // Description: Query all existing approaches and delete them.
 //

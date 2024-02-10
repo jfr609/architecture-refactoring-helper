@@ -1,4 +1,4 @@
-// Test Name:   T1_EmptyToolDatabase.cy.js
+// Test Name:   T1_EmptyTools.cy.js
 //
 // Description: Query all existing tools and delete them.
 //

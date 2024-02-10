@@ -1,4 +1,4 @@
-// Test Name:   F1_TestApproachFilter.cy.js
+// Test Name:   F1_FilterApproaches.cy.js
 //
 // Description: Test the approach filter with a custom filter configuration.
 //              Prerequisite: Approach database is not empty.
