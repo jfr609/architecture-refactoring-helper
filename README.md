@@ -1,21 +1,21 @@
 # Architecture Refactoring Helper
 
-The Architecture Refactoring Helper is an application which helps to find migration approaches based on a quality analysis. As well, Microservice patterns and best practices are recommended based on the analysis. 
+The Architecture Refactoring Helper is a web-based application that guides an architectural refactoring of monolithic applications towards microservices. Based on a repository of scientific publications, it helps in finding approaches for the automated decomposition into services. As well, it supports the design of a microservices architecture based on established patterns and best practices. The migration process consists of three phases and is guided by predefined quality goals identified during an initial scenario-based architecture evaluation.
 
-## Running the application in Docker
+## Running the Application in Docker
 
 ### Requirements
 
 - Docker
 - Docker-compose
 
-### Starting the application
+### Starting the Application
 
 1. Navigate to "{RepositoryFolder}" via Console
 2. Run "docker-compose build" (only needed on first startup or if code changed were made)
 3. Run "docker-compose up"
 
-### Using the application
+### Using the Application
 
 After starting the docker containers, the API can be reached at:
 - "https://localhost:8080/api/v1" or 
@@ -30,14 +30,19 @@ The user interface at:
 It might be necessary to change the API production URL inside the UI project.
 This can be done in the file "{RepositoryFolder}/UI/src/environments/environment.prod.ts".
 
-## Running the Backend
+### Data Seeding
+
+The application's database can be seeded on application start by providing prepared data sets in the folder
+"ArchitectureRefactoringHelper\Repository\DatabaseSeedingData".
+
+## Running the Application Back-End
 
 ### Requirements
 
 - [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet) - if running without Docker
 - Docker - if running in Docker
 
-### Starting the application
+### Starting the Application
 
 - Running through IDE
     1. Open "ArchitectureRefactoringHelper.sln" in "{RepositoryFolder}/ArchitectureRefactoringHelper" Folder
@@ -51,7 +56,7 @@ This can be done in the file "{RepositoryFolder}/UI/src/environments/environment
     2. Run "docker build -t {ImageTag} ."
     3. Run "docker run -p 5000:5000 {ImageTag}"
 
-### Using the application
+### Using the Application
 
 #### Without Docker
 After starting, the app the API will be running on:
@@ -67,7 +72,7 @@ After starting the docker container, the API can reached at:
 
 The Swagger UI is not active when running the application in docker.
 
-## Running the User interface
+## Running the Application Front-End (UI)
 
 ### Requirements
 
@@ -75,7 +80,7 @@ The Swagger UI is not active when running the application in docker.
 - [Angular CLI](https://angular.io/cli) - if running without Docker
 - Docker - if running in Docker
 
-### Starting the application
+### Starting the Application
 
 - Running through WebStorm
     1. Open "{RepositoryFolder}/UI" Folder
@@ -89,7 +94,7 @@ The Swagger UI is not active when running the application in docker.
     2. Run "docker build -t {ImageTag} ."
     3. Run "docker run -p 9000:9000 {ImageTag}"
 
-### Using the application
+### Using the Application
 
 #### Without Docker
 After starting the app the user interface can be reached on:
@@ -109,13 +114,13 @@ As an input, it takes either the swagger.json file in the "{RepositoryFolder}/Re
 
 For more info see: https://github.com/cyclosproject/ng-openapi-gen
 
-#### Generating angular services and models
+#### Generating Angular Services and Models
 
 - Open console of choice
 - Navigate to "{RepositoryFolder}/UI"
 - Run "npm run openapi-gen"
 
-#### Re-generating the swagger.json file for the API
+#### Re-generating the swagger.json File for the API
 
-The swagger.json will be generated at each startup of the back-end application.
+The swagger.json will be generated at each startup of the application back-end.
 This is not the case when using the existing dockerfiles.

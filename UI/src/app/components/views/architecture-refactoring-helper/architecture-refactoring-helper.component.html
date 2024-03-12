@@ -74,7 +74,7 @@
             <mat-panel-title><strong
                 matBadge="{{ utilService.getArraysLength([recommendationService.qualitySystemPropertyInformation]) }}"
                 [matBadgeHidden]="utilService.getArraysLength([recommendationService.qualitySystemPropertyInformation]) == 0"
-                matBadgeOverlap="false">System Properties</strong></mat-panel-title>
+                matBadgeOverlap="false">Design Properties</strong></mat-panel-title>
             <mat-panel-description> </mat-panel-description>
           </mat-expansion-panel-header>
           <mat-chip-list #systemProperties>
@@ -126,7 +126,7 @@
                 {{ element.name }}</mat-chip>
             </ng-container>
           </mat-chip-list>
-          <h4>System Properties</h4>
+          <h4>Design Properties</h4>
           <mat-chip-list>
             <ng-container
               *ngFor="let element of attributeOptionsService.getQualitiesByCategory(QualityCategories.SystemProperty); let i = index"
