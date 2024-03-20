@@ -335,7 +335,8 @@ public class SimpleRecommendationService : IRecommendationService
             }
         }
 
-        if (refactoringApproach.ApproachUsability.Tools != null)
+        // include evaluation of tools only if requested
+		if ((refactoringApproach.ApproachUsability.Tools != null) && (recommendationRequest.ToolTypeInformation.Count() > 0))
         {
             foreach (var tool in refactoringApproach.ApproachUsability.Tools)
             {
@@ -351,17 +352,17 @@ public class SimpleRecommendationService : IRecommendationService
                 }
             }
             
-            // remeber matchCount before deduplication
-            var ToolTypeEvaluationsCountBeforeDedup = approachRecommendation.ToolTypeEvaluations.Count();
+            // remember matchCount before de-duplication
+            // var ToolTypeEvaluationsCountBeforeDedup = approachRecommendation.ToolTypeEvaluations.Count();
 
             // removing duplicates i.e. getting only unique
             approachRecommendation.ToolTypeEvaluations = approachRecommendation.ToolTypeEvaluations
                 .DistinctBy(evaluation => evaluation.ApproachAttribute.Name)
                 .ToList();
 
-            // adjust matchCount after deduplication (should be done as well for neutralCount, mismatchCount)
-            var ToolTypeEvaluationsCountAfterDedup = approachRecommendation.ToolTypeEvaluations.Count();
-			matchCount = matchCount - (ToolTypeEvaluationsCountBeforeDedup - ToolTypeEvaluationsCountAfterDedup);
+            // adjust matchCount after de-duplication (should be done as well for neutralCount, mismatchCount)
+            // var ToolTypeEvaluationsCountAfterDedup = approachRecommendation.ToolTypeEvaluations.Count();
+            // matchCount = matchCount - (ToolTypeEvaluationsCountBeforeDedup - ToolTypeEvaluationsCountAfterDedup);
         }
 
         //tentative code for no tool support filter
@@ -397,6 +398,11 @@ public class SimpleRecommendationService : IRecommendationService
 
         var totalIncludeCount = calculateTotalIncludeCount(recommendationRequest, noToolSupportCount);
 
+        // limit matchCount to totalIncludeCount (can exceed totalIncludeCount in case of several associated tools)
+        if (matchCount > totalIncludeCount)
+        {
+             matchCount = totalIncludeCount;
+        }
         approachRecommendation.TotalIncludeCount = totalIncludeCount;
         approachRecommendation.MatchesCount = matchCount;
 
