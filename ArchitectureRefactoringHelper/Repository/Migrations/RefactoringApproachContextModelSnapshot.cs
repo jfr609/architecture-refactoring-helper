@@ -291,17 +291,17 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "High",
-                            Description = "Estimates the accuracy/precision of the service identification approach as high."
+                            Description = "Estimates the accuracy/precision of the approach as high."
                         },
                         new
                         {
                             Name = "Medium",
-                            Description = "Estimates the accuracy/precision of the service identification approach as medium."
+                            Description = "Estimates the accuracy/precision of the approach as medium."
                         },
                         new
                         {
                             Name = "Low",
-                            Description = "Estimates the accuracy/precision of the service identification approach as low."
+                            Description = "Estimates the accuracy/precision of the approach as low."
                         },
                         new
                         {
@@ -326,22 +326,22 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Static",
-                            Description = "Static analysis is performed without executing a software system. Dependencies between classes are potential relationships, like method calls and access attributes. These dependencies are analyzed to identify strongly connected classes, for example, to identify services."
+                            Description = "Static analysis is performed without executing an application. Commonly it is performed on source code, but can also involve interface descriptions or version control system data. The analysis involves, e.g., dependencies between classes, class attributes, or method calls. These dependencies indicate strongly connected classes that can be clustered for a single service."
                         },
                         new
                         {
                             Name = "Dynamic",
-                            Description = "Dynamic analysis is performed by examining the software system at run time. Dependencies between software elements (e.g., class instantiations and accesses, function calls, relationships between database tables, etc.) are collected during the program execution. The execution is performed based on a set of cases that covers the system functionalities, called execution scenarios"
+                            Description = "Dynamic analysis is performed by examining the application at run time. Dependencies between software elements (e.g., class instantiations and accesses, function calls, relationships between database tables, etc.) are collected. To this end, a set of use cases or scenarios has to be performed that reflect the system's functionalities."
                         },
                         new
                         {
                             Name = "Lexical",
-                            Description = "Lexical analysis techniques suppose that the similarity between the classes should be taken into account during service identification process. This analysis plays the main role in approaches that used features location and textual similarity techniques."
+                            Description = "Lexical analysis techniques suppose that textual similarities between identifiers of classes, methods, or interfaces help in the service identification process."
                         },
                         new
                         {
                             Name = "Historic",
-                            Description = ""
+                            Description = "Historic analysis techniques leverage, e.g, the history data of a version control system to identify cohesive source code structures based on authors, change frequency, and correlation of changes."
                         });
                 });
 
@@ -540,32 +540,32 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Function",
-                            Description = "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
+                            Description = "A function, method, or procedure of the source code represents the smallest unit that the approach can treat in the course of a decomposition."
                         },
                         new
                         {
                             Name = "Functionality",
-                            Description = "A meta-heuristic for solving optimization problems that is based on \"natural selection\". It relies on the calculation of a fitness function to reach an optimal (or near-optimal) solution. By definition, an optimal solution is a feasible solution where the fitness function reaches its maximum (or minimum) value."
+                            Description = "A functionality of the application, e.g., a requirement or use case, represents the smallest unit that the approach can treat in the course of a decomposition."
                         },
                         new
                         {
                             Name = "Business Capability",
-                            Description = "Clustering consists of classifying and partitioning data into clusters that share common properties. These clusters are built based on the internal homogeneity of their elements and the external separation between them."
+                            Description = "A business capability represents the smallest unit that the approach can treat in the course of a decomposition."
                         },
                         new
                         {
                             Name = "Entity",
-                            Description = "Custom heuristic algorithms to decompose legacy software into Service Oriented Architecture differing from predefined algorithms."
+                            Description = "An entity, commonly in the context of data or databases, represents the smallest unit that the approach can treat in the course of a decomposition."
                         },
                         new
                         {
                             Name = "Interface",
-                            Description = "Custom heuristic algorithms to decompose legacy software into Service Oriented Architecture differing from predefined algorithms."
+                            Description = "An interface of the application, commonly exposed functionality through an API, represents the smallest unit that the approach can treat in the course of a decomposition."
                         },
                         new
                         {
                             Name = "Other",
-                            Description = "Custom heuristic algorithms to decompose legacy software into Service Oriented Architecture differing from predefined algorithms."
+                            Description = "The approach defines no or no specific smallest unit used for the decomposition."
                         });
                 });
 
@@ -585,17 +585,17 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Automatic",
-                            Description = "Automatic approaches do not need any human intervention during the identification process."
+                            Description = "An automatic approach needs only minimal human intervention in the refactoring process."
                         },
                         new
                         {
                             Name = "Semi-automatic",
-                            Description = "Semi-automatic approaches need human experts to perform some of the tasks."
+                            Description = "An semi-automatic approach needs human expertise in the refactoring process, which is partly automated."
                         },
                         new
                         {
                             Name = "Manual",
-                            Description = "Manual approaches depend entirely on human experts."
+                            Description = "A manual approach relies entirely on human expertise."
                         });
                 });
 
@@ -638,17 +638,17 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Bottom-up",
-                            Description = "A bottom-up process starts with low-level artifacts to maximize code reuse and minimize changes."
+                            Description = "A bottom-up approach works on low-level artifacts like source code or databases. It thereby maximizes code reuse and minimizes changes."
                         },
                         new
                         {
                             Name = "Top-down",
-                            Description = "A top-down process starts with high-level artifacts, e.g., domain analysis or requirement characterization of systems to define their functionalities."
+                            Description = "A top-down approach works on high-level artifacts, e.g., requirements or use cases that characterize the system's functionalities."
                         },
                         new
                         {
                             Name = "Mixed",
-                            Description = "A mixed hybrid process combines a top-down and a bottom-up process. It uses both requirements and implementation artifacts to identify the candidate services."
+                            Description = "A mixed or hybrid approach combines a top-down and a bottom-up process for identification of services."
                         });
                 });
 
@@ -668,17 +668,17 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Ontology",
-                            Description = "An ontology is a structured set of terms representing the semantics of a domain, whether through metadata or elements of a knowledge domain"
+                            Description = "An ontology represents a structured taxonomy that reflects the semantics of a domain, e.g., through meta-data or domain elements."
                         },
                         new
                         {
                             Name = "Human expertise",
-                            Description = ""
+                            Description = "Substantial domain knowledge and technical expertise are required for applying the approach."
                         },
                         new
                         {
                             Name = "Documentation",
-                            Description = "Software documentation describes and documents systems at different levels of abstraction. It includes textual descriptions as well as diagrams and models"
+                            Description = "Software documentation includes specifications, textual descriptions, or diagrams that document the application at different levels of abstraction."
                         });
                 });
 
@@ -702,19 +702,19 @@ namespace Repository.Migrations
                         {
                             Name = "Source code",
                             Language = "No specification",
-                            Description = ""
+                            Description = "Source code written in an arbitrary programming language is required as input."
                         },
                         new
                         {
                             Name = "Database file",
                             Language = "No specification",
-                            Description = ""
+                            Description = "The database schema or contents are required as input."
                         },
                         new
                         {
                             Name = "Test cases",
                             Language = "No specification",
-                            Description = ""
+                            Description = "Test cases of the application are required as input."
                         });
                 });
 
@@ -734,28 +734,45 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Business process model",
-                            Description = "Business Process Models (BPMs) describe sets of activities and tasks that accomplish an organizational goal"
+                            Description = "Business Process Models (BPMs) are data-driven visual representations of business processes. They contain sets of activities and tasks that accomplish an organizational goal."
                         },
                         new
                         {
                             Name = "Use case model",
-                            Description = "Use case diagrams are behavioral diagrams and visualize the externally visible interaction of actors with the system under development. The diagram consists of the system, associated use cases and actors and relates them to each other."
+                            Description = "Use case diagrams are behavioral diagrams and visualize the externally visible interaction of actors with the application. They relate system and actors to each other through use cases."
                         },
                         new
                         {
                             Name = "Activity diagram",
-                            Description = "Activity diagrams visually presents a series of actions or flow of control in a system."
+                            Description = "Activity diagrams visually present a series of actions or a control flow in an application."
                         },
                         new
                         {
                             Name = "Data flow diagram",
-                            Description = "Data Flow Diagrams (DFDs) are graphical representations of functional dependencies, based on the analysis of data flows, between business functions or processes"
+                            Description = "Data Flow Diagrams (DFDs) are graphical representations of functional dependencies between business functions or processes, based on the analysis of data flows."
                         },
                         new
                         {
                             Name = "State machine diagram",
-                            Description = "State Machine Diagrams (SMDs) shows a dynamic view of a system and describe the different states that entities can have during their lifetimes"
+                            Description = "State Machine Diagrams (SMDs) shows a dynamic view of a system and describe the states that entities can enter during their lifetimes."
                         });
+                });
+
+            modelBuilder.Entity("Repository.Models.Database.Objectives", b =>
+                {
+                    b.Property<int>("ObjectivesId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ObjectivesGoalType")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ObjectivesName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ObjectivesId");
+
+                    b.ToTable("Objectives");
                 });
 
             modelBuilder.Entity("Repository.Models.Database.ProcessStrategy", b =>
@@ -774,33 +791,86 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Greenfield",
-                            Description = "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
+                            Description = "The Greenfield strategy aims for building an entirely new application or system without restrictions or dependencies on the legacy application."
                         },
                         new
                         {
                             Name = "Rewrite / Rebuild",
-                            Description = "A meta-heuristic for solving optimization problems that is based on \"natural selection\". It relies on the calculation of a fitness function to reach an optimal (or near-optimal) solution. By definition, an optimal solution is a feasible solution where the fitness function reaches its maximum (or minimum) value."
+                            Description = "Rewriting or rebuilding an application eases the introduction of new technologies. Individual services can be implemented using, e.g., the most suitable programming language or database technology. They can resolve current technical limitations and thereby improve several qualities of the application."
                         },
                         new
                         {
                             Name = "Refactor",
-                            Description = "Clustering consists of classifying and partitioning data into clusters that share common properties. These clusters are built based on the internal homogeneity of their elements and the external separation between them."
+                            Description = "The existing monolithic code base is split up adequately into smaller parts, eventually forming several microservices. In the process of a refactoring, the currently employed technologies like programming languages, libraries, or packages can be retained. Moving to new technologies is not a necessity and thus reduces the overall cost and effort, allowing to shorten the timeframe for the entire migration process."
                         },
                         new
                         {
                             Name = "Strangler",
-                            Description = "Custom heuristic algorithms to decompose legacy software into Service Oriented Architecture differing from predefined algorithms."
+                            Description = "The Strangler pattern suggests to iteratively replace parts or components of the system with new services in a resource-efficient and targeted manner. Existing functionalities will be implemented as services that are then attached to the existing system, while at the same time, this functionality in the legacy system is disabled. The process is completed when the newly emerged microservices application replaces the legacy system entirely."
                         },
                         new
                         {
                             Name = "Continuous Evolution",
-                            Description = "Custom heuristic algorithms to decompose legacy software into Service Oriented Architecture differing from predefined algorithms."
+                            Description = "The Continuous Evolution strategy aims at minimizing the efforts and maintaining the system in its current state as far as possible. Compared to the Refactor strategy, changes can be done in a more targeted manner, e.g., combined with the implementation of new features, or based on certain qualities that should be improved."
                         },
                         new
                         {
                             Name = "Extension",
-                            Description = "Custom heuristic algorithms to decompose legacy software into Service Oriented Architecture differing from predefined algorithms."
+                            Description = "This strategy aims for substantially extending the application's functionality in the course of a migration to microservices and is often combined with one of the other process strategies."
                         });
+                });
+
+            modelBuilder.Entity("Repository.Models.Database.ProjectDescription", b =>
+                {
+                    b.Property<int>("ProjectDescriptionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Architecturepattern")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Creation_date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Data_Persistence")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Designdiagrams")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Functionality")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Hosting_model")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Languages")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("Number_of_Developers")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("Number_of_Teams")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Ownership")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Processmodel")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Purpose")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Systemname")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("Systemsize_LOC")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ProjectDescriptionId");
+
+                    b.ToTable("ProjectDescription", (string)null);
                 });
 
             modelBuilder.Entity("Repository.Models.Database.Quality", b =>
@@ -1130,22 +1200,22 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Source code",
-                            Description = "An ontology is a structured set of terms representing the semantics of a domain, whether through metadata or elements of a knowledge domain"
+                            Description = "The approach generates source code for individual microservices or a skeleton for their implementation."
                         },
                         new
                         {
                             Name = "List of services",
-                            Description = ""
+                            Description = "The approach generates a list of services that typically contains clustered elements of the atomic unit."
                         },
                         new
                         {
                             Name = "Splitting recommendations",
-                            Description = "Software documentation describes and documents systems at different levels of abstraction. It includes textual descriptions as well as diagrams and models"
+                            Description = "The approach produces splitting recommendations or creates potential parameterizable service cuts."
                         },
                         new
                         {
                             Name = "Guideline / Workflow",
-                            Description = "Software documentation describes and documents systems at different levels of abstraction. It includes textual descriptions as well as diagrams and models"
+                            Description = "The approach does not produce tangible output artifacts, but rather serves as guideline or workflow in the decomposition process. It typically requires a high degree of human expertise and offers a low degree of automation."
                         });
                 });
 
@@ -1200,12 +1270,12 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Log traces",
-                            Description = "Execution traces of legacy software systems depicting the dynamic behavior of the systems"
+                            Description = "Execution traces of the monolithic application, that reflect the dynamic behavior, are required as input."
                         },
                         new
                         {
                             Name = "User-Application interactions",
-                            Description = "User-interface inputs capturing the relationship between users and the system’s functionalities."
+                            Description = "User-interface interactions that capture the actions a user performs when using certain functionalities are required as input."
                         });
                 });
 
@@ -1221,11 +1291,20 @@ namespace Repository.Migrations
                     b.Property<string>("Difficulty")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Explanation")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ImplementedPattern")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Importance")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PreferredPattern")
                         .HasColumnType("TEXT");
 
                     b.HasKey("ScenarioId");
@@ -1283,6 +1362,26 @@ namespace Repository.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Repository.Models.Database.StrategicGoals", b =>
+                {
+                    b.Property<int>("StrategicGoalsId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Method")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Owner")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Participants")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("StrategicGoalsId");
+
+                    b.ToTable("StrategicGoals", (string)null);
+                });
+
             modelBuilder.Entity("Repository.Models.Database.Technique", b =>
                 {
                     b.Property<string>("Name")
@@ -1299,57 +1398,57 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Wrapping / Black Box",
-                            Description = "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
+                            Description = "A Wrapping / Black Box technique is characterized by leaving an existing implementation unchanged, but wraps it by an additional service layer that exposes only the needed functionality."
                         },
                         new
                         {
                             Name = "Genetic algorithm",
-                            Description = "A meta-heuristic for solving optimization problems that is based on \"natural selection\". It relies on the calculation of a fitness function to reach an optimal (or near-optimal) solution. By definition, an optimal solution is a feasible solution where the fitness function reaches its maximum (or minimum) value."
+                            Description = "Genetic algorithms are defined as a meta-heuristic for solving optimization problems that is based on 'natural selection' that relies on the calculation of a fitness function to reach an optimal (or near-optimal) solution. However, the yielded optimization and service cut may not necessarily be architecturally relevant."
                         },
                         new
                         {
                             Name = "Clustering",
-                            Description = "Clustering consists of classifying and partitioning data into clusters that share common properties. These clusters are built based on the internal homogeneity of their elements and the external separation between them."
+                            Description = "Clustering is a technique of classifying and partitioning elements into clusters that share common properties. These clusters are built based on the internal homogeneity of their elements and the external separation between them. In the context of generating highly cohesive and loosely coupled services, clustering is an essential technique next to rule-based methods."
                         },
                         new
                         {
                             Name = "Custom heuristics",
-                            Description = "Custom heuristic algorithms to decompose legacy software into Service Oriented Architecture differing from predefined algorithms."
+                            Description = "Custom heuristics comprise techniques that have been specifically developed for the decomposition task. They do not clearly identify as one of the other mentioned techniques."
                         },
                         new
                         {
                             Name = "General guidelines",
-                            Description = "Proposes best practices, lessons learned, or recommendations for service identification."
+                            Description = "No specific technique is used. The approaches usually describes the decomposition on a higher level of abstraction by proposing best practices, lessons learned, or recommendations for service identification."
                         },
                         new
                         {
                             Name = "Domain-Driven Design",
-                            Description = "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
+                            Description = "Domain-Driven Design (DDD) is a popular manual technique in the context of microservices identification. Its complexity and involvement of domain expertise makes an automation difficult."
                         },
                         new
                         {
                             Name = "Data-flow driven",
-                            Description = "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
+                            Description = "Data-Flow driven techniques inspect the flow and processing of data throughout the application, e.g., by means of data flow diagrams."
                         },
                         new
                         {
                             Name = "Graph-based",
-                            Description = "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
+                            Description = "Graph-based techniques are common in the context of static code analysis, e.g., to represent source code at a higher level of abstraction."
                         },
                         new
                         {
                             Name = "Scenario analysis",
-                            Description = "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
+                            Description = "Scenario analysis is usually associated with a top-down direction and the utilization of, e.g., use-case models as input, but can also be used in conjunction with dynamic analysis techniques."
                         },
                         new
                         {
                             Name = "Execution-trace modeling",
-                            Description = "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
+                            Description = "Execution-trace modeling reflects the application's runtime behavior. It can require the collection of logs or execution traces, which sometimes requires instrumenting the application and/or performing certain scenarios or user interactions."
                         },
                         new
                         {
                             Name = "Performance modeling",
-                            Description = "A black-box identification technique that encapsulates the legacy system with a service layer without changing its implementation. The wrapper provides access to the legacy system through a service encapsulation layer that exposes only the functionalities desired by the software architect."
+                            Description = "Performance modeling techniques aim to direct the decomposition of the applications by taking into account performance and scalability aspects."
                         });
                 });
 
@@ -1418,22 +1517,22 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Industry ready",
-                            Description = "The approach has a tool implementation which is industry ready."
+                            Description = "The tool has been applied to production environments in industry."
                         },
                         new
                         {
                             Name = "Open source",
-                            Description = "The approach has a tool implementation which is open source."
+                            Description = "The tool is developed as open source software."
                         },
                         new
                         {
                             Name = "Prototype",
-                            Description = "The approach has a prototype tool which was implementation."
+                            Description = "The tool is in a prototype state which can entail several limitations, such as no evaluation, limited functionality, or no support."
                         },
                         new
                         {
                             Name = "No tool support",
-                            Description = ""
+                            Description = "The approach offers no tool support."
                         });
                 });
 
@@ -1453,27 +1552,27 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Static Analysis",
-                            Description = "The approach has a tool implementation which is industry ready."
+                            Description = "The tool performs a static analysis."
                         },
                         new
                         {
                             Name = "Dynamic Analysis",
-                            Description = "The approach has a tool implementation which is open source."
+                            Description = "The tool performs a dynamic analysis."
                         },
                         new
                         {
                             Name = "Decomposition",
-                            Description = "The approach has a prototype tool which was implementation."
+                            Description = "The tool performs a decomposition into microservices."
                         },
                         new
                         {
                             Name = "Other",
-                            Description = "The approach has a prototype tool which was implementation"
+                            Description = "The tool serves another purpose (see tool description)."
                         },
                         new
                         {
                             Name = "Open Source",
-                            Description = "The approach has a prototype tool which was implementation"
+                            Description = "The tool is developed as open source software."
                         });
                 });
 
@@ -1493,22 +1592,22 @@ namespace Repository.Migrations
                         new
                         {
                             Name = "Experiment",
-                            Description = "The approach was applied to and tested on a (small) experimental system."
+                            Description = "The approach was applied to and tested on one or more (small) experimental applications."
                         },
                         new
                         {
                             Name = "Industry",
-                            Description = "The approach was applied to and tested on a real industrial system."
+                            Description = "The approach was applied to and tested on a industry-scale system."
                         },
                         new
                         {
                             Name = "Case study",
-                            Description = ""
+                            Description = "The approach was applied in a real production environment which typically involves external participants."
                         },
                         new
                         {
                             Name = "No validation",
-                            Description = ""
+                            Description = "The approach documents no validation."
                         });
                 });
 

@@ -14,7 +14,7 @@ public class ToolTypeConfiguration : IEntityTypeConfiguration<ToolType>
             new ToolType
             {
                 Name = "Static Analysis",
-                Description = "The tool performs a for static analysis."
+                Description = "The tool performs a static analysis."
             },
             new ToolType
             {

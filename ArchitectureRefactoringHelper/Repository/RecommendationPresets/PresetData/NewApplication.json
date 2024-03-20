@@ -10,7 +10,7 @@
       "attribute": {
         "name": "Human expertise"
       },
-      "recommendationSuitability": 0
+      "recommendationSuitability": 1
     },
     {
       "attribute": {
@@ -86,6 +86,26 @@
         "language": "No specification"
       },
       "recommendationSuitability": 2
+    }
+  ],
+  "processStrategyInformation": [
+    {
+      "attribute": {
+        "name": "Greenfield"
+      },
+      "recommendationSuitability": 0
+    },
+    {
+      "attribute": {
+        "name": "Refactor"
+      },
+      "recommendationSuitability": 1
+    },
+    {
+      "attribute": {
+        "name": "Rewrite / Rebuild"
+      },
+      "recommendationSuitability": 1
     }
   ]
 }
