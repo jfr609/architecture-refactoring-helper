@@ -4,7 +4,63 @@
     "identifier": "1",
     "architecturalDesignSource": {
       "architecturalDesignId": 1,
-      "name": "API gateway",
+      "name": "Ambassador",
+      "description": "The Ambassador pattern creates helper services that send network requests on behalf of another entity. The pattern is useful for integrating systems with limited network capabilities.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Scalability",
+          "category": "Attribute"
+        },
+	    {
+          "name": "Security",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 2,
+    "identifier": "2",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 2,
+      "name": "Anti-Corruption Layer",
+      "description": "The Anti-Corruption Layer pattern isolates subsystems by placing a layer between them. It provides a communication channel, avoiding design or implementation alterations on one side. However, its implementation adds latency to calls between the subsystems and requires additional maintenance.",
+      "source": "Microservices.io by Chris Richardson",
+      "link": "https://microservices.io/patterns/refactoring/anti-corruption-layer.html"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Performance",
+          "category": "Attribute"
+        },
+        {
+          "name": "Compatibility",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 3,
+    "identifier": "3",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 3,
+      "name": "API Gateway",
       "description": "This is about how the services can be accessed in a microservice architecture. This pattern provides an entry point for all possible clients.",
       "source": "Microservices.io by Chris Richardson",
       "link": "https://microservices.io/patterns/apigateway.html"
@@ -14,6 +70,10 @@
       "qualities": [
         {
           "name": "Reliability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Maintainability",
           "category": "Attribute"
         },
         {
@@ -28,12 +88,100 @@
     }
   },
   {
-    "architecturalDesignId": 2,
-    "identifier": "2",
+    "architecturalDesignId": 4,
+    "identifier": "4",
     "architecturalDesignSource": {
-      "architecturalDesignId": 2,
-      "name": "Backend for frontend",
-      "description": "This patterns means that there is a separate entry point for each kind of client via API gateways",
+      "architecturalDesignId": 4,
+      "name": "Asynchronous Completion Token",
+      "description": "The Asynchronous Completion Token pattern allows an application to demultiplex and efficiently process responses of asynchronous operations that it invokes on services.",
+      "source": "Valdivia et al. (2019) - Quality attributes in patterns related to microservice architecture: a Systematic Literature Review",
+      "link": "https://ieeexplore.ieee.org/document/9105640"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  }, 
+  {
+    "architecturalDesignId": 5,
+    "identifier": "5",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 5,
+      "name": "Asynchronous Messaging",
+      "description": "This communication pattern enables services to decouple from one another. Rather than waiting for an immediate response, a service can send a message and then continue with other unrelated tasks, while the responder can reply at a convenient time. It will improve performance, scalability, and reliability.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        },
+		{
+          "name": "Performance",
+          "category": "Attribute"
+        },
+		{
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  }, 
+  {
+    "architecturalDesignId": 6,
+    "identifier": "6",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 6,
+      "name": "Asynchronous Query",
+      "description": "The Asynchronous Query pattern suggests to initiate a query that runs independently of the main execution thread. This means that the application can continue with other tasks while the response is being fetched in the background.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  }, 
+  {
+    "architecturalDesignId": 7,
+    "identifier": "7",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 7,
+      "name": "Auth-Service",
+      "description": "The pattern separates information from users with reduced functionality and improves the response time of the authorization process.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },   
+  {
+    "architecturalDesignId": 8,
+    "identifier": "8",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 8,
+      "name": "Backend for Frontend",
+      "description": "This patterns suggests that API gateways provide a separate entry point for each kind of client.",
       "source": "Microservices.io by Chris Richardson",
       "link": "https://microservices.io/patterns/apigateway.html"
     },
@@ -51,17 +199,209 @@
         {
           "name": "Maintainability",
           "category": "Attribute"
+        },
+		{
+          "name": "Scalability",
+          "category": "Attribute"
         }
       ]
     }
   },
   {
-    "architecturalDesignId": 3,
-    "identifier": "3",
+    "architecturalDesignId": 9,
+    "identifier": "9",
     "architecturalDesignSource": {
-      "architecturalDesignId": 3,
+      "architecturalDesignId": 9,
+      "name": "Change Code Dependency to Service Call",
+      "description": "The pattern is a solution to avoid dependencies by isolating the code in a service. It can be seen as an adapter counterpart of the pattern Adapter Microservice.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Compatibility",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 10,
+    "identifier": "10",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 10,
+      "name": "Circuit Breaker",
+      "description": "A Circuit Breaker prevents a failure in one service from spreading to other services in a network. A remote service is invoked via a proxy, which fails as soon as a certain threshold of the failure rate is exceeded.",
+      "source": "Microservices.io by Chris Richardson",
+      "link": "https://microservices.io/patterns/reliability/circuit-breaker.html"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Availability",
+          "qualityName": "Reliability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 11,
+    "identifier": "11",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 11,
+      "name": "Competing Consumers",
+      "description": "The Competing Consumers pattern enables the management of flexible workloads through the deployment and coordination of consumers. In combination with local database proxy, it can result in an increase of response time.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 12,
+    "identifier": "12",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 12,
+      "name": "Container",
+      "description": "This pattern implements a specialized virtualization architecture style. The degree of abstraction is limited by the technology implementation.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Scalability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 13,
+    "identifier": "13",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 13,
+      "name": "Correlation ID",
+      "description": "A correlation ID is a unique identifier that is assigned to messages or events within a transaction. This pattern helps to improve the request identification.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 14,
+    "identifier": "14",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 14,
+      "name": "CQRS",
+      "description": "CQRS stands for Command and Query Responsibility Segregation. This pattern separates read and update operations by treating retrieving data and changing data differently.",
+      "source": "Microservices.io by Chris Richardson",
+      "link": "https://microservices.io/patterns/data/cqrs.html"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Scalability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Performance",
+          "category": "Attribute"
+        },
+		{
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Security",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Availability",
+          "qualityName": "Reliability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 15,
+    "identifier": "15",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 15,
+      "name": "Database is the Service",
+      "description": "The Database is the Service pattern suggests separating the database in small portions for each microservice.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Scalability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 16,
+    "identifier": "16",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 16,
       "name": "Database per Service",
-      "description": "Implies that each service in an architecture has its own database.  ",
+      "description": "The pattern suggests that each service in an architecture operates its own database.",
       "source": "Microservices.io by Chris Richardson",
       "link": "https://microservices.io/patterns/data/database-per-service.html"
     },
@@ -84,14 +424,1181 @@
     }
   },
   {
-    "architecturalDesignId": 4,
-    "identifier": "4",
+    "architecturalDesignId": 17,
+    "identifier": "17",
     "architecturalDesignSource": {
-      "architecturalDesignId": 4,
-      "name": "Isolated State",
-      "description": "",
-      "source": "Towards a Quality Model for Cloud-native Applications by Robin Lichtenthäler and Guido Wirtz",
-      "link": "https://link.springer.com/chapter/10.1007/978-3-031-04718-3_7"
+      "architecturalDesignId": 17,
+      "name": "Deploy cluster and orchestrate containers",
+      "description": "The pattern constitutes the option for managing multiple instances. Container orchestration aims for automatic provisioning, deployment, scaling, and managing containerized applications by abstracting from the underlying infrastructure.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },  
+  {
+    "architecturalDesignId": 18,
+    "identifier": "18",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 18,
+      "name": "Edge Server",
+      "description": "An Edge Server resides on the logical edge of two networks, typically between a private network and the internet. Its main purpose is to store content at the closest location to the requesting client, thereby reducing latency times.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },  
+  {
+    "architecturalDesignId": 19,
+    "identifier": "19",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 19,
+      "name": "Enable Continuous Integration",
+      "description": "The pattern introduces a series of activities to accelerate the integration: automate the process, support for the production of ready artifacts, supply a pipeline from each service repository for building and testing.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },   
+  {
+    "architecturalDesignId": 20,
+    "identifier": "20",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 20,
+      "name": "Event Notification",
+      "description": "The pattern is used in event-driven architectures to enable decoupled communication between services. The pattern suggests using events to notify interested parties of changes or events. Thereby, the pattern promotes loose coupling between services.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },  
+  {
+    "architecturalDesignId": 21,
+    "identifier": "21",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 21,
+      "name": "Event Sourcing",
+      "description": "The pattern suggests recording the sequence of events in a transaction instead of saving the data directly to improve consistency in distributed transactions.",
+      "source": "Microservices.io by Chris Richardson",
+      "link": "https://microservices.io/patterns/data/event-sourcing.html"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Security",
+          "category": "Attribute"
+        },
+		{
+          "name": "Performance",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },    
+  {
+    "architecturalDesignId": 22,
+    "identifier": "22",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 22,
+      "name": "External Load Balancer",
+      "description": "An external (Application) Load Balancer is a proxy-based Layer 7 load balancer that enables running and scaling services behind a single external IP address.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+		{
+          "name": "Reliability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },    
+  {
+    "architecturalDesignId": 23,
+    "identifier": "23",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 23,
+      "name": "Externalized Configuration",
+      "description": "The Externalized Configuration pattern is used to maintain configurations outside the services and to allow for read-only requests.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+		{
+          "name": "Security",
+          "category": "Attribute"
+        },
+		{
+          "name": "Scalability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },     
+  {
+    "architecturalDesignId": 24,
+    "identifier": "24",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 24,
+      "name": "Gatekeeper",
+      "description": "The Gatekeeper pattern improves security through establishing an entry point. It supports handling sensitive information, by verifying identities, requests, and redirecting requests to reliable instances. It can negatively affect performance, but the combination with competing consumers has a positive effect.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Security",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },     
+  {
+    "architecturalDesignId": 25,
+    "identifier": "25",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 25,
+      "name": "Gateway Aggregation",
+      "description": "The Gateway Aggregation pattern aggregates multiple requests into one single request, reducing chattiness between the clients. However, it may introduce a bottleneck and a single point of failure.",
+      "source": "Valdivia et al. (2019) - Quality attributes in patterns related to microservice architecture: a Systematic Literature Review",
+      "link": "https://ieeexplore.ieee.org/document/9105640"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Performance",
+          "category": "Attribute"
+        },
+		{
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },   
+  {
+    "architecturalDesignId": 26,
+    "identifier": "26",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 26,
+      "name": "Gateway Offloading",
+      "description": "The Gateway Offloading pattern simplifies the development of services by adding a shared proxy and allowing the implementation of specialized gateways.",
+      "source": "Valdivia et al. (2019) - Quality attributes in patterns related to microservice architecture: a Systematic Literature Review",
+      "link": "https://ieeexplore.ieee.org/document/9105640"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Security",
+          "category": "Attribute"
+        },
+		{
+          "name": "Reliability",
+          "category": "Attribute"
+        },
+		{
+          "name": "Performance",
+          "category": "Attribute"
+        },
+		{
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },   
+  {
+    "architecturalDesignId": 27,
+    "identifier": "27",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 27,
+      "name": "Health Check",
+      "description": "The Health Check pattern helps to monitor service health. It can detect that if a running service instance is able to handle requests. It tracks the service status while the information usually is exposed by an API.",
+      "source": "Microservices.io by Chris Richardson",
+      "link": "https://microservices.io/patterns/observability/health-check-api.html"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 28,
+    "identifier": "28",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 28,
+      "name": "Internal Load Balancer",
+      "description": "The Internal Load Balancer pattern controls the load of multiple service instances and holds an entry of them. In addition, local metrics, and algorithms can be implemented to define the most suitable instance for a request.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Reliability",
+          "category": "Attribute"
+        },
+		{
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },  
+  {
+    "architecturalDesignId": 29,
+    "identifier": "29",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 29,
+      "name": "Key-Value Store",
+      "description": "A Key-Value Store/Database, is a data storage paradigm designed for storing, retrieving, and managing associative arrays. It is more commonly known as dictionary or hash table. Data records are stored and retrieved using a key that uniquely identifies the record.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Reliability",
+          "category": "Attribute"
+        },
+		{
+          "name": "Security",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },  
+  {
+    "architecturalDesignId": 30,
+    "identifier": "30",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 30,
+      "name": "Load Balancer / Load-balancing",
+      "description": "A Load Balancer is a traffic manager that distributes incoming client requests across all server instances that can process them. The pattern helps to realize the full potential of cloud computing by minimizing the request processing time and maximizing capacity utilization. Round-robin is the most often used scheduling algorithm.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+		{
+          "name": "Reliability",
+          "category": "Attribute"
+        },
+		{
+          "name": "Performance",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },    
+  {
+    "architecturalDesignId": 31,
+    "identifier": "31",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 31,
+      "name": "Local Database Proxy",
+      "description": "The Local Database Proxy pattern uses data replication between master/slave databases and a proxy to route requests. It thereby provides read scalability on a database. The pattern is useful for applications that have heavy reading loads, but is limited for large numbers of write operations. ",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+		{
+          "name": "Reliability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },    
+  {
+    "architecturalDesignId": 32,
+    "identifier": "32",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 32,
+      "name": "Local Sharding-based Router",
+      "description": "The Local Sharding-based Router pattern proposes an extra layer which responsible for implementing sharding in cloud datastores that do not support sharding natively. It enables a larger number of writing and reading operations.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+		{
+          "name": "Performance",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },   
+  {
+    "architecturalDesignId": 33,
+    "identifier": "33",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 33,
+      "name": "Log Aggregator",
+      "description": "The Log Aggregator pattern suggtests to collect the log files of a single service allowing to keep track of the events in one central place. Among others, it is beneficial to monitor microservices' health.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+		{
+          "name": "Performance",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 34,
+    "identifier": "34",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 34,
+      "name": "Microservice DevOps",
+      "description": "The Microservice DevOps pattern supports the development process of services. It entails practices around developing, testing, operating, managing, and debugging microservices applications.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },  
+  {
+    "architecturalDesignId": 35,
+    "identifier": "35",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 35,
+      "name": "Multiple Services per Host",
+      "description": "The Multiple Services per Host pattern suggests to deploy multiple microservices as different processes on the same host. It may lead to resource conflicts and scaling issues, but facilitates cost efficiency. The Single Service and Multiple Services per Host patterns are two different deployment strategies, suggesting opposing ways to package and deploy them.",
+      "source": "Microservices.io by Chris Richardson",
+      "link": "https://microservices.io/patterns/deployment/multiple-services-per-host.html"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Performance",
+          "category": "Attribute"
+        },
+		{
+          "name": "Scalability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },    
+  {
+    "architecturalDesignId": 36,
+    "identifier": "36",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 36,
+      "name": "Page Cache",
+      "description": "The Page Cache pattern helps to improve performance in retrieval of information. The page cache presents an interface that allows to request a limited subsets of data. Its use for mobile applications is seen contrarily.",
+      "source": "Márquez and Astudillo (2019) - Actual Use of Architectural Patterns in Microservices-based Open Source Projects",
+      "link": "https://ieeexplore.ieee.org/document/8719492/"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Performance",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },    
+  {
+    "architecturalDesignId": 37,
+    "identifier": "37",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 37,
+      "name": "Pipes and Filters",
+      "description": "The Pipes and Filters pattern describes an architectural style for systems that process data streams. It improves the performance and reduces the energy consumption. Surprisingly, this pattern does not achieve the same benefits in monolithic systems.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+		{
+          "name": "Scalability",
+          "category": "Attribute"
+        },
+		{
+          "name": "Reliability",
+          "category": "Attribute"
+        },
+		{
+          "name": "Performance",
+          "category": "Attribute"
+        }
+      ]
+    }
+  }, 
+  {
+    "architecturalDesignId": 38,
+    "identifier": "38",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 38,
+      "name": "Priority Queue",
+      "description": "The Priority Queue pattern suggests prioritizing requests sent to services so that requests with a higher priority are received and processed more quickly than those with a lower priority. This pattern is useful in applications that guarantee different service levels to individual clients.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },  
+  {
+    "architecturalDesignId": 39,
+    "identifier": "39",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 39,
+      "name": "REST Integration",
+      "description": "The REST Integration pattern suggests that consumer and producer perform a synchronous communication. Communication points between services are exposed through an API. This pattern is a appropriate for real-time and synchronous traffic.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+		{
+          "name": "Compatibility",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },  
+  {
+    "architecturalDesignId": 40,
+    "identifier": "40",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 40,
+      "name": "Result Cache",
+      "description": "The Results Cache pattern suggests to shortcut the need for making repeated calls to the same service. It uses an area of memory, that stores the results of a database query or query block for reuse.",
+      "source": "Márquez and Astudillo (2019) - Actual Use of Architectural Patterns in Microservices-based Open Source Projects",
+      "link": "https://ieeexplore.ieee.org/document/8719492/"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Performance",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },     
+  {
+    "architecturalDesignId": 41,
+    "identifier": "41",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 41,
+      "name": "Scalable Store",
+      "description": "The Scalable Store pattern is a solution to represent persistent state in an application. It suggests to put all state in a scalable store where it is available to applications and services at runtime.",
+      "source": "Márquez and Astudillo (2019) - Actual Use of Architectural Patterns in Microservices-based Open Source Projects",
+      "link": "https://ieeexplore.ieee.org/document/8719492/"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+		{
+          "name": "Reliability",
+          "category": "Attribute"
+        },
+		{
+          "name": "Scalability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },    
+  {
+    "architecturalDesignId": 42,
+    "identifier": "42",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 42,
+      "name": "Secure Channel",
+      "description": "The Secure Channel pattern allows for secure communication paths between services.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Security",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },   
+  {
+    "architecturalDesignId": 43,
+    "identifier": "43",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 43,
+      "name": "Self-Containment of Services",
+      "description": "The Self-Containment of Services pattern enhances autonomy by decoupling services and gathering the required libraries.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },   
+  {
+    "architecturalDesignId": 44,
+    "identifier": "44",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 44,
+      "name": "Service Discovery",
+      "description": "The Service Discovery pattern allows for finding network locations of microservices without injecting or coupling services. Network locations are commonly dynamically assigned and often change due to features like auto-scaling, which impedes keeping track of microservice locations beforehand.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Security",
+          "category": "Attribute"
+        },
+		{
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },   
+  {
+    "architecturalDesignId": 45,
+    "identifier": "45",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 45,
+      "name": "Service Locator",
+      "description": "The Service Locator pattern uses a central registry (ServiceLocator) which is responsible for returning instances of services when they are requested for by service consumers or service clients.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Security",
+          "category": "Attribute"
+        },
+		{
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },    
+  {
+    "architecturalDesignId": 46,
+    "identifier": "46",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 46,
+      "name": "Service Registry",
+      "description": "The Service Registry pattern commonly used in microservices architectures to enable service discovery and dynamic load balancing. Microservices register themselves with a service registry, which acts as a central repository for service metadata.",
+      "source": "Microservices.io by Chris Richardson",
+      "link": "https://microservices.io/patterns/service-registry.html"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Portability",
+          "category": "Attribute"
+        },
+		{
+          "name": "Reliability",
+          "category": "Attribute"
+        },
+		{
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },     
+  {
+    "architecturalDesignId": 47,
+    "identifier": "47",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 47,
+      "name": "Service Registry Client",
+      "description": "The Service Registry Client pattern solves the problem of retrieving information from the service registry. Implementing a service registry client component and embedding this client into the service application is an option of integrating services with the API of the service registry.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Reliability",
+          "category": "Attribute"
+        },
+		{
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },     
+  {
+    "architecturalDesignId": 48,
+    "identifier": "48",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 48,
+      "name": "Shared Database server",
+      "description": "The Shared Database server pattern suggests to use a (single) database that is shared by multiple services. Each service is able to accesses data owned by other services using local ACID transactions.",
+      "source": "Microservices.io by Chris Richardson",
+      "link": "https://microservices.io/patterns/data/shared-database.html"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": []
+    }
+  },   
+  {
+    "architecturalDesignId": 49,
+    "identifier": "49",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 49,
+      "name": "Sidecar",
+      "description": "The Sidecar pattern separates secondary functionanility or components (sidecar) from the core functionality, while being connected to the core thoughout the service lifecycle. That way, the sidecar can access the resources with low latency, providing isolation and encapsulation.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Scalability",
+          "category": "Attribute"
+        },
+		{
+          "name": "Security",
+          "category": "Attribute"
+        },
+		{
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  }, 
+  {
+    "architecturalDesignId": 50,
+    "identifier": "50",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 50,
+      "name": "Single Service per Host",
+      "description": "The Single Service per Host pattern suggests to deploy each service instance on its own host.",
+      "source": "Microservices.io by Chris Richardson",
+      "link": "https://microservices.io/patterns/deployment/single-service-per-host.html"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": []
+    }
+  }, 
+  {
+    "architecturalDesignId": 51,
+    "identifier": "51",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 51,
+      "name": "Strangler",
+      "description": "The Strangler pattern describes gradually extending or migrating an existing monolith to new services until its final replacement.",
+      "source": "Valdivia et al. (2020) - Patterns Related to Microservice Architecture: a Multivocal Literature Review",
+      "link": "http://link.springer.com/10.1134/S0361768820080253"
+    },
+    "category": "Pattern",
+    "approachProcess": {
+      "qualities": [
+		{
+          "name": "Scalability",
+          "category": "Attribute"
+        },
+		{
+          "name": "Compatibility",
+          "category": "Attribute"
+        },
+		{
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  },
+ {
+    "architecturalDesignId": 101,
+    "identifier": "101",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 101,
+      "name": "Access Restriction",
+      "description": "Restrict the access to functionality or data according to suitable criteria. Data access restriction is commonly used to satisfy data sovereignty or data residency requirements. A user or party needs to be granted access permissions.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Security",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Integrity",
+          "qualityName": "Security"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 102,
+    "identifier": "102",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 102,
+      "name": "Account Separation",
+      "description": "The principle of account separation complements the principle of least privilege. When a user requires elevated privileges to perform certain tasks, a separate account with elevated privileges should be created to perform those duties and only those duties.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Security",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Accountability",
+          "qualityName": "Security"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 103,
+    "identifier": "103",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 103,
+      "name": "Acyclic Calls",
+      "description": "Calls between microservices do not appear in cyclic chains, which reduces repetitive calls. It also improves the comprehension of call traces for developers.",
+      "source": "Pulnil and Senivongse (2022) - A Microservices Quality Model Based on Microservices Anti-patterns",
+      "link": "https://doi.org/10.1109/JCSSE54890.2022.9836297"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Independence",
+          "category": "Attribute"
+        },
+        {
+          "name": "Scalability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Understandability",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Reusability",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Modifiability",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Modularity",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Deployability",
+          "qualityName": "Portability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 104,
+    "identifier": "104",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 104,
+      "name": "API-based Communication",
+      "description": "API stands for Application Programming Interface and is a way of communication between software components or systems. API-based communication between microservices enables better system integration and reduces the need for manual human intervention.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Compatibility",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Testability",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Interoperability",
+          "qualityName": "Compatibility"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 105,
+    "identifier": "105",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 105,
+      "name": "Appropriate Service Relationship",
+      "description": "Each microservice should have control over its private data and should not request private data of another microservice. A service relationship should not be too intimate.",
+      "source": "Pulnil and Senivongse (2022) - A Microservices Quality Model Based on Microservices Anti-patterns",
+      "link": "https://doi.org/10.1109/JCSSE54890.2022.9836297"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [],
+      "qualitySublevels": [
+        {
+          "name": "Modularity",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Modifiability",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Confidentiality",
+          "qualityName": "Security"
+        },
+        {
+          "name": "Fault Tolerance",
+          "qualityName": "Reliability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 106,
+    "identifier": "106",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 106,
+      "name": "Authentication Delegation",
+      "description": "Each microservice should have control over its private data and should not request private data of another microservice. A service relationship should not be too intimate.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Security",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Authenticity",
+          "qualityName": "Security"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 107,
+    "identifier": "107",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 107,
+      "name": "Automated Infrastructure",
+      "description": "Architectures based on microservices greatly benefit from infrastructure-level automation. It reduces the need for human interaction with systems as it exposes functions that can be used by other software systems or on command. It also ensures repeatability so that environments can be set up quickly.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Modifiability",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Recoverability",
+          "qualityName": "Reliability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 108,
+    "identifier": "108",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 108,
+      "name": "Automated Monitoring",
+      "description": "Automated monitoring enables the proactive detection of issues, increase observability, and helps to minimize blind spots by providing contextual insights. It helps to minimize risks and is essential for DevOps automation.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Recoverability",
+          "qualityName": "Reliability"
+        },
+        {
+          "name": "Analyzability",
+          "qualityName": "Maintainability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 109,
+    "identifier": "109",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 109,
+      "name": "Automated Restarts",
+      "description": "Automated restarts allow a microservice to be restarted in case of failure or unexpected errors. It is commonly used in the context of containerization.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Recoverability",
+          "qualityName": "Reliability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 110,
+    "identifier": "110",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 110,
+      "name": "Autonomous Fault Handling",
+      "description": "Autonomous Fault Handling refers to the ability of a service or system to perform its own fault analysis and repair operations.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Fault Tolerance",
+          "qualityName": "Reliability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 111,
+    "identifier": "111",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 111,
+      "name": "Built-in Autoscaling",
+      "description": "Autoscaling is a technique to dynamically adjusts the resources allocated to elastic applications as per the incoming workloads. It involves scaling up the resources when there is a spike or rise in traffic and scaling down when traffic levels are low.",
+      "source": "Singh et al. (2019) - Research on Auto-Scaling of Web Applications in Cloud: Survey, Trends and Future Directions",
+      "link": "https://doi.org/10.12694/scpe.v20i2.1537"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Performance",
+          "category": "Attribute"
+        },
+        {
+          "name": "Scalability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Resource Utilization",
+          "qualityName": "Performance"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 112,
+    "identifier": "112",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 112,
+      "name": "Cloud Vendor Abstraction",
+      "description": "Cloud Vendor Abstraction prevents a cloud vendor lock-in with an example being Cloud Foundry.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
     },
     "category": "BestPractice",
     "approachProcess": {
@@ -99,161 +1606,183 @@
         {
           "name": "Portability",
           "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Adaptability",
+          "qualityName": "Portability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 113,
+    "identifier": "113",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 113,
+      "name": "Coarse-Grained Microservices",
+      "description": "Microservices should not be too small Smaller features should be wrapped into larger coarser-grained microservices by business capabilities. The term coarse-grained does not necessarily imply very large size.",
+      "source": "Pulnil and Senivongse (2022) - A Microservices Quality Model Based on Microservices Anti-patterns",
+      "link": "https://doi.org/10.1109/JCSSE54890.2022.9836297"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Scalability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Modularity",
+          "qualityName": "Maintainability"
         },
+        {
+          "name": "Modifiability",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Understandability",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Reusability",
+          "qualityName": "Maintainability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 114,
+    "identifier": "114",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 114,
+      "name": "Communication Indirection",
+      "description": "Employing communication indirection allows for the communication interface of clients and servers to remain constant across distributed systems, independent of the placement of services.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Compatibility",
+          "category": "Attribute"
+        },
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Modularity",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Interoperability",
+          "qualityName": "Compatibility"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 115,
+    "identifier": "115",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 115,
+      "name": "Configuration Management",
+      "description": "Configuration management suggests a consistent way for configuring each service's connections. It ensures the correctness and immediate accessibility of each microservice's configuration. ItIdeally, an application should adapt to new configurations without restart.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Compatibility",
+          "category": "Attribute"
+        },
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Modularity",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Interoperability",
+          "qualityName": "Compatibility"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 116,
+    "identifier": "116",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 116,
+      "name": "Cost Variability",
+      "description": "Cost Variability is commonly offered by cloud vendors via a pay-as-you-go models. Cloud services can initially appear cost-effective, but costs can increase rapidly as usage increases. Operators should carefully monitor and manage their resources to prevent unexpected expenses.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
         {
           "name": "Performance",
           "category": "Attribute"
-        },
-        {
-          "name": "Maintainability",
-          "category": "Attribute"
         }
       ],
       "qualitySublevels": [
-        {
-          "name": "Replaceability",
-          "qualityName": "Maintainability"
-        },
         {
           "name": "Resource Utilization",
           "qualityName": "Performance"
-        },
-        {
-          "name": "Modularity",
-          "qualityName": "Maintainability"
         }
       ]
     }
   },
   {
-    "architecturalDesignId": 6,
-    "identifier": "6",
+    "architecturalDesignId": 117,
+    "identifier": "117",
     "architecturalDesignSource": {
-      "architecturalDesignId": 6,
-      "name": "Automated restarts",
-      "description": "",
-      "source": "Towards a Quality Model for Cloud-native Applications by Robin Lichtenthäler and Guido Wirtz",
-      "link": "https://link.springer.com/chapter/10.1007/978-3-031-04718-3_7"
+      "architecturalDesignId": 117,
+      "name": "Data Encryption in Transit",
+      "description": "Data encryption in transit is the practice of encrypting data while transmitted between between different services or between a client and a server. It protects data from unauthorized interception or tampering and is an essential practice for building a robust data security strategy.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
     },
     "category": "BestPractice",
     "approachProcess": {
       "qualities": [
         {
-          "name": "Reliability",
+          "name": "Security",
           "category": "Attribute"
         }
       ],
       "qualitySublevels": [
         {
-          "name": "Recoverability",
-          "qualityName": "Reliability"
+          "name": "Confidentiality",
+          "qualityName": "Security"
         }
       ]
     }
   },
   {
-    "architecturalDesignId": 7,
-    "identifier": "7",
+    "architecturalDesignId": 118,
+    "identifier": "118",
     "architecturalDesignSource": {
-      "architecturalDesignId": 7,
-      "name": "Automated monitoring",
-      "description": "",
-      "source": "Towards a Quality Model for Cloud-native Applications by Robin Lichtenthäler and Guido Wirtz",
-      "link": "https://link.springer.com/chapter/10.1007/978-3-031-04718-3_7"
-    },
-    "category": "BestPractice",
-    "approachProcess": {
-      "qualities": [
-        {
-          "name": "Reliability",
-          "category": "Attribute"
-        },
-        {
-          "name": "Maintainability",
-          "category": "Attribute"
-        }
-      ],
-      "qualitySublevels": [
-        {
-          "name": "Recoverability",
-          "qualityName": "Reliability"
-        },
-        {
-          "name": "Analysability",
-          "qualityName": "Maintainability"
-        }
-      ]
-    }
-  },
-  {
-    "architecturalDesignId": 8,
-    "identifier": "8",
-    "architecturalDesignSource": {
-      "architecturalDesignId": 8,
-      "name": "Loose Coupling",
-      "description": "",
-      "source": "Towards a Quality Model for Cloud-native Applications by Robin Lichtenthäler and Guido Wirtz",
-      "link": "https://link.springer.com/chapter/10.1007/978-3-031-04718-3_7"
-    },
-    "category": "BestPractice",
-    "approachProcess": {
-      "qualities": [
-        {
-          "name": "Maintainability",
-          "category": "Attribute"
-        }
-      ],
-      "qualitySublevels": [
-        {
-          "name": "Modularity",
-          "qualityName": "Maintainability"
-        }
-      ]
-    }
-  },
-  {
-    "architecturalDesignId": 9,
-    "identifier": "9",
-    "architecturalDesignSource": {
-      "architecturalDesignId": 9,
-      "name": "Persistent Communication",
-      "description": "",
-      "source": "Towards a Quality Model for Cloud-native Applications by Robin Lichtenthäler and Guido Wirtz",
-      "link": "https://link.springer.com/chapter/10.1007/978-3-031-04718-3_7"
-    },
-    "category": "BestPractice",
-    "approachProcess": {
-      "qualities": [
-        {
-          "name": "Reliability",
-          "category": "Attribute"
-        },
-        {
-          "name": "Complexity",
-          "category": "SystemProperty"
-        }
-      ],
-      "qualitySublevels": [
-        {
-          "name": "Recoverability",
-          "qualityName": "Reliability"
-        },
-        {
-          "name": "Modularity",
-          "qualityName": "Maintainability"
-        }
-      ]
-    }
-  },
-  {
-    "architecturalDesignId": 10,
-    "identifier": "10",
-    "architecturalDesignSource": {
-      "architecturalDesignId": 10,
+      "architecturalDesignId": 118,
       "name": "Dynamic Scheduling",
-      "description": "",
-      "source": "Towards a Quality Model for Cloud-native Applications by Robin Lichtenthäler and Guido Wirtz",
-      "link": "https://link.springer.com/chapter/10.1007/978-3-031-04718-3_7"
+      "description": "Dynamic task scheduling is a technique for optimizing the allocation and execution of tasks among different computing resources. It can improve the performance, efficiency, and quality of service. As well, it allows adapting to dynamic changes in user demand and network environment.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
     },
     "category": "BestPractice",
     "approachProcess": {
@@ -288,18 +1817,264 @@
     }
   },
   {
-    "architecturalDesignId": 11,
-    "identifier": "11",
+    "architecturalDesignId": 119,
+    "identifier": "119",
     "architecturalDesignSource": {
-      "architecturalDesignId": 11,
-      "name": "Built-in autoscaling",
-      "description": "",
-      "source": "Towards a Quality Model for Cloud-native Applications by Robin Lichtenthäler and Guido Wirtz",
-      "link": "https://link.springer.com/chapter/10.1007/978-3-031-04718-3_7"
+      "architecturalDesignId": 119,
+      "name": "Guarded Ingress",
+      "description": "An Ingress typically defines an HTTP reverse proxy which is exposed to the internet.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
     },
     "category": "BestPractice",
     "approachProcess": {
       "qualities": [
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Availability",
+          "qualityName": "Reliability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 120,
+    "identifier": "120",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 120,
+      "name": "Immutable Artifacts",
+      "description": "Once immutable artifacts such as container images and database schemas are deployed, they remain unaltered. Any change results in the creation of a new instance, ensuring consistency and predictability. They improve deployment reliability by reducing the risk of errors due to changed artifacts. They also allows for easier roll back deployments.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Portability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Replaceability",
+          "qualityName": "Portability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 121,
+    "identifier": "121",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 121,
+      "name": "Infrastructure Abstraction",
+      "description": "Infrastructure Abstraction abstracts away the details of an underlying infrastructure and provides a unified and simplified view of resources to the application and users.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Portability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Adaptability",
+          "qualityName": "Portability"
+        },
+        {
+          "name": "Modifiability",
+          "qualityName": "Maintainability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 122,
+    "identifier": "122",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 122,
+      "name": "Isolated State",
+      "description": "A primary characteristic of a microservice is its isolated state, which refers to a microservice's persisted data. The service is responsible for managing its state, other services can access it exclusively through the exposed API.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Portability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Performance",
+          "category": "Attribute"
+        },
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Replaceability",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Resource Utilization",
+          "qualityName": "Performance"
+        },
+        {
+          "name": "Modularity",
+          "qualityName": "Maintainability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 123,
+    "identifier": "123",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 123,
+      "name": "Loose Coupling",
+      "description": "Loose coupling between microservices is a desired characteristic which enables the isolation of microservices. This leads to better productivity: changes to the design, implementation, or behavior in one service won't cause changes in another service.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Modularity",
+          "qualityName": "Maintainability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 124,
+    "identifier": "124",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 124,
+      "name": "Manageable Connections",
+      "description": "A system with less microservices is adequately manageable. With a larger number of microservices, the communication between microservices increases, resulting in a higher complexity. An API gateway can make connections more manageable through reducing direct communication.",
+      "source": "Pulnil and Senivongse (2022) - A Microservices Quality Model Based on Microservices Anti-patterns",
+      "link": "https://doi.org/10.1109/JCSSE54890.2022.9836297"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [],
+      "qualitySublevels": [
+        {
+          "name": "Understandability",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Modifiability",
+          "qualityName": "Maintainability"
+        }
+      ]
+    }
+  },
+  {
+    "architecturalDesignId": 125,
+    "identifier": "125",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 125,
+      "name": "Manageable Standards",
+      "description": "The number of frameworks used in a system should not exceed a predefined threshold. Consequently, the frameworks are manageable and establish a standard for consistency.",
+      "source": "Pulnil and Senivongse (2022) - A Microservices Quality Model Based on Microservices Anti-patterns",
+      "link": "https://doi.org/10.1109/JCSSE54890.2022.9836297"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [],
+      "qualitySublevels": [
+        {
+          "name": "Understandability",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Modifiability",
+          "qualityName": "Maintainability"
+        }
+      ]
+    }
+  },  
+  {
+    "architecturalDesignId": 126,
+    "identifier": "126",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 126,
+      "name": "Non-ESB Microservices",
+      "description": "The microservices in a system should not act as an Enterprise Service Bus (ESB) by distributing messages to all the other microservices. It avoids a single point of failure and reduces coupling between microservices.",
+      "source": "Pulnil and Senivongse (2022) - A Microservices Quality Model Based on Microservices Anti-patterns",
+      "link": "https://doi.org/10.1109/JCSSE54890.2022.9836297"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Scalability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Understandability",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Modifiability",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Reusability",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Fault Tolerance",
+          "qualityName": "Reliability"
+        }
+      ]
+    }
+  },   
+  {
+    "architecturalDesignId": 127,
+    "identifier": "127",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 127,
+      "name": "Operation Outsourcing",
+      "description": "Operation outsourcing is the practice of using offshore functionality outside the system's scope to complete certain tasks.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
         {
           "name": "Performance",
           "category": "Attribute"
@@ -312,16 +2087,394 @@
         }
       ]
     }
-  },
+  },  
   {
-    "architecturalDesignId": 12,
-    "identifier": "12",
+    "architecturalDesignId": 128,
+    "identifier": "128",
     "architecturalDesignSource": {
-      "architecturalDesignId": 12,
-      "name": "Standardized deployment unit",
-      "description": "",
-      "source": "Towards a Quality Model for Cloud-native Applications by Robin Lichtenthäler and Guido Wirtz",
-      "link": "https://link.springer.com/chapter/10.1007/978-3-031-04718-3_7"
+      "architecturalDesignId": 128,
+      "name": "Persistent Communication",
+      "description": "Persistent communication suggests that a message submitted for transmission is stored by the communication mechanism as long as it is eventually deliverd. Neither the sender nor the receiver needs to be running to transmit the message.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Complexity",
+          "category": "SystemProperty"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Recoverability",
+          "qualityName": "Reliability"
+        },
+        {
+          "name": "Modularity",
+          "qualityName": "Maintainability"
+        }
+      ]
+    }
+  },  
+  {
+    "architecturalDesignId": 129,
+    "identifier": "129",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 129,
+      "name": "Replication",
+      "description": "Replication suggest to keep a copy of the same data at multiple places that are connected via a network.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Performance",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Time Behavior",
+          "qualityName": "Performance"
+        }
+      ]
+    }
+  },  
+  {
+    "architecturalDesignId": 130,
+    "identifier": "130",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 130,
+      "name": "Resolved Endpoints",
+      "description": "In the communication among microservices, the hosts' IP addresses and ports should not be hard-coded but resolved via name resolution. It  reduces the need to change a microservice's implementation on location change and enhances the system's scalability.",
+      "source": "Pulnil and Senivongse (2022) - A Microservices Quality Model Based on Microservices Anti-patterns",
+      "link": "https://doi.org/10.1109/JCSSE54890.2022.9836297"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Scalability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Modifiability",
+          "qualityName": "Maintainability"
+        }
+      ]
+    }
+  }, 
+  {
+    "architecturalDesignId": 131,
+    "identifier": "131",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 131,
+      "name": "Right Cuts",
+      "description": "Microservices should be split based on business capabilities or features. As well, each microservice should contain presentation, business, and data access layers.",
+      "source": "Pulnil and Senivongse (2022) - A Microservices Quality Model Based on Microservices Anti-patterns",
+      "link": "https://doi.org/10.1109/JCSSE54890.2022.9836297"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [],
+      "qualitySublevels": [
+        {
+          "name": "Modifiability",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Modularity",
+          "qualityName": "Maintainability"
+        }
+      ]
+    }
+  }, 
+  {
+    "architecturalDesignId": 132,
+    "identifier": "132",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 132,
+      "name": "Seamless Upgrades",
+      "description": "As microservices can be changed and replaced independently, the technical need for significant application releases decreases. Seamless upgrades of microservices during system operation provide new versions without stopping and restarting affected components or the entire system.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Availability",
+          "qualityName": "Reliability"
+        }
+      ]
+    }
+  }, 
+  {
+    "architecturalDesignId": 133,
+    "identifier": "133",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 133,
+      "name": "Secrets Management",
+      "description": "Secrets management refers to practices for managing secrets like passwords, APIs, and tokens used for DevOps, CI/CD pipelines, and more.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Security",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Confidentiality",
+          "qualityName": "Security"
+        }
+      ]
+    }
+  }, 
+  {
+    "architecturalDesignId": 134,
+    "identifier": "134",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 134,
+      "name": "Separate Persistency",
+      "description": "Separate persistency suggests that each microservice should have autonomy and control over its data and database. Thus, each microservice should use its own separate database.",
+      "source": "Pulnil and Senivongse (2022) - A Microservices Quality Model Based on Microservices Anti-patterns",
+      "link": "https://doi.org/10.1109/JCSSE54890.2022.9836297"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [],
+      "qualitySublevels": [
+        {
+          "name": "Modularity",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Modifiability",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Confidentiality",
+          "qualityName": "Security"
+        },
+        {
+          "name": "Fault Tolerance",
+          "qualityName": "Reliability"
+        }
+      ]
+    }
+  }, 
+  {
+    "architecturalDesignId": 135,
+    "identifier": "135",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 135,
+      "name": "Separation by Gateways",
+      "description": "Gateways separate users from the services. They also handle cross-cutting capabilities such as security, traffic control, and failure handling, which would otherwise need a duplication across services.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Reliability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Security",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Reusability",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Availability",
+          "qualityName": "Reliability"
+        },
+        {
+          "name": "Integrity",
+          "qualityName": "Security"
+        }
+      ]
+    }
+  }, 
+  {
+    "architecturalDesignId": 136,
+    "identifier": "136",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 136,
+      "name": "Separate Libraries",
+      "description": "Microservices should not use a common library, particularly a common in-house library, but have separate copies of libraries. It makes the system resistant to ripples from changes within such a common library.",
+      "source": "Pulnil and Senivongse (2022) - A Microservices Quality Model Based on Microservices Anti-patterns",
+      "link": "https://doi.org/10.1109/JCSSE54890.2022.9836297"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Independence",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Modularity",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Modifiability",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Fault Tolerance",
+          "qualityName": "Reliability"
+        }
+      ]
+    }
+  }, 
+  {
+    "architecturalDesignId": 137,
+    "identifier": "137",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 137,
+      "name": "Service Independence",
+      "description": "Service independence suggests to develop and deploy microservices independently. This allows for teams to work on different services simultaneously. Service independence also increases an application's resistance to failure by handling total service failures with degrading functionality instead of crashing the entire application.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        },
+        {
+          "name": "Compatibility",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Modifiability",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Co-Existence",
+          "qualityName": "Compatibility"
+        }
+      ]
+    }
+  }, 
+  {
+    "architecturalDesignId": 138,
+    "identifier": "138",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 138,
+      "name": "Service-orientation",
+      "description": "Service-orientation is a design paradigm for software in the form of services. A service-oriented design promotes the separation of concerns within software systems.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Modularity",
+          "qualityName": "Maintainability"
+        }
+      ]
+    }
+  }, 
+  {
+    "architecturalDesignId": 139,
+    "identifier": "139",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 139,
+      "name": "Sparsity",
+      "description": "Sparsity is a productivity measurement in agile software development and suggests to measure the frequency of code commits.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ]
+    }
+  }, 
+  {
+    "architecturalDesignId": 140,
+    "identifier": "140",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 140,
+      "name": "Standardization",
+      "description": "Standardization recommends to choose a set of tools that best suit an organization’s needs and goals. It aims to ensure that all team members follow the same guidelines and best practices. Standardization also deals with the ability of heterogeneous systems to seamlessly communicate with each other.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
+    },
+    "category": "BestPractice",
+    "approachProcess": {
+      "qualities": [
+        {
+          "name": "Maintainability",
+          "category": "Attribute"
+        }
+      ],
+      "qualitySublevels": [
+        {
+          "name": "Reusability",
+          "qualityName": "Maintainability"
+        }
+      ]
+    }
+  }, 
+  {
+    "architecturalDesignId": 141,
+    "identifier": "141",
+    "architecturalDesignSource": {
+      "architecturalDesignId": 141,
+      "name": "Standardized Deployment Unit",
+      "description": "A standardized deployment unit suggests standardizing an encompassing packaging format and a runtime for any application. A container is such a unit that packages code with all its dependencies so that the application can be easily transferred from one computing environment to another.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
     },
     "category": "BestPractice",
     "approachProcess": {
@@ -344,83 +2497,63 @@
     }
   },
   {
-    "architecturalDesignId": 13,
-    "identifier": "13",
+    "architecturalDesignId": 142,
+    "identifier": "142",
     "architecturalDesignSource": {
-      "architecturalDesignId": 13,
-      "name": "Anti-Corruption Layer",
-      "description": "This is about the extent to which the domain model of the monolithic application can possibly negatively influence the domain model of the microservices through refactoring. In this respect, a translation between the domain models must take place.",
-      "source": "Microservices.io by Chris Richardson",
-      "link": "https://microservices.io/patterns/refactoring/anti-corruption-layer.html"
+      "architecturalDesignId": 142,
+      "name": "Use Infrastructure as Code",
+      "description": "Infrastructure as code (IaC) is the practice of provisioning and supporting a computing infrastructure using code instead of manual processes and settings.",
+      "source": "Lichtenthäler et al. (2023) - Cloud-Native Architectural Characteristics and their Impacts on Software Quality: A Validation Survey",
+      "link": "https://doi.org/10.1109/SOSE58276.2023.00008"
     },
-    "category": "Pattern",
+    "category": "BestPractice",
     "approachProcess": {
       "qualities": [
         {
-          "name": "Performance",
+          "name": "Portability",
           "category": "Attribute"
-        }
-      ]
-    }
-  },
-  {
-    "architecturalDesignId": 14,
-    "identifier": "14",
-    "architecturalDesignSource": {
-      "architecturalDesignId": 14,
-      "name": "Circuit Breaker",
-      "description": "Is intended to prevent a failure in one service from spreading to other services in a network, in the sense that a remote service is invoked via a proxy, which fails as soon as a certain threshold of the failure rate is exceeded.",
-      "source": "Microservices.io by Chris Richardson",
-      "link": "https://microservices.io/patterns/reliability/circuit-breaker.html"
-    },
-    "category": "Pattern",
-    "approachProcess": {
-      "qualities": [
+        },
         {
           "name": "Maintainability",
           "category": "Attribute"
-        },
-        {
-          "name": "Reliability",
-          "category": "Attribute"
         }
       ],
       "qualitySublevels": [
         {
-          "name": "Availability",
-          "qualityName": "Reliability"
+          "name": "Installability",
+          "qualityName": "Portability"
+        },
+        {
+          "name": "Modifiability",
+          "qualityName": "Maintainability"
         }
       ]
     }
   },
   {
-    "architecturalDesignId": 15,
-    "identifier": "15",
+    "architecturalDesignId": 143,
+    "identifier": "143",
     "architecturalDesignSource": {
-      "architecturalDesignId": 15,
-      "name": "CQRS",
-      "description": "The Implementation of queries by maintaining one or more efficiently queryable materialized views",
-      "source": "Microservices.io by Chris Richardson",
-      "link": "https://microservices.io/patterns/data/cqrs.html"
+      "architecturalDesignId": 143,
+      "name": "Versioned APIs",
+      "description": "API versioning is the practice of managing and tracking API changes by ensuring that such changes don't disrupt clients. It involves communicating those changes to the API's consumers.",
+      "source": "Pulnil and Senivongse (2022) - A Microservices Quality Model Based on Microservices Anti-patterns",
+      "link": "https://doi.org/10.1109/JCSSE54890.2022.9836297"
     },
-    "category": "Pattern",
+    "category": "BestPractice",
     "approachProcess": {
-      "qualities": [
-        {
-          "name": "Scalability",
-          "category": "Attribute"
-        },
-        {
-          "name": "Performance",
-          "category": "Attribute"
-        }
-      ],
+      "qualities": [],
       "qualitySublevels": [
         {
-          "name": "Availability",
-          "qualityName": "Reliability"
+          "name": "Understandability",
+          "qualityName": "Maintainability"
+        },
+        {
+          "name": "Modifiability",
+          "qualityName": "Maintainability"
         }
       ]
     }
   }
 ]
+  

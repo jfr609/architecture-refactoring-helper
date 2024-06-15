@@ -9,11 +9,13 @@ The Architecture Refactoring Helper is a web-based application that guides an ar
 - Docker
 - Docker-compose
 
-### Starting the Application
+### Preparing and Starting the Application
 
-1. Navigate to "{RepositoryFolder}" via Console
-2. Run "docker-compose build" (only needed on first startup or if code changed were made)
-3. Run "docker-compose up"
+1. It might be necessary to adapt the API production URL to your environment.
+This can be done in the file "{RepositoryFolder}/UI/src/environments/environment.prod.ts".
+2. Navigate to "{RepositoryFolder}" via Console
+3. Run "docker-compose build" (only needed on first startup or if code changed were made)
+4. Run "docker-compose up"
 
 ### Using the Application
 
@@ -25,15 +27,18 @@ The user interface at:
 - "https://localhost:8080/" or
 - "https://localhost:9000/"
 
-### Troubleshooting
-
-It might be necessary to change the API production URL inside the UI project.
-This can be done in the file "{RepositoryFolder}/UI/src/environments/environment.prod.ts".
-
 ### Data Seeding
 
-The application's database can be seeded on application start by providing prepared data sets in the folder
+The application's database will be seeded on application start with the provided data sets in the folder
 "ArchitectureRefactoringHelper\Repository\DatabaseSeedingData".
+
+The latest datasets for refactoring approaches and tools can be found at [https://seeding.refactoringhelper.de](https://seeding.refactoringhelper.de) and imported in the UI after application start.
+
+To import the latest datasets, navigate to "Settings" on the top right of the menu bar and enter the administrator password (default: admin).
+1) In a first step, import the tools database by clicking "Import Tools" and specify the tools.json file.
+2) In a second step, import the refactoring approaches database by clicking "Import Approaches" and specify the approaches.json file.
+
+Hints: It is important to first import tools.json and afterward the approaches.json file. In case the import in step 1 or 2 shows an error message, immediately repeat the import with the same file. To make sure that all approaches and tools have been properly imported, export them again to a JSON file and compare the exported files with the initial seeding data JSON files. You can also check the imported tools and approaches by navigating to "Phase 2: Strategy Definition" and clicking on "Explore all tools" and "Explore all approaches". Make sure that this list of approaches and tools is empty before staring the initial import.
 
 ## Running the Application Back-End
 
